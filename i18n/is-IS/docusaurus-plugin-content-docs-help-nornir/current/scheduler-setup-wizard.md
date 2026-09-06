@@ -7,7 +7,7 @@ sidebar_position: 16
 
 Leiðsögnin **Uppsetning Bifröst Nornir** er aðstoðuð uppsetning fyrir viðbótina. Hún tekur þig í gegnum fjögur skref: stutta kynningu, virkjun á útleið HTTP, ræsingu stjórnunarvinnsluraðar sem vinnsluraðarinn byggir á, og staðfestingu á að uppsetningu sé lokið.
 
-Leiðsögnin er aðgengileg úr lista yfir aðstoðaðar uppsetningar og úr tilkynningunni sem birtist á [Bifröst uppsetningu](/help/nornir/setup-jq/) þegar HTTP er lokað eða stjórnunarvinnsluröðin er ekki í gangi.
+Leiðsögnin er aðgengileg úr lista yfir aðstoðaðar uppsetningar og úr tilkynningunni sem birtist á [Uppsetningu Bifröst Nornir](/help/nornir/nornir-setup/) þegar HTTP er lokað eða stjórnunarvinnsluröðin er ekki í gangi.
 
 ## Skref
 

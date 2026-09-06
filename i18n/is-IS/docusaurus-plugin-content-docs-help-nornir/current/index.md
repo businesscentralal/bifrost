@@ -15,8 +15,7 @@ slug: /
 | Síða | Lýsing |
 | --- | --- |
 | [Uppsetning Bifröst Nornir](/help/nornir/scheduler-setup-wizard/) | Aðstoðuð uppsetning: virkja útleið HTTP og ræsa stjórnunarvinnsluröð. |
-| [Bifröst uppsetning – Nornir](/help/nornir/setup-jq/) | Aðgerðahópurinn sem bætist við Bifröst uppsetningu og tilkynningin um viðbúnað. |
-| [Uppsetning vinnsluraðara](/help/nornir/scheduler-setup/) | Miðlæg uppsetning: stjórnunarvinnsluröð, fjarmælingar, Telegram-lykill og listi vinnsluraðarafærslna. |
+| [Uppsetning Bifröst Nornir](/help/nornir/nornir-setup/) | Uppsetningarsíða forritsins, opnuð úr flokknum Forrit á uppsetningarsíðu Bifrastar: stjórnunarvinnsluröð, fjarmælingar, leyndarmál, tilkynning um viðbúnað og listi vinnsluraðarafærslna. |
 | [Spjald vinnsluraðarafærslu](/help/nornir/scheduled-entry-card/) | Eitt verk undir eftirliti: hvað á að keyra, hvenær, endurprófanarstefna og tilkynning. |
 | [Endurtekningarsniðmát vinnsluraða](/help/nornir/recurring-templates/) | Listi yfir endurnýtanleg áætlunarmynstur. |
 | [Endurtekningarsniðmát vinnsluraða](/help/nornir/recurring-template/) | Ein endurnýtanleg áætlun: vikudagar, tímagluggi, bil og tímabelti. |
