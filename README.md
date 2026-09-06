@@ -141,6 +141,12 @@ environment variables `BC28IS_USER` and `BC28IS_PASSWORD` locally, or from the
 `BC_USER` / `BC_PASSWORD` repository secrets in CI. See the script header for the
 type-to-app mapping table.
 
+Calls go out strictly one at a time, and the script takes a lock file
+(`-LockFile`, `%TEMP%\bifrost-mcp.lock` by default) for the length of the run.
+A burst of parallel calls has taken the shared development container's queue
+endpoint down before, so if another process holds the lock, wait rather than
+delete it.
+
 The [`generate-docs.yml`](.github/workflows/generate-docs.yml) workflow runs it
 weekly and on demand, and opens a pull request when the output changes.
 
