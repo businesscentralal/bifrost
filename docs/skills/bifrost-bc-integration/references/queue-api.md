@@ -94,7 +94,7 @@ Authorization: Bearer {token}
 
 The URL in `task.data` / `queue.data` is always this same pattern with the internal tenant GUID. You can also construct it yourself from a known message ID (e.g. from webhooks or your own storage).
 
-> **Tenant GUID note:** The `data` URL returned by BC uses the internal tenant GUID (e.g. `9069b642-…`), not the named tenant (`dynamics.is`). If you construct the URL yourself use the named tenant form like the example above — both work.
+> **Tenant GUID note:** The `data` URL returned by BC uses the internal tenant GUID (e.g. `9069b642-…`), not the named tenant domain (e.g. `contoso.onmicrosoft.com`). If you construct the URL yourself use the named tenant form like the example above — both work.
 
 ### 3.4 `/requests({id})/data` — Read the Original Request Payload
 

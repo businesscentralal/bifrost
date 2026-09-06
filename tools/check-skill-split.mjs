@@ -28,6 +28,23 @@
  *     line by line would flag every reference file's own purpose paragraph.
  *
  * Exit code is 0 when everything is accounted for, 1 otherwise.
+ *
+ * BASE_REV is pinned to the commit the mechanical split was carved from, not
+ * to "the previous state of the content." Once a later commit intentionally
+ * rewrites part of a reference file (fixing a mistake, changing a described
+ * server, adding a section), this script will correctly report those old
+ * headings/code blocks/rows as MISSING against BASE_REV — that is not a
+ * split regression, it is the intentional edit doing its job. Re-run with
+ * `--rev <the commit right before your intentional edit>` if you want a
+ * "did my edit lose anything it didn't mean to" check instead of the
+ * original "did the 2026-09 split lose anything" check.
+ *
+ * Case in point: 2026-09-06 rewrote references/mcp-server.md (and touched
+ * authentication.md, queue-api.md) to describe a local origo-bc-mcp-server
+ * setup instead of a hosted `dynamics.is` MCP server the skill was never
+ * supposed to name. Running this script against BASE_REV after that change
+ * reports the old hosted-server headings/rows as MISSING by design — they
+ * were deliberately removed, not lost.
  */
 import {readFile, readdir} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';

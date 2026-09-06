@@ -189,7 +189,7 @@ skill, which is what an in-text reference like "see §11" points at.
 | [lookups.md](./references/lookups.md) | 21 | Reference tables behind dropdowns, auto-fill chains |
 | [ui-translations.md](./references/ui-translations.md) | 20 | Driving your own UI labels from the `Translation ori` table |
 | [examples.md](./references/examples.md) | 12, 15 | Sales order end to end, JavaScript/TypeScript helper |
-| [mcp-server.md](./references/mcp-server.md) | 23 | BC Metadata MCP server: configuration, tools, config and encryption helpers |
+| [mcp-server.md](./references/mcp-server.md) | 23 | Local BC MCP server: install, configure, start, register with a client, message-type/record/table tools, config and encryption helpers |
 
 ## Related skills
 
