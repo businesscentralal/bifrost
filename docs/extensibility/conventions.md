@@ -58,8 +58,9 @@ your app registers come out of the same block.
 
 ## The ` ori` affix
 
-`ori` is Origo's registered AppSource affix, and it is mandatory on **every** object — no
-exceptions, in the product app and in the test app. It is used as a suffix:
+`ori` is Origo's registered AppSource affix, and it is mandatory on **every** object of
+the product app — tables, pages, codeunits, enums, queries, interfaces, control add-ins,
+extension objects and permission sets. It is used as a suffix:
 
 ```
 Scheduled Entry ori          Storage File Get Impl ori       Msg Interface ori
@@ -79,6 +80,40 @@ Playbook Runner ori          Storage Type ori                Secret Store ori
 
 Note that the command-line compiler does not always raise the mandatory-affix rule
 (`AS0011`); CI is the real gate. Check affixes yourself before pushing.
+
+**Test apps do not take the suffix.** A test app is never published to AppSource, so the
+affix rule does not apply to it. Its objects are named for what they test —
+`Storage File Tests`, `Playbook Runner Tests` — with the brand spelled "Bifrost" where it
+appears in text. Do not append ` ori` to a test object; the only thing a test app must
+register is its own object ID block.
+
+### Permission sets stop at 20 characters
+
+A permission set object name is capped at **20 characters**, not 30. That is the one place
+where the brand is carried in the object name on purpose, because an administrator picks
+permission sets out of a flat, unnamespaced list in Business Central:
+
+```
+BIFROST Foundation ori     BIFROST Nornir ori      BIFROST PlaybAdm ori
+BIFROST Storage ori        BIFROST GL Post ori     BIFROST Bragi ori
+```
+
+`BIFROST ` and ` ori` together spend twelve of the twenty characters, so the middle is
+abbreviated hard. Pick the abbreviation once and keep it — a permission set name is part of
+the tenant's configuration and renaming it is a breaking change.
+
+**Refer to a permission set by its exact object name, never by the name of the table or
+codeunit it gates.** Documentation, error messages and code that resolves a permission set
+by name all have to use the real name; "the Cloud Events G/L posting permission" is not a
+permission set, and text like that has to be corrected to `BIFROST GL Post ori`.
+
+### Telemetry event ids
+
+Telemetry emitted with `Session.LogMessage` carries an event id of the form
+**`ORI-BIF-xxxx`**, and the id is unique across the whole publisher — not just across your
+app. Two apps in the family must never emit the same id, because the shared Application
+Insights resource is queried by event id. Allocate ids in a block alongside your object ID
+block and record them in the app's own documentation.
 
 **The brand is not a prefix.** "Bifrost" belongs in the namespace, the app name, the
 permission set names (`BIFROST Nornir ori`, `BIFROST PlaybAdm ori`) and in user-facing
@@ -213,7 +248,10 @@ covered in [Help codeunits](/extensibility/help-codeunits).
 ## Checklist
 
 - [ ] Range registered in the workbook, for the app and its test app, before any object uses it
-- [ ] Every object name ends in ` ori` and is at most 30 characters
+- [ ] Every object name in the product app ends in ` ori` and is at most 30 characters
+- [ ] Permission set names are at most 20 characters and read `BIFROST <short> ori`
+- [ ] Test app objects carry no ` ori` suffix
+- [ ] Telemetry event ids are `ORI-BIF-xxxx` and unique across the publisher
 - [ ] `AppSourceCop.json` declares the affix, the publisher and the supported countries
 - [ ] Every file declares `Origo.Bifrost.<App>`
 - [ ] No brand name and no customer prefix in an object name

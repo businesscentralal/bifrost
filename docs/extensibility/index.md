@@ -26,7 +26,7 @@ the code samples in this section are taken from them.
 | Extension point | The extensible `Message Type ori` enum and the `Msg Interface ori` contract | [Message types](/extensibility/message-types) |
 | In-process dispatch | `Dispatcher ori`, the supported way to invoke a message type from AL | [Message types](/extensibility/message-types) |
 | Discovery | `Help.MessageTypes.Get`, `Help.Implementation.Get` and the `OnAfterCreatingOverview` event behind `Help.Bifrost.Get` | [Help codeunits](/extensibility/help-codeunits) |
-| Administration | The Bifröst Setup page, with a Navigation area and an `Apps` promoted category your app hooks into | [Setup and secrets](/extensibility/setup-and-secrets) |
+| Administration | The Bifröst Setup page, with an `Apps` action group and a matching `Category_Apps` promoted category your app hooks into | [Setup and secrets](/extensibility/setup-and-secrets) |
 | Credentials | `Secret Store ori` — registration, a masked-input dialog, IsolatedStorage-backed values, and the shared **Bifrost App Secrets** page | [Setup and secrets](/extensibility/setup-and-secrets) |
 | Outbound logging | The shared request log, the extensible `Request Log Type ori` enum and the `Request Log Masker ori` contract | [Setup and secrets](/extensibility/setup-and-secrets) |
 | Data guards | The ChangeLog Write Guard and `AddChangeLogGuardException` for tables your app writes itself | [Install and upgrade](/extensibility/install-and-upgrade) |
@@ -77,9 +77,9 @@ touches them carries `using Origo.Bifrost;`.
 4. **Ship one help codeunit per domain**, expose them through a `Help.<Domain>.Get`
    message type, and add one row to the global overview. See
    [Help codeunits](/extensibility/help-codeunits).
-5. **Hang its setup off the Bifröst Setup page** — a group in the Navigation area, and
-   setup pages with `UsageCategory = None` so they are reachable from there and not from
-   Tell Me. See [Setup and secrets](/extensibility/setup-and-secrets).
+5. **Hang its setup off the Bifröst Setup page** — exactly one action in the `Apps` group,
+   and setup pages with `UsageCategory = None` so they are reachable from there and not
+   from Tell Me. See [Setup and secrets](/extensibility/setup-and-secrets).
 6. **Keep credentials out of tables**: register them with `Secret Store ori`, and register
    a request log type with a masker so nothing sensitive lands in the request log in clear
    text. See [Setup and secrets](/extensibility/setup-and-secrets).
@@ -101,4 +101,7 @@ When a page here says "as in Nornir" or "as in Hnitbjörg", these are the apps m
   from Bifröst Setup, a mock connector in the test app.
 - [Bifrost Bragi](/bragi/) — chat and language models. Interesting for its own
   extensibility surface and for its request-log maskers.
-- [Bifrost Foundation](/foundation/) — the platform itself.
+- [Bifrost Foundation](/foundation/) — the platform itself. Its
+  [public surface](/extensibility/public-surface) lists every interface, extensible enum,
+  integration event and control add-in a dependent app may rely on; anything not listed
+  there is internal.

@@ -15,6 +15,21 @@ afterwards.
 
 This page describes that take-over pattern, and the other work an install codeunit does.
 
+## The successor's identity
+
+A successor is a new app, not a new version of the old one. Its `app.json` gets:
+
+- a **new app id** — and the test app gets a new id too;
+- a **version reset to `28.0.0.0`**, because the version history belongs to the retired app;
+- a **new object ID range** from the shared workbook, registered before any object uses it;
+- the **same Application Insights connection string and the same Key Vault** as the app it
+  replaces, so telemetry and licensing continue in one place;
+- `"publisher": "Origo"`, unchanged.
+
+Nothing else is inherited. The app name changes, the namespace changes, the API route
+changes, and AppSource treats the result as a new offer that is installed alongside the
+old one rather than upgrading it.
+
 ## The take-over pattern
 
 The take-over runs from `OnInstallAppPerCompany`, before anything else the app installs,
@@ -94,6 +109,13 @@ and conditions, saved report presets, per-user settings.
 These are in-flight or historical rows with no configuration value. Copying them would
 migrate noise, and in the case of the request log it would move already-masked payloads
 into a new table for no benefit.
+
+**Not copied — secrets.** IsolatedStorage is scoped per extension, and the successor has a
+new app id, so nothing the retired app stored is readable from the new one. Credentials are
+re-entered by an administrator after the switch. Register every secret at install so the
+complete list is visible on **Bifrost App Secrets** immediately, and say in the release
+notes that re-entering them is a step in the cut-over — see
+[Setup and secrets](/extensibility/setup-and-secrets).
 
 ### The three complications
 
@@ -213,6 +235,31 @@ begin
     exit('Origo.Bifrost.Hnitbjorg-Initial-20260905');
 end;
 ```
+
+## Living beside the app you replace
+
+The successor and the app it retires are installed **at the same time** for as long as the
+take-over runs — and that is also how the test container is set up. Two apps that came from
+the same source subscribe to the same base-application events, and they will collide.
+
+The collision that is easy to miss is a base-app event both apps handle. Foundation's
+migration hit exactly this: the retired app and its successor both subscribe to the
+Approvals Management posting events, and the legacy handler deletes pending approval
+`Notification Entry` rows for *every* method before the Bifröst handler runs — so two
+otherwise correct tests failed.
+
+How to handle it:
+
+- **Move earlier, or scope tighter.** Subscribe to an event that fires before the colliding
+  handler, or narrow your own handler to your own method or record type so the two do not
+  contend for the same rows.
+- **Never disable the failing test.** A test that fails only when the predecessor is
+  installed is reporting a real condition of the cut-over window, which is exactly when
+  customers run both apps.
+- **Run the suite on a container that still has the predecessor installed.** A green run on
+  a clean container proves nothing about the situation every existing customer will be in.
+
+Expect this in every migration: same base events, same tables, two subscribers.
 
 ## The upgrade codeunit
 
