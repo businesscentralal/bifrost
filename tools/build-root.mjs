@@ -126,7 +126,9 @@ const llms = [
   '',
   '## Skills',
   '',
-  `- [Bifröst BC integration skill](${site}skills/bifrost-bc-integration/SKILL.md): the complete API reference as one file — endpoints, request envelope, response patterns, every message type, pagination, tableView filter syntax, field selection, enum handling, translations, webhooks. Start here.`,
+  // The static folder is copied into each locale build, so the skill file lives
+  // under a locale prefix like everything else.
+  `- [Bifröst BC integration skill](${en}skills/bifrost-bc-integration/SKILL.md): the complete API reference as one file — endpoints, request envelope, response patterns, every message type, pagination, tableView filter syntax, field selection, enum handling, translations, webhooks. Start here.`,
   `- [Skills index](${en}skills/): the same skill split into browsable pages, plus what an agent needs beyond the skill itself.`,
   '',
   '## Building on Bifröst',
