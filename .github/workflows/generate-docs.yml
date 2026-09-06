@@ -1,0 +1,79 @@
+name: Regenerate message-type reference
+
+# The message-type pages are generated from the apps' own help codeunits, so they
+# go stale whenever a message type changes. This job re-runs the generator and
+# opens a pull request when the output differs — it never pushes to main directly,
+# because a diff here means the product changed and someone should look at it.
+
+on:
+  schedule:
+    # Mondays, 05:00 UTC.
+    - cron: '0 5 * * 1'
+  workflow_dispatch:
+    inputs:
+      app:
+        description: 'Restrict to one app id (blank = all mapped apps)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: generate-docs
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for credentials
+        id: creds
+        env:
+          BC_USER: ${{ secrets.BC_USER }}
+        run: |
+          if [ -z "$BC_USER" ]; then
+            echo "BC_USER / BC_PASSWORD are not configured — skipping. See README.md." >> "$GITHUB_STEP_SUMMARY"
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate
+        if: steps.creds.outputs.available == 'true'
+        shell: pwsh
+        env:
+          # Read by the script from the environment; never passed on the command
+          # line, so they cannot end up in a process listing or the run log.
+          BC_USER: ${{ secrets.BC_USER }}
+          BC_PASSWORD: ${{ secrets.BC_PASSWORD }}
+        run: |
+          $arguments = @{}
+          if ('${{ inputs.app }}') { $arguments['App'] = '${{ inputs.app }}' }
+          ./tools/generate-message-type-docs.ps1 @arguments
+
+      - name: Open a pull request if anything changed
+        if: steps.creds.outputs.available == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: docs/message-types-refresh
+          base: main
+          title: 'Refresh generated message-type reference'
+          commit-message: |
+            Refresh generated message-type reference
+
+            Regenerated from the apps' help codeunits by
+            tools/generate-message-type-docs.ps1.
+
+            Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+          body: |
+            The scheduled run of `tools/generate-message-type-docs.ps1` produced a
+            different result from what is committed, which means a message type's
+            help codeunit changed in one of the apps.
+
+            Review the diff against the release that caused it, then merge.
+          labels: documentation, generated
+          delete-branch: true

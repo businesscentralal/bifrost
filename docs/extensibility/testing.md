@@ -1,0 +1,198 @@
+---
+id: testing
+title: "Testing"
+sidebar_label: "Testing"
+sidebar_position: 6
+description: "The test-only Test.* message type pattern, the Foundation test types, and test data conventions in a shared company."
+---
+
+# Testing
+
+A Bifröst app ships two apps: the product app and a test app that depends on it. The test
+app holds the unit tests, any mock implementations the product needs to be exercised
+without a live external service, and — this is the part specific to Bifröst — **test-only
+message types**.
+
+## Why test-only message types exist
+
+Foundation's own configuration is not reachable through the product API. `Setup ori` and
+`ChangeLog Guard Exception ori` are declared `Access = Internal`, which means:
+
+- `Data.Records.Get` and `Data.Records.Set` cannot read or write them;
+- an automated test run driving the API from outside BC cannot change the ChangeLog Write
+  Guard, cannot switch on Request Debug Mode, and cannot register a guard exception;
+- the same run cannot write fields the write guard protects, in any table.
+
+The alternative — asking a person to click through the Business Central UI in the middle of
+a test run — is not one. So Foundation's **test app** registers a small set of `Test.*`
+message types that do reach those tables. They exist only in the test app, so they are
+never installed in a customer environment, and each one refuses to run in a production
+environment regardless:
+
+```al
+internal procedure AssertNotProduction(var Argument: Record "Message Argument ori"): Boolean
+var
+    EnvironmentInformation: Codeunit "Environment Information";
+begin
+    if EnvironmentInformation.IsProduction() then begin
+        Argument.RespondWithError(ProductionErr);
+        exit(false);
+    end;
+    exit(true);
+end;
+```
+
+Every `Test.*` implementation starts with `if not Helper.AssertNotProduction(Argument) then exit;`.
+
+## The Foundation test types
+
+Registered by the Foundation test app on the `Message Type ori` enum:
+
+```al
+enumextension 98981 "Test Tools MsgType" extends "Message Type ori"
+{
+    value(98860; "Test.Setup.Get")
+    {
+        Caption = 'Test Setup Get', Locked = true;
+        Implementation = "Msg Interface ori" = "Test Setup Get Impl";
+    }
+    value(98861; "Test.Setup.Set")
+    {
+        Caption = 'Test Setup Set', Locked = true;
+        Implementation = "Msg Interface ori" = "Test Setup Set Impl";
+    }
+    value(98862; "Test.Records.Set")
+    {
+        Caption = 'Test Records Set', Locked = true;
+        Implementation = "Msg Interface ori" = "Test Records Set Impl";
+    }
+    value(98863; "Test.Records.Delete")
+    {
+        Caption = 'Test Records Delete', Locked = true;
+        Implementation = "Msg Interface ori" = "Test Records Delete Impl";
+    }
+}
+```
+
+### `Test.Setup.Get`
+
+Returns every field of the internal `Setup ori` record as JSON, including
+`ChangeLog Write Guard` and `Request Debug Mode`. No request parameters.
+
+```json
+{ "status": "Success", "setup": { "ChangeLog Write Guard": "Open", "Request Debug Mode": "false" } }
+```
+
+### `Test.Setup.Set`
+
+Writes fields of `Setup ori` from a `fields` object and returns the updated record. Field
+keys are field names — exact, or case-insensitive without punctuation; enum fields accept
+the value name or the ordinal.
+
+```json
+{ "fields": { "ChangeLog Write Guard": "Blocked", "Request Debug Mode": true } }
+```
+
+`ChangeLog Write Guard` accepts `Open`, `Blocked` or `Via force`.
+
+### `Test.Records.Set`
+
+Inserts or modifies records in **any** table, including internal Bifröst tables and fields
+the ChangeLog Write Guard would block. Each record is located by the primary key fields
+present in `fields`: found means `Modify(true)`, not found means `Insert(true)`. BLOB and
+Media fields are not supported.
+
+```json
+{ "tableName": "ChangeLog Guard Exception ori", "records": [ { "fields": { "Table No.": 18, "Field No.": 2 } } ] }
+```
+
+`tableId` may be used instead of `tableName`, and names may be given with or without the
+` ori` suffix. The response reports `inserted`, `modified` and the resulting records.
+
+### `Test.Records.Delete`
+
+Deletes the records of a table that match a `tableView` filter, one `Delete(true)` per
+record. **A filter is mandatory** — deleting a whole table is refused.
+
+```json
+{ "tableName": "Customer", "tableView": "WHERE(No.=FILTER(BIFT-*))" }
+```
+
+## Add your own `Test.*` types
+
+The rule generalises: **when your app has setup a test run must change and the product API
+cannot reach it, add a test-only message type in your test app for it.** Same shape as
+Foundation's:
+
+- an `enumextension` on `Message Type ori` in the test app, using ordinals from your **test
+  app's** registered range;
+- one implementation codeunit per type, `Access = Internal`;
+- `AssertNotProduction` as the first statement of `ExecuteBifrostTask`;
+- a `GetMessageHelpAsMarkdownDocument` that opens with **"Test app only."** and says the
+  type is refused in production;
+- `GetDescription` prefixed with `TEST ONLY:`, so the type is unmistakable in
+  `Help.MessageTypes.Get`.
+
+Mock implementations follow the same idea for interfaces rather than message types.
+Hnitbjörg's test app extends the product's storage-type enum with an in-memory backend, so
+the whole connector pipeline can be exercised without a live storage account:
+
+```al
+namespace Origo.Bifrost.Hnitbjorg.Test;
+
+using Origo.Bifrost.Hnitbjorg;
+
+enumextension 96200 "Storage Type Test" extends "Storage Type ori"
+{
+    value(96200; Mock)
+    {
+        Caption = 'Mock', Locked = true;
+        Implementation = "Storage Connector ori" = "Storage Mock Impl";
+    }
+}
+```
+
+An extensible enum in your product app is what makes this possible — design your own
+interfaces that way.
+
+## Running a message type from a test
+
+Inside AL, tests dispatch through `Dispatcher ori` exactly like production callers do; see
+[Message types](/extensibility/message-types). `Execute` is the lightweight path;
+`EnqueueAndProcess` exercises the full orchestrator when the test cares about language
+switching, response time or the completion event.
+
+## Test data conventions
+
+Bifröst apps are tested in shared company databases — CRONUS IS on the Icelandic container,
+CRONUS International on the W1 one — which are also used for manual verification and demos.
+Two rules follow.
+
+**Prefix everything you create, per test stream.** The convention across the family is
+`BIFT-<letter>`: `BIFT-A0001`, `BIFT-B0001`. The prefix makes a test's own records
+identifiable, keeps two streams from colliding, and makes cleanup a single filter:
+
+```json
+{ "tableName": "Customer", "tableView": "WHERE(No.=FILTER(BIFT-*))" }
+```
+
+**Never delete existing master data.** Customers, vendors, items, G/L accounts, dimensions
+and posting setups in a shared test company are shared fixtures. A test that deletes them
+breaks every other test and every demo in that company. Create your own records, filter to
+your own prefix, and delete only what you created.
+
+The same discipline applies to Foundation's own configuration: a run that opens the
+ChangeLog Write Guard with `Test.Setup.Set` sets it back to `Blocked` when it is done. The
+test run owns restoring the state it changed — not the next person to open the company.
+
+## What a dependent app's test suite covers
+
+- Every message type: a happy path that verifies the effect by reading the data back, and
+  at least one negative case that must return `status = Error` with a helpful message —
+  never an unhandled exception, never an HTTP 5xx.
+- The install take-over, where the app replaces a published predecessor:
+  [Install and upgrade](/extensibility/install-and-upgrade).
+- Any interface your app defines, through a mock implementation registered on the enum.
+
+Foundation's own test app is the reference for all of this, and it is where the `Test.*`
+types documented above live.

@@ -1,0 +1,8 @@
+{
+  "label": "20. UI Translations via BC Translation Table",
+  "position": 22,
+  "link": {
+    "type": "generated-index",
+    "description": "The Bifrost extension includes a `Translation ori` table that enables\n**web or integration UIs to store and retrieve their own translatable strings directly\nin Business Central**. This means your integration can be fully multi-lingual without\nmaintaining a separate translation file or service."
+  }
+}

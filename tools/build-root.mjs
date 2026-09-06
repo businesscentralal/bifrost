@@ -92,4 +92,68 @@ for (const locale of ['en-us', 'is-is']) {
 await writeFile(path.join(buildDir, 'index.html'), page('Bifröst', chooseLocale), 'utf8');
 await writeFile(path.join(buildDir, '404.html'), page('Bifröst — page not found', rescueLocale), 'utf8');
 
-console.log(`build-root: wrote index.html and 404.html for baseUrl ${BASE_URL}`);
+/**
+ * llms.txt — the entry point for an agent handed nothing but the site address.
+ * It is written at the site root (not inside a locale) and carries absolute
+ * URLs, so it is only correct once SITE_URL and BASE_URL are known: build time.
+ */
+const SITE_URL = (process.env.SITE_URL ?? 'https://businesscentralal.github.io').replace(/\/$/, '');
+const site = `${SITE_URL}${BASE_URL}`;
+const en = `${site}en-us/`;
+
+const appSections = [
+  ['foundation', 'Bifröst Foundation — the kernel every other app depends on'],
+  ['iceland', 'Bifröst Iceland — Icelandic ERP message types'],
+  ['iceland-treasury', 'Bifröst Iceland Treasury — Icelandic bank connectors and payments'],
+  ['iceland-docex', 'Bifröst Iceland DocEx — electronic document exchange (Peppol/BIS 3.0)'],
+  ['bragi', 'Bifröst Bragi — chat and language model providers'],
+  ['hnitbjorg', 'Bifröst Hnitbjörg — Azure Blob, Azure File Share and SharePoint storage'],
+  ['nornir', 'Bifröst Nornir — job queue scheduling and declarative playbooks'],
+  ['clockify', 'Bifröst Clockify — time tracking'],
+  ['subscription-billing', 'Bifröst Subscription Billing — recurring billing'],
+];
+
+const llms = [
+  '# Bifröst',
+  '',
+  '> Bifröst is a family of Microsoft Dynamics 365 Business Central extensions by Origo.',
+  '> Every operation is a message: a JSON envelope posted to one of three REST endpoints,',
+  '> routed by its `type` field. Bifröst Foundation is the kernel; the other apps add',
+  '> message types for banks, storage, documents, schedules and language models.',
+  '',
+  'This site holds all public documentation for those apps in English (`/en-us/`) and',
+  'Icelandic (`/is-is/`). The paths below are the English ones.',
+  '',
+  '## Skills',
+  '',
+  `- [Bifröst BC integration skill](${site}skills/bifrost-bc-integration/SKILL.md): the complete API reference as one file — endpoints, request envelope, response patterns, every message type, pagination, tableView filter syntax, field selection, enum handling, translations, webhooks. Start here.`,
+  `- [Skills index](${en}skills/): the same skill split into browsable pages, plus what an agent needs beyond the skill itself.`,
+  '',
+  '## Building on Bifröst',
+  '',
+  `- [Extensibility guide](${en}extensibility/): how to write a Business Central app that depends on Bifröst Foundation — message types, help codeunits, setup and secrets, install and upgrade, testing, naming conventions.`,
+  '',
+  '## Apps',
+  '',
+  ...appSections.map(([id, description]) => `- [${description}](${en}${id}/)`),
+  '',
+  '## In-product help',
+  '',
+  'Business Central opens these pages from the help icon. One page per Business Central page:',
+  '',
+  ...appSections.map(([id]) => `- ${en}help/${id}/`),
+  '',
+  '## Optional',
+  '',
+  `- [Site source](https://github.com/businesscentralal/bifrost): the documentation is generated and maintained here.`,
+  '',
+].join('\n');
+
+// Written at the site root and inside each locale, so that both
+// `<site>/llms.txt` and `<site>/en-us/llms.txt` resolve — an agent guesses one
+// or the other and should not have to guess right.
+for (const dir of [buildDir, path.join(buildDir, 'en-us'), path.join(buildDir, 'is-is')]) {
+  await writeFile(path.join(dir, 'llms.txt'), llms, 'utf8');
+}
+
+console.log(`build-root: wrote index.html, 404.html and llms.txt for ${site}`);
