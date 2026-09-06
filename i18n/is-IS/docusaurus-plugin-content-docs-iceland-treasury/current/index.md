@@ -15,12 +15,12 @@ Undir liggur **Draupnir**, undirritunarumgjörð IOBS (Icelandic Online Banking 
 
 | Eining | Hvað hún nær yfir |
 | --- | --- |
-| **Draupnir** | Undirritunarumgjörð IOBS — sex undirritunarsnið á bak við eitt viðmót. Sjálf ekki bankatenging. |
+| **Draupnir** | Undirritunarumgjörð IOBS — fimm undirritunarsnið á bak við eitt viðmót. Sjálf ekki bankatenging. |
 | **Landsbankinn** | Kröfur og kröfuskeyti, kröfusniðmát, kort og kortalyklar, reikningar, eignasöfn, gengi og vextir, rafræn skjöl, færsluhirðingaruppgjör, innlendar og erlendar greiðslur, og innlestur og afstemming bankayfirlita. |
 | **Arion** | Fyrirspurnir um reikninga, yfirlit, greiðsluseðla og kreditkort, innheimtukröfur og kröfuskeyti, innlendar og erlendar greiðslur, erlend yfirlit, gengi, innsendingu rafrænna skjala og afstemmingu bankayfirlita. |
 | **Íslandsbanki** | 23 skilaboðagerðir yfir B2B SOAP-þjónusturnar: reikningsyfirlit, gengi, staðfesting reiknings, ógreiddir reikningar, greiðsluskeyti, debetkortafærsla, kröfur, milliinnheimta, erlendar greiðslur, innsending skráa og viðskiptasaga verðbréfa. |
 | **Kvika banki** | 11 skilaboðagerðir yfir IOBS-þjónustur netbanka Kviku: kröfufyrirspurnir og ósamstilltar skeytaaðgerðir, reikningsyfirlit, gengi, greiðsluskeyti og niðurstöðuskeyti greiðslna. |
-| **Sparisjóðir** | 26 skilaboðagerðir yfir Sambankaskema 2013 hjá Sparisjóðunum: yfirlit, kröfur og ósamstillt kröfuskeyti, greiðslur, gengi, reikningar, greiðsluseðlar, kreditkort og lestur beiðnaskrár, auk innlesturs yfirlita í bankaafstemmingu gegnum gagnaskiptaskilgreiningu. |
+| **Sparisjóðir** | 24 skilaboðagerðir yfir Sambankaskema 2013 hjá Sparisjóðunum: yfirlit, kröfur og ósamstillt kröfuskeyti, greiðslur, gengi, reikningar, greiðsluseðlar, kreditkort og lestur beiðnaskrár, auk innlesturs yfirlita í bankaafstemmingu gegnum gagnaskiptaskilgreiningu. |
 
 Hver eining hefur sínar eigin hjálparkóðaeiningar eftir sviðum, svo `Help.Implementation.Get` svarar fyrir hverja skilaboðagerð með nákvæmum beiðni- og svarsamningi hennar.
 

@@ -15,12 +15,12 @@ Underneath sits **Draupnir**, the IOBS (Icelandic Online Banking Standard, *Samb
 
 | Module | What it covers |
 | --- | --- |
-| **Draupnir** | The IOBS SOAP signer framework — six signing profiles behind one interface. Not a bank connector itself. |
+| **Draupnir** | The IOBS SOAP signer framework — five signing profiles behind one interface. Not a bank connector itself. |
 | **Landsbankinn** | Claims and claim batches, claim templates, cards and card ledger keys, accounts, portfolios and assets, currency and interest rates, electronic documents, acquiring settlement, domestic and foreign payments, and bank statement import and reconciliation. |
 | **Arion** | Account, statement, bill and credit-card queries, claims and claim batches (*innheimtukröfur*), domestic and foreign payments, foreign statements, currency rates, electronic document upload and bank statement reconciliation. |
 | **Íslandsbanki** | 23 message types over the B2B SOAP services: account statement, currency rates, account verification, unpaid invoices, payment batches, debit-card transfer, claims, *milliinnheimta*, foreign payments, presentment-file upload and securities transaction history. |
 | **Kvika banki** | 11 message types over the Kvika netbanki IOBS services: claim query and the asynchronous batch operations, account statement, currency rates, payment batch and payment result batch. |
-| **Sparisjóðir** | 26 message types over the Sparisjóður Sambankaskema 2013 services: statements, claims and asynchronous claim batches, payments, currency rates, accounts, bills, credit cards and the request-log reader, plus statement import into Bank Acc. Reconciliation through a Data Exchange definition. |
+| **Sparisjóðir** | 24 message types over the Sparisjóður Sambankaskema 2013 services: statements, claims and asynchronous claim batches, payments, currency rates, accounts, bills, credit cards and the request-log reader, plus statement import into Bank Acc. Reconciliation through a Data Exchange definition. |
 
 Each module has its own domain help codeunits, so `Help.Implementation.Get` answers for every message type with its exact request and response contract.
 

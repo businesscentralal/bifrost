@@ -1,0 +1,9 @@
+{
+  "label": "Banks",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "slug": "/banks",
+    "description": "One page per bank connector: what it covers, its message types, how it is set up and which published app it replaces."
+  }
+}
