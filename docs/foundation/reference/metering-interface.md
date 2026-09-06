@@ -33,8 +33,9 @@ procedure OnMessageCompleted(var Argument: Record "Message Argument ori")
 |---|---|
 | Parameter | `Argument` — the completed `Message Argument ori`. Carries the message type (`Type`), the `Subject`, the request content and the response the caller receives. |
 | Returns | Nothing. |
-| Called | Once, after a **successful** call, before the response is written back to the queue row. |
-| Must not | Change the response, or assume it runs inside the caller's transaction. |
+| Called | Once, after a **successful** call, once the response has been written to `Message ori` and committed. |
+| May | Write to the database. The hook runs in its own transaction scope, so inserts, modifications and queued work are all allowed. |
+| Must not | Change the response — the caller already holds it — or assume it runs inside the caller's transaction. |
 
 ## When Foundation calls it
 
@@ -59,15 +60,35 @@ The `Help.` / `Webhook.` prefix rule is the same long-standing rule that exempts
 types from charging. It is the only exemption: a message type cannot opt itself out of the
 hook.
 
-## Defensive invocation
+## Isolated invocation
 
-A metering implementation must never cost the caller its response, so Foundation wraps the
-call in a `TryFunction`:
+A metering implementation must never cost the caller its response, so Foundation does not
+call it inline. `Message Task ori` runs it through `Codeunit.Run`:
 
-- an error raised by the implementation is caught;
-- the implementation's own database writes are rolled back;
+```al
+MeteringHook: Codeunit "Metering Hook ori";
+// …
+if MeteringHook.Run(Argument) then
+    exit;
+// otherwise: log ORI-BIF-0170
+```
+
+`Metering Hook ori` (10078309) is an internal codeunit with `TableNo = "Message Argument ori"`.
+Its `OnRun` resolves the implementation from `Rec."Type"` and calls `OnMessageCompleted`.
+
+The choice of `Codeunit.Run` over a `TryFunction` is deliberate. A metering implementation is
+expected to **write** — a meter entry, a counter, a queued call to a billing service — and the
+AL runtime refuses database writes inside a `TryFunction` nested in the message task.
+`Codeunit.Run` allows those writes and still isolates a failure:
+
+- an error raised by the implementation is caught by `Run` returning `false`;
+- only the writes made inside the hook are rolled back;
 - the failure is written as telemetry;
 - the caller receives exactly the response it would have received with no hook at all.
+
+The hook is invoked **after** the response has been written to `Message ori` and committed —
+immediately before the webhook notification. By then the caller already holds its response,
+which is why nothing the hook does, including failing outright, can reach it.
 
 | Telemetry event | Event ID | Verbosity | Custom dimensions |
 |---|---|---|---|
@@ -75,14 +96,15 @@ call in a `TryFunction`:
 
 `error` carries the first 250 characters of the last error text.
 
-## Implementations in Foundation
+## Metering objects in Foundation
 
-| Codeunit | Used by | Behaviour |
+| Codeunit | Role | Behaviour |
 |---|---|---|
-| `Default Metering ori` (10078308) | Every value that does not name an implementation | Empty body. Costs one interface call per successful message and does nothing else. |
+| `Default Metering ori` (10078308) | The `DefaultImplementation` of the interface, used by every value that does not name one | Empty body. Costs one interface call per successful message and does nothing else. |
+| `Metering Hook ori` (10078309) | The isolation wrapper, `Access = Internal`, `TableNo = "Message Argument ori"` | Resolves the implementation from `Rec."Type"` and calls `OnMessageCompleted`. `Message Task ori` runs it with `Codeunit.Run`. |
 
-Foundation ships no other implementation. It counts messages for licensing on its own and
-needs no help from the hook.
+Foundation ships no other implementation of the interface. It counts messages for licensing
+on its own and needs no help from the hook.
 
 ## What the hook does not do
 

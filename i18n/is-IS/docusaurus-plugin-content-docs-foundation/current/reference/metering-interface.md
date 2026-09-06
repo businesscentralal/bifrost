@@ -33,8 +33,9 @@ procedure OnMessageCompleted(var Argument: Record "Message Argument ori")
 |---|---|
 | Viðfang | `Argument` — `Message Argument ori` kallsins sem lauk. Ber skilaboðategundina (`Type`), efnið (`Subject`), beiðnigögnin og svarið sem kallandinn fær. |
 | Skilar | Engu. |
-| Kallað | Einu sinni, eftir **árangursríkt** kall, áður en svarið er skrifað aftur á biðraðarfærsluna. |
-| Má ekki | Breyta svarinu, né gera ráð fyrir að keyra innan færsluheildar kallandans. |
+| Kallað | Einu sinni, eftir **árangursríkt** kall, eftir að svarið hefur verið skrifað í `Message ori` og staðfest. |
+| Má | Skrifa í gagnagrunninn. Krókurinn keyrir í eigin færsluheild, svo innsetningar, breytingar og vinna sett í biðröð eru allt leyfilegt. |
+| Má ekki | Breyta svarinu — kallandinn hefur það þegar — né gera ráð fyrir að keyra innan færsluheildar kallandans. |
 
 ## Hvenær grunnurinn kallar á hann
 
@@ -59,15 +60,35 @@ Nafnforskeytisreglan um `Help.` og `Webhook.` er sama gamalgróna reglan og unda
 tegundir gjaldtöku. Hún er eina undantekningin: skilaboðategund getur ekki afskráð sig sjálf
 úr króknum.
 
-## Kallað með varúð
+## Kallað í einangrun
 
-Mælingarútfærsla má aldrei kosta kallandann svarið sitt, svo grunnurinn vefur kallið í
-`TryFunction`:
+Mælingarútfærsla má aldrei kosta kallandann svarið sitt, svo grunnurinn kallar ekki á hana
+beint. `Message Task ori` keyrir hana með `Codeunit.Run`:
 
-- villa sem útfærslan kastar er gripin;
-- skriftir útfærslunnar í gagnagrunninn eru bakfærðar;
+```al
+MeteringHook: Codeunit "Metering Hook ori";
+// …
+if MeteringHook.Run(Argument) then
+    exit;
+// annars: skrá ORI-BIF-0170
+```
+
+`Metering Hook ori` (10078309) er innri eining með `TableNo = "Message Argument ori"`.
+`OnRun` hennar sækir útfærsluna úr `Rec."Type"` og kallar á `OnMessageCompleted`.
+
+Valið á `Codeunit.Run` fram yfir `TryFunction` er meðvitað. Mælingarútfærsla á að **skrifa** —
+mælingafærslu, teljara, kall í biðröð til gjaldtökuþjónustu — og AL-keyrslan hafnar skriftum í
+gagnagrunninn inni í `TryFunction` sem er hreiðrað í skilaboðaverkinu. `Codeunit.Run` leyfir
+þær skriftir og einangrar bilun eftir sem áður:
+
+- villa sem útfærslan kastar er gripin með því að `Run` skilar `false`;
+- aðeins skriftirnar sem gerðar voru inni í króknum eru bakfærðar;
 - bilunin er skrifuð í fjarmælingar;
 - kallandinn fær nákvæmlega það svar sem hann hefði fengið án nokkurs króks.
+
+Kallað er á krókinn **eftir** að svarið hefur verið skrifað í `Message ori` og staðfest —
+rétt á undan svarkallstilkynningunni. Þá hefur kallandinn þegar fengið svarið sitt, og þess
+vegna nær ekkert sem krókurinn gerir, þar með talið að klikka alveg, til hans.
 
 | Fjarmælingaratburður | Auðkenni | Alvarleiki | Sérvíddir |
 |---|---|---|---|
@@ -75,14 +96,15 @@ Mælingarútfærsla má aldrei kosta kallandann svarið sitt, svo grunnurinn vef
 
 `error` ber fyrstu 250 stafina úr síðasta villutexta.
 
-## Útfærslur í grunninum
+## Mælingaeiningar í grunninum
 
-| Eining | Notuð af | Hegðun |
+| Eining | Hlutverk | Hegðun |
 |---|---|---|
-| `Default Metering ori` (10078308) | Hverju gildi sem nefnir ekki útfærslu | Tómt meginmál. Kostar eitt viðmótskall fyrir hver árangursrík skilaboð og gerir ekkert annað. |
+| `Default Metering ori` (10078308) | `DefaultImplementation` viðmótsins, notuð af hverju gildi sem nefnir ekki útfærslu | Tómt meginmál. Kostar eitt viðmótskall fyrir hver árangursrík skilaboð og gerir ekkert annað. |
+| `Metering Hook ori` (10078309) | Einangrunarumgjörðin, `Access = Internal`, `TableNo = "Message Argument ori"` | Sækir útfærsluna úr `Rec."Type"` og kallar á `OnMessageCompleted`. `Message Task ori` keyrir hana með `Codeunit.Run`. |
 
-Grunnurinn sendir enga aðra útfærslu. Hann telur skilaboð fyrir leyfin á eigin spýtur og
-þarf enga hjálp frá króknum.
+Grunnurinn sendir enga aðra útfærslu viðmótsins. Hann telur skilaboð fyrir leyfin á eigin
+spýtur og þarf enga hjálp frá króknum.
 
 ## Hvað krókurinn gerir ekki
 

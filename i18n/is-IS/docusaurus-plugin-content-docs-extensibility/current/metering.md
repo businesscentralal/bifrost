@@ -29,7 +29,8 @@ interface "Msg Metering ori"
 ```
 
 `Argument` ber allt kallið sem lauk: skilaboðategundina, efnið, beiðnigögnin og svarið sem
-kallandinn er í þann mund að fá. Lestu eins mikið af því og þú þarft — en ekki breyta svarinu.
+kallandinn fær. Lestu eins mikið af því og þú þarft — en ekki breyta svarinu: þegar krókurinn
+keyrir hefur kallandinn það þegar.
 
 Samningurinn aðferð fyrir aðferð, fjarmælingaratburðurinn og reglurnar um kallið eru í
 [tilvísun mælingaviðmótsins](/foundation/reference/metering-interface/).
@@ -49,6 +50,12 @@ skilaboðategund getur ekki afskráð sig sjálf.
 
 Ekkert keyrir krókinn eftir misheppnað kall. Svar þar sem `status` er annað en `Success` er
 hvorki gjaldfært né mælt.
+
+Kallið kemur **eftir** að svarið hefur verið skrifað í `Message ori` og staðfest, rétt á undan
+svarkallstilkynningunni. Grunnurinn keyrir það með `Codeunit.Run` á sérstakri einingu,
+`Metering Hook ori`, svo það fær sína eigin færsluheild. Tvennt leiðir af því, og hvort tveggja
+er þér í hag: þú mátt skrifa í gagnagrunninn, og ef þú klikkar eru aðeins þínar eigin skriftir
+bakfærðar — kallandinn heldur svarinu sem hann hefur þegar fengið.
 
 ## Ekkert að gera fyrir núverandi forrit
 
@@ -133,20 +140,24 @@ TypeName := Enum::"Message Type ori".Names().Get(
 
 Það skilar heitinu eins og það er á vírnum — `Contoso.Invoice.Rate` — á öllum tungumálum.
 
-### Þrjár reglur um meginmálið
+### Fjórar reglur um meginmálið
 
-- **Hafðu hann ódýran.** Krókurinn keyrir við hvert árangursríkt kall þeirra tegunda sem þú
-  tekur að þér, í þræði kallandans, áður en svarinu er skilað. Innsetning í þitt eigið
-  bókhald er í lagi. Útleið HTTP-beiðni á hvert kall er það ekki — settu þá vinnu frekar í
+- **Skrifaðu óhikað.** Af því að grunnurinn kallar á krókinn með `Codeunit.Run` en ekki
+  `TryFunction` leyfir AL-keyrslan skriftir í gagnagrunninn: settu inn mælingafærsluna þína,
+  hækkaðu teljarann, settu útleið kall í biðröð. Það er einmitt tilgangur einangrunarinnar —
+  `TryFunction` hreiðrað í skilaboðaverkinu myndi hafna þessum skriftum.
+- **Hafðu hann ódýran.** Krókurinn keyrir eftir sem áður í þræði kallandans, við hvert
+  árangursríkt kall þeirra tegunda sem þú tekur að þér. Innsetning í þitt eigið bókhald er í
+  lagi. Samstillt útleið HTTP-beiðni á hvert kall er það ekki — settu þá vinnu frekar í
   biðröð.
 - **Aldrei breyta svarinu.** `Argument` er sent með tilvísun svo þú getir lesið beiðnina og
-  svarið, ekki svo þú getir endurskrifað þau. Kallendur treysta á að fá nákvæmlega það sem
-  útfærslan framleiddi.
-- **Ekki reiða þig á færsluheild kallandans.** Bifröst kallar á krókinn með varúð: villa sem
-  þú kastar er gripin, skráð í fjarmælingar og bakfærir þínar eigin skriftir — kallandinn
-  fær eftir sem áður sama svar og hann hefði fengið án nokkurs króks. Bókhaldið þitt er því
-  eftir bestu getu, og það verður að skrifa þannig að týnd færsla sé gat í bókhaldinu frekar
-  en skemmd í því.
+  svarið, ekki svo þú getir endurskrifað þau. Svarið var staðfest áður en kallað var á
+  krókinn, svo breyting væri jafn gagnslaus og hún er röng.
+- **Ekki reiða þig á færsluheild kallandans.** Þú deilir henni ekki. Villa sem þú kastar er
+  gripin með því að `Codeunit.Run` skilar `false`, skráð í fjarmælingar (`ORI-BIF-0170`) og
+  bakfærir þínar eigin skriftir og ekkert annað — kallandinn fær eftir sem áður sama svar og
+  hann hefði fengið án nokkurs króks. Bókhaldið þitt er því eftir bestu getu, og það verður
+  að skrifa þannig að týnd færsla sé gat í bókhaldinu frekar en skemmd í því.
 
 ## Næst
 

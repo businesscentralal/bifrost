@@ -29,8 +29,8 @@ interface "Msg Metering ori"
 ```
 
 `Argument` carries the whole completed call: the message type, the subject, the request
-content, and the response the caller is about to receive. Read as much of it as you need —
-but do not change the response.
+content, and the response the caller receives. Read as much of it as you need — but do not
+change the response: by the time the hook runs, the caller already has it.
 
 The method-by-method contract, the telemetry event and the invocation rules are in the
 [metering interface reference](/foundation/reference/metering-interface/).
@@ -50,6 +50,12 @@ be exempt — a message type cannot opt itself out.
 
 Nothing runs the hook after a failed call. A response whose `status` is not `Success` is
 neither charged nor metered.
+
+The call comes **after** the response has been written to `Message ori` and committed, right
+before the webhook notification. Foundation runs it through `Codeunit.Run` on a dedicated
+codeunit, `Metering Hook ori`, so it gets its own transaction scope. Two things follow from
+that, and both are in your favour: you may write to the database, and if you fail, only your
+own writes are rolled back — the caller keeps the response it already holds.
 
 ## Nothing to do for existing apps
 
@@ -132,19 +138,23 @@ TypeName := Enum::"Message Type ori".Names().Get(
 
 That yields the wire name — `Contoso.Invoice.Rate` — in every language.
 
-### Three rules for the body
+### Four rules for the body
 
-- **Keep it cheap.** The hook runs on every successful call of the types you claim, on the
-  caller's thread, before the response is returned. An insert into your own ledger is fine.
-  An outbound HTTP request per call is not — queue the work instead.
+- **Write freely.** Because Foundation calls the hook through `Codeunit.Run` rather than a
+  `TryFunction`, the AL runtime allows database writes: insert your meter entry, bump your
+  counter, queue an outbound call. That is the whole point of the isolation — a
+  `TryFunction` nested in the message task would refuse those writes.
+- **Keep it cheap.** The hook still runs on the caller's thread, on every successful call of
+  the types you claim. An insert into your own ledger is fine. A synchronous outbound HTTP
+  request per call is not — queue the work instead.
 - **Never modify the response.** `Argument` is passed by reference so you can read the
-  request and the response, not so you can rewrite them. Callers depend on getting exactly
-  what the implementation produced.
-- **Do not depend on the caller's transaction.** Foundation invokes the hook defensively:
-  an error you raise is caught, logged as telemetry, and rolls back your own writes — the
-  caller still receives the response it would have received with no hook at all. Your
-  bookkeeping is therefore best-effort, and it must be written so that a lost entry is a
-  gap in your ledger rather than a corrupt one.
+  request and the response, not so you can rewrite them. The response was committed before
+  the hook was called, so a change would be pointless as well as wrong.
+- **Do not depend on the caller's transaction.** You do not share it. An error you raise is
+  caught by `Codeunit.Run` returning `false`, logged as telemetry (`ORI-BIF-0170`), and rolls
+  back your own writes and nothing else — the caller still receives the response it would
+  have received with no hook at all. Your bookkeeping is therefore best-effort, and it must
+  be written so that a lost entry is a gap in your ledger rather than a corrupt one.
 
 ## Next
 
