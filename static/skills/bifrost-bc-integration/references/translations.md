@@ -5,6 +5,7 @@ Translations that belong to data rather than to the user interface: reading and 
 [← back to SKILL.md](../SKILL.md) · originally sections 7.2 (Field.Translation.*), 14 of the single-file skill.
 
 ---
+
 #### `Field.Translation.Get` — Read a single translation for a record field
 
 Direction: **Outbound**. Uses BC codeunit 3711 "Translation" to retrieve the stored

@@ -5,6 +5,7 @@ Driving the labels of your own interface from the `Translation ori` table in Bus
 [← back to SKILL.md](../SKILL.md) · originally sections 20 of the single-file skill.
 
 ---
+
 ## 20. UI Translations via BC Translation Table
 
 The Bifrost extension includes a `Translation ori` table that enables

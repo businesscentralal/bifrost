@@ -5,6 +5,7 @@ How to address a Business Central environment and prove who you are: the base UR
 [← back to SKILL.md](../SKILL.md) · originally sections 2 of the single-file skill.
 
 ---
+
 ## 2. Base URL
 
 ```

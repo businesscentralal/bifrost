@@ -5,6 +5,7 @@ The generic read/write message types that work against any table — `Data.Recor
 [← back to SKILL.md](../SKILL.md) · originally sections 6, 7.1, 8, 22 of the single-file skill.
 
 ---
+
 ## 6. Data Field Naming — Field Name Normalization
 
 BC field names are normalized to JSON keys using two steps applied in order:

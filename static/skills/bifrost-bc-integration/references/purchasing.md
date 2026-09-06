@@ -5,6 +5,7 @@ Message types for the purchase side: creating, releasing, posting and preview-po
 [← back to SKILL.md](../SKILL.md) · originally sections 7.4 of the single-file skill.
 
 ---
+
 ### 7.4 PURCHASE ORDER OPERATIONS
 
 #### `Purchase.Document.Release` / `Purchase.Document.Reopen`

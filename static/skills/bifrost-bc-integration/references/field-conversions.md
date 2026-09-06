@@ -5,6 +5,7 @@ Field types whose JSON shape is not what a caller would guess — currency code,
 [← back to SKILL.md](../SKILL.md) · originally sections 9, 10 of the single-file skill.
 
 ---
+
 ## 9. Special Field Conversions
 
 ### Currency Code (blank = LCY)

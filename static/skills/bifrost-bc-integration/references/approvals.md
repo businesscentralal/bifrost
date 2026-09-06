@@ -5,6 +5,7 @@ The document approval workflow end to end: sending a document for approval, appr
 [← back to SKILL.md](../SKILL.md) · originally sections 7.8 of the single-file skill.
 
 ---
+
 ### 7.8 APPROVAL OPERATIONS
 
 | Type | Direction | Purpose |

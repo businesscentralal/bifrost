@@ -5,6 +5,7 @@ The MCP server that exposes the same metadata and data over the Model Context Pr
 [← back to SKILL.md](../SKILL.md) · originally sections 23 of the single-file skill.
 
 ---
+
 ## 23. BC Metadata MCP Server
 
 A Model Context Protocol (MCP) server is deployed at **`https://dynamics.is/api/mcp`**.

@@ -5,6 +5,7 @@ What the Bifröst API is and how a call is made: the three endpoints (`/tasks` s
 [← back to SKILL.md](../SKILL.md) · originally sections 1, 3, 3b, 4 of the single-file skill.
 
 ---
+
 ## 1. What the API Is
 
 The Origo Bifrost extension for Business Central exposes a REST API (Bifrost API v1.0)

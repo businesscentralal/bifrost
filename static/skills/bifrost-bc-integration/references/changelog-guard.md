@@ -5,6 +5,7 @@ Reading a field’s modification history, restoring a previous value, checking w
 [← back to SKILL.md](../SKILL.md) · originally sections 7.6 of the single-file skill.
 
 ---
+
 ### 7.6 CHANGELOG OPERATIONS
 
 All three types use the BC Change Log Entry table (405). Authorization checks respect `Field Access ori` restrictions and the `ChangeLog Write Guard` setting in Bifrost Setup.

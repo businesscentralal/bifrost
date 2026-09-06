@@ -5,6 +5,7 @@ The project (job) journal and the resource journal: preparing a line, checking i
 [← back to SKILL.md](../SKILL.md) · originally sections 7.5d, 7.5e of the single-file skill.
 
 ---
+
 ### 7.5d PROJECT JOURNAL OPERATIONS
 
 **Identification:** Same three modes (pipe-form, SystemId, JSON `{templateName, batchName}` with JSON precedence). Targets BC Job Journal Lines (project = job in BC terminology).

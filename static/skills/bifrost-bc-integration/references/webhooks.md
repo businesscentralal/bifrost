@@ -5,6 +5,7 @@ Both directions of the webhook story: `Webhook.Inbound.Receive` for events pushe
 [← back to SKILL.md](../SKILL.md) · originally sections 7.11, 13 of the single-file skill.
 
 ---
+
 ### 7.11 WEBHOOK INBOUND OPERATIONS
 
 The inbound side of webhooks: external systems push events into BC through the Bifrost website,

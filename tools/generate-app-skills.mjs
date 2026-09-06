@@ -192,7 +192,8 @@ for (const app of apps) {
     ...wrap(
       `Message types added to the Bifröst API by ${app.appName}. ${description} ` +
         `Load alongside bifrost-bc-integration, which carries the API itself; this skill is the ` +
-        `index of what ${app.title} adds — ${messageTypes.length} message types across ` +
+        `index of what ${app.title} adds — ${messageTypes.length} ` +
+        `${messageTypes.length === 1 ? 'message type' : 'message types'} across ` +
         `${families.length} ${families.length === 1 ? 'family' : 'families'} ` +
         `(${families.map((f) => `${f}.*`).join(', ')}).`,
       92,

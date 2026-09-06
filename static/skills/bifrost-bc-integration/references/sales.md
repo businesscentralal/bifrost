@@ -5,6 +5,7 @@ Message types for the sales side: credit limit and sales history, customer state
 [← back to SKILL.md](../SKILL.md) · originally sections 7.3 of the single-file skill.
 
 ---
+
 ### 7.3 SALES, CUSTOMER & ITEM OPERATIONS
 
 #### `Customer.CreditLimit.Get`

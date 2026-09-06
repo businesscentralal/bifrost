@@ -5,6 +5,7 @@ An index of the message-type catalogue. The catalogue is split across the refere
 [← back to SKILL.md](../SKILL.md) · originally sections 7 of the single-file skill.
 
 ---
+
 ## 7. All Message Types
 | Area | Original sections | Reference file |
 | --- | --- | --- |

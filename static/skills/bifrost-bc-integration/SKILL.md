@@ -14,6 +14,7 @@ description: >
   is the map, not the manual.
 license: MIT
 metadata:
+  docsTitle: Bifröst BC integration
   version: 2.0.0
   updated: 2026-09-06
   source: https://github.com/businesscentralal/bifrost

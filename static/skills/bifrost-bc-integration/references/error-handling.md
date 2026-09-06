@@ -5,6 +5,7 @@ The two response shapes a message type can return, the order in which a client h
 [← back to SKILL.md](../SKILL.md) · originally sections 5, 16 of the single-file skill.
 
 ---
+
 ## 5. Response Patterns
 
 ### Pattern A — Two-step (most data operations)

@@ -5,6 +5,7 @@ The `tableView` string: BC AL filter syntax (WHERE / FILTER / CONST), sorting wi
 [← back to SKILL.md](../SKILL.md) · originally sections 11, 19 of the single-file skill.
 
 ---
+
 ## 11. tableView Filter Syntax
 
 `tableView` uses BC's AL table view syntax. Use the **`name`** from `Help.Fields.Get` (not `jsonName`) in WHERE clauses.

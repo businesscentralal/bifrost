@@ -5,6 +5,7 @@ General journal preparation, validation, posting, preview-posting and reversal; 
 [← back to SKILL.md](../SKILL.md) · originally sections 7.5, 7.5a, 7.5b of the single-file skill.
 
 ---
+
 ### 7.5 FINANCE OPERATIONS
 
 #### `Finance.GeneralJournal.Check`

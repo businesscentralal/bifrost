@@ -140,6 +140,40 @@ root `index.html` (redirects by browser language, defaulting to English), a
 and inside each locale. `llms.txt` is generated, not committed: it carries
 absolute URLs and is only correct once `SITE_URL` and `BASE_URL` are known.
 
+## Agent skills
+
+A skill is what an AI agent loads before it writes code against Bifröst. They
+follow the standard Agent Skills layout, so an agent reads a short file and then
+fetches only the part it needs:
+
+```
+static/skills/bifrost-bc-integration/SKILL.md          the model, the rules, an index
+static/skills/bifrost-bc-integration/references/*.md   one file per area
+static/skills/bifrost-<app>/SKILL.md                   what that app adds, as an index
+```
+
+Those files are the authoritative copy. Three scripts keep everything else in
+step with them:
+
+```bash
+node tools/generate-app-skills.mjs   # rebuild the per-app skills from apps.ts + docs/
+node tools/render-skills.mjs         # rebuild docs/skills/** from static/skills/**
+node tools/check-skill-split.mjs     # prove the 2026 split of the core skill lost nothing
+```
+
+`render-skills.mjs` writes one page per skill file under `docs/skills/`, so the
+pages cannot drift from the files; edit the skill, then rerun it. Everything it
+writes is deleted and rewritten on each run.
+
+`check-skill-split.mjs` exists because the core skill used to be a single 286 kB
+file. It reads that file out of git history and proves that every heading,
+fenced code block and table row in it still appears exactly once across
+`SKILL.md` and `references/`. Run it after moving content between reference
+files.
+
+`generate-app-skills.mjs` reads the message-type pages under
+`docs/<app>/reference/message-types/`, so run it after regenerating those.
+
 ## Generated message-type reference
 
 Message-type reference pages are generated from the apps' own help codeunits

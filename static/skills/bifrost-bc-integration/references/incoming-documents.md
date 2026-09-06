@@ -5,6 +5,7 @@ Creating an incoming document with its main attachment, adding supplemental atta
 [← back to SKILL.md](../SKILL.md) · originally sections 7.7 of the single-file skill.
 
 ---
+
 ### 7.7 INCOMING DOCUMENT OPERATIONS
 
 Five message types cover the full Incoming Document lifecycle: Create → (Attach) → Process → Get, plus SetDefault for re-ordering attachments.

@@ -5,6 +5,7 @@ Two end-to-end examples: creating a sales order header, lines and release throug
 [← back to SKILL.md](../SKILL.md) · originally sections 12, 15 of the single-file skill.
 
 ---
+
 ## 12. Creating Sales Orders Workflow
 
 There is no dedicated "create order" message type. Use `Data.Records.Set` for all steps.

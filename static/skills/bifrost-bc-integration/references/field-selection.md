@@ -5,6 +5,7 @@ Why `fieldNumbers` is not optional in practice, patterns for declaring field lis
 [← back to SKILL.md](../SKILL.md) · originally sections 18 of the single-file skill.
 
 ---
+
 ## 18. Selecting Only the Fields You Need
 
 Always specify `fieldNumbers` instead of requesting all fields. Benefits:

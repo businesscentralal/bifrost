@@ -5,6 +5,7 @@ The tables behind the dropdowns — countries, post codes, payment terms, postin
 [← back to SKILL.md](../SKILL.md) · originally sections 21 of the single-file skill.
 
 ---
+
 ## 21. Looking Up Reference Data (Dropdowns / Lookup Tables)
 
 Many BC fields have table relations — the field value is a code that references another

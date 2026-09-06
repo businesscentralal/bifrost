@@ -5,6 +5,7 @@ How an agent finds out what an environment actually offers before it calls anyth
 [← back to SKILL.md](../SKILL.md) · originally sections 7.2, 17 of the single-file skill.
 
 ---
+
 ### 7.2 METADATA OPERATIONS
 
 All metadata types use `/tasks`. `data` must be a JSON string.

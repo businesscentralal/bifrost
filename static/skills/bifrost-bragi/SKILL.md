@@ -4,7 +4,7 @@ description: >
   Message types added to the Bifröst API by Bifrost Bragi. AI chat for Business Central:
   language models, seven chat providers, an MCP tool server and a one-shot completion message
   type. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the
-  index of what Bragi adds — 1 message types across 1 family (LLM.*).
+  index of what Bragi adds — 1 message type across 1 family (LLM.*).
 license: MIT
 metadata:
   version: 1.0.0

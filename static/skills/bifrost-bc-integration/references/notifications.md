@@ -5,6 +5,7 @@ Counting, reading, sending and marking notifications, retrieving a whole notific
 [← back to SKILL.md](../SKILL.md) · originally sections 7.10 of the single-file skill.
 
 ---
+
 ### 7.10 NOTIFICATION OPERATIONS
 
 In-app notification system for user-to-user messaging. All operations are scoped to the current user via FilterGroup(2) — users can only read their own notifications and cannot access other users' data.

@@ -5,6 +5,7 @@ The item journal and the physical document flow around it: transfer orders, asse
 [← back to SKILL.md](../SKILL.md) · originally sections 7.5c, 7.5c.1 – 7.5c.4 of the single-file skill.
 
 ---
+
 ### 7.5c ITEM JOURNAL OPERATIONS
 
 **Identification:** Same three modes as general journals (pipe-form, SystemId, JSON `{templateName, batchName}` with JSON precedence).

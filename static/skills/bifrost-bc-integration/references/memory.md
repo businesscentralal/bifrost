@@ -5,6 +5,7 @@ Key-value storage inside Business Central, scoped either to the company or to th
 [← back to SKILL.md](../SKILL.md) · originally sections 7.9 of the single-file skill.
 
 ---
+
 ### 7.9 MEMORY OPERATIONS
 
 Four message types provide key-value memory storage at two scopes: company-wide and per-user.
