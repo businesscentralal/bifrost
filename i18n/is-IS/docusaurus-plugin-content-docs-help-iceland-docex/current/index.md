@@ -13,6 +13,7 @@ Viðbótin bætir við 76 skilaboðategundum. Hver þeirra lýsir sér sjálf: s
 ## Efnisyfirlit
 
 -   [Byrjun](#byrjun)
+-   [Uppsetning DocEx](/help/iceland-docex/docex-setup/) — umhverfi og aðgangsupplýsingar þjónustuaðila
 -   [BIS 3.0 viðmiðunargögn](#bis30) — 10 skilaboðategundir
 -   [Advania](#advania) — 30 skilaboðategundir
 -   [Unimaze](#unimaze) — 23 skilaboðategundir
@@ -27,13 +28,14 @@ Viðbótin bætir við 76 skilaboðategundum. Hver þeirra lýsir sér sjálf: s
 Viðbótin krefst þess að **Bifröst Foundation** sé uppsett. Eftir uppsetningu þarf að slá inn aðgangsupplýsingar þjónustuaðila á Bifrastar-uppsetningarsíðunni.
 
 1.  Veljið leitartáknið, sláið inn **Bifröst uppsetning** og veljið tengilinn.
-2.  Opnið flipann **Skjalaskipti** og stillið **umhverfi** (Live eða Test) fyrir hvern þjónustuaðila sem þið notið.
-3.  Sláið inn aðgangsupplýsingar: notandanafn og lykilorð fyrir Advania, notandanafn eða API-lykil fyrir Unimaze, API-lykil og biðlaratóka fyrir InExchange. Gildin eru geymd í Isolated Storage og birtast aldrei aftur — síðan sýnir aðeins gátreitinn **Innskráningarupplýsingar geymdar**.
-4.  Veljið **Prófa tengingu** fyrir hvern þjónustuaðila og staðfestið að hún takist.
-5.  Veljið **Uppfæra BII gagnaskiptaskilgreiningar** ef þið flytjið inn skjöl á innleið. Það endurgerir skilgreiningarnar `BIIINVOICE` og `BIICREDITMEMO`.
-6.  Notið Bifröst Queue API til að senda skjalaskiptabeiðnir og sækið niðurstöður úr Bifröst Data API.
+2.  Veljið **Uppsetning Bifröst Iceland DocEx** í flokknum **Forrit** til að opna [Uppsetningu Bifröst DocEx](/help/iceland-docex/docex-setup/).
+3.  Stillið **umhverfi** (Live eða Test) fyrir hvern þjónustuaðila sem þið notið.
+4.  Sláið inn aðgangsupplýsingar með **Skrá …** aðgerðunum: notandanafn og lykilorð fyrir Advania, notandanafn og lykilorð eða API-lykil fyrir Unimaze, API-lykil og biðlaratóka fyrir InExchange. Gildin fara í leyndarmálageymslu Bifrastar og birtast aldrei aftur — síðan sýnir aðeins stöðu innskráningarupplýsinga.
+5.  Veljið **Prófa … tengingu** fyrir hvern þjónustuaðila og staðfestið að hún takist.
+6.  Veljið **Uppfæra BII gagnaskiptaskilgreiningar** ef þið flytjið inn skjöl á innleið. Það endurgerir skilgreiningarnar `BIIINVOICE` og `BIICREDITMEMO`.
+7.  Notið Bifröst Queue API til að senda skjalaskiptabeiðnir og sækið niðurstöður úr Bifröst Data API.
 
-**Verið að skipta úr Origo Cloud Events DocEx?** Setjið Bifröst Ísland DocEx upp við hliðina á eldri viðbótinni. Kóðavarpanir, VSK-fjárhagsreikningsvarpanir og uppsetningargildi flytjast sjálfkrafa, en Business Central heldur geymdum aðgangsupplýsingum aðskildum eftir viðbótum, svo slá þarf aðgangsupplýsingar þjónustuaðila inn að nýju.
+**Verið að skipta úr Origo Cloud Events DocEx?** Setjið Bifröst Ísland DocEx upp við hliðina á eldri viðbótinni. Kóðavarpanir og VSK-fjárhagsreikningsvarpanir flytjast sjálfkrafa, en Business Central heldur geymdum aðgangsupplýsingum aðskildum eftir viðbótum, svo slá þarf aðgangsupplýsingar þjónustuaðila inn að nýju.
 
 ## BIS 3.0 viðmiðunargögn {#bis30}
 
