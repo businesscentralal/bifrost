@@ -62,6 +62,8 @@ Business Central heldur geymdum leyndarmálum aðskildum eftir viðbótum, svo g
 
 Hver tilkynning ber aðgerðina **Keyra leiðsagnarforrit** sem opnar [leiðsagnaruppsetninguna](/help/nornir/scheduler-setup-wizard/) á því skrefi sem lagar vandann.
 
+Önnur tilkynning telur þau leyndarmál sem hafa ekkert gildi enn, með aðgerð sem opnar listann yfir leyndarmál forritsins. Hún hverfur þegar öll skráð leyndarmál hafa verið slegin inn.
+
 ## Ábendingar
 
 -   Ef stöðureiturinn sýnir að röðin sé ekki í gangi, notið annaðhvort **Endurræsa vinnsluröð** hér eða keyrið [leiðsagnaruppsetninguna](/help/nornir/scheduler-setup-wizard/).

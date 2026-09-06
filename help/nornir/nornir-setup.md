@@ -62,6 +62,8 @@ When you open the page, the extension checks two things and shows a notification
 
 Each notification carries a **Run Setup Wizard** action that opens the [assisted setup](/help/nornir/scheduler-setup-wizard/) at the step that fixes the problem.
 
+A second notification counts the secrets that still have no value, with an action that opens the App Secrets list. It disappears once every registered secret has been entered.
+
 ## Tips
 
 -   If the status field shows that the queue is not running, either use **Restart Job Queue** here or run the [setup wizard](/help/nornir/scheduler-setup-wizard/).
