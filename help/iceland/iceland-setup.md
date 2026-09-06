@@ -1,83 +1,175 @@
 ---
 id: iceland-setup
-title: "Iceland Setup"
-sidebar_label: "Iceland Setup"
+title: "Bifrost Iceland Setup"
+sidebar_label: "Bifrost Iceland Setup"
 sidebar_position: 2
 ---
 
-Bifrost Iceland is configured from the **Iceland** group on the **Bifrost Setup** page, which the app adds through the page extension `Iceland Setup Ext ori`. A guided **Bifrost Iceland Setup** wizard (`Iceland Setup Wizard ori`) opens on first install and walks through the same settings step by step.
+The **Bifrost Iceland Setup** card (`Iceland Setup ori`) holds every setting of the Bifröst Iceland connectors — Umsjá, SMS, Skatturinn, Skilagrein and Já Gagnatorg. Open it from the **Bifrost Iceland Setup** action in the **Apps** group of the Bifröst **Setup** page, where it is also promoted, or by searching for *Bifrost Iceland Setup*. There is exactly one setup record per company.
 
-All settings are stored per company. Passwords are never written to the setup table — they go into Business Central Isolated Storage and can only be replaced, never read back.
+Nothing about Iceland is configured on Bifröst Foundation's own setup card any more. Foundation's **Setup** page carries a single Iceland action, and everything else lives here, so the app can be installed, configured and removed on its own.
 
-## Step 1 — HTTP client requests
+A guided **Set up Bifrost Iceland** wizard (`Iceland Setup Wizard ori`) walks through the same settings step by step. Start it from **Assisted Setup**, or from the **Setup Wizard** action on this page.
 
-Every connector in this app calls an external web service. Business Central blocks outgoing HTTP from an extension until it is allowed, so the wizard checks the switch first and offers **Enable HTTP Client Requests** and **Open Extension Settings**. Nothing else works until this is on.
+## Notifications
 
-## Step 2 — Umsjá (national registry)
+The card raises two notifications when they apply.
+
+| Notification | What to do |
+| --- | --- |
+| Outgoing HTTP client requests are not allowed for Bifröst Iceland. | Use the **Open Extension Settings** action on the notification and switch **Allow HttpClient Requests** on. No connector reaches an external service until this is on. |
+| Credentials are missing for one or more domains. | The text lists the domains that have nothing stored yet. Use the actions of that domain to enter the credentials. |
+
+## Umsjá
+
+Þjóðskrá lookups through the Umsjá service.
 
 | Field | Description |
 | --- | --- |
-| Iceland Umsja Client Type | Which Umsjá client to use — the live service or the built-in test/none client. |
-| Licence | The Umsjá licence number issued to the company. |
-| Username | Umsjá web-service user name. Stored in Isolated Storage. |
-| Password | Umsjá web-service password. Stored in Isolated Storage, shown masked. |
-| Credentials Stored | Read-only indicator on the setup page showing whether a user name and password are present. |
+| Umsja Client Type | Which Umsjá client the connector uses — the live service, or the test/none client. |
+| Umsja Licence | The Umsjá licence number issued to the company. |
+| Credentials | Whether an Umsjá user name and password are stored. Read-only — use the actions to set or clear them. |
 
-Umsjá credentials unlock the `Iceland.NationalRegistry.*`, `Iceland.Search*`, `Iceland.Parties.Get`, `Iceland.Relations.Get` and related message types. Umsjá objects are covered by **BIFROST Umsja ori**, which is not assignable on its own — it comes with **BIFROST ISFull ori**. The registry synchronization is gated separately by the assignable **BIFROST NatReg ori**.
+| Action | Description |
+| --- | --- |
+| Set User Name | Prompts for the Umsjá web-service user name in the shared masked dialog. |
+| Set Password | Prompts for the Umsjá web-service password in the shared masked dialog. |
+| Clear Credentials | Removes the stored Umsjá user name and password. |
 
-## Step 3 — SMS
+Umsjá credentials unlock `Iceland.NationalRegistry.*`, `Iceland.Search*`, `Iceland.Parties.Get`, `Iceland.Relations.Get` and the related lookups. The objects are covered by **BIFROST Umsja ori**, which is not assignable on its own — it comes with **BIFROST ISFull ori**. Registry synchronization is gated separately by the assignable **BIFROST NatReg ori**.
+
+## SMS
 
 | Field | Description |
 | --- | --- |
-| SMS Client Type | Which gateway handles `Iceland.SMS.Send` — Síminn, Síminn (SOAP), Nova, or none. |
-| Síminn — Default Sender ID | Sender shown to the recipient when the request does not name one. |
-| Síminn — Username / Password | Credentials for the Síminn magnSMS API. Stored in Isolated Storage. |
-| Nova — Default Sender ID | Sender used for the Nova gateway. |
-| Nova — Username / Password | Credentials for the Nova SMS API. Stored in Isolated Storage. |
+| SMS Client Type | Which gateway handles `Iceland.SMS.Send` — Síminn, Síminn (SOAP) or Nova. The sub-groups below follow this choice. |
+
+### Síminn
+
+Shown when the client type is Síminn or Síminn (SOAP).
+
+| Field | Description |
+| --- | --- |
+| Síminn Default Sender ID | Sender shown to the recipient when the request does not name one. Maximum 11 characters. |
+| Credentials | Whether a Síminn user name and password are stored. Read-only. |
+
+| Action | Description |
+| --- | --- |
+| Set Síminn User Name | Prompts for the Síminn magnSMS user name. |
+| Set Síminn Password | Prompts for the Síminn magnSMS password. |
+| Clear Síminn Credentials | Removes the stored Síminn user name and password. |
+
+### Nova
+
+Shown when the client type is Nova.
+
+| Field | Description |
+| --- | --- |
+| Nova Default Sender ID | Sender used for the Nova gateway when the request does not name one. |
+| Credentials | Whether a Nova user name and password are stored. Read-only. |
+
+| Action | Description |
+| --- | --- |
+| Set Nova User Name | Prompts for the Nova SMS user name. |
+| Set Nova Password | Prompts for the Nova SMS password. |
+| Clear Nova Credentials | Removes the stored Nova user name and password. |
 
 Sending to Icelandic numbers requires **BIFROST SMS ori**; sending to foreign numbers additionally requires **BIFROST SMS Fgn ori**.
 
-## Step 4 — Skatturinn (RSK)
+## Skatturinn
 
 | Field | Description |
 | --- | --- |
-| Skatturinn Client Type | Production or Test. Test submits to the RSK sandbox (`vefurp.rsk.is`) with no real tax consequences. |
-| VAT Password | Password for the VAT (virðisaukaskattur) web service. Stored in Isolated Storage. |
-| Payroll Password | Password for the payroll (staðgreiðsla) web service. Stored in Isolated Storage. |
-| FTS Password | Optional. Password for the capital income tax (fjármagnstekjuskattur) web service. |
-| VAT / Payroll / FTS Password Stored | Read-only indicators on the setup page showing which passwords are present. |
+| Rsk Client Type | Live or Test. Test submits to the RSK sandbox with no real tax consequences. |
+| VAT Password | Whether the VAT (virðisaukaskattur) password is stored. Read-only. |
+| Payroll Password | Whether the payroll (staðgreiðsla) password is stored. Read-only. |
+| Capital Income Tax Password | Whether the capital income tax (fjármagnstekjuskattur) password is stored. Read-only. |
 
-The company kennitala used to authenticate against Skatturinn is read from **Company Information**, not from this page — set the Registration Number there before submitting anything.
+| Action | Description |
+| --- | --- |
+| Set VAT Password | Prompts for the VAT web-service password. |
+| Set Payroll Password | Prompts for the payroll web-service password. |
+| Set Capital Income Tax Password | Prompts for the capital income tax web-service password. |
+| Clear Skatturinn Passwords | Removes all three stored Skatturinn passwords. |
+
+The kennitala used to authenticate against Skatturinn is read from **Company Information → Registration No.** It is never entered on this page, so set it there before submitting anything.
+
+When no capital income tax password is stored, the payroll password is used for capital income tax as well. Store a separate one only when RSK issued a different password for that service.
 
 Permission sets: **BIFROST VAT ori** for VAT, **BIFROST Payroll ori** for payroll, **BIFROST CapTax ori** for capital income tax.
 
-## Step 5 — Skilagrein
+## Skilagrein
 
 | Field | Description |
 | --- | --- |
-| Skilagrein Client Type | Which Skilagrein web client to use. |
+| Skg Client Type | Which Skilagrein web client the connector uses. |
 
-Skilagrein passwords are _not_ entered on the setup page. Each collector has its own web-service password, entered from the [Skilagrein Collectors](/help/iceland/iceland-skilagrein/) page with the **Set Web Service Password** action. Submitting to a collector requires **BIFROST Collect ori**.
+There is no Skilagrein password on this page. Each collector authenticates with its own web-service password, entered on the [Skilagrein Collectors](/help/iceland/iceland-skilagrein/) page with the **Set Web Service Password** action. Submitting to a collector requires **BIFROST Collect ori**.
 
-## Step 6 — Já Gagnatorg
+## Já Gagnatorg
 
 | Field | Description |
 | --- | --- |
-| Search API Key | Já Search v6 (Símaskrá) API key, used by `Ja.Search.Query`. Stored in Isolated Storage, shown masked. |
-| Search API Key Stored | Read-only indicator showing whether the Search key is present. |
-| Registry API Key | Já Skrá v1 (Þjóðskrá / Fyrirtækjaskrá) API key, used by `Ja.Person.Get` and `Ja.Company.Get`. Stored in Isolated Storage, shown masked. |
-| Registry API Key Stored | Read-only indicator showing whether the Registry key is present. |
+| Ja Client Type | Which Já Gagnatorg client the connector uses. |
+| Search API Key | Whether the Já Search v6 (Símaskrá) key used by `Ja.Search.Query` is stored. Read-only. |
+| Registry API Key | Whether the Já Skrá v1 (Þjóðskrá / Fyrirtækjaskrá) key used by `Ja.Person.Get` and `Ja.Company.Get` is stored. Read-only. |
 
-Calling any of the three real Ja Gagnatorg message types additionally requires the **BIFROST Ja ori** permission set. `Help.Ja.Get` is open to all users.
+| Action | Description |
+| --- | --- |
+| Set Search API Key | Prompts for the Já Search API key. |
+| Set Registry API Key | Prompts for the Já Registry API key. |
+| Clear Já API Keys | Removes both stored Já API keys. |
 
-## Related actions on the setup page
+Calling any of the three real Já Gagnatorg message types additionally requires **BIFROST Ja ori**. `Help.Ja.Get` is open to all users.
 
-The Iceland group on the Bifrost Setup page also links the master-data pages: Skilagrein Collectors, Pension Funds, Unions, Rehabilitation Funds, Pension Supplements, and [National Registry Entries](/help/iceland/iceland-umsja-registry/).
+## Other actions
+
+| Action | Description |
+| --- | --- |
+| App Secrets | Opens Bifröst Foundation's app secrets list, filtered to Bifröst Iceland, showing every registered secret and whether it is set. |
+| Setup Wizard | Starts the **Set up Bifrost Iceland** assisted setup. |
+| Skilagrein Collectors | Opens the [Skilagrein Collectors](/help/iceland/iceland-skilagrein/) master-data page. |
+| National Registry Entries | Opens the [National Registry Entries](/help/iceland/iceland-umsja-registry/) cache. |
+
+## Where the credentials live
+
+Every credential is held in the Bifröst Foundation **secret store**, not on this page and not in the setup table. Each **Set …** action opens the same shared masked dialog: the value is masked while you type, goes straight into storage, and is never displayed again. The fields on the card only report whether a value is present.
+
+| Secret code | Holds | Scope |
+| --- | --- | --- |
+| `UMSJA-USERNAME` | Umsjá web-service user name | Company |
+| `UMSJA-PASSWORD` | Umsjá web-service password | Company |
+| `SIMINN-USERNAME` | Síminn magnSMS user name | Company |
+| `SIMINN-PASSWORD` | Síminn magnSMS password | Company |
+| `NOVA-USERNAME` | Nova SMS user name | Company |
+| `NOVA-PASSWORD` | Nova SMS password | Company |
+| `RSK-VAT-PASSWORD` | Skatturinn VAT password | Company |
+| `RSK-PAYROLL-PASSWORD` | Skatturinn payroll password | Company |
+| `RSK-FTS-PASSWORD` | Skatturinn capital income tax password | Company |
+| `JA-SEARCH-API-KEY` | Já Search v6 API key | Company |
+| `JA-REGISTRY-API-KEY` | Já Skrá v1 API key | Company |
+| `SKG-COLLECTOR-<collector no.>-PASSWORD` | One per skilagrein.is collector, set from the collectors page | Company |
+
+The values are written to IsolatedStorage owned by the Bifröst Foundation extension, never to a table field, never to telemetry and never to the request log.
 
 ## Notes
 
--   All passwords are held in Isolated Storage and are never exposed in logs, in the request log, or in API responses.
--   Passwords do not carry over from the predecessor app. Bifrost Iceland is a separate extension, and Isolated Storage is private to each extension, so every password must be entered again here after installation.
--   Use the Skatturinn test client type for the first submissions and switch to Production once the payloads validate.
+-   **Credentials do not carry over from Origo Cloud Events Iceland.** IsolatedStorage is private to each extension, so nothing stored by the predecessor app is readable here. An administrator has to enter every credential once after installing Bifröst Iceland.
+-   The non-secret settings — client type selections, the Umsjá licence and the sender IDs — are taken over automatically on install and upgrade. Only the secrets need re-entering.
+-   Use the Skatturinn Test client type for the first submissions and switch to Live once the payloads validate.
 -   Message types that need no credentials — holidays, postal codes, ISO currencies, Seðlabanki rates, island.is lookups — work as soon as HTTP client requests are enabled.
--   **BIFROST ISFull ori** is a permission set extension: it adds every Iceland object to Bifrost Foundation's **BIFROST Full ori**. Assign **BIFROST Full ori** — the Iceland objects come with it.
+-   **BIFROST ISFull ori** is a permission set extension: it adds every Iceland object to Bifröst Foundation's **BIFROST Full ori**. Assign **BIFROST Full ori** — the Iceland objects come with it.
+
+## The setup wizard
+
+**Set up Bifrost Iceland** (`Iceland Setup Wizard ori`) covers the same ground in five steps.
+
+| Step | Covers |
+| --- | --- |
+| Welcome | What the wizard configures and what is needed before starting. |
+| Enable HTTP Client Requests | Checks the **Allow HttpClient Requests** switch and opens Extension Settings. |
+| Connector Clients | The client type of each domain — Umsjá, SMS, Skatturinn, Skilagrein, Já Gagnatorg. |
+| Credentials | Runs the same masked dialog as the setup card for each credential. |
+| Finish | Saves the settings and offers to open the setup card. |
+
+The wizard never writes a credential any other way — it calls the same shared dialog, so values still go straight to the secret store.

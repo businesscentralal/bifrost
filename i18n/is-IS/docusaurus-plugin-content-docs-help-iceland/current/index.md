@@ -12,7 +12,7 @@ slug: /
 
 | Síða | Lýsing |
 | --- | --- |
-| [Uppsetning Íslands](/help/iceland/iceland-setup/) | Auðkenni og tegundir biðlara fyrir Umsjá, SMS, Skattinn, Skilagrein og Já Gagnatorg. |
+| [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/) | Auðkenni og tegundir biðlara fyrir Umsjá, SMS, Skattinn, Skilagrein og Já Gagnatorg. |
 | [Einingar þjóðskrár](/help/iceland/iceland-umsja-registry/) | Staðbundið afrit þjóðskrárgagna sem sótt eru gegnum Umsjá. |
 | [Grunngögn skilagreinar](/help/iceland/iceland-skilagrein/) | Innheimtuaðilar, lífeyrissjóðir, stéttarfélög, endurhæfingarsjóðir og lífeyrisaukar. |
 
@@ -177,7 +177,7 @@ Opin gögn — engin auðkenni nauðsynleg.
 
 ### Já Gagnatorg (api.ja.is)
 
-Krefst heimildasettsins `BIFROST Ja ori` og leitar- eða skrár-API lykils á uppsetningarsíðu Íslands.
+Krefst heimildasettsins `BIFROST Ja ori` og leitar- eða skrár-API lykils á síðunni [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/).
 
 | Skilaboðategund | Lýsing |
 | --- | --- |
