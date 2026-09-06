@@ -41,7 +41,7 @@ The full description text is [below](#full-description-text).
 ---
 
 ## Help Link
-https://origopublic.blob.core.windows.net/help/BifrostNornir/bc28/en-US/index.html
+https://bifrost.origo.is/en-us/nornir/
 
 ## Support Link
 https://www.origo.is/
@@ -110,4 +110,4 @@ https://www.origo.is/
 
 ### Help and documentation
 
-https://origopublic.blob.core.windows.net/help/BifrostNornir/bc28/en-US/index.html (Icelandic help is available under `is-IS`).
+https://bifrost.origo.is/en-us/nornir/ (the Icelandic version is at https://bifrost.origo.is/is-is/nornir/).

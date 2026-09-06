@@ -13,15 +13,15 @@ import {fileURLToPath} from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const apps = [
-  {id: 'foundation', title: 'Foundation', appName: 'Bifrost Foundation', wave: 2},
-  {id: 'iceland', title: 'Iceland', appName: 'Bifrost Iceland', wave: 2},
-  {id: 'iceland-treasury', title: 'Iceland Treasury', appName: 'Bifrost Iceland Treasury', wave: 2},
+  {id: 'foundation', title: 'Foundation', appName: 'Bifrost Foundation', wave: 1},
+  {id: 'iceland', title: 'Iceland', appName: 'Bifrost Iceland', wave: 1},
+  {id: 'iceland-treasury', title: 'Iceland Treasury', appName: 'Bifrost Iceland Treasury', wave: 1},
   {id: 'iceland-docex', title: 'Iceland DocEx', appName: 'Bifrost Iceland DocEx', wave: 1},
   {id: 'bragi', title: 'Bragi', appName: 'Bifrost Bragi', wave: 1},
   {id: 'hnitbjorg', title: 'Hnitbjörg', appName: 'Bifrost Hnitbjorg', wave: 1},
   {id: 'nornir', title: 'Nornir', appName: 'Bifrost Nornir', wave: 1},
-  {id: 'clockify', title: 'Clockify', appName: 'Bifrost Clockify', wave: 2},
-  {id: 'subscription-billing', title: 'Subscription Billing', appName: 'Bifrost Subscription Billing', wave: 2},
+  {id: 'clockify', title: 'Clockify', appName: 'Bifrost Clockify', wave: 1},
+  {id: 'subscription-billing', title: 'Subscription Billing', appName: 'Bifrost Subscription Billing', wave: 1},
 ];
 
 const exists = async (p) => access(p, constants.F_OK).then(() => true).catch(() => false);

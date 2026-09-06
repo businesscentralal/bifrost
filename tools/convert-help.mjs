@@ -51,6 +51,19 @@ turndown.use(gfm);
 // are replaced by Docusaurus navigation, so they never reach the Markdown.
 turndown.remove(['script', 'style', 'nav']);
 
+// A `<pre>` with no `<code>` child comes out of Turndown as an indented block.
+// Markdown keeps it, but MDX still reads `{` inside it as an expression — and
+// these pages use bare `<pre>` for their JSON request and response samples.
+// Fencing it is what keeps the braces literal.
+turndown.addRule('barePre', {
+  filter: (node) => node.nodeName === 'PRE' && !node.querySelector('code'),
+  replacement(_content, node) {
+    const text = node.textContent.replace(/\s+$/, '');
+    const language = /^\s*[[{]/.test(text) ? 'json' : '';
+    return `\n\n\`\`\`${language}\n${text}\n\`\`\`\n\n`;
+  },
+});
+
 // The source pages link to their own sections by id (`#bis30`). Markdown would
 // otherwise generate a slug from the heading text and break every such link, so
 // an explicit id is carried across as Docusaurus's `{#id}` suffix.
