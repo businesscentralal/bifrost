@@ -1,0 +1,131 @@
+/**
+ * Bifröst site theme. Brand colours are taken from the Bifröst wordmark:
+ * teal accent on near-black, which doubles as a usable link colour on the
+ * light background and stays readable when inverted for dark mode.
+ */
+
+:root {
+  --ifm-color-primary: #008377;
+  --ifm-color-primary-dark: #00766b;
+  --ifm-color-primary-darker: #006f65;
+  --ifm-color-primary-darkest: #005c53;
+  --ifm-color-primary-light: #009083;
+  --ifm-color-primary-lighter: #009789;
+  --ifm-color-primary-lightest: #00aa9b;
+  --ifm-code-font-size: 92%;
+  --ifm-heading-font-weight: 650;
+  --bifrost-ink: #1d1f21;
+  --bifrost-surface: #ffffff;
+  --bifrost-border: rgba(29, 31, 33, 0.12);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #2fd4c1;
+  --ifm-color-primary-dark: #1cc7b3;
+  --ifm-color-primary-darker: #1abca9;
+  --ifm-color-primary-darkest: #159b8b;
+  --ifm-color-primary-light: #4bdac9;
+  --ifm-color-primary-lighter: #58dccd;
+  --ifm-color-primary-lightest: #7ee4d8;
+  --ifm-background-color: #16181a;
+  --ifm-background-surface-color: #1d2022;
+  --bifrost-ink: #f2f4f5;
+  --bifrost-surface: #1d2022;
+  --bifrost-border: rgba(255, 255, 255, 0.12);
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.1);
+}
+
+.navbar__title {
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* Hero -------------------------------------------------------------------- */
+
+.bifrostHero {
+  padding: 4rem 1rem 3rem;
+  text-align: center;
+  border-bottom: 1px solid var(--bifrost-border);
+}
+
+.bifrostHero h1 {
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  margin-bottom: 0.5rem;
+}
+
+.bifrostHero p {
+  max-width: 46rem;
+  margin: 0 auto 1.5rem;
+  font-size: 1.15rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* App grid ---------------------------------------------------------------- */
+
+.bifrostGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1.25rem;
+  padding: 2.5rem 0 3rem;
+}
+
+.bifrostCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid var(--bifrost-border);
+  border-radius: 12px;
+  background: var(--bifrost-surface);
+  color: inherit;
+  transition: border-color 150ms ease, transform 150ms ease;
+}
+
+.bifrostCard:hover {
+  text-decoration: none;
+  color: inherit;
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+}
+
+/* The app marks are square wordmarks on white, so they keep their own plate
+   in dark mode instead of dissolving into the page background. */
+.bifrostCard img {
+  width: 100%;
+  max-width: 8.5rem;
+  border-radius: 8px;
+  background: #ffffff;
+  align-self: center;
+}
+
+.bifrostCard h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.bifrostCard p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.bifrostBadge {
+  align-self: flex-start;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--bifrost-border);
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* Secondary link row ------------------------------------------------------ */
+
+.bifrostLinks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.25rem;
+  padding-bottom: 4rem;
+}
