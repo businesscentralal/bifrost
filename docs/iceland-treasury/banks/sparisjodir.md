@@ -22,7 +22,7 @@ The savings banks share a service contract but not a host. One Business Central 
 
 ## Message types
 
-The full request and response contract for each type — every field, every error — is in the generated [message type reference](../reference/message-types/). `Help.Sparisjodir.Get` returns the same index from inside Business Central.
+The full request and response contract for each type — every field, every error — is in the generated [message type reference](/iceland-treasury/reference/message-types/). `Help.Sparisjodir.Get` returns the same index from inside Business Central.
 
 ### Statements
 

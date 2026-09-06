@@ -25,7 +25,7 @@ Every call is written to Foundation's shared Bifröst Request Log with the log t
 
 ## Message types
 
-Each type below has a generated page in the [message type reference](../reference/message-types/), which carries the full request and response contract, the validation errors and the access rules. The same contract is available at runtime through `Help.Implementation.Get`.
+Each type below has a generated page in the [message type reference](/iceland-treasury/reference/message-types/), which carries the full request and response contract, the validation errors and the access rules. The same contract is available at runtime through `Help.Implementation.Get`.
 
 | Type | What it does |
 | --- | --- |

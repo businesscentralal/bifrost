@@ -6,7 +6,7 @@ sidebar_position: 1
 description: "Claims, cards, accounts, portfolios, electronic documents, acquiring and payments at Landsbankinn, exposed as 66 Bifröst message types."
 ---
 
-The Landsbankinn module connects Business Central to Landsbankinn's REST services and to the bank's IOBS (*Landsbankaskema*) SOAP operations. It is the largest of the bank modules in [Bifröst Iceland Treasury](../index.md): 66 message types covering claims, claim templates, claim batches, corporate cards, accounts, asset portfolios, reference rates, electronic documents, acquiring settlement, domestic payments and foreign payments, plus bank statement and card transaction import into Business Central's own reconciliation.
+The Landsbankinn module connects Business Central to Landsbankinn's REST services and to the bank's IOBS (*Landsbankaskema*) SOAP operations. It is the largest of the bank modules in [Bifröst Iceland Treasury](/iceland-treasury/): 66 message types covering claims, claim templates, claim batches, corporate cards, accounts, asset portfolios, reference rates, electronic documents, acquiring settlement, domestic payments and foreign payments, plus bank statement and card transaction import into Business Central's own reconciliation.
 
 Every operation is reached the same way as the rest of Bifröst — a caller submits a message naming the type, and the module signs and sends the request. Nothing about the bank's transport is exposed to the caller.
 
@@ -25,7 +25,7 @@ Every operation is reached the same way as the rest of Bifröst — a caller sub
 
 ## Message types
 
-The table below groups the 66 types by domain. The full request and response contract for each one — every field, every error — is in the generated [message type reference](../reference/message-types/). `Help.Landsbankinn.Get` returns the same index from inside Business Central.
+The table below groups the 66 types by domain. The full request and response contract for each one — every field, every error — is in the generated [message type reference](/iceland-treasury/reference/message-types/). `Help.Landsbankinn.Get` returns the same index from inside Business Central.
 
 ### Claims
 
