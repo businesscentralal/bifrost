@@ -22,6 +22,37 @@ sidebar_position: 3
 
 Neðst á spjaldinu getur þú bætt við hæfni (skills) sem mállíkanið hefur aðgang að.
 
+## Auðkenning
+
+Allir veitendur nema Copilot þurfa API-lykil. Lykillinn er aldrei reitur á þessari síðu — hann er í leyndarmálageymslu Bifrastar og spjaldið sýnir aðeins hvort gildi hafi verið skráð.
+
+| Reitur | Lýsing |
+| --- | --- |
+| **Persónulegur lykill geymdur** | Hvort *þú* hafir geymt persónulegan lykil fyrir þetta líkan. Persónulegur lykill gengur framar sameiginlega lyklinum. |
+| **Sameiginlegur lykill geymdur** | Hvort lykill fyrir allt fyrirtækið hafi verið geymdur fyrir þetta líkan. Allir sem hafa engan persónulegan lykil nota hann. |
+| **Athugasemd** | Birtist aðeins meðan enginn nothæfur lykill er til og útskýrir að skrá þurfi gildið einu sinni. |
+
+| Kóði leyndarmáls | Umfang |
+| --- | --- |
+| `LANGMODEL-<Kóði>-API-KEY` | Fyrirtæki — sameiginlegi lykillinn |
+| `LANGMODEL-<Kóði>-USER-API-KEY` | Fyrirtæki og notandi — persónulegi lykillinn |
+
+Business Central heldur geymdum leyndarmálum aðskildum eftir viðbótum, svo lykill sem var skráður í eldri útgáfu forritsins flyst ekki með. Skráið hvern lykil einu sinni.
+
+## Aðgerðir
+
+| Aðgerð | Lýsing |
+| --- | --- |
+| **Flytja inn sjálfgildi** | Sækir sjálfgefna hæfniskilgreiningu af staðlaðri slóð og fyllir mállíkanið með fyrirfram skilgreindum leiðbeiningum. |
+| **Prófa tengingu** | Kallar á veitandann með þeim lykli sem á við um þig og segir hvort líkanið svari. |
+| **Skrá persónulegan API-lykil** | Opnar sameiginlega hulda innsláttargluggann og geymir þinn eigin lykil fyrir þetta líkan. |
+| **Hreinsa persónulegan API-lykil** | Fjarlægir þinn eigin geymda lykil. Sameiginlegi lykillinn, ef hann er til, gildir þá aftur. |
+| **Skrá sameiginlegan API-lykil** | Geymir lykil fyrir allt fyrirtækið. Krefst heimildasettsins `BIFROST ChatSvc ori`. |
+| **Hreinsa sameiginlegan API-lykil** | Fjarlægir lykil fyrirtækisins. Krefst heimildasettsins `BIFROST ChatSvc ori`. |
+| **Prófa** | Opnar spjall gagnvart þessu mállíkani svo hægt sé að sannreyna stillingarnar áður en það er tekið í notkun. |
+
+Þegar mállíkani er eytt eru báðir lyklar þess hreinsaðir úr leyndarmálageymslunni.
+
 ## Sjá einnig
 
 -   [Bifröst mállíkan](/help/bragi/bifrost-lang-model-list/) – Listi yfir öll mállíkön
