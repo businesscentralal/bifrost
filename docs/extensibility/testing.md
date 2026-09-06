@@ -71,8 +71,27 @@ enumextension 98981 "Test Tools MsgType" extends "Message Type ori"
         Caption = 'Test Records Delete', Locked = true;
         Implementation = "Msg Interface ori" = "Test Records Delete Impl";
     }
+    value(98870; "Test.Secret.Set")
+    {
+        Caption = 'Test Secret Set', Locked = true;
+        Implementation = "Msg Interface ori" = "Test Secret Set Impl";
+    }
+    value(98871; "Test.Secret.Clear")
+    {
+        Caption = 'Test Secret Clear', Locked = true;
+        Implementation = "Msg Interface ori" = "Test Secret Clear Impl";
+    }
+    value(98872; "Test.Secret.List")
+    {
+        Caption = 'Test Secret List', Locked = true;
+        Implementation = "Msg Interface ori" = "Test Secret List Impl";
+    }
 }
 ```
+
+(`Test.Records.Get`, `Test.Blocking.Set` and `Test.Metering.Fail` also exist, at ordinals 98864–98866,
+for reading records generically, forcing a blocked write, and forcing a metering failure in tests — same
+shape, omitted here for brevity.)
 
 ### `Test.Setup.Get`
 
@@ -116,6 +135,48 @@ record. **A filter is mandatory** — deleting a whole table is refused.
 
 ```json
 { "tableName": "Customer", "tableView": "WHERE(No.=FILTER(BIFT-*))" }
+```
+
+### `Test.Secret.Set`
+
+Registers (idempotent) and writes a value into the shared `Secret Store ori` for an App Id
+and Secret Code — exactly what an application does through `Register` + `Set`, without a
+setup page or a masked dialog. The value is never returned in the response; the read-and-set
+path runs in a single `[NonDebuggable]` procedure so it never surfaces in a debugger session
+either. Use dummy values only — the same rule as any other secret written through this store.
+
+```json
+{ "appId": "11111111-1111-1111-1111-111111111111", "code": "API-KEY", "value": "dummy-value", "scope": "Company", "description": "Test secret" }
+```
+
+`scope` is `Company` (default) or `Company And User`; `description` is optional.
+
+```json
+{ "status": "Success", "appId": "...", "code": "API-KEY", "scope": "Company", "isSet": true }
+```
+
+### `Test.Secret.Clear`
+
+Clears the stored value of a `Secret Store ori` entry (`codeunit "Secret Store ori".Clear`) —
+the registration row stays, `isSet` goes back to `false`. A secret code that was never
+registered is a harmless no-op, matching `Clear`'s own behaviour.
+
+```json
+{ "appId": "11111111-1111-1111-1111-111111111111", "code": "API-KEY" }
+```
+
+### `Test.Secret.List`
+
+Lists the `App Secret ori` registry rows for an App Id — `code`, `description`, `scope`,
+`isSet`, `setOn` — so a test can verify a `Test.Secret.Set` / `Test.Secret.Clear` round trip.
+The value itself is never read or returned.
+
+```json
+{ "appId": "11111111-1111-1111-1111-111111111111" }
+```
+
+```json
+{ "status": "Success", "appId": "...", "secrets": [ { "code": "API-KEY", "description": "Test secret", "scope": "Company", "isSet": true, "setOn": "2026-09-06T12:00:00Z" } ] }
 ```
 
 ## Add your own `Test.*` types
@@ -202,6 +263,56 @@ a valid license."*
 Adding an entry there changes Foundation, so **Foundation has to be rebuilt and republished
 to the container** before the new test app's tests can run. Do that once, when the test app
 is created — not the first time a test fails on a licence error.
+
+## Autonomous testing
+
+An agent driving a test run purely through the queue API (`POST tasks`, no BC UI) needs a
+way to turn on the diagnostics it needs, seed the credentials the app under test calls for,
+run its scenarios, and clean up afterwards — all through message types. The pattern:
+
+1. **Turn on debug mode.** `Request Debug Mode` is a field on `Setup ori`, so
+   `Test.Setup.Get` and `Test.Setup.Set` already cover it — there is no separate
+   `Test.Debug.*` type. Read the current value first so it can be restored:
+
+   ```json
+   // Test.Setup.Get -> {"status":"Success","setup":{"Request Debug Mode":"false", ...}}
+   // Test.Setup.Set
+   { "fields": { "Request Debug Mode": true } }
+   ```
+
+   Debug mode only changes what `Request Logger ori` maskers keep unmasked for **outbound
+   connector calls** your app makes (see [Secrets](/foundation/reference/secrets) and the
+   masker interface in this app's own code). It does not affect the Bifröst message
+   queue itself: `Message ori`'s `Request Data` / `Response Data` always store the raw
+   incoming payload for every message type, on or off — that is how the framework routes
+   and replays messages, not a masking gap. Keep real secrets out of test payloads
+   regardless of debug mode; use dummy values, the same rule as everywhere else in this page.
+
+2. **Seed credentials from the caller's own environment, never from a file.** The agent
+   reads a value from its own environment variables (or a secret manager) and sends it as
+   the `value` property of `Test.Secret.Set` — the value only ever exists in the agent's
+   process memory and in `Secret Store ori`'s protected storage, never in a script or
+   config file:
+
+   ```json
+   { "appId": "<app under test id>", "code": "<secret code>", "value": "<from an environment variable>", "scope": "Company" }
+   ```
+
+   Confirm it landed with `Test.Secret.List` (`isSet: true` — the list never echoes the
+   value), run the scenarios, then `Test.Secret.Clear` when the run is done.
+
+3. **Set up the application under test** with `Test.Records.Set` for anything the product
+   API can't write directly (internal tables, guard-protected fields) — see the type above.
+
+4. **Run the scenarios**: one happy path per message type that verifies the effect by
+   reading data back, and at least one negative case that must return `status = Error`
+   with a helpful message — never an unhandled exception, never an HTTP 5xx. See
+   [Message types](/extensibility/message-types) for the two ways to invoke a type from
+   a test.
+
+5. **Turn debug mode back off** (`Test.Setup.Set` with `"Request Debug Mode": false`) and
+   clear any secret the run seeded that would not otherwise be there. The run owns
+   restoring the state it changed — see "Test data conventions" below.
 
 ## Test data conventions
 
