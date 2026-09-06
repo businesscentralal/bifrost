@@ -38,6 +38,14 @@ if (buildLocale && !localeDir) {
 /** baseUrl of the site currently being built (locale-prefixed for real builds). */
 const baseUrl = localeDir ? `${BASE_URL}${localeDir}/` : BASE_URL;
 
+/**
+ * Absolute root of the deployed site. Docusaurus resolves a bare `href`
+ * against the current baseUrl, which for a locale build already contains the
+ * locale segment — so anything that has to escape the locale (the language
+ * switcher, llms.txt) must be a fully qualified URL.
+ */
+const siteRoot = `${SITE_URL.replace(/\/$/, '')}${BASE_URL}`;
+
 function ensureTrailingSlash(value: string): string {
   return value.endsWith('/') ? value : `${value}/`;
 }
@@ -109,6 +117,9 @@ const config: Config = {
       '@easyops-cn/docusaurus-search-local',
       {
         hashed: true,
+        // No instance is called "default" here, so the search bar has to be
+        // told which one to read version preferences from.
+        docsPluginIdForPreferredVersion: 'foundation',
         indexBlog: false,
         indexPages: true,
         docsRouteBasePath: [
@@ -123,7 +134,7 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/bifrost-social-card.png',
+    image: 'img/foundation.png',
     colorMode: {
       defaultMode: 'dark',
       respectPrefersColorScheme: true,
@@ -150,8 +161,8 @@ const config: Config = {
           label: buildLocale === 'is-IS' ? 'Íslenska' : 'English',
           position: 'right',
           items: [
-            {label: 'English', href: `${BASE_URL}en-us/`, target: '_self'},
-            {label: 'Íslenska', href: `${BASE_URL}is-is/`, target: '_self'},
+            {label: 'English', href: `${siteRoot}en-us/`, target: '_self'},
+            {label: 'Íslenska', href: `${siteRoot}is-is/`, target: '_self'},
           ],
         },
         {
@@ -177,7 +188,7 @@ const config: Config = {
           items: [
             {label: 'Extensibility', to: '/extensibility/'},
             {label: 'Skills for AI agents', to: '/skills/'},
-            {label: 'llms.txt', href: `${BASE_URL}llms.txt`, target: '_self'},
+            {label: 'llms.txt', href: `${siteRoot}llms.txt`, target: '_self'},
             {label: 'GitHub', href: 'https://github.com/businesscentralal/bifrost'},
           ],
         },

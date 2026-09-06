@@ -1,0 +1,44 @@
+name: Build preview
+
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  SITE_URL: https://businesscentralal.github.io
+  BASE_URL: /bifrost/
+
+permissions:
+  contents: read
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Build both locales
+        run: npm run build
+
+      # The artifact is the review copy: download it, unzip, open index.html.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bifrost-site-${{ github.event.pull_request.number }}
+          path: build
+          retention-days: 14
