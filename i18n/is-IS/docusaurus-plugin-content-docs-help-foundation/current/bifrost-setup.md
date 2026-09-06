@@ -41,7 +41,6 @@ Stækkanlegt með `Company Name Type ori` enum (65601) og `Company Name ori` vi�
 | --- | --- |
 | **Bifröst skilaboð** | Opnar lista yfir öll Bifröst skilaboð í biðröðinni. |
 | **Bifröst samþætting** | Opnar [samþættigarskrána](/help/foundation/bifrost-integration/), þar sem þú getur farið yfir samþættigaratburði eftir uppruna, töflu og tímastimpli og merkt færslur sem bakfærðar. |
-| **Bifröst geymsla** | Opnar [geymsluna](/help/foundation/bifrost-storage/), þar sem þú getur skoðað, flutt inn og flutt út geymt tvíundarefni sem tengist Bifröst. |
 | **Svæðisaðgangur** | Opnar síðuna [Bifröst svæðisaðgangar](/help/foundation/bifrost-field-accesses/), þar sem hægt er að skilgreina aðgangstakmörkunar á reit-stigi fyrir notendur og Entra ID forrit. |
 | **Tungumál** | Opnar Windows tungumálasíðuna svo þú getir skoðað tiltæka tungumálakóða. |
 | **Bifröst þýðingar** | Opnar þýðingarlistann til að stjórna uppruna-/marktextapörum sem ytri kerfi nota. |

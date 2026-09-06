@@ -95,7 +95,7 @@ permission sets out of a flat, unnamespaced list in Business Central:
 
 ```
 BIFROST Foundation ori     BIFROST Nornir ori      BIFROST PlaybAdm ori
-BIFROST Storage ori        BIFROST GL Post ori     BIFROST Bragi ori
+BIFROST CoMem ori          BIFROST GL Post ori     BIFROST Bragi ori
 ```
 
 `BIFROST ` and ` ori` together spend twelve of the twenty characters, so the middle is
@@ -207,7 +207,7 @@ Icelandic caption uses "Bifröst":
 
 ```al
 Caption = 'Bifrost Setup', Comment = 'is-IS=Uppsetning Bifröst';
-Caption = 'Bifrost Storage', Comment = 'is-IS=Bifröst geymsla';
+Caption = 'Bifrost Integration', Comment = 'is-IS=Samþætting Bifröst';
 ```
 
 Inflect it as Icelandic requires — `Uppsetning Bifröst`, `skráarbeiðnum Bifrastar`.

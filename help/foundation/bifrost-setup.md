@@ -41,7 +41,6 @@ Extensible via the `Company Name Type` enum (65601) and the `Company Name` inter
 | --- | --- |
 | **Bifrost Messages** | Opens the list of all bifrost messages in the queue. |
 | **Bifrost Integration** | Opens the [Bifrost Integration](/help/foundation/bifrost-integration/) log, where you can review integration events by source, table, and timestamp, and mark records as reversed. |
-| **Bifrost Storage** | Opens the [Bifrost Storage](/help/foundation/bifrost-storage/) page, where you can view, import, and export stored blob content associated with bifrost. |
 | **Field Access** | Opens the [Bifrost Field Accesses](/help/foundation/bifrost-field-accesses/) page, where you can define field-level read/write restrictions for users and Entra ID applications. |
 | **Languages** | Opens the Windows Languages page so you can view available language codes. |
 | **Bifrost Translations** | Opens the translations list for managing source/target text pairs used by external systems. |

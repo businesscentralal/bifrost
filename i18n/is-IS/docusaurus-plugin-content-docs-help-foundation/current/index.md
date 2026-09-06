@@ -17,7 +17,6 @@ Viðbótin styður fjölda innbyggðra skilaboðagerða til að sækja lánamark
 | [Bifröst uppsetning](/help/foundation/bifrost-setup/) | Miðlæg uppsetningarsíða fyrir útfærsluaðferðir, vikmörk lánamarks og sjálfgefið tungumál. |
 | [Bifröst skilaboð](/help/foundation/bifrost-messages/) | Listi yfir öll Bifröst skilaboð með vinnslustöðu, beiðni-/svargögnum og vinnsluvalkostum. |
 | [Bifröst samþætting](/help/foundation/bifrost-integration/) | Rekstrarlegar skrár yfir samþættingaratburði, sem sýna upprunakerfi, töflu og tímastimpil fyrir hvern atburð. Styður merkingu færslna sem bakfærðar. |
-| [Bifröst geymsla](/help/foundation/bifrost-storage/) | Skoðaðu og stjórnaðu geymdu tvíundarefni sem tengist Bifröst. Styður inn- og útflutning skráa. |
 | [Ritill Bifröst skilaboða](/help/foundation/bifrost-message-editor/) | Innbyggður ritill til að skoða og breyta gagnafarm beiðni Bifröst skilaboða. |
 | [Bifröst beiðni](/help/foundation/bifrost-request/) | Upplýsingareitur sem sýnir komandi beiðnigögn valins Bifröst skilaboðs. |
 | [Bifröst svar](/help/foundation/bifrost-response/) | Upplýsingareitur sem sýnir svargögnin sem búin voru til eftir vinnslu Bifröst skilaboðs. |
