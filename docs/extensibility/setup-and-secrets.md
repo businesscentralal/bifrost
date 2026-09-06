@@ -14,68 +14,91 @@ Foundation which of its outbound traffic must never be logged in clear text.
 
 ## Reaching your setup from the Bifröst Setup page
 
-The **Bifrost Setup** page (`Setup ori`) is the entry point. It is the only page in the
-family with `UsageCategory = Administration`; everything else is reached from it.
+The **Bifrost Setup** page (`Setup ori`, page 10077914) is the entry point. It is the only
+page in the family with `UsageCategory = Administration`; everything else is reached from
+it.
 
-Two extension points matter:
+**The rule: a dependent app adds exactly one action.** Foundation ships two deliberately
+empty groups for that single action, and nothing else on the page is an extension point:
 
-- `area(Navigation)` — where your app adds a **group** holding its actions.
-- `group(Category_Apps)` in `area(Promoted)` — an intentionally empty promoted category
-  where dependent apps put an `actionref` for the one action that deserves the ribbon.
-  Foundation also declares an empty `Category_Connectors` group alongside it.
+| Group | Area | Purpose |
+| --- | --- | --- |
+| `Apps` | `area(Processing)` | Holds one action per installed Bifröst app |
+| `Category_Apps` | `area(Promoted)` | The matching promoted category, so that action reaches the ribbon |
 
-A `pageextension` that adds a group is the minimum. From Hnitbjörg:
+(`Category_Connectors` sits alongside `Category_Apps` and belongs to Foundation's own
+connector actions.)
+
+The whole footprint of a dependent app on the Bifröst Setup page is one page extension with
+one action and one action reference:
 
 ```al
-namespace Origo.Bifrost.Hnitbjorg;
+namespace Origo.Bifrost.IcelandTreasury;
 
 using Origo.Bifrost;
 
-pageextension 10035635 "Setup Ext. ori" extends "Setup ori"
+/// <summary>
+/// Adds the Bifröst Iceland Treasury setup action to the Bifröst Setup page.
+/// </summary>
+pageextension 10036010 "Treasury Setup Ext ori" extends "Setup ori"
 {
     actions
     {
-        addlast(Navigation)
+        addlast(Apps)
         {
-            group(StorageGroup)
+            action(TreasurySetup)
             {
-                Caption = 'Storage', Comment = 'is-IS=Geymsla';
-                Image = Departments;
-
-                action(StorageSetup)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Bifrost Storage Setup', Comment = 'is-IS=Uppsetning Bifröst geymslu';
-                    ToolTip = 'View and manage storage connections used to route Bifrost file requests to file accounts.', Comment = 'is-IS=Skoða og stjórna geymslutengingum sem eru notaðar til að beina skráarbeiðnum Bifrastar á skráargeymslureikninga.';
-                    Image = Attach;
-                    RunObject = page "Storage Setup ori";
-                }
+                ApplicationArea = All;
+                Caption = 'Iceland Treasury', Comment = 'is-IS=Fjárstýring Íslands';
+                ToolTip = 'Open the setup of the Bifröst Iceland Treasury application.', Comment = 'is-IS=Opna uppsetningu Bifröst fjárstýringar Íslands.';
+                Image = Bank;
+                RunObject = page "Treasury Setup ori";
+            }
+        }
+        addlast(Category_Apps)
+        {
+            actionref(TreasurySetup_Promoted; TreasurySetup)
+            {
             }
         }
     }
 }
 ```
 
-To promote one of those actions into the **Apps** category, add an `actionref` in the same
-extension:
+Keep the caption short — it is the app's name, not a sentence. The `ToolTip` carries the
+explanation.
 
-```al
-addlast(Category_Apps)
-{
-    actionref(ClockifySetupCardPromoted; ClockifySetupCard)
-    {
-    }
-}
-```
+### What you must not add to `Setup ori`
 
-Nornir's extension of the same page goes a step further: `OnOpenPage` sends a `Notification`
-when HTTP client requests are blocked or its job queue is not running, with an action that
-opens its setup wizard. That is a good pattern for anything an administrator must switch on
-before the app works — surface it where they already are, rather than failing later at
-call time.
+| Do not | Do this instead |
+| --- | --- |
+| Add fields to `Setup ori` through a table extension | Create your own setup table and page |
+| Add a field group to `Setup ori` through a page extension | Put the fields on your own setup page |
+| Add an action group of your own to `Setup ori` | Put the actions on your own setup page |
+| Add several actions to the `Apps` group | Add one; group the rest behind your setup page |
+| Add a promoted category of your own | Use `addlast(Category_Apps)` |
+
+The reason is upgrade cost. Foundation is shared by every Bifröst app. A field one app adds
+to `Setup ori` ships to every tenant that installs Foundation, is visible to every other
+app, and has to be carried forever, because removing it later is a breaking change.
+
+### Your own setup page
+
+A dependent app's setup page is an ordinary card page over its own setup table:
+
+- a `General` group with the app's own fields;
+- a group or action that opens **Bifrost App Secrets** filtered to the app, when it needs
+  secrets;
+- the app's own lists, logs and processing actions.
+
+Nornir's extension of the Bifröst Setup page goes one step further: `OnOpenPage` sends a
+`Notification` when HTTP client requests are blocked or its job queue is not running, with
+an action that opens its setup wizard. That is a good pattern for anything an administrator
+must switch on before the app works — surface it where they already are, rather than
+failing later at call time.
 
 Your own setup page carries `ContextSensitiveHelpPage`, and your `pageextension` may set
-its own `ContextSensitiveHelpPage` so F1 on Bifrost Setup lands on your app's page.
+its own so F1 on Bifrost Setup lands on your app's help page.
 
 ### `UsageCategory = None` on your own pages
 
@@ -107,6 +130,12 @@ now". Foundation ships a secret store for exactly this, and using it means the v
 to IsolatedStorage and nowhere else — not to a table, not to telemetry, not into an error
 message.
 
+**Never build your own secret store.** Not a table with an encrypted BLOB, not a per-app
+IsolatedStorage wrapper, not a "temporary" setup field. Foundation's store is the one place
+the family keeps credentials, and it is the only one the shared **Bifrost App Secrets**
+page can show an administrator. A second store means a secret nobody can find, rotate or
+audit.
+
 ### `Secret Store ori`
 
 Codeunit 10078305, `Access = Public`. Values are written to IsolatedStorage under the
@@ -121,6 +150,7 @@ Bifröst Foundation module with the key `<App Id>/<Secret Code>`.
 | `SetFromDialog(AppId; SecretCode)` | Opens Foundation's shared masked-input dialog. An overload adds confirmation entry and a multi-line field for long values such as a base-64 certificate. |
 | `MarkUsed(AppId; SecretCode)` | Stamps "last used", at most once per day. Call it from a context that may write — never from a read-only API request. |
 | `Clear(AppId; SecretCode)` / `ClearAll(AppId)` | Removes stored values, keeping the registration so the administrator still sees which secret is missing. |
+| `Unregister(AppId; SecretCode)` / `UnregisterAll(AppId)` | Removes stored values **and** deletes the registration row, so the secret no longer appears on Bifrost App Secrets at all. |
 | `GetStorageKey(AppId; SecretCode): Text` | The storage key, for assertions in tests. Never the value. |
 
 The `AppId` is always your own module:
@@ -175,6 +205,30 @@ page can open it filtered to your own app id.
 Because registration is what makes a secret visible there, a secret you forgot to register
 is invisible to the administrator — they cannot enter it, and they cannot see that it is
 missing.
+
+When the record that owns a secret is deleted — a bank connection, a provider configuration
+— call `Unregister` from its `OnDelete` trigger, so the registry does not keep listing a
+secret nobody uses any more.
+
+### Secrets do not survive a take-over
+
+IsolatedStorage is scoped to the extension that wrote it. A successor app has a **new app
+id**, so it cannot read what the app it replaces stored — the install take-over copies
+tables, and there is no way for it to copy secrets. Every credential has to be entered
+again after the switch.
+
+Three things follow:
+
+1. **Register every secret at install**, so the administrator sees the complete list of
+   what the new app needs on **Bifrost App Secrets** the moment it is installed.
+2. **Keep an `IsSet` status field per secret** on your own setup page, so a missing value is
+   visible where the administrator is working, not only after the first call fails.
+3. **Fail with a hint, not a stack trace.** When `TryGet` returns `false`, respond with
+   "Secrets missing — enter them on Bifrost App Secrets", naming the secret code.
+
+Say so in the release notes of the successor app. Re-entering credentials is a manual step
+in the cut-over plan, and an administrator who is not told will discover it from a failed
+integration.
 
 ## The request log and its masker
 

@@ -85,36 +85,74 @@ Set-StrictMode -Version Latest
 
 $PrefixMap = [ordered]@{
     # Bifröst Nornir — scheduling and orchestration
-    'Orchestrator.'       = 'nornir'
-    'Help.Orchestrator'   = 'nornir'
+    'Orchestrator.'         = 'nornir'
+    'Help.Orchestrator'     = 'nornir'
 
     # Bifröst Hnitbjörg — external storage
-    'Storage.'            = 'hnitbjorg'
-    'Help.Storage'        = 'hnitbjorg'
+    'Storage.'              = 'hnitbjorg'
+    'Help.Storage'          = 'hnitbjorg'
 
     # Bifröst Bragi — chat and language models
-    'LLM.'                = 'bragi'
-    'Chat.'               = 'bragi'
-    'Help.Chat'           = 'bragi'
-    'Help.LLM'            = 'bragi'
+    'LLM.'                  = 'bragi'
+    'Chat.'                 = 'bragi'
+    'Help.Chat'             = 'bragi'
+    'Help.LLM'              = 'bragi'
 
     # Bifröst Iceland DocEx — electronic document exchange
-    'DocumentExchange.'   = 'iceland-docex'
+    'DocumentExchange.'     = 'iceland-docex'
     'Help.DocumentExchange' = 'iceland-docex'
+
+    # Bifröst Clockify — time tracking
+    'Clockify.'             = 'clockify'
+    'Help.Clockify'         = 'clockify'
+
+    # Bifröst Subscription Billing
+    'Subscription.'         = 'subscription-billing'
+    'Help.Subscription'     = 'subscription-billing'
+
+    # Bifröst Iceland Treasury — the bank connectors. Listed before Bifröst
+    # Iceland because no key is shared, but kept together for readability.
+    'Landsbankinn.'         = 'iceland-treasury'
+    'Help.Landsbankinn'     = 'iceland-treasury'
+    'Arionbanki.'           = 'iceland-treasury'
+    'Arion.'                = 'iceland-treasury'
+    'Help.Arionbanki'       = 'iceland-treasury'
+    'Help.Arion'            = 'iceland-treasury'
+    'Islandsbanki.'         = 'iceland-treasury'
+    'Help.Islandsbanki'     = 'iceland-treasury'
+    'Kvikabanki.'           = 'iceland-treasury'
+    'Kvika.'                = 'iceland-treasury'
+    'Help.Kvikabanki'       = 'iceland-treasury'
+    'Help.Kvika'            = 'iceland-treasury'
+    'Sparisjodir.'          = 'iceland-treasury'
+    'Help.Sparisjodir'      = 'iceland-treasury'
+
+    # Bifröst Iceland — Icelandic government services, SMS and Já Gagnatorg.
+    # `Finance.VAT` is the exception to "Finance.* belongs to Foundation": the
+    # two Icelandic VAT statement types are implemented in Bifröst Iceland, and
+    # Foundation ships no Finance.VAT* type of its own.
+    'Iceland.'              = 'iceland'
+    'Help.Iceland'          = 'iceland'
+    'Ja.'                   = 'iceland'
+    'Help.Ja'               = 'iceland'
+    'Finance.VAT'           = 'iceland'
 }
 
-# Apps whose documentation this repository generates today. Wave-2 apps are added
-# here as their sections are filled in.
-$KnownApps = @('nornir', 'hnitbjorg', 'bragi', 'iceland-docex')
+# Apps whose documentation this repository generates. Every app in the family is
+# mapped; anything the table does not claim belongs to Bifröst Foundation, which
+# owns the standard ERP catalogue (Data.*, Sales.*, Purchase.*, Finance.*,
+# Inventory.*, Projects.*, Resources.*, Help.MessageTypes.Get and the rest).
+$KnownApps = @(
+    'foundation', 'iceland', 'iceland-treasury', 'iceland-docex',
+    'bragi', 'hnitbjorg', 'nornir', 'clockify', 'subscription-billing'
+)
 
-# The catalogue also contains Foundation's own types (Data.*, Finance.*, Sales.*,
-# Help.MessageTypes.Get, Test.*). Those belong to Bifröst Foundation, whose
-# documentation arrives in the second wave, so they are counted and skipped.
+$FallbackApp = 'foundation'
 
 # Test-only message types exist so a test app can reach setup that is
-# `Access = Internal`. They are not part of the public API and are never
-# published.
-$ExcludedPatterns = @('Test.*', '*.Test.*')
+# `Access = Internal`, or to stand in for an external service. They are not part
+# of the public API and are never published.
+$ExcludedPatterns = @('Test.*', '*.Test.*', '*.Mock.*')
 
 function Resolve-OwningApp {
     param([string] $Type, [string] $Directory)
@@ -131,7 +169,11 @@ function Resolve-OwningApp {
     foreach ($prefix in $PrefixMap.Keys) {
         if ($Type -like "$prefix*") { return $PrefixMap[$prefix] }
     }
-    return $null
+
+    # Unclaimed types are Foundation's own. Foundation owns the standard ERP
+    # catalogue, so its keys have no single prefix to match on — it is the
+    # residue, not a pattern.
+    return $FallbackApp
 }
 
 # ---------------------------------------------------------------------------
@@ -244,9 +286,32 @@ function ConvertTo-MdxSafe {
     })
 
     $escaped = $parked -replace '\{', '&#123;' -replace '\}', '&#125;'
-    $escaped = [regex]::Replace($escaped, '<(?=[A-Za-z][A-Za-z0-9._-]*[>\s])', '&lt;')
 
-    return [regex]::Replace($escaped, "`u{0}(\d+)`u{0}", { param($m) $fences[[int]$m.Groups[1].Value] })
+    # Every remaining `<` is escaped, not just the ones that look like a tag.
+    # Help text is prose and AL, so a bare `<` is a comparison operator (`<>`,
+    # `<=`) or a placeholder far more often than it is markup — and MDX reads
+    # `<>` as a fragment, which fails the build with an unclosed-tag error.
+    $escaped = $escaped -replace '<', '&lt;'
+
+    $restored = [regex]::Replace($escaped, "`u{0}(\d+)`u{0}", { param($m) $fences[[int]$m.Groups[1].Value] })
+
+    # A `|` inside an inline code span still splits a GFM table cell, which tears
+    # the span open and hands the rest of it to MDX as an expression. Escaping it
+    # is the documented workaround, and GFM renders `\|` back as a plain pipe.
+    $lines = $restored -split "`n"
+    for ($i = 0; $i -lt $lines.Count; $i++) {
+        if ($lines[$i].TrimStart().StartsWith('|')) {
+            $lines[$i] = [regex]::Replace($lines[$i], '`([^`
+]*)`', {
+                param($m)
+                $body = $m.Groups[1].Value
+                if ($body.Contains('|')) { return '`' + $body.Replace('|', '\|') + '`' }
+                return $m.Value
+            })
+        }
+    }
+
+    return ($lines -join "`n")
 }
 
 function Get-Slug {
@@ -301,10 +366,10 @@ function Write-CategoryFile {
     # folder. Without it Docusaurus files generated indexes under
     # `<app>/category/...`, which no link in the site would guess.
     $dir = Join-Path $SiteRoot "docs/$AppId/reference/message-types"
-    $category = @{
+    $category = [ordered]@{
         label    = 'Message types'
         position = 1
-        link     = @{
+        link     = [ordered]@{
             type        = 'generated-index'
             slug        = '/reference/message-types'
             description = "Every message type this app adds to the Bifröst catalogue. Generated from the app's own help codeunits."
@@ -316,10 +381,10 @@ function Write-CategoryFile {
     $referenceDir = Join-Path $SiteRoot "docs/$AppId/reference"
     $referenceCategory = Join-Path $referenceDir '_category_.json'
     if (-not (Test-Path $referenceCategory)) {
-        @{
+        [ordered]@{
             label    = 'Reference'
             position = 4
-            link     = @{
+            link     = [ordered]@{
                 type        = 'generated-index'
                 slug        = '/reference'
                 description = 'Developer reference for this app.'
@@ -377,28 +442,28 @@ try {
     }
 
     $planned = @()
-    $unmapped = @()
+    $excluded = @()
     foreach ($entry in $types) {
         $key = if ($entry -is [string]) { $entry } else { Get-Property $entry @('name', 'key', 'type', 'messageType') }
         $directory = if ($entry -is [string]) { '' } else { Get-Property $entry @('directory', 'helpDirectory') }
         if (-not $key) { continue }
 
         $owner = Resolve-OwningApp -Type $key -Directory $directory
-        if (-not $owner) { $unmapped += $key; continue }
+        if (-not $owner) { $excluded += $key; continue }
         if ($App -and $owner -ne $App) { continue }
         if (-not $App -and $KnownApps -notcontains $owner) { continue }
 
         $planned += [pscustomobject]@{ Type = $key; AppId = $owner }
     }
 
-    Write-Host ("Catalogue: {0} type(s); {1} mapped to a documented app; {2} belong to apps not documented here yet." -f @($types).Count, $planned.Count, $unmapped.Count)
+    Write-Host ("Catalogue: {0} type(s); {1} mapped to an app; {2} excluded (test-only)." -f @($types).Count, $planned.Count, $excluded.Count)
 
     if ($ListOnly) {
         $planned | Sort-Object AppId, Type | Format-Table -AutoSize
-        if ($unmapped.Count) {
+        if ($excluded.Count) {
             Write-Host ''
-            Write-Host 'Not mapped to a documented app (Foundation types and second-wave apps):'
-            $unmapped | Sort-Object | ForEach-Object { Write-Host "  $_" }
+            Write-Host 'Excluded (test-only message types, never published):'
+            $excluded | Sort-Object | ForEach-Object { Write-Host "  $_" }
         }
         return
     }

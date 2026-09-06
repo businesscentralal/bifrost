@@ -559,12 +559,12 @@ API PRIMER:
 
 ## Success Criteria
 
-1. `MCP Tool Server ori.Bootstrap()` returns a well-formed system prompt in < 100ms
+1. `MCP Tool Server ori.Bootstrap()` returns a well-formed system prompt in &lt; 100ms
 2. `MCP Tool Server ori.ListTools()` returns 16 tool definitions with correct schemas
 3. `MCP Tool Server ori.CallTool('invoke_message_type', { type: 'Data.Records.Get', ... })` returns correct data
 4. `list_message_types` only returns message types with `Enabled = true`
 5. Blob store correctly replaces large base64 with references and resolves them on input
-6. Response time per tool call < 50ms
+6. Response time per tool call &lt; 50ms
 
 ---
 

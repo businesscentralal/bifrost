@@ -157,10 +157,51 @@ interfaces that way.
 
 ## Running a message type from a test
 
-Inside AL, tests dispatch through `Dispatcher ori` exactly like production callers do; see
-[Message types](/extensibility/message-types). `Execute` is the lightweight path;
-`EnqueueAndProcess` exercises the full orchestrator when the test cares about language
-switching, response time or the completion event.
+There are two ways in, and they test different things.
+
+**Through `Dispatcher ori`** — the production path. The test dispatches exactly like an
+external caller does; see [Message types](/extensibility/message-types). `Execute` is the
+lightweight route; `EnqueueAndProcess` exercises the full orchestrator when the test cares
+about language switching, response time or the completion event. Use this whenever the
+test is about behaviour a caller would see.
+
+**Directly on the implementation codeunit** — the fast path, when the test is about the
+implementation's own logic. Build a temporary `Message Argument ori`, fill the request, and
+run the Impl against it:
+
+```al
+var
+    TempArgument: Record "Message Argument ori" temporary;
+    StorageFileGetImpl: Codeunit "Storage File Get Impl ori";
+begin
+    TempArgument.Init();
+    TempArgument.SetRequestData(RequestJson);
+    TempArgument.SetLicensed(true);
+    StorageFileGetImpl.Execute(TempArgument);
+end;
+```
+
+`SetLicensed(true)` is the part that is easy to miss. In production, `Message Task ori`
+marks the call as licensed; a test that skips the task never does, so every
+`Argument.AssertIsLicensed()` inside the implementation fails with *"This operation requires
+a valid license."*
+
+`SetLicensed` is **internal to Foundation**. For your test app to call it, Foundation's
+`app.json` must list that test app under `internalsVisibleTo`:
+
+```json
+"internalsVisibleTo": [
+    {
+        "id": "194ecd04-5688-4af6-94bc-732c714251fc",
+        "name": "Bifrost Nornir - Tests",
+        "publisher": "Origo"
+    }
+]
+```
+
+Adding an entry there changes Foundation, so **Foundation has to be rebuilt and republished
+to the container** before the new test app's tests can run. Do that once, when the test app
+is created — not the first time a test fails on a licence error.
 
 ## Test data conventions
 

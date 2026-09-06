@@ -1,0 +1,9 @@
+{
+  "label": "Reference",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "slug": "/reference",
+    "description": "The API surface, the setup table, security, events and licensing of Bifröst Foundation, plus the generated contract for every message type."
+  }
+}

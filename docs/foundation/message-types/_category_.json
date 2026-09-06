@@ -1,0 +1,9 @@
+{
+  "label": "Message type guides",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "slug": "/message-types",
+    "description": "Hand-written guides to the standard ERP message types Bifröst Foundation ships, grouped by business area. The generated per-type contract for each one is under Reference."
+  }
+}

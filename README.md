@@ -22,10 +22,24 @@ Built with [Docusaurus 3](https://docusaurus.io/) and deployed to GitHub Pages.
 | `/{locale}/extensibility/` | `extensibility` | How to build a dependent app on Bifröst Foundation |
 | `/{locale}/skills/` | `skills` | Skills for AI agents using Bifröst through the Origo BC MCP server |
 
-`<app>` is one of `foundation`, `iceland`, `iceland-treasury`, `iceland-docex`,
-`bragi`, `hnitbjorg`, `nornir`, `clockify`, `subscription-billing`. The list is
-declared once in [`apps.ts`](apps.ts); adding an entry there creates both
-instances and both navbar entries.
+The app list is declared once in [`apps.ts`](apps.ts); adding an entry there
+creates both instances and both navbar entries.
+
+| `<app>` | Extension | Source repository |
+| --- | --- | --- |
+| `foundation` | Bifrost Foundation | `bc-origo-bifrost-core` |
+| `iceland` | Bifrost Iceland | `bc-origo-bifrost-iceland` |
+| `iceland-treasury` | Bifrost Iceland Treasury | `bc-origo-bifrost-iceland-treasury` |
+| `iceland-docex` | Bifrost Iceland DocEx | `bc-origo-bifrost-iceland-docex` |
+| `bragi` | Bifrost Bragi | `bc-origo-bifrost-bragi` |
+| `hnitbjorg` | Bifrost Hnitbjorg | `bc-origo-bifrost-hnitbjorg` |
+| `nornir` | Bifrost Nornir | `bc-origo-bifrost-nornir` |
+| `clockify` | Bifrost Clockify | `origo-bc-cloudevents-clockify` |
+| `subscription-billing` | Bifrost Subscription Billing | `bc-origo-bifrost-subscription-billing` |
+
+Every app has a docs instance. A help instance holds one page per Business
+Central page that carries `ContextSensitiveHelpPage`, so an app with no pages of
+its own — Subscription Billing — has an index page and nothing else.
 
 On disk:
 
@@ -36,7 +50,7 @@ docs/skills/                English agent skills
 help/<app>/                 English help pages
 i18n/is-IS/docusaurus-plugin-content-docs-<instance>/current/
                             Icelandic translation of that instance
-static/llms.txt             Machine-readable index for AI agents
+static/skills/              Skill files served verbatim to AI agents
 tools/                      Scaffolding and generator scripts
 ```
 
@@ -120,8 +134,11 @@ npm run serve              # serve the combined build at http://localhost:3000
 
 `npm run build` runs three steps: an English build into `build/en-us`, an
 Icelandic build into `build/is-is`, and `tools/build-root.mjs`, which writes the
-root `index.html` (redirects by browser language, defaulting to English) and a
-`404.html` that sends any unknown locale prefix to the English site.
+root `index.html` (redirects by browser language, defaulting to English), a
+`404.html` that sends any unknown locale prefix to the English site, and
+`llms.txt` — the machine-readable index for AI agents, written at the site root
+and inside each locale. `llms.txt` is generated, not committed: it carries
+absolute URLs and is only correct once `SITE_URL` and `BASE_URL` are known.
 
 ## Generated message-type reference
 
