@@ -150,6 +150,7 @@ Bifröst Foundation module with the key `<App Id>/<Secret Code>`.
 | `SetFromDialog(AppId; SecretCode)` | Opens Foundation's shared masked-input dialog. An overload adds confirmation entry and a multi-line field for long values such as a base-64 certificate. |
 | `MarkUsed(AppId; SecretCode)` | Stamps "last used", at most once per day. Call it from a context that may write — never from a read-only API request. |
 | `Clear(AppId; SecretCode)` / `ClearAll(AppId)` | Removes stored values, keeping the registration so the administrator still sees which secret is missing. |
+| `Unregister(AppId; SecretCode)` / `UnregisterAll(AppId)` | Removes stored values **and** deletes the registration row, so the secret no longer appears on Bifrost App Secrets at all. |
 | `GetStorageKey(AppId; SecretCode): Text` | The storage key, for assertions in tests. Never the value. |
 
 The `AppId` is always your own module:
@@ -204,6 +205,10 @@ page can open it filtered to your own app id.
 Because registration is what makes a secret visible there, a secret you forgot to register
 is invisible to the administrator — they cannot enter it, and they cannot see that it is
 missing.
+
+When the record that owns a secret is deleted — a bank connection, a provider configuration
+— call `Unregister` from its `OnDelete` trigger, so the registry does not keep listing a
+secret nobody uses any more.
 
 ### Secrets do not survive a take-over
 
