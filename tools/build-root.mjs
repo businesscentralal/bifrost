@@ -68,15 +68,31 @@ const chooseLocale = `
 `;
 
 /**
- * A 404 inside a locale build is served by that build's own 404 page, so this
- * one only ever sees paths with a missing or unsupported locale prefix. It
- * keeps the rest of the path, which is what makes an unsupported Business
- * Central locale still land on the right help page in English.
+ * GitHub Pages serves this one 404 for every missing path on the site, so it
+ * has to tell two cases apart:
+ *
+ *   /xx-yy/help/nornir/setup/   an unsupported or differently-cased locale —
+ *                               rewrite the prefix and keep the rest of the
+ *                               path, so a Business Central client asking for
+ *                               a locale we do not publish still lands on the
+ *                               right help page;
+ *   /en-us/nornir/typo/         a genuinely missing page inside a locale we do
+ *                               publish — leave it alone. Rewriting it would
+ *                               produce the same URL and loop forever.
  */
 const rescueLocale = `
   var base = ${JSON.stringify(BASE_URL)};
-  var rest = location.pathname.slice(base.length).replace(/^[a-z]{2}(-[a-z]{2})?\\//i, '');
-  location.replace(base + 'en-us/' + rest + location.search + location.hash);
+  var rest = location.pathname.slice(base.length);
+  var match = rest.match(/^([a-z]{2}(?:-[a-z]{2})?)\\/(.*)$/i);
+  if (match) {
+    // Compared case-sensitively on purpose: GitHub Pages paths are
+    // case-sensitive, so /en-US/ is a miss that must be rewritten to /en-us/.
+    if (match[1] !== 'en-us' && match[1] !== 'is-is') {
+      var locale = match[1].toLowerCase();
+      var target = locale === 'is' || locale.indexOf('is-') === 0 ? 'is-is/' : 'en-us/';
+      location.replace(base + target + match[2] + location.search + location.hash);
+    }
+  }
 `;
 
 const exists = (p) => access(p, constants.F_OK).then(() => true).catch(() => false);
