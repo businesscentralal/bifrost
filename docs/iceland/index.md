@@ -24,9 +24,9 @@ Two message types run entirely inside Business Central with no external service:
 
 ## How it works
 
-1. Install Bifröst Foundation, then Bifröst Iceland. The **Bifrost Iceland Setup** wizard opens on first install.
+1. Install Bifröst Foundation, then Bifröst Iceland. The **Set up Bifrost Iceland** assisted setup opens on first install.
 2. Allow outgoing HTTP client requests for the extension — nothing reaches an external service until that is on.
-3. Enter the credentials each service needs, in the **Iceland** group of the **Bifrost Setup** page or through the wizard. Passwords go to Isolated Storage; they are never written to a table and are masked before any request reaches the Bifröst request log.
+3. Enter the credentials each service needs, on the **Bifrost Iceland Setup** card — reached from the **Apps** group of the Bifröst **Setup** page — or through the wizard. Every credential goes to the Bifröst Foundation secret store; nothing is written to a table and passwords are masked before any request reaches the Bifröst request log.
 4. Set the company kennitala in **Company Information → Registration No.** Skatturinn authentication reads it from there.
 5. Callers send Bifröst messages naming an `Iceland.*`, `Ja.*` or `Finance.VAT*` message type.
 

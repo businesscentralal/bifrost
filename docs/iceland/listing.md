@@ -125,7 +125,7 @@ All submissions support both production and test client types. Test mode sends t
 
 ### Security
 
-Credentials for Umsjá, Síminn, Nova and Skatturinn are held in Business Central Isolated Storage and are masked before any outbound request is written to the request log. Access is governed by dedicated permission sets: BIFROST ISFull ori, BIFROST Umsja ori, BIFROST NatReg ori, BIFROST VAT ori, BIFROST Payroll ori, BIFROST CapTax ori, BIFROST Collect ori, BIFROST SMS ori and BIFROST SMS Fgn ori.
+Credentials for Umsjá, Síminn, Nova, Skatturinn, Skilagrein and Já Gagnatorg are held in the Bifröst Foundation secret store, backed by Business Central IsolatedStorage, and are masked before any outbound request is written to the request log. Access is governed by dedicated permission sets: BIFROST ISFull ori, BIFROST Umsja ori, BIFROST NatReg ori, BIFROST VAT ori, BIFROST Payroll ori, BIFROST CapTax ori, BIFROST Collect ori, BIFROST SMS ori and BIFROST SMS Fgn ori.
 
 ### Supported editions and countries
 
