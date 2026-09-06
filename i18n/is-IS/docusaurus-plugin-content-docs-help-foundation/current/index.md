@@ -34,7 +34,6 @@ Viðbótin styður fjölda innbyggðra skilaboðagerða til að sækja lánamark
 | [Auðkenni kallara](/help/foundation/caller-identity/) | Sýnir auðkenni og sannvottunarupplýsingar núverandi API-kallara eða notandalotur. |
 | [Bifröst tilkynningar](/help/foundation/bifrost-notes/) | Listi yfir allar tilkynningar og athugasemdir í Bifröst kerfinu. |
 | [Bifröst tilkynningaspjald](/help/foundation/bifrost-note-card/) | Spjaldsíða til að skoða og breyta einni tilkynningu eða athugasemd í Bifröst kerfinu. |
-| [Skilaboðaþráður](/help/foundation/bifrost-note-fact-box/) | Upplýsingareitur sem sýnir skilaboðaþráð tengdan Bifröst tilkynningu. |
 | [Skilaboð](/help/foundation/bifrost-note-message/) | Síða til að skrifa eða skoða eitt skilaboð innan Bifröst tilkynningaþráðs. |
 | [Bifröst minni](/help/foundation/bifrost-memory/) | Fyrirtækjaminni samnýtt af öllum notendum í Bifröst kerfinu. |
 | [Bifröst notandaminni](/help/foundation/bifrost-user-memory/) | Persónulegt minni núverandi notanda, ekki sýnilegt öðrum. |

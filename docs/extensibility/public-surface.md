@@ -49,7 +49,7 @@ Implementations are registered through the matching extensible enum (column "Sel
 | Interface | Selector enum | Purpose |
 |---|---|---|
 | `Msg Interface ori` | `Message Type ori` | Contract for every message type. Implements `GetFilterTableNo`, `GetDescription`, `GetMessageDirection`, `GetMessageHelpAsMarkdownDocument`, `ExecuteBifrostTask`. |
-| `Msg Metering ori` | `Message Type ori` | Optional per value. Decides what one successful call costs: `GetChargeWeight`, `IsExempt`, `GetMeterName`. Values that do not name an implementation fall back to `Default Metering ori` (weight 1, `Help.*` and `Webhook.*` exempt, no meter). |
+| `Msg Metering ori` | `Message Type ori` | Metering hook, one procedure: `OnMessageCompleted(var Argument)`. Called after every successful call except `Help.*` and `Webhook.*`. Every value falls back to `Default Metering ori`, whose body does nothing; a billing solution overrides it on the types it prices. |
 | `Customer Credit Limit ori` | `Customer Credit Limit Type ori` | Replace the default credit-limit check used by `Customer.CreditLimit.Get`. |
 | `Customer Statement` | `Customer Statement Type` | Provide an alternative customer-statement PDF for `Customer.Statement.Pdf`. |
 | `Item Calc. Availability ori` | `Item Calc. Avail.Type ori` | Replace the default item-availability calculation. |

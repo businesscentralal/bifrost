@@ -4,9 +4,10 @@ title: "Metering interface"
 sidebar_position: 8
 ---
 
-`Msg Metering ori` is the contract a message type implements to control what one successful
-call costs. It is the second interface on `Message Type ori`: `Msg Interface ori` says what
-a type does, `Msg Metering ori` says what it costs.
+`Msg Metering ori` is the metering hook of a Bifröst message type. Foundation calls it once
+after every successful message call so that a billing or metering solution can record what
+happened. It is the second interface on `Message Type ori`: `Msg Interface ori` says what a
+type **does**, `Msg Metering ori` is told when it **has been done**.
 
 Namespace `Origo.Bifrost`. Selector enum `Message Type ori` (10077894).
 
@@ -19,93 +20,86 @@ enum 10077894 "Message Type ori" implements "Msg Interface ori", "Msg Metering o
 }
 ```
 
-Metering is **optional per value**. Any value that does not name a `Msg Metering ori`
-implementation — including enum-extension values from dependent apps — resolves to
-`Default Metering ori`.
+Because the enum names a `DefaultImplementation`, **every** value has the hook — Foundation
+values and the enum-extension values of dependent apps alike — without declaring anything.
 
-## Methods
+## The method
 
-| Signature | Returns |
-|---|---|
-| `procedure GetChargeWeight(var Argument: Record "Message Argument ori"): Integer` | The licence units one successful call consumes. |
-| `procedure IsExempt(var Argument: Record "Message Argument ori"): Boolean` | `true` when the type is never charged and never blocked. |
-| `procedure GetMeterName(): Text[50]` | The optional meter the consumption is reported under. |
-
-### `GetChargeWeight`
+```al
+procedure OnMessageCompleted(var Argument: Record "Message Argument ori")
+```
 
 | | |
 |---|---|
-| Parameter | `Argument` — the `Message Argument ori` of the call being metered. Carries the message type, subject and request payload. |
-| Returns | The units to charge for one **successful** call. |
-| `0` | The call is free: it runs, it is not counted, and it does not appear under a meter. |
-| Negative | Treated as `0`. |
-| Evaluated | **Before** the task runs, so the request payload is available and a weight may depend on how much work the caller asked for. |
+| Parameter | `Argument` — the completed `Message Argument ori`. Carries the message type (`Type`), the `Subject`, the request content and the response the caller receives. |
+| Returns | Nothing. |
+| Called | Once, after a **successful** call, before the response is written back to the queue row. |
+| Must not | Change the response, or assume it runs inside the caller's transaction. |
 
-The weight is only applied when the call succeeds. A response with `status` other than
-`Success` is not charged, whatever the weight.
+## When Foundation calls it
 
-### `IsExempt`
+`Message Task ori` runs the hook when all of the following hold:
 
-| | |
+- the message type's key does **not** start with `Help.` or `Webhook.`;
+- the implementation ran and the response is successful — a JSON object whose `status` is
+  `Success`, or a non-JSON response such as PDF or CSV.
+
+Nothing else gates it. In particular the hook runs:
+
+| Condition | Hook runs |
 |---|---|
-| Parameter | `Argument` — the `Message Argument ori` of the call being metered. |
-| Returns | `true` when the type is exempt from licensing. |
-| Effect | An exempt call is never counted **and** never blocked by the quota check. It runs even when the caller's pool is exhausted. |
+| Production, on-premises, and SaaS sandbox | Yes, in all three |
+| Message-quota licensing required | Yes |
+| Message-quota licensing **not** required (SaaS sandbox) | Yes |
+| Caller's pool exhausted, call refused | No — the call never ran |
+| Response `status` is `Error` | No |
+| `Help.*` or `Webhook.*` message type | No |
 
-Exemption takes precedence over the weight.
+The `Help.` / `Webhook.` prefix rule is the same long-standing rule that exempts those
+types from charging. It is the only exemption: a message type cannot opt itself out of the
+hook.
 
-### `GetMeterName`
+## Defensive invocation
 
-| | |
-|---|---|
-| Parameters | None — a meter names a family of message types, not a single call. |
-| Returns | A meter name of at most 50 characters, or an empty string. |
-| Blank | Consumption is reported in the pool total only. |
-| Storage | Foundation upper-cases the name before writing it to the `Meter` field, so `Playbook` and `PLAYBOOK` are one meter. |
+A metering implementation must never cost the caller its response, so Foundation wraps the
+call in a `TryFunction`:
 
-A meter never replaces the pool total; it is an additional breakdown reported alongside it.
+- an error raised by the implementation is caught;
+- the implementation's own database writes are rolled back;
+- the failure is written as telemetry;
+- the caller receives exactly the response it would have received with no hook at all.
 
-## Behaviour matrix
+| Telemetry event | Event ID | Verbosity | Custom dimensions |
+|---|---|---|---|
+| Message metering hook failed | `ORI-BIF-0170` | Error | `messageType`, `error` |
 
-| `IsExempt` | `GetChargeWeight` | Quota checked before the call | Charged on success | Reported under the meter |
-|---|---|---|---|---|
-| `true` | any | No | No | No |
-| `false` | `0` or negative | Yes | No | No |
-| `false` | `N` (1 or more) | Yes, for `N` units | `N` units | Yes, when `GetMeterName` is not blank |
+`error` carries the first 250 characters of the last error text.
 
 ## Implementations in Foundation
 
 | Codeunit | Used by | Behaviour |
 |---|---|---|
-| `Default Metering ori` (10078308) | Every value that does not name an implementation | Weight `1`; `Help.*` and `Webhook.*` exempt by name prefix; no meter. |
-| `Help MsgTypes Metering ori` (10078309) | `Help.MessageTypes.Get` | Weight `0`, always exempt, no meter. |
+| `Default Metering ori` (10078308) | Every value that does not name an implementation | Empty body. Costs one interface call per successful message and does nothing else. |
 
-`Help MsgTypes Metering ori` is the worked example: the API directory declares its
-exemption through the interface instead of relying on the `Help.*` name prefix, so
-discovery stays free even if the type is ever renamed out of the `Help.*` group.
+Foundation ships no other implementation. It counts messages for licensing on its own and
+needs no help from the hook.
 
-## What is recorded
+## What the hook does not do
 
-Each processed message records the result of metering on the `Message ori` row:
+The hook has no influence on charging, and charging is unchanged from before the hook
+existed:
 
-| Field | Type | Meaning |
-|---|---|---|
-| `Charge Type` | Enum `Charge Type ori` | The pool the message was charged against, or `None` when the message is exempt or already reported. |
-| `Charge Weight` | Integer, default `1` | The units the message consumed. |
-| `Meter` | Code[50] | The meter the message was reported under. Blank means pool total only. |
+- a successful, non-exempt call costs exactly **one message** from the caller's pool;
+- the pool — **User** or **App Registration** — is resolved centrally from the caller's
+  identity and is recorded in `Message ori."Charge Type"`;
+- there is no charge weight, no meter and no per-type price in the platform.
 
-Both new fields are `Access = Internal`. See [Licensing](/foundation/reference/licensing/)
-for how they reach the daily usage sync.
-
-## Discovery
-
-- `Help.MessageTypes.Get` returns `exempt`, `chargeWeight` and `meter` per message type, so
-  a caller can price a call before making it.
-- `Help.License.Get` returns an optional `pendingMeters` object with the per-meter units
-  charged locally but not yet reported.
+A solution that needs per-call pricing keeps that model in its own tables and fills it from
+the hook.
 
 ## Related
 
+- [Metering a message type](/extensibility/metering) — how a dependent app opts in, with the
+  codeunit and enum extension to copy.
 - [Licensing](/foundation/reference/licensing/) — the pools, enforcement and the usage sync.
-- [Metering a message type](/extensibility/metering) — how a dependent app opts in.
 - [Foundation public surface](/extensibility/public-surface) — every public extension point.

@@ -5,7 +5,7 @@ sidebar_position: 7
 ---
 
 Bifröst notar leyfislíkan sem byggir á **skilaboðakvóta**. Engin úthlutun á einstaka notendur
-og engin athugun á leyfisþrepum. Tveir kvótapottar eru mældir, hvor um sig í **leyfiseiningum**:
+og engin athugun á leyfisþrepum. Tveir kvótapottar eru mældir, hvor um sig í **skilaboðum**:
 
 | Pottur | Notað af |
 |--------|----------|
@@ -14,7 +14,7 @@ og engin athugun á leyfisþrepum. Tveir kvótapottar eru mældir, hvor um sig �
 
 ## Hvað telur
 
-Skilaboð draga einingar úr potti kallandans þegar allt eftirfarandi á við:
+Skilaboð draga **eina** einingu úr potti kallandans þegar allt eftirfarandi á við:
 
 - Skilaboðategundin er **ekki undanþegin**. `Help.*` og `Webhook.*` tegundir eru undanþegnar — þær
   keyra alltaf, eru aldrei stöðvaðar og draga aldrei af kvóta.
@@ -26,28 +26,16 @@ skilaboðategunda framkvæma ekki leyfisathuganir.
 
 ## Hvað skilaboð kosta
 
-Hversu margar einingar árangursrík skilaboð nýta ræðst af skilaboðategundinni sjálfri, í gegnum
-viðmótið `Msg Metering ori` á enuminu `Message Type ori`. Viðmótið svarar þremur spurningum fyrir
-hverja tegund: **gjaldvægi** (einingar á hvert árangursríkt kall), hvort tegundin er **undanþegin**,
-og valfrjálsa **mælinum** sem notkunin er tilkynnt undir.
+Ein skilaboð. Það er ekkert gjaldvægi, enginn mælir og ekkert verð á hverja tegund: hvert
+gjaldskylt kall kostar nákvæmlega eina einingu úr pottinum, og potturinn sem gjaldfært var á
+er skráður í reitinn **Gjaldtegund** (Charge Type) á `Message ori` færslunni.
 
-Skilaboðategund sem útfærir það ekki — sem eru allar tegundir sem hafa ekki tekið það upp, þar með
-taldar enum-viðbótargildi háðra forrita — fellur aftur á `Default Metering ori`: vægi **1**, `Help.*`
-og `Webhook.*` undanþegnar eftir nafnforskeyti, enginn mælir. Það er nákvæmlega hegðunin sem lýst er
-hér að ofan, óbreytt.
-
-Hver unnin skilaboð skrá því tvo reiti á `Message ori` færsluna til viðbótar við gjaldtegundina:
-
-| Reitur | Tegund | Merking |
-|--------|--------|---------|
-| **Gjaldvægi** (Charge Weight) | Heiltala, `1` sjálfgefið | Leyfiseiningarnar sem þessi skilaboð nýttu. |
-| **Mælir** (Meter) | Code[50] | Valfrjálsi mælirinn sem skilaboðin voru tilkynnt undir. Autt þýðir eingöngu heildartala pottsins. |
-
-Færslur sem voru gjaldfærðar fyrir þessa útgáfu bera ekkert vægi; uppfærslueiningin fyllir þær út með
-vægi 1, þannig að söguleg notkun telst nákvæmlega eins og hún var tilkynnt.
-
-Sjá [mælingaviðmótið](/foundation/reference/metering-interface/) fyrir samninginn, og
-[Mæling skilaboðategundar](/extensibility/metering) fyrir hvernig háð forrit tekur það upp.
+Skilaboðategund má hins vegar fá að vita að kallað hafi verið á hana. `Msg Metering ori` er
+krókur sem grunnurinn kallar á eftir hvert árangursríkt kall sem er ekki undanþegið, svo
+gjaldtöku- eða mælingalausn geti haldið eigið bókhald. Krókurinn hefur engin áhrif á
+talninguna hér að ofan. Sjá [mælingaviðmótið](/foundation/reference/metering-interface/)
+fyrir samninginn, og [Mæling skilaboðategundar](/extensibility/metering) fyrir hvernig háð
+forrit tekur hann upp.
 
 ## Prufuútgáfa
 
@@ -56,25 +44,55 @@ fyrir leigjandann.
 
 ## Framfylgd
 
-Áður en gjaldfært skilaboð er unnið er pottur kallandans athugaður fyrir þann fjölda eininga sem
-skilaboðategundin biður um:
+Áður en gjaldfært skilaboð er unnið er pottur kallandans athugaður:
 
-- Ef eftirstöðvar pottsins eru **0 eða minna** eru skilaboðin **ekki unnin** og skilað er
-  formuðu villusvari (`status` = `Error`) með `requestUrl`.
+- Föst **100 skilaboða umlíðun** gildir, þannig að pottur heldur áfram að virka örlítið
+  umfram keypt magn. Pottur telst uppurinn þegar eftirstöðvar hans eru komnar meira en 100
+  skilaboð undir núll.
+- Þegar potturinn er uppurinn **og** potturinn lokar (sjá hér að neðan) eru skilaboðin
+  **ekki unnin** og skilað er formuðu villusvari (`status` = `Error`) með `requestUrl`.
 - Ef eftirstöðvar eru óþekktar (ný uppsetning fyrir fyrstu samstillingu, eða leyfisþjónustan er
   tímabundið ónáanleg) er vinnsla **leyfð** (fail-open).
 
-Föst **100 skilaboða umlíðun** er beitt af leyfisþjónustunni, þannig að pottur heldur áfram að virka
-örlítið umfram keypt magn áður en hann er stöðvaður.
+### Lokun eða viðvörun
+
+Það sem gerist við uppurinn pott ræðst fyrir hvern pott. Stillingin er uppsetning en ekki
+auðkenni, svo hún býr í IsolatedStorage með **einingaumfangi** — eitt gildi fyrir allan
+leigjandann frekar en eitt fyrir hvert fyrirtæki:
+
+| Lykill | Gagnaumfang | Pottur |
+|--------|-------------|--------|
+| `BlockOnMissingQuota-User` | `DataScope::Module` | Notandi |
+| `BlockOnMissingQuota-AppRegistration` | `DataScope::Module` | Forritsskráning |
+
+| Gildi | Áhrif |
+|-------|-------|
+| `true`, **eða lykilinn vantar** | Kallinu er hafnað með villunni um uppurinn kvóta hér að ofan. Að lykilinn vanti er venjulega staðan, svo þetta er virka gildið nánast alls staðar. |
+| `false` | Kallið keyrir. Það er eftir sem áður gjaldfært á pottinn og svarið ber áfram kvótaviðvörunina — leigjandinn heldur einfaldlega áfram að vinna umfram keyptan kvóta. |
+
+Lyklarnir eru skrifaðir af **leyfissamstillingunni** (`Usage Sync ori`) og engu öðru: engin
+síða og engin skilaboðategund vörunnar setur þá. Í samstillingarkóðanum er `TODO` sem markar
+hvar gildin verða lesin úr uppsetningarskjali Entra-leigjandans í Azure Cosmos DB. Þangað til
+það skjal er til vantar lyklana og báðir pottar loka, nákvæmlega eins og Bifröst hefur alltaf
+gert.
+
+Virka gildi hvors potts sést á tveimur stöðum:
+
+- skrifvarið í hópnum **Lokun við uppurinn kvóta** á síðunni **Tengingastaða Bifröst**, sem er
+  aðgengileg úr **Leyfi**-hópnum á uppsetningarsíðu Bifröst. Gildi sem aldrei hefur verið
+  samstillt er sýnt sem innbyggða sjálfgefna gildið frekar en sem geymd stilling;
+- sem `blockOnMissingQuota` fyrir hvorn pott í JSON-leyfisstöðunni, sem lýst er undir
+  [Að skoða stöðu](#að-skoða-stöðu).
 
 ## Viðvaranir um lágan kvóta
 
 Árangursrík JSON-svör bera `warnings` fylki þegar pottur kallandans er að klárast:
 
-| Eftirstöðvar | Alvarleiki |
-|--------------|------------|
-| undir 1.000 | `approaching` |
-| 100 eða minna | `grace` |
+| Eftirstöðvar | Alvarleiki | Merking |
+|--------------|------------|---------|
+| 1 til 100 | `approaching` | Kvótinn er við það að klárast. |
+| 0 eða minna | `grace` | Kvótinn er uppurinn; potturinn gengur á 100 skilaboða umlíðunina. |
+| meira en 100 undir núlli | `exhausted` | Umlíðunin er líka fullnýtt. Næst aðeins fyrir pott þar sem `blockOnMissingQuota` er `false` — annars var kallinu hafnað í stað þess að vara við. |
 
 Uppsetningarsíða Bifröst sýnir einnig tilkynningu þegar annar potturinn fer undir 1.000.
 
@@ -83,13 +101,9 @@ Uppsetningarsíða Bifröst sýnir einnig tilkynningu þegar annar potturinn fer
 Notkun er tilkynnt til leyfisþjónustunnar einu sinni á dag **fyrir hvert fyrirtæki**:
 
 - Fyrstu gjaldfæru skilaboð dagsins áætla bakgrunnsverk.
-- Verkið **leggur saman gjaldvægi** gjaldfærðra skilaboða hvers liðins dags eftir potti (það telur
-  ekki lengur færslur), endurnýjar eftirstöðvar beggja potta og núllstillir tilkynntu skilaboðin.
+- Verkið telur gjaldfærð skilaboð hvers liðins dags eftir potti, endurnýjar eftirstöðvar
+  beggja potta og núllstillir tilkynntu skilaboðin.
 - Notkun er tilkynnt eftir **tætigildi fyrirtækis** undir **tætigildi leigjanda**.
-
-Þegar notkun dagsins skiptist á nefnda mæla ber notkunarskjalið valfrjálsa `meters` sundurliðun við
-hliðina á `quantity`. Sundurliðunin er viðbót og afturvirkt samhæf: hún vantar þegar enginn mælir er
-notaður, og samtala mælanna er aldrei hærri en `quantity`.
 
 ```json
 {
@@ -98,25 +112,36 @@ notaður, og samtala mælanna er aldrei hærri en `quantity`.
   "companyId": "…",
   "date": "2026-09-05",
   "licenseType": "User",
-  "quantity": 412,
-  "meters": { "PLAYBOOK": 180, "LLM": 96 }
+  "quantity": 412
 }
 ```
 
 ## Að skoða stöðu
 
-- `Help.Bifrost.Get` skilar núverandi leyfisstöðu (tætigildi leigjanda og fyrirtækis, ásamt
-  eftirstöðvum og gildi hvers potts).
-- `Help.License.Get` skilar leyfis- og reikningsskjölunum, ásamt valfrjálsum `pendingMeters` hlut með
-  einingum á hvern mæli sem hafa verið gjaldfærðar staðbundið en ekki enn tilkynntar. Eigindin er
-  aðeins skrifuð þegar að minnsta kosti ein mæld skilaboð bíða, þannig að svör hjá leigjendum sem
-  nota enga mæla eru óbreytt.
-- `Help.MessageTypes.Get` skilar `exempt`, `chargeWeight` og `meter` fyrir hverja skilaboðategund,
-  svo kallandi getur verðlagt kall áður en hann gerir það. Tegundin er sitt eigið dæmi: hún lýsir
-  yfir undanþágu sinni í gegnum mælingaviðmótið í stað þess að reiða sig á `Help.*` nafnforskeytið.
+- `Help.Bifrost.Get` skilar núverandi leyfisstöðu sem `licenseStatus`.
+- `Help.License.Get` skilar leyfis- og reikningsskjölunum og ber nú sama `licenseStatus` hlut,
+  svo kallandi sem les leyfisfærslur hvort eð er þarf ekki aðra ferð fram og til baka.
 - `Help.License.Sync` (aðeins stjórnandi) þvingar samstillingu strax og skilar uppfærðri stöðu.
 - **Leyfi**-staðreyndareiturinn á uppsetningarsíðunni sýnir sömu upplýsingar auk fjölda óskráðra
   skilaboða og dagsetningar síðustu samstillingar.
+
+Leyfisstöðuhluturinn lítur svona út:
+
+```json
+"licenseStatus": {
+  "tenantIdHash": "a7f3c1…",
+  "companyIdHash": "b2d4e6…",
+  "companyName": "CRONUS International Ltd.",
+  "user":            { "remaining": 812, "valid": true, "blockOnMissingQuota": true },
+  "appRegistration": { "remaining": -40, "valid": true, "blockOnMissingQuota": false }
+}
+```
+
+| Reitur | Tegund | Merking |
+|--------|--------|---------|
+| `remaining` | heiltala / null | Skilaboð sem eftir eru í pottinum; `null` meðan ekkert gildi hefur verið samstillt. |
+| `valid` | boolean | Ósatt um leið og potturinn er kominn fram úr 100 skilaboða umlíðuninni. |
+| `blockOnMissingQuota` | boolean | `true` (sjálfgefið) hafnar köllum um leið og potturinn er uppurinn; `false` lætur þau keyra, gjaldfærir þau eftir sem áður og skilar áfram kvótaviðvöruninni. Skrifvarið — aðeins leyfissamstillingin skrifar það. |
 
 ## Að óska eftir leyfum
 

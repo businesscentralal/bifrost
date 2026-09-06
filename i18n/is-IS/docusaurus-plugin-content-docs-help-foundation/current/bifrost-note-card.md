@@ -29,4 +29,3 @@ sidebar_position: 13
 ## Sjá einnig
 
 -   [Bifröst tilkynningar](/help/foundation/bifrost-notes/) – Allir skilaboð í innhólfinu
--   [Skilaboðaþráður](/help/foundation/bifrost-note-fact-box/) – Sjá þráðinn

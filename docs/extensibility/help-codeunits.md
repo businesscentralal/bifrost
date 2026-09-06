@@ -170,8 +170,8 @@ end;
 ```
 
 `Help.*` types are exempt from licence quota in the orchestrator: they always run, are
-never blocked, and are never counted. That exemption is the default; a type can also
-declare it explicitly through [`Msg Metering ori`](/extensibility/metering).
+never blocked, and are never counted. The same name-prefix rule keeps them out of the
+[metering hook](/extensibility/metering).
 
 ## How discovery finds your help
 

@@ -4,9 +4,10 @@ title: "Metering interface"
 sidebar_position: 8
 ---
 
-`Msg Metering ori` er samningurinn sem skilaboðategund útfærir til að stýra því hvað eitt
-árangursríkt kall kostar. Það er annað viðmótið á `Message Type ori`: `Msg Interface ori` segir hvað
-tegund **gerir**, `Msg Metering ori` segir hvað hún **kostar**.
+`Msg Metering ori` er mælingakrókur Bifröst-skilaboðategundar. Grunnurinn kallar á hann einu
+sinni eftir hvert árangursríkt skilaboðakall svo gjaldtöku- eða mælingalausn geti skráð það
+sem gerðist. Þetta er annað viðmótið á `Message Type ori`: `Msg Interface ori` segir hvað
+tegund **gerir**, `Msg Metering ori` er sagt þegar það **hefur verið gert**.
 
 Nafnrými `Origo.Bifrost`. Valenum `Message Type ori` (10077894).
 
@@ -19,92 +20,87 @@ enum 10077894 "Message Type ori" implements "Msg Interface ori", "Msg Metering o
 }
 ```
 
-Mæling er **valfrjáls fyrir hvert gildi**. Hvert gildi sem nefnir ekki `Msg Metering ori` útfærslu —
-þar með talin enum-viðbótargildi háðra forrita — leysist í `Default Metering ori`.
+Af því að enumið nefnir `DefaultImplementation` ber **hvert einasta** gildi krókinn — jafnt
+gildi grunnsins sem enum-viðbótargildi háðra forrita — án þess að lýsa yfir nokkru.
 
-## Aðferðir
+## Aðferðin
 
-| Undirskrift | Skilar |
-|---|---|
-| `procedure GetChargeWeight(var Argument: Record "Message Argument ori"): Integer` | Leyfiseiningunum sem eitt árangursríkt kall nýtir. |
-| `procedure IsExempt(var Argument: Record "Message Argument ori"): Boolean` | `true` þegar tegundin er aldrei gjaldfærð og aldrei stöðvuð. |
-| `procedure GetMeterName(): Text[50]` | Valfrjálsa mælinum sem notkunin er tilkynnt undir. |
-
-### `GetChargeWeight`
+```al
+procedure OnMessageCompleted(var Argument: Record "Message Argument ori")
+```
 
 | | |
 |---|---|
-| Viðfang | `Argument` — `Message Argument ori` kallsins sem verið er að mæla. Ber skilaboðategund, efni og beiðnigögn. |
-| Skilar | Einingunum sem gjaldfæra á fyrir eitt **árangursríkt** kall. |
-| `0` | Kallið er ókeypis: það keyrir, er ekki talið og birtist ekki undir mæli. |
-| Neikvætt | Meðhöndlað sem `0`. |
-| Metið | **Áður en** verkið keyrir, svo beiðnigögnin eru tiltæk og vægi má ráðast af því hversu mikla vinnu kallandinn bað um. |
+| Viðfang | `Argument` — `Message Argument ori` kallsins sem lauk. Ber skilaboðategundina (`Type`), efnið (`Subject`), beiðnigögnin og svarið sem kallandinn fær. |
+| Skilar | Engu. |
+| Kallað | Einu sinni, eftir **árangursríkt** kall, áður en svarið er skrifað aftur á biðraðarfærsluna. |
+| Má ekki | Breyta svarinu, né gera ráð fyrir að keyra innan færsluheildar kallandans. |
 
-Vægið er aðeins beitt þegar kallið heppnast. Svar með `status` annað en `Success` er ekki gjaldfært,
-hvert sem vægið er.
+## Hvenær grunnurinn kallar á hann
 
-### `IsExempt`
+`Message Task ori` keyrir krókinn þegar allt eftirfarandi á við:
 
-| | |
+- lykill skilaboðategundarinnar byrjar **ekki** á `Help.` eða `Webhook.`;
+- útfærslan keyrði og svarið er árangursríkt — JSON-hlutur þar sem `status` er `Success`,
+  eða svar sem er ekki JSON, t.d. PDF eða CSV.
+
+Ekkert annað stýrir því. Krókurinn keyrir sérstaklega:
+
+| Aðstæður | Krókurinn keyrir |
 |---|---|
-| Viðfang | `Argument` — `Message Argument ori` kallsins sem verið er að mæla. |
-| Skilar | `true` þegar tegundin er undanþegin leyfisgjaldi. |
-| Áhrif | Undanþegið kall er aldrei talið **og** aldrei stöðvað af kvótaathugun. Það keyrir jafnvel þegar pottur kallandans er tómur. |
+| Í rekstri, í eigin umhverfi og í sandkassa í skýinu | Já, í öllum þremur |
+| Leyfisskylda á skilaboðakvóta gildir | Já |
+| Leyfisskylda á skilaboðakvóta gildir **ekki** (sandkassi í skýinu) | Já |
+| Pottur kallandans tómur, kalli hafnað | Nei — kallið keyrði aldrei |
+| `status` svarsins er `Error` | Nei |
+| `Help.*` eða `Webhook.*` skilaboðategund | Nei |
 
-Undanþága gengur framar væginu.
+Nafnforskeytisreglan um `Help.` og `Webhook.` er sama gamalgróna reglan og undanþiggur þær
+tegundir gjaldtöku. Hún er eina undantekningin: skilaboðategund getur ekki afskráð sig sjálf
+úr króknum.
 
-### `GetMeterName`
+## Kallað með varúð
 
-| | |
-|---|---|
-| Viðföng | Engin — mælir nefnir fjölskyldu skilaboðategunda, ekki stakt kall. |
-| Skilar | Mælisheiti, mest 50 stafir, eða tómum streng. |
-| Autt | Notkun er aðeins tilkynnt í heildartölu pottsins. |
-| Geymsla | Bifröst hástafar heitið áður en það er skrifað í `Meter` reitinn, þannig að `Playbook` og `PLAYBOOK` eru einn og sami mælirinn. |
+Mælingarútfærsla má aldrei kosta kallandann svarið sitt, svo grunnurinn vefur kallið í
+`TryFunction`:
 
-Mælir kemur aldrei í stað heildartölu pottsins; hann er viðbótarsundurliðun við hliðina á henni.
+- villa sem útfærslan kastar er gripin;
+- skriftir útfærslunnar í gagnagrunninn eru bakfærðar;
+- bilunin er skrifuð í fjarmælingar;
+- kallandinn fær nákvæmlega það svar sem hann hefði fengið án nokkurs króks.
 
-## Hegðunartafla
+| Fjarmælingaratburður | Auðkenni | Alvarleiki | Sérvíddir |
+|---|---|---|---|
+| Message metering hook failed | `ORI-BIF-0170` | Error | `messageType`, `error` |
 
-| `IsExempt` | `GetChargeWeight` | Kvóti athugaður fyrir kall | Gjaldfært við árangur | Tilkynnt undir mæli |
-|---|---|---|---|---|
-| `true` | hvað sem er | Nei | Nei | Nei |
-| `false` | `0` eða neikvætt | Já | Nei | Nei |
-| `false` | `N` (1 eða meira) | Já, fyrir `N` einingar | `N` einingar | Já, þegar `GetMeterName` er ekki autt |
+`error` ber fyrstu 250 stafina úr síðasta villutexta.
 
-## Útfærslur í Foundation
+## Útfærslur í grunninum
 
 | Eining | Notuð af | Hegðun |
 |---|---|---|
-| `Default Metering ori` (10078308) | Hverju gildi sem nefnir ekki útfærslu | Vægi `1`; `Help.*` og `Webhook.*` undanþegnar eftir nafnforskeyti; enginn mælir. |
-| `Help MsgTypes Metering ori` (10078309) | `Help.MessageTypes.Get` | Vægi `0`, alltaf undanþegin, enginn mælir. |
+| `Default Metering ori` (10078308) | Hverju gildi sem nefnir ekki útfærslu | Tómt meginmál. Kostar eitt viðmótskall fyrir hver árangursrík skilaboð og gerir ekkert annað. |
 
-`Help MsgTypes Metering ori` er dæmið sem unnið er út frá: efnisskrá vefþjónustunnar lýsir yfir
-undanþágu sinni í gegnum viðmótið í stað þess að reiða sig á `Help.*` nafnforskeytið, þannig að
-uppgötvun helst ókeypis jafnvel þótt tegundin verði einhvern tímann færð út úr `Help.*` hópnum.
+Grunnurinn sendir enga aðra útfærslu. Hann telur skilaboð fyrir leyfin á eigin spýtur og
+þarf enga hjálp frá króknum.
 
-## Hvað er skráð
+## Hvað krókurinn gerir ekki
 
-Hver unnin skilaboð skrá niðurstöðu mælingarinnar á `Message ori` færsluna:
+Krókurinn hefur engin áhrif á gjaldtöku, og gjaldtakan er óbreytt frá því áður en hann varð
+til:
 
-| Reitur | Tegund | Merking |
-|---|---|---|
-| `Charge Type` | Enum `Charge Type ori` | Potturinn sem skilaboðin voru gjaldfærð á, eða `None` þegar skilaboðin eru undanþegin eða þegar tilkynnt. |
-| `Charge Weight` | Heiltala, sjálfgefið `1` | Einingarnar sem skilaboðin nýttu. |
-| `Meter` | Code[50] | Mælirinn sem skilaboðin voru tilkynnt undir. Autt þýðir eingöngu heildartala pottsins. |
+- árangursríkt kall sem er ekki undanþegið kostar nákvæmlega **ein skilaboð** úr potti
+  kallandans;
+- potturinn — **Notandi** eða **Forritsskráning** — er ákveðinn miðlægt út frá auðkenni
+  kallandans og er skráður í `Message ori."Charge Type"`;
+- það er ekkert gjaldvægi, enginn mælir og ekkert verð á hverja tegund í kerfinu.
 
-Báðir nýju reitirnir eru `Access = Internal`. Sjá [Licensing](/foundation/reference/licensing/) um
-hvernig þeir rata í daglegu notkunarsamstillinguna.
-
-## Uppgötvun
-
-- `Help.MessageTypes.Get` skilar `exempt`, `chargeWeight` og `meter` fyrir hverja skilaboðategund,
-  svo kallandi getur verðlagt kall áður en hann gerir það.
-- `Help.License.Get` skilar valfrjálsum `pendingMeters` hlut með einingum á hvern mæli sem hafa
-  verið gjaldfærðar staðbundið en ekki enn tilkynntar.
+Lausn sem þarf verðlagningu á hvert kall heldur utan um það líkan í eigin töflum og fyllir
+það úr króknum.
 
 ## Tengt efni
 
+- [Metering a message type](/extensibility/metering) — hvernig háð forrit tekur krókinn upp,
+  með einingunni og enum-viðbótinni til að afrita.
 - [Licensing](/foundation/reference/licensing/) — pottarnir, framfylgdin og notkunarsamstillingin.
-- [Mæling skilaboðategundar](/extensibility/metering) — hvernig háð forrit tekur mælingu upp.
-- [Foundation public surface](/extensibility/public-surface) — allir opinberir viðbótarpunktar.
+- [Foundation public surface](/extensibility/public-surface) — allir opinberu útvíkkunarpunktarnir.

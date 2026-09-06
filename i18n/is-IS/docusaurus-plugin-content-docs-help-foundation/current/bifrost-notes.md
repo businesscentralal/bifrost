@@ -28,4 +28,3 @@ Síðan **Bifröst tilkynningar** er innhólf notandans fyrir öll skilaboð og 
 ## Sjá einnig
 
 -   [Tilkynningaspjald](/help/foundation/bifrost-note-card/) – Nákvæmar upplýsingar um eina tilkynningu
--   [Skilaboðaþráður](/help/foundation/bifrost-note-fact-box/) – Samtal um eina færslu

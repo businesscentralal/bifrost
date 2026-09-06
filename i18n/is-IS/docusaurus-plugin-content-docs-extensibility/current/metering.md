@@ -3,23 +3,56 @@ id: metering
 title: "Mæling skilaboðategundar"
 sidebar_label: "Mæling skilaboðategundar"
 sidebar_position: 3
-description: "Að taka upp Msg Metering ori viðmótið fyrir skilaboðategund til að stýra hvað eitt árangursríkt kall kostar, hvort það er ókeypis og undir hvaða mæli það er tilkynnt."
+description: "Msg Metering ori krókurinn sem Bifröst kallar á eftir hver árangursrík skilaboð, og hvernig gjaldtöku- eða mælingalausn hengir eigið bókhald á hann."
 ---
 
 # Mæling skilaboðategundar
 
-Bifröst gjaldfærir leyfispott kallandans einu sinni fyrir hver árangursrík skilaboð sem
-eru ekki undanþegin. Hvaða pottur kallið lendir í — **Notandi** eða **Forritsskráning** —
-er ákveðið miðlægt og skilaboðategund hefur engin áhrif á það. Það sem skilaboðategund
-*getur* haft áhrif á er verðið: hversu margar leyfiseiningar eitt árangursríkt kall nýtir,
-hvort það er ókeypis, og undir hvaða mæli notkunin er tilkynnt.
+Bifröst kallar á einn krók eftir hver árangursrík skilaboð: `Msg Metering ori`. Hann er til
+þess að gjaldtöku- eða mælingalausn hafi stað til að hengja sig á — verðlagningu á hvert
+kall, teljara fyrir leigjanda, ytri mæli — án þess að breyta grunninum og án þess að skrá
+sig á atburð sem kviknar við allt mögulegt.
 
-Það er hlutverk `Msg Metering ori`. Það er annað, valfrjálst viðmót á sama enum-gildinu og
-nefnir nú þegar útfærsluna þína.
+Krókurinn er viljandi einfaldur. Hann ræður ekki hvað kall kostar, hann getur ekki gert kall
+ókeypis og hann getur ekki breytt því sem kallandinn fær til baka. Honum er sagt að kall hafi
+átt sér stað, og það er allt og sumt.
 
-## Tvö viðmót á einu enumi
+## Samningurinn
 
-`Message Type ori` (10077894) í Foundation lýsir nú yfir báðum:
+Ein aðferð:
+
+```al
+interface "Msg Metering ori"
+{
+    procedure OnMessageCompleted(var Argument: Record "Message Argument ori")
+}
+```
+
+`Argument` ber allt kallið sem lauk: skilaboðategundina, efnið, beiðnigögnin og svarið sem
+kallandinn er í þann mund að fá. Lestu eins mikið af því og þú þarft — en ekki breyta svarinu.
+
+Samningurinn aðferð fyrir aðferð, fjarmælingaratburðurinn og reglurnar um kallið eru í
+[tilvísun mælingaviðmótsins](/foundation/reference/metering-interface/).
+
+## Hvenær hann keyrir
+
+`Message Task ori` kallar á krókinn einu sinni eftir hvert **árangursríkt** skilaboðakall:
+
+- í **öllum umhverfum** — í rekstri, í sandkassa og í eigin umhverfi;
+- hvort sem leyfisskylda á skilaboðakvóta gildir í umhverfinu eða ekki;
+- fyrir allar skilaboðategundir allra forrita, jafnt grunnsins sem háðra forrita.
+
+Eina undantekningin er nafnforskeytisreglan sem hefur alltaf ráðið gjaldtöku: skilaboðategundir
+sem byrja á `Help.` eða `Webhook.` ná aldrei króknum. Uppgötvun og svarkall eru ekki
+gjaldskyld vinna og eru því ekki mæld heldur. Það er engin önnur leið til að vera undanþeginn —
+skilaboðategund getur ekki afskráð sig sjálf.
+
+Ekkert keyrir krókinn eftir misheppnað kall. Svar þar sem `status` er annað en `Success` er
+hvorki gjaldfært né mælt.
+
+## Ekkert að gera fyrir núverandi forrit
+
+`Message Type ori` lýsir yfir viðmótinu og sjálfgefinni útfærslu:
 
 ```al
 enum 10077894 "Message Type ori" implements "Msg Interface ori", "Msg Metering ori"
@@ -30,172 +63,96 @@ enum 10077894 "Message Type ori" implements "Msg Interface ori", "Msg Metering o
 }
 ```
 
-`Msg Interface ori` segir hvað tegundin **gerir**. `Msg Metering ori` segir hvað hún
-**kostar**. Þau eru aðskilin svo verðlagning geti breyst án þess að snerta viðskiptarökin,
-og svo fjölskylda tegunda geti deilt einni mælingaeiningu.
+`Default Metering ori` (10078308) er með tómt meginmál. Af því að enumið nefnir hana sem
+sjálfgefna útfærslu ber hvert einasta gildi — þar með talin enum-viðbótargildin í forritinu
+þínu — krókinn nú þegar án þess að lýsa yfir nokkru, og að gera ekkert kostar eitt tómt
+viðmótskall fyrir hver árangursrík skilaboð. Ef þú ert ekki að smíða gjaldtökulausn máttu
+hætta að lesa hér.
 
-## Ekkert að gera fyrir núverandi forrit
+## Gjaldtakan er óbreytt
 
-Af því að enumið lýsir yfir `DefaultImplementation` fellur hvert gildi sem nefnir ekki
-`Msg Metering ori` útfærslu — þar með talin enum-viðbótargildin í forritinu þínu — aftur á
-`Default Metering ori`, sem endurskapar nákvæmlega það sem Bifröst gerði áður en viðmótið
-var til:
+Krókurinn hefur engin áhrif á gjaldtöku. Gjaldtakan virkar nákvæmlega eins og hún gerði áður
+en krókurinn varð til:
 
-- gjaldvægi **1** fyrir hvert árangursríkt kall;
-- `Help.*` og `Webhook.*` tegundir **undanþegnar**, eftir nafnforskeyti;
-- **enginn** mælir.
+- nákvæmlega **ein skilaboð** fyrir hvert árangursríkt kall sem er ekki undanþegið;
+- gjaldfærð á pott kallandans, **Notandi** eða **Forritsskráning**, sem er ákveðinn miðlægt;
+- skráð í `Message ori."Charge Type"`.
 
-Bifrost Nornir og Bifrost Bragi voru þýdd óbreytt gegn nýju Foundation til að staðfesta
-það. Ef þú ert sátt/ur við eina einingu á hvert kall þarftu ekki að bæta neinu við.
+Það er ekkert vægi, enginn mælir og ekkert verð á hverja tegund neins staðar í kerfinu. Ef
+lausnin þín þarf slíkt heldur hún utan um það í eigin töflum — og það er einmitt það sem
+krókurinn er til.
 
-## Samningurinn
+Sjá [Licensing](/foundation/reference/licensing/) fyrir pottana, framfylgdina og daglegu
+notkunarsamstillinguna.
+
+## Að taka krókinn upp
+
+Skrifaðu einingu sem útfærir viðmótið og bentu svo þeim skilaboðategundum sem þú verðleggur
+á hana á enum-gildinu, við hliðina á útfærslunni sem þú ert þegar með:
 
 ```al
-interface "Msg Metering ori"
+codeunit 50100 "Contoso Metering" implements "Msg Metering ori"
 {
-    procedure GetChargeWeight(var Argument: Record "Message Argument ori"): Integer
-    procedure IsExempt(var Argument: Record "Message Argument ori"): Boolean
-    procedure GetMeterName(): Text[50]
+    Access = Internal;
+
+    internal procedure OnMessageCompleted(var Argument: Record "Message Argument ori")
+    var
+        MeterEntry: Record "Contoso Meter Entry";
+    begin
+        MeterEntry.Init();
+        MeterEntry."Message Type" := ...;      // Argument."Type"
+        MeterEntry.Subject := Argument.Subject;
+        MeterEntry."Metered At" := CurrentDateTime();
+        MeterEntry.Insert(true);
+    end;
 }
-```
 
-| Aðferð | Skilar |
-| --- | --- |
-| `GetChargeWeight` | Leyfiseiningunum sem eitt **árangursríkt** kall nýtir. `0` gerir kallið ókeypis; neikvætt gildi er meðhöndlað sem `0`. |
-| `IsExempt` | `true` þegar tegundin er aldrei gjaldfærð **og** aldrei stöðvuð af kvótaathugun. |
-| `GetMeterName` | Valfrjálsa mælinum sem notkunin er tilkynnt undir, við hliðina á heildartölu pottsins. Autt þýðir eingöngu heildartala pottsins. |
-
-Bæði `GetChargeWeight` og `IsExempt` fá `Message Argument ori` kallsins og eru metin
-**áður en** verkið keyrir, svo beiðnigögnin eru tiltæk: vægi má ráðast af því hversu mikla
-vinnu kallandinn bað um. `GetMeterName` tekur ekkert viðfang — mælir nefnir fjölskyldu
-tegunda, ekki stakt kall.
-
-Fullar undirskriftir, merking viðfanga og hegðunartaflan eru í
-[mælingaviðmótinu](/foundation/reference/metering-interface/).
-
-## Að taka mælingu upp
-
-Nefndu mælingarútfærsluna á enum-gildinu, við hliðina á þeirri sem þú ert þegar með:
-
-```al
-namespace Origo.Bifrost.Nornir;
-
-using Origo.Bifrost;
-
-enumextension 10035535 "Orchestrator Msg Type ori" extends "Message Type ori"
+enumextension 50100 "Contoso Msg Types" extends "Message Type ori"
 {
-    value(10035560; "Orchestrator.Playbook.Run")
+    value(50100; "Contoso.Invoice.Rate")
     {
-        Caption = 'Orchestrator.Playbook.Run', Locked = true;
-        Implementation = "Msg Interface ori" = "Playbook Run Msg ori", "Msg Metering ori" = "Playbook Run Metering ori";
+        Caption = 'Contoso.Invoice.Rate', Locked = true;
+        Implementation = "Msg Interface ori" = "Contoso Invoice Rate Impl", "Msg Metering ori" = "Contoso Metering";
     }
 }
 ```
 
-Skrifaðu svo mælingaeininguna. Hún er lýsigögn, ekki viðskiptarök: hafðu hana litla,
-án aukaverkana, og láttu hana aldrei bregðast — hún keyrir á leyfisleiðinni áður en
-útfærslan þín gerir það.
+Hvert gildi sem nefnir ekki `"Msg Metering ori"` heldur `Default Metering ori`, svo þú getur
+mælt þrjár tegundir af þrjátíu og látið hinar í friði.
+
+### Að ná í heiti tegundarinnar
+
+Ef mælingafærslan þín geymir skilaboðategundina sem texta frekar en sem enum skaltu ekki
+grípa til `Format()` — Origo-staðlarnir banna það á enum-gildum, því það skilar
+skjátextanum en ekki heiti gildisins. Farðu í gegnum `Names()` og `Ordinals()`:
 
 ```al
-namespace Origo.Bifrost.Nornir;
-
-using Origo.Bifrost;
-
-/// <summary>
-/// Metering for Orchestrator.Playbook.Run. A playbook run costs one unit per step the
-/// caller asked for, so a caller that batches ten steps into one call is charged the same
-/// as one that sends ten calls.
-/// </summary>
-codeunit 10035561 "Playbook Run Metering ori" implements "Msg Metering ori"
-{
-    Access = Internal;
-
-    var
-        PlaybookMeterTok: Label 'PLAYBOOK', Locked = true;
-
-    /// <summary>
-    /// Returns one unit per requested step, and one unit for a request without steps.
-    /// </summary>
-    /// <param name="Argument">The message argument of the call being metered.</param>
-    /// <returns>The units to charge for this call.</returns>
-    internal procedure GetChargeWeight(var Argument: Record "Message Argument ori"): Integer
-    var
-        RequestJson: JsonObject;
-        LinesToken: JsonToken;
-        LineCount: Integer;
-    begin
-        RequestJson := Argument.GetRequestJson();
-        if not RequestJson.Get('lines', LinesToken) then
-            exit(1);
-        if not LinesToken.IsArray() then
-            exit(1);
-        LineCount := LinesToken.AsArray().Count();
-        if LineCount < 1 then
-            exit(1);
-        exit(LineCount);
-    end;
-
-    /// <summary>
-    /// Returns false: running a playbook is licensed work.
-    /// </summary>
-    /// <param name="Argument">The message argument of the call being metered.</param>
-    /// <returns>Always false.</returns>
-    internal procedure IsExempt(var Argument: Record "Message Argument ori"): Boolean
-    begin
-        exit(false);
-    end;
-
-    /// <summary>
-    /// Returns the meter every playbook message type reports under.
-    /// </summary>
-    /// <returns>The playbook meter name.</returns>
-    internal procedure GetMeterName(): Text[50]
-    begin
-        exit(PlaybookMeterTok);
-    end;
-}
+TypeName := Enum::"Message Type ori".Names().Get(
+    Enum::"Message Type ori".Ordinals().IndexOf(Argument."Type".AsInteger()));
 ```
 
-Bifröst hástafar mælisheitið áður en það er geymt á skilaboðunum, þannig að `Playbook`,
-`playbook` og `PLAYBOOK` eru sami mælirinn. Hafðu það stutt, stöðugt og læst — rétt eins og
-enum-gildisheitið er mælir orðinn samningur um leið og hann hefur verið tilkynntur.
+Það skilar heitinu eins og það er á vírnum — `Contoso.Invoice.Rate` — á öllum tungumálum.
 
-## Að velja vægi
+### Þrjár reglur um meginmálið
 
-- **Hafðu vægin lítil og fyrirsjáanleg.** Kallandi á að geta reiknað út hvað kall kostar
-  af hjálparskjalinu án þess að keyra það.
-- **Vægi yfir 1 verður að réttlæta með raunverulegum kostnaði** — vinnu sem leigjandinn
-  hefði annars greitt fyrir sem mörg köll, eða útleið þjónustu sem Origo greiðir fyrir á
-  hverja einingu. Það er ekki verðstýringartæki.
-- **Notaðu mæli til að tilkynna fjölskyldu tegunda saman**, ekki til að skipta einni tegund
-  í undirflokka. `PLAYBOOK`, `LLM`, `STORAGE` er formið; einn mælir á hverja
-  skilaboðategund er það ekki.
-- **Undanþága þýðir „ekki leyfisskyld vinna".** Uppgötvun, hjálp og webhook-svör eru
-  undanþegin svo leigjandi með tæmdan pott geti áfram komist að því hvað Bifröst gerir og
-  keypt meira. Undanþága er ekki leið til að gefa leyfisskylda vinnu.
-
-Undanþága gengur framar vægi: undanþegin tegund er hvorki talin né stöðvuð, hvað sem
-`GetChargeWeight` skilar.
-
-## Hvað kallandinn sér
-
-Mæling er sýnileg í gegnum uppgötvunartegundirnar, svo kallandi getur verðlagt kall áður en
-hann gerir það:
-
-- `Help.MessageTypes.Get` skilar `exempt`, `chargeWeight` og `meter` fyrir hverja tegund.
-- `Help.License.Get` skilar valfrjálsum `pendingMeters` hlut með einingum á hvern mæli sem
-  hafa verið gjaldfærðar staðbundið en ekki enn tilkynntar.
-
-`Help.MessageTypes.Get` er sjálft dæmið í Foundation: það lýsir yfir undanþágu sinni í
-gegnum `Msg Metering ori` í stað þess að reiða sig á `Help.*` nafnforskeytið, þannig að
-efnisskrá vefþjónustunnar helst ókeypis jafnvel þótt tegundin verði einhvern tímann færð út
-úr `Help.*` hópnum.
+- **Hafðu hann ódýran.** Krókurinn keyrir við hvert árangursríkt kall þeirra tegunda sem þú
+  tekur að þér, í þræði kallandans, áður en svarinu er skilað. Innsetning í þitt eigið
+  bókhald er í lagi. Útleið HTTP-beiðni á hvert kall er það ekki — settu þá vinnu frekar í
+  biðröð.
+- **Aldrei breyta svarinu.** `Argument` er sent með tilvísun svo þú getir lesið beiðnina og
+  svarið, ekki svo þú getir endurskrifað þau. Kallendur treysta á að fá nákvæmlega það sem
+  útfærslan framleiddi.
+- **Ekki reiða þig á færsluheild kallandans.** Bifröst kallar á krókinn með varúð: villa sem
+  þú kastar er gripin, skráð í fjarmælingar og bakfærir þínar eigin skriftir — kallandinn
+  fær eftir sem áður sama svar og hann hefði fengið án nokkurs króks. Bókhaldið þitt er því
+  eftir bestu getu, og það verður að skrifa þannig að týnd færsla sé gat í bókhaldinu frekar
+  en skemmd í því.
 
 ## Næst
 
-- Hvað reitirnir á skilaboðunum og daglega notkunarsamstillingin gera við vægi og mæli:
-  [Licensing](/foundation/reference/licensing/).
-- Samningurinn aðferð fyrir aðferð og hegðunartaflan:
+- Reglurnar um kallið, fjarmælingaratburðurinn og það sem er skráð á skilaboðin:
   [Metering interface](/foundation/reference/metering-interface/).
+- Pottarnir, kvótaathuganirnar og daglega notkunarsamstillingin:
+  [Licensing](/foundation/reference/licensing/).
 - Hitt viðmótið á sama enum-gildinu:
   [Message types](/extensibility/message-types).

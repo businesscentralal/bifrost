@@ -18,6 +18,5 @@ sidebar_position: 15
 
 ## Sjá einnig
 
--   [Skilaboðaþráður](/help/foundation/bifrost-note-fact-box/) – Sjá alla þráðinn
 -   [Tilkynningaspjald](/help/foundation/bifrost-note-card/) – Nákvæmar upplýsingar
 -   [Tilkynningar](/help/foundation/bifrost-notes/) – Innhólfið

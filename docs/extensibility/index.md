@@ -24,7 +24,7 @@ the code samples in this section are taken from them.
 | --- | --- | --- |
 | Message pipeline | The `tasks` API endpoint, the `Message ori` queue, the orchestrator that resolves your implementation and runs it | [Message types](/extensibility/message-types) |
 | Extension point | The extensible `Message Type ori` enum and the `Msg Interface ori` contract | [Message types](/extensibility/message-types) |
-| Metering | The optional `Msg Metering ori` contract on the same enum, deciding what one successful call costs | [Metering a message type](/extensibility/metering) |
+| Metering | The `Msg Metering ori` hook on the same enum, called after every successful message so a billing solution can keep its own books | [Metering a message type](/extensibility/metering) |
 | In-process dispatch | `Dispatcher ori`, the supported way to invoke a message type from AL | [Message types](/extensibility/message-types) |
 | Discovery | `Help.MessageTypes.Get`, `Help.Implementation.Get` and the `OnAfterCreatingOverview` event behind `Help.Bifrost.Get` | [Help codeunits](/extensibility/help-codeunits) |
 | Administration | The Bifröst Setup page, with an `Apps` action group and a matching `Category_Apps` promoted category your app hooks into | [Setup and secrets](/extensibility/setup-and-secrets) |
@@ -71,10 +71,9 @@ touches them carries `using Origo.Bifrost;`.
    `Origo.Bifrost.<App>` namespace. See [Object and naming conventions](/extensibility/conventions).
 2. **Register its message types** by extending the `Message Type ori` enum, one `value`
    per type, each binding `Msg Interface ori` to an implementation codeunit. See
-   [Message types](/extensibility/message-types). A type that should not cost one licence
-   unit per call also binds `Msg Metering ori` — see
-   [Metering a message type](/extensibility/metering); doing nothing keeps the old
-   behaviour.
+   [Message types](/extensibility/message-types). Every value also inherits the
+   `Msg Metering ori` hook, which does nothing unless the app binds its own implementation
+   — see [Metering a message type](/extensibility/metering).
 3. **Implement each type** against `Msg Interface ori`, read the request and write the
    response through `Message Argument ori`, and return `status = Error` rather than
    throwing. See [Message types](/extensibility/message-types).

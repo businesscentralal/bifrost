@@ -408,10 +408,7 @@ To retrieve captions in a specific language, set the `lcid` field (Windows Langu
       "isEnabled": true,
       "filterTableNo": 0,
       "description": "Retrieves record IDs and modification timestamps for records in a specified table within a date/time range.",
-      "messageDirection": "Outbound",
-      "exempt": false,
-      "chargeWeight": 1,
-      "meter": ""
+      "messageDirection": "Outbound"
     },
     {
       "name": "Help.Tables.Get",
@@ -445,11 +442,6 @@ To retrieve captions in a specific language, set the `lcid` field (Windows Langu
 - `filterTableNo`: Table number filter (if applicable, 0 means applies to all tables)
 - `description`: Description of the message type
 - `messageDirection`: Direction of the message (Inbound/Outbound/Both)
-- `exempt`: `true` when the message type is never charged and never blocked by a quota check
-- `chargeWeight`: The license units one successful call consumes (`0` means free)
-- `meter`: The optional meter the consumption is reported under, or an empty string
-
-The last three come from the message type's [metering interface](/foundation/reference/metering-interface/); a type that does not implement it reports `chargeWeight: 1` and `exempt` by the `Help.*` / `Webhook.*` name prefix. For brevity only the first result entry below shows them.
 
 **Notes:**
 

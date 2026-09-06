@@ -5,7 +5,7 @@ sidebar_position: 7
 ---
 
 Bifrost uses a **message-quota** license model. There is no per-user assignment and no
-plan-tier checking. Two quota pools are tracked, each measured in **license units**:
+plan-tier checking. Two quota pools are tracked, each measured in **messages**:
 
 | Pool | Consumed by |
 |------|-------------|
@@ -14,7 +14,7 @@ plan-tier checking. Two quota pools are tracked, each measured in **license unit
 
 ## What counts
 
-A message consumes units from the caller's pool when **all** of the following hold:
+A message consumes **one** unit from the caller's pool when **all** of the following hold:
 
 - The message type is **not exempt**. `Help.*` and `Webhook.*` types are exempt — they always
   run, are never blocked, and never consume quota.
@@ -26,28 +26,14 @@ message-type implementations do not perform license checks.
 
 ## How much a message costs
 
-How many units a successful message consumes is decided by the message type itself, through
-the `Msg Metering ori` interface on the `Message Type ori` enum. The interface answers three
-questions per type: the **charge weight** (units per successful call), whether the type is
-**exempt**, and the optional **meter** the consumption is reported under.
+One message. There is no charge weight, no meter and no per-type price: every chargeable
+call costs exactly one unit from the pool, and the pool it was charged to is recorded in the
+**Charge Type** field on the `Message ori` row.
 
-A message type that does not implement it — which is every type that has not opted in,
-including the enum-extension values of dependent apps — falls back to `Default Metering ori`:
-weight **1**, `Help.*` and `Webhook.*` exempt by name prefix, no meter. That is the behaviour
-described above, unchanged.
-
-Each processed message therefore records two fields on the `Message ori` row alongside the
-charge type:
-
-| Field | Type | Meaning |
-|-------|------|---------|
-| **Charge Weight** | Integer, `1` by default | The license units this message consumed. |
-| **Meter** | Code[50] | The optional meter this message was reported under. Blank means the pool total only. |
-
-Rows charged before this version carry no weight; the upgrade codeunit backfills them to
-weight 1, so historical usage is counted exactly as it was reported.
-
-See the [metering interface](/foundation/reference/metering-interface/) for the contract, and
+A message type can, however, be told that it was called. `Msg Metering ori` is a hook that
+Foundation invokes after every successful non-exempt call so a billing or metering solution
+can keep its own books. The hook has no influence on the count above. See the
+[metering interface](/foundation/reference/metering-interface/) for the contract, and
 [Metering a message type](/extensibility/metering) for how a dependent app opts in.
 
 ## Trial
@@ -57,11 +43,13 @@ the tenant.
 
 ## Enforcement
 
-Before a chargeable message is processed, the caller's pool is checked for the number of units
-the message type asks for:
+Before a chargeable message is processed, the caller's pool is checked:
 
-- If the pool's remaining quota is **0 or less**, the message is **not processed** and a
-  structured error is returned:
+- A flat **100-message grace buffer** applies, so a pool keeps working slightly past its
+  purchased amount. A pool counts as exhausted once its remaining quota has fallen more than
+  100 messages below zero.
+- When the pool is exhausted **and** the pool blocks (see below), the message is **not
+  processed** and a structured error is returned:
 
   ```json
   { "status": "Error", "error": "Message quota for the User pool is exhausted. Visit … to request additional licenses.", "requestUrl": "…" }
@@ -70,17 +58,45 @@ the message type asks for:
 - If remaining is unknown (a fresh install before the first sync, or the licensing service is
   temporarily unreachable), processing is **allowed** (fail-open).
 
-A flat **100-message grace** is applied by the licensing service, so a pool keeps working slightly
-past its purchased amount before it is blocked.
+### Blocking or warning
+
+What happens to an exhausted pool is decided per pool. The setting is configuration rather
+than a credential, so it lives in **module-scoped** IsolatedStorage — one value for the whole
+tenant rather than one per company:
+
+| Key | Data scope | Pool |
+|-----|-----------|------|
+| `BlockOnMissingQuota-User` | `DataScope::Module` | User |
+| `BlockOnMissingQuota-AppRegistration` | `DataScope::Module` | App Registration |
+
+| Value | Effect |
+|-------|--------|
+| `true`, **or the key is absent** | The call is refused with the quota-exhausted error above. Absent is the normal case, so this is the effective value almost everywhere. |
+| `false` | The call runs. It is still charged against the pool, and the response still carries the quota warning — the tenant simply keeps working past its purchased quota. |
+
+The keys are written by the **license sync** (`Usage Sync ori`) and by nothing else: no page
+and no message type of the product app sets them. The sync code carries a `TODO` marking
+where the values will be read from the Entra tenant configuration document in Azure Cosmos
+DB. Until that document exists the keys stay absent and both pools block, exactly as Bifröst
+always has.
+
+The effective value of each pool is visible in two places:
+
+- read-only in the **Quota Blocking** group of the **Bifrost Connection Status** page, which
+  is reachable from the **Licensing** group of the Bifrost Setup page. A value that has never
+  been synced is shown as the built-in default rather than as a stored setting;
+- as `blockOnMissingQuota` per pool in the license status JSON, described under
+  [Checking status](#checking-status).
 
 ## Low-quota warnings
 
 Successful JSON responses carry a `warnings` array when the caller's pool is running low:
 
-| Remaining | Severity |
-|-----------|----------|
-| below 1,000 | `approaching` |
-| 100 or less | `grace` |
+| Remaining | Severity | Meaning |
+|-----------|----------|---------|
+| 1 to 100 | `approaching` | The quota is about to run out. |
+| 0 or fewer | `grace` | The quota is spent; the pool is drawing on its 100-message grace buffer. |
+| more than 100 below zero | `exhausted` | The grace buffer is used up too. Only reachable for a pool whose `blockOnMissingQuota` flag is `false` — otherwise the call was refused instead of warned. |
 
 ```json
 {
@@ -99,15 +115,9 @@ The Bifrost Setup page also shows a notification when either pool drops below 1,
 Usage is reported to the licensing service once per day **per company**:
 
 - The first chargeable message of the day schedules a background task.
-- The task **sums the charge weights** of each completed day's chargeable messages per pool
-  (it no longer counts rows), refreshes the cached remaining quota for both pools, and resets
-  the reported messages.
+- The task counts each completed day's chargeable messages per pool, refreshes the cached
+  remaining quota for both pools, and resets the reported messages.
 - Usage is reported per **hashed company** under the **hashed tenant**.
-
-When the day's consumption was split across named meters, the usage document carries an
-optional `meters` breakdown next to `quantity`. The breakdown is additive and backward
-compatible: it is absent when no meter was used, and the meter totals always add up to at
-most the quantity.
 
 ```json
 {
@@ -116,26 +126,37 @@ most the quantity.
   "companyId": "…",
   "date": "2026-09-05",
   "licenseType": "User",
-  "quantity": 412,
-  "meters": { "PLAYBOOK": 180, "LLM": 96 }
+  "quantity": 412
 }
 ```
 
 ## Checking status
 
-- `Help.Bifrost.Get` returns the current license status (hashed tenant and company, and the
-  remaining quota and validity for each pool).
-- `Help.License.Get` returns the license and account documents, plus an optional
-  `pendingMeters` object with the per-meter units charged locally but not yet reported. The
-  property is written only when at least one metered message is pending, so responses for
-  tenants that use no meters are unchanged.
-- `Help.MessageTypes.Get` returns `exempt`, `chargeWeight` and `meter` per message type, so a
-  caller can price a call before making it. The type is its own worked example: it declares
-  its exemption through the metering interface rather than relying on the `Help.*` name
-  prefix.
+- `Help.Bifrost.Get` returns the current license status as `licenseStatus`.
+- `Help.License.Get` returns the license and account documents, and now carries the same
+  `licenseStatus` object, so a caller that already reads license entries does not need a
+  second round-trip.
 - `Help.License.Sync` (admin only) forces an immediate usage sync and returns the refreshed status.
 - The **License** factbox on the Bifrost Setup page shows the same information plus the
   number of unreported messages and the last sync date.
+
+The license status object looks like this:
+
+```json
+"licenseStatus": {
+  "tenantIdHash": "a7f3c1…",
+  "companyIdHash": "b2d4e6…",
+  "companyName": "CRONUS International Ltd.",
+  "user":            { "remaining": 812, "valid": true, "blockOnMissingQuota": true },
+  "appRegistration": { "remaining": -40, "valid": true, "blockOnMissingQuota": false }
+}
+```
+
+| Field | Type | Meaning |
+|-------|------|---------|
+| `remaining` | int / null | Messages left in the pool; `null` while no value has been synced. |
+| `valid` | bool | False once the pool is past the 100-message grace buffer. |
+| `blockOnMissingQuota` | bool | `true` (the default) refuses calls once the pool is exhausted; `false` lets them run, still charges them and still returns the quota warning. Read-only — only the license sync writes it. |
 
 ## Requesting licenses
 

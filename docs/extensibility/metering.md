@@ -3,23 +3,57 @@ id: metering
 title: "Metering a message type"
 sidebar_label: "Metering a message type"
 sidebar_position: 3
-description: "Opting a message type into the Msg Metering ori interface to control what one successful call costs, whether it is free, and which meter it reports under."
+description: "The Msg Metering ori hook Bifröst calls after every successful message, and how a billing or metering solution attaches its own bookkeeping to it."
 ---
 
 # Metering a message type
 
-Bifröst charges the caller's licence pool once per successful, non-exempt message. Which
-pool a call lands in — **User** or **App Registration** — is resolved centrally and is not
-something a message type can influence. What a message type *can* influence is the price:
-how many licence units one successful call consumes, whether it is free, and under which
-meter the consumption is reported.
+Bifröst calls one hook after every successful message: `Msg Metering ori`. It exists so a
+billing or metering solution has somewhere to attach — a per-call rating, a tenant counter,
+an external meter — without patching Foundation and without subscribing to an event that
+fires for everything.
 
-That is what `Msg Metering ori` is for. It is a second, optional interface on the same enum
-value that already names your implementation.
+The hook is deliberately dull. It does not decide what a call costs, it cannot make a call
+free, and it cannot change what the caller gets back. It is told that a call happened, and
+that is all.
 
-## Two interfaces on one enum
+## The contract
 
-Foundation's `Message Type ori` (10077894) now declares both:
+One procedure:
+
+```al
+interface "Msg Metering ori"
+{
+    procedure OnMessageCompleted(var Argument: Record "Message Argument ori")
+}
+```
+
+`Argument` carries the whole completed call: the message type, the subject, the request
+content, and the response the caller is about to receive. Read as much of it as you need —
+but do not change the response.
+
+The method-by-method contract, the telemetry event and the invocation rules are in the
+[metering interface reference](/foundation/reference/metering-interface/).
+
+## When it runs
+
+`Message Task ori` calls the hook once after every **successful** message call:
+
+- in **every environment** — production, sandbox and on-premises alike;
+- whether or not message-quota licensing is required in that environment;
+- for every message type of every app, Foundation and dependent apps alike.
+
+The single exception is the name-prefix rule that has always governed charging: message
+types whose key starts with `Help.` or `Webhook.` never reach the hook. Discovery and
+callbacks are not billable work, so they are not metered either. There is no other way to
+be exempt — a message type cannot opt itself out.
+
+Nothing runs the hook after a failed call. A response whose `status` is not `Success` is
+neither charged nor metered.
+
+## Nothing to do for existing apps
+
+`Message Type ori` declares the interface and a default implementation:
 
 ```al
 enum 10077894 "Message Type ori" implements "Msg Interface ori", "Msg Metering ori"
@@ -30,171 +64,93 @@ enum 10077894 "Message Type ori" implements "Msg Interface ori", "Msg Metering o
 }
 ```
 
-`Msg Interface ori` says what the type **does**. `Msg Metering ori` says what it **costs**.
-The two are separate so that pricing can change without touching business logic, and so
-that a family of types can share one metering codeunit.
+`Default Metering ori` (10078308) has an empty body. Because the enum names it as the
+default, every value — including the enum-extension values in your app — already has the
+hook without declaring anything, and doing nothing costs one empty interface call per
+successful message. If you are not building a billing solution, stop reading here.
 
-## Nothing to do for existing apps
+## Charging is unchanged
 
-Because the enum declares `DefaultImplementation`, every value that does not name a
-`Msg Metering ori` implementation — including the enum-extension values in your app — falls
-back to `Default Metering ori`, which reproduces exactly what Bifröst did before the
-interface existed:
+The hook never influences charging. Charging works exactly as it did before the hook
+existed:
 
-- charge weight **1** per successful call;
-- `Help.*` and `Webhook.*` types **exempt**, by name prefix;
-- **no** meter.
+- exactly **one message** per successful, non-exempt call;
+- charged to the caller's pool, **User** or **App Registration**, resolved centrally;
+- recorded in `Message ori."Charge Type"`.
 
-Bifrost Nornir and Bifrost Bragi were compiled unchanged against the new Foundation to
-confirm it. If you are happy with one unit per call, add nothing.
+There is no weight, no meter and no per-type price anywhere in the platform. If your
+solution needs those, it keeps them in its own tables — which is what the hook is for.
 
-## The contract
-
-```al
-interface "Msg Metering ori"
-{
-    procedure GetChargeWeight(var Argument: Record "Message Argument ori"): Integer
-    procedure IsExempt(var Argument: Record "Message Argument ori"): Boolean
-    procedure GetMeterName(): Text[50]
-}
-```
-
-| Procedure | Returns |
-| --- | --- |
-| `GetChargeWeight` | The licence units one **successful** call consumes. `0` makes the call free; a negative value is treated as `0`. |
-| `IsExempt` | `true` when the type is never charged **and** never blocked by a quota check. |
-| `GetMeterName` | The optional meter the consumption is reported under, next to the pool total. Blank means pool total only. |
-
-Both `GetChargeWeight` and `IsExempt` receive the `Message Argument ori` of the call and
-are evaluated **before** the task runs, so the request payload is available: a weight may
-depend on how much work the caller asked for. `GetMeterName` takes no argument — a meter
-names a family of types, not a single call.
-
-The full signatures, parameter meanings and the resulting behaviour matrix are in the
-[metering interface reference](/foundation/reference/metering-interface/).
+See [Licensing](/foundation/reference/licensing/) for the pools, enforcement and the daily
+usage sync.
 
 ## Opting in
 
-Name the metering implementation on the enum value, alongside the one you already have:
+Write a codeunit implementing the interface, then point the message types you price at it
+on the enum value, alongside the implementation you already have:
 
 ```al
-namespace Origo.Bifrost.Nornir;
-
-using Origo.Bifrost;
-
-enumextension 10035535 "Orchestrator Msg Type ori" extends "Message Type ori"
+codeunit 50100 "Contoso Metering" implements "Msg Metering ori"
 {
-    value(10035560; "Orchestrator.Playbook.Run")
+    Access = Internal;
+
+    internal procedure OnMessageCompleted(var Argument: Record "Message Argument ori")
+    var
+        MeterEntry: Record "Contoso Meter Entry";
+    begin
+        MeterEntry.Init();
+        MeterEntry."Message Type" := ...;      // Argument."Type"
+        MeterEntry.Subject := Argument.Subject;
+        MeterEntry."Metered At" := CurrentDateTime();
+        MeterEntry.Insert(true);
+    end;
+}
+
+enumextension 50100 "Contoso Msg Types" extends "Message Type ori"
+{
+    value(50100; "Contoso.Invoice.Rate")
     {
-        Caption = 'Orchestrator.Playbook.Run', Locked = true;
-        Implementation = "Msg Interface ori" = "Playbook Run Msg ori", "Msg Metering ori" = "Playbook Run Metering ori";
+        Caption = 'Contoso.Invoice.Rate', Locked = true;
+        Implementation = "Msg Interface ori" = "Contoso Invoice Rate Impl", "Msg Metering ori" = "Contoso Metering";
     }
 }
 ```
 
-Then write the metering codeunit. It is metadata, not business logic: keep it small, keep
-it side-effect free, and never let it fail — it runs on the licensing path before your
-implementation does.
+Every value that does not name `"Msg Metering ori"` keeps `Default Metering ori`, so you
+can meter three types out of thirty and leave the rest alone.
+
+### Getting the type name
+
+If your meter entry stores the message type as text rather than as the enum, do not reach
+for `Format()` — the Origo standards forbid it on enum values, because it returns the
+caption, not the member name. Go through `Names()` and `Ordinals()`:
 
 ```al
-namespace Origo.Bifrost.Nornir;
-
-using Origo.Bifrost;
-
-/// <summary>
-/// Metering for Orchestrator.Playbook.Run. A playbook run costs one unit per step the
-/// caller asked for, so a caller that batches ten steps into one call is charged the same
-/// as one that sends ten calls.
-/// </summary>
-codeunit 10035561 "Playbook Run Metering ori" implements "Msg Metering ori"
-{
-    Access = Internal;
-
-    var
-        PlaybookMeterTok: Label 'PLAYBOOK', Locked = true;
-
-    /// <summary>
-    /// Returns one unit per requested step, and one unit for a request without steps.
-    /// </summary>
-    /// <param name="Argument">The message argument of the call being metered.</param>
-    /// <returns>The units to charge for this call.</returns>
-    internal procedure GetChargeWeight(var Argument: Record "Message Argument ori"): Integer
-    var
-        RequestJson: JsonObject;
-        LinesToken: JsonToken;
-        LineCount: Integer;
-    begin
-        RequestJson := Argument.GetRequestJson();
-        if not RequestJson.Get('lines', LinesToken) then
-            exit(1);
-        if not LinesToken.IsArray() then
-            exit(1);
-        LineCount := LinesToken.AsArray().Count();
-        if LineCount < 1 then
-            exit(1);
-        exit(LineCount);
-    end;
-
-    /// <summary>
-    /// Returns false: running a playbook is licensed work.
-    /// </summary>
-    /// <param name="Argument">The message argument of the call being metered.</param>
-    /// <returns>Always false.</returns>
-    internal procedure IsExempt(var Argument: Record "Message Argument ori"): Boolean
-    begin
-        exit(false);
-    end;
-
-    /// <summary>
-    /// Returns the meter every playbook message type reports under.
-    /// </summary>
-    /// <returns>The playbook meter name.</returns>
-    internal procedure GetMeterName(): Text[50]
-    begin
-        exit(PlaybookMeterTok);
-    end;
-}
+TypeName := Enum::"Message Type ori".Names().Get(
+    Enum::"Message Type ori".Ordinals().IndexOf(Argument."Type".AsInteger()));
 ```
 
-Foundation upper-cases the meter name before storing it on the message, so `Playbook`,
-`playbook` and `PLAYBOOK` are the same meter. Keep it short, stable and locked — like the
-enum value name, a meter is a wire contract once it has been reported.
+That yields the wire name — `Contoso.Invoice.Rate` — in every language.
 
-## Choosing a weight
+### Three rules for the body
 
-- **Keep weights small and predictable.** A caller should be able to work out what a call
-  costs from the help document without running it.
-- **A weight above 1 has to be justified by real cost** — work the tenant would otherwise
-  have paid for as several calls, or an outbound service Origo pays for per unit. It is not
-  a pricing lever.
-- **Use a meter to report a family of types together**, not to split one type into
-  sub-buckets. `PLAYBOOK`, `LLM`, `STORAGE` are the shape; one meter per message type is
-  not.
-- **Exempt means "not licensed work".** Discovery, help and webhook callbacks are exempt so
-  that a tenant with an exhausted pool can still find out what Bifröst does and buy more.
-  An exemption is not a way to give away licensed work for free.
-
-Exempt wins over weight: an exempt type is neither counted nor blocked, whatever
-`GetChargeWeight` returns.
-
-## What the caller sees
-
-Metering is visible through the discovery types, so a caller can price a call before making
-it:
-
-- `Help.MessageTypes.Get` returns `exempt`, `chargeWeight` and `meter` for every type.
-- `Help.License.Get` returns an optional `pendingMeters` object with the per-meter units
-  charged locally but not yet reported.
-
-`Help.MessageTypes.Get` is itself the worked example in Foundation: it declares its
-exemption through `Msg Metering ori` rather than relying on the `Help.*` name prefix, so
-the API directory stays free even if the type is ever renamed out of the `Help.*` group.
+- **Keep it cheap.** The hook runs on every successful call of the types you claim, on the
+  caller's thread, before the response is returned. An insert into your own ledger is fine.
+  An outbound HTTP request per call is not — queue the work instead.
+- **Never modify the response.** `Argument` is passed by reference so you can read the
+  request and the response, not so you can rewrite them. Callers depend on getting exactly
+  what the implementation produced.
+- **Do not depend on the caller's transaction.** Foundation invokes the hook defensively:
+  an error you raise is caught, logged as telemetry, and rolls back your own writes — the
+  caller still receives the response it would have received with no hook at all. Your
+  bookkeeping is therefore best-effort, and it must be written so that a lost entry is a
+  gap in your ledger rather than a corrupt one.
 
 ## Next
 
-- What the fields on the message and the daily usage sync do with a weight and a meter:
-  [Licensing](/foundation/reference/licensing/).
-- The method-by-method contract and the behaviour matrix:
+- The invocation rules, the telemetry event and what is recorded on the message:
   [Metering interface](/foundation/reference/metering-interface/).
+- The pools, the quota checks and the daily usage sync:
+  [Licensing](/foundation/reference/licensing/).
 - The other interface on the same enum value:
   [Message types](/extensibility/message-types).

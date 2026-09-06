@@ -180,8 +180,8 @@ A conventional JSON response looks like this:
 
 The `status` property matters beyond convention: the orchestrator counts a call against
 the caller's licence quota only when the response is a JSON object whose `status` is
-`Success`. How much it counts is up to the message type — see
-[Metering a message type](/extensibility/metering).
+`Success`, and only a successful call reaches the
+[metering hook](/extensibility/metering).
 
 ## How a call is dispatched
 
@@ -191,13 +191,13 @@ the caller's licence quota only when the response is a JSON object whose `status
    the global language to `lcid`, clears any previous response and commits.
 3. It builds a `Message Argument ori` from the queue row: id, version, type, subject,
    source, content type and request payload.
-4. Licensing is applied centrally, once, parameterised per type through
-   `Msg Metering ori`. Types that do not implement it fall back to `Default Metering ori`:
-   weight 1, `Help.*` and `Webhook.*` exempt — those always run, are never blocked and
-   never consume quota. Everything else needs a valid licence and enabled HTTP client
-   requests. See [Metering a message type](/extensibility/metering).
+4. Licensing is applied centrally, once. `Help.*` and `Webhook.*` types are exempt: they
+   always run, are never blocked and never consume quota. Everything else needs a valid
+   licence and enabled HTTP client requests.
 5. `Argument.GetMessageTypeInterface().ExecuteBifrostTask(Argument)` resolves your codeunit
-   from the enum value and runs it.
+   from the enum value and runs it. When the call succeeds and the type is not `Help.*` or
+   `Webhook.*`, the `Msg Metering ori` hook of the type is called — see
+   [Metering a message type](/extensibility/metering).
 6. The response content, content type and response time are written back to the queue row,
    the language is restored, and — when the message carried a task id — the
    `OnBifrostMessageCompleted` business event fires for webhook subscribers.
@@ -291,7 +291,7 @@ returning `false`, so the caller can write `if not Argument.CheckTableReadPermis
 ## Next
 
 - Every type you add needs a help document: [Help codeunits](/extensibility/help-codeunits).
-- Types that should not cost one licence unit per call declare their price:
+- Solutions that bill or meter their own calls attach to the hook:
   [Metering a message type](/extensibility/metering).
 - Types that talk to an external service need a masker and a place to keep credentials:
   [Setup and secrets](/extensibility/setup-and-secrets).

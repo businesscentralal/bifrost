@@ -29,4 +29,3 @@ The **Bifrost Note Card** displays the full details of a single notification, in
 ## See Also
 
 -   [Bifrost notes](/help/foundation/bifrost-notes/) – Notification inbox
--   [Note Thread](/help/foundation/bifrost-note-fact-box/) – Thread view FactBox

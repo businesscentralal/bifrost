@@ -12,16 +12,14 @@ This page is generated from the message type's own help codeunit by
 :::
 
 
-Writes and clears the on-premises licensing secrets in module-scoped IsolatedStorage.
+Writes and clears the on-premises licensing secrets in company-scoped IsolatedStorage.
 ```json
 {
   "clearAll": true,
   "accountName": "my-cosmos-account",
   "accessKey": "<base64>",
   "databaseId": "CE-licenses",
-  "containerId": "licenses",
-  "rijndaelKey": "<base64>",
-  "rijndaelVector": "<base64>"
+  "containerId": "licenses"
 }
 ```
 

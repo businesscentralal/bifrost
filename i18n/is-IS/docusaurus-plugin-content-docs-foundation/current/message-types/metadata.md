@@ -320,10 +320,7 @@ Eða með tilgreindum reitum:
       "isEnabled": true,
       "filterTableNo": 0,
       "description": "Sækir færsluauðkenni og breytingartímastimpla...",
-      "messageDirection": "Outbound",
-      "exempt": false,
-      "chargeWeight": 1,
-      "meter": ""
+      "messageDirection": "Outbound"
     },
     {
       "name": "Help.Tables.Get",
@@ -343,11 +340,6 @@ Eða með tilgreindum reitum:
 - `filterTableNo`: Töflunúmer sía (ef við á, 0 þýðir á við allar töflur)
 - `description`: Lýsing á skilaboðategundinni
 - `messageDirection`: Stefna skilaboða (Inbound/Outbound/Both)
-- `exempt`: `true` þegar skilaboðategundin er aldrei gjaldfærð og aldrei stöðvuð af kvótaathugun
-- `chargeWeight`: Leyfiseiningarnar sem eitt árangursríkt kall nýtir (`0` þýðir ókeypis)
-- `meter`: Valfrjálsi mælirinn sem notkunin er tilkynnt undir, eða tómur strengur
-
-Síðustu þrír reitirnir koma úr [mælingaviðmóti](/foundation/reference/metering-interface/) skilaboðategundarinnar; tegund sem útfærir það ekki skilar `chargeWeight: 1` og `exempt` eftir `Help.*` / `Webhook.*` nafnforskeytinu. Til styttingar sýnir aðeins fyrsta niðurstaðan hér að neðan þá.
 
 **Dæmi um notkun:**
 
