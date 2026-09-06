@@ -5,7 +5,7 @@ sidebar_label: "Skilagrein Master Data"
 sidebar_position: 3
 ---
 
-The Skilagrein pages show master data downloaded from the Skilagrein web service — pension fund codes, union codes and collector information. This data is what a payroll submission is built from. Open the pages from the **Iceland** group on the [Bifrost Setup](/help/iceland/iceland-setup/) page.
+The Skilagrein pages show master data downloaded from the Skilagrein web service — pension fund codes, union codes and collector information. This data is what a payroll submission is built from. Open the pages from the [Bifrost Iceland Setup](/help/iceland/iceland-setup/) card.
 
 ## Available pages
 
@@ -19,7 +19,7 @@ The Skilagrein pages show master data downloaded from the Skilagrein web service
 
 ## Collector passwords
 
-Each collector authenticates with its own web-service password. Select the collector on the **Skilagrein Collectors** page and use the **Set Web Service Password** action; the value goes into Isolated Storage under a per-collector key and cannot be read back. There is no Skilagrein password on the Bifrost Setup page.
+Each collector authenticates with its own web-service password. Select the collector on the **Skilagrein Collectors** page and use the **Set Web Service Password** action; the value goes into the Bifröst Foundation secret store under the code `SKG-COLLECTOR-<collector no.>-PASSWORD` and cannot be read back. There is no Skilagrein password on the [Bifrost Iceland Setup](/help/iceland/iceland-setup/) card.
 
 ## How data is refreshed
 
