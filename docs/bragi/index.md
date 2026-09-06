@@ -45,6 +45,7 @@ Bifröst Bragi is the chat module of the Bifröst platform. It builds on Bifrös
 ## Where to go next
 
 - [In-product help](/help/bragi/)
+- [Message type reference](./reference/message-types/) — the request and response contract for every type, generated from the app itself
 - [Chat message types](./message-types)
 - [Extending Bragi with a chat provider](./extensibility)
 - [Build on Bifröst](/extensibility/)

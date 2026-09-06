@@ -47,6 +47,7 @@ Bifröst Hnitbjörg tengir Business Central við skýgeymslu. Hún byggir á Bif
 ## Hvert skal halda næst
 
 - [Hjálp í kerfinu](/help/hnitbjorg/)
+- [Uppflettirit skilaboðategunda](./reference/message-types/) — beiðni og svar fyrir hverja tegund, búið til beint úr forritinu
 - [Notendasviðsmyndir fyrir AppSource](./user-scenarios)
 - [Skráning í Partner Center](./listing)
 - [Byggja á Bifröst](/extensibility/)

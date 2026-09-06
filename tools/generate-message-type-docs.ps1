@@ -111,8 +111,17 @@ $KnownApps = @('nornir', 'hnitbjorg', 'bragi', 'iceland-docex')
 # Help.MessageTypes.Get, Test.*). Those belong to Bifröst Foundation, whose
 # documentation arrives in the second wave, so they are counted and skipped.
 
+# Test-only message types exist so a test app can reach setup that is
+# `Access = Internal`. They are not part of the public API and are never
+# published.
+$ExcludedPatterns = @('Test.*', '*.Test.*')
+
 function Resolve-OwningApp {
     param([string] $Type, [string] $Directory)
+
+    foreach ($pattern in $ExcludedPatterns) {
+        if ($Type -like $pattern) { return $null }
+    }
 
     if ($Directory) {
         foreach ($prefix in $PrefixMap.Keys) {
@@ -149,18 +158,29 @@ function Get-BifrostCredential {
 
 # One CloudEvents 1.0 envelope per call. `datacontenttype` is fixed; `source` names
 # this generator so the request log shows where a call came from.
+#
+# `data` is a STRING on the wire, not a nested object: the OData entity behind
+# /tasks types it as text, and posting an object there fails with
+# "An unexpected 'StartObject' node was found for property named 'data'".
 function New-BifrostEnvelope {
-    param([string] $Type, [hashtable] $Data)
+    param([string] $Type, [hashtable] $Data, [string] $Subject)
 
-    return @{
+    $envelope = @{
         specversion     = '1.0'
         id              = [guid]::NewGuid().ToString()
         source          = 'bifrost-docs/generate-message-type-docs'
         type            = $Type
         time            = (Get-Date).ToUniversalTime().ToString('o')
         datacontenttype = 'application/json'
-        data            = $Data
+        data            = ($Data | ConvertTo-Json -Depth 12 -Compress)
     }
+
+    # `Help.Implementation.Get` takes the message type name here, in the envelope,
+    # not inside the payload. The key has to be absent rather than empty for the
+    # types that do not use it — a blank `subject` is rejected outright.
+    if ($Subject) { $envelope['subject'] = $Subject }
+
+    return $envelope
 }
 
 <#
@@ -173,12 +193,13 @@ function Invoke-BifrostMessage {
     param(
         [Parameter(Mandatory)] [string] $Type,
         [hashtable] $Data = @{},
+        [string] $Subject = '',
         [pscredential] $Credential,
         [string] $BaseUrl,
         [string] $Tenant
     )
 
-    $body = New-BifrostEnvelope -Type $Type -Data $Data | ConvertTo-Json -Depth 12 -Compress
+    $body = New-BifrostEnvelope -Type $Type -Data $Data -Subject $Subject | ConvertTo-Json -Depth 12 -Compress
 
     $task = Invoke-RestMethod -Method Post `
         -Uri "$BaseUrl/tasks?tenant=$Tenant" `
@@ -276,12 +297,16 @@ function Write-MessageTypePage {
 function Write-CategoryFile {
     param([string] $SiteRoot, [string] $AppId)
 
+    # An explicit `slug` is what keeps the category page at the same path as its
+    # folder. Without it Docusaurus files generated indexes under
+    # `<app>/category/...`, which no link in the site would guess.
     $dir = Join-Path $SiteRoot "docs/$AppId/reference/message-types"
     $category = @{
         label    = 'Message types'
         position = 1
         link     = @{
             type        = 'generated-index'
+            slug        = '/reference/message-types'
             description = "Every message type this app adds to the Bifröst catalogue. Generated from the app's own help codeunits."
         }
     } | ConvertTo-Json -Depth 5
@@ -294,7 +319,11 @@ function Write-CategoryFile {
         @{
             label    = 'Reference'
             position = 4
-            link     = @{type = 'generated-index'; description = "Developer reference for this app." }
+            link     = @{
+                type        = 'generated-index'
+                slug        = '/reference'
+                description = 'Developer reference for this app.'
+            }
         } | ConvertTo-Json -Depth 5 | Set-Content -Path $referenceCategory -Encoding utf8NoBOM
     }
 }
@@ -321,10 +350,11 @@ try {
     Write-Host 'Fetching the message type catalogue...'
     $catalogue = Invoke-BifrostMessage -Type 'Help.MessageTypes.Get' -Credential $credential -BaseUrl $BaseUrl -Tenant $Tenant
 
-    # The catalogue has been returned under a few different shapes across releases;
-    # accept any of them rather than pinning to one.
+    # The catalogue comes back as { status, usage, result: [ { name, isEnabled,
+    # filterTableNo, description, messageDirection } ] }. The alternatives are
+    # kept because older releases used different envelope keys.
     $types = @()
-    foreach ($candidate in @('messageTypes', 'types', 'value', 'items')) {
+    foreach ($candidate in @('result', 'messageTypes', 'types', 'value', 'items')) {
         if ($catalogue.PSObject.Properties.Name -contains $candidate) {
             $types = $catalogue.$candidate
             break
@@ -333,11 +363,24 @@ try {
     if (-not $types -and $catalogue -is [array]) { $types = $catalogue }
     if (-not $types) { throw 'Could not find the message type list in the Help.MessageTypes.Get response.' }
 
+    # Strict mode makes a missing property an error rather than $null, so read
+    # every optional field through the property bag.
+    function Get-Property {
+        param($Object, [string[]] $Names)
+        foreach ($name in $Names) {
+            if ($Object.PSObject.Properties.Name -contains $name) {
+                $value = $Object.$name
+                if ($value) { return $value }
+            }
+        }
+        return ''
+    }
+
     $planned = @()
     $unmapped = @()
     foreach ($entry in $types) {
-        $key = if ($entry -is [string]) { $entry } else { $entry.key ?? $entry.type ?? $entry.name ?? $entry.messageType }
-        $directory = if ($entry -is [string]) { '' } else { ($entry.directory ?? $entry.helpDirectory ?? '') }
+        $key = if ($entry -is [string]) { $entry } else { Get-Property $entry @('name', 'key', 'type', 'messageType') }
+        $directory = if ($entry -is [string]) { '' } else { Get-Property $entry @('directory', 'helpDirectory') }
         if (-not $key) { continue }
 
         $owner = Resolve-OwningApp -Type $key -Directory $directory
@@ -369,10 +412,11 @@ try {
             try {
                 # Strictly serial: one implementation call at a time, no batching.
                 $help = Invoke-BifrostMessage -Type 'Help.Implementation.Get' `
-                    -Data @{ subject = $item.Type } `
+                    -Subject $item.Type `
                     -Credential $credential -BaseUrl $BaseUrl -Tenant $Tenant
 
-                $markdown = if ($help -is [string]) { $help } else { $help.markdown ?? $help.help ?? $help.content ?? $help.text }
+                # The help contract comes back as raw Markdown, not a JSON object.
+                $markdown = if ($help -is [string]) { $help } else { $help.result ?? $help.markdown ?? $help.help ?? $help.content ?? $help.text }
                 if (-not $markdown) {
                     $failed += "$($item.Type): no Markdown in the Help.Implementation.Get response"
                     continue

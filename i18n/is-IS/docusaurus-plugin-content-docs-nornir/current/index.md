@@ -51,6 +51,7 @@ Bifröst Nornir sér um tímasetta vinnslu í Business Central. Hún hefur eftir
 ## Hvert skal halda næst
 
 - [Hjálp í kerfinu](/help/nornir/)
+- [Uppflettirit skilaboðategunda](./reference/message-types/) — beiðni og svar fyrir hverja tegund, búið til beint úr forritinu
 - [Notendasviðsmyndir fyrir AppSource](./user-scenarios)
 - [Skráning í Partner Center](./listing)
 - [Byggja á Bifröst](/extensibility/)

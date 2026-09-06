@@ -47,6 +47,7 @@ Bifröst Hnitbjörg connects Business Central to cloud storage. It builds on Bif
 ## Where to go next
 
 - [In-product help](/help/hnitbjorg/)
+- [Message type reference](./reference/message-types/) — the request and response contract for every type, generated from the app itself
 - [AppSource user scenarios](./user-scenarios)
 - [Partner Center listing](./listing)
 - [Build on Bifröst](/extensibility/)

@@ -45,6 +45,7 @@ Bifröst Bragi er spjalleining Bifrastar. Hún byggir á Bifröst Foundation og 
 ## Hvert skal halda næst
 
 - [Hjálp í kerfinu](/help/bragi/)
+- [Uppflettirit skilaboðategunda](./reference/message-types/) — beiðni og svar fyrir hverja tegund, búið til beint úr forritinu
 - [Skilaboðategundir spjalls](./message-types)
 - [Að bæta spjallveitanda við Braga](./extensibility)
 - [Byggja á Bifröst](/extensibility/)

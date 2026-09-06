@@ -51,6 +51,7 @@ Bifröst Nornir manages scheduled work in Business Central. It monitors, restart
 ## Where to go next
 
 - [In-product help](/help/nornir/)
+- [Message type reference](./reference/message-types/) — the request and response contract for every type, generated from the app itself
 - [AppSource user scenarios](./user-scenarios)
 - [Partner Center listing](./listing)
 - [Build on Bifröst](/extensibility/)

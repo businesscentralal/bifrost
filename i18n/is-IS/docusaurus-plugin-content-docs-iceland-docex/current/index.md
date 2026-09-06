@@ -55,6 +55,7 @@ Heildarlistann, eina línu á hverja skilaboðategund, er að finna í [hjálpin
 ## Hvert skal halda næst
 
 - [Hjálp í kerfinu](/help/iceland-docex/)
+- [Uppflettirit skilaboðategunda](./reference/message-types/) — beiðni og svar fyrir hverja tegund, búið til beint úr forritinu
 - [Kort yfir hlutaauðkenni](./reference/object-id-map)
 - [Notendasviðsmyndir fyrir AppSource](./user-scenarios)
 - [Skráning í Partner Center](./listing)
