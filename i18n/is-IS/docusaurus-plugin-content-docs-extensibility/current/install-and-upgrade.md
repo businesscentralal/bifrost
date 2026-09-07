@@ -42,7 +42,7 @@ hún er drifin af lista af pörum `(gamalt töflunúmer, nýtt töflunúmer)`. F
 5. **Skráðu niðurstöðuna** í `Install Log ori`, svo kerfisstjóri sjái hvað færðist — sjá
    [Skráning á því sem uppsetningin gerði](#skráning-á-því-sem-uppsetningin-gerði).
 
-Úr `App Takeover ori` í Nornir:
+Úr `App Takeover ori` í Bifrost Orchestrator:
 
 ```al
 /// <summary>Copies <c>CE Orchestrator Setup ori</c> (10076036) into <c>Scheduler Setup ori</c> (10035536).</summary>
@@ -84,7 +84,7 @@ sem keyra sömu uppgefnu útgáfu hafa mælst með ólík pakkaauðkenni — og 
 harkalega við reit sem er ekki til staðar. Að athuga hvern reit fyrst breytir misheppnaðri
 uppsetningu í afritun að hluta.
 
-Yfirtakan í Nornir er búin til af forriti út frá nafnavörpun flutningsins, ekki slegin inn í
+Yfirtakan í Bifrost Orchestrator er búin til af forriti út frá nafnavörpun flutningsins, ekki slegin inn í
 höndunum, og einingin segir frá því í samantekt sinni. Það er rétta aðferðin um leið og
 forrit hefur fleiri en örfáar töflur: reitalistarnir eru langir og vélrænir.
 
@@ -100,8 +100,8 @@ skilyrðum, vistaðar forstillingar skýrslna, stillingar hvers notanda.
 - `Message Argument ori` — viðfangafærslan fyrir hvert kall.
 - `Request Log ori` — skráning útleiðandi beiðna.
 - Biðminnis- og vinnutöflur.
-- Keyrsluannálar. Nornir skilur `Playbook Instance ori` og
-  `Playbook Step Log ori` vísvitandi eftir; Hnitbjörg skilur eftir upphleðslulotur og búta þeirra.
+- Keyrsluannálar. Bifrost Orchestrator skilur `Playbook Instance ori` og
+  `Playbook Step Log ori` vísvitandi eftir; Bifrost Attachments skilur eftir upphleðslulotur og búta þeirra.
 
 Þetta eru raðir í vinnslu eða söguleg gögn sem hafa ekkert stillingargildi. Að afrita þær
 flytti suð yfir, og í tilviki beiðnaannálsins færði það þegar hulin gagnaboð yfir í nýja
@@ -145,7 +145,7 @@ local procedure TakeOverAccessControl()
 var
     Migrated: Integer;
 begin
-    Migrated += MigrateRole('CE Orchestrator ori', 'BIFROST Nornir ori');
+    Migrated += MigrateRole('CE Orchestrator ori', 'BIFROST Orchestr ori');
     Migrated += MigrateRole('CE Orch. Setup ori', 'BIFROST NrnSetup ori');
     if Migrated > 0 then
         LogTakeOver('Access Control', Migrated);
@@ -259,7 +259,7 @@ að varnirnar séu á raðastigi og heiðarlegar, ekki frá þvingunarrofa.
 ### Röðun
 
 Yfirtakan verður að keyra **á undan** því að forritið býr til sínar eigin stöku færslur.
-Uppsetningareiningin í Nornir er skýr um það:
+Uppsetningareiningin í Bifrost Orchestrator er skýr um það:
 
 ```al
 trigger OnInstallAppPerCompany()
@@ -281,7 +281,7 @@ Settu uppsetningarfærsluna þína inn fyrst og þá kveikir prófið „slepptu
 ekki tómt“ á röð sem þú bjóst til sjálf/ur, og stillingar viðskiptavinarins verða hljóðlaust
 eftir.
 
-Hnitbjörg setur yfirtökuna í eigin einingu með `Subtype = Install` í stað þess að kalla á
+Bifrost Attachments setur yfirtökuna í eigin einingu með `Subtype = Install` í stað þess að kalla á
 hana úr annarri. Hvor tveggja skipanin virkar; það sem máli skiptir er að ekkert annað
 uppsetningarverk snerti markmiðstöflurnar á undan.
 
@@ -305,7 +305,7 @@ af síðu eða úr prófun.
 | eining `Install Log ori` | 10078313 | `Access = Public` — skrifviðmótið |
 | síða `Install Log ori` | 10078315 | Listi, `UsageCategory = None`, opnuð úr Uppsetningu Bifröst |
 
-Þrjú föll, og ekkert í þeim kastar villu: skráning sem bregst má aldrei brjóta uppsetningu.
+Fjögur föll, og ekkert í þeim kastar villu: skráning sem bregst má aldrei brjóta uppsetningu.
 
 | Fall | Tilgangur |
 | --- | --- |
@@ -412,14 +412,14 @@ undantekningin er ekki þegar til staðar, svo óhætt er að kalla á hana við
 
 **Skráning leyndarmála** — sjá [Uppsetning og leyndarmál](/extensibility/setup-and-secrets/).
 
-**Uppfærslumerki.** Hnitbjörg setur merki fyrir fyrstu útgáfu við uppsetningu og skráir það á
+**Uppfærslumerki.** Bifrost Attachments setur merki fyrir fyrstu útgáfu við uppsetningu og skráir það á
 `OnGetPerCompanyUpgradeTags`, svo síðari gagnauppfærsla geti greint nýja uppsetningu frá
 uppfærðri:
 
 ```al
 internal procedure GetInitialReleaseTag(): Code[250]
 begin
-    exit('Origo.Bifrost.Hnitbjorg-Initial-20260905');
+    exit('Origo.Bifrost.Attachments-Initial-20260905');
 end;
 ```
 
@@ -457,7 +457,7 @@ Eining með `Subtype = Upgrade` sér um útgáfur eftir þá fyrstu. Tvær kveik
 - `OnUpgradePerCompany` — gagnauppfærslan sjálf.
 
 Allt sem er skráð við uppsetningu er skráð aftur við uppfærslu, því fyrirtæki sem uppfærir
-keyrir aldrei uppsetningarkveikjuna. Uppfærslueiningin í Nornir endurtekur stofnun stöku
+keyrir aldrei uppsetningarkveikjuna. Uppfærslueiningin í Bifrost Orchestrator endurtekur stofnun stöku
 uppsetningarfærslunnar, skráningu varðveislureglna og virkjun HTTP-biðlarans einmitt af
 þeirri ástæðu.
 
