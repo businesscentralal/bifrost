@@ -8,10 +8,11 @@
     "start:is": "cross-env DOCUSAURUS_LOCALE=is-IS docusaurus start --locale is-IS",
     "build:en": "cross-env DOCUSAURUS_LOCALE=en-US docusaurus build --locale en-US --out-dir build/en-us",
     "build:is": "cross-env DOCUSAURUS_LOCALE=is-IS docusaurus build --locale is-IS --out-dir build/is-is",
-    "build": "npm run build:en && npm run build:is && node tools/build-root.mjs",
+    "build": "node tools/copy-apps-json.mjs && npm run build:en && npm run build:is && node tools/build-root.mjs",
     "serve": "docusaurus serve --dir build --port 3000",
     "clear": "docusaurus clear",
     "write-translations": "docusaurus write-translations --locale is-IS",
+    "validate:apps": "node tools/validate-apps.mjs",
     "typecheck": "tsc"
   },
   "dependencies": {
@@ -31,6 +32,8 @@
     "@docusaurus/tsconfig": "3.10.2",
     "@docusaurus/types": "3.10.2",
     "@types/react": "^19.0.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "2.1.1",
     "cross-env": "10.1.0",
     "turndown": "^7.2.2",
     "turndown-plugin-gfm": "^1.0.2",
