@@ -146,7 +146,10 @@ const config: Config = {
           type: 'dropdown',
           label: 'Apps',
           position: 'left',
-          items: apps.map((app) => ({label: app.title, to: `/${app.id}/`})),
+          items: [
+            {label: buildLocale === 'is-IS' ? 'Öll forrit (skráning)' : 'All apps (registry)', to: '/apps/'},
+            ...apps.map((app) => ({label: app.title, to: `/${app.id}/`})),
+          ],
         },
         {
           type: 'dropdown',
@@ -186,9 +189,11 @@ const config: Config = {
         {
           title: 'Build on Bifröst',
           items: [
+            {label: buildLocale === 'is-IS' ? 'Forritaskrá' : 'App registry', to: '/apps/'},
             {label: 'Extensibility', to: '/extensibility/'},
             {label: 'Skills for AI agents', to: '/skills/'},
             {label: 'llms.txt', href: `${siteRoot}llms.txt`, target: '_self'},
+            {label: 'apps.json', href: `${siteRoot}apps.json`, target: '_self'},
             {label: 'GitHub', href: 'https://github.com/businesscentralal/bifrost'},
           ],
         },
