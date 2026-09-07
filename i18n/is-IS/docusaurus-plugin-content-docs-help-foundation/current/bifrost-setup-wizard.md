@@ -37,6 +37,6 @@ Leyndarmál sem vantar teljast aldrei sem villa hér eða á Bifröst uppsetning
 
 ## Ábendingar
 
--   Hjálpin sýnir aðeins þau skref sem eiga við — til dæmis er Leyndarmálaskrefið alveg sleppt þegar engin uppsett viðbót hefur skráð nein leyndarmál.
+-   Leyndarmálaskrefið birtist alltaf, jafnvel þótt engin uppsett viðbót hafi enn skráð leyndarmál — þá sýnir það einfaldlega tóman lista.
 -   Ekkert sem gert er í hjálpinni er óafturkræft: **Til baka** og **Áfram** eyða aldrei gildum sem þegar hafa verið skráð, og hægt er að opna hjálpina aftur eins oft og þörf krefur.
 -   Aðgerðin **Ræsa uppsetningarhjálp** á tilkynningunni um HTTP-beiðnir opnar þessa sömu hjálp — það er ekkert sérstakt, styttra ferli eingöngu fyrir HTTP.

@@ -37,6 +37,6 @@ Missing credentials are never treated as an error here or on Bifrost Setup — a
 
 ## Tips
 
--   The wizard only shows the steps that are relevant — for example, the Credentials step is skipped entirely when no installed application has registered any credentials.
+-   The Credentials step always appears, even when no installed application has registered a credential yet — it simply shows an empty list in that case.
 -   Nothing you do in the wizard is destructive: **Back** and **Next** never discard values you have already entered, and you can reopen the wizard as many times as you like.
 -   The **Start setup wizard** action on the HTTP client requests notification opens this same wizard — there is no separate, cut-down flow just for HTTP.
