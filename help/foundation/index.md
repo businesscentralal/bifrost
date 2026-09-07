@@ -15,6 +15,7 @@ The extension supports a wide range of built-in message types for retrieving cus
 | Page | Description |
 | --- | --- |
 | [Bifrost Setup](/help/foundation/bifrost-setup/) | Central configuration page for implementation strategies, credit-limit tolerance, and default language. |
+| [Bifrost Setup Wizard](/help/foundation/bifrost-setup-wizard/) | Assisted setup that walks through outbound HTTP, credentials, trial activation, the MCP server connection and Entra enterprise app authorization for every installed Bifröst application. |
 | [Bifrost Messages](/help/foundation/bifrost-messages/) | List of all bifrost messages with their processing status, request/response data, and task actions. |
 | [Bifrost Integration](/help/foundation/bifrost-integration/) | Operational log of bifrost integration activities, showing the source system, table, and timestamp for each event. Supports flagging records as reversed. |
 | [Bifrost Storage](/help/foundation/bifrost-storage/) | View and manage stored blob content associated with bifrost. Supports file import and export. |

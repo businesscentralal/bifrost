@@ -7,6 +7,12 @@ sidebar_position: 22
 
 The **Bifrost Setup** page is the central configuration point for the Bifrost extension. Use it to select which implementation strategy is used for each business feature, set the credit-limit tolerance percentage, and choose the default language for message processing.
 
+## Notifications
+
+Bifrost Setup shows a notification whenever at least one installed Bifröst application does not have outbound HTTP client requests enabled: **"HTTP client requests are not enabled for: &lt;application names&gt;."** Its one action, **Start setup wizard**, opens the [Bifrost Setup Wizard](/help/foundation/bifrost-setup-wizard/) on the step that lists every affected application.
+
+There is no separate notification for missing credentials — a credential that has not been entered simply disables the message types that need it. Enter credentials at any time from the **Secrets** action, or from the wizard's optional Credentials step.
+
 ## Fields
 
 | Field | Description |
@@ -46,6 +52,7 @@ Extensible via the `Company Name Type` enum (65601) and the `Company Name` inter
 | **Languages** | Opens the Windows Languages page so you can view available language codes. |
 | **Bifrost Translations** | Opens the translations list for managing source/target text pairs used by external systems. |
 | **Retention Policies** | Opens the Retention Policy Setup so you can configure automatic cleanup of old bifrost messages and integration records. |
+| **Take Over Legacy Data** | Asks for confirmation, then re-runs the take-over of data from the predecessor app "Origo Cloud Events Core" and opens the Bifrost Install Log page filtered to the rows the run produced. The Bifrost Install Log shows what each installed Bifröst application did while it installed: the tables it took over from the app it replaces, and how many rows were copied per table. |
 
 ## Tips
 
