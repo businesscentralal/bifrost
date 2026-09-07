@@ -1,0 +1,152 @@
+{
+  "$schema": "./apps.schema.json",
+  "apps": [
+    {
+      "appId": "7505e808-6e52-4b96-a328-82573391297a",
+      "name": "Bifrost Foundation",
+      "publisher": "Origo",
+      "summary": "The message-type kernel for Business Central: a REST API, queue, setup page and secret store that every other Bifrost app builds on.",
+      "domains": ["integration"],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://bifrost.origo.is/en-us/foundation/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/foundation.png"
+      }
+    },
+    {
+      "appId": "e1276ba8-3405-4589-ba68-51d725992ef6",
+      "name": "Bifrost Iceland",
+      "publisher": "Origo",
+      "summary": "Icelandic message types on Bifrost Foundation: Þjóðskrá/Umsjá, Skatturinn VAT, payroll and capital tax, Seðlabanki rates, Skilagrein, island.is and SMS.",
+      "summary_is": "Íslensk skilaboðatög ofan á Bifröst Foundation: Þjóðskrá/Umsjá, VSK hjá Skattinum, laun og fjármagnstekjuskattur, gengi Seðlabankans, skilagrein, island.is og SMS.",
+      "domains": ["iceland", "finance", "hr-payroll"],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://bifrost.origo.is/en-us/iceland/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/iceland.png"
+      }
+    },
+    {
+      "appId": "54f038b6-4e7a-4e7d-bd95-a70587f27dd2",
+      "name": "Bifrost Iceland Treasury",
+      "publisher": "Origo",
+      "summary": "Icelandic bank connectors for Business Central: Landsbankinn claims, payments, cards, accounts and statements, plus the Draupnir IOBS/Sambankaskema signing framework.",
+      "summary_is": "Tengingar við íslenska banka fyrir Business Central: kröfur, greiðslur, kort, reikningar og hreyfingaryfirlit hjá Landsbankanum, auk Draupnir IOBS/Sambankaskema undirritunarrammans.",
+      "domains": ["banking", "iceland", "finance"],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://bifrost.origo.is/en-us/iceland-treasury/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/iceland-treasury.png"
+      }
+    },
+    {
+      "appId": "54d53040-b92f-4745-8980-89573b6b0463",
+      "name": "Bifrost Iceland DocEx",
+      "publisher": "Origo",
+      "summary": "Electronic document exchange on Bifrost Foundation: Peppol, Unimaze, InExchange and BIS 3.0 incoming and outgoing documents.",
+      "summary_is": "Rafræn skjalaskipti ofan á Bifröst Foundation: Peppol, Unimaze, InExchange og BIS 3.0, bæði innkomandi og útsend skjöl.",
+      "domains": ["e-documents", "iceland"],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://bifrost.origo.is/en-us/iceland-docex/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/iceland-docex.png"
+      }
+    },
+    {
+      "appId": "672df32a-a0c5-4a22-b591-0efa38023e95",
+      "name": "Bifrost Attachments",
+      "publisher": "Origo",
+      "summary": "Azure Blob, Azure File Share and SharePoint storage message types on Bifrost Foundation, with chunked uploads and attachment offloading.",
+      "domains": ["documents", "integration"],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://bifrost.origo.is/en-us/hnitbjorg/",
+        "repository": "https://github.com/businesscentralal/bc-origo-bifrost-attachments",
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/attachments.png"
+      }
+    },
+    {
+      "appId": "f1722684-0c24-4022-a2e0-0f63154aca76",
+      "name": "Bifrost Language Models",
+      "publisher": "Origo",
+      "summary": "Chat and language model providers for Business Central: Copilot, OpenAI, Azure OpenAI, Anthropic, xAI and Gemini, plus an MCP tool server.",
+      "domains": ["ai", "integration"],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://bifrost.origo.is/en-us/bragi/",
+        "repository": "https://github.com/businesscentralal/bc-origo-bifrost-language-models",
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/language-models.png"
+      }
+    },
+    {
+      "appId": "7da3f512-5c19-47cd-bbe4-4c2bc713f1db",
+      "name": "Bifrost Orchestrator",
+      "publisher": "Origo",
+      "summary": "Job queue scheduling and declarative playbooks for Bifrost message types: monitoring, restart, error handling, data flow and conditional branching.",
+      "domains": ["scheduling", "integration"],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://bifrost.origo.is/en-us/nornir/",
+        "repository": "https://github.com/businesscentralal/bc-origo-bifrost-orchestrator",
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/orchestrator.png"
+      }
+    },
+    {
+      "appId": "d4560cf5-947d-42b5-b812-33ae8dd009af",
+      "name": "Bifrost Timesheets",
+      "publisher": "Origo",
+      "summary": "Clockify time tracking as Bifrost message types, with synchronisation of time entries into Business Central Job Journals and Time Sheets.",
+      "domains": ["time-tracking", "projects"],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://bifrost.origo.is/en-us/clockify/",
+        "repository": "https://github.com/businesscentralal/bc-origo-bifrost-timesheets",
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/timesheets.png"
+      }
+    },
+    {
+      "appId": "dd7b8bd8-f93e-4ac4-a251-1a132a14ef3d",
+      "name": "Bifrost Subscription Billing",
+      "publisher": "Origo",
+      "summary": "Message types for Subscription Billing: contracts, billing pipeline, price updates, renewal, usage-based billing, deferrals and migration.",
+      "domains": ["billing", "finance"],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://bifrost.origo.is/en-us/subscription-billing/",
+        "repository": "https://github.com/businesscentralal/bc-origo-bifrost-subscription-billing",
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/subscription-billing.png"
+      }
+    }
+  ]
+}
