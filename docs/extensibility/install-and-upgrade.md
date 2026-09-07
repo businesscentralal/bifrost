@@ -3,7 +3,7 @@ id: install-and-upgrade
 title: "Install and upgrade"
 sidebar_label: "Install and upgrade"
 sidebar_position: 5
-description: "The take-over install pattern for a Bifröst app replacing a published Cloud Events app, and what an install codeunit registers."
+description: "The take-over install pattern for a Bifröst app replacing a published Cloud Events app, the shared install log it writes to, and what an install codeunit registers."
 ---
 
 # Install and upgrade
@@ -43,7 +43,8 @@ and it is driven by a list of `(old table id, new table id)` pairs. For each pai
    predecessor's field numbering, so every pair is `AddFieldValue(N, N)`.
 4. **`DataTransfer.UpdateAuditFields(false)`** so `SystemModifiedAt` and
    `SystemModifiedBy` survive the copy — the rows keep their original audit trail.
-5. **Log the result**, so an administrator can see what moved.
+5. **Log the result** to `Install Log ori`, so an administrator can see what moved — see
+   [Recording what the install did](#recording-what-the-install-did).
 
 From Nornir's `App Takeover ori`:
 
@@ -155,6 +156,108 @@ begin
 end;
 ```
 
+### When "skip when the target is not empty" is not enough
+
+`if not Target.IsEmpty() then exit;` is the right guard for a table the successor app never
+writes before the take-over runs. For two kinds of table it is wrong, and quietly so —
+it skips forever and the customer's configuration never arrives.
+
+**A table the app seeds with defaults.** Foundation's `Install ori` calls
+`InsertDefaultExceptions()`, which puts four rows into `ChangeLog Guard Exception ori`. On
+the container where this was measured the predecessor held **22** rows — the four defaults
+plus eighteen the customer added. An `IsEmpty` guard sees the seeded four and skips all 22.
+
+The fix is a **merge**: insert the source rows whose primary key is absent from the target
+and leave every existing target row alone. Foundation's `Take-Over ori` does this row by
+row through `RecordRef`, matching on the target's primary key:
+
+```al
+LookupRef.Open(TargetTableId);
+InsertRef.Open(TargetTableId);
+repeat
+    if not FindMatchingRow(SourceRef, LookupRef) then begin
+        InsertRef.Init();
+        foreach FieldNo in ScalarFields do
+            InsertRef.Field(FieldNo).Value := SourceRef.Field(FieldNo).Value();
+        InsertRef.Insert(false);
+        RowsCopied += 1;
+    end;
+until SourceRef.Next() = 0;
+```
+
+A merge is idempotent by construction — the key either exists or it does not — so it is
+also the mode that lets a take-over be run a second time safely. The cost is that
+`Insert(false)` stamps the audit fields with the time of the copy rather than the original;
+`DataTransfer.UpdateAuditFields(false)` cannot help here because `DataTransfer` copies whole
+tables, not selected rows.
+
+**A setup singleton.** The install trigger creates it whether or not anything was taken
+over, so by the time the take-over looks the row is always there. Guarding on `IsEmpty`
+skips it; overwriting unconditionally destroys the configuration of an administrator who
+already set it up.
+
+Foundation's rule: **overwrite only while the row still equals its `Init()` defaults.**
+
+```al
+local procedure IsSetupAtInstallDefaults(var BifrostSetup: Record "Setup ori"): Boolean
+var
+    DefaultSetup: Record "Setup ori";
+begin
+    DefaultSetup.Init();
+    exit(
+        (BifrostSetup."Default Language Code" = DefaultSetup."Default Language Code") and
+        (BifrostSetup."ChangeLog Write Guard" = DefaultSetup."ChangeLog Write Guard") and
+        // ... one line per field
+        (BifrostSetup."Request Debug Mode" = DefaultSetup."Request Debug Mode"));
+end;
+```
+
+Write the comparison out field by field rather than looping a `RecordRef`. A generic loop
+has to compare enum fields through `Format`, which the coding standard forbids, and a
+reviewer cannot tell from a loop which fields count as "configured". The cost is a line to
+maintain whenever a field is added to the setup table — say so in the procedure's summary.
+
+This matters more than it looks. Foundation's setup singleton was measured on a live
+container carrying **`Default Language Code = ISL`** in the predecessor and **`ENU`** — the
+installer default — in the successor. Every non-default value on that table was lost at
+install, silently, on every tenant.
+
+### A public entry point, so a missed take-over can be repaired
+
+A take-over that runs only from `OnInstallAppPerCompany` is a **one-shot** step. If the app
+was installed before its take-over codeunit existed, or the install ran in a company where
+the predecessor was not yet installed, the data is stranded: no reinstall, upgrade or
+republish will retry it, because the install trigger does not fire again.
+
+Give the take-over a public entry point and make the install trigger a thin caller:
+
+```al
+trigger OnInstallAppPerCompany()
+var
+    TakeOver: Codeunit "Take-Over ori";
+begin
+    TakeOver.RunTakeOver();
+    // ... the rest of the install
+end;
+```
+
+```al
+/// <summary>
+/// Runs the whole take-over. Safe to call again at any time: each pair carries its own
+/// guard, so a second run is a no-op unless something was genuinely left behind.
+/// </summary>
+/// <returns>The total number of rows written across every step.</returns>
+procedure RunTakeOver() RowsCopied: Integer
+```
+
+Pair it with a **test-only message type** in the app's test app — Foundation ships
+`Test.TakeOver.Run` — so the take-over can be re-run and verified over the API on a live
+container without a reinstall. The message type returns the `Install Log ori` rows that run
+produced, which is the whole answer to "did this ever run, and what moved?".
+
+Keep the guards themselves unchanged for the install path. Re-runnability comes from the
+guards being row-level and honest, not from a force switch.
+
 ### Ordering
 
 The take-over must run **before** the app creates its own singletons. Nornir's install
@@ -183,6 +286,92 @@ behind.
 Hnitbjörg puts its take-over in its own `Subtype = Install` codeunit instead of calling it
 from another one. Either arrangement works; what matters is that no other install work
 touches the target tables first.
+
+## Recording what the install did
+
+Every Bifröst app writes what its install did to one shared table, **`Install Log ori`**,
+owned by Foundation and `Access = Public`.
+
+The reason it exists: take-overs used to log to Application Insights only. That is fine for
+the publisher and useless for everyone else — a customer tenant rarely exposes App Insights,
+so on a live container there was no way to answer "did the take-over run, and what did it
+move?" except by counting rows in both apps and inferring. `Install Log ori` is deliberately
+**not** in Foundation's `Data.Records.Get` restriction list, so it can be read back over the
+API, from a page, or from a test.
+
+### The API
+
+| Object | Id | Notes |
+| --- | --- | --- |
+| table `Install Log ori` | 10078310 | `Access = Public`, readable through `Data.Records.Get` |
+| codeunit `Install Log ori` | 10078313 | `Access = Public` — the write facade |
+| page `Install Log ori` | 10078315 | List, `UsageCategory = None`, reached from Bifrost Setup |
+
+Three procedures, and nothing in them raises: a log that fails must never break an install.
+
+| Procedure | Purpose |
+| --- | --- |
+| `StartStep()` | Marks the start of the step the next log call describes. Optional — without it `Started At` equals `Finished At`. |
+| `LogTableCopy(AppId; Step; SourceTableId; TargetTableId; RowsCopied; SkippedReason; Message): Integer` | Records the copy of one table into another. |
+| `LogStep(AppId; Step; Success; Message): Integer` | Records a step that is not a table copy — permission set assignments, a retention policy, the summary of a whole take-over. |
+| `GetLastEntryNo(): Integer` | The highest entry number in the log. Capture it before a run to identify the rows that run produced. |
+
+Both `Log*` procedures return the entry number they wrote, which a caller may ignore.
+
+`Skipped Reason` is the enum `Install Skip Reason ori`, and it is what makes the log worth
+reading:
+
+| Value | Meaning |
+| --- | --- |
+| `None` | The step ran to completion. `Rows Copied` may still be zero if the source was empty. |
+| `Source Missing` | The source table is not in this database — the predecessor is not installed. |
+| `Target Not Empty` | The target already held rows, so the copy was skipped rather than overwriting them. |
+| `Field Mismatch` | At least one field could not be carried: its type or length differs, or it holds binary media. |
+| `Error` | The step raised. `Message` carries the error text and nothing it wrote was kept. |
+
+The distinction between `Source Missing` and `None` with zero rows is the one that pays for
+itself: "the predecessor was never here" and "the predecessor was here and had nothing" look
+identical in a row count and are very different in a support call.
+
+### Using it
+
+```al
+var
+    InstallLog: Codeunit "Install Log ori";
+begin
+    InstallLog.StartStep();
+    // ... copy the table ...
+    InstallLog.LogTableCopy(
+        AppId(), 'STORAGE ATTACHMENT LINK ORI', 10075985, Database::"Storage Attachment Link ori",
+        Target.Count(), Enum::"Install Skip Reason ori"::None, '');
+end;
+```
+
+`AppId()` is your own module, the same helper the secret store uses:
+
+```al
+local procedure AppId(): Guid
+var
+    AppInfo: ModuleInfo;
+begin
+    NavApp.GetCurrentModuleInfo(AppInfo);
+    exit(AppInfo.Id());
+end;
+```
+
+The log resolves the app name from the id itself, so the page and the API response name your
+app without you passing it.
+
+### What to log
+
+**One row per table pair, always** — including the pairs that copied nothing. A pair that
+leaves no row is indistinguishable from a pair that was never in the map, which is exactly
+the failure mode this table exists to catch. Foundation's take-over writes one row for each
+of its thirteen pairs, plus one for the permission-set step and one summary row.
+
+**Grant your permission sets a view of it.** Add `tabledata "Install Log ori" = R` and
+`page "Install Log ori" = X` to your read-only set, and `RIMD` to your full-access set, so an
+administrator can open it from Bifrost Setup.
 
 ## What else an install codeunit does
 
