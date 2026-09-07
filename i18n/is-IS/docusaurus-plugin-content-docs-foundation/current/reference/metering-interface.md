@@ -1,6 +1,6 @@
 ---
 id: metering-interface
-title: "Metering interface"
+title: "Mælingarviðmót"
 sidebar_position: 8
 ---
 
