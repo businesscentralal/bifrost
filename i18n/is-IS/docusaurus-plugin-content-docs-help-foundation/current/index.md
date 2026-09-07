@@ -1,7 +1,7 @@
 ---
 id: index
-title: "Bifröst Foundation — Help"
-sidebar_label: "Bifröst Foundation — Help"
+title: "Bifröst Foundation — hjálp"
+sidebar_label: "Bifröst Foundation — hjálp"
 sidebar_position: 1
 slug: /
 ---
