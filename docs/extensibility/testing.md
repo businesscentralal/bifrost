@@ -195,13 +195,13 @@ Foundation's:
   `Help.MessageTypes.Get`.
 
 Mock implementations follow the same idea for interfaces rather than message types.
-Hnitbjörg's test app extends the product's storage-type enum with an in-memory backend, so
-the whole connector pipeline can be exercised without a live storage account:
+Bifröst Attachments' test app extends the product's storage-type enum with an in-memory
+backend, so the whole connector pipeline can be exercised without a live storage account:
 
 ```al
-namespace Origo.Bifrost.Hnitbjorg.Test;
+namespace Origo.Bifrost.Attachments.Test;
 
-using Origo.Bifrost.Hnitbjorg;
+using Origo.Bifrost.Attachments;
 
 enumextension 96200 "Storage Type Test" extends "Storage Type ori"
 {
@@ -218,51 +218,42 @@ interfaces that way.
 
 ## Running a message type from a test
 
-There are two ways in, and they test different things.
+A dependent app's test app uses **Foundation's public API only** — `Dispatcher ori` — same
+as the product code it is testing. There is no internal shortcut, and none is needed: no
+`internalsVisibleTo` entry to request in Foundation's `app.json`, no rebuild-and-republish
+of Foundation before a new test app's tests can run.
 
-**Through `Dispatcher ori`** — the production path. The test dispatches exactly like an
-external caller does; see [Message types](/extensibility/message-types). `Execute` is the
-lightweight route; `EnqueueAndProcess` exercises the full orchestrator when the test cares
-about language switching, response time or the completion event. Use this whenever the
-test is about behaviour a caller would see.
-
-**Directly on the implementation codeunit** — the fast path, when the test is about the
-implementation's own logic. Build a temporary `Message Argument ori`, fill the request, and
-run the Impl against it:
+`Execute` is the lightweight route. It dispatches straight through the interface, with
+`OmitCommit = true` and no queue row persisted:
 
 ```al
 var
-    TempArgument: Record "Message Argument ori" temporary;
-    StorageFileGetImpl: Codeunit "Storage File Get Impl ori";
+    Dispatcher: Codeunit "Dispatcher ori";
+    RequestContent: BigText;
+    ResponseContent: BigText;
+    ResponseContentType: Text[50];
 begin
-    TempArgument.Init();
-    TempArgument.SetRequestData(RequestJson);
-    TempArgument.SetLicensed(true);
-    StorageFileGetImpl.Execute(TempArgument);
+    RequestContent.AddText(RequestJson);
+    Dispatcher.Execute(
+        "Message Type ori"::"Storage.File.Get", "Message Version ori"::"1.0",
+        Subject, 'MyApp Tests', 'application/json',
+        RequestContent, ResponseContent, ResponseContentType);
 end;
 ```
 
-`SetLicensed(true)` is the part that is easy to miss. In production, `Message Task ori`
-marks the call as licensed; a test that skips the task never does, so every
-`Argument.AssertIsLicensed()` inside the implementation fails with *"This operation requires
-a valid license."*
+Because `Execute` goes through the same `Message Task ori` orchestration a production call
+does, the request arrives at the implementation already marked licensed — there is no
+`SetLicensed` to call and no `Argument.AssertIsLicensed()` failure to chase. Use `Execute`
+whenever the test is about the implementation's own logic; use `EnqueueAndProcess` instead
+when it needs the full orchestrator — language switching, response time, retention or the
+completion event — because it is about behaviour a caller would see. See
+[Message types](/extensibility/message-types) for both signatures.
 
-`SetLicensed` is **internal to Foundation**. For your test app to call it, Foundation's
-`app.json` must list that test app under `internalsVisibleTo`:
-
-```json
-"internalsVisibleTo": [
-    {
-        "id": "194ecd04-5688-4af6-94bc-732c714251fc",
-        "name": "Bifrost Nornir - Tests",
-        "publisher": "Origo"
-    }
-]
-```
-
-Adding an entry there changes Foundation, so **Foundation has to be rebuilt and republished
-to the container** before the new test app's tests can run. Do that once, when the test app
-is created — not the first time a test fails on a licence error.
+Building a `Message Argument ori` by hand and calling the implementation codeunit directly,
+marking it licensed through Foundation's internal `SetLicensed`, is Foundation's *own* test
+app's technique — it can reach across because it ships in the same package. A dependent
+app's test app is never in that package, and after 2026-09-07 it has no reason to ask for
+the access either: `Dispatcher ori.Execute` is the direct replacement, at the same cost.
 
 ## Autonomous testing
 
