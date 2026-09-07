@@ -9,7 +9,7 @@ The **Bifrost Iceland Setup** card (`Iceland Setup ori`) holds every setting of 
 
 Nothing about Iceland is configured on Bifröst Foundation's own setup card any more. Foundation's **Setup** page carries a single Iceland action, and everything else lives here, so the app can be installed, configured and removed on its own.
 
-A guided **Set up Bifrost Iceland** wizard (`Iceland Setup Wizard ori`) walks through the same settings step by step. Start it from **Assisted Setup**, or from the **Setup Wizard** action on this page.
+A guided **Set up Bifrost Iceland connectors** wizard (`Iceland Setup Wizard ori`) walks through the connector client-type settings step by step. Start it from **Assisted Setup**, or from the **Setup Wizard** action on this page. Outbound HTTP and every credential on this page are configured once, for every installed Bifröst application, by Bifröst Foundation's own **Bifrost Setup Wizard** - this app's wizard does not repeat either step.
 
 ## Notifications
 
@@ -162,14 +162,12 @@ The values are written to IsolatedStorage owned by the Bifröst Foundation exten
 
 ## The setup wizard
 
-**Set up Bifrost Iceland** (`Iceland Setup Wizard ori`) covers the same ground in five steps.
+**Set up Bifrost Iceland connectors** (`Iceland Setup Wizard ori`) covers the connector client-type settings in three steps.
 
 | Step | Covers |
 | --- | --- |
-| Welcome | What the wizard configures and what is needed before starting. |
-| Enable HTTP Client Requests | Checks the **Allow HttpClient Requests** switch and opens Extension Settings. |
-| Connector Clients | The client type of each domain — Umsjá, SMS, Skatturinn, Skilagrein, Já Gagnatorg. |
-| Credentials | Runs the same masked dialog as the setup card for each credential. |
-| Finish | Saves the settings and offers to open the setup card. |
+| Welcome | What the wizard configures, and a pointer to Bifrost Setup Wizard for HTTP and credentials. |
+| Connector Clients | The client type of each domain — Umsjá, SMS, Skatturinn, Skilagrein, Já Gagnatorg — plus the Umsjá licence and the SMS sender ids. |
+| Finish | Saves the settings. |
 
-The wizard never writes a credential any other way — it calls the same shared dialog, so values still go straight to the secret store.
+This wizard neither enables HTTP nor collects a credential. Both are configured once, for every installed Bifröst application, in Bifröst Foundation's **Bifrost Setup Wizard** (Bifröst Setup, action **Start setup wizard**) - run that first if the connectors here cannot reach the Icelandic services.

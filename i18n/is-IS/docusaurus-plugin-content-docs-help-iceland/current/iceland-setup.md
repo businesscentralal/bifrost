@@ -9,7 +9,7 @@ Spjaldið **Uppsetning Bifröst Ísland** (`Iceland Setup ori`) geymir allar sti
 
 Ekkert sem varðar Ísland er lengur stillt á uppsetningarspjaldi Bifrastar-grunnsins. Uppsetningarsíða grunnsins ber eina íslenska aðgerð og allt annað er hér, svo hægt sé að setja viðbótina upp, stilla hana og fjarlægja án þess að snerta grunninn.
 
-Leiðsagnarforritið **Setja upp Bifröst Ísland** (`Iceland Setup Wizard ori`) fer í gegnum sömu stillingar skref fyrir skref. Það er ræst úr **Leiðsögn við uppsetningu** eða með aðgerðinni **Leiðsögn við uppsetningu** á þessari síðu.
+Leiðsagnarforritið **Setja upp tengingar Bifröst Ísland** (`Iceland Setup Wizard ori`) fer í gegnum val á biðlaraútfærslu tenginganna skref fyrir skref. Það er ræst úr **Leiðsögn við uppsetningu** eða með aðgerðinni **Leiðsögn við uppsetningu** á þessari síðu. Útleið HTTP og öll innskráningarupplýsingar á þessari síðu eru stilltar einu sinni, fyrir öll uppsett Bifröst-forrit, í **Uppsetningarleiðsögn Bifröst** hjá Bifrastar-grunninum - leiðsögn þessa forrits endurtekur hvorugt skrefið.
 
 ## Tilkynningar
 
@@ -162,14 +162,12 @@ Gildin eru skrifuð í IsolatedStorage sem tilheyrir Bifrastar-grunninum, aldrei
 
 ## Leiðsögnin
 
-**Setja upp Bifröst Ísland** (`Iceland Setup Wizard ori`) fer yfir sama efni í fimm skrefum.
+**Setja upp tengingar Bifröst Ísland** (`Iceland Setup Wizard ori`) fer yfir val á biðlaraútfærslu í þremur skrefum.
 
 | Skref | Nær yfir |
 | --- | --- |
-| Velkomin | Hvað leiðsögnin stillir og hvað þarf að vera til staðar áður en byrjað er. |
-| Virkja HTTP-biðlarabeiðnir | Athugar stillinguna **Allow HttpClient Requests** og opnar stillingar viðbótarinnar. |
-| Biðlarar tenginga | Biðlarategund hvers sviðs — Umsjár, SMS, Skattsins, Skilagreinar og Já Gagnatorgs. |
-| Innskráningarupplýsingar | Keyrir sama hulda gluggann og uppsetningarspjaldið fyrir hvert leyndarmál. |
-| Lok | Vistar stillingarnar og býður að opna uppsetningarspjaldið. |
+| Velkomin | Hvað leiðsögnin stillir, og bendir á Uppsetningarleiðsögn Bifröst fyrir HTTP og innskráningarupplýsingar. |
+| Biðlarar tenginga | Biðlarategund hvers sviðs — Umsjár, SMS, Skattsins, Skilagreinar og Já Gagnatorgs — auk leyfisnúmers Umsjár og sendandaauðkenna SMS. |
+| Lok | Vistar stillingarnar. |
 
-Leiðsögnin skrifar aldrei leyndarmál á annan hátt — hún kallar á sama sameiginlega gluggann, svo gildin fara beint í leyndarmálageymsluna.
+Þessi leiðsögn hvorki virkjar HTTP né skráir innskráningarupplýsingar. Hvort tveggja er stillt einu sinni, fyrir öll uppsett Bifröst-forrit, í **Uppsetningarleiðsögn Bifröst** hjá Bifrastar-grunninum (Uppsetning Bifröst, aðgerðin **Ræsa uppsetningarleiðsögn**) - keyrðu hana fyrst ef tengingarnar hér ná ekki til íslensku þjónustanna.
