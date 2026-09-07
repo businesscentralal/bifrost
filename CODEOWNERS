@@ -1,1 +1,7 @@
 * @gunnargestsson
+
+# App registry: entries and logos are reviewed by the Bifröst maintainers team.
+# If this team does not exist yet in the businesscentralal GitHub org, create it
+# first (org Settings -> Teams) and add the relevant maintainers to it.
+/data/apps.json @businesscentralal/bifrost-maintainers
+/static/img/apps/ @businesscentralal/bifrost-maintainers
