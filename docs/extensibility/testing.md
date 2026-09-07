@@ -283,10 +283,18 @@ run its scenarios, and clean up afterwards — all through message types. The pa
    Debug mode only changes what `Request Logger ori` maskers keep unmasked for **outbound
    connector calls** your app makes (see [Secrets](/foundation/reference/secrets) and the
    masker interface in this app's own code). It does not affect the Bifröst message
-   queue itself: `Message ori`'s `Request Data` / `Response Data` always store the raw
-   incoming payload for every message type, on or off — that is how the framework routes
-   and replays messages, not a masking gap. Keep real secrets out of test payloads
-   regardless of debug mode; use dummy values, the same rule as everywhere else in this page.
+   queue itself: `Message ori`'s `Request Data` / `Response Data` store the raw incoming
+   payload for every message type, on or off — that is how the framework routes and
+   replays messages, not a masking gap. **`Test.Secret.Set` is the one exception** (fixed
+   2026-09-07): it calls `Record "Message Argument ori".RedactRequestData()` immediately
+   after storing the value, which overwrites the persisted `Message ori` row's `Request
+   Data` with a `{"redacted":true}` placeholder — so the value it received does not stay
+   at rest in the queue table either, only in `Secret Store ori`'s protected storage. Any
+   other message type still keeps the full request payload verbatim, so use dummy values
+   in test payloads regardless of debug mode, the same rule as everywhere else in this
+   page. A dependent app that adds its own credential-seeding test type (as Bifröst
+   Iceland Treasury's `Test.Treasury.Secret.Set` does) should call the same procedure right
+   after consuming the value.
 
 2. **Seed credentials from the caller's own environment, never from a file.** The agent
    reads a value from its own environment variables (or a secret manager) and sends it as
