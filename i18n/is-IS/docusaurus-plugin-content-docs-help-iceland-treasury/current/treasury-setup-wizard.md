@@ -5,28 +5,19 @@ sidebar_label: "Uppsetningarleiðsögn"
 sidebar_position: 3
 ---
 
-Leiðsögnin **Setja upp Bifröst Ísland Fjárstýring** fer með þig í gegnum það að tengja Business Central við íslensku bankana. Hún birtist í listanum **Leiðsögn við uppsetningu** og þú getur einnig ræst hana með aðgerðinni **Uppsetningarleiðsögn** á síðunni [Uppsetning Bifröst Ísland Fjárstýringar](./treasury-setup.md).
+Leiðsögnin **Bifröst Ísland Fjárstýring - Bankauppsetning** fer með þig í gegnum það að tengja Business Central við íslensku bankana. Hún birtist í listanum **Leiðsögn við uppsetningu** og þú getur einnig ræst hana með aðgerðinni **Uppsetningarleiðsögn** á síðunni [Uppsetning Bifröst Ísland Fjárstýringar](./treasury-setup.md).
 
 Ein leiðsögn nær yfir alla bankana fimm. Þú getur stillt einn banka núna og komið aftur síðar fyrir hina — ekkert sem þú skráir tapast þótt þú hættir snemma, og endurkeyrsla leiðsagnarinnar núllstillir aldrei banka sem þú hefur þegar sett upp.
+
+Útleið HTTP er ekki hluti af þessari leiðsögn. Virkjaðu hana einu sinni, fyrir öll uppsett Bifröst-forrit þar með talið þetta, í **Uppsetningarleiðsögn Bifröst** hjá Bifrastar-grunninum (Uppsetning Bifröst, aðgerðin **Ræsa uppsetningarleiðsögn**) áður en banki er stilltur hér — ekkert kemst til banka fyrr en það er gert.
 
 ## Skref
 
 ### 1. Velkomin
 
-Útskýrir hvað leiðsögnin nær yfir. Veldu **Áfram**.
+Útskýrir hvað leiðsögnin nær yfir og bendir á Uppsetningarleiðsögn Bifröst fyrir útleið HTTP hafi hún ekki þegar verið virkjuð. Veldu **Áfram**.
 
-### 2. Leyfa útleið HTTP
-
-Bankatengingarnar hringja í bankana yfir HTTPS og Business Central lokar á útleið frá viðbót þar til kerfisstjóri leyfir hana.
-
-Skrefið sýnir hvort beiðnir séu **Leyfðar** eða **Ekki leyfðar**. Ef þær eru ekki leyfðar:
-
-- Hafir þú heimild til að breyta stillingum viðbóta, veldu **Leyfa HTTP-beiðnir** og skrefið uppfærist sjálft.
-- Hafir þú ekki þá heimild, veldu **Opna stillingar viðbótar** og biddu kerfisstjóra um að haka við **Leyfa HttpClient-beiðnir** fyrir Bifröst Ísland Fjárstýringu.
-
-Ekkert kemst til banka fyrr en þetta er gert, svo það borgar sig að staðfesta að staðan sé **Leyft** áður en haldið er áfram.
-
-### 3.–7. Eitt skref fyrir hvern banka
+### 2.–6. Eitt skref fyrir hvern banka
 
 Landsbankinn, síðan Arion banki, Íslandsbanki, Kvika banki og Sparisjóðir. Hvert skref sýnir sömu fjögur atriðin:
 
@@ -41,7 +32,7 @@ Línurnar **Skírteini** og **API-lykill** birtast aðeins fyrir þá banka sem 
 
 Notaðu **Skrá lykilorð fyrirtækis**, **Skrá skírteini** og **Skrá API-lykil** til að skrá gildin. Hver aðgerð opnar hulinn glugga sem nefnir bankann og leyndarmálið, svo ljóst sé um hvað er beðið. Skírteini er staðfest gegn lykilorðinu sem þú slærð inn áður en hvorugt er vistað.
 
-### 8. Ljúka
+### 7. Ljúka
 
 **Ljúka** vistar síðasta bankann sem þú varst að breyta, merkir leiðsögnina sem lokna og lokar henni. Listinn **Leiðsögn við uppsetningu** sýnir þá Bifröst Ísland Fjárstýringu sem frágengna.
 
