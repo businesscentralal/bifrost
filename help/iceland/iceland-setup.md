@@ -141,6 +141,9 @@ Every credential is held in the Bifröst Foundation **secret store**, not on thi
 | `RSK-VAT-PASSWORD` | Skatturinn VAT password | Company |
 | `RSK-PAYROLL-PASSWORD` | Skatturinn payroll password | Company |
 | `RSK-FTS-PASSWORD` | Skatturinn capital income tax password | Company |
+| `RSK-TEST-VAT-PASSWORD` | Skatturinn VAT password - test environment (used while Skatturinn Client Type is Test) | Company |
+| `RSK-TEST-PAYROLL-PASSWORD` | Skatturinn payroll password - test environment | Company |
+| `RSK-TEST-FTS-PASSWORD` | Skatturinn capital income tax password - test environment | Company |
 | `JA-SEARCH-API-KEY` | Já Search v6 API key | Company |
 | `JA-REGISTRY-API-KEY` | Já Skrá v1 API key | Company |
 | `SKG-COLLECTOR-<collector no.>-PASSWORD` | One per skilagrein.is collector, set from the collectors page | Company |

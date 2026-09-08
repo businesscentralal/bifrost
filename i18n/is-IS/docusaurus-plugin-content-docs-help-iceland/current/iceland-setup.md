@@ -141,6 +141,9 @@ Til að kalla einhverja af hinum þremur raunverulegu Já Gagnatorg skilaboðate
 | `RSK-VAT-PASSWORD` | Lykilorð virðisaukaskatts hjá Skattinum | Fyrirtæki |
 | `RSK-PAYROLL-PASSWORD` | Lykilorð staðgreiðslu hjá Skattinum | Fyrirtæki |
 | `RSK-FTS-PASSWORD` | Lykilorð fjármagnstekjuskatts hjá Skattinum | Fyrirtæki |
+| `RSK-TEST-VAT-PASSWORD` | Lykilorð virðisaukaskatts hjá Skattinum - prófunarumhverfi (notað þegar tegund Skatturinn biðlara er Prófun) | Fyrirtæki |
+| `RSK-TEST-PAYROLL-PASSWORD` | Lykilorð staðgreiðslu hjá Skattinum - prófunarumhverfi | Fyrirtæki |
+| `RSK-TEST-FTS-PASSWORD` | Lykilorð fjármagnstekjuskatts hjá Skattinum - prófunarumhverfi | Fyrirtæki |
 | `JA-SEARCH-API-KEY` | API lykill Já Search v6 | Fyrirtæki |
 | `JA-REGISTRY-API-KEY` | API lykill Já Skrár v1 | Fyrirtæki |
 | `SKG-COLLECTOR-<númer innheimtuaðila>-PASSWORD` | Eitt á hvern innheimtuaðila skilagrein.is, skráð á innheimtuaðilasíðunni | Fyrirtæki |
