@@ -2,7 +2,7 @@
 id: conventions
 title: "Object and naming conventions"
 sidebar_label: "Object and naming conventions"
-sidebar_position: 7
+sidebar_position: 8
 description: "Object ID ranges, the ori affix, the 30-character limit, namespaces, bilingual captions, and where documentation lives."
 ---
 
@@ -96,7 +96,7 @@ permission sets out of a flat, unnamespaced list in Business Central:
 
 ```
 BIFROST Foundation ori     BIFROST Nornir ori      BIFROST PlaybAdm ori
-BIFROST Storage ori        BIFROST GL Post ori     BIFROST Bragi ori
+BIFROST CoMem ori          BIFROST GL Post ori     BIFROST Bragi ori
 ```
 
 `BIFROST ` and ` ori` together spend twelve of the twenty characters, so the middle is
@@ -161,8 +161,10 @@ namespace Origo.Bifrost.Nornir;
 using Origo.Bifrost;
 ```
 
-A test app that reaches into its product app's internals needs `internalsVisibleTo` in the
-product `app.json`:
+A test app that reaches into **its own** product app's internals needs `internalsVisibleTo` in
+that product app's `app.json`. This is only ever about the pair you own. Foundation grants it to
+nobody but its own test app — see [Testing](/extensibility/testing) for how a dependent app's
+tests run a message type through `Dispatcher ori` instead:
 
 ```json
 "internalsVisibleTo": [
@@ -208,7 +210,7 @@ Icelandic caption uses "Bifröst":
 
 ```al
 Caption = 'Bifrost Setup', Comment = 'is-IS=Uppsetning Bifröst';
-Caption = 'Bifrost Storage', Comment = 'is-IS=Bifröst geymsla';
+Caption = 'Bifrost Integration', Comment = 'is-IS=Samþætting Bifröst';
 ```
 
 Inflect it as Icelandic requires — `Uppsetning Bifröst`, `skráarbeiðnum Bifrastar`.
