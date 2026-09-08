@@ -17,7 +17,6 @@
  *   node tools/build-root.mjs
  */
 import {writeFile, access, readFile, readdir} from 'node:fs/promises';
-import {copyFile} from 'node:fs/promises';
 import {constants} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -226,6 +225,6 @@ for (const dir of [buildDir, path.join(buildDir, 'en-us'), path.join(buildDir, '
   await writeFile(path.join(dir, 'llms.txt'), llms, 'utf8');
 }
 
-await copyFile(path.join(root, 'data', 'apps.json'), path.join(buildDir, 'apps.json'));
+await writeFile(path.join(buildDir, 'apps.json'), await readFile(path.join(root, 'data', 'apps.json')));
 
 console.log(`build-root: wrote index.html, 404.html, llms.txt and apps.json for ${site}`);
