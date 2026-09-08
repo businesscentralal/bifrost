@@ -9,6 +9,8 @@ The **Bifrost Iceland Treasury Setup** page is where you connect Business Centra
 
 Open it from the **Apps** group on the Bifröst **Setup** page, under **Iceland Treasury**.
 
+Outbound HTTP client requests are not enabled here: Bifröst Foundation's **Bifrost Setup Wizard** (action **Setup Wizard** on this page, or the notification on Bifrost Setup) enables them for every installed Bifröst application, this one included.
+
 ## Why a list and not a tab per bank
 
 All five banks are configured the same way: a master switch, a user name, and a set of secrets. A list answers the question you usually arrive with — *which banks are ready?* — on one screen, and adding a sixth bank adds a row rather than a new tab, new fields and new actions.

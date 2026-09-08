@@ -9,6 +9,8 @@ sidebar_position: 2
 
 Síðan er opnuð úr flokknum **Forrit** á **Uppsetningarsíðu** Bifrastar, undir **Ísland Fjárstýring**.
 
+Útleið HTTP-biðlarabeiðnir eru ekki virkjaðar hér: **Uppsetningarleiðsögn Bifröst** hjá Bifrastar-grunninum (aðgerðin **Uppsetningarleiðsögn** á þessari síðu, eða tilkynningin á Uppsetningu Bifröst) virkjar þær fyrir öll uppsett Bifröst-forrit, þetta þar með talið.
+
 ## Hvers vegna listi en ekki flipi fyrir hvern banka
 
 Bankarnir fimm eru allir stilltir eins: aðalrofi, notandanafn og safn leyndarmála. Listi svarar spurningunni sem þú kemur yfirleitt með — *hvaða bankar eru tilbúnir?* — á einum skjá, og sjötti bankinn bætir við línu í stað nýs flipa, nýrra reita og nýrra aðgerða.
