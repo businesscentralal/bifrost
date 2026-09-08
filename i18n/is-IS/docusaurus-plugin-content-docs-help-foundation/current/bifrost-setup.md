@@ -7,6 +7,12 @@ sidebar_position: 22
 
 Síðan **Bifröst uppsetning** er miðlæg uppsetningarsíða fyrir Bifröst viðbótina. Hér velur þú hvaða útfærsluaðferð er notuð fyrir hvern viðskiptaþátt, stillir vikmörk lánamarks í prósentum og velur sjálfgefið tungumál fyrir skilaboðavinnslu.
 
+## Tilkynningar
+
+Bifröst uppsetning sýnir tilkynningu þegar minnst ein uppsett Bifröst viðbót hefur ekki virkjaðar útleið HTTP-beiðnir: **„HTTP client requests are not enabled for: &lt;heiti viðbóta&gt;.“** Eina aðgerðin, **Hefja uppsetningarleiðsögn**, opnar [Uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/) á því skrefi sem telur upp allar viðkomandi viðbætur.
+
+Það er engin sérstök tilkynning fyrir vantandi leyndarmál lengur — leyndarmál sem hefur ekki verið skráð gerir einfaldlega óvirkar þær skilaboðategundir sem þarfnast þess. Hægt er að skrá leyndarmál hvenær sem er í gegnum aðgerðina **Leyndarmál**, eða úr valfrjálsa Leyndarmálaskrefi hjálparinnar.
+
 ## Reitir
 
 | Reitur | Lýsing |
@@ -45,6 +51,7 @@ Stækkanlegt með `Company Name Type ori` enum (65601) og `Company Name ori` vi�
 | **Tungumál** | Opnar Windows tungumálasíðuna svo þú getir skoðað tiltæka tungumálakóða. |
 | **Bifröst þýðingar** | Opnar þýðingarlistann til að stjórna uppruna-/marktextapörum sem ytri kerfi nota. |
 | **Varðveislureglur** | Opnar uppsetningu varðveislureglna svo þú getir stillt sjálfvirka hreinsun á gömlum Bifröst skilaboðum og samþættigarfærslum. |
+| **Yfirtaka eldri gagna** | Biður um staðfestingu og keyrir síðan aftur yfirtöku gagna úr forveraforritinu „Origo Cloud Events Core“ og opnar Bifröst uppsetningarskrá ([Install Log](/extensibility/install-and-upgrade/)) síuð á þær línur sem keyrslan skilaði. Bifröst uppsetningarskráin sýnir hvað hver uppsett Bifröst viðbót gerði við uppsetningu: hvaða töflur hún tók yfir úr viðbótinni sem hún leysir af hólmi og hversu margar línur voru afritaðar úr hverri töflu. |
 
 ## Ábendingar
 
