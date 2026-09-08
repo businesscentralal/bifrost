@@ -3,34 +3,45 @@ id: index
 title: "Skills for AI agents"
 sidebar_label: "Overview"
 sidebar_position: 1
-slug: /
 description: "Reference material for AI agents that drive Business Central through the Bifröst API and the Origo BC MCP server."
 ---
 
-A **skill** here is a single document an AI agent loads before it writes code against
-Bifröst. It carries the parts of the API that an agent cannot infer: the shape of the
-message envelope, which message type does what, how field names are normalised, how
-filters are written, and which mistakes look plausible but fail.
+A **skill** here is what an AI agent loads before it writes code against Bifröst. It
+carries the parts of the API an agent cannot infer: the shape of the message envelope,
+which message type does what, how field names are normalised, how filters are written,
+and which mistakes look plausible but fail.
 
-Each skill is published in two forms:
+Each skill follows the standard layout — a short `SKILL.md` holding the model, the rules
+and an index, and a `references/` folder the agent reads one file from at a time. An
+agent that needs to post a sales invoice loads the core skill and one reference, not a
+quarter of a million characters of catalogue.
 
-- **as pages** in this section, so a person can read and search it;
-- **as one file**, so an agent can fetch the whole thing in a single request.
-
-The file is the authoritative form. The pages are generated from it, so they cannot
-drift.
+The files under `/skills/` are the authoritative copy. The pages in this section are
+generated from them by `tools/render-skills.mjs`, so they cannot drift.
 
 ## Available skills
 
-| Skill | What it covers | Single file |
+| Skill | Shape | Single file |
 | --- | --- | --- |
-| [Bifröst BC integration](./bifrost-bc-integration/) | The Bifröst API on Business Central: the three endpoints, the request envelope, response patterns, the full message-type catalogue, pagination, `tableView` filter syntax, field selection, enum handling, translations, webhooks and schema discovery. | [SKILL.md](pathname:///skills/bifrost-bc-integration/SKILL.md) |
+| [Bifröst BC integration](./bifrost-bc-integration/) | 25 reference files | [SKILL.md](pathname:///skills/bifrost-bc-integration/SKILL.md) |
+| [Foundation message types](./bifrost-foundation) | index only | [SKILL.md](pathname:///skills/bifrost-foundation/SKILL.md) |
+| [Iceland message types](./bifrost-iceland) | index only | [SKILL.md](pathname:///skills/bifrost-iceland/SKILL.md) |
+| [Iceland Treasury message types](./bifrost-iceland-treasury) | index only | [SKILL.md](pathname:///skills/bifrost-iceland-treasury/SKILL.md) |
+| [Iceland DocEx message types](./bifrost-iceland-docex) | index only | [SKILL.md](pathname:///skills/bifrost-iceland-docex/SKILL.md) |
+| [Bragi message types](./bifrost-bragi) | index only | [SKILL.md](pathname:///skills/bifrost-bragi/SKILL.md) |
+| [Hnitbjörg message types](./bifrost-hnitbjorg) | index only | [SKILL.md](pathname:///skills/bifrost-hnitbjorg/SKILL.md) |
+| [Nornir message types](./bifrost-nornir) | index only | [SKILL.md](pathname:///skills/bifrost-nornir/SKILL.md) |
+| [Clockify message types](./bifrost-clockify) | index only | [SKILL.md](pathname:///skills/bifrost-clockify/SKILL.md) |
+| [Subscription Billing message types](./bifrost-subscription-billing) | index only | [SKILL.md](pathname:///skills/bifrost-subscription-billing/SKILL.md) |
+
+Load the core skill first. An app skill on its own does not explain the API — it is the
+index of what that app adds to the catalogue.
 
 ## Finding this from an agent
 
 The site publishes an [`llms.txt`](pathname:///llms.txt) at its root. It lists every
-skill file and the main reference sections, with absolute URLs, so an agent that is
-handed only the site address can find the rest without crawling.
+skill file, every reference file and the main documentation sections, with absolute
+URLs, so an agent handed only the site address can find the rest without crawling.
 
 ## What an agent still needs
 
