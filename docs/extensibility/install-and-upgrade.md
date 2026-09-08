@@ -3,7 +3,7 @@ id: install-and-upgrade
 title: "Install and upgrade"
 sidebar_label: "Install and upgrade"
 sidebar_position: 6
-description: "The take-over install pattern for a Bifröst app replacing a published Cloud Events app, the shared install log it writes to, and what an install codeunit registers."
+description: "The take-over install pattern for a Bifröst app replacing a published Cloud Events app, and what an install codeunit registers."
 ---
 
 # Install and upgrade
@@ -13,7 +13,7 @@ app** with a new id and a new object ID range, installed side by side with the a
 retires. On first install it takes that app's data over; the old app is deprecated
 afterwards.
 
-This page describes that take-over pattern, and the other work an install codeunit does.
+This page describes that take-over pattern, the shared install log it writes to, and the other work an install codeunit does.
 
 ## The successor's identity
 
