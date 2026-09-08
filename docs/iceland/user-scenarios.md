@@ -40,14 +40,14 @@ This extension connects to multiple Icelandic external services:
 3. Install the "Bifrost Iceland" extension
 
 ### Steps
-1. Search for "Bifrost Setup" in the BC search bar
-2. Verify the setup page opens without error
-3. Verify the Iceland-specific settings appear on the setup page (RSK credentials section)
+1. Search for "Bifrost Iceland Setup" in the BC search bar, or open it from the **Apps** group of the Bifrost Setup page
+2. Verify the setup card opens without error
+3. Verify the Umsja, SMS, Skatturinn, Skilagrein and Ja Gagnatorg FastTabs appear on the card
 4. Search for "Help.Iceland.Get" — verify it appears in the message type list
 
 ### Expected Results
 - The extension installs without error
-- The Bifrost Setup page shows Iceland-specific configuration fields
+- The Bifrost Iceland Setup card shows the client type and credential status fields of every domain
 - The Help.Iceland.Get message type is registered and callable
 
 ---
@@ -257,7 +257,7 @@ This extension connects to multiple Icelandic external services:
 
 ### Setup
 1. Complete Scenario 1
-2. Configure RSK test credentials in Bifrost Setup (kennitala + password for test environment)
+2. Set the test company kennitala in Company Information and store the RSK test passwords with the Set VAT Password / Set Payroll Password actions on Bifrost Iceland Setup
 
 ### Steps
 1. POST a Bifrost message:
@@ -360,7 +360,7 @@ This extension connects to multiple Icelandic external services:
 
 ### Setup
 1. Complete Scenario 1
-2. Configure SMS gateway credentials in Bifrost Setup (Síminn magnSMS test account)
+2. Store the Síminn magnSMS test account credentials with the Set Síminn User Name / Set Síminn Password actions on Bifrost Iceland Setup
 
 ### Steps
 1. POST a Bifrost message:
@@ -517,5 +517,5 @@ This extension connects to multiple Icelandic external services:
 
 After all scenarios are complete:
 1. Delete any test VAT submissions in the RSK test environment using `Iceland.VAT.DeleteInTest`
-2. Remove test credentials from Bifrost Setup
+2. Remove test credentials with the Clear actions on Bifrost Iceland Setup
 3. Uninstall the extension (if not already done in Scenario 21)

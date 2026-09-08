@@ -5,7 +5,7 @@ sidebar_label: "National Registry Entries"
 sidebar_position: 4
 ---
 
-The **National Registry Entries** page (`Umsja Registry List ori`) shows the local copy of national registry data retrieved from Þjóðskrá Íslands through the Umsjá service. Open it from the **Iceland** group on the [Bifrost Setup](/help/iceland/iceland-setup/) page.
+The **National Registry Entries** page (`Umsja Registry List ori`) shows the local copy of national registry data retrieved from Þjóðskrá Íslands through the Umsjá service. Open it from the [Bifrost Iceland Setup](/help/iceland/iceland-setup/) card.
 
 ## What the page shows
 
@@ -27,6 +27,6 @@ The page is a cache, not a data-entry form — every row is written by a message
 
 ## Permissions and setup
 
-Reading the page and running registry lookups is covered by **BIFROST Umsja ori**, which arrives with **BIFROST ISFull ori**; the synchronization types additionally require the assignable **BIFROST NatReg ori**. Umsjá licence, user name and password must be configured first — see [Iceland Setup](/help/iceland/iceland-setup/).
+Reading the page and running registry lookups is covered by **BIFROST Umsja ori**, which arrives with **BIFROST ISFull ori**; the synchronization types additionally require the assignable **BIFROST NatReg ori**. Umsjá licence, user name and password must be configured first — see [Bifrost Iceland Setup](/help/iceland/iceland-setup/).
 
 Registry data is personal data. Keep the permission sets narrow, and clear the cache when the company no longer has a lawful basis for holding it.

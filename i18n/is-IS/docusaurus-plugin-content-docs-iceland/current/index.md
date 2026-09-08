@@ -24,9 +24,9 @@ Tvær skilaboðagerðir keyra alfarið innan Business Central án ytri þjónust
 
 ## Hvernig það virkar
 
-1. Settu upp Bifröst Foundation og því næst Bifröst Ísland. Leiðsagnarforritið **Uppsetning Bifröst Íslands** opnast við fyrstu uppsetningu.
+1. Settu upp Bifröst Foundation og því næst Bifröst Ísland. Leiðsagnarforritið **Setja upp Bifröst Ísland** opnast við fyrstu uppsetningu.
 2. Leyfðu útsendar HTTP-biðlarabeiðnir fyrir viðbótina — ekkert nær ytri þjónustu fyrr en það er virkt.
-3. Skráðu aðgangsupplýsingar hverrar þjónustu, í **Ísland**-hópnum á uppsetningarsíðu Bifrastar eða í leiðsagnarforritinu. Lykilorð fara í Isolated Storage; þau eru aldrei skrifuð í töflu og eru hulin áður en nokkur beiðni ratar í beiðnaskrá Bifrastar.
+3. Skráðu aðgangsupplýsingar hverrar þjónustu, á spjaldinu **Uppsetning Bifröst Ísland** — opnað úr flokknum **Forrit** á uppsetningarsíðu Bifrastar — eða í leiðsagnarforritinu. Öll leyndarmál fara í leyndarmálageymslu Bifrastar-grunnsins; ekkert er skrifað í töflu og lykilorð eru hulin áður en nokkur beiðni ratar í beiðnaskrá Bifrastar.
 4. Skráðu kennitölu fyrirtækisins í **Upplýsingar fyrirtækis → Kennitala**. Auðkenning gagnvart Skattinum les hana þaðan.
 5. Kallendur senda Bifrastar-skilaboð sem nefna `Iceland.*`, `Ja.*` eða `Finance.VAT*` skilaboðagerð.
 

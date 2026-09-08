@@ -5,7 +5,7 @@ sidebar_label: "Einingar þjóðskrár"
 sidebar_position: 4
 ---
 
-Síðan **Einingar þjóðskrár** (`Umsja Registry List ori`) sýnir staðbundið afrit af þjóðskrárgögnum sem sótt eru til Þjóðskrár Íslands gegnum Umsjár-þjónustuna. Hún er opnuð úr flokknum **Ísland** á [uppsetningarsíðu Bifrastar](/help/iceland/iceland-setup/).
+Síðan **Einingar þjóðskrár** (`Umsja Registry List ori`) sýnir staðbundið afrit af þjóðskrárgögnum sem sótt eru til Þjóðskrár Íslands gegnum Umsjár-þjónustuna. Hún er opnuð af spjaldinu [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/).
 
 ## Hvað síðan sýnir
 
@@ -27,6 +27,6 @@ Síðan er skyndiminni, ekki innsláttarsíða — hverja línu skrifar skilabo�
 
 ## Heimildir og uppsetning
 
-Lestur síðunnar og uppflettingar í þjóðskrá falla undir **BIFROST Umsja ori**, sem fylgir **BIFROST ISFull ori**; samstillingartegundirnar krefjast auk þess hins úthlutanlega **BIFROST NatReg ori**. Leyfisnúmer, notandanafn og lykilorð Umsjár þurfa að vera skráð fyrst — sjá [Uppsetning Íslands](/help/iceland/iceland-setup/).
+Lestur síðunnar og uppflettingar í þjóðskrá falla undir **BIFROST Umsja ori**, sem fylgir **BIFROST ISFull ori**; samstillingartegundirnar krefjast auk þess hins úthlutanlega **BIFROST NatReg ori**. Leyfisnúmer, notandanafn og lykilorð Umsjár þurfa að vera skráð fyrst — sjá [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/).
 
 Þjóðskrárgögn eru persónuupplýsingar. Haltu heimildasettunum þröngum og hreinsaðu skyndiminnið þegar fyrirtækið hefur ekki lengur heimild til að geyma gögnin.

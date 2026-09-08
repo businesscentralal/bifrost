@@ -5,7 +5,7 @@ sidebar_label: "Grunngögn skilagreinar"
 sidebar_position: 3
 ---
 
-Skilagreinarsíðurnar sýna grunngögn sem sótt eru úr vefþjónustu Skilagreinar — kóða lífeyrissjóða, stéttarfélaga og upplýsingar um innheimtuaðila. Þessi gögn eru grunnurinn að launaskilum. Síðurnar eru opnaðar úr flokknum **Ísland** á [uppsetningarsíðu Bifrastar](/help/iceland/iceland-setup/).
+Skilagreinarsíðurnar sýna grunngögn sem sótt eru úr vefþjónustu Skilagreinar — kóða lífeyrissjóða, stéttarfélaga og upplýsingar um innheimtuaðila. Þessi gögn eru grunnurinn að launaskilum. Síðurnar eru opnaðar af spjaldinu [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/).
 
 ## Tiltækar síður
 
@@ -19,7 +19,7 @@ Skilagreinarsíðurnar sýna grunngögn sem sótt eru úr vefþjónustu Skilagre
 
 ## Lykilorð innheimtuaðila
 
-Hver innheimtuaðili auðkennir sig með eigin lykilorði fyrir vefþjónustu. Veldu innheimtuaðilann á síðunni **Innheimtuaðilar** og notaðu aðgerðina **Skrá lykilorð vefþjónustu**; gildið fer í Isolated Storage undir lykli hvers innheimtuaðila og verður ekki lesið til baka. Ekkert lykilorð Skilagreinar er á uppsetningarsíðu Bifrastar.
+Hver innheimtuaðili auðkennir sig með eigin lykilorði fyrir vefþjónustu. Veldu innheimtuaðilann á síðunni **Innheimtuaðilar** og notaðu aðgerðina **Skrá lykilorð vefþjónustu**; gildið fer í leyndarmálageymslu Bifrastar-grunnsins undir kóðanum `SKG-COLLECTOR-<númer innheimtuaðila>-PASSWORD` og verður ekki lesið til baka. Ekkert lykilorð Skilagreinar er á spjaldinu [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/).
 
 ## Hvernig gögnin eru uppfærð
 

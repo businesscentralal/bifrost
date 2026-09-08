@@ -12,7 +12,7 @@ slug: /
 
 | Page | Description |
 | --- | --- |
-| [Iceland Setup](/help/iceland/iceland-setup/) | Credentials and client types for Umsjá, SMS, Skatturinn, Skilagrein and Já Gagnatorg. |
+| [Bifrost Iceland Setup](/help/iceland/iceland-setup/) | Credentials and client types for Umsjá, SMS, Skatturinn, Skilagrein and Já Gagnatorg. |
 | [National Registry Entries](/help/iceland/iceland-umsja-registry/) | The local cache of Þjóðskrá data retrieved through Umsjá. |
 | [Skilagrein Master Data](/help/iceland/iceland-skilagrein/) | Collectors, pension funds, unions, rehabilitation funds and pension supplements. |
 
@@ -177,7 +177,7 @@ Public data — no credentials required.
 
 ### Já Gagnatorg (api.ja.is)
 
-Requires the `BIFROST Ja ori` permission set and a Search or Registry API key on the Iceland Setup page.
+Requires the `BIFROST Ja ori` permission set and a Search or Registry API key on the [Bifrost Iceland Setup](/help/iceland/iceland-setup/) page.
 
 | Message type | Description |
 | --- | --- |
