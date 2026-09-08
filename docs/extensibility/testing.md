@@ -71,8 +71,27 @@ enumextension 98981 "Test Tools MsgType" extends "Message Type ori"
         Caption = 'Test Records Delete', Locked = true;
         Implementation = "Msg Interface ori" = "Test Records Delete Impl";
     }
+    value(98870; "Test.Secret.Set")
+    {
+        Caption = 'Test Secret Set', Locked = true;
+        Implementation = "Msg Interface ori" = "Test Secret Set Impl";
+    }
+    value(98871; "Test.Secret.Clear")
+    {
+        Caption = 'Test Secret Clear', Locked = true;
+        Implementation = "Msg Interface ori" = "Test Secret Clear Impl";
+    }
+    value(98872; "Test.Secret.List")
+    {
+        Caption = 'Test Secret List', Locked = true;
+        Implementation = "Msg Interface ori" = "Test Secret List Impl";
+    }
 }
 ```
+
+(`Test.Records.Get`, `Test.Blocking.Set` and `Test.Metering.Fail` also exist, at ordinals 98864–98866,
+for reading records generically, forcing a blocked write, and forcing a metering failure in tests — same
+shape, omitted here for brevity.)
 
 ### `Test.Setup.Get`
 
@@ -118,6 +137,48 @@ record. **A filter is mandatory** — deleting a whole table is refused.
 { "tableName": "Customer", "tableView": "WHERE(No.=FILTER(BIFT-*))" }
 ```
 
+### `Test.Secret.Set`
+
+Registers (idempotent) and writes a value into the shared `Secret Store ori` for an App Id
+and Secret Code — exactly what an application does through `Register` + `Set`, without a
+setup page or a masked dialog. The value is never returned in the response; the read-and-set
+path runs in a single `[NonDebuggable]` procedure so it never surfaces in a debugger session
+either. Use dummy values only — the same rule as any other secret written through this store.
+
+```json
+{ "appId": "11111111-1111-1111-1111-111111111111", "code": "API-KEY", "value": "dummy-value", "scope": "Company", "description": "Test secret" }
+```
+
+`scope` is `Company` (default) or `Company And User`; `description` is optional.
+
+```json
+{ "status": "Success", "appId": "...", "code": "API-KEY", "scope": "Company", "isSet": true }
+```
+
+### `Test.Secret.Clear`
+
+Clears the stored value of a `Secret Store ori` entry (`codeunit "Secret Store ori".Clear`) —
+the registration row stays, `isSet` goes back to `false`. A secret code that was never
+registered is a harmless no-op, matching `Clear`'s own behaviour.
+
+```json
+{ "appId": "11111111-1111-1111-1111-111111111111", "code": "API-KEY" }
+```
+
+### `Test.Secret.List`
+
+Lists the `App Secret ori` registry rows for an App Id — `code`, `description`, `scope`,
+`isSet`, `setOn` — so a test can verify a `Test.Secret.Set` / `Test.Secret.Clear` round trip.
+The value itself is never read or returned.
+
+```json
+{ "appId": "11111111-1111-1111-1111-111111111111" }
+```
+
+```json
+{ "status": "Success", "appId": "...", "secrets": [ { "code": "API-KEY", "description": "Test secret", "scope": "Company", "isSet": true, "setOn": "2026-09-06T12:00:00Z" } ] }
+```
+
 ## Add your own `Test.*` types
 
 The rule generalises: **when your app has setup a test run must change and the product API
@@ -134,13 +195,13 @@ Foundation's:
   `Help.MessageTypes.Get`.
 
 Mock implementations follow the same idea for interfaces rather than message types.
-Hnitbjörg's test app extends the product's storage-type enum with an in-memory backend, so
-the whole connector pipeline can be exercised without a live storage account:
+Bifröst Attachments' test app extends the product's storage-type enum with an in-memory
+backend, so the whole connector pipeline can be exercised without a live storage account:
 
 ```al
-namespace Origo.Bifrost.Hnitbjorg.Test;
+namespace Origo.Bifrost.Attachments.Test;
 
-using Origo.Bifrost.Hnitbjorg;
+using Origo.Bifrost.Attachments;
 
 enumextension 96200 "Storage Type Test" extends "Storage Type ori"
 {
@@ -157,51 +218,100 @@ interfaces that way.
 
 ## Running a message type from a test
 
-There are two ways in, and they test different things.
+A dependent app's test app uses **Foundation's public API only** — `Dispatcher ori` — same
+as the product code it is testing. There is no internal shortcut, and none is needed: no
+`internalsVisibleTo` entry to request in Foundation's `app.json`, no rebuild-and-republish
+of Foundation before a new test app's tests can run.
 
-**Through `Dispatcher ori`** — the production path. The test dispatches exactly like an
-external caller does; see [Message types](/extensibility/message-types). `Execute` is the
-lightweight route; `EnqueueAndProcess` exercises the full orchestrator when the test cares
-about language switching, response time or the completion event. Use this whenever the
-test is about behaviour a caller would see.
-
-**Directly on the implementation codeunit** — the fast path, when the test is about the
-implementation's own logic. Build a temporary `Message Argument ori`, fill the request, and
-run the Impl against it:
+`Execute` is the lightweight route. It dispatches straight through the interface, with
+`OmitCommit = true` and no queue row persisted:
 
 ```al
 var
-    TempArgument: Record "Message Argument ori" temporary;
-    StorageFileGetImpl: Codeunit "Storage File Get Impl ori";
+    Dispatcher: Codeunit "Dispatcher ori";
+    RequestContent: BigText;
+    ResponseContent: BigText;
+    ResponseContentType: Text[50];
 begin
-    TempArgument.Init();
-    TempArgument.SetRequestData(RequestJson);
-    TempArgument.SetLicensed(true);
-    StorageFileGetImpl.Execute(TempArgument);
+    RequestContent.AddText(RequestJson);
+    Dispatcher.Execute(
+        "Message Type ori"::"Storage.File.Get", "Message Version ori"::"1.0",
+        Subject, 'MyApp Tests', 'application/json',
+        RequestContent, ResponseContent, ResponseContentType);
 end;
 ```
 
-`SetLicensed(true)` is the part that is easy to miss. In production, `Message Task ori`
-marks the call as licensed; a test that skips the task never does, so every
-`Argument.AssertIsLicensed()` inside the implementation fails with *"This operation requires
-a valid license."*
+Because `Execute` goes through the same `Message Task ori` orchestration a production call
+does, the request arrives at the implementation already marked licensed — there is no
+`SetLicensed` to call and no `Argument.AssertIsLicensed()` failure to chase. Use `Execute`
+whenever the test is about the implementation's own logic; use `EnqueueAndProcess` instead
+when it needs the full orchestrator — language switching, response time, retention or the
+completion event — because it is about behaviour a caller would see. See
+[Message types](/extensibility/message-types) for both signatures.
 
-`SetLicensed` is **internal to Foundation**. For your test app to call it, Foundation's
-`app.json` must list that test app under `internalsVisibleTo`:
+Building a `Message Argument ori` by hand and calling the implementation codeunit directly,
+marking it licensed through Foundation's internal `SetLicensed`, is Foundation's *own* test
+app's technique — it can reach across because it ships in the same package. A dependent
+app's test app is never in that package, and after 2026-09-07 it has no reason to ask for
+the access either: `Dispatcher ori.Execute` is the direct replacement, at the same cost.
 
-```json
-"internalsVisibleTo": [
-    {
-        "id": "194ecd04-5688-4af6-94bc-732c714251fc",
-        "name": "Bifrost Nornir - Tests",
-        "publisher": "Origo"
-    }
-]
-```
+## Autonomous testing
 
-Adding an entry there changes Foundation, so **Foundation has to be rebuilt and republished
-to the container** before the new test app's tests can run. Do that once, when the test app
-is created — not the first time a test fails on a licence error.
+An agent driving a test run purely through the queue API (`POST tasks`, no BC UI) needs a
+way to turn on the diagnostics it needs, seed the credentials the app under test calls for,
+run its scenarios, and clean up afterwards — all through message types. The pattern:
+
+1. **Turn on debug mode.** `Request Debug Mode` is a field on `Setup ori`, so
+   `Test.Setup.Get` and `Test.Setup.Set` already cover it — there is no separate
+   `Test.Debug.*` type. Read the current value first so it can be restored:
+
+   ```json
+   // Test.Setup.Get -> {"status":"Success","setup":{"Request Debug Mode":"false", ...}}
+   // Test.Setup.Set
+   { "fields": { "Request Debug Mode": true } }
+   ```
+
+   Debug mode only changes what `Request Logger ori` maskers keep unmasked for **outbound
+   connector calls** your app makes (see [Secrets](/foundation/reference/secrets) and the
+   masker interface in this app's own code). It does not affect the Bifröst message
+   queue itself: `Message ori`'s `Request Data` / `Response Data` store the raw incoming
+   payload for every message type, on or off — that is how the framework routes and
+   replays messages, not a masking gap. **`Test.Secret.Set` is the one exception** (fixed
+   2026-09-07): it calls `Record "Message Argument ori".RedactRequestData()` immediately
+   after storing the value, which overwrites the persisted `Message ori` row's `Request
+   Data` with a `{"redacted":true}` placeholder — so the value it received does not stay
+   at rest in the queue table either, only in `Secret Store ori`'s protected storage. Any
+   other message type still keeps the full request payload verbatim, so use dummy values
+   in test payloads regardless of debug mode, the same rule as everywhere else in this
+   page. A dependent app that adds its own credential-seeding test type (as Bifröst
+   Iceland Treasury's `Test.Treasury.Secret.Set` does) should call the same procedure right
+   after consuming the value.
+
+2. **Seed credentials from the caller's own environment, never from a file.** The agent
+   reads a value from its own environment variables (or a secret manager) and sends it as
+   the `value` property of `Test.Secret.Set` — the value only ever exists in the agent's
+   process memory and in `Secret Store ori`'s protected storage, never in a script or
+   config file:
+
+   ```json
+   { "appId": "<app under test id>", "code": "<secret code>", "value": "<from an environment variable>", "scope": "Company" }
+   ```
+
+   Confirm it landed with `Test.Secret.List` (`isSet: true` — the list never echoes the
+   value), run the scenarios, then `Test.Secret.Clear` when the run is done.
+
+3. **Set up the application under test** with `Test.Records.Set` for anything the product
+   API can't write directly (internal tables, guard-protected fields) — see the type above.
+
+4. **Run the scenarios**: one happy path per message type that verifies the effect by
+   reading data back, and at least one negative case that must return `status = Error`
+   with a helpful message — never an unhandled exception, never an HTTP 5xx. See
+   [Message types](/extensibility/message-types) for the two ways to invoke a type from
+   a test.
+
+5. **Turn debug mode back off** (`Test.Setup.Set` with `"Request Debug Mode": false`) and
+   clear any secret the run seeded that would not otherwise be there. The run owns
+   restoring the state it changed — see "Test data conventions" below.
 
 ## Test data conventions
 

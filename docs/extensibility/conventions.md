@@ -160,8 +160,10 @@ namespace Origo.Bifrost.Nornir;
 using Origo.Bifrost;
 ```
 
-A test app that reaches into its product app's internals needs `internalsVisibleTo` in the
-product `app.json`:
+A test app that reaches into **its own** product app's internals needs `internalsVisibleTo` in
+that product app's `app.json`. This is only ever about the pair you own. Foundation grants it to
+nobody but its own test app — see [Testing](/extensibility/testing) for how a dependent app's
+tests run a message type through `Dispatcher ori` instead:
 
 ```json
 "internalsVisibleTo": [
