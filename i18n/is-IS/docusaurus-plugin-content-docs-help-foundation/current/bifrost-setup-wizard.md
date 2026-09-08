@@ -39,4 +39,4 @@ Leyndarmál sem vantar teljast aldrei sem villa hér eða á Bifröst uppsetning
 
 -   Leyndarmálaskrefið birtist alltaf, jafnvel þótt engin uppsett viðbót hafi enn skráð leyndarmál — þá sýnir það einfaldlega tóman lista.
 -   Ekkert sem gert er í leiðsögninni er óafturkræft: **Til baka** og **Áfram** eyða aldrei gildum sem þegar hafa verið skráð, og hægt er að opna leiðsögnina aftur eins oft og þörf krefur.
--   Aðgerðin **Hefja uppsetningarleiðsögn** á tilkynningunni um HTTP-beiðnir opnar þessa sömu hjálp — það er ekkert sérstakt, styttra ferli eingöngu fyrir HTTP.
+-   Aðgerðin **Hefja uppsetningarleiðsögn** á tilkynningunni um HTTP-beiðnir opnar þessa sömu leiðsögn — það er ekkert sérstakt, styttra ferli eingöngu fyrir HTTP.
