@@ -17,7 +17,6 @@ The extension supports a wide range of built-in message types for retrieving cus
 | [Bifrost Setup](/help/foundation/bifrost-setup/) | Central configuration page for implementation strategies, credit-limit tolerance, and default language. |
 | [Bifrost Messages](/help/foundation/bifrost-messages/) | List of all bifrost messages with their processing status, request/response data, and task actions. |
 | [Bifrost Integration](/help/foundation/bifrost-integration/) | Operational log of bifrost integration activities, showing the source system, table, and timestamp for each event. Supports flagging records as reversed. |
-| [Bifrost Storage](/help/foundation/bifrost-storage/) | View and manage stored blob content associated with bifrost. Supports file import and export. |
 | [Bifrost Message Editor](/help/foundation/bifrost-message-editor/) | Inline editor for viewing and modifying the request payload of a bifrost message. |
 | [Bifrost Request](/help/foundation/bifrost-request/) | FactBox that displays the incoming request data of the selected bifrost message. |
 | [Bifrost Response](/help/foundation/bifrost-response/) | FactBox that displays the response data produced after a bifrost message has been processed. |

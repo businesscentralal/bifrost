@@ -599,7 +599,7 @@ Hver færsla:
 
 | Heimildarsett | Auðk. | Lýsing |
 |---|---|---|
-| Bifröst Company Memory | 10077889 | Veitir RIMD-aðgang að Bifröst Memory, Translation ori og Bifröst Storage-töflum. Úthlutaðu notendum sem þurfa fulla minnistjórnun. |
+| Bifröst Company Memory | 10077891 | Veitir RIMD-aðgang að Bifröst Memory- og Translation ori-töflum. Úthlutaðu notendum sem þurfa fulla minnistjórnun. |
 
 ---
 
