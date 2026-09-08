@@ -9,16 +9,11 @@ The **Bifrost Iceland Setup** card (`Iceland Setup ori`) holds every setting of 
 
 Nothing about Iceland is configured on Bifröst Foundation's own setup card any more. Foundation's **Setup** page carries a single Iceland action, and everything else lives here, so the app can be installed, configured and removed on its own.
 
-A guided **Set up Bifrost Iceland connectors** wizard (`Iceland Setup Wizard ori`) walks through the connector client-type settings step by step. Start it from **Assisted Setup**, or from the **Setup Wizard** action on this page. Outbound HTTP and every credential on this page are configured once, for every installed Bifröst application, by Bifröst Foundation's own **Bifrost Setup Wizard** - this app's wizard does not repeat either step.
+A guided **Set up Bifrost Iceland connectors** wizard (`Iceland Setup Wizard ori`) walks through the connector client-type settings step by step. Start it from **Assisted Setup**. The **Setup Wizard** action on this page opens Bifröst Foundation's **Bifrost Setup Wizard** instead: outbound HTTP and every credential on this page are configured there once, for every installed Bifröst application - this app's own wizard does not repeat either step.
 
 ## Notifications
 
-The card raises two notifications when they apply.
-
-| Notification | What to do |
-| --- | --- |
-| Outgoing HTTP client requests are not allowed for Bifröst Iceland. | Use the **Open Extension Settings** action on the notification and switch **Allow HttpClient Requests** on. No connector reaches an external service until this is on. |
-| Credentials are missing for one or more domains. | The text lists the domains that have nothing stored yet. Use the actions of that domain to enter the credentials. |
+This page raises no notifications of its own. The only setup notification in the Bifröst family - HTTP client requests not yet enabled for one or more Bifröst applications - is shown on Bifröst Foundation's [Bifrost Setup](/help/foundation/bifrost-setup/) page, and its single action **Start setup wizard** opens the Bifrost Setup Wizard, which enables HTTP for every registered application in one step. Missing credentials raise no notification: a message type whose credentials have not been entered simply answers with an error until they are, and this page shows per domain whether a value is stored.
 
 ## Umsjá
 
@@ -127,7 +122,7 @@ Calling any of the three real Já Gagnatorg message types additionally requires 
 | Action | Description |
 | --- | --- |
 | App Secrets | Opens Bifröst Foundation's app secrets list, filtered to Bifröst Iceland, showing every registered secret and whether it is set. |
-| Setup Wizard | Starts the **Set up Bifrost Iceland** assisted setup. |
+| Setup Wizard | Opens Bifröst Foundation's **Bifrost Setup Wizard**, which enables HTTP client requests for every installed Bifröst application and walks through their credentials. The connector wizard **Set up Bifrost Iceland connectors** is started from Assisted Setup. |
 | Skilagrein Collectors | Opens the [Skilagrein Collectors](/help/iceland/iceland-skilagrein/) master-data page. |
 | National Registry Entries | Opens the [National Registry Entries](/help/iceland/iceland-umsja-registry/) cache. |
 

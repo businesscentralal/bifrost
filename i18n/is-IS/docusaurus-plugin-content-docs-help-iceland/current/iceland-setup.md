@@ -9,16 +9,11 @@ Spjaldið **Uppsetning Bifröst Ísland** (`Iceland Setup ori`) geymir allar sti
 
 Ekkert sem varðar Ísland er lengur stillt á uppsetningarspjaldi Bifrastar-grunnsins. Uppsetningarsíða grunnsins ber eina íslenska aðgerð og allt annað er hér, svo hægt sé að setja viðbótina upp, stilla hana og fjarlægja án þess að snerta grunninn.
 
-Leiðsagnarforritið **Setja upp tengingar Bifröst Ísland** (`Iceland Setup Wizard ori`) fer í gegnum val á biðlaraútfærslu tenginganna skref fyrir skref. Það er ræst úr **Leiðsögn við uppsetningu** eða með aðgerðinni **Leiðsögn við uppsetningu** á þessari síðu. Útleið HTTP og öll innskráningarupplýsingar á þessari síðu eru stilltar einu sinni, fyrir öll uppsett Bifröst-forrit, í **Uppsetningarleiðsögn Bifröst** hjá Bifrastar-grunninum - leiðsögn þessa forrits endurtekur hvorugt skrefið.
+Leiðsögnin **Setja upp tengingar Bifröst Ísland** (`Iceland Setup Wizard ori`) fer í gegnum val á biðlaraútfærslu tenginganna skref fyrir skref. Hún er ræst úr **Aðstoðaðri uppsetningu** (Assisted Setup). Aðgerðin **Uppsetningarleiðsögn** á þessari síðu opnar hins vegar **Uppsetningarleiðsögn Bifröst** hjá Bifrastar-grunninum: útleið HTTP og allar innskráningarupplýsingar á þessari síðu eru stilltar þar einu sinni, fyrir öll uppsett Bifröst-forrit - leiðsögn þessa forrits endurtekur hvorugt skrefið.
 
 ## Tilkynningar
 
-Spjaldið birtir tvær tilkynningar þegar þær eiga við.
-
-| Tilkynning | Hvað skal gera |
-| --- | --- |
-| Útsendar HTTP-biðlarabeiðnir eru ekki heimilaðar fyrir Bifröst Ísland. | Notaðu aðgerðina **Opna stillingar viðbótar** á tilkynningunni og kveiktu á **Allow HttpClient Requests**. Engin tenging nær ytri þjónustu fyrr en það er virkt. |
-| Innskráningarupplýsingar vantar fyrir eitt eða fleiri svið. | Textinn telur upp þau svið sem ekkert er geymt fyrir. Notaðu aðgerðir viðkomandi sviðs til að skrá upplýsingarnar. |
+Þessi síða birtir engar tilkynningar sjálf. Eina uppsetningartilkynningin í Bifröst-fjölskyldunni - HTTP-biðlarabeiðnir sem eru ekki enn virkar fyrir eitt eða fleiri Bifröst-forrit - birtist á síðunni [Uppsetning Bifröst](/help/foundation/bifrost-setup/) hjá Bifrastar-grunninum, og eina aðgerð hennar, **Hefja uppsetningarleiðsögn**, opnar Uppsetningarleiðsögn Bifröst sem virkjar HTTP fyrir öll skráð forrit í einu skrefi. Innskráningarupplýsingar sem vantar valda engri tilkynningu: skilaboðategund sem hefur ekki fengið sínar upplýsingar svarar einfaldlega með villu þar til þær eru skráðar, og þessi síða sýnir fyrir hvert svið hvort gildi sé geymt.
 
 ## Umsjá
 
@@ -127,7 +122,7 @@ Til að kalla einhverja af hinum þremur raunverulegu Já Gagnatorg skilaboðate
 | Aðgerð | Lýsing |
 | --- | --- |
 | Leyndarmál forrits | Opnar lista Bifrastar-grunnsins yfir leyndarmál, síaðan á Bifröst Ísland, sem sýnir hvert skráð leyndarmál og hvort það sé skráð. |
-| Leiðsögn við uppsetningu | Ræsir leiðsögnina **Setja upp Bifröst Ísland**. |
+| Uppsetningarleiðsögn | Opnar **Uppsetningarleiðsögn Bifröst** hjá Bifrastar-grunninum, sem virkjar HTTP-biðlarabeiðnir fyrir öll uppsett Bifröst-forrit og fer yfir innskráningarupplýsingar þeirra. Tengingaleiðsögnin **Setja upp tengingar Bifröst Ísland** er ræst úr Aðstoðaðri uppsetningu. |
 | Innheimtuaðilar skilagreinar | Opnar grunngagnasíðuna [Innheimtuaðilar skilagreinar](/help/iceland/iceland-skilagrein/). |
 | Einingar þjóðskrár | Opnar afritið [Einingar þjóðskrár](/help/iceland/iceland-umsja-registry/). |
 
