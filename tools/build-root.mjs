@@ -16,7 +16,8 @@
  *
  *   node tools/build-root.mjs
  */
-import {writeFile, copyFile, access} from 'node:fs/promises';
+import {writeFile, access, readFile, readdir} from 'node:fs/promises';
+import {copyFile} from 'node:fs/promises';
 import {constants} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -132,6 +133,43 @@ const appSections = [
   ['subscription-billing', 'Bifröst Subscription Billing — recurring billing'],
 ];
 
+/**
+ * The skills, read off disk so a new reference file or a new app skill reaches
+ * llms.txt without anyone remembering to add it here. A skill is a folder
+ * holding SKILL.md and, optionally, references/ — an agent fetches the SKILL.md
+ * and then pulls the one reference it needs, so both are listed.
+ */
+async function readSkills() {
+  const dir = path.join(root, 'static', 'skills');
+  const found = [];
+  for (const entry of (await readdir(dir, {withFileTypes: true})).filter((item) => item.isDirectory())) {
+    const skillFile = path.join(dir, entry.name, 'SKILL.md');
+    if (!(await exists(skillFile))) continue;
+
+    // `description` is a YAML block scalar; take the indented lines under it.
+    const rows = (await readFile(skillFile, 'utf8')).split(/\r?\n/);
+    const start = rows.findIndex((row) => row.startsWith('description:'));
+    const description = [];
+    for (const row of rows.slice(start + 1)) {
+      if (row.trim() && !/^\s/.test(row)) break;
+      if (row.trim()) description.push(row.trim());
+    }
+
+    const refDir = path.join(dir, entry.name, 'references');
+    const references = (await exists(refDir))
+      ? (await readdir(refDir)).filter((file) => file.endsWith('.md')).sort()
+      : [];
+
+    found.push({id: entry.name, description: description.join(' '), references});
+  }
+  // The core skill first: it is the one that explains the API.
+  const rank = (skill) => (skill.id === 'bifrost-bc-integration' ? 0 : 1);
+  return found.sort((a, b) => rank(a) - rank(b) || a.id.localeCompare(b.id));
+}
+
+const skills = await readSkills();
+const core = skills.find((skill) => skill.id === 'bifrost-bc-integration');
+
 const llms = [
   '# Bifröst',
   '',
@@ -145,10 +183,21 @@ const llms = [
   '',
   '## Skills',
   '',
-  // The static folder is copied into each locale build, so the skill file lives
+  'A skill is a short SKILL.md — the mental model, the hard rules and an index — with',
+  'reference files loaded one at a time. Start with the core skill; an app skill on its',
+  'own does not explain the API, it only lists what that app adds to the catalogue.',
+  '',
+  // The static folder is copied into each locale build, so the skill files live
   // under a locale prefix like everything else.
-  `- [Bifröst BC integration skill](${en}skills/bifrost-bc-integration/SKILL.md): the complete API reference as one file — endpoints, request envelope, response patterns, every message type, pagination, tableView filter syntax, field selection, enum handling, translations, webhooks. Start here.`,
-  `- [Skills index](${en}skills/): the same skill split into browsable pages, plus what an agent needs beyond the skill itself.`,
+  ...skills.map((skill) => `- [${skill.id}](${en}skills/${skill.id}/SKILL.md): ${skill.description}`),
+  `- [Skills index](${en}skills/): the same skills as browsable pages, plus what an agent needs beyond a skill.`,
+  '',
+  '## Skill reference files',
+  '',
+  'One area each. The core skill says which of these answers which question; fetch the',
+  'one you need rather than all of them.',
+  '',
+  ...(core?.references ?? []).map((file) => `- ${en}skills/${core.id}/references/${file}`),
   '',
   '## Building on Bifröst',
   '',
