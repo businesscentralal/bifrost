@@ -2,7 +2,7 @@
 id: install-and-upgrade
 title: "Install and upgrade"
 sidebar_label: "Install and upgrade"
-sidebar_position: 5
+sidebar_position: 6
 description: "The take-over install pattern for a Bifröst app replacing a published Cloud Events app, and what an install codeunit registers."
 ---
 

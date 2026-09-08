@@ -33,7 +33,6 @@ The extension supports a wide range of built-in message types for retrieving cus
 | [Caller Identity](/help/foundation/caller-identity/) | Displays the identity and authentication details of the current API caller or user session. |
 | [Bifrost notes](/help/foundation/bifrost-notes/) | List of all notification and note records in the Bifrost system. |
 | [Bifrost Note Card](/help/foundation/bifrost-note-card/) | Card page for viewing and editing a single bifrost notification or note. |
-| [Note Thread](/help/foundation/bifrost-note-fact-box/) | FactBox showing the message thread associated with a bifrost notification. |
 | [Note Message](/help/foundation/bifrost-note-message/) | Page for composing or viewing a single message within a bifrost notification thread. |
 | [Bifrost Memory](/help/foundation/bifrost-memory/) | Company-level memory storage shared across all users in the Bifrost system. |
 | [Bifrost User Memory](/help/foundation/bifrost-user-memory/) | Personal memory storage for the current user, not visible to other users. |

@@ -1,7 +1,7 @@
 ---
 id: public-surface
 title: "Foundation public surface"
-sidebar_position: 8
+sidebar_position: 9
 description: "The public extension points of Bifröst Foundation that a dependent app may rely on, and what is internal."
 ---
 
@@ -34,7 +34,7 @@ All objects in this guide live in the namespace `Origo.Bifrost`.
 
 | Category | Items | Stability |
 |---|---|---|
-| Interfaces | 7 | Stable contract — additive changes only |
+| Interfaces | 8 | Stable contract — additive changes only |
 | Extensible enums | 13 | Add new `value(...)` entries from your extension |
 | Integration events | 6 + 2 facade codeunits | Stable signature; additive parameters via overloads |
 | Control add-ins | `Text Editor ori` | Stable procedure/event signatures |
@@ -49,6 +49,7 @@ Implementations are registered through the matching extensible enum (column "Sel
 | Interface | Selector enum | Purpose |
 |---|---|---|
 | `Msg Interface ori` | `Message Type ori` | Contract for every message type. Implements `GetFilterTableNo`, `GetDescription`, `GetMessageDirection`, `GetMessageHelpAsMarkdownDocument`, `ExecuteBifrostTask`. |
+| `Msg Metering ori` | `Message Type ori` | Metering hook, one procedure: `OnMessageCompleted(var Argument)`. Called after every successful call except `Help.*` and `Webhook.*`. Every value falls back to `Default Metering ori`, whose body does nothing; a billing solution overrides it on the types it prices. |
 | `Customer Credit Limit ori` | `Customer Credit Limit Type ori` | Replace the default credit-limit check used by `Customer.CreditLimit.Get`. |
 | `Customer Statement` | `Customer Statement Type` | Provide an alternative customer-statement PDF for `Customer.Statement.Pdf`. |
 | `Item Calc. Availability ori` | `Item Calc. Avail.Type ori` | Replace the default item-availability calculation. |

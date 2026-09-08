@@ -2,7 +2,7 @@
 id: setup-and-secrets
 title: "Setup and secrets"
 sidebar_label: "Setup and secrets"
-sidebar_position: 4
+sidebar_position: 5
 description: "Hanging your setup off the Bifröst Setup page, storing credentials in Secret Store ori, and masking the request log."
 ---
 

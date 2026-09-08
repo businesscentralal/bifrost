@@ -2,7 +2,7 @@
 id: testing
 title: "Testing"
 sidebar_label: "Testing"
-sidebar_position: 6
+sidebar_position: 7
 description: "The test-only Test.* message type pattern, the Foundation test types, and test data conventions in a shared company."
 ---
 

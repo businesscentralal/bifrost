@@ -2,7 +2,7 @@
 id: conventions
 title: "Object and naming conventions"
 sidebar_label: "Object and naming conventions"
-sidebar_position: 7
+sidebar_position: 8
 description: "Object ID ranges, the ori affix, the 30-character limit, namespaces, bilingual captions, and where documentation lives."
 ---
 

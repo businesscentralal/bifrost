@@ -2,7 +2,7 @@
 id: help-codeunits
 title: "Help codeunits"
 sidebar_label: "Help codeunits"
-sidebar_position: 3
+sidebar_position: 4
 description: "One help codeunit per domain, the per-app help directory message type, the Markdown contract, and how discovery finds it."
 ---
 
@@ -170,7 +170,8 @@ end;
 ```
 
 `Help.*` types are exempt from licence quota in the orchestrator: they always run, are
-never blocked, and are never counted.
+never blocked, and are never counted. The same name-prefix rule keeps them out of the
+[metering hook](/extensibility/metering).
 
 ## How discovery finds your help
 
