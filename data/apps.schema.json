@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bifrost.origo.is/apps.schema.json",
+  "title": "Bifrost App Registry",
+  "description": "The list of apps built on Bifrost Foundation, rendered as the 'Apps built on Bifrost' page and served verbatim at /apps.json for machine readers such as Foundation's in-product app list.",
+  "type": "object",
+  "required": ["$schema", "apps"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Relative or absolute path to this schema, for editor tooling."
+    },
+    "apps": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/app" },
+      "minItems": 1
+    }
+  },
+  "$defs": {
+    "domain": {
+      "type": "string",
+      "enum": [
+        "finance",
+        "sales",
+        "purchasing",
+        "inventory",
+        "projects",
+        "hr-payroll",
+        "banking",
+        "e-documents",
+        "integration",
+        "ai",
+        "documents",
+        "scheduling",
+        "time-tracking",
+        "billing",
+        "iceland",
+        "other"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["available", "preview", "coming-soon"]
+    },
+    "nullableUrl": {
+      "type": ["string", "null"],
+      "anyOf": [
+        { "type": "null" },
+        { "type": "string", "format": "uri", "pattern": "^(https?://|mailto:)" }
+      ]
+    },
+    "links": {
+      "type": "object",
+      "required": ["appSource", "docs", "repository", "support", "logo"],
+      "additionalProperties": false,
+      "properties": {
+        "appSource": { "$ref": "#/$defs/nullableUrl", "description": "Microsoft AppSource listing URL, or null when the app is not yet published there under this name." },
+        "docs": { "$ref": "#/$defs/nullableUrl", "description": "The app's documentation section on this site, or null if none exists yet." },
+        "repository": { "$ref": "#/$defs/nullableUrl", "description": "Public source repository URL, or null for a private repository." },
+        "support": { "$ref": "#/$defs/nullableUrl", "description": "Support contact: a URL or a mailto: link, or null." },
+        "logo": {
+          "type": "string",
+          "pattern": "^static/img/apps/[a-z0-9-]+\\.png$",
+          "description": "Repo-relative path to a 250x250 PNG logo."
+        }
+      }
+    },
+    "app": {
+      "type": "object",
+      "required": ["appId", "name", "publisher", "summary", "domains", "foundationMinVersion", "status", "links"],
+      "additionalProperties": false,
+      "properties": {
+        "appId": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+          "description": "The app.json id GUID. Must be unique across the registry."
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "The app's display name, matching app.json name (without brand names retired from the family)."
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "One factual sentence. No marketing language."
+        },
+        "summary_is": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Optional Icelandic translation of summary, used on the is-IS registry page. Falls back to summary when omitted."
+        },
+        "domains": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/domain" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "foundationMinVersion": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+\\.\\d+$",
+          "description": "Minimum Bifrost Foundation version this app requires, e.g. '28.0.0.0'."
+        },
+        "status": { "$ref": "#/$defs/status" },
+        "links": { "$ref": "#/$defs/links" }
+      }
+    }
+  }
+}

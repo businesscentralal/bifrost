@@ -1,0 +1,46 @@
+name: Validate app registry
+
+# data/apps.json is the single source of truth for the "Apps built on Bifröst"
+# registry (docs/apps/) and for /apps.json. This gate runs on every push or PR
+# that touches the registry data or its logos, independent of the general
+# preview build in preview.yml, so a registry-only PR gets a fast, focused
+# check plus the full site build (the registry is imported directly into the
+# AppRegistry React component, so a bad entry can break the build).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/**'
+      - 'static/img/apps/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'data/**'
+      - 'static/img/apps/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-apps-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Validate data/apps.json
+        run: node tools/validate-apps.mjs
+
+      - name: Build both locales
+        run: npm run build

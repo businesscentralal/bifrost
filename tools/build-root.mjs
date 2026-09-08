@@ -7,9 +7,12 @@
  *   build/index.html   picks a locale from the browser's language list
  *   build/404.html     catches everything else, including unknown locale
  *                      prefixes such as /da-dk/help/nornir/
+ *   build/apps.json    a locale-agnostic copy of data/apps.json, alongside the
+ *                      per-locale /en-us/apps.json and /is-is/apps.json that
+ *                      tools/copy-apps-json.mjs publishes via static/
  *
- * Both are plain HTML with a <noscript> fallback, so a reader with scripting
- * disabled still gets a working link rather than a blank page.
+ * Both HTML pages are plain HTML with a <noscript> fallback, so a reader with
+ * scripting disabled still gets a working link rather than a blank page.
  *
  *   node tools/build-root.mjs
  */
@@ -222,4 +225,6 @@ for (const dir of [buildDir, path.join(buildDir, 'en-us'), path.join(buildDir, '
   await writeFile(path.join(dir, 'llms.txt'), llms, 'utf8');
 }
 
-console.log(`build-root: wrote index.html, 404.html and llms.txt for ${site}`);
+await writeFile(path.join(buildDir, 'apps.json'), await readFile(path.join(root, 'data', 'apps.json')));
+
+console.log(`build-root: wrote index.html, 404.html, llms.txt and apps.json for ${site}`);

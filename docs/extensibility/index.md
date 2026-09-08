@@ -18,6 +18,11 @@ discovery; the dependent app writes business logic and a help document.
 Bifrost Nornir, Bifrost Hnitbjorg and Bifrost Bragi are all built exactly this way, and
 the code samples in this section are taken from them.
 
+Once your app depends on Foundation, list it on the
+[Apps built on Bifröst registry](/apps/) — see
+[Register your app](/apps/register-your-app/) for the entry format and the pull request
+flow.
+
 ## What Foundation gives you
 
 | Area | What you get | Where it is described |

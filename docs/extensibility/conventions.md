@@ -10,7 +10,8 @@ description: "Object ID ranges, the ori affix, the 30-character limit, namespace
 
 These rules apply to every app in the Bifröst family. They are not style preferences: the
 affix and the ID range are AppSource requirements, and the namespace and caption rules are
-what keep several apps installable side by side in the same Icelandic tenant.
+what keep several apps installable side by side in the same Icelandic tenant. Once your app
+follows them, register it in the [app registry](/apps/).
 
 ## Object ID ranges
 

@@ -22,3 +22,7 @@ yarn-error.log*
 # Locale builds
 /build
 /.docusaurus
+
+# Generated from data/apps.json by tools/copy-apps-json.mjs on every build —
+# data/apps.json is the source of truth, this is a build artifact.
+/static/apps.json

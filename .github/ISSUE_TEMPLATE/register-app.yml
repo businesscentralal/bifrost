@@ -1,0 +1,140 @@
+name: Register an app on the Bifröst registry
+description: >-
+  List a Business Central extension on the "Apps built on Bifröst" registry
+  without using git. A maintainer will open the pull request for you.
+title: "Register app: <app name>"
+labels: ["app-registry"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        See [Register your app](https://bifrost.origo.is/en-us/apps/register-your-app/)
+        for the full rules. Every field below maps directly to one field in
+        `data/apps.json`.
+
+  - type: input
+    id: appId
+    attributes:
+      label: App ID (GUID)
+      description: The `id` field from the app's app.json.
+      placeholder: 00000000-0000-0000-0000-000000000000
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: App name
+      description: Matches app.json `name`.
+    validations:
+      required: true
+
+  - type: input
+    id: publisher
+    attributes:
+      label: Publisher
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One factual sentence, 200 characters or fewer. No marketing language.
+    validations:
+      required: true
+
+  - type: input
+    id: summary_is
+    attributes:
+      label: Icelandic summary (optional)
+      description: Only needed if you want a translated summary on the is-IS page.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: domains
+    attributes:
+      label: Domains
+      description: Pick every domain that applies.
+      multiple: true
+      options:
+        - finance
+        - sales
+        - purchasing
+        - inventory
+        - projects
+        - hr-payroll
+        - banking
+        - e-documents
+        - integration
+        - ai
+        - documents
+        - scheduling
+        - time-tracking
+        - billing
+        - iceland
+        - other
+    validations:
+      required: true
+
+  - type: input
+    id: foundationMinVersion
+    attributes:
+      label: Minimum Bifrost Foundation version
+      placeholder: 28.0.0.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: status
+    attributes:
+      label: Status
+      options:
+        - available
+        - preview
+        - coming-soon
+    validations:
+      required: true
+
+  - type: input
+    id: appSource
+    attributes:
+      label: AppSource URL
+      description: Leave blank if not yet published on AppSource under this name.
+    validations:
+      required: false
+
+  - type: input
+    id: docs
+    attributes:
+      label: Documentation URL
+      description: Leave blank if none exists yet.
+    validations:
+      required: false
+
+  - type: input
+    id: repository
+    attributes:
+      label: Repository URL
+      description: Public source repository. Leave blank if the repository is private.
+    validations:
+      required: false
+
+  - type: input
+    id: support
+    attributes:
+      label: Support URL or email
+      description: A URL, or a mailto: link.
+    validations:
+      required: false
+
+  - type: input
+    id: logo
+    attributes:
+      label: Logo
+      description: >-
+        Attach a 250x250 PNG logo to this issue (drag and drop into the
+        description works too) or link to where a maintainer can download it.
+    validations:
+      required: true
