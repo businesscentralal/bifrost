@@ -2,7 +2,7 @@
 id: bifrost-setup-wizard
 title: "Bifrost Setup Wizard"
 sidebar_label: "Setup Wizard"
-sidebar_position: 22
+sidebar_position: 23
 ---
 
 The **Bifrost Setup Wizard** is the single destination for every Bifrost setup notification. No individual Bifröst application ever shows its own setup banner — when something needs attention (outbound HTTP, credentials, a trial licence, the MCP server connection, the Entra enterprise app), [Bifrost Setup](/help/foundation/bifrost-setup/) points here, and the wizard walks through every application that is currently installed.

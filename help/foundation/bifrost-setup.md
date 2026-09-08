@@ -52,7 +52,7 @@ Extensible via the `Company Name Type` enum (65601) and the `Company Name` inter
 | **Languages** | Opens the Windows Languages page so you can view available language codes. |
 | **Bifrost Translations** | Opens the translations list for managing source/target text pairs used by external systems. |
 | **Retention Policies** | Opens the Retention Policy Setup so you can configure automatic cleanup of old bifrost messages and integration records. |
-| **Take Over Legacy Data** | Asks for confirmation, then re-runs the take-over of data from the predecessor app "Origo Cloud Events Core" and opens the Bifrost Install Log page filtered to the rows the run produced. The Bifrost Install Log shows what each installed Bifröst application did while it installed: the tables it took over from the app it replaces, and how many rows were copied per table. |
+| **Take Over Legacy Data** | Asks for confirmation, then re-runs the take-over of data from the predecessor app "Origo Cloud Events Core" and opens the Bifrost [Install Log](/extensibility/install-and-upgrade/) page filtered to the rows the run produced. The Bifrost Install Log shows what each installed Bifröst application did while it installed: the tables it took over from the app it replaces, and how many rows were copied per table. |
 
 ## Tips
 
