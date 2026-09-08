@@ -150,7 +150,7 @@ var
     Migrated: Integer;
 begin
     Migrated += MigrateRole('CE Orchestrator ori', 'BIFROST Orchestr ori');
-    Migrated += MigrateRole('CE Orch. Setup ori', 'BIFROST NrnSetup ori');
+    Migrated += MigrateRole('CE Orch. Setup ori', 'BIFROST OrchSet ori');
     if Migrated > 0 then
         LogTakeOver('Access Control', Migrated);
 end;
