@@ -13,6 +13,7 @@ The extension adds 76 message types. Each one is self-documenting: submit `Help.
 ## Table of Contents
 
 -   [Getting Started](#getting-started)
+-   [DocEx Setup](/help/iceland-docex/docex-setup/) — provider environments and credentials
 -   [BIS 3.0 Reference Data](#bis30) — 10 message types
 -   [Advania](#advania) — 30 message types
 -   [Unimaze](#unimaze) — 23 message types
@@ -27,13 +28,14 @@ The extension adds 76 message types. Each one is self-documenting: submit `Help.
 The extension requires **Bifrost Foundation** to be installed. After installation, enter your provider credentials on the Bifröst Setup page.
 
 1.  Choose the search icon, enter **Bifröst Setup**, and choose the related link.
-2.  Open the **Document Exchange** tab and set the **Environment** (Live or Test) for each provider you use.
-3.  Enter the provider credentials: username and password for Advania, username or API key for Unimaze, API key and client token for InExchange. The values are stored in Isolated Storage and are never displayed again — the page shows only a **Credentials Stored** flag.
-4.  Choose **Test Connection** for each provider and confirm it succeeds.
-5.  Choose **Update BII Data Exchange Definitions** if you import incoming documents. This recreates the `BIIINVOICE` and `BIICREDITMEMO` definitions.
-6.  Use the Bifrost Queue API to submit document exchange requests, and retrieve the results from the Bifrost Data API.
+2.  In the **Apps** group, choose **Bifrost Iceland DocEx Setup** to open [Bifröst DocEx Setup](/help/iceland-docex/docex-setup/).
+3.  Set the **Environment** (Live or Test) for each provider you use.
+4.  Enter the provider credentials with the **Set …** actions: username and password for Advania, username and password or API key for Unimaze, API key and client token for InExchange. The values go into the Bifröst secret store and are never displayed again — the page shows only a credential status.
+5.  Choose **Test … Connection** for each provider and confirm it succeeds.
+6.  Choose **Update BII Data Exchange Definitions** if you import incoming documents. This recreates the `BIIINVOICE` and `BIICREDITMEMO` definitions.
+7.  Use the Bifrost Queue API to submit document exchange requests, and retrieve the results from the Bifrost Data API.
 
-**Upgrading from Origo Cloud Events DocEx?** Install Bifrost Iceland DocEx beside it. Your code maps, VAT G/L account maps and setup values are copied automatically, but Business Central keeps stored credentials separate per extension, so you must enter the provider credentials again.
+**Upgrading from Origo Cloud Events DocEx?** Install Bifrost Iceland DocEx beside it. Your code maps and VAT G/L account maps are copied automatically, but Business Central keeps stored credentials separate per extension, so you must enter the provider credentials again.
 
 ## BIS 3.0 Reference Data {#bis30}
 

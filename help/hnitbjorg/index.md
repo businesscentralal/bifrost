@@ -14,6 +14,7 @@ The module adds file, directory, attachment and chunked upload operations to the
 
 | Page | Description |
 | --- | --- |
+| [Bifröst Hnitbjörg Setup](/help/hnitbjorg/hnitbjorg-setup/) | The app setup page, opened from the Apps group on Bifröst Setup. Storage connections, file accounts and housekeeping in one place. |
 | [Bifrost Storage Setup](/help/hnitbjorg/storage-setup/) | List of configured storage connections. Each row binds a storage code to a BC file account. |
 | [Bifrost Storage Connection](/help/hnitbjorg/storage-card/) | Card for editing a single storage connection — connector, file account, base path, and test. |
 | [Select File Account](/help/hnitbjorg/storage-account-lookup/) | Lookup of the file accounts registered for the chosen connector. |
@@ -52,7 +53,7 @@ Send `Help.Storage.Get` for the full Markdown catalogue, or ask any single messa
 
 1.  Install a BC file storage connector app (Azure Blob Storage, Azure File Share, or SharePoint).
 2.  Configure a file account in the connector's setup.
-3.  Run the **Set up Bifrost Storage** assisted setup to enable HTTP client requests for this extension.
-4.  Open [Bifrost Storage Setup](/help/hnitbjorg/storage-setup/) and create a connection binding a code to that account.
+3.  Open **Bifröst Setup**, choose **Bifrost Hnitbjorg Setup** in the **Apps** group, and clear the HTTP client notification if it appears.
+4.  Create a connection on [Bifröst Hnitbjörg Setup](/help/hnitbjorg/hnitbjorg-setup/) binding a code to that account.
 5.  Use the **Test Connection** action on the [storage connection card](/help/hnitbjorg/storage-card/) to verify connectivity.
 6.  Send Bifröst messages with `"storageCode": "YOUR-CODE"` in the request payload.

@@ -15,8 +15,7 @@ Schedules are described once as recurring templates and reused across jobs. Repo
 | Page | Description |
 | --- | --- |
 | [Bifrost Nornir Setup](/help/nornir/scheduler-setup-wizard/) | Assisted setup wizard: enable outbound HTTP and start the management job queue. |
-| [Bifrost Setup – Nornir](/help/nornir/setup-jq/) | The Orchestrator action group added to Bifrost Setup, and the readiness notification. |
-| [Job Queue Orchestrator Setup](/help/nornir/scheduler-setup/) | Central configuration: management job queue, telemetry, Telegram bot token, and the list of orchestrator entries. |
+| [Bifröst Nornir Setup](/help/nornir/nornir-setup/) | The app setup page, opened from the Apps group on Bifröst Setup: management job queue, telemetry, secrets, the readiness notification, and the list of orchestrator entries. |
 | [Job Queue Orchestrator Entry Card](/help/nornir/scheduled-entry-card/) | One supervised job: what to run, when, retry policy and notification. |
 | [Job Queue Recurring Templates](/help/nornir/recurring-templates/) | List of reusable schedule patterns. |
 | [Job Queue Recurring Template](/help/nornir/recurring-template/) | One reusable schedule: weekdays, time window, interval and time zone. |

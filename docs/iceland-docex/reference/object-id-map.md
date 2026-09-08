@@ -42,10 +42,11 @@ The dependency moved from `Origo Cloud Events Core` to `Bifrost Foundation`
 
 ---
 
-## Tables (14)
+## Tables (15)
 
 | New ID | New name | Old ID | Old name |
 |---|---|---|---|
+| 10036399 | `DocEx Setup ori` | — | *(new — replaces the table extension on `Setup ori`)* |
 | 10036385 | `DocEx Att Buffer ori` | 10077485 | `CE DocEx Att Buffer` |
 | 10036386 | `DocEx Chrg Buffer ori` | 10077486 | `CE DocEx Chrg Buffer` |
 | 10036387 | `DocEx Endpt Buffer ori` | 10077487 | `CE DocEx Endpt Buffer` |
@@ -61,18 +62,19 @@ The dependency moved from `Origo Cloud Events Core` to `Bifrost Foundation`
 | 10036397 | `DocEx Vend VAT G/L Map ori` | 10077497 | `CE DocEx Vend VAT G/L Map` |
 | 10036398 | `DocEx Inc.Doc. Post Instr ori` | 10077498 | `CE DocEx Inc.Doc. Post Instr` |
 
-## Table extensions (3)
+## Table extensions (2)
 
 | New ID | New name | Old ID | Old name |
 |---|---|---|---|
-| 10036385 | `DocEx Setup Ext ori` | 10077485 | `CE DocEx Setup Ext ori` |
+| ~~10036385~~ | ~~`DocEx Setup Ext ori`~~ | 10077485 | `CE DocEx Setup Ext ori` — **deleted**, replaced by table `DocEx Setup ori` (10036399) |
 | 10036704 | `DocEx Inc Doc Ext ori` | 10077804 | `CE DocEx Inc Doc Ext ori` |
 | 10036705 | `DocEx Vendor Ext ori` | 10077805 | `CE DocEx Vendor Ext` |
 
-## Pages (2)
+## Pages (3)
 
 | New ID | New name | Old ID | Old name |
 |---|---|---|---|
+| 10036398 | `DocEx Setup ori` | — | *(new — the app setup page, opened from the Apps group on Bifröst Setup)* |
 | 10036396 | `DocEx BIS30 Code Map ori` | 10077496 | `CE DocEx BIS30 Code Map` |
 | 10036397 | `DocEx Vend VAT G/L Map ori` | 10077497 | `CE DocEx Vend VAT G/L Map` |
 
@@ -137,7 +139,7 @@ The dependency moved from `Origo Cloud Events Core` to `Bifrost Foundation`
 | 10036429 | `DocEx Adv UpdateStatus ori` | 10077529 | `CE DocEx Adv UpdateStatus` |
 | 10036430 | `DocEx Document ori` | 10077530 | `CE DocEx Document` |
 | 10036431 | `DocEx Exchange ori` | 10077531 | `CE DocEx Exchange` |
-| 10036432 | `DocEx Credentials ori` | 10077532 | `CE DocEx Credentials` |
+| ~~10036432~~ | ~~`DocEx Credentials ori`~~ | 10077532 | `CE DocEx Credentials` — **deleted**, replaced by `Secret Store ori` in Bifröst Foundation |
 | 10036433 | `DocEx Gate ori` | 10077533 | `CE DocEx Gate` |
 | 10036434 | `DocEx Help ori` | 10077534 | `CE DocEx Help` |
 | 10036435 | `DocEx Attachments ori` | 10077535 | `CE DocEx Attachments` |
@@ -216,6 +218,9 @@ The dependency moved from `Origo Cloud Events Core` to `Bifrost Foundation`
 | 10036508 | `DocEx Purch Doc Creator ori` | 10077608 | `CE DocEx Purch Doc Creator` |
 | 10036509 | `DocEx Jnl Creator ori` | 10077609 | `CE DocEx Jnl Creator` |
 | 10036510 | `DocEx Take-Over ori` | — | *(new — data take-over from the published app)* |
+| 10036511 | `DocEx Secrets ori` | — | *(new — builds the secret codes and wraps `Secret Store ori`)* |
+| 10036512 | `DocEx Setup Init ori` | — | *(new — shared install/upgrade initializer)* |
+| 10036513 | `DocEx Upgrade ori` | — | *(new — upgrade codeunit, upgrade-tag guarded)* |
 
 ## Interfaces (5)
 
@@ -329,6 +334,7 @@ Range 99400-99599 (old 97700-97799). Test objects drop the `CE ` prefix and carr
 | codeunit | 99454 | `DocEx Umz Mock` | 97754 | `CE DocEx Umz Mock` |
 | codeunit | 99456 | `DocEx Connector Tests` | 97756 | `DocEx Connector Tests` |
 | codeunit | 99400 | `DocEx Incoming Doc Tests` | 97700 | `DocEx Incoming Doc Tests` |
+| codeunit | 99401 | `DocEx Setup Secret Tests` | — | *(new — the setup table, the setup page and the secret store)* |
 | codeunit | 99460 | `DocEx Pre-Map VAT Tests` | 97760 | `DocEx Pre-Map VAT Tests` |
 | codeunit | 99458 | `DocEx Test Config` | 97758 | `DocEx Test Config` |
 | codeunit | 99459 | `DocEx UBL Render Tests` | 97759 | `DocEx UBL Render Tests` |
@@ -343,3 +349,19 @@ Range 99400-99599 (old 97700-97799). Test objects drop the `CE ` prefix and carr
 
 The source app contained no objects in `ObsoleteState = Pending` or `Removed`, so nothing was dropped
 for obsolescence. Every object in the source app has a counterpart above.
+
+## Changes after the migration
+
+The migration reproduced the Cloud Events app object for object. Adopting the shared Bifröst
+platform setup pattern then changed five things, all listed in the tables above:
+
+| Change | Why |
+|---|---|
+| `tableextension 10036385 "DocEx Setup Ext ori"` deleted | A dependent app must not extend Foundation's `Setup ori` table. Its four environment fields moved to the new singleton `table 10036399 "DocEx Setup ori"`, and the install and upgrade codeunits copy the values over. |
+| `pageextension 10036385 "DocEx Setup Ext ori"` reduced | It now contributes one action to the `Apps` group on Bifröst Setup, opening `page 10036398 "DocEx Setup ori"`. The Document Exchange field group and the Navigation action group moved onto that page. |
+| `codeunit 10036432 "DocEx Credentials ori"` deleted | Provider credentials moved into Foundation's `Secret Store ori`, keyed `<PROVIDER>-<ENVIRONMENT>-<PART>`. |
+| Three interfaces trimmed | `GetUsername`, `SetCredentials` and `ClearCredentials` were removed; only `HasCredentials` remains. The setup page talks to the secret store directly, and a `SecretText` value cannot be unwrapped in a Cloud app. |
+| Three codeunits added | `DocEx Secrets ori`, `DocEx Setup Init ori` and `DocEx Upgrade ori` (10036511-10036513). |
+
+The value of every credential must be entered once after installing: Business Central keeps stored
+secrets separate per extension, so nothing carries over from the published Cloud Events app.

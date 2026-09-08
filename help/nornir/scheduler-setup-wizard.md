@@ -7,7 +7,7 @@ sidebar_position: 16
 
 The **Bifrost Nornir Setup** wizard is the assisted setup for this extension. It takes you through four steps: a short introduction, enabling outbound HTTP, starting the management job queue that the orchestrator depends on, and a confirmation that setup is complete.
 
-The wizard is offered from the Assisted Setup list, and from the notification shown on [Bifrost Setup](/help/nornir/setup-jq/) when HTTP is blocked or the management job queue is not running.
+The wizard is offered from the Assisted Setup list, and from the notification shown on [Bifröst Nornir Setup](/help/nornir/nornir-setup/) when HTTP is blocked or the management job queue is not running.
 
 ## Steps
 

@@ -7,7 +7,7 @@ sidebar_position: 4
 
 The **Bifrost Storage Setup** page lists all configured storage connections. Each row binds a short `Code` — the value a Bifröst request passes as `storageCode` — to a Business Central external file storage account.
 
-The same page is reached from the **Storage** group on the Bifröst **Setup** page, alongside the standard File Account Wizard and File Accounts list.
+The same page is reached from [Bifröst Hnitbjörg Setup](/help/hnitbjorg/hnitbjorg-setup/), which is opened from the **Apps** group on the Bifröst **Setup** page.
 
 ## Fields
 

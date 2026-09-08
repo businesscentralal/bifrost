@@ -7,7 +7,7 @@ sidebar_position: 4
 
 Síðan **Uppsetning Bifröst-geymslu** sýnir allar uppsettar geymslutengingar. Hver lína bindur stuttan `Kóða` — gildið sem Bifröst-beiðni sendir sem `storageCode` — við ytri skráareikning í Business Central.
 
-Sama síða er aðgengileg úr flokknum **Geymsla** á **Uppsetningarsíðu** Bifrastar, ásamt stöðluðu leiðsagnarforriti skráareikninga og lista yfir skráareikninga.
+Sama síða er aðgengileg úr [Uppsetningu Bifröst Hnitbjargar](/help/hnitbjorg/hnitbjorg-setup/), sem er opnuð úr flokknum **Forrit** á **Uppsetningarsíðu** Bifrastar.
 
 ## Reitir
 

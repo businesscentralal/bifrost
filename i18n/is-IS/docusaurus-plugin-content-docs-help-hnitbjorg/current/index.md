@@ -14,6 +14,7 @@ Einingin bætir skráa-, möppu-, viðhengja- og bútaupphleðsluaðgerðum við
 
 | Síða | Lýsing |
 | --- | --- |
+| [Uppsetning Bifröst Hnitbjargar](/help/hnitbjorg/hnitbjorg-setup/) | Uppsetningarsíða forritsins, opnuð úr flokknum Forrit á uppsetningarsíðu Bifrastar. Geymslutengingar, skráareikningar og umsýsla á einum stað. |
 | [Uppsetning Bifröst-geymslu](/help/hnitbjorg/storage-setup/) | Listi yfir uppsettar geymslutengingar. Hver lína tengir geymslukóða við skráareikning í BC. |
 | [Bifröst-geymslutenging](/help/hnitbjorg/storage-card/) | Spjald til að breyta einni geymslutengingu – tengill, skráareikningur, grunnslóð og prófun. |
 | [Velja skráareikning](/help/hnitbjorg/storage-account-lookup/) | Uppfletting á skráareikningum sem skráðir eru fyrir valinn tengil. |
@@ -52,7 +53,7 @@ Sendið `Help.Storage.Get` til að fá heildarskrána á Markdown-formi, eða bi
 
 1.  Setjið upp tengilsforrit fyrir skráageymslu í BC (Azure Blob Storage, Azure File Share eða SharePoint).
 2.  Stillið skráareikning í uppsetningu tengilsins.
-3.  Keyrið leiðsagnaruppsetninguna **Setja upp Bifröst-geymslu** til að virkja HTTP-biðlarabeiðnir fyrir viðbótina.
-4.  Opnið [Uppsetningu Bifröst-geymslu](/help/hnitbjorg/storage-setup/) og búið til tengingu sem bindur kóða við reikninginn.
+3.  Opnið **Uppsetningu Bifrastar**, veljið **Uppsetning Bifröst Hnitbjargar** í flokknum **Forrit** og hreinsið HTTP-tilkynninguna ef hún birtist.
+4.  Búið til tengingu á [Uppsetningu Bifröst Hnitbjargar](/help/hnitbjorg/hnitbjorg-setup/) sem bindur kóða við reikninginn.
 5.  Notið aðgerðina **Prófa tengingu** á [geymslutengingarspjaldinu](/help/hnitbjorg/storage-card/) til að staðfesta.
 6.  Sendið Bifröst-skilaboð með `"storageCode": "KÓÐINN-YKKAR"` í beiðninni.

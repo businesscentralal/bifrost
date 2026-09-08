@@ -22,4 +22,4 @@ Bifröst Nornir stækkar staðlaðan lista yfir **vinnsluraðafærslur** svo hæ
 ## Ábendingar
 
 -   Þegar færsla er komin undir vinnsluraðarann skal viðhalda áætluninni á [Spjaldi vinnsluraðarafærslu](/help/nornir/scheduled-entry-card/) en ekki hér.
--   Allar vinnsluraðarafærslur eru einnig sýndar á [Uppsetningu vinnsluraðara](/help/nornir/scheduler-setup/).
+-   Allar vinnsluraðarafærslur eru einnig sýndar á [Uppsetningu vinnsluraðara](/help/nornir/nornir-setup/).

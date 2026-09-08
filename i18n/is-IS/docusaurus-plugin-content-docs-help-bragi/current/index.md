@@ -14,13 +14,16 @@ Spjallið birtist sem upplýsingareitur á síðum viðskiptamanna, lánardrottn
 
 | Síða | Lýsing |
 | --- | --- |
+| [Uppsetning Bifröst Braga](/help/bragi/bragi-setup/) | Uppsetningarsíða forritsins, opnuð úr flokknum Forrit á uppsetningarsíðu Bifrastar: mállíkön, MCP verkfæraþjónninn og API-lyklar veitenda. |
 | [Spjalla við Bifröst](/help/bragi/bifrost-chat/) | Spjallreiturinn og heilsíðuspjallið: hvernig það er opnað, hvernig færslusamhengið virkar, hvaða heimild þarf og hvaða verkfæri aðstoðin getur kallað á. |
-| [Bifröst mállíkön](/help/bragi/bifrost-lang-model-list/) | Listi yfir öll skilgreind mállíkön, opnaður með aðgerðinni Bifröst mállíkön í Bifröst uppsetningu. |
+| [Bifröst mállíkön](/help/bragi/bifrost-lang-model-list/) | Listi yfir öll skilgreind mállíkön, opnaður með aðgerðinni Mállíkön á uppsetningarsíðu Bifröst Braga. |
 | [Mállíkansspjald](/help/bragi/bifrost-lang-model-card/) | Spjaldsíða fyrir eitt mállíkan – spjallveitandi, líkanstillingar og Markdown-hæfnin sem sett er inn í samtalið. |
 
 ## Fyrstu skref
 
 1.  Úthlutaðu heimildasettinu `BIFROST Chat ori` til allra notenda sem mega nota spjallið.
-2.  Opnaðu **Bifröst uppsetningu**, veldu **Bifröst mállíkön** og búðu til mállíkan með spjallveitanda og hæfni.
-3.  Merktu eitt mállíkan sem **Sjálfgefið**, eða tengdu mállíkan við hvern notanda í ritli notandauppsetningar.
-4.  Opnaðu viðskiptamann, vöru eða sölupappír og spurðu aðstoðina í upplýsingareitnum **Spjalla við Bifröst**.
+2.  Opnaðu **Bifröst uppsetningu** og veldu **Uppsetning Bifröst Braga** í flokknum **Forrit**.
+3.  Veldu **Mállíkön** og búðu til mállíkan með spjallveitanda og hæfni.
+4.  Skráðu API-lykil líkansins á mállíkansspjaldinu.
+5.  Merktu eitt mállíkan sem **Sjálfgefið**, eða tengdu mállíkan við hvern notanda í ritli notandauppsetningar.
+6.  Opnaðu viðskiptamann, vöru eða sölupappír og spurðu aðstoðina í upplýsingareitnum **Spjalla við Bifröst**.

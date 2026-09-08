@@ -22,4 +22,4 @@ Bifrost Nornir extends the standard **Job Queue Entries** list so that an existi
 ## Tips
 
 -   Once an entry is under orchestrator control, maintain the schedule on the [Job Queue Orchestrator Entry Card](/help/nornir/scheduled-entry-card/) rather than here.
--   All orchestrator entries are also listed on [Job Queue Orchestrator Setup](/help/nornir/scheduler-setup/).
+-   All orchestrator entries are also listed on [Job Queue Orchestrator Setup](/help/nornir/nornir-setup/).
