@@ -274,7 +274,7 @@ Every error path returns HTTP 200 with `status: "Error"` in the body. The messag
 
 ## Related Documentation
 
-- [Language Models Extensibility](./extensibility) — adding a language model provider
+- [Language Models Extensibility](/language-models/extensibility/) — adding a language model provider
 - Bifrost Foundation, *API Reference* — the `tasks` endpoint, envelope and queue
 - Bifrost Foundation, *Setup Reference* — Bifrost User Setup and the per-user system prompt
 - Bifrost Foundation, *Extensibility Reference* — the `Message Type ori` enum and the `Msg Interface ori` contract

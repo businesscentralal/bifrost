@@ -723,6 +723,6 @@ If you need an extensibility hook that is not listed here, open an issue in the 
 
 ## Related Documentation
 
-- [Chat Message Types](./message-types) — the `LLM.Prompt.Complete` contract
+- [Chat Message Types](/language-models/message-types/) — the `LLM.Prompt.Complete` contract
 - Bifrost Foundation, *Extensibility Reference* — the `Message Type ori` enum, the `Msg Interface ori` contract and the `Request Log Type ori` enum
 - Bifrost Foundation, *Setup Reference* — Bifrost User Setup and the per-user system prompt
