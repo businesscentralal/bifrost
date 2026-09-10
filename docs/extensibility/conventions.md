@@ -22,9 +22,9 @@ and, separately, for its test app.
 | App | Product range | Test app range |
 | --- | --- | --- |
 | Bifrost Foundation | 10077885–10078384 | 98800–98999 |
-| Bifrost Nornir | 10035535–10035634 | 96400–96499 |
-| Bifrost Hnitbjorg | 10035635–10035684 | 96200–96299 |
-| Bifrost Bragi | 10035335–10035484 | 96000–96199 |
+| Bifrost Orchestrator | 10035535–10035634 | 96400–96499 |
+| Bifrost Attachments | 10035635–10035684 | 96200–96299 |
+| Bifrost Language Models | 10035335–10035484 | 96000–96199 |
 
 The block goes into `app.json`:
 
@@ -148,9 +148,9 @@ Every AL file declares a namespace on its first line. The pattern is
 | App | Product namespace | Test namespace |
 | --- | --- | --- |
 | Bifrost Foundation | `Origo.Bifrost` | — |
-| Bifrost Nornir | `Origo.Bifrost.Nornir` | `Origo.Bifrost.Nornir.Test` |
-| Bifrost Hnitbjorg | `Origo.Bifrost.Hnitbjorg` | `Origo.Bifrost.Hnitbjorg.Test` |
-| Bifrost Bragi | `Origo.Bifrost.Bragi` | `Origo.Bifrost.Bragi.Test` |
+| Bifrost Orchestrator | `Origo.Bifrost.Nornir` | `Origo.Bifrost.Nornir.Test` |
+| Bifrost Attachments | `Origo.Bifrost.Hnitbjorg` | `Origo.Bifrost.Hnitbjorg.Test` |
+| Bifrost Language Models | `Origo.Bifrost.Bragi` | `Origo.Bifrost.Bragi.Test` |
 
 Foundation's public objects are all in `Origo.Bifrost`, so a dependent app's files that
 touch them start:
@@ -170,7 +170,7 @@ tests run a message type through `Dispatcher ori` instead:
 "internalsVisibleTo": [
     {
         "id": "194ecd04-5688-4af6-94bc-732c714251fc",
-        "name": "Bifrost Nornir - Tests",
+        "name": "Bifrost Orchestrator - Tests",
         "publisher": "Origo"
     }
 ]
@@ -205,7 +205,7 @@ Two things are **not** translated:
 ### "Bifröst" in Icelandic
 
 The Icelandic brand form is **Bifröst**, with the ö. English text uses "Bifrost" (the app
-names on AppSource are `Bifrost Foundation`, `Bifrost Nornir` and so on), and every
+names on AppSource are `Bifrost Foundation`, `Bifrost Orchestrator` and so on), and every
 Icelandic caption uses "Bifröst":
 
 ```al
@@ -228,7 +228,7 @@ versioned and translated twice.
 The help URL is a contract between an app and this site. Each app sets, in `app.json`:
 
 ```json
-"contextSensitiveHelpUrl": "https://bifrost.origo.is/{0}/help/nornir/",
+"contextSensitiveHelpUrl": "https://bifrost.origo.is/{0}/help/orchestrator/",
 "supportedLocales": ["en-US", "is-IS"]
 ```
 

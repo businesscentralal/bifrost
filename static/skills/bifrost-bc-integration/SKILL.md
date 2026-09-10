@@ -110,7 +110,7 @@ Ten things, and the rest follows.
 | See a complete worked example | [references/examples.md](references/examples.md) |
 | Reach the same metadata over MCP | [references/mcp-server.md](references/mcp-server.md) |
 
-Message types belonging to the other Bifröst apps — Bragi, Hnitbjörg, Nornir,
+Message types belonging to the other Bifröst apps — Language Models, Attachments, Orchestrator,
 Iceland, Iceland Treasury, Iceland DocEx, Clockify, Subscription Billing — are
 not in this skill. Each app has a thin skill of its own that links to its
 generated reference pages; load that one alongside this one.
@@ -217,7 +217,7 @@ skill, which is what an in-text reference like "see §11" points at.
 | [bifrost-iceland](../bifrost-iceland/SKILL.md) | Icelandic ERP message types |
 | [bifrost-iceland-treasury](../bifrost-iceland-treasury/SKILL.md) | Icelandic bank connectors, claims, payments |
 | [bifrost-iceland-docex](../bifrost-iceland-docex/SKILL.md) | Electronic document exchange, Peppol/BIS 3.0 |
-| [bifrost-bragi](../bifrost-bragi/SKILL.md) | Chat and language model providers |
+| [bifrost-bragi](../bifrost-bragi/SKILL.md) | Chat and language model providers (Language Models) |
 | [bifrost-hnitbjorg](../bifrost-hnitbjorg/SKILL.md) | Azure Blob, Azure File Share and SharePoint storage |
 | [bifrost-nornir](../bifrost-nornir/SKILL.md) | Job queue scheduling and declarative playbooks |
 | [bifrost-clockify](../bifrost-clockify/SKILL.md) | Clockify time tracking |

@@ -3,7 +3,7 @@ id: bifrost-nornir
 title: "Nornir message types"
 sidebar_label: "Nornir message types"
 sidebar_position: 9
-description: "Message types added to the Bifröst API by Bifrost Nornir. Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index…"
+description: "Message types added to the Bifröst API by Bifrost Orchestrator. Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index…"
 ---
 
 Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types.
@@ -34,7 +34,7 @@ It does not describe the API itself. The envelope, the endpoints, the error orde
 
 ## Reference pages
 
-**Reference base:** `../../nornir/reference/` — every path below is relative to it.
+**Reference base:** `../../orchestrator/reference/` — every path below is relative to it.
 
 Append `message-types/<page>/` for a message type, or `<page>/` for the pages in the last table.
 From the deployed site the same paths resolve against this file’s own URL.
@@ -78,9 +78,9 @@ From the deployed site the same paths resolve against this file’s own URL.
 - [bifrost-iceland](./bifrost-iceland.md) — Bifrost Iceland
 - [bifrost-iceland-treasury](./bifrost-iceland-treasury.md) — Bifrost Iceland Treasury
 - [bifrost-iceland-docex](./bifrost-iceland-docex.md) — Bifrost Iceland DocEx
-- [bifrost-bragi](./bifrost-bragi.md) — Bifrost Bragi
-- [bifrost-hnitbjorg](./bifrost-hnitbjorg.md) — Bifrost Hnitbjorg
-- [bifrost-clockify](./bifrost-clockify.md) — Bifrost Clockify
+- [bifrost-bragi](./bifrost-bragi.md) — Bifrost Language Models
+- [bifrost-hnitbjorg](./bifrost-hnitbjorg.md) — Bifrost Attachments
+- [bifrost-clockify](./bifrost-clockify.md) — Bifrost Timesheets
 - [bifrost-subscription-billing](./bifrost-subscription-billing.md) — Bifrost Subscription Billing
 ## Loading this skill
 
@@ -90,6 +90,6 @@ It is an index: what the app adds, when to load it, and the path of every refere
 <details>
 <summary>The description an agent matches this skill against</summary>
 
-Message types added to the Bifröst API by Bifrost Nornir. Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index of what Nornir adds — 20 message types across 2 families (Orchestrator.*, Help.*).
+Message types added to the Bifröst API by Bifrost Orchestrator. Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index of what Nornir adds — 20 message types across 2 families (Orchestrator.*, Help.*).
 
 </details>

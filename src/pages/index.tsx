@@ -10,10 +10,10 @@ const summaries: Record<string, string> = {
   iceland: 'Icelandic ERP message types — national register, VAT, and local business rules.',
   'iceland-treasury': 'Bank connectors and payment services for Icelandic banks.',
   'iceland-docex': 'Electronic document exchange: Peppol/BIS 3.0, incoming and outgoing documents.',
-  bragi: 'Chat and language models — Copilot, OpenAI, Azure OpenAI, Anthropic, Gemini and xAI.',
-  hnitbjorg: 'External storage — Azure Blob, Azure File Share and SharePoint.',
-  nornir: 'Scheduling and orchestration — job queue supervision and declarative playbooks.',
-  clockify: 'Time tracking synchronised with Business Central resources and jobs.',
+  'language-models': 'Chat and language models — Copilot, OpenAI, Azure OpenAI, Anthropic, Gemini and xAI.',
+  attachments: 'External storage — Azure Blob, Azure File Share and SharePoint.',
+  orchestrator: 'Scheduling and orchestration — job queue supervision and declarative playbooks.',
+  timesheets: 'Time tracking synchronised with Business Central resources and jobs.',
   'subscription-billing': 'Recurring billing and subscription management.',
 };
 

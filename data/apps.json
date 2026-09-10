@@ -78,7 +78,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/hnitbjorg/",
+        "docs": "https://bifrost.origo.is/en-us/attachments/",
         "repository": "https://github.com/businesscentralal/bc-origo-bifrost-attachments",
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/attachments.png"
@@ -94,7 +94,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/bragi/",
+        "docs": "https://bifrost.origo.is/en-us/language-models/",
         "repository": "https://github.com/businesscentralal/bc-origo-bifrost-language-models",
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/language-models.png"
@@ -110,7 +110,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/nornir/",
+        "docs": "https://bifrost.origo.is/en-us/orchestrator/",
         "repository": "https://github.com/businesscentralal/bc-origo-bifrost-orchestrator",
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/orchestrator.png"
@@ -126,7 +126,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/clockify/",
+        "docs": "https://bifrost.origo.is/en-us/timesheets/",
         "repository": "https://github.com/businesscentralal/bc-origo-bifrost-timesheets",
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/timesheets.png"

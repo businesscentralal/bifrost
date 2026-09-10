@@ -90,7 +90,7 @@ const notes = {
       'Documents carry attachments as base64 inside the payload. Watch the request size limit and use the provider-specific compression types where they exist.',
     ],
   },
-  bragi: {
+  'language-models': {
     when: [
       'a step needs a language model completion inside a playbook, a scheduled task or an integration — that is `LLM.Prompt.Complete`;',
       'you are configuring chat providers or language models for Business Central.',
@@ -101,18 +101,18 @@ const notes = {
       'The model provider is configured in Business Central, not chosen by the caller. Do not hard-code a provider name in integration code.',
     ],
   },
-  hnitbjorg: {
+  attachments: {
     when: [
       'a file has to be read from or written to Azure Blob Storage, an Azure File Share or SharePoint through Business Central;',
       'a document attachment has to be offloaded out of the database into storage, or restored from it.',
     ],
     rules: [
       'A large file goes up in chunks, not in one payload. Use the chunked upload session (begin, append, commit, abort) rather than fighting the per-request limit.',
-      'Hnitbjörg holds no credentials of its own. It references a Business Central file account registered by a connector app; if the account is missing, the fix is in Business Central, not in the call.',
+      'Attachments holds no credentials of its own. It references a Business Central file account registered by a connector app; if the account is missing, the fix is in Business Central, not in the call.',
       'Offloading changes where content lives, not what it is. An offloaded attachment still opens normally in the client — do not "restore" one just to read it.',
     ],
   },
-  nornir: {
+  orchestrator: {
     when: [
       'work has to run on a schedule, be retried, or be supervised — Job Queue entries;',
       'several message types have to run in sequence with the output of one feeding the next — a playbook.',
@@ -123,7 +123,7 @@ const notes = {
       'Every run is logged as an instance with a per-step record of the request, the response and a workspace snapshot. Read the instance before re-running a failed playbook.',
     ],
   },
-  clockify: {
+  timesheets: {
     when: [
       'time entries have to move between Clockify and Business Central — into Job Journal lines or into Time Sheets;',
       'the task drives the Time Sheet lifecycle, or manages Clockify clients, projects, tasks or tags from Business Central.',
