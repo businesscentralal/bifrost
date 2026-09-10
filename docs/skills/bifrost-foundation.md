@@ -330,10 +330,10 @@ From the deployed site the same paths resolve against this file’s own URL.
 - [bifrost-iceland](./bifrost-iceland.md) — Bifrost Iceland
 - [bifrost-iceland-treasury](./bifrost-iceland-treasury.md) — Bifrost Iceland Treasury
 - [bifrost-iceland-docex](./bifrost-iceland-docex.md) — Bifrost Iceland DocEx
-- [bifrost-bragi](./bifrost-bragi.md) — Bifrost Bragi
-- [bifrost-hnitbjorg](./bifrost-hnitbjorg.md) — Bifrost Hnitbjorg
-- [bifrost-nornir](./bifrost-nornir.md) — Bifrost Nornir
-- [bifrost-clockify](./bifrost-clockify.md) — Bifrost Clockify
+- [bifrost-bragi](./bifrost-bragi.md) — Bifrost Language Models
+- [bifrost-hnitbjorg](./bifrost-hnitbjorg.md) — Bifrost Attachments
+- [bifrost-nornir](./bifrost-nornir.md) — Bifrost Orchestrator
+- [bifrost-clockify](./bifrost-clockify.md) — Bifrost Timesheets
 - [bifrost-subscription-billing](./bifrost-subscription-billing.md) — Bifrost Subscription Billing
 ## Loading this skill
 

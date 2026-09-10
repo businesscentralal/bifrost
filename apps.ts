@@ -10,7 +10,12 @@
  * and BC appends the page's ContextSensitiveHelpPage slug.
  */
 export type BifrostApp = {
-  /** Route segment and plugin instance id. Kebab-case, stable forever. */
+  /**
+   * Route segment and plugin instance id. Kebab-case; treat as stable.
+   * Four ids were intentionally renamed (with client redirects) to match live
+   * AppSource names: bragi→language-models, hnitbjorg→attachments,
+   * nornir→orchestrator, clockify→timesheets. AL app.json follow-up is separate.
+   */
   id: string;
   /** Display name used in the navbar and sidebar headings. */
   title: string;
@@ -25,10 +30,10 @@ export const apps: BifrostApp[] = [
   {id: 'iceland', title: 'Iceland', appName: 'Bifrost Iceland', wave: 1},
   {id: 'iceland-treasury', title: 'Iceland Treasury', appName: 'Bifrost Iceland Treasury', wave: 1},
   {id: 'iceland-docex', title: 'Iceland DocEx', appName: 'Bifrost Iceland DocEx', wave: 1},
-  {id: 'bragi', title: 'Bragi', appName: 'Bifrost Bragi', wave: 1},
-  {id: 'hnitbjorg', title: 'Hnitbjörg', appName: 'Bifrost Hnitbjorg', wave: 1},
-  {id: 'nornir', title: 'Nornir', appName: 'Bifrost Nornir', wave: 1},
-  {id: 'clockify', title: 'Clockify', appName: 'Bifrost Clockify', wave: 1},
+  {id: 'language-models', title: 'Language Models', appName: 'Bifrost Language Models', wave: 1},
+  {id: 'attachments', title: 'Attachments', appName: 'Bifrost Attachments', wave: 1},
+  {id: 'orchestrator', title: 'Orchestrator', appName: 'Bifrost Orchestrator', wave: 1},
+  {id: 'timesheets', title: 'Timesheets', appName: 'Bifrost Timesheets', wave: 1},
   {id: 'subscription-billing', title: 'Subscription Billing', appName: 'Bifrost Subscription Billing', wave: 1},
 ];
 

@@ -454,7 +454,7 @@ await writePage(
     '   for the environment it is asked.',
     '',
     'Every Bifröst app documents its own message types under its section — see',
-    '[Nornir](/nornir/), [Hnitbjörg](/hnitbjorg/), [Bragi](/bragi/) and',
+    '[Orchestrator](/orchestrator/), [Attachments](/attachments/), [Language Models](/language-models/) and',
     '[Iceland DocEx](/iceland-docex/). Building an app of your own is covered under',
     '[Extensibility](/extensibility/).',
   ].join('\n'),

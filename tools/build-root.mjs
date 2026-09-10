@@ -6,7 +6,7 @@
  *
  *   build/index.html   picks a locale from the browser's language list
  *   build/404.html     catches everything else, including unknown locale
- *                      prefixes such as /da-dk/help/nornir/
+ *                      prefixes such as /da-dk/help/orchestrator/
  *   build/apps.json    a locale-agnostic copy of data/apps.json, alongside the
  *                      per-locale /en-us/apps.json and /is-is/apps.json that
  *                      tools/copy-apps-json.mjs publishes via static/
@@ -74,12 +74,12 @@ const chooseLocale = `
  * GitHub Pages serves this one 404 for every missing path on the site, so it
  * has to tell two cases apart:
  *
- *   /xx-yy/help/nornir/setup/   an unsupported or differently-cased locale —
+ *   /xx-yy/help/orchestrator/setup/   an unsupported or differently-cased locale —
  *                               rewrite the prefix and keep the rest of the
  *                               path, so a Business Central client asking for
  *                               a locale we do not publish still lands on the
  *                               right help page;
- *   /en-us/nornir/typo/         a genuinely missing page inside a locale we do
+ *   /en-us/orchestrator/typo/         a genuinely missing page inside a locale we do
  *                               publish — leave it alone. Rewriting it would
  *                               produce the same URL and loop forever.
  */
@@ -125,10 +125,10 @@ const appSections = [
   ['iceland', 'Bifröst Iceland — Icelandic ERP message types'],
   ['iceland-treasury', 'Bifröst Iceland Treasury — Icelandic bank connectors and payments'],
   ['iceland-docex', 'Bifröst Iceland DocEx — electronic document exchange (Peppol/BIS 3.0)'],
-  ['bragi', 'Bifröst Bragi — chat and language model providers'],
-  ['hnitbjorg', 'Bifröst Hnitbjörg — Azure Blob, Azure File Share and SharePoint storage'],
-  ['nornir', 'Bifröst Nornir — job queue scheduling and declarative playbooks'],
-  ['clockify', 'Bifröst Clockify — time tracking'],
+  ['language-models', 'Bifröst Language Models — chat and language model providers'],
+  ['attachments', 'Bifröst Attachments — Azure Blob, Azure File Share and SharePoint storage'],
+  ['orchestrator', 'Bifröst Orchestrator — job queue scheduling and declarative playbooks'],
+  ['timesheets', 'Bifröst Timesheets — time tracking'],
   ['subscription-billing', 'Bifröst Subscription Billing — recurring billing'],
 ];
 

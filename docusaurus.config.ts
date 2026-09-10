@@ -65,6 +65,41 @@ function docsInstance(id: string, routeBasePath: string, path: string): [string,
   ];
 }
 
+
+/**
+ * Client-side redirects from former route ids to the live AppSource names.
+ * Each locale build uses a locale-prefixed baseUrl, so these paths are relative
+ * to that base (e.g. /en-us/bragi/ → /en-us/language-models/).
+ *
+ * Explicit `redirects` cover help pages whose slug renamed with the product id.
+ * `createRedirects` covers every other page under the old folder prefixes.
+ */
+const routeIdRenames: Array<[fromPrefix: string, toPrefix: string]> = [
+  ['/bragi', '/language-models'],
+  ['/help/bragi', '/help/language-models'],
+  ['/hnitbjorg', '/attachments'],
+  ['/help/hnitbjorg', '/help/attachments'],
+  ['/nornir', '/orchestrator'],
+  ['/help/nornir', '/help/orchestrator'],
+  ['/clockify', '/timesheets'],
+  ['/help/clockify', '/help/timesheets'],
+];
+
+const slugRenames: Array<{from: string; to: string}> = [
+  {from: '/help/bragi/bragi-setup', to: '/help/language-models/language-models-setup'},
+  {from: '/help/hnitbjorg/hnitbjorg-setup', to: '/help/attachments/attachments-setup'},
+  {from: '/help/nornir/nornir-setup', to: '/help/orchestrator/orchestrator-setup'},
+  {from: '/help/clockify/clockify-setup', to: '/help/timesheets/timesheets-setup'},
+  {from: '/help/clockify/clockify-integration-list', to: '/help/timesheets/timesheets-integration-list'},
+  {from: '/help/clockify/clockify-set-secret-dialog', to: '/help/timesheets/timesheets-set-secret-dialog'},
+  {from: '/help/clockify/clockify-webhooks', to: '/help/timesheets/timesheets-webhooks'},
+  {from: '/help/clockify/clockify-workspace-lookup', to: '/help/timesheets/timesheets-workspace-lookup'},
+];
+
+function withTrailingSlash(path: string): string {
+  return path.endsWith('/') ? path : `${path}/`;
+}
+
 const docsPlugins = [
   ...apps.map((app) => docsInstance(app.id, app.id, `docs/${app.id}`)),
   ...apps.map((app) => docsInstance(`help-${app.id}`, `help/${app.id}`, `help/${app.id}`)),
@@ -129,6 +164,28 @@ const config: Config = {
         ],
         language: ['en'],
         searchResultLimits: 12,
+      },
+    ],
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: slugRenames.map(({from, to}) => ({
+          from: withTrailingSlash(from),
+          to: withTrailingSlash(to),
+        })),
+        createRedirects(existingPath: string) {
+          const normalized = existingPath.endsWith('/')
+            ? existingPath.slice(0, -1)
+            : existingPath;
+          const fromPaths: string[] = [];
+          for (const [fromPrefix, toPrefix] of routeIdRenames) {
+            if (normalized === toPrefix || normalized.startsWith(`${toPrefix}/`)) {
+              const suffix = normalized.slice(toPrefix.length);
+              fromPaths.push(withTrailingSlash(`${fromPrefix}${suffix}`));
+            }
+          }
+          return fromPaths.length > 0 ? fromPaths : undefined;
+        },
       },
     ],
   ],

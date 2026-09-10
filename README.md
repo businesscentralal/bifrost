@@ -31,10 +31,10 @@ creates both instances and both navbar entries.
 | `iceland` | Bifrost Iceland | `bc-origo-bifrost-iceland` |
 | `iceland-treasury` | Bifrost Iceland Treasury | `bc-origo-bifrost-iceland-treasury` |
 | `iceland-docex` | Bifrost Iceland DocEx | `bc-origo-bifrost-iceland-docex` |
-| `bragi` | Bifrost Bragi | `bc-origo-bifrost-bragi` |
-| `hnitbjorg` | Bifrost Hnitbjorg | `bc-origo-bifrost-hnitbjorg` |
-| `nornir` | Bifrost Nornir | `bc-origo-bifrost-nornir` |
-| `clockify` | Bifrost Clockify | `origo-bc-cloudevents-clockify` |
+| `language-models` | Bifrost Language Models | `bc-origo-bifrost-language-models` |
+| `attachments` | Bifrost Attachments | `bc-origo-bifrost-attachments` |
+| `orchestrator` | Bifrost Orchestrator | `bc-origo-bifrost-orchestrator` |
+| `timesheets` | Bifrost Timesheets | `bc-origo-bifrost-timesheets` |
 | `subscription-billing` | Bifrost Subscription Billing | `bc-origo-bifrost-subscription-billing` |
 
 Every app has a docs instance. A help instance holds one page per Business
@@ -67,8 +67,8 @@ Docusaurus does not prefix its default locale, so the site is built once per
 locale as its own single-locale site with an explicit `baseUrl`. That gives:
 
 ```
-https://bifrost.origo.is/en-us/help/hnitbjorg/storage-setup/
-https://bifrost.origo.is/is-is/help/hnitbjorg/storage-setup/
+https://bifrost.origo.is/en-us/help/attachments/storage-setup/
+https://bifrost.origo.is/is-is/help/attachments/storage-setup/
 ```
 
 Each app therefore sets, in `app/app.json`:
@@ -181,7 +181,7 @@ rather than written by hand, so they cannot drift from the product:
 
 ```powershell
 pwsh tools/generate-message-type-docs.ps1            # all mapped apps
-pwsh tools/generate-message-type-docs.ps1 -App nornir
+pwsh tools/generate-message-type-docs.ps1 -App orchestrator
 ```
 
 The script calls the Bifröst queue API on the development container

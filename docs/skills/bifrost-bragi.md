@@ -3,7 +3,7 @@ id: bifrost-bragi
 title: "Bragi message types"
 sidebar_label: "Bragi message types"
 sidebar_position: 7
-description: "Message types added to the Bifröst API by Bifrost Bragi. AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index…"
+description: "Message types added to the Bifröst API by Bifrost Language Models. AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index…"
 ---
 
 AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type.
@@ -34,7 +34,7 @@ It does not describe the API itself. The envelope, the endpoints, the error orde
 
 ## Reference pages
 
-**Reference base:** `../../bragi/reference/` — every path below is relative to it.
+**Reference base:** `../../language-models/reference/` — every path below is relative to it.
 
 Append `message-types/<page>/` for a message type, or `<page>/` for the pages in the last table.
 From the deployed site the same paths resolve against this file’s own URL.
@@ -54,9 +54,9 @@ From the deployed site the same paths resolve against this file’s own URL.
 - [bifrost-iceland](./bifrost-iceland.md) — Bifrost Iceland
 - [bifrost-iceland-treasury](./bifrost-iceland-treasury.md) — Bifrost Iceland Treasury
 - [bifrost-iceland-docex](./bifrost-iceland-docex.md) — Bifrost Iceland DocEx
-- [bifrost-hnitbjorg](./bifrost-hnitbjorg.md) — Bifrost Hnitbjorg
-- [bifrost-nornir](./bifrost-nornir.md) — Bifrost Nornir
-- [bifrost-clockify](./bifrost-clockify.md) — Bifrost Clockify
+- [bifrost-hnitbjorg](./bifrost-hnitbjorg.md) — Bifrost Attachments
+- [bifrost-nornir](./bifrost-nornir.md) — Bifrost Orchestrator
+- [bifrost-clockify](./bifrost-clockify.md) — Bifrost Timesheets
 - [bifrost-subscription-billing](./bifrost-subscription-billing.md) — Bifrost Subscription Billing
 ## Loading this skill
 
@@ -66,6 +66,6 @@ It is an index: what the app adds, when to load it, and the path of every refere
 <details>
 <summary>The description an agent matches this skill against</summary>
 
-Message types added to the Bifröst API by Bifrost Bragi. AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index of what Bragi adds — 1 message type across 1 family (LLM.*).
+Message types added to the Bifröst API by Bifrost Language Models. AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index of what Bragi adds — 1 message type across 1 family (LLM.*).
 
 </details>

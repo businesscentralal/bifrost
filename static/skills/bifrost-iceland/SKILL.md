@@ -152,8 +152,8 @@ From the deployed site the same paths resolve against this file’s own URL.
 - [bifrost-foundation](../bifrost-foundation/SKILL.md) — Bifrost Foundation
 - [bifrost-iceland-treasury](../bifrost-iceland-treasury/SKILL.md) — Bifrost Iceland Treasury
 - [bifrost-iceland-docex](../bifrost-iceland-docex/SKILL.md) — Bifrost Iceland DocEx
-- [bifrost-bragi](../bifrost-bragi/SKILL.md) — Bifrost Bragi
-- [bifrost-hnitbjorg](../bifrost-hnitbjorg/SKILL.md) — Bifrost Hnitbjorg
-- [bifrost-nornir](../bifrost-nornir/SKILL.md) — Bifrost Nornir
-- [bifrost-clockify](../bifrost-clockify/SKILL.md) — Bifrost Clockify
+- [bifrost-bragi](../bifrost-bragi/SKILL.md) — Bifrost Language Models
+- [bifrost-hnitbjorg](../bifrost-hnitbjorg/SKILL.md) — Bifrost Attachments
+- [bifrost-nornir](../bifrost-nornir/SKILL.md) — Bifrost Orchestrator
+- [bifrost-clockify](../bifrost-clockify/SKILL.md) — Bifrost Timesheets
 - [bifrost-subscription-billing](../bifrost-subscription-billing/SKILL.md) — Bifrost Subscription Billing

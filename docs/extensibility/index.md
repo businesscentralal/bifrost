@@ -15,7 +15,7 @@ a dependency on Foundation and adds its own message types to it. Foundation hand
 transport, the queue, the language switching, the licensing, the logging and the
 discovery; the dependent app writes business logic and a help document.
 
-Bifrost Nornir, Bifrost Hnitbjorg and Bifrost Bragi are all built exactly this way, and
+Bifrost Orchestrator, Bifrost Attachments and Bifrost Language Models are all built exactly this way, and
 the code samples in this section are taken from them.
 
 Once your app depends on Foundation, list it on the
@@ -99,15 +99,15 @@ touches them carries `using Origo.Bifrost;`.
 
 ## The apps to read
 
-When a page here says "as in Nornir" or "as in Hnitbjörg", these are the apps meant:
+When a page here says "as in Orchestrator" or "as in Attachments", these are the apps meant:
 
-- [Bifrost Nornir](/nornir/) — scheduling and playbooks. A large dependent app: 20 message
+- [Bifrost Orchestrator](/orchestrator/) — scheduling and playbooks. A large dependent app: 20 message
   types, one help codeunit with a `case`, an install codeunit that takes data over from a
   retired Cloud Events app.
-- [Bifrost Hnitbjorg](/hnitbjorg/) — external storage connectors. A small dependent app,
+- [Bifrost Attachments](/attachments/) — external storage connectors. A small dependent app,
   and the clearest minimal example: one help codeunit per domain, a setup page reached
   from Bifröst Setup, a mock connector in the test app.
-- [Bifrost Bragi](/bragi/) — chat and language models. Interesting for its own
+- [Bifrost Language Models](/language-models/) — chat and language models. Interesting for its own
   extensibility surface and for its request-log maskers.
 - [Bifrost Foundation](/foundation/) — the platform itself. Its
   [public surface](/extensibility/public-surface) lists every interface, extensible enum,

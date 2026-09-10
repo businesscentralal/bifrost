@@ -5,7 +5,7 @@ sidebar_label: "Bifrost User Memory"
 sidebar_position: 26
 ---
 
-The **Bifrost User Memory** page manages your personal memory entries used by Bifrost message types and Bifrost Bragi (chat). These entries are only visible to you and provide personal context that the AI uses during your conversations. Other users cannot see or access your personal memory.
+The **Bifrost User Memory** page manages your personal memory entries used by Bifrost message types and Bifrost Language Models (chat). These entries are only visible to you and provide personal context that the AI uses during your conversations. Other users cannot see or access your personal memory.
 
 ## Fields
 

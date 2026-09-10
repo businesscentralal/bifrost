@@ -1,9 +1,0 @@
-{
-  "label": "Design notes",
-  "position": 10,
-  "link": {
-    "type": "generated-index",
-    "slug": "/design",
-    "description": "Internal design notes published for partners building on Bragi. These describe intent, not a supported contract."
-  }
-}

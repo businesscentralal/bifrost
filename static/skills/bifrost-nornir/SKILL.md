@@ -1,7 +1,7 @@
 ---
 name: bifrost-nornir
 description: >
-  Message types added to the Bifröst API by Bifrost Nornir. Job Queue scheduling, monitoring
+  Message types added to the Bifröst API by Bifrost Orchestrator. Job Queue scheduling, monitoring
   and restart for Business Central, plus declarative playbooks that chain Bifröst message
   types. Load alongside bifrost-bc-integration, which carries the API itself; this skill is
   the index of what Nornir adds — 20 message types across 2 families (Orchestrator.*, Help.*).
@@ -9,7 +9,7 @@ license: MIT
 metadata:
   version: 1.0.0
   updated: 2026-09-06
-  app: Bifrost Nornir
+  app: Bifrost Orchestrator
   messageTypes: 20
   source: https://github.com/businesscentralal/bifrost
 ---
@@ -44,7 +44,7 @@ It does not describe the API itself. The envelope, the endpoints, the error orde
 
 ## Reference pages
 
-**Reference base:** `../../nornir/reference/` — every path below is relative to it.
+**Reference base:** `../../orchestrator/reference/` — every path below is relative to it.
 
 Append `message-types/<page>/` for a message type, or `<page>/` for the pages in the last table.
 From the deployed site the same paths resolve against this file’s own URL.
@@ -88,7 +88,7 @@ From the deployed site the same paths resolve against this file’s own URL.
 - [bifrost-iceland](../bifrost-iceland/SKILL.md) — Bifrost Iceland
 - [bifrost-iceland-treasury](../bifrost-iceland-treasury/SKILL.md) — Bifrost Iceland Treasury
 - [bifrost-iceland-docex](../bifrost-iceland-docex/SKILL.md) — Bifrost Iceland DocEx
-- [bifrost-bragi](../bifrost-bragi/SKILL.md) — Bifrost Bragi
-- [bifrost-hnitbjorg](../bifrost-hnitbjorg/SKILL.md) — Bifrost Hnitbjorg
-- [bifrost-clockify](../bifrost-clockify/SKILL.md) — Bifrost Clockify
+- [bifrost-bragi](../bifrost-bragi/SKILL.md) — Bifrost Language Models
+- [bifrost-hnitbjorg](../bifrost-hnitbjorg/SKILL.md) — Bifrost Attachments
+- [bifrost-clockify](../bifrost-clockify/SKILL.md) — Bifrost Timesheets
 - [bifrost-subscription-billing](../bifrost-subscription-billing/SKILL.md) — Bifrost Subscription Billing

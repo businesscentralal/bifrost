@@ -24,7 +24,7 @@ These fields link your user to specific business entities, enabling the system t
 
 ## System Prompt
 
-A custom markdown text that provides additional instructions to the AI model in Bifrost Bragi (chat) conversations. Use this to tailor the AI's behavior, add company-specific context, or restrict responses to certain domains.
+A custom markdown text that provides additional instructions to the AI model in Bifrost Language Models (chat) conversations. Use this to tailor the AI's behavior, add company-specific context, or restrict responses to certain domains.
 
 ## See Also
 

@@ -1,7 +1,7 @@
 ---
 name: bifrost-bragi
 description: >
-  Message types added to the Bifröst API by Bifrost Bragi. AI chat for Business Central:
+  Message types added to the Bifröst API by Bifrost Language Models. AI chat for Business Central:
   language models, seven chat providers, an MCP tool server and a one-shot completion message
   type. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the
   index of what Bragi adds — 1 message type across 1 family (LLM.*).
@@ -9,7 +9,7 @@ license: MIT
 metadata:
   version: 1.0.0
   updated: 2026-09-06
-  app: Bifrost Bragi
+  app: Bifrost Language Models
   messageTypes: 1
   source: https://github.com/businesscentralal/bifrost
 ---
@@ -44,7 +44,7 @@ It does not describe the API itself. The envelope, the endpoints, the error orde
 
 ## Reference pages
 
-**Reference base:** `../../bragi/reference/` — every path below is relative to it.
+**Reference base:** `../../language-models/reference/` — every path below is relative to it.
 
 Append `message-types/<page>/` for a message type, or `<page>/` for the pages in the last table.
 From the deployed site the same paths resolve against this file’s own URL.
@@ -64,7 +64,7 @@ From the deployed site the same paths resolve against this file’s own URL.
 - [bifrost-iceland](../bifrost-iceland/SKILL.md) — Bifrost Iceland
 - [bifrost-iceland-treasury](../bifrost-iceland-treasury/SKILL.md) — Bifrost Iceland Treasury
 - [bifrost-iceland-docex](../bifrost-iceland-docex/SKILL.md) — Bifrost Iceland DocEx
-- [bifrost-hnitbjorg](../bifrost-hnitbjorg/SKILL.md) — Bifrost Hnitbjorg
-- [bifrost-nornir](../bifrost-nornir/SKILL.md) — Bifrost Nornir
-- [bifrost-clockify](../bifrost-clockify/SKILL.md) — Bifrost Clockify
+- [bifrost-hnitbjorg](../bifrost-hnitbjorg/SKILL.md) — Bifrost Attachments
+- [bifrost-nornir](../bifrost-nornir/SKILL.md) — Bifrost Orchestrator
+- [bifrost-clockify](../bifrost-clockify/SKILL.md) — Bifrost Timesheets
 - [bifrost-subscription-billing](../bifrost-subscription-billing/SKILL.md) — Bifrost Subscription Billing

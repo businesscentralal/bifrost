@@ -5,7 +5,7 @@ sidebar_label: "Memory"
 sidebar_position: 9
 ---
 
-The **Bifrost Memory** page manages company-level memory blobs used by Bifrost message types and by Bifrost Bragi (chat). These are persistent knowledge entries that the AI can access across all users in the company, enabling shared context and company-specific information.
+The **Bifrost Memory** page manages company-level memory blobs used by Bifrost message types and by Bifrost Language Models (chat). These are persistent knowledge entries that the AI can access across all users in the company, enabling shared context and company-specific information.
 
 ## Fields
 
