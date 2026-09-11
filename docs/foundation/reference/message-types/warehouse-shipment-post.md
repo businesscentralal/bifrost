@@ -23,7 +23,7 @@ Posts a Warehouse Shipment (ship, optionally invoice). Wraps BC's `Whse.-Post Sh
 Posting depends on the Location of the Warehouse Shipment lines:
 
 - **`Require Pick = false`** — the Warehouse Shipment Line has `Qty. to Ship` already populated by `Warehouse.Shipment.Create`. Post immediately.
-- **`Require Pick = true`** (including Directed Put-away and Pick) — the Warehouse Shipment Line starts with `Qty. to Ship = 0`. A Warehouse Pick must be created, picked, and **registered** (BC standard warehouse flow, via the BC client) before this message type will succeed. Without a registered pick BC errors with `There is nothing to post because the document does not contain a quantity or amount.`
+- **`Require Pick = true`** (including Directed Put-away and Pick) — the Warehouse Shipment Line starts with `Qty. to Ship = 0`. A Warehouse Pick must be created, picked, and **registered** via `Warehouse.Pick.Create` then `Warehouse.Pick.Register` before this message type will succeed. Without a registered pick BC errors with `There is nothing to post because the document does not contain a quantity or amount.`
 
 Manually writing `Qty. to Ship` on a `Warehouse Shipment Line` to bypass the pick step is rejected by BC (`Qty. to Ship must not be greater than 0 units ...`).
 
@@ -92,10 +92,12 @@ No per-field restriction check — the entire operation is gated by the permissi
 
 ## End-to-End Workflow
 
-See `Warehouse.Shipment.Create` help for the full chain: `Sales.Document.Create` → `Data.Records.Set` (Sales Line) → `Sales.Document.Release` → `Warehouse.Shipment.Create` → (Warehouse Pick + Register, if `Require Pick = true`) → `Warehouse.Shipment.Post`.
+See `Warehouse.Shipment.Create` help for the full chain: `Sales.Document.Create` → `Data.Records.Set` (Sales Line) → `Sales.Document.Release` → `Warehouse.Shipment.Create` → `Warehouse.Pick.Create` → `Warehouse.Pick.Register` (when `Require Pick = true`) → `Warehouse.Shipment.Post`.
 
 ## Related Message Types
 
 - `Warehouse.Shipment.Create` — create the Warehouse Shipment from source documents.
+- `Warehouse.Pick.Create` — create the Warehouse Pick when `Require Pick = true`.
+- `Warehouse.Pick.Register` — register the pick so `Qty. to Ship` is populated.
 - `Sales.Document.Post` — for the G/L invoice side without the warehouse step.
 
