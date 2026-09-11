@@ -27,8 +27,8 @@ Additional behaviour depending on the Location setup:
 | Location flags | Effect on Warehouse Shipment line |
 |---|---|
 | `Require Shipment = true`, `Require Pick = false` | `Qty. to Ship` is populated from the source line. `Warehouse.Shipment.Post` can run immediately. |
-| `Require Shipment = true`, `Require Pick = true` | `Qty. to Ship` starts at 0. A Warehouse Pick must be created and **registered** (via the BC client / standard warehouse flow) before `Warehouse.Shipment.Post` will accept the document. Trying to set `Qty. to Ship` manually is blocked by BC (`Qty. to Ship must not be greater than 0 units ...`). |
-| `Directed Put-away and Pick = true` (e.g. WMS bin-mandatory location) | Same as Require Pick — a pick must be created, picked, and registered before posting. |
+| `Require Shipment = true`, `Require Pick = true` | `Qty. to Ship` starts at 0. Create and register a Warehouse Pick with `Warehouse.Pick.Create` then `Warehouse.Pick.Register` before `Warehouse.Shipment.Post` will accept the document. Trying to set `Qty. to Ship` manually is blocked by BC (`Qty. to Ship must not be greater than 0 units ...`). |
+| `Directed Put-away and Pick = true` (e.g. WMS bin-mandatory location) | Same as Require Pick — use `Warehouse.Pick.Create` then `Warehouse.Pick.Register` before posting. |
 
 ### Discovery — find shipment-required locations
 
@@ -147,5 +147,7 @@ Capture `shipments[0].no` (e.g. `"SH000004"`).
 ## Related Message Types
 
 - `Warehouse.Shipment.Post` — post the created Warehouse Shipment.
+- `Warehouse.Pick.Create` — create the Warehouse Pick when `Require Pick = true`.
+- `Warehouse.Pick.Register` — register the pick so `Qty. to Ship` is populated.
 - `Data.Records.Get` — load any field on the resulting `Warehouse Shipment Header` / `Warehouse Shipment Line`.
 
