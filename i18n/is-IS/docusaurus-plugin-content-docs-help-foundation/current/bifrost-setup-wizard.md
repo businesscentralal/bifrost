@@ -16,10 +16,10 @@ Leiðsögnina má líka opna hvenær sem er úr Aðstoðaða uppsetningarlistanu
 | **1. Velkomin/n** | Útskýrir hvað leiðsögnin gerir og sýnir notendaleyfissamninginn (EULA) fyrir Bifröst Foundation. Þú verður að samþykkja hann áður en lengra er haldið. |
 | **2. HTTP** | Sýnir hverja skráða Bifröst viðbót og hvort útleið HTTP-beiðnir séu virkjaðar fyrir hana. Sjá [HTTP-skref](#http-skref) hér fyrir neðan. |
 | **3. Leyndarmál** _(valfrjálst)_ | Sýnir leyndarmálin sem hver uppsett Bifröst viðbót hefur skráð, svo hægt sé að skrá gildi sem vantar enn. Þetta skref hindrar aldrei **Áfram** — sjá [Leyndarmálaskref](#leyndarmálaskref) hér fyrir neðan. |
-| **4. Virkjun prufuleyfis** | Sýnir stöðu prufuleyfisins (1.000 notenda- og 1.000 forritaskráningarskilaboð, úthlutað sjálfkrafa við uppsetningu) og gerir kleift að óska eftir viðbótarleyfum ef prufan er að klárast. |
+| **4. Virkjun prufuleyfis** | Sýnir stöðu prufuleyfisins (1.000 notenda- og 1.000 forritaskráningarskilaboð, úthlutað sjálfkrafa við uppsetningu) og gerir kleift að óska eftir viðbótarleyfum ef prufan er að klárast. **Sleppt í sandkassa** — SaaS sandkassaumhverfi nota ekki prufuskrefið (sama og AL-leiðsögnin þegar `EnvironmentInformation.IsSandbox()` er satt). |
 | **5. Tenging við MCP-þjón** | Sýnir hvort Origo BC MCP-þjónninn nái sambandi við þetta umhverfi, og tengiupplýsingarnar sem stjórnandi þarf til að stilla hann. |
 | **6. Entra fyrirtækjaforrit** | Staðfestir að Entra ID fyrirtækjaforritið sem notað er til auðkenningar API hafi verið heimilað fyrir þetta leigjendaumhverfi, með tengli á að ljúka stjórnandasamþykki ef það hefur ekki verið gert. |
-| **7. Ljúka** | Merkir aðstoðuðu uppsetninguna sem lokið og lokar leiðsögninni. Hægt er að breyta öllum stillingum aftur síðar frá [Bifröst uppsetningu](/help/foundation/bifrost-setup/) eða úr leiðsögninni sjálfri. |
+| **7. Ljúka** | Merkir aðstoðuðu uppsetninguna sem lokið og lokar leiðsögninni. Hægt er að breyta öllum stillingum aftur síðar frá [Bifröst uppsetningu](/help/foundation/bifrost-setup/) eða úr leiðsögninni sjálfri. Í **sandkassa** sýnir þetta skref einnig hópinn **Sandkassaleyfi** — sjá [Ljúkaskref (sandkassi)](#ljúkaskref-sandkassi) hér fyrir neðan. |
 
 ### HTTP-skref
 
@@ -35,8 +35,24 @@ Sérhver uppsett Bifröst viðbót getur skráð leyndarmálin sem hún þarfnas
 
 Leyndarmál sem vantar teljast aldrei sem villa hér eða á Bifröst uppsetningu — leyndarmál sem er ekki skráð gerir einfaldlega óvirkar þær skilaboðategundir sem reiða sig á það, og má skrá síðar hvenær sem er á Bifröst uppsetningu, aðgerðinni **Leyndarmál**.
 
+### Ljúkaskref (sandkassi)
+
+Þegar umhverfið er sandkassi (`IsSandbox`) birtist á Ljúka-skrefinu viðbótarhópurinn **Sandkassaleyfi** með þessari leiðbeiningu:
+
+> Þetta er sandkassaumhverfi. Á opinbera MCP-þjóninum er skilaboðanotkun takmörkuð við 1.000 skilaboð á 24 klukkustundum. Bifröst sjálft hefur engin skilaboðatakmörk. Fyrir ótakmarkaða sandkassanotkun skaltu nota staðbundinn MCP-þjón úr https://github.com/businesscentralal/origo-bc-mcp.
+
+Lykilatriði:
+
+- Hópurinn er **aðeins sýnilegur** á Ljúka-skrefinu þegar umhverfið er sandkassi.
+- **Opinber MCP:** takmarkaður við **1.000 skilaboð á 24 klukkustundum**.
+- **Bifröst sjálft** hefur **engin skilaboðatakmörk** í sandkassa (skilaboðakvótaleyfi gildir ekki þar).
+- Fyrir **ótakmarkaða sandkassanotkun** skaltu keyra **staðbundinn MCP**-þjón úr [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
+
+Sjá einnig [Leyfisveiting — Sandkassi](/foundation/reference/licensing/#sandbox).
+
 ## Ábendingar
 
 -   Leyndarmálaskrefið birtist alltaf, jafnvel þótt engin uppsett viðbót hafi enn skráð leyndarmál — þá sýnir það einfaldlega tóman lista.
 -   Ekkert sem gert er í leiðsögninni er óafturkræft: **Til baka** og **Áfram** eyða aldrei gildum sem þegar hafa verið skráð, og hægt er að opna leiðsögnina aftur eins oft og þörf krefur.
 -   Aðgerðin **Hefja uppsetningarleiðsögn** á tilkynningunni um HTTP-beiðnir opnar þessa sömu leiðsögn — það er ekkert sérstakt, styttra ferli eingöngu fyrir HTTP.
+-   Í sandkassa sleppir leiðsögnin **virkjun prufuleyfis** (skref 4) og sýnir **Sandkassaleyfi** á Ljúka-skrefinu í stað prufupotts.
