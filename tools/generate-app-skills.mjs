@@ -144,6 +144,17 @@ const notes = {
       'A billing run is not idempotent. Creating documents twice from the same proposal bills the customer twice.',
     ],
   },
+  inventory: {
+    when: [
+      'item attributes have to be read or written without multi-table Data.Records joins;',
+      'an attribute definition (with optional option values) has to be created independently of any item.',
+    ],
+    rules: [
+      'Item.Attribute.Create is idempotent when the mapping already has the same value. Use overwrite: true only when replacing a different value is intentional.',
+      'Item.Attribute.Update requires an existing mapping — use Item.Attribute.Create to assign the first value.',
+      'Resolve the item via subject (SystemId GUID or Item No.) before falling back to data.itemNo / id fields / tableView.',
+    ],
+  },
 };
 
 const apps = await readApps();
