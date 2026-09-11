@@ -147,6 +147,22 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/subscription-billing.png"
       }
+    },
+    {
+      "appId": "02701c94-c962-4825-92c7-ef9f70311a2b",
+      "name": "Bifrost Inventory",
+      "publisher": "Origo",
+      "summary": "Item Attribute message types on Bifrost Foundation: get, create, update and define attributes without multi-table joins.",
+      "domains": ["inventory", "integration"],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://bifrost.origo.is/en-us/inventory/",
+        "repository": "https://github.com/businesscentralal/bc-origo-bifrost-inventory",
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/inventory.png"
+      }
     }
   ]
 }

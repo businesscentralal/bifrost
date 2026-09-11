@@ -1,0 +1,9 @@
+{
+  "label": "Message types",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "slug": "/reference/message-types",
+    "description": "Every message type this app adds to the Bifröst catalogue. Generated from the app's own help codeunits."
+  }
+}
