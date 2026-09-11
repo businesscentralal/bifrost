@@ -41,6 +41,19 @@ can keep its own books. The hook has no influence on the count above. See the
 On installation, a trial of **1,000 User + 1,000 App Registration** messages is provisioned for
 the tenant.
 
+## Sandbox
+
+In a **SaaS sandbox** environment, Bifröst itself has **no message limit** — the User / App
+Registration quota pools are not enforced there. That is separate from the **public MCP
+server**, which still limits sandbox traffic to **1,000 messages per 24 hours**.
+
+For unlimited sandbox usage against your own environment, use the **Local MCP** server from
+[businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
+
+The Setup Wizard surfaces this on the Finish step as the **Sandbox Licensing** group (visible
+only when the environment is a sandbox). See
+[Bifrost Setup Wizard — Finish step (sandbox)](/help/foundation/bifrost-setup-wizard/#finish-step-sandbox).
+
 ## Enforcement
 
 Before a chargeable message is processed, the caller's pool is checked:

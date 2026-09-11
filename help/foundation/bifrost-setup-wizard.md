@@ -16,10 +16,10 @@ The wizard can also be opened at any time from the Assisted Setup list, or from 
 | **1. Welcome** | Explains what the wizard does and shows the licence agreement (EULA) for Bifröst Foundation. You must accept it before continuing. |
 | **2. HTTP** | Lists every registered Bifröst application and whether outbound HTTP client requests are enabled for it. See [HTTP step](#http-step) below. |
 | **3. Credentials** _(optional)_ | Lists the credentials every installed Bifröst application has registered, so you can enter values that are still missing. This step never blocks **Next** — see [Credentials step](#credentials-step) below. |
-| **4. Trial activation** | Shows the trial licence status (1,000 User + 1,000 App Registration messages, provisioned automatically on install) and lets you request additional licences if the trial is running low. |
+| **4. Trial activation** | Shows the trial licence status (1,000 User + 1,000 App Registration messages, provisioned automatically on install) and lets you request additional licences if the trial is running low. **Skipped in a sandbox** — SaaS sandbox environments do not use the trial step (same as the AL wizard when `EnvironmentInformation.IsSandbox()` is true). |
 | **5. MCP server connection** | Shows whether the Origo BC MCP server can reach this environment, and the connection details an administrator needs to configure it. |
 | **6. Entra enterprise app** | Confirms that the Entra ID enterprise application used for API authentication has been authorised for this tenant, with a link to complete the admin consent if it has not. |
-| **7. Finish** | Marks the assisted setup as complete and closes the wizard. Every setting can be changed again later from [Bifrost Setup](/help/foundation/bifrost-setup/) or from the wizard itself. |
+| **7. Finish** | Marks the assisted setup as complete and closes the wizard. Every setting can be changed again later from [Bifrost Setup](/help/foundation/bifrost-setup/) or from the wizard itself. In a **sandbox**, this step also shows the **Sandbox Licensing** group — see [Finish step (sandbox)](#finish-step-sandbox) below. |
 
 ### HTTP step
 
@@ -35,8 +35,24 @@ Every installed Bifröst application can register the credentials it needs with 
 
 Missing credentials are never treated as an error here or on Bifrost Setup — a credential that is not set simply disables the message types that depend on it, and can be entered later at any time from Bifrost Setup, action **Secrets**.
 
+### Finish step (sandbox)
+
+When the environment is a sandbox (`IsSandbox`), the Finish step shows an additional **Sandbox Licensing** group with this guidance:
+
+> This is a Sandbox environment. On the public MCP server, message usage is limited to 1,000 messages per 24 hours. Bifröst itself has no message limit. For unlimited sandbox usage, use the Local MCP server from https://github.com/businesscentralal/origo-bc-mcp.
+
+Key facts:
+
+- The group is **visible only** on the Finish step when the environment is a sandbox.
+- **Public MCP:** limited to **1,000 messages per 24 hours**.
+- **Bifröst itself** has **no message limit** in a sandbox (message-quota licensing does not apply there).
+- For **unlimited sandbox usage**, run the **Local MCP** server from [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
+
+See also [Licensing — Sandbox](/foundation/reference/licensing/#sandbox).
+
 ## Tips
 
 -   The Credentials step always appears, even when no installed application has registered a credential yet — it simply shows an empty list in that case.
 -   Nothing you do in the wizard is destructive: **Back** and **Next** never discard values you have already entered, and you can reopen the wizard as many times as you like.
 -   The **Start setup wizard** action on the HTTP client requests notification opens this same wizard — there is no separate, cut-down flow just for HTTP.
+-   In a sandbox, the wizard skips **Trial activation** (step 4) and shows **Sandbox Licensing** on Finish instead of a trial pool.

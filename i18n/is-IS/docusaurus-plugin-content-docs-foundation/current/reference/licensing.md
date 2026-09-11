@@ -42,6 +42,19 @@ forrit tekur hann upp.
 Við uppsetningu er útvegaður prufukvóti upp á **1.000 Notanda + 1.000 Forritsskráningar** skilaboð
 fyrir leigjandann.
 
+## Sandkassi
+
+Í **SaaS sandkassa**umhverfi hefur Bifröst sjálft **engin skilaboðatakmörk** — Notanda- /
+Forritsskráningarpottarnir eru ekki framfylgdir þar. Það er aðskilið frá **opinbera
+MCP-þjóninum**, sem takmarkar sandkassaumferð samt við **1.000 skilaboð á 24 klukkustundum**.
+
+Fyrir ótakmarkaða sandkassanotkun á móti eigin umhverfi skaltu nota **staðbundinn MCP**-þjón
+úr [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
+
+Uppsetningarleiðsögnin birtir þetta á Ljúka-skrefinu sem hópinn **Sandkassaleyfi** (aðeins
+sýnilegur þegar umhverfið er sandkassi). Sjá
+[Uppsetningarleiðsögn Bifröst — Ljúkaskref (sandkassi)](/help/foundation/bifrost-setup-wizard/#ljúkaskref-sandkassi).
+
 ## Framfylgd
 
 Áður en gjaldfært skilaboð er unnið er pottur kallandans athugaður:
