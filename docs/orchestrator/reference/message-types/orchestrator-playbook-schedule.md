@@ -34,6 +34,8 @@ Creates an Orchestrator Entry for the playbook using a recurring template. The O
 ## Response
 
 ```json
-{ "status": "Success", "playbookCode": "MYPLAYBOOK", "scheduled": true, "orchestratorEntryId": "<guid>" }
+{ "status": "Success", "playbookCode": "MYPLAYBOOK", "scheduled": true, "orchestratorEntryId": "<systemId>", "orchestratorEntryPkId": "<primaryKeyId>" }
 ```
+
+`orchestratorEntryId` is the scheduled entry's SystemId. `orchestratorEntryPkId` is its primary-key ID and can be used by the entry lookup fallback.
 
