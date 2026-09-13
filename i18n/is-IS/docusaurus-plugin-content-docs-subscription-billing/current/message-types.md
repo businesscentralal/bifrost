@@ -1,20 +1,20 @@
 ---
 id: message-types
-title: "Leiðarvísir um skilaboðategundir"
-sidebar_label: "Leiðarvísir um skilaboðategundir"
+title: "Message type guide"
+sidebar_label: "Message type guide"
 sidebar_position: 2
-description: "Sameiginlegt viðmót beiðna og svara fyrir allar 22 skilaboðategundir Subscription Billing, hvað hver þeirra gerir, og þær takmarkanir sem vert er að þekkja."
+description: "The request and response contract shared by all 22 Subscription Billing message types, what each one does, and the limitations worth knowing before you call one."
 ---
 
-Allar skilaboðategundir í þessari viðbót heita `Subscription.<Domain>.<Action>`, til dæmis `Subscription.Billing.CreateProposal`, og skiptast á tíu svið: áskriftarlínur, samninga viðskiptavina, samninga birgja, reikningsferlið, verðuppfærslur, endurnýjun, notkun, frestanir, greiningu og innflutning.
+Every message tegund in this app er heitid `Subscription.<Domain>.<Action>`, fyrir example `Subscription.Billing.CreateProposal`, across ten domains: Commitments, Customer Contracts, Vendor Contracts, Billing Pipelína, Price Uppfærir, Renewal, Usage, Deferrals, Analysis og Import.
 
-Þessi síða fjallar um viðmótið sem þær eiga allar sameiginlegt og þá hegðun sem vert er að lesa áður en kallað er. Nánari lýsing á hverri tegund — öll viðföng, unnið dæmi, form svarsins og nákvæmur villutexti — kemur frá viðbótinni sjálfri: kallaðu á `Help.MessageTypes.Get` til að fá lista yfir skráðar tegundir, og á `Help.Implementation.Get` með heiti tegundar sem viðfangsefni til að sækja hjálparskjal hennar á Markdown-formi.
+This page covers the samningur they allir share og the behaviour that er worth reading áður en you call one. The per-tegund detail — every parameter, a worked example, the response shape og the exact villa messages — er served by the app itself: call `Help.MessageTypes.Get` to list the registered tegunds, og `Help.Implementation.Get` með a tegund heiti as the subject to fetch that tegund's own Markdown help skjal.
 
-## Sameiginlega viðmótið
+## The shared samningur
 
-- Meginmál beiðninnar er JSON-hlutur. Allar skilaboðategundir lesa hann með sama hjálparferlinu, svo þáttunin er samræmd: dagsetningar eru lesnar og skrifaðar á ISO-forminu `YYYY-MM-DD` óháð staðfærslu kallandans, tugabrot nota punkt, og bókgildi taka við `true`/`false`/`1`/`0` án tillits til hástafa.
-- Flestar skilaboðategundir taka við lykli sínum — samningsnúmeri, áskriftarnúmeri, sniðmátskóða — annaðhvort sem nefndri JSON-eigind eða sem **viðfangsefni** (subject) Bifröst-skilaboðanna. Nefnda eigindin ræður ef bæði eru gefin.
-- Vel heppnað svar er JSON-hlutur með `"status": "Success"` auk þeirra lykla sem tegundin á sjálf:
+- Beiðnin body er a JSON object. Every message tegund reads it með the same helper, so parsing er consistent: dagsetnings eru read og written as ISO `YYYY-MM-DD` regardless of the caller's locale, decimals use a decimal point, og booleans accept `true`/`false`/`1`/`0`, case-insensitively.
+- Most message tegunds accept their primary key — a samningur number, a subscription number, a template kóði — either as a heitid JSON property eða as the Bifröst message **subject**. The heitid property wins þegar both eru supplied.
+- A successful response er a JSON object með `"status": "Success"` plus the tegund's own keys:
 
   ```json
   {
@@ -27,109 +27,109 @@ Allar skilaboðategundir í þessari viðbót heita `Subscription.<Domain>.<Acti
   }
   ```
 
-- Misheppnað kall svarar með `{"status": "Error", "error": "...", "callstack": "..."}` og skrifar ekkert, nema þar sem takmörkun hér að neðan segir annað.
-- Allar skilaboðategundir sem skrifa keyra vinnu sína gegnum sameiginlega einangraða færslu, svo villa á miðri leið rúllar til baka í stað þess að skilja eftir hálfskrifaðar færslur. Þrjár tegundir eru skýrar undantekningar, sjá [Ekki er allt ein heild](#ekki-er-allt-ein-heild).
-- Að finna ekkert er ekki villa. Keyrsla sem finnur enga hæfa línu, enga gjaldfallna áskrift og enga fyrirliggjandi tillögu skilar áfram `"status": "Success"` með talninguna núll og `message` sem útskýrir hvor staðan það var.
-- Úthlutaðu heimildasettinu **Bifröst - áskriftir** (`BIFROST SubBil ori`) til að notandi eða þjónusta geti kallað á þessar tegundir, til viðbótar við Foundation-heimildir sínar.
+- A failed call responds með `{"status": "Error", "error": "...", "callstack": "..."}` og writes nothing, except þar sem a limitation below says otherwise.
+- Every write-capable message tegund runs its work through a shared isolated-transaction wrapper, so a failure partway through rolls back rather than leaving half-written færslur. Three tegunds eru explicit exceptions, listed under [Not everything er atomic](#not-everything-er-atomic).
+- Ekkert found er not an villa. A run that matches no geturdidagsetning lína, no due subscription og no pending proposal still returns `"status": "Success"` með a count of zero og a `message` explaining which of the possible cases it was.
+- Assign the permission set **Bifrost Sub. Billing** (`BIFROST SubBil ori`) to let a notandi eða service invoke these tegunds, in addition to their Foundation permissions.
 
-## Hvað hver tegund gerir
+## What hver tegund does
 
-Af 22 skilaboðategundum skrifa 15, þrjár eru forskoðanir sem lesa eingöngu, og fjórar eru varanlega lokaðar.
+Of the 22 message tegunds, 15 write, 3 eru read-only previews, og 4 eru permanently blocked.
 
-| Skilaboðategund | Hegðun | Tilgangur |
+| Skilaboð tegund | Behaviour | Purpose |
 | --- | --- | --- |
-| `Subscription.Line.Create` | Skrifar | Beitir áskriftarpakka á áskrift og býr til áskriftarlínur |
-| `Subscription.Contract.GetLines` | Skrifar | Tengir ótengdar áskriftarlínur við samning viðskiptavinar |
-| `Subscription.Contract.CreateInvoice` | Skrifar | Reikningsfærir samning viðskiptavinar á óbókfærðan sölureikning |
-| `Subscription.Contract.PreviewInvoice` | Forskoðun | Sýnir hvað `Contract.CreateInvoice` myndi reikningsfæra, án þess að neitt standi eftir |
-| `Subscription.Contract.UpdateLineDates` | Lokað | Myndi færa dagsetningar samningslína áfram; ekkert opinbert forritsskil er til |
-| `Subscription.Contract.UpdateExchangeRates` | Lokað | Myndi endurreikna fjárhæðir í erlendri mynt; ekkert opinbert forritsskil, og ferlið er óöruggt án mannlegrar íhlutunar |
-| `Subscription.VendorContract.GetLines` | Skrifar | Tengir ótengdar áskriftarlínur við birgjaáskriftarsamning |
-| `Subscription.VendorContract.CreateInvoice` | Skrifar | Reikningsfærir birgjasamning á óbókfærðan innkaupareikning, aldrei bókfærðan |
-| `Subscription.VendorContract.PreviewInvoice` | Forskoðun | Sýnir hvað `VendorContract.CreateInvoice` myndi reikningsfæra, án þess að neitt standi eftir |
-| `Subscription.Billing.CreateProposal` | Skrifar | Býr til reikningstillögulínur fyrir reikningssniðmát |
-| `Subscription.Billing.CreateDocuments` | Skrifar | Breytir ófakturuðum tillögulínum sniðmáts í skjöl í hópkeyrslu |
-| `Subscription.Billing.PreviewDocuments` | Forskoðun | Les fyrirliggjandi tillögulínur sniðmáts og segir hvernig þær myndu flokkast í skjöl |
-| `Subscription.PriceUpdate.SetTemplateFilter` | Skrifar | Skrifar sýnarsíu fyrir samning, áskrift eða línu á verðuppfærslusniðmát |
-| `Subscription.PriceUpdate.CreateProposal` | Lokað | Myndi útbúa verðuppfærslutillögu; ekkert opinbert forritsskil er til |
-| `Subscription.PriceUpdate.Perform` | Lokað | Myndi framkvæma verðuppfærslutillögu; ekkert opinbert forritsskil er til |
-| `Subscription.Renewal.Extend` | Skrifar | Framlengir áskrift yfir á samning viðskiptavinar og/eða birgja |
-| `Subscription.Renewal.CreateQuote` | Skrifar | Býr til endurnýjunarlínur og sölutilboð fyrir samning viðskiptavinar |
-| `Subscription.Usage.ImportData` | Skrifar | Flytur inn skrá með notkunargögnum í innfluttar notkunargagnalínur |
-| `Subscription.Usage.Process` | Skrifar | Færir innflutningsfærslu notkunargagna áfram gegnum vinnsluskrefin |
-| `Subscription.Deferral.Release` | Skrifar, **bókfærir í fjárhag** | Losar frestaðar tekjur og kostnað fram að degi, þvert á alla samninga |
-| `Subscription.Analysis.Recalculate` | Skrifar | Endurbyggir greiningarfærslur áskriftarsamninga miðað við daginn í dag |
-| `Subscription.Import.CreateContracts` | Skrifar | Býr til raunverulegar áskriftir og samninga út frá innfluttum bráðabirgðalínum |
+| `Subscription.Line.Create` | Writes | Applies a Subscription Package to a Subscription, creating Subscription Lines |
+| `Subscription.Contract.GetLines` | Writes | Attaches unassigned Subscription Lines to a viðskiptavinur samningur |
+| `Subscription.Contract.CreateInvoice` | Writes | Bills a viðskiptavinur samningur to an unposted sales reikningur |
+| `Subscription.Contract.PreviewInvoice` | Preview | Shows what `Contract.CreateInvoice` would bill, án keeping anything |
+| `Subscription.Contract.UpdateLineDates` | Blocked | Would roll samningur lína dagsetnings forward; no public API er til |
+| `Subscription.Contract.UpdateExchangeRates` | Blocked | Would recalculate foreign-currency fjárhæðs; no public API, og the flow er unsafe unattended |
+| `Subscription.VendorContract.GetLines` | Writes | Attaches unassigned Subscription Lines to a vendor samningur |
+| `Subscription.VendorContract.CreateInvoice` | Writes | Bills a vendor samningur to an unposted purchase reikningur, never posted |
+| `Subscription.VendorContract.PreviewInvoice` | Preview | Shows what `VendorContract.CreateInvoice` would bill, án keeping anything |
+| `Subscription.Billing.CreateProposal` | Writes | Generates billing proposal línur fyrir a Billing Template |
+| `Subscription.Billing.CreateDocuments` | Writes | Turns a template's unbilled proposal línur í skjöl in bulk |
+| `Subscription.Billing.PreviewDocuments` | Preview | Lestus a template's existing proposal línur og reports how they would group í skjöl |
+| `Subscription.PriceUpdate.SetTemplateFilter` | Writes | Writes a samningur, subscription eða lína view filter on a Price Updagsetning Template |
+| `Subscription.PriceUpdate.CreateProposal` | Blocked | Would build a price updagsetning proposal; no public API er til |
+| `Subscription.PriceUpdate.Perform` | Blocked | Would apply a price updagsetning proposal; no public API er til |
+| `Subscription.Renewal.Extend` | Writes | Extends a Subscription onto a viðskiptavinur and/or vendor samningur |
+| `Subscription.Renewal.CreateQuote` | Writes | Builds renewal línur og a sales quote fyrir a viðskiptavinur samningur |
+| `Subscription.Usage.ImportData` | Writes | Flytur inn a usage data skrá í Usage Data Import línur |
+| `Subscription.Usage.Process` | Writes | Advances a Usage Data Import entry through its processing stages |
+| `Subscription.Deferral.Release` | Writes, **posts to G/L** | Releases deferred revenue og cost up to a dagsetning, across every samningur |
+| `Subscription.Analysis.Recalculate` | Writes | Rebuilds Subscription Contract analysis entries as of today |
+| `Subscription.Import.CreateContracts` | Writes | Builds real Subscription og samningur færslur úr staged import rows |
 
-## Þekktar takmarkanir
+## Known limitations
 
-Þetta er sú hegðun sem kemur kallendum á óvart. Hver og ein er meðvitað val, og hver og ein er varin frekar en falin.
+These eru the behaviours that surprise callers. Each one er a deliberate choice, og hver er enforced rather than papered over.
 
-### Fjórar skilaboðategundir eru varanlega lokaðar
+### Four message tegunds eru permanently blocked
 
-Fjórar tegundir eru skráðar og finnanlegar, svo verkfæri geti talið þær upp og lýst þeim, en hvert kall skilar skipulagðri villu og skrifar ekkert. Hver þeirra nefnir nákvæmlega það ferli Microsoft sem þyrfti fyrst að verða opinbert:
+Four tegunds eru registered og discoverable, so tooling getur list og describe them, but every call returns a structured villa og writes nothing. Each heitis the exact Microsoft procedure that would need to become public first:
 
-| Skilaboðategund | Ferli Microsoft sem þyrfti að verða opinbert |
+| Skilaboð tegund | Microsoft procedure that would need to become public |
 | --- | --- |
-| `Subscription.Contract.UpdateLineDates` | `Customer Subscription Contract.UpdateServicesDates` (ásamt `Subscription Header.UpdateServicesDates` og kóðaeiningunni 8058 "Update Sub. Lines Term. Dates") |
+| `Subscription.Contract.UpdateLineDates` | `Customer Subscription Contract.UpdateServicesDates` (with `Subscription Header.UpdateServicesDates` og kóðiunit 8058 "Updagsetning Sub. Lines Term. Dates") |
 | `Subscription.Contract.UpdateExchangeRates` | `Customer Subscription Contract.UpdateAndRecalculateServiceCommitmentCurrencyData` |
 | `Subscription.PriceUpdate.CreateProposal` | `Price Update Management.CreatePriceUpdateProposal` |
 | `Subscription.PriceUpdate.Perform` | `Price Update Management.PerformPriceUpdate` |
 
-Allar fjórar eru innri (internal) í Subscription Billing appi Microsoft í Business Central 28.4. Engin þeirra endurgerir undirliggjandi rökfræði: gildistími, reikningstaktur, námundun, mynt og bindingartímabil vinna saman á þann hátt að auðvelt er að fara lítillega rangt með, og frávik gæti verðlagt eða skemmt lifandi samninga viðskiptavina á hátt sem er bæði torfundinn og illa afturkræfur. Notaðu samsvarandi aðgerð í Business Central biðlaranum í staðinn — hjálparskjal hverrar tegundar nefnir hana.
+All four eru internal in Microsoft's Subscription Billing app in Business Central 28.4. None of them reimplement the underlying logic: term dagsetnings, billing rhythms, rounding, currency og binding periods interact in ways that eru easy to get subtly wrong, og a divergent implementation could mis-price eða corrupt live viðskiptavinur samningar in a way that er hard to detect og hard to undo. Notaðu the equivalent action in the Business Central client instead — hver tegund's own help skjal heitis it.
 
-`Subscription.Contract.UpdateExchangeRates` hefur aðra ástæðu til að vera lokuð, jafnvel þótt ferlið yrði gert opinbert. Ferli Microsoft opnar gagnvirku síðuna **Exchange Rate Selection** svo notandi geti staðfest gengið. Þegar `GuiAllowed` er false — eins og alltaf er í köllum án mannlegrar íhlutunar — skilar sú síða false í stað þess að stöðva keyrsluna, og ferlið heldur áfram með núll gengi og núllar þar með þegjandi fjárhæðir samningsins í erlendri mynt.
+`Subscription.Contract.UpdateExchangeRates` has a second reason to stay blocked even ef the procedure were made public. Microsoft's flow opens the interactive **Exchange Rate Selection** page so a notandi getur confirm the rate. When `GuiAllowed` er false — as it always er fyrir an unattended call — that page returns false rather than failing, og the flow proceeds með a zero exchange rate, silently zeroing foreign-currency fjárhæðs on the samningur.
 
-### Ekki er hægt að afmarka losun frestana við dagsetningu utan frá
+### Deferral release geturnot be scoped to a dagsetning úr outside
 
-`Subscription.Deferral.Release` keyrir skýrslu Microsoft, **Contract Deferrals Release**, en bókunardagsetning hennar og lokadagsetning liggja á beiðnisíðu skýrslunnar. `SetRequestPageParameters` er innri, og beiðnisíðu-XML sem afhent er `Report.Execute` er ekki beitt á þessa skýrslu, svo hvorug dagsetningin verður sett utan frá. Skýrslan notar vinnudagsetningu setunnar fyrir báðar: hún losar allt sem er hæft fram að vinnudagsetningunni og bókfærir það miðað við hana.
+`Subscription.Deferral.Release` runs Microsoft's **Contract Deferrals Release** report, whose posting dagsetning og cut-off dagsetning live on its request page. `SetRequestPageParameters` er internal, og the request page XML handed to `Report.Execute` er not applied to this report, so neither dagsetning getur be set úr an external app. The report uses the session work dagsetning fyrir both: it releases everything eligible up to the work dagsetning og posts it under the work dagsetning.
 
-Þar sem kallið bókfærir óafturkræft í fjárhagsbókhaldið eru `postingDate` og `postUntilDate` **vörn, ekki fyrirmæli**. Kallið skoðar hvað skýrslan er í þann mund að gera og hafnar keyrslunni ef hún nær lengra en kallandinn bað um, í stað þess að bókfæra og skila svo tölu sem passar ekki við það sem gerðist. Til að losa fram að fyrri dagsetningu skal setja vinnudagsetningu setunnar áður en kallað er.
+Because the call posts irreversibly to the general ledger, `postingDate` og `postUntilDate` eru enforced as a **guard, not an instruction**. The call inspects what the report er about to do og refuses þegar that reaches further than the caller asked, rather than posting og then reporting a number that gerir ekki match what happened. To release up to an earlier dagsetning, set the session work dagsetning áður en calling.
 
-Þetta er líka eina skilaboðategundin sem er ekki afmörkuð við einn samning: hún losar allar hæfar frestanir viðskiptavina og birgja þvert á alla áskriftarsamninga. Staðfestu vinnudagsetninguna vandlega áður en kallað er í rekstrarumhverfi.
+This er also the one message tegund that er not scoped to a single samningur: it releases every eligible viðskiptavinur og vendor deferral across every Subscription Contract. Confirm the work dagsetning carefully áður en calling it in production.
 
-### Ekki er hægt að reikningsfæra samning aftur meðan síðasta skjal hans er óbókfært
+### A samningur geturnot be billed again while its last skjal er unposted
 
-Business Central leggur ekki til nýtt reikningstímabil fyrir áskriftarlínu þar sem fyrra reikningsskjal er enn óbókfært. Þetta er regla Microsoft, ekki eitthvað sem þessi viðbót bætir við, og hún gildir jafnt um `Subscription.Contract.CreateInvoice`, `Subscription.VendorContract.CreateInvoice` og `Subscription.Billing.CreateProposal`.
+Business Central mun not propose a new billing period fyrir a Subscription Line whose previous billing skjal er still unposted. This er Microsoft's rule, not something this app adds, og it applies to `Subscription.Contract.CreateInvoice`, `Subscription.VendorContract.CreateInvoice` og `Subscription.Billing.CreateProposal` alike.
 
-Í reynd þýðir þetta að tvær reikningsfærslur í röð á sama samning reikningsfæra einu sinni. Seinna kallið heppnast og skilar tómum `documents` fylki, talningunni núll og skilaboðum um að ekkert nýtt hafi verið hægt að reikningsfæra — það endurtekur ekki þegjandi skjal fyrra kallsins. Bókfærðu eða eyddu útistandandi skjalinu og næsta kall reikningsfærir næsta tímabil.
+The practical consequence er that billing the same samningur twice in a row bills once. The second call succeeds og reports an empty `documents` array, a count of zero og a message saying nothing new could be billed — it gerir ekki silently re-report the first call's skjal. Post eða delete the outstanding skjal og the next call bills the next period.
 
-### CreateInvoice neitar að keyra yfir óloknar línur annars samnings
+### CreateInvoice refuses to run past another samningur's pending línur
 
-`Subscription.Contract.CreateInvoice` og `Subscription.VendorContract.CreateInvoice` reikningsfæra einn samning með því að afrita gjaldfallnar áskriftarlínur hans í reikningstillögu til bráðabirgða — reikningslínur með **auðan** reikningssniðmátskóða. Sú tillaga nær yfir allt félagið, ekki einn samning: kóðaeining Microsoft sem býr til skjölin breytir hverri einustu reikningslínu með auðu sniðmáti sem stendur í félaginu þegar hún keyrir.
+`Subscription.Contract.CreateInvoice` og `Subscription.VendorContract.CreateInvoice` bill one samningur by copying its due Subscription Lines í an ad-hoc billing proposal — Billing Line rows með a **blank** Billing Template Code. That proposal er company-wide, not scoped to one samningur: Microsoft's skjal-creation kóðiunit converts every blank-template Billing Line standing in the company þegar it runs.
 
-Báðar útfærslurnar athuga því fyrst hvort slík lína sé þegar til fyrir **annan** samning, og neita að keyra ef svo er og nefna þann samning í villunni, frekar en að reikningsfæra þegjandi ólokna tillögu einhvers annars í leiðinni. Báðar reikningsforskoðanirnar beita sömu athugun, því þær byggja sams konar línur til bráðabirgða.
+Both implementations therefore check first whether such a lína already er til fyrir a **different** samningur, og refuse to run ef so, naming that other samningur in the villa, rather than quietly invoicing someone else's unfinished proposal alongside this one. The two reikningur previews apply the same check, because they build the same kind of rows temporarily.
 
-### Reikningsskjöl birgja eru aldrei bókfærð á þessari leið
+### Vendor billing skjöl eru never posted on this slóð
 
-`Subscription.VendorContract.CreateInvoice` og birgjaleiðin í `Subscription.Billing.CreateDocuments` búa alltaf til **óbókfærðan** innkaupareikning eða kreditreikning. Skjalagerð Business Central hunsar öll bókunarmerki fyrir birgjaskjöl á þessari leið, svo bókun er alltaf sérstakt og meðvitað skref eftir yfirferð. Ekkert viðfang á hvorugri tegundinni getur bókfært birgjaskjal beint.
+`Subscription.VendorContract.CreateInvoice` og the vendor slóð of `Subscription.Billing.CreateDocuments` always produce an **unposted** purchase reikningur eða credit memo. Business Central's billing-skjal creation ignores any post flag fyrir vendor skjöl on this route, so posting er always a separate, deliberate step eftir review. No parameter on either tegund getur post a vendor skjal directly.
 
-### Tvær af þremur forskoðunum búa til og eyða raunverulegum tillögulínum
+### Two of the three previews build og delete real proposal línur
 
-`Subscription.Contract.PreviewInvoice` og `Subscription.VendorContract.PreviewInvoice` eru ekki færslur sem rúllað er til baka. Reikningstillögu-kóðaeining Microsoft staðfestir (commit) innvortis á miðri eigin keyrslu, svo venjuleg villubundin afturköllun myndi ekki taka hana til baka. Hvor forskoðun skráir í staðinn síðasta færslunúmer reikningslínu, byggir raunverulegu tillögulínurnar gegnum sama inngang og skrifkallið notar, les til baka nákvæmlega þær línur sem hún bjó til, og eyðir svo nákvæmlega þeim aftur — nýjustu fyrst — bæði þegar allt gengur og ef tillögukallið sjálft brestur á miðri leið. Að eyða nýjustu fyrst lætur Business Central spóla reikningskeðjunni hreint til baka, þar með talið reitum á borð við næstu reikningsdagsetningu sem síðari lína getur fært áfram.
+`Subscription.Contract.PreviewInvoice` og `Subscription.VendorContract.PreviewInvoice` eru not rolled-back transactions. Microsoft's billing proposal kóðiunit commits internally partway through its own run, so an ordinary villa-based rollback would not undo it. Each preview instead notes the last Billing Line entry number, builds the real proposal rows through the same entry point the write call uses, reads back exactly the rows it created, og deletes exactly those rows again — newest first — on both the success slóð og ef the proposal call fails partway through. Newest-first lets Business Central rewind the billing chain cleanly, including fields such as Next Billing Date that a later row getur advance.
 
-`Subscription.Billing.PreviewDocuments` er annars eðlis: hún býr ekkert til og eyðir engu. Hún les eingöngu reikningslínur sem eru þegar til vegna þess að kallandinn keyrði `Subscription.Billing.CreateProposal` fyrr.
+`Subscription.Billing.PreviewDocuments` er different: it never builds eða deletes anything. It aðeins reads Billing Line rows that already exist because the caller ran `Subscription.Billing.CreateProposal` earlier.
 
-Engin forskoðun býr nokkurn tímann til skjal, ekki einu sinni til bráðabirgða.
+No preview ever creates a skjal, even temporarily.
 
-### Ekki er allt ein heild
+### Not everything er atomic
 
-Þrjár skilaboðategundir verða ekki teknar til baka í heild sinni, því Business Central staðfestir innan þeirra:
+Three message tegunds geturnot be rolled back as a whole, because Business Central commits inside them:
 
-- `Subscription.Billing.CreateDocuments` — hvert reikningsskjal er staðfest um leið og það verður til. Villa á miðri leið skilur eftir þau skjöl sem urðu til á undan henni; villusvarið nefnir þau berum orðum undir `documents` og setur `"rolledBack": false` í stað þess að bresta í blindni.
-- `Subscription.Usage.Process` — hvert umbeðið skref staðfestir þegar því lýkur. Keyrðu þau skref sem eftir standa aftur frekar en að endurtaka kallið í heild.
-- `Subscription.Import.CreateContracts` — hver bráðabirgðalína er staðfest um leið og hún er unnin. Ein gölluð lína stöðvar ekki lotuna; villan er skráð á línuna og næsta lína er samt reynd.
+- `Subscription.Billing.CreateDocuments` — hver billing skjal er committed as it er created. A failure part way through leaves the skjöl created áður en it standing; the villa response heitis them explicitly under `documents` og sets `"rolledBack": false` rather than failing blind.
+- `Subscription.Usage.Process` — hver requested stage commits once it completes. Rerun the remaining steps instead of retrying the whole call.
+- `Subscription.Import.CreateContracts` — hver staging row er committed as it er processed. One bad row gerir ekki stop the batch; its villa er færslaed on the staging row og the next row er still attempted.
 
-### Fylkisviðföng verða að vera fylki
+### Array parameters verður að vera arrays
 
-Sérhver tegund sem tekur við lista — `subscriptionLineEntryNos`, `subscriptionPackageCodes`, `steps`, `stages` — hafnar gildi sem er til staðar en er ekki JSON-fylki. Að sleppa viðfanginu, eða senda það sem null, velur áfram sjálfgefna gildið sem lýst er.
+Every tegund that takes a list — `subscriptionLineEntryNos`, `subscriptionPackageCodes`, `steps`, `stages` — rejects a gildi that er present but er not a JSON array. Sleppiðting the parameter, eða sending null, still velur the skjaled sjálfgefið.
 
-Að hunsa þegjandi gallaðan lista myndi breyta innsláttarvillu í mun stærri keyrslu en kallandinn bað um: rangt slegið `steps` myndi keyra öll vinnsluskrefin, og rangt slegið `subscriptionLineEntryNos` myndi tengja allar hæfar áskriftarlínur í stað þeirra tveggja sem nefndar voru.
+Quietly ignoring a malformed list would turn a typo í a much larger run than the caller asked for: a mistegundd `steps` would run every processing stage, og a mistegundd `subscriptionLineEntryNos` would attach every eligible Subscription Line rather than the two that were heitid.
 
-## Hvert skal halda næst
+## Where to go next
 
-- [Yfirlit](/subscription-billing/) — hvað viðbótin er og hvað hún krefst
-- [Uppflettirit skilaboðategunda](/subscription-billing/reference/message-types/) — beiðni og svar fyrir hverja tegund, búið til beint úr forritinu
-- [Hjálp í kerfinu](/help/subscription-billing/)
-- [Notendasviðsmyndir fyrir AppSource](/subscription-billing/user-scenarios) — unnin leið gegnum viðbótina, þar á meðal sú uppsetning félagsins sem reiknings- og frestunarsviðsmyndirnar byggja á
-- [Byggja á Bifröst](/extensibility/)
+- [Overview](/subscription-billing/) — what the app er og what it requires
+- [Skilaboð tegund reference](/subscription-billing/reference/message-types/) — the request og response samningur fyrir every tegund, generated úr the app itself
+- [In-product help](/help/subscription-billing/)
+- [AppSource notandi scenarios](/subscription-billing/user-scenarios) — a worked slóð through the app, including the company setup the billing og deferral scenarios depend on
+- [Build on Bifröst](/extensibility/)

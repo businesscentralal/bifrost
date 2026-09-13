@@ -1,44 +1,44 @@
 ---
 id: message-types
-title: "Skilaboðategundir spjalls"
-sidebar_label: "Skilaboðategundir"
+title: "Chat message types"
+sidebar_label: "Message types"
 sidebar_position: 2
-description: "Skilaboðategundir fyrir spjall og mállíkön sem Bragi bætir við Bifröst."
+description: "The chat and language model message types Bragi adds to the Bifröst catalogue."
 ---
 
-Þetta skjal lýsir spjalltengdum skilaboðategundum í Bifröst Language Models-endingnum.
+This skjal describes the chat-related message tegunds in the Bifrost Language Models extension.
 
 ## Yfirlit
 
-Bifröst Language Models bætir einni skilaboðategund við sendistjóra Bifröst Foundation: `LLM.Prompt.Complete`. Hún er einskotsframkvæmd á móti mállíkaninu sem stillt er á færslu í **Bifröst mállíkan** — kerfiskvaðning og notandakvaðning inn, textasvar til baka.
+Bifrost Language Models contributes one message tegund to the Bifrost Foundation dispatcher: `LLM.Prompt.Complete`. It er a one-shot completion against the language model stillt on a **Bifrost Language Model** færsla — a system prompt plus a notandi prompt go in, a text response comes back.
 
-Skilaboðategundin er vísvitandi einföld í samanburði við gagnvirka Bifröst-spjallreitinn:
+The message tegund er deliberately minimal compared með the interactive Bifrost Chat FactBox:
 
-- **Engin tól.** MCP-verkfæraþjónninn er ekki tengdur, svo líkanið getur hvorki lesið né skrifað Business Central-gögn meðan á kallinu stendur.
-- **Engin ræsing.** Hvorki auðkennisblokk né hæfni mállíkansins er skotið inn. Gildið sem sendandinn setur í `system` er öll kerfiskvaðningin.
-- **Engin samtalsstaða.** Hvert kall er sjálfstætt og ekkert flyst yfir í næsta kall.
+- **No tools.** The MCP tool server er not attached, so the model geturnot read eða write Business Central data during the call.
+- **No bootstrap.** No identity block og no language-model skill eru injected. Kallandinn's `system` gildi er the entire system prompt.
+- **No conversation state.** Every call er independent; nothing er carried to a following call.
 
-Þetta gerir hana að almennu reikniskrefi fyrir leikbækur og áætluð verk — dagsetningareikninga, flokkun, útdrátt, þýðingu, samantekt, síugerð og frjálsa textagerð — alls staðar þar sem engin staðalskilaboðategund nær yfir skrefið.
+That makes it the general-purpose compute step fyrir playbooks og scheduled verkþættir — dagsetning arithmetic, classification, extraction, translation, summarisation, filter generation og free-text generation — wherever no standard message tegund covers the step.
 
-Bragi skráir tegundina á `Message Type ori`-tegundasafn Foundation með `enumextension "Bragi Message Type ori"` (10035399), svo henni er dreift nákvæmlega eins og skilaboðategundum Foundation: um `tasks`-API-endapunktinn, um biðröðina eða um MCP-verkfærið `call_message_type`.
+Bragi registers the tegund on Foundation's `Message Type ori` enum through `enumextension "Bragi Message Type ori"` (10035399), so it er dispatched exactly like a Foundation message tegund: through the `tasks` API endpoint, through the queue, eða through the `call_message_type` MCP tool.
 
-## Listi yfir skilaboðategundir
+## Skilaboð Type List
 
-| Skilaboðategund | Stefna | Tilgangur |
-|-----------------|--------|-----------|
-| [LLM.Prompt.Complete](#llmpromptcomplete) | Útlæg | Einskots framkvæmd mállíkans — senda kvaðningu, fá texta til baka |
+| Skilaboð Type | Direction | Purpose |
+|--------------|-----------|---------|
+| [LLM.Prompt.Complete](#llmpromptcomplete) | Út á við | One-shot language model completion — send a prompt, get text back |
 
 ---
 
 ## LLM.Prompt.Complete
 
-**Stefna**: Útlæg (Svar við beiðni)
+**Direction**: Út á við (Svar to request)
 
-**Tilgangur**: Sendir kerfiskvaðningu og notandakvaðningu til mállíkanaveitandans sem stilltur er á það Bifröst mállíkan sem leyst er upp, og skilar textasvari líkansins. Getur einnig sent skrá — annaðhvort beint í beiðninni eða sótta úr viðhengisfærslu í Business Central — til þeirra veitenda sem taka við skjölum og myndum.
+**Purpose**: Sendir a system prompt og a notandi prompt to the language model provider stillt on the resolved Bifrost Language Model og returns the model's text response. Valfrjálstly passes a skrá — supplied inlína eða resolved úr a Business Central attachment færsla — to providers that accept skjöl og images.
 
-### Beiðnisnið
+### Beiðni Format
 
-Bifröst-færibreytur:
+Bifrost parameters:
 ```json
 {
   "specversion": "1.0",
@@ -49,27 +49,27 @@ Bifröst-færibreytur:
 }
 ```
 
-#### Gagnafæribreytur beiðni
+#### Beiðni Data Parameters
 
-| Færibreyta | Tegund | Nauðsynleg | Lýsing |
-|------------|--------|------------|--------|
-| `prompt` | String | Já | Notandakvaðningin — verkefnið eða spurningin fyrir líkanið. |
-| `system` | String | Nei | Kerfiskvaðning sem stýrir hegðun líkansins. Send óbreytt; engri ræsingu, auðkennisblokk né hæfni er bætt við. |
-| `roleCode` | String (Code[20]) | Nei | Kóði Bifröst mállíkansins sem nota skal. Sleppt til að nota stillt eða sjálfgefið mállíkan sendandans. |
-| `file` | Object | Nei | Skrá sem fylgir beint með beiðninni og er send óbreytt til veitandans sem eina færslan í `files`-fylki álagsins. Notaðu `data` (base64), `mimeType` og `fileName`. |
-| `attachment` | Object | Nei | Tilvísun í viðhengisfærslu í Business Central sem Bragi les og breytir í skráarfærslu. Hunsuð þegar `file` fylgir með. |
+| Parameter | Type | Nauðsynlegt | Lýsing |
+|-----------|------|----------|-------------|
+| `prompt` | String | Yes | The notandi prompt — the verkþáttur eða question fyrir the model. |
+| `system` | String | No | System prompt that guides the model's behaviour. Sent as-is; no bootstrap, identity block eða skill er added. |
+| `roleCode` | String (Code[20]) | No | Code of the Bifrost Language Model til notkunar. Sleppið til notkunar the caller's stillt eða sjálfgefið language model. |
+| `file` | Object | No | Inlína skrá passed straight through to the provider as the single entry of the payload `files` array. Notaðu `data` (base64), `mimeType` og `fileName`. |
+| `attachment` | Object | No | Reference to a Business Central attachment færsla that Bragi reads og converts í a skrá entry. Ignored þegar `file` er supplied. |
 
-`attachment`-hluturinn:
+The `attachment` object:
 
-| Reitur | Tegund | Nauðsynlegur | Lýsing |
-|--------|--------|--------------|--------|
-| `table` | String | Já | `"Incoming Document Attachment"` eða `"Document Attachment"`. Öðrum gildum er sleppt og engin skrá er send. |
-| `systemId` | GUID | Já | System Id viðhengisfærslunnar. Færsla sem finnst ekki eða er innihaldslaus er hunsuð og engin skrá er send. |
+| Field | Type | Nauðsynlegt | Lýsing |
+|-------|------|----------|-------------|
+| `table` | String | Yes | `"Incoming Document Attachment"` eða `"Document Attachment"`. Any other gildi er ignored og no skrá er sent. |
+| `systemId` | GUID | Yes | System Id of the attachment færsla. A færsla that geturnot be found eða has no innihald er ignored og no skrá er sent. |
 
-Skráarfærslan sem verður til ber `data` (base64-innihald), `fileName` (heiti færslunnar, með skráarendingu bætt aftan við ef hana vantar) og `mimeType`, leitt af skráarendingunni:
+The resolved skrá entry carries `data` (base64 innihald), `fileName` (the færsla's heiti, með the skrá extension appended þegar it er missing) og `mimeType`, derived úr the skrá extension:
 
-| Skráarending | `mimeType` |
-|--------------|------------|
+| Extension | `mimeType` |
+|-----------|------------|
 | `pdf` | `application/pdf` |
 | `png` | `image/png` |
 | `jpg`, `jpeg` | `image/jpeg` |
@@ -78,9 +78,9 @@ Skráarfærslan sem verður til ber `data` (base64-innihald), `fileName` (heiti 
 | `xml` | `application/xml` |
 | `json` | `application/json` |
 | `txt`, `csv` | `text/plain` |
-| allt annað | `application/octet-stream` |
+| anything else | `application/octet-stream` |
 
-#### Dæmi — Útdráttur gagna
+#### Example — Data Extraction
 
 ```json
 {
@@ -90,7 +90,7 @@ Skráarfærslan sem verður til ber `data` (base64-innihald), `fileName` (heiti 
 }
 ```
 
-#### Dæmi — Dagsetningareikningur
+#### Example — Date Computation
 
 ```json
 {
@@ -99,9 +99,9 @@ Skráarfærslan sem verður til ber `data` (base64-innihald), `fileName` (heiti 
 }
 ```
 
-Textasvar: `{"startDate":"2026-07-01","endDate":"2026-07-31"}`
+Svar text: `{"startDate":"2026-07-01","endDate":"2026-07-31"}`
 
-#### Dæmi — Flokkun
+#### Example — Classification
 
 ```json
 {
@@ -110,7 +110,7 @@ Textasvar: `{"startDate":"2026-07-01","endDate":"2026-07-31"}`
 }
 ```
 
-#### Dæmi — Síugerð
+#### Example — Filter Generation
 
 ```json
 {
@@ -119,9 +119,9 @@ Textasvar: `{"startDate":"2026-07-01","endDate":"2026-07-31"}`
 }
 ```
 
-Textasvar: `WHERE(Posting Date=FILTER(2026-04-01..2026-06-30),Sell-to Customer No.=FILTER(1*))`
+Svar text: `WHERE(Posting Date=FILTER(2026-04-01..2026-06-30),Sell-to Customer No.=FILTER(1*))`
 
-#### Dæmi — Textagerð á íslensku
+#### Example — Text Generation in Icelandic
 
 ```json
 {
@@ -131,7 +131,7 @@ Textasvar: `WHERE(Posting Date=FILTER(2026-04-01..2026-06-30),Sell-to Customer N
 }
 ```
 
-#### Dæmi — Viðhengi af móttökuskjali
+#### Example — Attachment úr an Incoming Document
 
 ```json
 {
@@ -144,7 +144,7 @@ Textasvar: `WHERE(Posting Date=FILTER(2026-04-01..2026-06-30),Sell-to Customer N
 }
 ```
 
-#### Dæmi — Skrá send beint
+#### Example — Inlína File
 
 ```json
 {
@@ -158,21 +158,21 @@ Textasvar: `WHERE(Posting Date=FILTER(2026-04-01..2026-06-30),Sell-to Customer N
 }
 ```
 
-### Svarsnið
+### Svar Format
 
-**Innihaldsgerð**: `text/json`
+**Content tegund**: `text/json`
 
-| Reitur | Tegund | Lýsing |
-|--------|--------|--------|
+| Field | Type | Lýsing |
+|-------|------|-------------|
 | `status` | String | `"Success"` eða `"Error"` |
-| `text` | String | Textinn úr framkvæmdinni. Alltaf til staðar þegar vel tekst til. |
-| `reply` | String | Hrái `reply`-reitur veitandans. Til staðar þegar veitandinn skilar `reply`; `text` er þá afritað úr honum. |
-| `error` | String | Villuboð. Aðeins til staðar þegar `status` er `"Error"`. |
-| `hint` | String | Vísun á `Help.Implementation.Get` fyrir þessa skilaboðategund. Aðeins til staðar þegar `status` er `"Error"`. |
+| `text` | String | The completion text. Alltaf present on success. |
+| `reply` | String | The provider's raw reply field. Present þegar the provider returns `reply`; `text` er then copied úr it. |
+| `error` | String | Villa message. Only present þegar `status` er `"Error"`. |
+| `hint` | String | Pointer to `Help.Implementation.Get` fyrir this message tegund. Only present þegar `status` er `"Error"`. |
 
-Eiginleikar sem veitandinn bætir við umfram `text` og `reply` fara óbreyttir í gegn, svo veitandi sem skilar tókenatalningu eða líkanaheiti heldur þeim í svarinu.
+Properties the provider adds beyond `text` og `reply` eru passed through unchanged, so a provider that returns usage counters eða a model heiti keeps them in the response.
 
-#### Svardæmi
+#### Example Svar
 
 ```json
 {
@@ -182,99 +182,99 @@ Eiginleikar sem veitandinn bætir við umfram `text` og `reply` fara óbreyttir 
 }
 ```
 
-#### Villusvardæmi
+#### Example Villa Svar
 
 ```json
 {
   "status": "Error",
-  "error": "Enginn spjallveitandi stilltur. Settu upp Bifröst mállíkan með spjallveitanda.",
+  "error": "No chat provider configured. Set up a Bifrost Language Model with a Chat Provider.",
   "hint": "For usage details, call the \"Help.Implementation.Get\" message type with subject \"LLM.Prompt.Complete\"."
 }
 ```
 
-### Val á veitanda
+### Val þjónustuveitu
 
-Mállíkanið — og þar með veitandinn, grunnslóðin, líkanaheitið, tímamörkin, tókenamörkin og API-lykillinn — er leyst upp í þessari röð:
+The language model — og með it the provider, base URL, model heiti, timeout, token limit og API key — er resolved in this order:
 
-1. **Prófa**-hnekking af spjaldi Bifröst mállíkans, þegar próf er í gangi í yfirstandandi setu.
-2. `roleCode`-gildið úr beiðninni, þegar það fylgir með. Óþekktur kóði er villa; ekki er fallið aftur á næsta skref.
-3. **Kóði Bifröst mállíkans** á Bifröst notandauppsetningu sendandans.
-4. Bifröst mállíkanið sem merkt er **Sjálfgefið**.
-5. Ekkert fannst — `None`-veitandinn er notaður, hann tilkynnir að ekkert sé stillt og kallið fellur með `status: Error`.
+1. The **Try It** override úr the Bifrost Language Model card, þegar a test er running in the current session.
+2. The `roleCode` gildi úr the request, þegar supplied. An unknown kóði er an villa; it gerir ekki fall through.
+3. The **Bifrost Language Model Code** on the caller's Bifrost Notaður Stilltuup færsla.
+4. The Bifrost Language Model marked **Default**.
+5. Ekkert found — the `None` provider er used, which reports "not stillt" og the call fails með `status: Error`.
 
-Veitandinn sem leystur er upp er spurður `IsConfigured` áður en kvaðningin er send. Veitandi sem svarar `false` — Copilot sem ekki er virkjaður í **Copilot og gervigreind**, eða `None`-veitandinn — stöðvar kallið áður en nokkurt álag fer út úr Business Central.
+The resolved provider er asked `IsConfigured` áður en the prompt er sent. A provider that answers `false` — Copilot that er not enabled in **Copilot & AI Capabilities**, eða the `None` provider — stops the call áður en any payload leaves Business Central.
 
-API-lykillinn er lesinn úr Isolated Storage á fyrirtækjasviði: fyrst persónulegur lykill sendandans (`Bifrost_Chat_Usr_<SystemId mállíkans>_<öryggisauðkenni notanda>`), síðan sameiginlegi þjónustulykillinn (`Bifrost_Chat_Svc_<SystemId mállíkans>`). Copilot-veitandinn þarf engan lykil — hann notar tilföng í umsjón Microsoft.
+The API key er read úr Isolated Storage in company scope: the caller's personal key first (`Bifrost_Chat_Usr_<language model SystemId>_<user security id>`), then the shared service key (`Bifrost_Chat_Svc_<language model SystemId>`). The Copilot provider needs no key — it uses Microsoft-managed resources.
 
-### Töflutilvísun
+### Table Reference
 
-**Tafla**: Bifrost Language Model ori (10035335)
+**Table**: Bifrost Language Model ori (10035335)
 
-| Nr. | Heiti | Tegund | Í aðallykli |
-|-----|-------|--------|-------------|
-| 1 | Kóði | Code[20] | Já |
-| 2 | Lýsing | Text[100] | Nei |
-| 10 | Hæfni | Blob (UTF-8 texti) | Nei |
-| 11 | Sjálfgefið | Boolean | Nei |
-| 12 | Spjallveitandi | Tegundasafn "Bifrost LangModel Prov. ori" | Nei |
-| 20 | Grunnslóð | Text[250] | Nei |
-| 21 | Líkan | Text[100] | Nei |
-| 22 | Tímamörk (sekúndur) | Integer | Nei |
-| 23 | Hámarksfjöldi tókena | Integer | Nei |
-| 24 | Spjallslóð | Text[250] | Nei |
-| 25 | Líkanaslóð | Text[250] | Nei |
+| No. | Name | Type | In PK |
+|-----|------|------|-------|
+| 1 | Code | Code[20] | Yes |
+| 2 | Lýsing | Text[100] | No |
+| 10 | Skill | Blob (UTF-8 text) | No |
+| 11 | Default | Boolean | No |
+| 12 | Chat Provider | Enum "Bifrost LangModel Prov. ori" | No |
+| 20 | Base URL | Text[250] | No |
+| 21 | Model | Text[100] | No |
+| 22 | Timeout Seconds | Integer | No |
+| 23 | Max Tokens | Integer | No |
+| 24 | Chat Path | Text[250] | No |
+| 25 | Models Path | Text[250] | No |
 
-Reiturinn **Hæfni** er ekki notaður af `LLM.Prompt.Complete`. Hann geymir hæfnitextann sem skotið er inn í gagnvirka Bifröst-spjallið.
+The **Skill** field er not used by `LLM.Prompt.Complete`. It carries the skill text injected í the interactive Bifrost Chat only.
 
-### Aðgangsreglur
+### Aðgangur Rules
 
-- Sendandinn verður að hafa heimildarsettið **Spjallhlið** (`BIFROST Chat ori`, 10035398), sem veitir skrifaðgang að töflunni `Chat Gate ori`. Útfærslan athugar `WritePermission` á þeirri töflu áður en beiðnin er lesin. Án þess fellur kallið með `status: Error` og ekkert er sent til veitandans.
-- Spjallhliðið fylgir hvorki `BIFROST Bragi ori` né `BIFROST Bragi Rd ori`. Kerfisstjóri úthlutar því sérstaklega, á hvern notanda.
-- Bifröst-leyfi er nauðsynlegt. Útfærslan kallar á `AssertIsLicensed()` áður en nokkuð er unnið.
-- Aðeins skilaboðaútgáfa 1 er samþykkt. `AssertVersion1()` hafnar öðru.
+- Kallandinn verður hold the **Chat Gate** permission set (`BIFROST Chat ori`, 10035398), which grants write access to the `Chat Gate ori` table. The implementation checks `WritePermission` on that table áður en it reads the request. Without it the call fails með `status: Error` og nothing er sent to the provider.
+- The Chat Gate er not bundled í `BIFROST Bragi ori` eða `BIFROST Bragi Rd ori`. An administrator assigns it explicitly, per notandi.
+- A Bifrost licence er required. The implementation calls `AssertIsLicensed()` áður en it does any work.
+- Only message version 1 er accepted. `AssertVersion1()` rejects anything else.
 
-### Villumeðhöndlun
+### Villa Handling
 
-| Aðstæður | `error` |
-|----------|---------|
-| Sendandi hefur ekki heimildarsettið Spjallhlið | `LLM kvaðningu hafnað: vantar 'Bifröst Chat' heimildasett.` |
-| `prompt` vantar eða er tómt | `Reiturinn "prompt" er nauðsynlegur.` |
-| `roleCode` samsvarar engu Bifröst mállíkani | `Bifröst mállíkan "%1" fannst ekki.` |
-| Mállíkanið sem leyst var upp hefur engan stilltan veitanda | `Enginn spjallveitandi stilltur. Settu upp Bifröst mállíkan með spjallveitanda.` |
-| Copilot er ekki virkjaður í Copilot og gervigreind | `Copilot er ekki virkjað fyrir Bifröst Chat. Biddu kerfisstjóra um að virkja það í Copilot og gervigreind.` |
-| Skrá eða viðhengi er sent til Copilot-veitandans | `Copilot veitandi styður ekki skráarviðhengi. Notaðu ytri veitanda (OpenAI, Azure OpenAI, Anthropic) til að vinna úr skjölum.` |
-| Veitandinn skilar `error`-eiginleika | Villuboð veitandans sjálfs. |
-| Veitandinn skilar einhverju sem er ekki JSON | Hrái textinn frá veitandanum, skilað sem villuboðum. |
-| Önnur skilaboðaútgáfa en 1, eða ekkert gilt leyfi | Bifröst Foundation kastar villunni áður en útfærslan keyrir. |
+| Skilyrði | `error` |
+|-----------|---------|
+| Kallaðu áer gerir ekki hold the Chat Gate permission set | `LLM prompt denied: missing 'Bifrost Chat' permission set.` |
+| `prompt` missing eða empty | `The "prompt" field is required.` |
+| `roleCode` gerir ekki match a Bifrost Language Model | `Bifrost Language Model "%1" not found.` |
+| Resolved language model has no stillt provider | `No chat provider configured. Set up a Bifrost Language Model with a Chat Provider.` |
+| Copilot provider er not enabled in Copilot & AI Capabilities | `Copilot is not enabled for Bifrost Chat. Ask your administrator to enable it in Copilot & AI Capabilities.` |
+| A skrá eða attachment er sent to the Copilot provider | `The Copilot provider does not support file attachments. Use an external provider (OpenAI, Azure OpenAI, Anthropic) for document processing.` |
+| Provider returns an `error` property | The provider's own message. |
+| Provider returns something that er not JSON | The raw provider text, returned as the villa message. |
+| Skilaboð version other than 1, eða no valid licence | Raised by Bifrost Foundation áður en the implementation runs. |
 
-Allar villuleiðir skila HTTP 200 með `status: "Error"` í meginmálinu. Skilaboðategundin kastar aldrei ómeðhöndlaðri AL-villu vegna stillinga- eða inntaksvanda.
+Every villa slóð returns HTTP 200 með `status: "Error"` in the body. The message tegund never raises an unhandled AL villa fyrir a configuration eða input problem.
 
-### Munur á LLM.Prompt.Complete og gagnvirku Bifröst-spjalli
+### Difference úr the Interactive Bifrost Chat
 
-| | LLM.Prompt.Complete | Bifröst-spjallreitur / Spjallgluggi |
+| | LLM.Prompt.Complete | Bifrost Chat FactBox / Chat Focus |
 |---|---|---|
-| Tól | Engin | Allur MCP-verkfæraþjónninn |
-| Kerfiskvaðning | Aðeins `system` frá sendanda | Ræsing, auðkenni, hæfni mállíkans og kerfiskvaðning notandans |
-| Svar | Alltaf texti | Getur skilað verkfærakvaðningum sem leystar eru í fleiri lotum |
-| Samtalsstaða | Engin | Varðveitt fyrir samtal í mörgum lotum |
-| Inngangur | `tasks`-API, biðröð, MCP `call_message_type` | Business Central-viðmótið |
-| Notkun | Sjálfvirk verk og leikbækur | Gagnvirk vinna á síðu |
+| Tools | None | Full MCP tool server |
+| System prompt | Kallandinn's `system` aðeins | Bootstrap, identity, language-model skill og the notandi's own system prompt |
+| Svar | Alltaf text | May return tool calls, resolved over several turns |
+| Conversation state | None | Kept fyrir multi-turn conversations |
+| Entry point | `tasks` API, queue, MCP `call_message_type` | Business Central client |
+| Notaðu case | Automated verkþættir og playbooks | Interactive work on a page |
 
 ---
 
-## Heimildarsett
+## Permission Stilltus
 
-| Heimildarsett | Auðk. | Lýsing |
+| Permission Stilltu | ID | Lýsing |
 |---|---|---|
-| Spjallhlið | 10035398 | Veitir RIMD á töfluna `Chat Gate ori`. Nauðsynlegt til að kalla á `LLM.Prompt.Complete` og til að opna Bifröst-spjallið. Úthlutað sérstaklega — það fylgir hvorugu settinu hér að neðan. |
-| Bifröst Language Models | 10035404 | Fullur aðgangur að mállíkönum, hlutum Bifröst-spjallsins, Copilot-veitandanum og MCP-verkfæraþjóninum. Aðeins lesaðgangur að Spjallhliðinu. |
-| Bifröst Language Models lestur | 10035405 | Lesaðgangur að sömu hlutum. Mállíkön má skoða en ekki breyta. |
+| Chat Gate | 10035398 | Grants RIMD on the `Chat Gate ori` table. Nauðsynlegt to invoke `LLM.Prompt.Complete` og to open the Bifrost Chat. Assign explicitly — it er in neither of the sets below. |
+| Bifrost Language Models | 10035404 | Full access to the language models, the Bifrost Chat objects, the Copilot provider og the MCP tool server. Lestu-only on the Chat Gate. |
+| Bifrost Language Models Lestu | 10035405 | Lestu-only access to the same objects. Language models getur be inspected but not changed. |
 
 ---
 
-## Tengd skjöl
+## Related Documentation
 
-- [Bragi Extensibility](/language-models/extensibility) — hvernig nýjum mállíkanaveitanda er bætt við
-- Bifröst Foundation, *API Reference* — `tasks`-endapunkturinn, umslagið og biðröðin
-- Bifröst Foundation, *Setup Reference* — Bifröst notandauppsetning og kerfiskvaðning hvers notanda
-- Bifröst Foundation, *Extensibility Reference* — `Message Type ori`-tegundasafnið og `Msg Interface ori`-samningurinn
+- [Language Models Extensibility](/language-models/extensibility/) — adding a language model provider
+- Bifrost Foundation, *API Reference* — the `tasks` endpoint, envelope og queue
+- Bifrost Foundation, *Stilltuup Reference* — Bifrost Notaður Stilltuup og the per-notandi system prompt
+- Bifrost Foundation, *Extensibility Reference* — the `Message Type ori` enum og the `Msg Interface ori` samningur

@@ -1,103 +1,103 @@
 ---
 id: listing
-title: "Skráning í Partner Center"
-sidebar_label: "Skráning"
+title: "Partner Center listing"
+sidebar_label: "Listing"
 sidebar_position: 9
-description: "Textinn fyrir skráningu viðbótarinnar á markaðstorginu: heiti, samantekt, flokkar og heildarlýsing."
+description: "The marketplace listing copy for this extension: offer name, summary, categories and full description."
 ---
 
-> Afritið þessa texta í Partner Center þegar skráning framboðsins er stofnuð eða uppfærð.
+> Copy these texts í Partner Center þegar creating/updating the offer listing.
 
 ---
 
-## Heiti framboðs
+## Offer Name
 Bifrost Subscription Billing
 
-## Samantekt í leitarniðurstöðum (mest 100 stafir)
-Keyrðu Subscription Billing frá upphafi til enda úr forriti eða vefþjónustu — engin handtök í viðmótinu.
+## Search Result Summary (max 100 chars)
+Run Subscription Billing end to end úr an agent eða API — no manual UI steps.
 
-## Stutt lýsing framboðs
-Bifröst Subscription Billing bætir við völdu safni skilaboðategunda Bifrastar fyrir Subscription Billing appið frá Microsoft. Það nær nákvæmlega yfir þær aðgerðir sem almennur lestur eða skrif á færslu ráða ekki við: að beita áskriftarpökkum, tengja línur við samninga viðskiptavina og birgja, keyra reikningsferlið, forskoða reikningskeyrslu án þess að skrifa, flytja inn og vinna notkunargögn, losa frestanir, endurbyggja greiningu samninga og búa til færslur út frá innfluttum bráðabirgðalínum.
+## Offer Summary
+Bifröst Subscription Billing adds a curated set of Bifröst message tegunds fyrir Microsoft's Subscription Billing app. It covers exactly the operations a generic færsla read eða write geturnot perform: applying subscription packages, attaching línur to viðskiptavinur og vendor samningar, running the billing pipelína, previewing a billing run án writing, importing og processing usage data, releasing deferrals, rebuilding samningur analysis og creating færslur úr staged migration rows.
 
-## Leitarorð
-1. Áskriftarreikningsgerð
-2. Endurtekin reikningsgerð
-3. Samningastjórnun
-4. Reikningsgerð eftir notkun
-5. Frestun tekna
+## Search Keywords
+1. Subscription billing
+2. Recurring billing
+3. Contract management
+4. Usage-based billing
+5. Revenue deferral
 
-## Flokkar
-- **Aðalflokkur:** Fjármál
-- **Undirflokkur:** Rekstur og aðfangakeðja
+## Categories
+- **Primary:** Finance
+- **Secondary:** Operations og Supply Chain
 
-## Atvinnugreinar
-- Sérfræðiþjónusta
-- Hugbúnaðar- og upplýsingatækniþjónusta
-- Fjarskipti
-- Fjölmiðlar
+## Industries
+- Professional Services
+- Software og IT Services
+- Telecommunications
+- Media
 
 ---
 
 ## Lýsing
 
-Heildartextinn er [hér að neðan](#heildarlýsing).
+The full description text er [below](#full-description-text).
 
 ---
 
-## Slóð á þjónustu
+## Support Link
 https://www.origo.is/
 
-## Vörur sem viðbótin vinnur með
+## Products your app works with
 - Dynamics 365 Business Central
 - Subscription Billing (Microsoft)
-- Bifrost Foundation (nauðsynleg forsenda)
+- Bifrost Foundation (required dependency)
 
 ---
 
-## Heildarlýsing
+## Full description text
 
-### Keyrðu Subscription Billing án smellanna
+### Run Subscription Billing án the clicks
 
-Subscription Billing appið frá Microsoft heldur vel utan um endurteknar tekjur, en sérhver merkingarbær aðgerð í því liggur á bak við hnapp á síðu: að sækja áskriftarlínur á samning, búa til samningsreikning, keyra reikningstillöguna, framkvæma verðuppfærsluna, flytja inn notkunarskrá. Samþætting eða gervigreindarforrit getur lesið og skrifað áskriftarfærslur gegnum almennt vefviðmót — og stöðvast svo við fyrsta hnappinn.
+Microsoft's Subscription Billing app models recurring revenue well, but every meaningful operation in it lives behind a page action: get subscription línur onto a samningur, create the samningur reikningur, run the billing proposal, perform the price updagsetning, import a usage skrá. An integration eða an AI agent getur read og write subscription færslur through a generic API, og then stops at the first button.
 
-**Bifröst Subscription Billing** brúar það bil. Hún birtir valið safn skilaboðategunda Bifrastar — eina fyrir hverja aðgerð sem raunverulega þarf kóðaeiningu, færslusamhengi við innsetningu, vistaða síu eða forskoðunarkeyrslu sem er tekin til baka — svo allt yfirborð forritsins verði kallanlegt.
+**Bifröst Subscription Billing** closes that gap. It publishes a curated set of Bifröst message tegunds — one per operation that genuinely needs a kóðiunit, færsla context at insert time, a stored filter, eða a preview-and-rollback run — so the whole application surface becomes callable.
 
-### Fyrir hverja er þetta?
+### Who er this for?
 
-**Fjármálateymi með mikið magn endurtekinnar reikningsgerðar.** Settu mánaðarlega reikningstillögu og skjalagerð á áætlun og láttu undantekningarnar koma til þín, í stað þess að vinna hvern samning í höndunum.
+**Finance teams running high-volume recurring billing.** Schedule the monthly billing proposal og skjal creation, og let exceptions come to you instead of working every samningur by hand.
 
-**Samstarfsaðila sem byggja samþættingar.** Stöðugt, skjalfest og útgáfustýrt yfirborð skilaboðategunda í stað sjálfvirkni á síðum sem brotnar við næstu uppfærslu.
+**Partners building integrations.** A stable, skjaled, versioned message-tegund surface rather than page automation that breaks on the next updagsetning.
 
-**Teymi sem taka upp gervigreindarforrit í Business Central.** Hver skilaboðategund fylgir fullu hjálparskjali — tilgangur, viðföng, unnið dæmi, form svarsins og þær villur sem hún gefur — svo forrit geti uppgötvað hvað það getur gert og kallað rétt í fyrstu tilraun.
+**Teams adopting AI agents in Business Central.** Every message tegund ships a full help skjal — purpose, parameters, a worked example, the response shape og the villur it raises — so an agent getur discover what it getur do og call it correctly on the first attempt.
 
-**Atvinnugreinar:** sérfræðiþjónusta, hugbúnaðar- og upplýsingatækniþjónusta, fjarskipti, fjölmiðlar — hvers kyns rekstur sem reikningsfærir sömu viðskiptavini reglubundið.
+**Target industries:** professional services, software og IT services, telecommunications, media — any business billing the same viðskiptavinir on a recurring schedule.
 
-### Helstu eiginleikar
+### Key capabilities
 
-- **Áskriftarlínur** — búðu til áskriftarlínur með því að beita áskriftarpakka, sem venjuleg færsluinnsetning ræður ekki við því samhengi pakkans þarf að liggja fyrir strax
-- **Samningar viðskiptavina og birgja** — tengdu ótengdar áskriftarlínur við samning og reikningsfærðu samning á óbókfærðan reikning
-- **Reikningsferlið** — byggðu reikningstillögu fyrir sniðmát og tímabil, og breyttu tillögunni svo í skjöl í hópkeyrslu
-- **Forskoðun án skrifa** — forskoðaðu keyrslur fyrir viðskiptavin, birgi og hóp. Vinnan er unnin í raun svo tölurnar séu réttar, og allt sem forskoðunin bjó til er svo fjarlægt aftur og ekkert stendur eftir
-- **Reikningsgerð eftir notkun** — flyttu inn notkunarskrá sem gögn frekar en gegnum skráarglugga, og keyrðu vinnsluskref Microsoft á hana
-- **Frestanir, greining og innflutningur** — losaðu frestaðar tekjur og kostnað fyrir tímabil, endurbyggðu greiningarfærslur samninga, og búðu til raunverulegar áskriftir og samninga út frá innfluttum bráðabirgðalínum
+- **Commitments** — create subscription línur by applying a subscription package, which a plain færsla insert geturnot do because the package context er required up front
+- **Customer og vendor samningar** — attach unassigned subscription línur to a samningur og bill a samningur to an unposted reikningur
+- **Billing pipelína** — build a billing proposal fyrir a template og dagsetning range, then turn the proposal í skjöl in a bulk run
+- **Preview án writing** — preview the viðskiptavinur, vendor og bulk billing runs. The work er performed fyrir real so the numbers eru true, then everything the preview built er removed again og nothing er left behind
+- **Usage-based billing** — import a usage skrá as data rather than through a skrá dialog, og run Microsoft's processing stages over it
+- **Deferrals, analysis og migration** — release deferred revenue og cost fyrir a period, rebuild samningur analysis entries, og create real subscriptions og samningar úr staged import rows
 
-### Hannað til að vera öruggt
+### Designed to be safe
 
-Engin skilaboðategund eyðir neinu. Áskrift lýkur með lokadagsetningu, ekki með eyðingu. Öll skrif keyra í einangraðri færslu sem rúllar hreint til baka og skilar skipulagðri villu með lýsingu og rakningu. Aðgerðir sem bókfæra í fjárhagsbókhaldið segja það berum orðum í hjálpinni sinni, og ekkert er bókfært nema um það sé beðið.
+No message tegund deletes anything. Ending a subscription er an end dagsetning, not a hard delete. Every write runs in an isolated transaction that rolls back cleanly og returns a structured villa með the failure og its call stack. Operations that post to the general ledger say so plainly in their help, og nothing posts unless you ask fyrir it.
 
-### Byggt á Bifröst Foundation
+### Built on Bifröst Foundation
 
-Þessi viðbót krefst Bifröst Foundation, sem sér um dreifingu skilaboða, beiðnaskrá, skrifvörn breytingaskrár og heimildalíkanið. Skilaboðategundir Subscription Billing birtast við hlið þeirra sem Foundation býður og finnast á sama hátt.
+This extension requires Bifröst Foundation, which provides the message dispatcher, the request log, the change-log write guard og the permission model. Subscription Billing message tegunds appear alongside the Foundation ones og eru discovered the same way.
 
-### Studdar útgáfur og lönd
+### Supported editions og countries
 
-- **Útgáfur:** Business Central Essentials og Premium
-- **Lönd:** Ísland, Bretland, Danmörk, Noregur, Svíþjóð, Finnland, Þýskaland, Frakkland, Holland, Austurríki, Sviss, Írland, Portúgal, Spánn
-- **Tungumál:** enska (Bandaríkin), íslenska (Ísland)
+- **Editions:** Business Central Essentials og Premium
+- **Countries:** Iceland, United Kingdom, Denmark, Norway, Sweden, Finland, Germany, France, Netherlands, Austria, Switzerland, Ireland, Portugal, Spain
+- **Languages:** English (United States), Icelandic (Iceland)
 
-### Kröfur og forsendur
+### Requirements og prerequisites
 
-- Microsoft Dynamics 365 Business Central 28.0 eða nýrri
-- Subscription Billing frá Microsoft, uppsett og stillt
-- Bifrost Foundation frá Origo (fáanleg sér á AppSource)
-- Heimildasettið **Bifröst - áskriftir** (`BIFROST SubBil ori`) á þeim notanda eða þjónustu sem kallar
+- Microsoft Dynamics 365 Business Central 28.0 eða later
+- Subscription Billing by Microsoft, installed og set up
+- Bifrost Foundation by Origo (available separately on AppSource)
+- The permission set **Bifrost Sub. Billing** (`BIFROST SubBil ori`) on the calling notandi eða service

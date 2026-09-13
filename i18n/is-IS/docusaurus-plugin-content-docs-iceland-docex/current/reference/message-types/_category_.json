@@ -1,0 +1,9 @@
+{
+  "label": "Skilaboðagerðir",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "slug": "/reference/message-types",
+    "description": "Allar skilaboðagerðir sem þetta forrit bætir við Bifrastar-skrána. Myndað úr eigin hjálpar-codeunitum forritsins."
+  }
+}
