@@ -1,0 +1,9 @@
+{
+  "label": "Skilaboðategundir",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "slug": "/reference/message-types",
+    "description": "Allar skilaboðategundir sem þetta forrit bætir við Bifröst-skrána. Myndað úr eigin hjálparkóðum forritsins."
+  }
+}

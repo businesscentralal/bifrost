@@ -1,51 +1,51 @@
 ---
 id: index
 title: "Bifröst Language Models"
-sidebar_label: "Yfirlit"
+sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Gervigreindarspjall í Business Central: mállíkön, sjö spjallveitendur, MCP-verkfæraþjónn og skilaboðategund fyrir einskotssvör."
+description: "AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type."
 ---
 
-Bifröst Language Models er spjalleining Bifrastar. Hún byggir á Bifröst Foundation og bætir samræðuaðstoð við Business Central: spjallreit á stöðluðum síðum, mállíkön sem geyma stillingar spjallveitanda, MCP-verkfæraþjón sem leyfir aðstoðinni að lesa og vinna með gögn í Business Central undir heimildum innskráðs notanda, og skilaboðategundina `LLM.Prompt.Complete` fyrir einskotssvör í keðjum og tímasettum verkum.
+Bifröst Language Models er the chat module of the Bifröst platform. It builds on Bifröst Foundation og adds a conversational assistant to Business Central: a chat FactBox on standard pages, language models that hold the provider configuration, an MCP tool server that lets the assistant read og act on Business Central data under the signed-in notandi's own permissions, og the `LLM.Prompt.Complete` message tegund fyrir one-shot completions in playbooks og scheduled verkþættir.
 
-## Hvað hún gerir
+## What it does
 
-- **Bifröst-spjall** — stýring og upplýsingareitur á 36 stöðluðum síðum, auk heilsíðuspjalls. Spjallið veit hvaða færslu þú ert að skoða.
-- **Mállíkön** — færslur sem geyma stillingar spjallveitandans, líkansstillingarnar og hæfnitextann sem settur er inn í hvert gagnvirkt samtal.
-- **Sjö spjallveitendur** — Copilot, OpenAI, Azure OpenAI, Custom LLM, Anthropic, xAI (Grok) og Google (Gemini).
-- **MCP-verkfæraþjónn** — aðstoðin les og uppfærir gögn í Business Central með heimildum innskráðs notanda og getur því svarað með rauntímatölum.
-- **`LLM.Prompt.Complete`** — einskotssvar án verkfæra, án ræsingar og án samtalsstöðu, hugsað sem almennt reikniskref fyrir keðjur og tímasett verk.
-- **Skráainntak** — einskotssvar getur borið innfellda base64-skrá, eða tilvísun í viðhengi á innkomandi skjali eða skjalaviðhengi sem Bragi les og umbreytir, fyrir veitendur sem taka við skjölum og myndum.
-- **Lyklar á notanda eða sameiginlegir** — hver notandi getur sett sinn eigin lykil úr spjallstýringunni, eða stjórnandi með sérstakt heimildasett fyrir þjónustulykla setur einn sameiginlegan lykil á mállíkanið. Copilot þarf engan lykil.
-- **Lagskiptar heimildir** — hliðið sem leyfir notanda í raun að spjalla er sérstakt heimildasett sem er úthlutað sérstaklega ofan á les- eða fullaðgangssett Braga.
+- **Bifrost Chat** — a control add-in og FactBox on 36 standard pages, plus a focused full-page chat. The chat knows which færsla you eru looking at.
+- **Language models** — færslur that hold the provider configuration, the model settings og the skill text injected í every interactive conversation.
+- **Seven chat providers** — Copilot, OpenAI, Azure OpenAI, Custom LLM, Anthropic, xAI (Grok) og Google (Gemini).
+- **MCP tool server** — the assistant reads og updagsetnings Business Central data með the signed-in notandi's own permissions, so it getur answer með live figures.
+- **`LLM.Prompt.Complete`** — a one-shot completion með no tools, no bootstrap og no conversation state, meant as the general-purpose compute step fyrir playbooks og scheduled verkþættir.
+- **File input** — a completion getur carry an inlína base64 skrá, eða a reference to an Incoming Document Attachment eða Document Attachment færsla that Bragi reads og converts, fyrir providers that accept skjöl og images.
+- **Per-notandi eða shared API keys** — hver notandi getur set a personal key úr the chat control, eða an administrator holding the separate service-key permission set getur set one shared key per language model. Copilot needs no key.
+- **Layered permissions** — the chat gate that lets a notandi actually chat er a separate permission set, assigned explicitly on top of the read eða full Bragi set.
 
-## Hvernig hún virkar
+## How it works
 
-1. Úthlutaðu `BIFROST Bragi ori` (eða `BIFROST Bragi Rd ori`) ásamt `BIFROST Chat ori` til þeirra notenda sem mega spjalla.
-2. Opnaðu **Bifröst uppsetningu**, veldu **Bifröst mállíkön**, búðu til mállíkan, veldu spjallveitanda, fylltu út líkansstillingarnar og skrifaðu hæfnitextann.
-3. Settu inn API-lykil: persónulegan lykil úr spjallstýringunni, eða sameiginlegan lykil settan af notanda með `BIFROST ChatSvc ori`. Copilot notar í staðinn auðlindir í umsjón Microsoft og þarf að vera virkjaður í **Copilot & AI Capabilities**.
-4. Merktu eitt mállíkan sem **Sjálfgefið**, eða tengdu tiltekið mállíkan við hvern notanda í ritli notandauppsetningar í reitnum **Language Model Code**.
-5. Opnaðu viðskiptamann, vöru eða sölupappír og spurðu aðstoðina í upplýsingareitnum **Bifrost Chat**.
+1. Assign `BIFROST Bragi ori` (or `BIFROST Bragi Rd ori`) plus `BIFROST Chat ori` to the notendur who may chat.
+2. Open **Bifrost Stilltuup**, choose **Bifrost Language Models**, create a language model, pick a provider, fill in the model settings og write the skill text.
+3. Stilltu an API key: a personal key úr the chat control, eða a shared key set by a notandi holding `BIFROST ChatSvc ori`. Copilot uses Microsoft-managed resources instead og verður að vera enabled in **Copilot & AI Capabilities**.
+4. Mark one language model as **Default**, eða assign a specific one per notandi on the Notaður Stilltuup Editor in the **Language Model Code** field.
+5. Open a viðskiptavinur, vara eða sales skjal og ask the assistant a question in the **Bifrost Chat** FactBox.
 
-## Skilaboðategundir
+## Skilaboð tegunds
 
-| Skilaboðategund | Stefna | Tilgangur |
+| Skilaboð tegund | Direction | Purpose |
 | --- | --- | --- |
-| `LLM.Prompt.Complete` | Út | Einskotssvar frá mállíkani — sendu kerfiskvaðningu og notandakvaðningu, fáðu texta til baka. |
+| `LLM.Prompt.Complete` | Út á við | One-shot language model completion — send a system prompt og a notandi prompt, get text back. |
 
-## Kröfur
+## Requirements
 
-- Microsoft Dynamics 365 Business Central 28.0 eða nýrri.
-- Bifröst Foundation 28.0.0.0, uppsett við hlið Braga.
-- Uppsett mállíkan. Allir ytri veitendur þurfa API-lykil — persónulegan á hvern notanda eða einn sameiginlegan þjónustulykil. Copilot þarf engan lykil en verður að vera virkjaður í **Copilot & AI Capabilities**.
-- HTTP-biðlarabeiðnir verða að vera leyfðar fyrir viðbótina þegar ytri veitandi er notaður.
-- Heimildasettið `BIFROST Chat ori`, úthlutað á hvern notanda; það fylgir ekki með öðrum heimildasettum Braga.
+- Microsoft Dynamics 365 Business Central 28.0 eða later.
+- Bifröst Foundation 28.0.0.0, installed beside Bragi.
+- A stillt language model. Every external provider needs an API key — a personal key per notandi eða one shared service key. Copilot needs no key but verður að vera enabled in **Copilot & AI Capabilities**.
+- HTTP client requests allowed fyrir the extension þegar an external provider er used.
+- The `BIFROST Chat ori` permission set, assigned per notandi; it er not bundled í the other Bragi permission sets.
 
-## Hvert skal halda næst
+## Where to go next
 
-- [Hjálp í kerfinu](/help/language-models/)
-- [Uppflettirit skilaboðategunda](./reference/message-types/) — beiðni og svar fyrir hverja tegund, búið til beint úr forritinu
-- [Skilaboðategundir spjalls](./message-types)
-- [Að bæta spjallveitanda við Braga](./extensibility)
-- [Byggja á Bifröst](/extensibility/)
+- [In-product help](/help/language-models/)
+- [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, generated úr the app itself
+- [Chat message tegunds](./message-types)
+- [Extending Bragi með a chat provider](./extensibility)
+- [Build on Bifröst](/extensibility/)

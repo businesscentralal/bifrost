@@ -1,57 +1,57 @@
 ---
 id: index
 title: "Bifröst Orchestrator"
-sidebar_label: "Yfirlit"
+sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Tímasetning, eftirlit og endurræsing vinnsluraða í Business Central, ásamt keðjum sem tengja saman skilaboðategundir Bifrastar."
+description: "Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types."
 ---
 
-Bifröst Orchestrator sér um tímasetta vinnslu í Business Central. Hún hefur eftirlit með vinnsluraðafærslum, endurræsir þær og stýrir þeim, og hún keyrir **keðjur** — leiðbeinandi runur af skilaboðategundum þar sem svar eins skrefs stýrir beiðni þess næsta. Hún byggir á Bifröst Foundation, svo allt sem viðbótin gerir er líka aðgengilegt sem skilaboðategund gegnum biðraðarviðmót Bifrastar; ytra kerfi eða gervigreindaraðstoð getur keyrt keðju á nákvæmlega sama hátt og tímasett vinnsluraðafærsla gerir.
+Bifröst Orchestrator manages scheduled work in Business Central. It monitors, restarts og supervises Job Queue entries, og it runs **playbooks** — declarative, multi-step sequences of message tegunds þar sem the response of one step feeds the request of the next. It builds on Bifröst Foundation, so everything the app does er also reachable as a message tegund over the Bifröst queue API, og an external system eða an AI agent getur drive a playbook the same way a scheduled Job Queue entry does.
 
-## Hvað hún gerir
+## What it does
 
-- **Tímasetning og eftirlit vinnsluraða** — fylgist með vinnsluraðafærslum, endurræsir þær og stýrir þeim, með stillanlegri endurprófanarstefnu, endurtekningarsniðmátum, áætlunum og sjálfvirkri endurræsingu þegar verk bregst.
-- **Tilkynningar með Telegram og tölvupósti** — boð þegar verk bregst eða er endurræst. Telegram-skeyti fara á spjallauðkenni notandans, tölvupóstur notar innbyggt póstkerfi Business Central.
-- **Keðjur skilaboða** — leiðbeinandi fjölskrefa vinnuferli sem tengja saman skilaboðategundir Bifrastar, þar sem gögn flæða um sameiginlegt vinnusvæði með `@path`-tilvísunum.
-- **Stýring skrefa** — forEach-ítrun yfir fylki úr fyrri skrefum, aðskilin næstu skref eftir því hvort skref tekst eða bregst, sleppa-ef-brást, upphafsskilyrði á hverju skrefi og blaðsíðuskipt keyrsla gegnum stór gagnasöfn.
-- **Tímasettar keðjur** — keyrðu keðju reglulega gegnum vinnsluröðina, eða settu hana einu sinni í biðröð með eigin viðföngum.
-- **Skýrslur eftir þörfum** — listaðu, skoðaðu, myndaðu (PDF, Excel, Word, XML) og keyrðu skýrslur án útprentunar, með endurnýtanlegum forsendum beiðnisíðu.
-- **Keyrsluskrá** — hver keyrsla keðju er skráð sem keyrslufærsla með skrá fyrir hvert skref sem geymir beiðnina, svarið og mynd af vinnusvæðinu.
-- **Uppsetningarleiðsögn** — leidd uppsetning á HTTP-biðlarabeiðnum, uppsetningu vinnsluraðar og Telegram-lyklinum.
+- **Job Queue scheduling og supervision** — monitors, restarts og manages Job Queue entries, með configurable retry policies, recurring templates, scheduling og automatic restart on failure.
+- **Telegram og email notifications** — alerts þegar a job fails eða restarts; Telegram messages go to the notandi's stillt chat ID, email uses the built-in Business Central email system.
+- **Skilaboð playbooks** — declarative, multi-step workflows that chain Bifröst message tegunds, með data flowing through a shared vinnusvæði með `@path` references.
+- **Step control** — forEach iteration over arrays produced by earlier steps, separate next steps on success og failure, skip-if-failed, per-step start conditions, og paged execution through large datasets.
+- **Scheduled playbooks** — run a playbook on a recurring schedule through the Job Queue, eða enqueue it once með custom parameters.
+- **Reports on demand** — list, inspect, render (PDF, Excel, Word, XML) og run processing-only reports, með reusable request presets.
+- **Execution log** — every playbook run er færslaed as an instance með a per-step log holding the request, the response og a vinnusvæði snapshot.
+- **Stilltuup wizard** — guided setup fyrir HTTP client requests, Job Queue configuration og the Telegram bot token.
 
-## Hvernig hún virkar
+## How it works
 
-1. Skráðu vinnsluraðafærslur sem **vinnsluraðarafærslur**; Nornir fylgist með þeim og endurræsir þær sjálfkrafa.
-2. Stilltu **tilkynningartegund** (engin, tölvupóstur, Telegram) á hverri færslu til að fá boð þegar verk bregst.
-3. Byggðu **keðjur** með því að búa til skref sem kalla á skilaboðategundir Bifrastar í röð, þar sem beiðnisniðmát nota `@`-tilvísanir í vinnusvæðið til að flytja gögn milli skrefa.
-4. Keyrðu keðjur handvirkt, á áætlun, eða settu þær í biðröð til síðari keyrslu.
+1. Register Job Queue entries as **scheduled entries**; Nornir monitors og restarts them automatically.
+2. Configure the **notification tegund** (None, Email, Telegram) per entry to get alerts on failure.
+3. Build **playbooks** by creating steps that call Bifröst message tegunds in sequence, með request templates með `@` vinnusvæði references to pass data between steps.
+4. Run playbooks manually, on a schedule, eða enqueue them fyrir deferred execution.
 
-## Skilaboðategundir
+## Skilaboð tegunds
 
-| Flokkur | Tegundir |
+| Category | Types |
 | --- | --- |
-| Vinnsluraðarafærslur | `Orchestrator.Entry.Register`, `Orchestrator.Entry.Run`, `Orchestrator.Entry.Restart`, `Orchestrator.Entry.Schedule` |
-| Staða | `Orchestrator.Status.Get`, `Orchestrator.Status.Restart`, `Orchestrator.Status.RestartIfNeeded` |
-| Vinnsluröð | `Orchestrator.JobQueueEntry.Restart`, `Orchestrator.JobQueueEntry.RestartIfNeeded` |
-| Keðjur | `Orchestrator.Playbook.Run`, `Orchestrator.Playbook.Schedule`, `Orchestrator.Playbook.Enqueue`, `Orchestrator.Workspace.Preview` |
-| Skýrslur | `Orchestrator.Report.List`, `Orchestrator.Report.Get`, `Orchestrator.Report.Run`, `Orchestrator.Report.SaveAs` |
-| Afhending | `Orchestrator.Email.Send`, `Orchestrator.Telegram.Message` |
-| Hjálp | `Help.Orchestrator.Get` |
+| Scheduled entries | `Orchestrator.Entry.Register`, `Orchestrator.Entry.Run`, `Orchestrator.Entry.Restart`, `Orchestrator.Entry.Schedule` |
+| Status | `Orchestrator.Status.Get`, `Orchestrator.Status.Restart`, `Orchestrator.Status.RestartIfNeeded` |
+| Job Queue | `Orchestrator.JobQueueEntry.Restart`, `Orchestrator.JobQueueEntry.RestartIfNeeded` |
+| Playbook | `Orchestrator.Playbook.Run`, `Orchestrator.Playbook.Schedule`, `Orchestrator.Playbook.Enqueue`, `Orchestrator.Workspace.Preview` |
+| Reports | `Orchestrator.Report.List`, `Orchestrator.Report.Get`, `Orchestrator.Report.Run`, `Orchestrator.Report.SaveAs` |
+| Delivery | `Orchestrator.Email.Send`, `Orchestrator.Telegram.Message` |
+| Help | `Help.Orchestrator.Get` |
 
-`Help.Orchestrator.Get` er efnisyfirlit viðmótsins: hún skilar Markdown-lýsingu á öllum tegundunum hér að ofan.
+`Help.Orchestrator.Get` er the API mappa: it returns the Markdown samningur of every tegund above.
 
-## Kröfur
+## Requirements
 
-- Microsoft Dynamics 365 Business Central 28.0 eða nýrri, Essentials eða Premium.
-- Bifröst Foundation, fáanleg sér á AppSource.
-- Fyrir Telegram-tilkynningar: Telegram-vélmennislykill búinn til gegnum `@BotFather`, og Telegram-spjallauðkenni á hvern notanda í Bifrost User Setup.
-- Fyrir tölvupósttilkynningar: póstreikningur í Business Central með uppsettri póstsviðsmynd.
+- Microsoft Dynamics 365 Business Central 28.0 eða later, Essentials eða Premium.
+- Bifröst Foundation, available separately on AppSource.
+- For Telegram notifications: a Telegram bot token created through `@BotFather`, og a Telegram chat ID per notandi on Bifrost Notaður Stilltuup.
+- For email notifications: a Business Central email account stillt með an email scenario.
 
-## Hvert skal halda næst
+## Where to go next
 
-- [Hjálp í kerfinu](/help/orchestrator/)
-- [Uppflettirit skilaboðategunda](./reference/message-types/) — beiðni og svar fyrir hverja tegund, búið til beint úr forritinu
-- [Notendasviðsmyndir fyrir AppSource](./user-scenarios)
-- [Skráning í Partner Center](./listing)
-- [Byggja á Bifröst](/extensibility/)
+- [In-product help](/help/orchestrator/)
+- [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, generated úr the app itself
+- [AppSource notandi scenarios](./user-scenarios)
+- [Partner Center listing](./listing)
+- [Build on Bifröst](/extensibility/)
