@@ -12,14 +12,19 @@ description: "Beiðni- og svarsamningur fyrir Help.License.OnPremSecrets.Set Bif
 :::
 
 
-Writes og clears the on-premises licensing secrets in company-scoped IsolatedStorage.
+Skrifar eða hreinsar tengiefni fyrir leyfi á eigin umhverfi fyrir núverandi fyrirtæki.
+
+Viðskiptavinir með leyfi á eigin umhverfi fá nauðsynleg leyndarmál frá **Origo** með
+leyfinu. Ekki búa til eða birta reikningsnöfn, lykla, gagnagrunnsauðkenni eða önnur
+tengigildi á opinberu vefsvæði — límdu aðeins gildin sem Origo afhenti inn í þessa
+skilaboðategund (eða hreinsaðu þau með `clearAll`).
+
+### Hreinsa öll geymd leyndarmál fyrir eigin umhverfi
 ```json
-{
-  "clearAll": true,
-  "accountName": "my-cosmos-account",
-  "accessKey": "<base64>",
-  "databaseId": "CE-licenses",
-  "containerId": "licenses"
-}
+{ "clearAll": true }
 ```
 
+### Setja leyndarmál sem Origo afhenti
+
+Sendu reitina sem Origo skráði fyrir leyfið þitt á eigin umhverfi. Heiti reita og lögun
+þeirra tilheyra þeirri einkaaðfærslu, ekki þessari opinberu samningssíðu.

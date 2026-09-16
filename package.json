@@ -13,7 +13,9 @@
     "clear": "docusaurus clear",
     "write-translations": "docusaurus write-translations --locale is-IS",
     "validate:apps": "node tools/validate-apps.mjs",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "check:ip-boundary": "node tools/check-docs.mjs ipBoundary",
+    "check:docs": "node tools/check-docs.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",
@@ -59,6 +61,6 @@
     "@swc/core@1.16.2": true,
     "core-js@3.50.0": true
   },
-  "description": "Documentation site for the Bifröst family of Business Central extensions",
+  "description": "Documentation site for the Bifr\u00f6st family of Business Central extensions",
   "license": "MIT"
 }

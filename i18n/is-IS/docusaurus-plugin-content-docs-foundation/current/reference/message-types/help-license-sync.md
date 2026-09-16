@@ -13,32 +13,37 @@ description: "Beiðni- og svarsamningur fyrir Help.License.Sync Bifröst skilabo
 
 
 ## Yfirlit
-Forces an immediate **usage sync** fyrir the current company. It reports hver completed day's chargeable message counts (per pool) til Cosmos, refreshes the cached remaining quota fyrir the User og App Registration pools, og Endurstillir the reported messages.
+Þvingar samstillingu **notkunar** strax fyrir núverandi fyrirtæki. Hún tilkynnir
+gjaldskyldan skilaboðafjölda hvers liðins dags (eftir potti) til leyfisþjónustunnar,
+endurnýjar vistaðar eftirstöðvar fyrir Notanda- og Forritsskráningarpottana og
+núllstillir tilkynntu skilaboðin.
 
-nota this þegar:
-- Additional licenses were just purchased og you want the ný remaining quota reflected immediately (instead of waiting fyrir the next daily sync).
-- You want til push the latest usage til the licensing service now.
+Notaðu þetta þegar:
+- Viðbótarleyfi voru nýlega keypt og þú vilt að nýjar eftirstöðvar endurspeglist strax
+  (í stað þess að bíða eftir næstu daglegu samstillingu).
+- Þú vilt ýta nýjustu notkuninni til leyfisþjónustunnar núna.
 
-The sama sync runs automatically once per day, triggered með the fyrsta chargeable message of the day.
+Sama samstilling keyrir sjálfkrafa einu sinni á dag, kveikt af fyrstu gjaldfæru
+skilaboðum dagsins.
 
 ## Stefna
-Útgående
+Út
 
-## Response Content Gerð
+## Response Content Type
 `text/json`
 
-## heimild Requirements
-No special licensing heimildir eru áskilið.
+## Permission Requirements
+No special licensing permissions are required.
 
-## Beiðnibreytur
-None. The sync always operates on Kallandinn's own tenant og company context.
+## Request Parameters
+None. The sync always operates on the caller's own tenant and company context.
 
-## Dæmi um beiðni
+## Request Example
 ```json
 { "type": "Help.License.Sync" }
 ```
 
-## Tókst Uppbygging svars
+## Success Response Shape
 ```json
 {
   "status": "Success",
@@ -50,15 +55,15 @@ None. The sync always operates on Kallandinn's own tenant og company context.
 }
 ```
 
-### Svarreitir
-| Reitur | Gerð | Lýsing |
+### Response Fields
+| Field | Type | Description |
 |-------|------|-------------|
-| status | Text | `Success` þegar the sync completed, `Error` otherwise. |
-| result.tenantIdHash | Text | Hashed tenant identifier (include þegar requesting a license). |
-| result.companyIdHash | Text | Hashed company identifier notað þegar reporting usage. |
-| result.user / result.appRegistration | hlutur | Per-pool `remaining` (null þegar unknown) og `valid` flag. |
+| status | Text | `Success` when the sync completed, `Error` otherwise. |
+| result.tenantIdHash | Text | Hashed tenant identifier (include when requesting a license). |
+| result.companyIdHash | Text | Hashed company identifier used when reporting usage. |
+| result.user / result.appRegistration | Object | Per-pool `remaining` (null when unknown) and `valid` flag. |
 
-## Villa Uppbygging svars
+## Error Response Shape
 ```json
 {
   "status": "Error",
@@ -67,11 +72,10 @@ None. The sync always operates on Kallandinn's own tenant og company context.
 ```
 
 ## Behavior
-- **Per company.** Usage er reported per hashed company under the hashed tenant.
-- **endurtekningarþolið.** Usage skjöl have stable ids, so repeated calls do ekki double-count.
-- **Synchronous.** Skilar eftir the sync attempt; the result reflects the refreshed remaining quota.
+- **Per company.** Usage is reported per hashed company under the hashed tenant.
+- **Idempotent.** Usage documents have stable ids, so repeated calls do not double-count.
+- **Synchronous.** Returns after the sync attempt; the result reflects the refreshed remaining quota.
 
-## Tengdar skilaboðategundir
-- `Help.Bifrost.Get` — Skilar the sama license status án forcing a sync.
-- `Help.WhoAmI.Get` — check current user identity og heimildir.
-
+## Related Message Types
+- `Help.Bifrost.Get` — returns the same license status without forcing a sync.
+- `Help.WhoAmI.Get` — check current user identity and permissions.

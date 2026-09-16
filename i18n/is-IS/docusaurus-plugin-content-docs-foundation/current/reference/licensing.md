@@ -59,53 +59,53 @@ sýnilegur þegar umhverfið er sandkassi). Sjá
 
 Áður en gjaldfært skilaboð er unnið er pottur kallandans athugaður:
 
-- Föst **100 skilaboða umlíðun** gildir, þannig að pottur heldur áfram að virka örlítið
-  umfram keypt magn. Pottur telst uppurinn þegar eftirstöðvar hans eru komnar meira en 100
-  skilaboð undir núll.
-- Þegar potturinn er uppurinn **og** potturinn lokar (sjá hér að neðan) eru skilaboðin
-  **ekki unnin** og skilað er formuðu villusvari (`status` = `Error`) með `requestUrl`.
-- Ef eftirstöðvar eru óþekktar (ný uppsetning fyrir fyrstu samstillingu, eða leyfisþjónustan er
-  tímabundið ónáanleg) er vinnsla **leyfð** (fail-open).
+- Lítil umlíðun getur gilt umfram keypt magn. Nákvæm stærð umlíðunar og tengd bilunarhegðun
+  tilheyra viðskiptasamningi viðskiptavinar; þær eru ekki birtar hér.
+- Þegar potturinn er uppurinn **og** potturinn er stilltur til að loka eru skilaboðin
+  **ekki unnin** og skilað er formuðu villusvari:
+
+  ```json
+  { "status": "Error", "error": "Message quota for the User pool is exhausted. Visit … to request additional licenses.", "requestUrl": "…" }
+  ```
+
+- Þegar eftirstöðvar eru óþekktar (t.d. fyrir fyrstu samstillingu) getur varan samt leyft
+  vinnslu. Lítið á það sem rekstrarlega smáatriði leyfisþjónustunnar, ekki sem tryggingu
+  fyrir að köll takist alltaf án kvóta.
 
 ### Lokun eða viðvörun
 
-Það sem gerist við uppurinn pott ræðst fyrir hvern pott. Stillingin er uppsetning en ekki
-auðkenni, svo hún býr í IsolatedStorage með **einingaumfangi** — eitt gildi fyrir allan
-leigjandann frekar en eitt fyrir hvert fyrirtæki:
-
-| Lykill | Gagnaumfang | Pottur |
-|--------|-------------|--------|
-| `BlockOnMissingQuota-User` | `DataScope::Module` | Notandi |
-| `BlockOnMissingQuota-AppRegistration` | `DataScope::Module` | Forritsskráning |
+Það sem gerist við uppurinn pott ræðst fyrir hvern pott. Virka gildið fyrir hvorn pott birtist
+sem `blockOnMissingQuota` í JSON-leyfisstöðunni (sjá
+[Að skoða stöðu](#að-skoða-stöðu)):
 
 | Gildi | Áhrif |
 |-------|-------|
-| `true`, **eða lykilinn vantar** | Kallinu er hafnað með villunni um uppurinn kvóta hér að ofan. Að lykilinn vanti er venjulega staðan, svo þetta er virka gildið nánast alls staðar. |
+| `true` (venjulega sjálfgefið) | Kallinu er hafnað með villunni um uppurinn kvóta hér að ofan. |
 | `false` | Kallið keyrir. Það er eftir sem áður gjaldfært á pottinn og svarið ber áfram kvótaviðvörunina — leigjandinn heldur einfaldlega áfram að vinna umfram keyptan kvóta. |
 
-Lyklarnir eru skrifaðir af **leyfissamstillingunni** (`Usage Sync ori`) og engu öðru: engin
-síða og engin skilaboðategund vörunnar setur þá. Í samstillingarkóðanum er `TODO` sem markar
-hvar gildin verða lesin úr uppsetningarskjali Entra-leigjandans í Azure Cosmos DB. Þangað til
-það skjal er til vantar lyklana og báðir pottar loka, nákvæmlega eins og Bifröst hefur alltaf
-gert.
-
-Virka gildi hvors potts sést á tveimur stöðum:
-
-- skrifvarið í hópnum **Lokun við uppurinn kvóta** á síðunni **Tengingastaða Bifröst**, sem er
-  aðgengileg úr **Leyfi**-hópnum á uppsetningarsíðu Bifröst. Gildi sem aldrei hefur verið
-  samstillt er sýnt sem innbyggða sjálfgefna gildið frekar en sem geymd stilling;
-- sem `blockOnMissingQuota` fyrir hvorn pott í JSON-leyfisstöðunni, sem lýst er undir
-  [Að skoða stöðu](#að-skoða-stöðu).
+Kallarar eiga að lesa `blockOnMissingQuota` úr opinbera stöðusvarinu frekar en að gera ráð
+fyrir tiltekinni geymslu eða stjórnunarviðmóti.
 
 ## Viðvaranir um lágan kvóta
 
-Árangursrík JSON-svör bera `warnings` fylki þegar pottur kallandans er að klárast:
+Árangursrík JSON-svör bera `warnings` fylki þegar pottur kallandans er að klárast.
+Alvarleikagildi sem þú gætir séð:
 
-| Eftirstöðvar | Alvarleiki | Merking |
-|--------------|------------|---------|
-| 1 til 100 | `approaching` | Kvótinn er við það að klárast. |
-| 0 eða minna | `grace` | Kvótinn er uppurinn; potturinn gengur á 100 skilaboða umlíðunina. |
-| meira en 100 undir núlli | `exhausted` | Umlíðunin er líka fullnýtt. Næst aðeins fyrir pott þar sem `blockOnMissingQuota` er `false` — annars var kallinu hafnað í stað þess að vara við. |
+| Alvarleiki | Merking |
+|------------|---------|
+| `approaching` | Kvótinn er við það að klárast. |
+| `grace` | Kvótinn er uppurinn; lítil umlíðun getur enn gilt. |
+| `exhausted` | Potturinn er fullnýttur. Næst aðeins fyrir pott þar sem `blockOnMissingQuota` er `false` — annars var kallinu hafnað í stað þess að vara við. |
+
+```json
+{
+  "status": "Success",
+  "result": { "...": "..." },
+  "warnings": [
+    { "code": "LicenseQuota", "severity": "approaching", "message": "…", "pool": "User", "remaining": 420, "requestUrl": "…" }
+  ]
+}
+```
 
 Uppsetningarsíða Bifröst sýnir einnig tilkynningu þegar annar potturinn fer undir 1.000.
 
@@ -132,7 +132,7 @@ Notkun er tilkynnt til leyfisþjónustunnar einu sinni á dag **fyrir hvert fyri
 ## Að skoða stöðu
 
 - `Help.Bifrost.Get` skilar núverandi leyfisstöðu sem `licenseStatus`.
-- `Help.License.Get` skilar leyfis- og reikningsskjölunum og ber nú sama `licenseStatus` hlut,
+- `Help.License.Get` skilar leyfis- og reikningsfærslum og ber sama `licenseStatus` hlut,
   svo kallandi sem les leyfisfærslur hvort eð er þarf ekki aðra ferð fram og til baka.
 - `Help.License.Sync` (aðeins stjórnandi) þvingar samstillingu strax og skilar uppfærðri stöðu.
 - **Leyfi**-staðreyndareiturinn á uppsetningarsíðunni sýnir sömu upplýsingar auk fjölda óskráðra
@@ -153,8 +153,8 @@ Leyfisstöðuhluturinn lítur svona út:
 | Reitur | Tegund | Merking |
 |--------|--------|---------|
 | `remaining` | heiltala / null | Skilaboð sem eftir eru í pottinum; `null` meðan ekkert gildi hefur verið samstillt. |
-| `valid` | boolean | Ósatt um leið og potturinn er kominn fram úr 100 skilaboða umlíðuninni. |
-| `blockOnMissingQuota` | boolean | `true` (sjálfgefið) hafnar köllum um leið og potturinn er uppurinn; `false` lætur þau keyra, gjaldfærir þau eftir sem áður og skilar áfram kvótaviðvöruninni. Skrifvarið — aðeins leyfissamstillingin skrifar það. |
+| `valid` | boolean | Ósatt um leið og potturinn er kominn fram úr umlíðun og telst ekki lengur innan kvóta. |
+| `blockOnMissingQuota` | boolean | `true` (sjálfgefið) hafnar köllum um leið og potturinn er uppurinn; `false` lætur þau keyra, gjaldfærir þau eftir sem áður og skilar áfram kvótaviðvöruninni. Skrifvarið frá sjónarhóli kallanda — endurnýjað við leyfissamstillingu. |
 
 ## Að óska eftir leyfum
 

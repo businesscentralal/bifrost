@@ -13,37 +13,37 @@ description: "Beiðni- og svarsamningur fyrir Help.License.Get Bifröst skilabo�
 
 
 ## Yfirlit
-Skilar license færslur úr Cosmos DB fyrir this tenant með server-side filtering
-og pagination. Does ekki force a sync — aðeins Les fyrirliggjandi skjöl.
+Skilar leyfisfærslum fyrir þennan leigjanda úr leyfisþjónustunni, með síun og blaðsíðun
+á þjóninum. Þvingar **ekki** samstillingu — les aðeins núverandi færslur.
 
-nota `Help.License.Sync` fyrsta ef you need fresh data reported til Cosmos.
+Notaðu `Help.License.Sync` fyrst ef þú þarft ferska notkun tilkynnta til leyfisþjónustunnar.
 
 ## Stefna
-Útgående (lesa-aðeins)
+Út (aðeins lestur)
 
-## Content Gerð
+## Efnistegund
 `text/json`
 
-## Beiðnibreytur
-| Færibreyta | Gerð | Sjálfgefið | Lýsing |
+## Beiðnifæribreytur
+| Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `docType` | strengur | — | Filter með skjal Gerð: `license`, `usage`, eða `account`. |
-| `licenseType` | strengur | — | Filter með pool: `User` eða `App Registration`. |
-| `startDate` | strengur | — | Inclusive start dagsetning filter (yyyy-MM-dd). Applies til the `date` Reitur on usage docs. |
-| `endDate` | strengur | — | Inclusive end dagsetning filter (yyyy-MM-dd). Applies til the `date` Reitur on usage docs. |
-| `skip` | int | 0 | númer of skjöl til skip (server-side OFFSET). |
-| `take` | int | 100 | Maximum skjöl til return (server-side LIMIT). Max 1000. |
+| `docType` | string | — | Filter by document type: `license`, `usage`, or `account`. |
+| `licenseType` | string | — | Filter by pool: `User` or `App Registration`. |
+| `startDate` | string | — | Inclusive start date filter (yyyy-MM-dd). Applies to the `date` field on usage docs. |
+| `endDate` | string | — | Inclusive end date filter (yyyy-MM-dd). Applies to the `date` field on usage docs. |
+| `skip` | int | 0 | Number of documents to skip (server-side OFFSET). |
+| `take` | int | 100 | Maximum documents to return (server-side LIMIT). Max 1000. |
 
-All parameters eru valfrjálst. An empty request `{}` Skilar up til 100 færslur.
+All parameters are optional. An empty request `{}` returns up to 100 entries.
 
 ## Request Examples
 
-### All færslur (fyrsta page)
+### All entries (first page)
 ```json
 {}
 ```
 
-### Usage færslur fyrir User pool in dagsetning range
+### Usage entries for User pool in date range
 ```json
 {
   "docType": "usage",
@@ -55,12 +55,12 @@ All parameters eru valfrjálst. An empty request `{}` Skilar up til 100 færslur
 }
 ```
 
-### License skjöl aðeins
+### License documents only
 ```json
 { "docType": "license" }
 ```
 
-### Paginate through all færslur
+### Paginate through all entries
 ```json
 { "skip": 100, "take": 100 }
 ```
@@ -89,34 +89,33 @@ All parameters eru valfrjálst. An empty request `{}` Skilar up til 100 færslur
 }
 ```
 
-## Svarreitir
-| Reitur | Gerð | Lýsing |
+## Response Fields
+| Field | Type | Description |
 |-------|------|-------------|
-| `status` | strengur | `Success` eða `Error` |
-| `tenantIdHash` | strengur | SHA256 hash of tenant ID |
-| `totalCount` | int | Total matching skjöl (áður en pagination) |
-| `count` | int | skjöl in this page |
-| `skip` | int | OFFSET notað |
-| `take` | int | LIMIT notað |
-| `items` | fylki | Raw Cosmos skjöl |
+| `status` | string | `Success` or `Error` |
+| `tenantIdHash` | string | SHA256 hash of tenant ID |
+| `totalCount` | int | Total matching documents (before pagination) |
+| `count` | int | Documents in this page |
+| `skip` | int | OFFSET used |
+| `take` | int | LIMIT used |
+| `items` | fylki | Samræmdar leyfis-, notkunar- eða reikningsfærslur |
 
-## skjal Types
-| docType | Fields | Lýsing |
+## Document Types
+| docType | Fields | Description |
 |---------|--------|-------------|
 | `license` | id, tenantId, licenseType, quantity, purchasedAt | Purchased quota per pool |
-| `usage` | id, tenantId, companyId, dagsetning, licenseType, quantity, reportedAt | Daily usage per company per pool |
+| `usage` | id, tenantId, companyId, date, licenseType, quantity, reportedAt | Daily usage per company per pool |
 | `account` | id, tenantId, userRemaining, appRemaining, updatedAt | Remaining quota summary |
 
-## Villa Response
+## Error Response
 ```json
 {
   "status": "Error",
-  "error": "Bifrost Cosmos request failed. Status: 401. Response: ..."
+  "error": "License request failed. Status: 401. Response: ..."
 }
 ```
 
-## Tengdar skilaboðategundir
-- `Help.License.Sync` — forces an immediate usage sync áður en reading
-- `Help.License.Usage.Write` (test aðeins) — seeds usage skjöl
-- `Help.License.Reset` (test aðeins) — deletes all skjöl fyrir the tenant
-
+## Related Message Types
+- `Help.License.Sync` — forces an immediate usage sync before reading
+- `Help.License.Usage.Write` (test only) — seeds usage documents
+- `Help.License.Reset` (test only) — clears licensing records for the tenant

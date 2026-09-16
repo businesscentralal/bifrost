@@ -58,58 +58,43 @@ only when the environment is a sandbox). See
 
 Before a chargeable message is processed, the caller's pool is checked:
 
-- A flat **100-message grace buffer** applies, so a pool keeps working slightly past its
-  purchased amount. A pool counts as exhausted once its remaining quota has fallen more than
-  100 messages below zero.
-- When the pool is exhausted **and** the pool blocks (see below), the message is **not
+- A small grace allowance may apply past the purchased amount. Exact grace size and related
+  fail-over behaviour are part of the customer licence contract; they are not published here.
+- When the pool is exhausted **and** the pool is configured to block, the message is **not
   processed** and a structured error is returned:
 
   ```json
   { "status": "Error", "error": "Message quota for the User pool is exhausted. Visit … to request additional licenses.", "requestUrl": "…" }
   ```
 
-- If remaining is unknown (a fresh install before the first sync, or the licensing service is
-  temporarily unreachable), processing is **allowed** (fail-open).
+- When remaining quota is unknown (for example before the first sync), the product may still
+  allow processing. Treat that as an operational detail of the licensing service, not as a
+  guarantee that calls will always succeed without quota.
 
 ### Blocking or warning
 
-What happens to an exhausted pool is decided per pool. The setting is configuration rather
-than a credential, so it lives in **module-scoped** IsolatedStorage — one value for the whole
-tenant rather than one per company:
-
-| Key | Data scope | Pool |
-|-----|-----------|------|
-| `BlockOnMissingQuota-User` | `DataScope::Module` | User |
-| `BlockOnMissingQuota-AppRegistration` | `DataScope::Module` | App Registration |
+What happens to an exhausted pool is decided per pool. The effective value for each pool is
+exposed as `blockOnMissingQuota` in the license status JSON (see
+[Checking status](#checking-status)):
 
 | Value | Effect |
 |-------|--------|
-| `true`, **or the key is absent** | The call is refused with the quota-exhausted error above. Absent is the normal case, so this is the effective value almost everywhere. |
+| `true` (the usual default) | The call is refused with the quota-exhausted error above. |
 | `false` | The call runs. It is still charged against the pool, and the response still carries the quota warning — the tenant simply keeps working past its purchased quota. |
 
-The keys are written by the **license sync** (`Usage Sync ori`) and by nothing else: no page
-and no message type of the product app sets them. The sync code carries a `TODO` marking
-where the values will be read from the Entra tenant configuration document in Azure Cosmos
-DB. Until that document exists the keys stay absent and both pools block, exactly as Bifröst
-always has.
-
-The effective value of each pool is visible in two places:
-
-- read-only in the **Quota Blocking** group of the **Bifrost Connection Status** page, which
-  is reachable from the **Licensing** group of the Bifrost Setup page. A value that has never
-  been synced is shown as the built-in default rather than as a stored setting;
-- as `blockOnMissingQuota` per pool in the license status JSON, described under
-  [Checking status](#checking-status).
+Callers should read `blockOnMissingQuota` from the public status payload rather than assuming
+a particular storage or admin UI layout.
 
 ## Low-quota warnings
 
-Successful JSON responses carry a `warnings` array when the caller's pool is running low:
+Successful JSON responses carry a `warnings` array when the caller's pool is running low.
+Severity values you may see:
 
-| Remaining | Severity | Meaning |
-|-----------|----------|---------|
-| 1 to 100 | `approaching` | The quota is about to run out. |
-| 0 or fewer | `grace` | The quota is spent; the pool is drawing on its 100-message grace buffer. |
-| more than 100 below zero | `exhausted` | The grace buffer is used up too. Only reachable for a pool whose `blockOnMissingQuota` flag is `false` — otherwise the call was refused instead of warned. |
+| Severity | Meaning |
+|----------|---------|
+| `approaching` | The quota is about to run out. |
+| `grace` | The quota is spent; a small grace allowance may still apply. |
+| `exhausted` | The pool is fully used. Only reachable for a pool whose `blockOnMissingQuota` flag is `false` — otherwise the call was refused instead of warned. |
 
 ```json
 {
@@ -146,7 +131,7 @@ Usage is reported to the licensing service once per day **per company**:
 ## Checking status
 
 - `Help.Bifrost.Get` returns the current license status as `licenseStatus`.
-- `Help.License.Get` returns the license and account documents, and now carries the same
+- `Help.License.Get` returns the license and account entries, and carries the same
   `licenseStatus` object, so a caller that already reads license entries does not need a
   second round-trip.
 - `Help.License.Sync` (admin only) forces an immediate usage sync and returns the refreshed status.
@@ -168,8 +153,8 @@ The license status object looks like this:
 | Field | Type | Meaning |
 |-------|------|---------|
 | `remaining` | int / null | Messages left in the pool; `null` while no value has been synced. |
-| `valid` | bool | False once the pool is past the 100-message grace buffer. |
-| `blockOnMissingQuota` | bool | `true` (the default) refuses calls once the pool is exhausted; `false` lets them run, still charges them and still returns the quota warning. Read-only — only the license sync writes it. |
+| `valid` | bool | False once the pool is past any grace allowance and is no longer considered within quota. |
+| `blockOnMissingQuota` | bool | `true` (the default) refuses calls once the pool is exhausted; `false` lets them run, still charges them and still returns the quota warning. Read-only from the caller's point of view — refreshed by license sync. |
 
 ## Requesting licenses
 

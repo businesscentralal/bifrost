@@ -12,8 +12,8 @@ This page is generated from the message type's own help codeunit by
 :::
 
 
-Writes license documents to Cosmos DB using the same WriteLicenseDocument call
-as the install trial seed.
+Writes license entries to the licensing service using the same path as the install trial seed.
+Intended for test and provisioning scenarios.
 
 ## Shorthand — both pools, trial-* ids
 ```json
@@ -33,6 +33,5 @@ as the install trial seed.
 
 ## Response
 ```json
-{ "status": "Success", "written": 2, "documents": [ { "id": "...", ... } ] }
+{ "status": "Success", "written": 2, "documents": [ { "id": "...", "...": "..." } ] }
 ```
-

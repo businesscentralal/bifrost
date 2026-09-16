@@ -228,9 +228,9 @@ Gildið er aldrei hluti af fjarmælingavídd.
 
 ## Ekki rugla saman við
 
-`Secret Mgt ori` (eining 10077907) er **innri** eining grunnsins og þjónar leyfisbakendanum: App Key
-Vault í skýinu, IsolatedStorage með fyrirtækjaumfangi í eigin umhverfi. Hún tengist ekki
-leyndarmálageymslu forrita sem lýst er hér og er ekki hluti af opinbera viðmótinu.
+`Secret Mgt ori` (eining 10077907) er **innri** eining grunnsins og þjónar leyfisbakendanum.
+Hún tengist ekki leyndarmálageymslu forrita sem lýst er hér og er ekki hluti af opinbera
+viðmótinu.
 
 ---
 

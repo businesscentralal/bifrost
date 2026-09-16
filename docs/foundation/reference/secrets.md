@@ -262,8 +262,8 @@ The value is never part of a telemetry dimension.
 ## Not to be confused with
 
 `Secret Mgt ori` (codeunit 10077907) is **internal** to Foundation and serves the licensing
-backend: App Key Vault in SaaS, company-scoped IsolatedStorage on premises. It is unrelated to the
-application secret store described here and is not part of the public API.
+backend. It is unrelated to the application secret store described here and is not part of the
+public API.
 
 ---
 
@@ -271,4 +271,3 @@ application secret store described here and is not part of the public API.
 
 - **[Extending Bifröst Setup](/extensibility/setup-and-secrets/)** - the Apps extension point
 - **[Setup Reference](/foundation/reference/setup/)** - the Bifröst Setup table
-- **KeyVault Setup** - the licensing secrets in the App Key Vault

@@ -12,8 +12,8 @@ This page is generated from the message type's own help codeunit by
 :::
 
 
-Writes usage documents to the Cosmos DB license collection using the same document
-id formula and WriteUsageDocument call as the production daily sync.
+Writes usage entries to the licensing service using the same document id formula as the
+production daily sync. Intended for test scenarios.
 
 ## Explicit entries
 ```json
@@ -34,6 +34,5 @@ random quantity 1–`maxQuantity` (default 5000).
 
 ## Response
 ```json
-{ "status": "Success", "written": 14, "documents": [ { "id": "...", ... } ] }
+{ "status": "Success", "written": 14, "documents": [ { "id": "...", "...": "..." } ] }
 ```
-
