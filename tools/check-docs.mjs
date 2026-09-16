@@ -5,32 +5,45 @@
  *   node tools/check-docs.mjs              # default: ipBoundary
  *   node tools/check-docs.mjs ipBoundary    # same
  *
- * ipBoundary fails when forbidden vocabulary appears under docs/, help/, or
- * the matching i18n markdown mirrors. Wired as `npm run check:ip-boundary`.
- * Hooking it into CI (preview / deploy) is a follow-up if maintainers want the
- * gate on every PR rather than on demand.
+ * ipBoundary fails when new forbidden vocabulary appears under docs/, help/,
+ * or the matching i18n markdown mirrors. Wired as `npm run check:ip-boundary`.
+ * Preview/deploy CI wiring is deferred until the GitHub token has the
+ * `workflow` scope (`gh auth refresh -h github.com -s workflow`).
+ *
+ * tools/generate-message-type-docs.ps1 can overwrite generated message-type
+ * pages until Foundation core#67 lands. This check is the safety net: exact
+ * lines already present when site PR #17 merged are grandfathered, but changed
+ * or newly generated lines are checked against the current vocabulary.
  */
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
 import {readdir, readFile, stat} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
+const execFileAsync = promisify(execFile);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-/** Phrases / tokens that must not appear on the public site. */
+// Foundation guard vocabulary. Patterns with identifier-like casing stay exact;
+// product names are case-insensitive, and Key Vault also catches KeyVault.
 const FORBIDDEN = [
-  'Cosmos',
-  'Key Vault',
-  'KeyVault',
-  'vault.azure.net',
-  'CE-Cosmos',
-  'CE-licenses',
-  'accessKey',
-  'AccountKey=',
-  'InstrumentationKey=',
-  'DefaultEndpointsProtocol=',
+  {token: 'Cosmos', pattern: /Cosmos/i},
+  {token: 'Key Vault', pattern: /Key\s*Vault/i},
+  {token: 'vault.azure.net', pattern: /vault\.azure\.net/i},
+  {token: 'CE-', pattern: /CE-/},
+  {token: 'TODO', pattern: /\bTODO\b/},
+  {token: 'FIXME', pattern: /\bFIXME\b/},
+  {token: 'accessKey', pattern: /accessKey/},
+  {token: 'AccountKey=', pattern: /AccountKey=/},
+  {token: 'InstrumentationKey=', pattern: /InstrumentationKey=/},
+  {token: 'DefaultEndpointsProtocol=', pattern: /DefaultEndpointsProtocol=/},
+  {token: ' Impl ori', pattern: / Impl ori/},
+  {token: ' Handler ori', pattern: / Handler ori/},
+  {token: 'Codeunit.Run', pattern: /Codeunit\.Run/},
 ];
 
 const SCAN_ROOTS = ['docs', 'help', 'i18n'];
+const BASELINE_COMMIT = 'a4250f2fbb1aa401a4d1ce372299fba345de3227';
 
 async function* walkMarkdown(dir) {
   let entries;
@@ -56,24 +69,48 @@ function findHits(content, filePath) {
   const lines = content.split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    for (const token of FORBIDDEN) {
-      // Case-sensitive for connection-string fragments; case-insensitive for names.
-      const caseSensitive = token.includes('=') || token.includes('.');
-      const idx = caseSensitive
-        ? line.indexOf(token)
-        : line.toLowerCase().indexOf(token.toLowerCase());
-      if (idx !== -1) {
-        hits.push({file: filePath, line: i + 1, token, excerpt: line.trim().slice(0, 160)});
+    for (const {token, pattern} of FORBIDDEN) {
+      if (pattern.test(line)) {
+        hits.push({file: filePath, line: i + 1, token, source: line, excerpt: line.trim().slice(0, 160)});
       }
     }
   }
   return hits;
 }
 
+async function readBaseline(filePath) {
+  try {
+    const {stdout} = await execFileAsync('git', ['show', `${BASELINE_COMMIT}:${filePath}`], {
+      cwd: root,
+      encoding: 'utf8',
+      maxBuffer: 10 * 1024 * 1024,
+    });
+    return stdout;
+  } catch {
+    return '';
+  }
+}
+
+function removeGrandfatheredHits(currentHits, baselineHits) {
+  const allowances = new Map();
+  for (const hit of baselineHits) {
+    const key = `${hit.token}\0${hit.source}`;
+    allowances.set(key, (allowances.get(key) ?? 0) + 1);
+  }
+
+  return currentHits.filter((hit) => {
+    const key = `${hit.token}\0${hit.source}`;
+    const remaining = allowances.get(key) ?? 0;
+    if (remaining === 0) return true;
+    allowances.set(key, remaining - 1);
+    return false;
+  });
+}
+
 async function ipBoundary() {
   const hits = [];
-  for (const rel of SCAN_ROOTS) {
-    const abs = path.join(root, rel);
+  for (const scanRoot of SCAN_ROOTS) {
+    const abs = path.join(root, scanRoot);
     const st = await stat(abs).catch(() => null);
     if (!st || !st.isDirectory()) continue;
     for await (const file of walkMarkdown(abs)) {
@@ -81,16 +118,19 @@ async function ipBoundary() {
       // Meta policy page may describe the rule without embedding every token.
       if (/(^|[/\\])ip-boundary\.md$/i.test(rel)) continue;
       const content = await readFile(file, 'utf8');
-      hits.push(...findHits(content, rel));
+      const currentHits = findHits(content, rel);
+      if (currentHits.length === 0) continue;
+      const baseline = await readBaseline(rel);
+      hits.push(...removeGrandfatheredHits(currentHits, findHits(baseline, rel)));
     }
   }
 
   if (hits.length === 0) {
-    console.log('ipBoundary: OK — no forbidden vocabulary under docs/, help/, or i18n/.');
+    console.log('ipBoundary: OK — no new forbidden vocabulary under docs/, help/, or i18n/.');
     return 0;
   }
 
-  console.error(`ipBoundary: FAILED — ${hits.length} hit(s):\n`);
+  console.error(`ipBoundary: FAILED — ${hits.length} new hit(s):\n`);
   for (const hit of hits) {
     console.error(`  ${hit.file}:${hit.line}  [${hit.token}]  ${hit.excerpt}`);
   }
