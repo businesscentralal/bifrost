@@ -12,14 +12,19 @@ This page is generated from the message type's own help codeunit by
 :::
 
 
-Writes and clears the on-premises licensing secrets in company-scoped IsolatedStorage.
+Writes or clears the on-premises licensing connection material for the current company.
+
+On-premises licence customers receive the required secrets from **Origo** with their licence.
+Do not invent or publish account names, keys, database identifiers, or other connection
+literals on the public site — paste only the values Origo supplied into this message type
+(or clear them with `clearAll`).
+
+### Clear all stored on-premises licensing secrets
 ```json
-{
-  "clearAll": true,
-  "accountName": "my-cosmos-account",
-  "accessKey": "<base64>",
-  "databaseId": "CE-licenses",
-  "containerId": "licenses"
-}
+{ "clearAll": true }
 ```
 
+### Set secrets supplied by Origo
+
+Pass the fields Origo documented for your on-premises licence. Field names and shapes are
+part of that private delivery, not of this public contract page.

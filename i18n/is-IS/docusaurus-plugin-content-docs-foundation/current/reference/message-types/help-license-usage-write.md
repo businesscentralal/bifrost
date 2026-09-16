@@ -12,10 +12,10 @@ description: "Beiðni- og svarsamningur fyrir Help.License.Usage.Write Bifröst 
 :::
 
 
-Writes usage skjöl til the Cosmos DB license collection using the sama skjal
-id formula og WriteUsageDocument call as the production daily sync.
+Skrifar notkunarfærslur til leyfisþjónustunnar með sömu skjalaauðkennisformúlu og daglega
+samstilling framleiðslunnar. Ætlað fyrir prófunaratvik.
 
-## Explicit færslur
+## Explicit entries
 ```json
 {
   "entries": [
@@ -29,11 +29,10 @@ id formula og WriteUsageDocument call as the production daily sync.
 ```json
 { "days": 14, "maxQuantity": 8000 }
 ```
-Writes one færsla per pool per day fyrir the síðasta `days` days (Sjálfgefið 7),
-random quantity 1–`maxQuantity` (Sjálfgefið 5000).
+Writes one entry per pool per day for the last `days` days (default 7),
+random quantity 1–`maxQuantity` (default 5000).
 
 ## Response
 ```json
-{ "status": "Success", "written": 14, "documents": [ { "id": "...", ... } ] }
+{ "status": "Success", "written": 14, "documents": [ { "id": "...", "...": "..." } ] }
 ```
-

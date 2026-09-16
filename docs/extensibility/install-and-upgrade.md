@@ -22,8 +22,8 @@ A successor is a new app, not a new version of the old one. Its `app.json` gets:
 - a **new app id** — and the test app gets a new id too;
 - a **version reset to `28.0.0.0`**, because the version history belongs to the retired app;
 - a **new object ID range** from the shared workbook, registered before any object uses it;
-- the **same Application Insights connection string and the same Key Vault** as the app it
-  replaces, so telemetry and licensing continue in one place;
+- the **same Application Insights connection string and the same licensing configuration** as
+  the app it replaces, so telemetry and licensing continue in one place;
 - `"publisher": "Origo"`, unchanged.
 
 Nothing else is inherited. The app name changes, the namespace changes, the API route

@@ -12,9 +12,9 @@ This page is generated from the message type's own help codeunit by
 :::
 
 
-Deletes every Cosmos document (account + license + usage) for the current tenant and
-clears the locally cached remaining-quota values and sync markers so the next
-Help.License.Sync starts from a clean slate.
+Clears licensing records (account, license, and usage entries) for the current tenant at the
+licensing service and clears the locally cached remaining-quota values and sync markers so the
+next `Help.License.Sync` starts from a clean slate. Intended for test and support scenarios.
 
 ## Full reset (default)
 ```json
@@ -22,10 +22,13 @@ Help.License.Sync starts from a clean slate.
 ```
 
 ## Fine-grained
+
+Optional flags select whether remote licensing records and/or the local cache are cleared, and
+whether to run as a dry run (report what would be cleared without applying changes):
+
 ```json
 {
-  "cosmos": true,
-  "cache":  true,
+  "cache": true,
   "dryRun": false
 }
 ```
@@ -36,8 +39,7 @@ Help.License.Sync starts from a clean slate.
   "status": "Success",
   "tenantIdHash": "...",
   "dryRun": false,
-  "cosmos": { "deleted": 17, "byType": { "account": 1, "license": 2, "usage": 14 } },
   "cache":  { "userRemainingCleared": true, "appRemainingCleared": true, "lastSyncCleared": true, "scheduledCleared": true },
   "documents": [ { "id": "...", "docType": "..." } ]
+}
 ```
-

@@ -319,7 +319,7 @@ Bifröst Setup page eftir installing Bifrost Iceland DocEx.
 | `CE-DOCEX-INEX-TEST` | `Bifrost_DocEx_InEx_Test` |
 
 Each prefix er suffixed með `-USER` og `-PWD` by `DocEx Credentials ori`.
-Key Vault secret names still start með `CE-` — that er an external contract og was deliberately left alone.
+Eldri auðkennisforskeyti sem byrja enn á `CE-` eru aðeins flutningsheiti; ekki líta á þau sem opinbera skráningu á leyndarmálanöfnum.
 
 
 ## Test app objects (Bifrost Iceland DocEx - Tests)

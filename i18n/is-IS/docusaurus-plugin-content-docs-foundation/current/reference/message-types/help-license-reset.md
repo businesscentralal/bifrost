@@ -12,9 +12,9 @@ description: "Beiðni- og svarsamningur fyrir Help.License.Reset Bifröst skilab
 :::
 
 
-Deletes every Cosmos skjal (account + license + usage) fyrir the current tenant og
-clears the locally cached remaining-quota values og sync markers so the next
-Help.License.Sync starts úr a clean slate.
+Hreinsar leyfisfærslur (reikning, leyfi og notkun) fyrir núverandi leigjanda hjá
+leyfisþjónustunni og hreinsar staðbundnar vistaðar eftirstöðvar og samstillingarmerki svo
+næsta `Help.License.Sync` byrji á hreinu borði. Ætlað fyrir prófunar- og þjónustuatvik.
 
 ## Full reset (Sjálfgefið)
 ```json
@@ -22,10 +22,13 @@ Help.License.Sync starts úr a clean slate.
 ```
 
 ## Fine-grained
+
+Valfrjálsir fánar velja hvort fjartengdar leyfisfærslur og/eða staðbundin skyndiminni eru
+hreinsuð, og hvort keyra eigi sem dry run (skýra hvað yrði hreinsað án þess að beita):
+
 ```json
 {
-  "cosmos": true,
-  "cache":  true,
+  "cache": true,
   "dryRun": false
 }
 ```
@@ -36,8 +39,7 @@ Help.License.Sync starts úr a clean slate.
   "status": "Success",
   "tenantIdHash": "...",
   "dryRun": false,
-  "cosmos": { "deleted": 17, "byType": { "account": 1, "license": 2, "usage": 14 } },
   "cache":  { "userRemainingCleared": true, "appRemainingCleared": true, "lastSyncCleared": true, "scheduledCleared": true },
   "documents": [ { "id": "...", "docType": "..." } ]
+}
 ```
-

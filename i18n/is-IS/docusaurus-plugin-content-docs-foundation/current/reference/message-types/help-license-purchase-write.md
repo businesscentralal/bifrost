@@ -12,15 +12,15 @@ description: "Beiðni- og svarsamningur fyrir Help.License.Purchase.Write Bifrö
 :::
 
 
-Writes license skjöl til Cosmos DB using the sama WriteLicenseDocument call
-as the install trial seed.
+Skrifar leyfisfærslur til leyfisþjónustunnar með sama ferli og prufusáðningin við uppsetningu.
+Ætlað fyrir prófunar- og útvegunaratvik.
 
 ## Shorthand — both pools, trial-* ids
 ```json
 { "quantity": 5000 }
 ```
 
-## Explicit færslur
+## Explicit entries
 ```json
 {
   "entries": [
@@ -29,10 +29,9 @@ as the install trial seed.
   ]
 }
 ```
-"id" er valfrjálst in hver færsla; defaults til trial-user/trial-app stable ids.
+"id" is optional in each entry; defaults to trial-user/trial-app stable ids.
 
 ## Response
 ```json
-{ "status": "Success", "written": 2, "documents": [ { "id": "...", ... } ] }
+{ "status": "Success", "written": 2, "documents": [ { "id": "...", "...": "..." } ] }
 ```
-

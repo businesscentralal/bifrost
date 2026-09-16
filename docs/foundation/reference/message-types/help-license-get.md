@@ -13,10 +13,10 @@ This page is generated from the message type's own help codeunit by
 
 
 ## Overview
-Returns license entries from Cosmos DB for this tenant with server-side filtering
-and pagination. Does NOT force a sync — only reads existing documents.
+Returns license entries for this tenant from the licensing service, with server-side
+filtering and pagination. Does **not** force a sync — only reads existing entries.
 
-Use `Help.License.Sync` first if you need fresh data reported to Cosmos.
+Use `Help.License.Sync` first if you need fresh usage reported to the licensing service.
 
 ## Direction
 Outbound (read-only)
@@ -98,7 +98,7 @@ All parameters are optional. An empty request `{}` returns up to 100 entries.
 | `count` | int | Documents in this page |
 | `skip` | int | OFFSET used |
 | `take` | int | LIMIT used |
-| `items` | array | Raw Cosmos documents |
+| `items` | array | Matching license, usage, or account entries |
 
 ## Document Types
 | docType | Fields | Description |
@@ -111,12 +111,11 @@ All parameters are optional. An empty request `{}` returns up to 100 entries.
 ```json
 {
   "status": "Error",
-  "error": "Bifrost Cosmos request failed. Status: 401. Response: ..."
+  "error": "License request failed. Status: 401. Response: ..."
 }
 ```
 
 ## Related Message Types
 - `Help.License.Sync` — forces an immediate usage sync before reading
 - `Help.License.Usage.Write` (test only) — seeds usage documents
-- `Help.License.Reset` (test only) — deletes all documents for the tenant
-
+- `Help.License.Reset` (test only) — clears licensing records for the tenant

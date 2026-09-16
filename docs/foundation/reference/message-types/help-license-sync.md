@@ -13,7 +13,7 @@ This page is generated from the message type's own help codeunit by
 
 
 ## Overview
-Forces an immediate **usage sync** for the current company. It reports each completed day's chargeable message counts (per pool) to Cosmos, refreshes the cached remaining quota for the User and App Registration pools, and resets the reported messages.
+Forces an immediate **usage sync** for the current company. It reports each completed day's chargeable message counts (per pool) to the licensing service, refreshes the cached remaining quota for the User and App Registration pools, and resets the reported messages.
 
 Use this when:
 - Additional licenses were just purchased and you want the new remaining quota reflected immediately (instead of waiting for the next daily sync).
@@ -74,4 +74,3 @@ None. The sync always operates on the caller's own tenant and company context.
 ## Related Message Types
 - `Help.Bifrost.Get` — returns the same license status without forcing a sync.
 - `Help.WhoAmI.Get` — check current user identity and permissions.
-
