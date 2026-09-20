@@ -185,7 +185,7 @@ or open the dashboard for the full catalogue).
 | Tool | Purpose |
 |---|---|
 | `list_message_types` | Wraps `Help.MessageTypes.Get` — the catalogue of message types installed in the target environment. Call this before using a type you have not used before; see [help-and-discovery.md](help-and-discovery.md). |
-| `get_message_type_help` | Wraps `Help.Implementation.Get` — the contract (parameters, `data` shape, examples) for one message type. Call this instead of guessing a type's arguments from its name. |
+| `describe_message_type` | Wraps `Help.Implementation.Get` — the contract (parameters, `data` shape, examples) for one message type. Call this instead of guessing a type's arguments from its name. |
 | `invoke_message_type` | Generic entry point: send any Bifröst message type by name with its `data` payload and get the result back, without hand-building the queue-api envelope yourself. This is the tool `MCP_LITE=1` builds the reduced tool set around. |
 
 #### Records

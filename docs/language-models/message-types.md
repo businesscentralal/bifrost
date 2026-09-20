@@ -20,7 +20,7 @@ The message type is deliberately minimal compared with the interactive Bifrost C
 
 That makes it the general-purpose compute step for playbooks and scheduled tasks — date arithmetic, classification, extraction, translation, summarisation, filter generation and free-text generation — wherever no standard message type covers the step.
 
-Bragi registers the type on Foundation's `Message Type ori` enum through `enumextension "Bragi Message Type ori"` (10035399), so it is dispatched exactly like a Foundation message type: through the `tasks` API endpoint, through the queue, or through the `call_message_type` MCP tool.
+Bragi registers the type on Foundation's `Message Type ori` enum through `enumextension "Bragi Message Type ori"` (10035399), so it is dispatched exactly like a Foundation message type: through the `tasks` API endpoint, through the queue, or through the `invoke_message_type` MCP tool.
 
 ## Message Type List
 
@@ -257,7 +257,7 @@ Every error path returns HTTP 200 with `status: "Error"` in the body. The messag
 | System prompt | The caller's `system` only | Bootstrap, identity, language-model skill and the user's own system prompt |
 | Response | Always text | May return tool calls, resolved over several turns |
 | Conversation state | None | Kept for multi-turn conversations |
-| Entry point | `tasks` API, queue, MCP `call_message_type` | Business Central client |
+| Entry point | `tasks` API, queue, MCP `invoke_message_type` | Business Central client |
 | Use case | Automated tasks and playbooks | Interactive work on a page |
 
 ---

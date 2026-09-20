@@ -273,7 +273,7 @@ bootstrap system prompt (see Bootstrap System Prompt Template below). They cover
 
 ## Tool Catalog (Lite Mode — 16 tools)
 
-All tools route through `Dispatcher ori`. The model uses `invoke_message_type` + `get_message_type_help` for anything not in this list.
+All tools route through `Dispatcher ori`. The model uses `invoke_message_type` + `describe_message_type` for anything not in this list.
 
 ### Core Message Type Tools (3)
 
@@ -281,7 +281,7 @@ All tools route through `Dispatcher ori`. The model uses `invoke_message_type` +
 |-----------|-------------|-------------|
 | `invoke_message_type` | (any — pass-through) | Universal tool — calls any registered message type |
 | `list_message_types` | `Help.MessageTypes.Get` (with `OnlyEnabled=true`) | Lists enabled message types only |
-| `get_message_type_help` | `Help.Implementation.Get` | Detailed help for a specific message type |
+| `describe_message_type` | `Help.Implementation.Get` | Detailed help for a specific message type |
 
 #### `invoke_message_type` — Input Schema
 
@@ -414,7 +414,7 @@ Returns: `{ "deleted": 3, "remainingSize": 100000 }`
 | `set_company_memory` | `Memory.Company.Set` |
 
 **Schemas for named tools:** The data tools (`get_records`, `set_records`, `get_record_ids`, `batch_records`)
-and memory tools mirror their message type's request format. Use `get_message_type_help` with the
+and memory tools mirror their message type's request format. Use `describe_message_type` with the
 message type name (e.g. `Data.Records.Get`) to get the exact schema. All named tools also accept
 the optional `storeJsonPaths` parameter described under `invoke_message_type`.
 
@@ -468,7 +468,7 @@ Implement the core codeunit with:
 - `ListTools()` — returns the ~16 tool definitions
 - `CallTool()` — dispatches by tool name
 - `list_message_types` passes `OnlyEnabled=true` to only expose administrator-enabled types
-- Start with just `invoke_message_type`, `list_message_types`, `get_message_type_help`, `who_am_i`
+- Start with just `invoke_message_type`, `list_message_types`, `describe_message_type`, `who_am_i`
 
 **Files:** `app/src/BifrostChat/CEMCPToolServer.Codeunit.al`
 
