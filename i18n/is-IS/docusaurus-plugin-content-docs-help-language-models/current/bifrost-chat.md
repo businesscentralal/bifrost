@@ -79,7 +79,7 @@ Bifrost Language Models inniheldur innbyggðan MCP verkfæraþjón. Hann birtir 
 
 | Verkfæraflokkur | Til hvers aðstoðin notar hann |
 | --- | --- |
-| **Uppgötvun** | `list_message_types`, `get_message_type_help`, `search_tables`, `get_fields`, `who_am_i` – að finna hvaða aðgerðir, töflur og reitir eru til og hver er innskráður. |
+| **Uppgötvun** | `list_message_types`, `describe_message_type`, `search_tables`, `get_fields`, `who_am_i` – að finna hvaða aðgerðir, töflur og reitir eru til og hver er innskráður. |
 | **Lestur gagna** | `get_records`, `get_record_ids`, `get_record_count`, `get_totals`, `find_entries` – að lesa færslur, telja þær, leggja saman upphæðir og fara úr skjali yfir í tengdar færslur. |
 | **Breyting gagna** | `set_records`, `get_next_line_no` – að stofna og uppfæra færslur, til dæmis að bæta línu við sölupöntun. Aðstoðin les áður en hún skrifar og biður þig um staðfestingu fyrst. |
 | **Skrár** | `get_blob`, `set_blob`, `list_blobs`, `delete_blobs`, `download_blob` – að meðhöndla viðhengi, PDF-skjöl og annað tvíundarefni og vista skrá á tækið þitt. |

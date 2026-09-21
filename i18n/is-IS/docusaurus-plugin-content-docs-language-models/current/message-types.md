@@ -20,7 +20,7 @@ The message tegund er deliberately minimal compared með the interactive Bifrost
 
 That makes it the general-purpose compute step fyrir playbooks og scheduled verkþættir — dagsetning arithmetic, classification, extraction, translation, summarisation, filter generation og free-text generation — wherever no standard message tegund covers the step.
 
-Bragi registers the tegund on Foundation's `Message Type ori` enum through `enumextension "Bragi Message Type ori"` (10035399), so it er dispatched exactly like a Foundation message tegund: through the `tasks` API endpoint, through the queue, eða through the `call_message_type` MCP tool.
+Bragi registers the tegund on Foundation's `Message Type ori` enum through `enumextension "Bragi Message Type ori"` (10035399), so it er dispatched exactly like a Foundation message tegund: through the `tasks` API endpoint, through the queue, eða through the `invoke_message_type` MCP tool.
 
 ## Skilaboð Type List
 
@@ -257,7 +257,7 @@ Every villa slóð returns HTTP 200 með `status: "Error"` in the body. The mess
 | System prompt | Kallandinn's `system` aðeins | Bootstrap, identity, language-model skill og the notandi's own system prompt |
 | Svar | Alltaf text | May return tool calls, resolved over several turns |
 | Conversation state | None | Kept fyrir multi-turn conversations |
-| Entry point | `tasks` API, queue, MCP `call_message_type` | Business Central client |
+| Entry point | `tasks` API, queue, MCP `invoke_message_type` | Business Central client |
 | Notaðu case | Automated verkþættir og playbooks | Interactive work on a page |
 
 ---

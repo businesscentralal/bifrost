@@ -79,7 +79,7 @@ Bifrost Language Models contains a built-in MCP tool server. It exposes Bifrost 
 
 | Tool group | What the assistant uses it for |
 | --- | --- |
-| **Discovery** | `list_message_types`, `get_message_type_help`, `search_tables`, `get_fields`, `who_am_i` – finding out which operations, tables and fields exist and who is signed in. |
+| **Discovery** | `list_message_types`, `describe_message_type`, `search_tables`, `get_fields`, `who_am_i` – finding out which operations, tables and fields exist and who is signed in. |
 | **Reading data** | `get_records`, `get_record_ids`, `get_record_count`, `get_totals`, `find_entries` – reading records, counting them, adding up amounts and navigating from a document to its ledger entries. |
 | **Changing data** | `set_records`, `get_next_line_no` – creating and updating records, for example adding a line to a sales order. The assistant reads before it writes and asks you to confirm first. |
 | **Files** | `get_blob`, `set_blob`, `list_blobs`, `delete_blobs`, `download_blob` – handling attachments, PDF documents and other binary content, and saving a file to your device. |
