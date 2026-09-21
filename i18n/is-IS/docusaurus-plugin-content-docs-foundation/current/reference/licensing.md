@@ -132,11 +132,11 @@ Notkun er tilkynnt til leyfisþjónustunnar einu sinni á dag **fyrir hvert fyri
 ## Að skoða stöðu
 
 - `Help.Bifrost.Get` skilar núverandi leyfisstöðu sem `licenseStatus`.
-- `Help.License.Get` skilar leyfis- og reikningsfærslum og ber sama `licenseStatus` hlut,
-  svo kallandi sem les leyfisfærslur hvort eð er þarf ekki aðra ferð fram og til baka.
-- `Help.License.Sync` (aðeins stjórnandi) þvingar samstillingu strax og skilar uppfærðri stöðu.
 - **Leyfi**-staðreyndareiturinn á uppsetningarsíðunni sýnir sömu upplýsingar auk fjölda óskráðra
   skilaboða og dagsetningar síðustu samstillingar.
+
+Fyrrum `Help.License.*` skilaboðategundir eru ekki lengur í raunverulegri Foundation-skrá; notaðu
+`Help.Bifrost.Get` og þetta yfirlit frekar en þá úreltu samninga.
 
 Leyfisstöðuhluturinn lítur svona út:
 

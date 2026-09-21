@@ -131,12 +131,11 @@ Usage is reported to the licensing service once per day **per company**:
 ## Checking status
 
 - `Help.Bifrost.Get` returns the current license status as `licenseStatus`.
-- `Help.License.Get` returns the license and account entries, and carries the same
-  `licenseStatus` object, so a caller that already reads license entries does not need a
-  second round-trip.
-- `Help.License.Sync` (admin only) forces an immediate usage sync and returns the refreshed status.
 - The **License** factbox on the Bifrost Setup page shows the same information plus the
   number of unreported messages and the last sync date.
+
+Former `Help.License.*` message types are no longer in the live Foundation catalogue; use
+`Help.Bifrost.Get` and this overview rather than those retired contracts.
 
 The license status object looks like this:
 
