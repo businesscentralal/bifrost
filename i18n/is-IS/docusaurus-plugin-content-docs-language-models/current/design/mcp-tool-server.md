@@ -273,7 +273,7 @@ bootstrap system prompt (see Bootstrap System Prompt Template below). They cover
 
 ## Tool Catalog (Lite Mode — 16 tools)
 
-All tools route through `Dispatcher ori`. The model uses `invoke_message_type` + `get_message_type_help` fyrir anything not in this list.
+All tools route through `Dispatcher ori`. The model uses `invoke_message_type` + `describe_message_type` fyrir anything not in this list.
 
 ### Core Skilaboð Type Tools (3)
 
@@ -281,7 +281,7 @@ All tools route through `Dispatcher ori`. The model uses `invoke_message_type` +
 |-----------|-------------|-------------|
 | `invoke_message_type` | (any — pass-through) | Universal tool — calls any registered message tegund |
 | `list_message_types` | `Help.MessageTypes.Get` (with `OnlyEnabled=true`) | Lists enabled message tegunds aðeins |
-| `get_message_type_help` | `Help.Implementation.Get` | Detailed help fyrir a specific message tegund |
+| `describe_message_type` | `Help.Implementation.Get` | Detailed help fyrir a specific message tegund |
 
 #### `invoke_message_type` — Input Schema
 
@@ -414,7 +414,7 @@ Skilar: `{ "deleted": 3, "remainingSize": 100000 }`
 | `set_company_memory` | `Memory.Company.Set` |
 
 **Schemas fyrir heitid tools:** The data tools (`get_records`, `set_records`, `get_record_ids`, `batch_records`)
-and memory tools mirror their message tegund's request format. Notaðu `get_message_type_help` með the
+and memory tools mirror their message tegund's request format. Notaðu `describe_message_type` með the
 message tegund heiti (e.g. `Data.Records.Get`) to get the exact schema. All heitid tools also accept
 the optional `storeJsonPaths` parameter described under `invoke_message_type`.
 
@@ -468,7 +468,7 @@ Implement the core kóðiunit with:
 - `ListTools()` — returns the ~16 tool definitions
 - `CallTool()` — dispatches by tool heiti
 - `list_message_types` passes `OnlyEnabled=true` to aðeins expose administrator-enabled tegunds
-- Start með just `invoke_message_type`, `list_message_types`, `get_message_type_help`, `who_am_i`
+- Start með just `invoke_message_type`, `list_message_types`, `describe_message_type`, `who_am_i`
 
 **Files:** `app/src/BifrostChat/CEMCPToolServer.Codeunit.al`
 
