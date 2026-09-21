@@ -21,12 +21,14 @@ verkefnisins (2026-09-16) eru rétthærri en eldri texti ef þeim ber ekki saman
 - Hegðun vörunnar gagnvart viðskiptavinum: kvótapottar, hvað telst með, birt stærð prufukvóta,
   takmarkanir sandkassa / MCP sem þegar eru opinber vörulýsing og ferli leyfisbeiðna.
 - Opinberir samningar skilaboðategunda: lögun beiðna og svara sem kallendur sjá, þar á meðal
-  `Help.License.*` og leyfisstöðureitir `Help.Bifrost.Get` á borð við `blockOnMissingQuota`.
+  leyfisstöðureitir `Help.Bifrost.Get` á borð við `blockOnMissingQuota`.
 - Villusvör vegna uppurinns kvóta og aðrar skráðar opinberar API-villur (án þess að nefna
   undirliggjandi gagnageymslur í sýnidæmum).
 
-Síður `Help.License.*` eru **opinber samningsskjöl**. Hafðu þær áfram á vefnum; skrifaðu þær sem
-samning, ekki sem leiðsögn um innviði leyfisveitinga.
+Leyfishegðun sem kallendur og stjórnendur reiða sig á er **opinber samningur**. Skjalaðu hana
+á yfirliti [Leyfisveitinga](/foundation/reference/licensing/) og á lifandi skilaboðategundasíðum
+á borð við `Help.Bifrost.Get` — ekki sem leiðsögn um innviði leyfisveitinga. Ekki finna upp
+úreltar `Help.License.*` skilaboðategundasíður.
 
 ## Aldrei birta á þessum vef
 
@@ -59,13 +61,15 @@ verður á umlíðun skal aðeins segja að lítil umlíðun geti verið til sta
 séu uppurnir sé hafnað með skráðu villunni. Ekki birta nákvæma stærð umlíðunar, töflur yfir
 geymslulykla eða innri nöfn samstillingareininga fyrr en §4, lína 7 hefur verið staðfest.
 
-## Hvernig skrifa á Help.License.* síður
+## Hvernig skrifa á leyfissamningsskjöl
 
-1. Lýstu því sem kallandinn sendir og því sem kallandinn fær til baka.
-2. Segðu „leyfisþjónusta“ þegar nafnorð þarf um ytri þjónustuna — aldrei vöruheiti gagnageymslu.
-3. Um leyndarmál í eigin uppsetningu: taktu fram að Origo afhendi gildin með leyfi fyrir eigin
+1. Notaðu frekar yfirlit [Leyfisveitinga](/foundation/reference/licensing/) og lifandi tegundir á borð
+   við `Help.Bifrost.Get`. Ekki endurgera úreltar `Help.License.*` skilaboðategundasíður.
+2. Lýstu því sem kallandinn sendir og því sem kallandinn fær til baka.
+3. Segðu „leyfisþjónusta“ þegar nafnorð þarf um ytri þjónustuna — aldrei vöruheiti gagnageymslu.
+4. Um leyndarmál í eigin uppsetningu: taktu fram að Origo afhendi gildin með leyfi fyrir eigin
    uppsetningu; ekki líma inn raunhæf heiti reikninga, lykla eða auðkenni gagnagrunna.
-4. Haltu `blockOnMissingQuota` og öðrum reitum sem birtast í opinbera JSON-svarinu; ekki útskýra
+5. Haltu `blockOnMissingQuota` og öðrum reitum sem birtast í opinbera JSON-svarinu; ekki útskýra
    hvernig eða hvar flöggin eru geymd.
 
 ## Tengt efni

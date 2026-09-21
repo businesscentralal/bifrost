@@ -21,12 +21,14 @@ are the source of truth when they conflict with older prose.
 - Customer-facing product behaviour: quota pools, what counts, trial sizes that are published,
   sandbox / MCP limits that are already public product copy, request-licence flow.
 - Public message-type contracts: request and response shapes callers see, including
-  `Help.License.*` and `Help.Bifrost.Get` licence status fields such as `blockOnMissingQuota`.
+  `Help.Bifrost.Get` licence status fields such as `blockOnMissingQuota`.
 - Exhausted-quota error shapes and other documented public API errors (without naming backing
   stores in the example bodies).
 
-`Help.License.*` pages are **public contract docs**. Keep them on the site; write them as
-contract, not as a tour of the licensing backend.
+Licence behaviour that callers and administrators rely on is **public contract**. Document it
+on the [Licensing](/foundation/reference/licensing/) overview and on live message-type pages
+such as `Help.Bifrost.Get` — not as a tour of the licensing backend. Do not invent retired
+`Help.License.*` message-type pages.
 
 ## Never publish on this site
 
@@ -59,13 +61,15 @@ mentioned, say only that a small grace allowance may exist and that exhausted po
 refused with the documented error. Do not publish exact grace sizes, storage-key tables, or
 internal sync codeunit names until §4 row 7 is confirmed.
 
-## How to write Help.License.* pages
+## How to write licensing contract docs
 
-1. Describe what the caller sends and what the caller receives.
-2. Say "licensing service" when you need a noun for the remote side — never a store product.
-3. For on-premises secrets: state that Origo supplies the values with an on-premises licence;
+1. Prefer the [Licensing](/foundation/reference/licensing/) overview and live types such as
+   `Help.Bifrost.Get`. Do not recreate retired `Help.License.*` message-type pages.
+2. Describe what the caller sends and what the caller receives.
+3. Say "licensing service" when you need a noun for the remote side — never a store product.
+4. For on-premises secrets: state that Origo supplies the values with an on-premises licence;
    do not paste worked account names, keys, or database ids.
-4. Keep `blockOnMissingQuota` and other fields that appear in the public JSON response; do
+5. Keep `blockOnMissingQuota` and other fields that appear in the public JSON response; do
    not explain how or where those flags are stored.
 
 ## Related

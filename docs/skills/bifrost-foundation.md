@@ -39,31 +39,6 @@ It does not describe the API itself. The envelope, the endpoints, the error orde
 Append `message-types/<page>/` for a message type, or `<page>/` for the pages in the last table.
 From the deployed site the same paths resolve against this file’s own URL.
 
-### `Help.*` (20)
-
-| Message type | Page |
-| --- | --- |
-| `Help.Bifrost.Get` | `message-types/help-bifrost-get/` |
-| `Help.Fields.Get` | `message-types/help-fields-get/` |
-| `Help.Implementation.Get` | `message-types/help-implementation-get/` |
-| `Help.License.Environment.Set` | `message-types/help-license-environment-set/` |
-| `Help.License.Get` | `message-types/help-license-get/` |
-| `Help.License.Install.Run` | `message-types/help-license-install-run/` |
-| `Help.License.OnPremSecrets.Set` | `message-types/help-license-onpremsecrets-set/` |
-| `Help.License.Purchase.Write` | `message-types/help-license-purchase-write/` |
-| `Help.License.Reset` | `message-types/help-license-reset/` |
-| `Help.License.Set` | `message-types/help-license-set/` |
-| `Help.License.Sync` | `message-types/help-license-sync/` |
-| `Help.License.Usage.Write` | `message-types/help-license-usage-write/` |
-| `Help.MessageTypes.Get` | `message-types/help-messagetypes-get/` |
-| `Help.Namespaces.Get` | `message-types/help-namespaces-get/` |
-| `Help.NextLineNo.Get` | `message-types/help-nextlineno-get/` |
-| `Help.PageUrl.Get` | `message-types/help-pageurl-get/` |
-| `Help.Permissions.Get` | `message-types/help-permissions-get/` |
-| `Help.TableRelations.Get` | `message-types/help-tablerelations-get/` |
-| `Help.Tables.Get` | `message-types/help-tables-get/` |
-| `Help.WhoAmI.Get` | `message-types/help-whoami-get/` |
-
 ### `Inventory.*` (17)
 
 | Message type | Page |
@@ -127,6 +102,22 @@ From the deployed site the same paths resolve against this file’s own URL.
 | `Sales.SalesInvoice.Pdf` | `message-types/sales-salesinvoice-pdf/` |
 | `Sales.SalesInvoice.Send` | `message-types/sales-salesinvoice-send/` |
 | `Sales.SalesShipment.Pdf` | `message-types/sales-salesshipment-pdf/` |
+
+### `Help.*` (11)
+
+| Message type | Page |
+| --- | --- |
+| `Help.Bifrost.Get` | `message-types/help-bifrost-get/` |
+| `Help.Fields.Get` | `message-types/help-fields-get/` |
+| `Help.Implementation.Get` | `message-types/help-implementation-get/` |
+| `Help.MessageTypes.Get` | `message-types/help-messagetypes-get/` |
+| `Help.Namespaces.Get` | `message-types/help-namespaces-get/` |
+| `Help.NextLineNo.Get` | `message-types/help-nextlineno-get/` |
+| `Help.PageUrl.Get` | `message-types/help-pageurl-get/` |
+| `Help.Permissions.Get` | `message-types/help-permissions-get/` |
+| `Help.TableRelations.Get` | `message-types/help-tablerelations-get/` |
+| `Help.Tables.Get` | `message-types/help-tables-get/` |
+| `Help.WhoAmI.Get` | `message-types/help-whoami-get/` |
 
 ### `Purchase.*` (10)
 
@@ -299,12 +290,6 @@ From the deployed site the same paths resolve against this file’s own URL.
 | --- | --- |
 | `Email.Draft.Set` | `message-types/email-draft-set/` |
 
-### `Hello.*` (1)
-
-| Message type | Page |
-| --- | --- |
-| `Hello.Bifrost.Get` | `message-types/hello-bifrost-get/` |
-
 ### `Webhook.*` (1)
 
 | Message type | Page |
@@ -319,6 +304,7 @@ From the deployed site the same paths resolve against this file’s own URL.
 | Events and webhooks | `events-and-webhooks/` |
 | Field access restrictions | `field-access-restrictions/` |
 | Licensing | `licensing/` |
+| Metering interface | `metering-interface/` |
 | Secrets | `secrets/` |
 | Setup reference | `setup/` |
 
@@ -343,6 +329,6 @@ It is an index: what the app adds, when to load it, and the path of every refere
 <details>
 <summary>The description an agent matches this skill against</summary>
 
-Message types added to the Bifröst API by Bifrost Foundation. The message-based API surface for Business Central: a queue, a task and a response endpoint, self-describing message types, and the platform every other Bifröst app is built on. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index of what Foundation adds — 152 message types across 24 families (Help.*, Inventory.*, Finance.*, Sales.*, Purchase.*, Warehouse.*, Data.*, Document.*, Memory.*, Customer.*, Incoming.*, User.*, ChangeLog.*, Projects.*, Field.*, Resources.*, CSV.*, Deleted.*, Item.*, Project.*, Vendor.*, Email.*, Hello.*, Webhook.*).
+Message types added to the Bifröst API by Bifrost Foundation. The message-based API surface for Business Central: a queue, a task and a response endpoint, self-describing message types, and the platform every other Bifröst app is built on. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index of what Foundation adds — 142 message types across 23 families (Inventory.*, Finance.*, Sales.*, Help.*, Purchase.*, Warehouse.*, Data.*, Document.*, Memory.*, Customer.*, Incoming.*, User.*, ChangeLog.*, Projects.*, Field.*, Resources.*, CSV.*, Deleted.*, Item.*, Project.*, Vendor.*, Email.*, Webhook.*).
 
 </details>
