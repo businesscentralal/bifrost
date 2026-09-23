@@ -1,5 +1,6 @@
 ---
 id: eula
+slug: /eula
 title: "Terms of Use"
 sidebar_label: "EULA"
 sidebar_position: 90
