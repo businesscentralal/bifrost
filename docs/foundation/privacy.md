@@ -1,5 +1,6 @@
 ---
 id: privacy
+slug: /privacy
 title: "Privacy Statement"
 sidebar_label: "Privacy"
 sidebar_position: 91
@@ -8,7 +9,7 @@ description: "How personal data is processed when Origo provides Origo BC Bifrö
 
 # Privacy Statement — Origo BC Bifröst
 
-Origo ehf., company registration number (kt.) 450723-1690, Borgartúni 37, 105 Reykjavík, Iceland (“Origo”) provides Origo BC Bifröst (the “Service”, also called Bifröst). This page explains how personal data is handled in connection with the Service. It is a documentation summary; the binding terms are the Origo sources linked below.
+Origo ehf., company registration number (kt.) 450723-1690, Dalvegur 30a, 201 Kópavogur, Iceland (“Origo”) provides Origo BC Bifröst (the “Service”, also called Bifröst). This page explains how personal data is handled in connection with the Service. It is a documentation summary; the binding terms are the Origo sources linked below.
 
 ## Controller and processor roles
 
@@ -43,6 +44,10 @@ Personal data that the controller enters into Business Central may be transferre
 
 Sections covering further topics (for example sub-processors) are published on Origo’s processing descriptions page where available for a given service. This Service’s published description currently covers purpose and nature, and categories of data subjects and personal data, as set out above. Do not assume unpublished sections for this Service.
 
+## Service data (Origo as controller)
+
+Under clause 9 of the [Terms of Use](./eula.md), Origo also processes limited Service Data to provide, secure and administer the Service: licensing and entitlement data to authenticate and validate the Customer’s access, and a hashed identifier derived from the Customer’s Business Central tenant, used to allocate and track the Customer’s usage allowance. Origo acts as **controller** of this Service Data. The tenant identifier is stored in hashed form, so the underlying tenant is not directly readable from it.
+
 ## Related Origo terms and security
 
 - [Origo Terms and security hub](https://www.origo.is/skilmalar-og-oryggismal) — general terms, processing terms, processing descriptions, and security materials
@@ -53,13 +58,13 @@ Sections covering further topics (for example sub-processors) are published on O
 
 ## Terms of Use
 
-Contractual use of the Service is governed by the [Terms of Use](/foundation/eula/) (EULA). If that page is not yet live on the documentation site, it may arrive via a parallel documentation pull request.
+Contractual use of the Service is governed by the [Terms of Use](./eula.md) (EULA).
 
 ## Contact for privacy
 
 Where Origo acts as **controller**, privacy inquiries may be sent to:
 
 - Email: [personuvernd@origo.is](mailto:personuvernd@origo.is)
-- Address: Persónuverndarfulltrúi Origo, Borgartúni 37, 105 Reykjavík
+- Address: Persónuverndarfulltrúi Origo, Dalvegur 30a, 201 Kópavogur
 
 Data-subject requests about processing in a Customer’s Business Central environment should normally be directed to the Customer as controller, in accordance with Origo’s Privacy Policy.
