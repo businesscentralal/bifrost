@@ -1,5 +1,6 @@
 ---
 id: privacy
+slug: /privacy
 title: "Persónuverndaryfirlýsing"
 sidebar_label: "Persónuvernd"
 sidebar_position: 91
@@ -8,7 +9,7 @@ description: "Hvernig persónuupplýsingar eru unnar þegar Origo veitir Origo B
 
 # Persónuverndaryfirlýsing — Origo BC Bifröst
 
-Origo ehf., kt. 450723-1690, Borgartúni 37, 105 Reykjavík, Ísland („Origo“) veitir Origo BC Bifröst (hér eftir „Þjónustan“, einnig kölluð Bifröst). Á þessari síðu er útskýrt hvernig persónuupplýsingum er meðhöndlað í tengslum við Þjónustuna. Þetta er samantekt í skjölunum; bindandi skilmálar eru Origo-heimildirnar sem tengdar eru hér að neðan.
+Origo ehf., kt. 450723-1690, Dalvegi 30a, 201 Kópavogi („Origo“) veitir Origo BC Bifröst (hér eftir „Þjónustan“, einnig kölluð Bifröst). Á þessari síðu er útskýrt hvernig farið er með persónuupplýsingar í tengslum við Þjónustuna. Þetta er samantekt í skjölunum; bindandi skilmálar eru Origo-heimildirnar sem tengdar eru hér að neðan.
 
 ## Hlutverk ábyrgðaraðila og vinnsluaðila
 
@@ -22,7 +23,7 @@ Hér að neðan er lýst vinnslu persónuupplýsinga í tengslum við Origo BC B
 
 ### Tilgangur og eðli vinnslu
 
-Origo ehf (vinnsluaðili) veitir þjónustukaupa (ábyrgðaraðila) aðgang að Origo BC Bifröst, þjónustulagi (API-lagi) sem gerir lausnum ábyrgðaraðila, t.d. gervigreindarlausnum, kleift að sækja gögn og framkvæma aðgerðir í Microsoft Dynamics 365 Business Central umhverfi ábyrgðaraðila.
+Origo ehf. (vinnsluaðili) veitir þjónustukaupa (ábyrgðaraðila) aðgang að Origo BC Bifröst, þjónustulagi (API-lagi) sem gerir lausnum ábyrgðaraðila, t.d. gervigreindarlausnum, kleift að sækja gögn og framkvæma aðgerðir í Microsoft Dynamics 365 Business Central umhverfi ábyrgðaraðila.
 
 Þjónustan flytur gögn milli Business Central og lausnar ábyrgðaraðila undir aðgangsheimildum auðkennds notanda hans, en geymir þau ekki og vinnur ekki úr þeim. Gögn ábyrgðaraðila eru ekki notuð til að þjálfa gervigreindarlíkön. Efnisleg úrvinnsla fer fram hjá þeirri lausn sem ábyrgðaraðili velur og semur sjálfur við.
 
@@ -43,6 +44,10 @@ Um þjónustuna kunna að flytjast þær persónuupplýsingar sem ábyrgðaraði
 
 Kaflar sem fjalla um frekari atriði (t.d. undirvinnsluaðila) eru birtir á vinnslulýsingasíðu Origo þar sem þeir eru tiltækir fyrir viðkomandi þjónustu. Birt lýsing fyrir þessa Þjónustu fjallar nú um tilgang og eðli, og flokka skráðra einstaklinga og persónuupplýsinga, eins og fram kemur hér að ofan. Ekki skal gera ráð fyrir óbirtum köflum fyrir þessa Þjónustu.
 
+## Þjónustugögn (Origo sem ábyrgðaraðili)
+
+Samkvæmt 9. gr. [Notkunarskilmálanna](./eula.md) vinnur Origo einnig takmörkuð Þjónustugögn til að veita, tryggja öryggi og annast umsýslu Þjónustunnar: leyfis- og réttindagögn til að auðkenna og staðfesta aðgang viðskiptavinarins, og tætt (e. hashed) auðkenni sem leitt er af Business Central leigjanda viðskiptavinarins og notað til að úthluta og fylgjast með notkunarheimild hans. Origo er **ábyrgðaraðili** þessara Þjónustugagna. Auðkenni leigjandans er geymt tætt, þannig að ekki er hægt að lesa undirliggjandi leigjanda beint úr því.
+
 ## Tengdir skilmálar Origo og öryggi
 
 - [Skilmálar og öryggismál Origo](https://www.origo.is/skilmalar-og-oryggismal) — almennir skilmálar, vinnsluskilmálar, vinnslulýsingar og öryggisefni
@@ -53,13 +58,13 @@ Kaflar sem fjalla um frekari atriði (t.d. undirvinnsluaðila) eru birtir á vin
 
 ## Notkunarskilmálar
 
-Samningsbundin notkun Þjónustunnar er stýrð af [Notkunarskilmálum](/foundation/eula/) (EULA). Ef sú síða er ekki enn virk á skjölunarsíðunni gæti hún komið með samsíða skjölunar-PR.
+Um samningsbundna notkun Þjónustunnar fer samkvæmt [Notkunarskilmálum](./eula.md) (EULA).
 
 ## Hafa samband vegna persónuverndar
 
 Þegar Origo starfar sem **ábyrgðaraðili** má senda fyrirspurnir vegna persónuverndar til:
 
 - Netfang: [personuvernd@origo.is](mailto:personuvernd@origo.is)
-- Heimilisfang: Persónuverndarfulltrúi Origo, Borgartúni 37, 105 Reykjavík
+- Heimilisfang: Persónuverndarfulltrúi Origo, Dalvegi 30a, 201 Kópavogi
 
-Beiðnir skráðra einstaklinga vegna vinnslu í Business Central umhverfi viðskiptavinarins ættu að jafnaði að beina til viðskiptavinarins sem ábyrgðaraðila, samkvæmt Persónuverndarstefnu Origo.
+Beiðnum skráðra einstaklinga vegna vinnslu í Business Central umhverfi viðskiptavinarins skal að jafnaði beint til viðskiptavinarins sem ábyrgðaraðila, samkvæmt Persónuverndarstefnu Origo.
