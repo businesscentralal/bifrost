@@ -5,11 +5,15 @@ sidebar_label: "Customer Management"
 sidebar_position: 48
 ---
 
-**Bifrost Customer Management** lists the Customers of a Partner - or, for a Vendor, the customers of
-all its Partners - with their rate-limit tier and month-to-date usage. A Partner also invites and
-cancels its customers here. It opens from **Customer Management** on the [Bifrost Setup](/help/foundation/bifrost-setup/)
-page, or from **View Customers** on [Partner Management](/help/foundation/partner-management/), and
-requires the Partner or Vendor role and licence administration permission.
+**Bifrost Customer Management** lists the Customers of a Partner with their rate-limit tier and
+month-to-date usage, and is where the Partner invites and cancels its customers. It opens from
+**Customer Management** on the [Bifrost Setup](/help/foundation/bifrost-setup/) page and requires the
+Partner role and licence administration permission.
+
+A Vendor opens it only from **View Customers** on [Partner Management](/help/foundation/partner-management/),
+for the customers of the selected Partner. That view is read-only: **Invite Customer** and
+**Cancel Customer** are not offered. A Vendor that is not also a Partner does not see **Customer
+Management** on Bifröst Setup.
 
 The **View** field at the top shows whose customers are listed.
 
@@ -30,8 +34,8 @@ The **View** field at the top shows whose customers are listed.
 | --- | --- |
 | **Refresh** | Reloads the list. |
 | **View Usage** | Opens the [usage entries](/help/foundation/license-usage/) of the selected customer. |
-| **Invite Customer** | Partners only. Opens [Invite Customer](/help/foundation/invite-customer/). |
-| **Cancel Customer** | Partners only. Ends the relationship with the selected customer, with an optional [reason](/help/foundation/cancel-reason/). On the customer's next Sync it returns to the Prepaid license; its usage up to then stays in your billing figures. |
+| **Invite Customer** | Partners only, on their own customers. Opens [Invite Customer](/help/foundation/invite-customer/). |
+| **Cancel Customer** | Partners only, on their own customers. Ends the relationship with the selected customer, with an optional [reason](/help/foundation/cancel-reason/). On the customer's next Sync it returns to the Prepaid license; its usage up to then stays in your billing figures. |
 
 Only active customers are listed; a cancelled customer disappears from the page but remains in the
 billing message types for the period. See [Working as a Partner](/foundation/licensing/partner/).

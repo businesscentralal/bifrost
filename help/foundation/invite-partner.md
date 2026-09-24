@@ -14,6 +14,7 @@ invites a tenant to become a Partner of your Vendor.
 | **Friendly name** | Optional. Shown on Partner Management until the Partner registers with its own Company Information. |
 
 Choose **OK** and confirm. The tenant must already have installed Bifröst and approved the EULA. The
-invitation appears on the Partner's Bifröst Setup page as the *Register as Partner* notification.
+Partner sees the invitation as the *Register as Partner* notification after it chooses **Sync** on
+its Bifröst Setup page.
 
 See [Working as a Vendor](/foundation/licensing/vendor/#inviting-partners).

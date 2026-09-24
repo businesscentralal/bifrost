@@ -14,7 +14,7 @@ býður leigjanda að gerast samstarfsaðili söluaðilans þíns.
 | **Gælunafn** | Valfrjálst. Sýnt á Umsjón samstarfsaðila þar til samstarfsaðilinn skráir sig með eigin fyrirtækisupplýsingum. |
 
 Veldu **Í lagi** og staðfestu. Leigjandinn þarf þegar að hafa sett upp Bifröst og samþykkt
-notendaleyfissamninginn. Boðið birtist á síðunni Uppsetning Bifröst hjá samstarfsaðilanum sem
-tilkynningin *Skrá sem samstarfsaðili*.
+notendaleyfissamninginn. Samstarfsaðilinn sér boðið sem tilkynninguna
+*Skrá sem samstarfsaðili* eftir að hann velur **Samstilla** á síðunni Uppsetning Bifröst.
 
 Sjá [Að starfa sem söluaðili](/foundation/licensing/vendor/#inviting-partners).

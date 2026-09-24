@@ -17,9 +17,9 @@ A tenant becomes a Partner when a Vendor invites it.
 1. Install Bifröst Foundation and complete the [Setup Wizard](/help/foundation/bifrost-setup-wizard/)
    - the Vendor cannot invite a tenant that has not approved the EULA.
 2. Give the Vendor your **Microsoft Entra tenant ID**.
-3. After the Vendor has sent the invitation, open **Bifröst Setup** (run **Sync** if the notification
-   does not appear yet). Choose **Register as Partner** on the notification *A Bifrost Vendor has
-   introduced this tenant as a Partner*.
+3. After the Vendor has sent the invitation, open **Bifröst Setup** and choose **Sync** - the
+   invitation is only picked up by a Sync. Choose **Register as Partner** on the notification *A
+   Bifrost Vendor has introduced this tenant as a Partner*.
 
 The registration uses the **Company Information** of the current company, which is what the Vendor
 and your customers see. **Customer Management**, **Pending Customer Leave Requests** and **Request

@@ -24,8 +24,9 @@ dialog), and a rejected leave request always does; the other tenant sees it on B
 
 ## When it takes effect
 
-Each tenant applies what concerns it the next time it runs **Sync** - from the Bifröst Setup page,
-or in the daily background sync:
+Each tenant applies what concerns it the next time a licence administrator chooses **Sync** on its
+Bifröst Setup page. The daily background task only reports usage; it never applies a cancellation
+or a leave-request outcome:
 
 ```mermaid
 sequenceDiagram

@@ -18,8 +18,8 @@ Leigjandi verður samstarfsaðili þegar söluaðili býður honum.
 1. Settu upp Bifröst Foundation og ljúktu við [Uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/)
    - söluaðilinn getur ekki boðið leigjanda sem hefur ekki samþykkt notendaleyfissamninginn.
 2. Gefðu söluaðilanum upp **Microsoft Entra leigjandaauðkenni** þitt.
-3. Þegar söluaðilinn hefur sent boðið skaltu opna **Uppsetning Bifröst** (keyrðu **Samstilla** ef
-   tilkynningin birtist ekki strax). Veldu **Skrá sem samstarfsaðili** í tilkynningunni *Bifröst
+3. Þegar söluaðilinn hefur sent boðið skaltu opna **Uppsetning Bifröst** og velja **Samstilla** -
+   boðið berst aðeins með samstillingu. Veldu **Skrá sem samstarfsaðili** í tilkynningunni *Bifröst
    söluaðili hefur boðið þessum leigjanda sem samstarfsaðila*.
 
 Skráningin notar **fyrirtækisupplýsingar** núverandi fyrirtækis, sem eru það sem söluaðilinn og

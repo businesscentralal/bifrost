@@ -57,13 +57,13 @@ Síðan sýnir einnig **Tiltækar skilaboðategundir** og, fyrir leyfisstjóra u
 | | **Undanþágur breytingaskrárverndar**, **Uppsetning breytingaskrár**, **Varðveislureglur** | Undanþágur frá breytingaskrárvernd, hvaða reiti breytingaskráin nær yfir og sjálfvirk hreinsun. |
 | | **Leyndarmál** | Leyndarmálin sem öll uppsett Bifröst-forrit þurfa - sjá [Leyndarmál forrita Bifröst](/help/foundation/bifrost-app-secrets/). |
 | | **Uppsetningarleiðsögn** | Opnar [uppsetningarleiðsögnina](/help/foundation/bifrost-setup-wizard/). |
-| Leyfi | **Samstilla** | Tilkynnir óskráða notkun til leyfisþjónustunnar, uppfærir stöðu leyfisins og virkjar boð, uppsagnir og niðurstöður uppsagnarbeiðna. Keyrir einnig einu sinni á dag í bakgrunni. |
+| Leyfi | **Samstilla** | Tilkynnir óskráða notkun til leyfisþjónustunnar, uppfærir stöðu leyfisins og virkjar uppsagnir og niðurstöður uppsagnarbeiðna. Hún er það eina sem býður skráningu: tilkynningarnar Skrá sem söluaðili, Skrá sem samstarfsaðili og Skrá sem viðskiptavinur og aðgerðin **Skrá söluaðila** birtast aðeins eftir samstillingu. Daglega bakgrunnsverkið tilkynnir aðeins notkun. |
 | | **Afturkalla samþykki notendaleyfissamnings** | Dregur samþykki leyfissamningsins til baka fyrir þetta fyrirtæki; köllum er hafnað þar til leiðsögnin hefur verið keyrð aftur. |
 | | **Leyfisnotkun** | Notkunarfærslur leigjandans - sjá [Notkunarfærslur Bifröst](/help/foundation/license-usage/). |
 | | **Stilla álagsþak** | Leigjendur á áskriftarleyfi, aðeins í framleiðsluumhverfi - sjá [Stilla álagsþak](/help/foundation/rate-limit-configuration/). |
-| | **Skrá söluaðila** | Leigjendur sem hafa verið samþykktir sem söluaðilar - sjá [Bifröst söluaðilaskráning](/help/foundation/vendor-onboarding-wizard/). |
+| | **Skrá söluaðila** | Eftir samstillingu, fyrir leigjanda sem hefur verið samþykktur sem söluaðili og er ekki enn skráður - sjá [Bifröst söluaðilaskráning](/help/foundation/vendor-onboarding-wizard/). |
 | | **Umsjón samstarfsaðila**, **Óafgreiddar uppsagnarbeiðnir samstarfsaðila**, **Afskrá sem söluaðili** | Söluaðilar - sjá [Að starfa sem söluaðili](/foundation/licensing/vendor/). |
-| | **Umsjón viðskiptavina** | Samstarfsaðilar og söluaðilar - sjá [Umsjón viðskiptavina](/help/foundation/customer-management/). |
+| | **Umsjón viðskiptavina** | Aðeins samstarfsaðilar - sjá [Umsjón viðskiptavina](/help/foundation/customer-management/). |
 | | **Óafgreiddar uppsagnarbeiðnir viðskiptavina**, **Óska eftir uppsögn hjá söluaðila** | Samstarfsaðilar - sjá [Að starfa sem samstarfsaðili](/foundation/licensing/partner/). |
 | | **Óska eftir uppsögn hjá samstarfsaðila** | Viðskiptavinir - sjá [Að vera viðskiptavinur](/foundation/licensing/customer/). |
 | Tengingar | **Microsoft Copilot**, **OpenAI ChatGPT** | Opna Bifröst-tenginguna í verslun hvors gervigreindarvirkis. |

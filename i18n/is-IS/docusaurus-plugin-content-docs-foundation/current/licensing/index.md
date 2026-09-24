@@ -69,8 +69,10 @@ stateDiagram-v2
 ```
 
 Sérhver breyting sem einn leigjandi gerir fyrir annan - boð, uppsögn eða uppsagnarbeiðni - berst
-hinum leigjandanum næst þegar hann keyrir **Samstilla** á síðunni Uppsetning Bifröst (samstilling
-keyrir einnig einu sinni á dag í bakgrunni). Sjá [Úrsögn og uppsögn](./leaving-and-cancelling.md).
+hinum leigjandanum aðeins þegar leyfisstjóri þar velur **Samstilla** á síðunni Uppsetning Bifröst.
+**Samstilling er það eina sem hefur skráningu** - sem söluaðili, samstarfsaðili eða viðskiptavinur -
+og það eina sem virkjar uppsögn eða niðurstöðu uppsagnarbeiðni. Daglega bakgrunnsverkið tilkynnir
+aðeins notkun. Sjá [Úrsögn og uppsögn](./leaving-and-cancelling.md).
 
 ## Í þessum hluta
 

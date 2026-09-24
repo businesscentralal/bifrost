@@ -26,7 +26,7 @@ and licence administration permission.
 | --- | --- |
 | **Refresh** | Reloads the list. |
 | **Invite Partner** | Opens [Invite Partner](/help/foundation/invite-partner/). Enter your own tenant ID to register as your own Partner. |
-| **View Customers** | Opens [Customer Management](/help/foundation/customer-management/) for the selected Partner's customers. |
+| **View Customers** | Opens [Customer Management](/help/foundation/customer-management/) for the selected Partner's customers, read-only. |
 | **View Usage** | Opens the [usage entries](/help/foundation/license-usage/) of the selected Partner's customers. |
 | **Cancel Partner** | Cancels the selected **Open** Partner, with an optional [reason](/help/foundation/cancel-reason/). On the Partner's next Sync its registration is closed, and every customer of that Partner returns to the Prepaid license on its own next Sync. |
 

@@ -13,7 +13,8 @@ býður leigjanda að gerast viðskiptavinur samstarfsaðilans þíns.
 | **Leigjandi viðskiptavinar** | Microsoft Entra leigjandaauðkenni viðskiptavinarins eða 64 stafa tætigildi leigjandans. |
 | **Gælunafn** | Valfrjálst. Heitið sem þú notar yfir viðskiptavininn, sýnt þar til hann skráir sig með eigin fyrirtækisupplýsingum. |
 
-Veldu **Í lagi** og staðfestu. Boðið birtist á síðunni Uppsetning Bifröst hjá viðskiptavininum. Þegar
+Veldu **Í lagi** og staðfestu. Viðskiptavinurinn sér boðið eftir að hann velur **Samstilla** á síðunni
+Uppsetning Bifröst. Þegar
 viðskiptavinurinn samþykkir það fer hann á **áskriftarleyfi** og þú rukkar fyrir notkun hans.
 
 Sjá [Að starfa sem samstarfsaðili](/foundation/licensing/partner/#inviting-customers).
