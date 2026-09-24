@@ -54,11 +54,12 @@ Ekkert annað stýrir því. Krókurinn keyrir sérstaklega:
 | Leyfisskylda á skilaboðakvóta gildir **ekki** (sandkassi í skýinu) | Já |
 | Pottur kallandans tómur, kalli hafnað | Nei — kallið keyrði aldrei |
 | `status` svarsins er `Error` | Nei |
-| `Help.*` eða `Webhook.*` skilaboðategund | Nei |
+| Skilaboðategund `Help.*`, `Memory.*`, `Session.*`, `Webhook.*` eða `ChangeLog.*` í forriti frá Origo | Nei |
 
-Nafnforskeytisreglan um `Help.` og `Webhook.` er sama gamalgróna reglan og undanþiggur þær
-tegundir gjaldtöku. Hún er eina undantekningin: skilaboðategund getur ekki afskráð sig sjálf
-úr króknum.
+Nafnforskeytisreglan er sama reglan og undanþiggur þessar tegundir gjaldtöku, og hún gildir
+aðeins um skilaboðategundir í kennisviði Origo - tegund sem annar útgefandi bætir við er mæld og
+gjaldfærð hvað sem hún heitir. Hún er eina undantekningin: skilaboðategund getur ekki afskráð sig
+sjálf úr króknum.
 
 ## Kallað í einangrun
 

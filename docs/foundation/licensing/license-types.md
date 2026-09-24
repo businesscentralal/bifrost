@@ -9,11 +9,27 @@ description: "Prepaid and Subscription licensing, the trial, the two message poo
 
 A call counts as **one message** when both of the following are true:
 
-- the message type is chargeable - `Help.*` and `Webhook.*` types are always free and never blocked by quota;
+- the message type is chargeable - see [Free message types](#free-message-types);
 - the call succeeded - a JSON response whose `status` is not `Success` is not counted (a non-JSON
   response such as a PDF or a CSV file counts as successful).
 
 Every chargeable call costs exactly one message, whatever the message type.
+
+### Free message types
+
+These message types are never counted and never refused for quota:
+
+| Prefix | What they do |
+|---|---|
+| `Help.*` | Discovery and self-description - the catalogue, a type's contract, who am I, licence status |
+| `Memory.*` | Reading and writing memory records |
+| `Session.*` | Session handling, such as approving a session source |
+| `Webhook.*` | Incoming webhook calls |
+| `ChangeLog.*` | Reading change-log history and restoring field values |
+
+The prefix makes a type free only when it belongs to a Bifröst application from Origo. A message
+type that another publisher adds is chargeable whatever its name. Free types still need the
+approved EULA - see [Before the first call](#before-the-first-call).
 
 ### Two pools
 

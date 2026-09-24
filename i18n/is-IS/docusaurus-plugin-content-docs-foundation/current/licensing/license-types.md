@@ -9,11 +9,27 @@ description: "Fyrirframgreitt leyfi og áskriftarleyfi, prufuleyfið, skilaboða
 
 Kall telst sem **ein skilaboð** þegar hvort tveggja á við:
 
-- skilaboðategundin er gjaldskyld - `Help.*` og `Webhook.*` tegundir eru alltaf gjaldfrjálsar og þeim er aldrei hafnað vegna kvóta;
+- skilaboðategundin er gjaldskyld - sjá [Gjaldfrjálsar skilaboðategundir](#free-message-types);
 - kallið tókst - JSON-svar þar sem `status` er ekki `Success` er ekki talið (svar sem er ekki JSON,
   t.d. PDF- eða CSV-skrá, telst hafa tekist).
 
 Hvert gjaldskylt kall kostar nákvæmlega ein skilaboð, óháð skilaboðategund.
+
+### Gjaldfrjálsar skilaboðategundir {#free-message-types}
+
+Þessar skilaboðategundir eru aldrei taldar og þeim er aldrei hafnað vegna kvóta:
+
+| Forskeyti | Hvað þær gera |
+|---|---|
+| `Help.*` | Uppgötvun og sjálfslýsing - skráin yfir tegundir, samningur tegundar, hver er ég, staða leyfis |
+| `Memory.*` | Lestur og skrif minnisfærslna |
+| `Session.*` | Meðhöndlun setu, t.d. samþykkt á uppruna setu |
+| `Webhook.*` | Innkomin vefkrókaköll |
+| `ChangeLog.*` | Lestur breytingasögu og endurheimt gilda í reitum |
+
+Forskeytið gerir tegund gjaldfrjálsa aðeins þegar hún tilheyrir Bifröst-forriti frá Origo.
+Skilaboðategund sem annar útgefandi bætir við er gjaldskyld hvað sem hún heitir. Gjaldfrjálsar
+tegundir krefjast samt samþykkts notendaleyfissamnings - sjá [Fyrir fyrsta kallið](#before-the-first-call).
 
 ### Tveir pottar {#two-pools}
 
@@ -24,7 +40,7 @@ Skilaboð eru talin í tveimur pottum, eftir því hver framkvæmdi kallið:
 | **Notandi** (User) | Köllum sem venjulegur notandi framkvæmir - gagnvirkt eða gegnum vefþjónustu. |
 | **Forritsskráning** (App Registration) | Köllum sem Microsoft Entra forrit (þjónustuaðili) framkvæmir. |
 
-## Fyrir fyrsta kallið
+## Fyrir fyrsta kallið {#before-the-first-call}
 
 Hvert fyrirtæki verður að samþykkja **notendaleyfissamninginn** (EULA) í
 [Uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/) áður en Bifröst vinnur úr

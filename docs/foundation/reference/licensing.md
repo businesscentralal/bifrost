@@ -13,8 +13,10 @@ invoices whom - see [Licensing and partner program](/foundation/licensing).
 
 A message consumes **one** unit from the caller's pool when **all** of the following hold:
 
-- The message type is **not exempt**. `Help.*` and `Webhook.*` types are exempt - they never consume
-  quota and are never refused for quota.
+- The message type is **not exempt**. The `Help.*`, `Memory.*`, `Session.*`, `Webhook.*` and
+  `ChangeLog.*` types of Origo's Bifröst applications are exempt - they never consume quota and are
+  never refused for quota. The prefix counts only for types in an Origo object-ID block; a type
+  another publisher adds is chargeable whatever its name.
 - The message was processed **successfully** (a JSON response with `status` other than `Success`
   is not counted; non-JSON responses such as PDF/CSV count as successful).
 

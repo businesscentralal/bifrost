@@ -191,12 +191,14 @@ the caller's licence quota only when the response is a JSON object whose `status
    the global language to `lcid`, clears any previous response and commits.
 3. It builds a `Message Argument ori` from the queue row: id, version, type, subject,
    source, content type and request payload.
-4. Licensing is applied centrally, once. `Help.*` and `Webhook.*` types are exempt: they
-   always run, are never blocked and never consume quota. Everything else needs a valid
-   licence and enabled HTTP client requests.
+4. Licensing is applied centrally, once. The `Help.*`, `Memory.*`, `Session.*`, `Webhook.*`
+   and `ChangeLog.*` types of Origo's Bifröst applications are exempt: they are never refused
+   for quota and never consume it. The prefix does not exempt a type your app adds - every
+   message type of another publisher is chargeable, whatever its name. Everything that is not
+   exempt needs a valid licence and enabled HTTP client requests.
 5. `Argument.GetMessageTypeInterface().ExecuteBifrostTask(Argument)` resolves your codeunit
-   from the enum value and runs it. When the call succeeds and the type is not `Help.*` or
-   `Webhook.*`, the `Msg Metering ori` hook of the type is called — see
+   from the enum value and runs it. When the call succeeds and the type is not exempt,
+   the `Msg Metering ori` hook of the type is called — see
    [Metering a message type](/extensibility/metering).
 6. The response content, content type and response time are written back to the queue row,
    the language is restored, and — when the message carried a task id — the

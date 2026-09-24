@@ -54,11 +54,11 @@ Nothing else gates it. In particular the hook runs:
 | Message-quota licensing **not** required (SaaS sandbox) | Yes |
 | Caller's pool exhausted, call refused | No — the call never ran |
 | Response `status` is `Error` | No |
-| `Help.*` or `Webhook.*` message type | No |
+| `Help.*`, `Memory.*`, `Session.*`, `Webhook.*` or `ChangeLog.*` message type of an Origo application | No |
 
-The `Help.` / `Webhook.` prefix rule is the same long-standing rule that exempts those
-types from charging. It is the only exemption: a message type cannot opt itself out of the
-hook.
+The prefix rule is the same rule that exempts those types from charging, and it applies only to
+message types in an Origo object-ID block - a type another publisher adds is metered and charged
+whatever its name. It is the only exemption: a message type cannot opt itself out of the hook.
 
 ## Isolated invocation
 

@@ -13,8 +13,10 @@ og viðskiptavinar og hver rukkar hvern - sjá [Leyfi og samstarfsáætlun](/fou
 
 Skilaboð draga **eina** einingu úr potti kallandans þegar **allt** eftirfarandi á við:
 
-- Skilaboðategundin er **ekki undanþegin**. `Help.*` og `Webhook.*` tegundir eru undanþegnar - þær
-  draga aldrei af kvóta og þeim er aldrei hafnað vegna kvóta.
+- Skilaboðategundin er **ekki undanþegin**. Tegundirnar `Help.*`, `Memory.*`, `Session.*`,
+  `Webhook.*` og `ChangeLog.*` í Bifröst-forritum Origo eru undanþegnar - þær draga aldrei af kvóta
+  og þeim er aldrei hafnað vegna kvóta. Forskeytið gildir aðeins fyrir tegundir í kennisviði Origo;
+  tegund sem annar útgefandi bætir við er gjaldskyld hvað sem hún heitir.
 - Skilaboðin voru unnin **með árangri** (JSON-svar þar sem `status` er annað en `Success` er ekki
   talið; svör sem eru ekki JSON, t.d. PDF/CSV, teljast hafa tekist).
 
