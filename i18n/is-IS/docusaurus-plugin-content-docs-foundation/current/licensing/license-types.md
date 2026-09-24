@@ -86,6 +86,20 @@ mánaðarlegan kvóta fram að næsta almanaksmánuði; svarið tilgreinir hvað
 keyptum pottum leigjanda með fyrirframgreitt leyfi. Þegar 100 eða færri skilaboð eru eftir af
 mánaðarlegum kvóta bera árangursrík svör viðvörun. Mánaðarlegum kvóta er ekki framfylgt í sandkassa.
 
+### Hvernig mánaðarlegu kvótarnir eru taldir {#how-monthly-quotas-are-counted}
+
+Business Central telur mánaðarlegu kvótana sjálft, út frá **Bifröst-skilaboðum** fyrirtækisins:
+gjaldskyldum skilaboðum yfirstandandi almanaksmánaðar sem eru enn merkt gjaldskyld þar. Tvennt
+lækkar þá tölu, svo í reynd takmarka kvótarnir minna en heilan mánuð:
+
+- **Dagleg notkunarsamstilling.** Þegar skilaboðum dagsins hefur verið skilað til leyfisþjónustunnar
+  eru þau ekki lengur merkt gjaldskyld og teljast ekki lengur með í mánaðarlegu kvótunum. Í raun
+  takmarka kvótarnir skilaboð frá síðustu árangursríku samstillingu - yfirleitt yfirstandandi dag.
+  Reikningsfært er eftir skilaðri notkun, sem þetta hefur ekki áhrif á.
+- **Varðveisla.** Varðveislustefna á **Bifröst-skilaboðum** sem eyðir skilaboðum yfirstandandi
+  mánaðar fjarlægir þau úr talningunni. Geymdu Bifröst-skilaboð í minnst 31 dag ef þú notar
+  mánaðarlegu kvótana.
+
 ## Sandkassaumhverfi
 
 Í **sandkassa** Business Central online:

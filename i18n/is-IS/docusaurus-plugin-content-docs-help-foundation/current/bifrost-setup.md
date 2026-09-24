@@ -39,7 +39,7 @@ Tilkynningar samstarfsaðilakerfisins birtast aðeins notendum með leyfisstjór
 | **Tegund heitis fyrirtækis í útflutningi** | Hvaða heiti fyrirtækis `CSV.Records.Get` og `CSV.DeletedRecords.Get` skrifa í dálkinn `$Company`: **Heiti fyrirtækis** (sjálfgefið, stöðugt) eða **Birtingarheiti fyrirtækis** (notar Heiti fyrirtækis ef birtingarheitið er autt). |
 | **Sjálfgefin sviðsmynd tölvupósts** | Sviðsmynd tölvupósts sem ræður hvaða sendingarreikningur er valinn þegar beiðni tilgreinir engan. |
 | **Villuleitarstilling beiðna** | Vistar óhulið innihald beiðna og svara í heild sinni í [Annál beiðna](/help/foundation/bifrost-request-log/). Notaðu aðeins við villuleit. Krefst heimildasamstæðunnar `BIFROST ReqLgAdm ori`. |
-| **Mánaðarlegur skilaboðakvóti fyrirtækis** | Hámarksfjöldi gjaldskyldra skilaboða sem fyrirtækið má nota í almanaksmánuði, á hvorri leyfistegundinni sem er. `0` þýðir engin takmörk. Þegar kvótanum er náð er köllum hafnað til næsta mánaðar. Ekki framfylgt í sandkassa. Sjá [Mánaðarlegir kvótar](/foundation/licensing/license-types/#monthly-quotas). |
+| **Mánaðarlegur skilaboðakvóti fyrirtækis** | Hámarksfjöldi gjaldskyldra skilaboða sem fyrirtækið má nota í almanaksmánuði, á hvorri leyfistegundinni sem er. `0` þýðir engin takmörk. Þegar kvótanum er náð er köllum hafnað til næsta mánaðar. Ekki framfylgt í sandkassa. Talið út frá Bifröst-skilaboðum sem daglega notkunarsamstillingin hefur ekki enn skilað, svo kvótinn takmarkar skilaboð frá síðustu samstillingu frekar en allan mánuðinn; geymdu Bifröst-skilaboð í minnst 31 dag í varðveislustefnunni. Sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/foundation/licensing/license-types/#how-monthly-quotas-are-counted). |
 
 Flipinn **Umhverfi** (aðeins í skýinu) sýnir **Heiti umhverfis**, **Kenni fyrirtækis**, **Azure leigjandakenni**, **Vefslóð verkefna-API** og **Vefslóð biðraðar-API** þessa fyrirtækis ásamt **Biðja um Tengingu**, texta sem þú getur límt inn í gervigreindaraðstoðarmann til að tengja hann við þetta umhverfi.
 
@@ -54,7 +54,7 @@ Síðan sýnir einnig **Tiltækar skilaboðategundir** og, fyrir leyfisstjóra u
 | | **Eyðingaskrá** / **Uppsetning eyðingarskráningar** | Endurskoðunarskrá yfir eyddar færslur og uppsetning hennar. |
 | Uppsetning | **Uppsetning notenda** | Uppsetning fyrir hvern notanda: tengdar færslur, kerfisfyrirmæli, mánaðarlegur skilaboðakvóti. |
 | | **Svæðisaðgangur** | Lestrar- og skrifheimildir á reitastigi - sjá [Svæðisaðgangar Bifröst](/help/foundation/bifrost-field-accesses/). |
-| | **Undanþágur breytingaskrárverndar**, **Uppsetning breytingaskrár**, **Varðveislureglur** | Undanþágur frá breytingaskrárvernd, hvaða reiti breytingaskráin nær yfir og sjálfvirk hreinsun. |
+| | **Undanþágur breytingaskrárverndar**, **Uppsetning breytingaskrár**, **Varðveislureglur** | Undanþágur frá breytingaskrárvernd, hvaða reiti breytingaskráin nær yfir og sjálfvirk hreinsun. Geymdu Bifröst-skilaboð í minnst 31 dag ef þú notar mánaðarlegu kvótana. |
 | | **Leyndarmál** | Leyndarmálin sem öll uppsett Bifröst-forrit þurfa - sjá [Leyndarmál forrita Bifröst](/help/foundation/bifrost-app-secrets/). |
 | | **Uppsetningarleiðsögn** | Opnar [uppsetningarleiðsögnina](/help/foundation/bifrost-setup-wizard/). |
 | Leyfi | **Samstilla** | Tilkynnir óskráða notkun til leyfisþjónustunnar, uppfærir stöðu leyfisins og virkjar boð, uppsagnir og niðurstöður uppsagnarbeiðna. Keyrir einnig einu sinni á dag í bakgrunni. |
