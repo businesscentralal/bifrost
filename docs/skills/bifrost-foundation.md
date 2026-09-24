@@ -162,6 +162,18 @@ From the deployed site the same paths resolve against this file’s own URL.
 | `Data.RequestLog.Get` | `message-types/data-requestlog-get/` |
 | `Data.Totals.Get` | `message-types/data-totals-get/` |
 
+### `Bifrost.*` (7)
+
+| Message type | Page |
+| --- | --- |
+| `Bifrost.Partner.GetBillingSummary` | `message-types/bifrost-partner-getbillingsummary/` |
+| `Bifrost.Partner.GetCustomers` | `message-types/bifrost-partner-getcustomers/` |
+| `Bifrost.Subscription.GetStatus` | `message-types/bifrost-subscription-getstatus/` |
+| `Bifrost.Subscription.GetUsage` | `message-types/bifrost-subscription-getusage/` |
+| `Bifrost.Vendor.GetBillingSummary` | `message-types/bifrost-vendor-getbillingsummary/` |
+| `Bifrost.Vendor.GetCustomers` | `message-types/bifrost-vendor-getcustomers/` |
+| `Bifrost.Vendor.GetPartners` | `message-types/bifrost-vendor-getpartners/` |
+
 ### `Document.*` (7)
 
 | Message type | Page |
@@ -329,6 +341,6 @@ It is an index: what the app adds, when to load it, and the path of every refere
 <details>
 <summary>The description an agent matches this skill against</summary>
 
-Message types added to the Bifröst API by Bifrost Foundation. The message-based API surface for Business Central: a queue, a task and a response endpoint, self-describing message types, and the platform every other Bifröst app is built on. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index of what Foundation adds — 142 message types across 23 families (Inventory.*, Finance.*, Sales.*, Help.*, Purchase.*, Warehouse.*, Data.*, Document.*, Memory.*, Customer.*, Incoming.*, User.*, ChangeLog.*, Projects.*, Field.*, Resources.*, CSV.*, Deleted.*, Item.*, Project.*, Vendor.*, Email.*, Webhook.*).
+Message types added to the Bifröst API by Bifrost Foundation. The message-based API surface for Business Central: a queue, a task and a response endpoint, self-describing message types, and the platform every other Bifröst app is built on. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index of what Foundation adds — 149 message types across 24 families (Inventory.*, Finance.*, Sales.*, Help.*, Purchase.*, Warehouse.*, Data.*, Bifrost.*, Document.*, Memory.*, Customer.*, Incoming.*, User.*, ChangeLog.*, Projects.*, Field.*, Resources.*, CSV.*, Deleted.*, Item.*, Project.*, Vendor.*, Email.*, Webhook.*).
 
 </details>

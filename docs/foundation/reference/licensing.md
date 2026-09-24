@@ -4,140 +4,119 @@ title: "Licensing"
 sidebar_position: 7
 ---
 
-Bifrost uses a **message-quota** license model. There is no per-user assignment and no
-plan-tier checking. Two quota pools are tracked, each measured in **messages**:
+This page is the contract a caller sees: which calls count, the errors a call can be refused with,
+the warnings a successful response can carry, and the licence status payload. For the licence
+model itself - Prepaid and Subscription, the trial, the Vendor, Partner and Customer roles and who
+invoices whom - see [Licensing and partner program](/foundation/licensing).
+
+## What counts
+
+A message consumes **one** unit from the caller's pool when **all** of the following hold:
+
+- The message type is **not exempt**. `Help.*` and `Webhook.*` types are exempt - they never consume
+  quota and are never refused for quota.
+- The message was processed **successfully** (a JSON response with `status` other than `Success`
+  is not counted; non-JSON responses such as PDF/CSV count as successful).
+
+There is no charge weight and no per-type price: every chargeable call costs exactly one unit, and
+the pool it was charged to is recorded in the **Charge Type** field of the message. Counting and
+refusal happen in one central place; individual message types do not perform licence checks.
 
 | Pool | Consumed by |
 |------|-------------|
 | **User** | Messages processed under a normal (interactive or web service) user. |
 | **App Registration** | Messages processed by a Microsoft Entra application (service principal). |
 
-## What counts
+A message type can be told that it was called: `Msg Metering ori` is a hook that Foundation invokes
+after every successful non-exempt call so a billing solution can keep its own books. It has no
+influence on the count. See the [metering interface](/foundation/reference/metering-interface/) and
+[Metering a message type](/extensibility/metering).
 
-A message consumes **one** unit from the caller's pool when **all** of the following hold:
+## Why a call can be refused
 
-- The message type is **not exempt**. `Help.*` and `Webhook.*` types are exempt — they always
-  run, are never blocked, and never consume quota.
-- The message was processed **successfully** (a JSON response with `status` other than `Success`
-  is not counted; non-JSON responses such as PDF/CSV count as successful).
+Checks run in this order; the first that applies answers the call with `"status": "Error"` and the
+call is not processed and not counted.
 
-Counting and enforcement happen in one central place when a message is processed; individual
-message-type implementations do not perform license checks.
+| Order | Condition | Applies to | Response |
+|---|---|---|---|
+| 1 | The company has not approved the EULA | Every call, including `Help.*` | `code: "EULA_REQUIRED"`, `setupUrl`, `setupWizardUrl` |
+| 2 | Outbound HTTP is not allowed for Bifröst Foundation | Chargeable calls, outside a sandbox | The error names the setup page |
+| 3 | The trial has not been activated | Chargeable calls, outside a sandbox | `activationMethod: "Setup"`, `requestUrl` |
+| 4 | The user's monthly quota is reached | Both license types, outside a sandbox | `quotaScope: "user"`, `requestUrl` |
+| 5 | The company's monthly quota is reached | Both license types, outside a sandbox | `quotaScope: "company"`, `requestUrl` |
+| 6 | The caller's pool is exhausted and the pool blocks | Prepaid, outside a sandbox | `requestUrl` |
 
-## How much a message costs
+Nothing is refused for quota in a SaaS **sandbox**.
 
-One message. There is no charge weight, no meter and no per-type price: every chargeable
-call costs exactly one unit from the pool, and the pool it was charged to is recorded in the
-**Charge Type** field on the `Message ori` row.
+```json
+{ "status": "Error", "error": "Message quota for the User pool is exhausted. Visit … to request additional licenses.", "requestUrl": "…" }
+```
 
-A message type can, however, be told that it was called. `Msg Metering ori` is a hook that
-Foundation invokes after every successful non-exempt call so a billing or metering solution
-can keep its own books. The hook has no influence on the count above. See the
-[metering interface](/foundation/reference/metering-interface/) for the contract, and
-[Metering a message type](/extensibility/metering) for how a dependent app opts in.
+```json
+{ "status": "Error", "error": "User monthly message quota is exhausted. Visit … to review quotas or request a higher limit.", "requestUrl": "…", "quotaScope": "user" }
+```
 
-## Trial
+### Prepaid pools, grace and blocking
 
-On installation, a trial of **1,000 User + 1,000 App Registration** messages is provisioned for
-the tenant.
+The remaining quota of each pool is maintained by the licensing service (purchased minus reported
+usage) and cached by the daily sync.
 
-## Sandbox
-
-In a **SaaS sandbox** environment, Bifröst itself has **no message limit** — the User / App
-Registration quota pools are not enforced there. That is separate from the **public MCP
-server**, which still limits sandbox traffic to **1,000 messages per 24 hours**.
-
-For unlimited sandbox usage against your own environment, use the **Local MCP** server from
-[businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
-
-The Setup Wizard surfaces this on the Finish step as the **Sandbox Licensing** group (visible
-only when the environment is a sandbox). See
-[Bifrost Setup Wizard — Finish step (sandbox)](/help/foundation/bifrost-setup-wizard/#finish-step-sandbox).
-
-## Enforcement
-
-Before a chargeable message is processed, the caller's pool is checked:
-
-- A small grace allowance may apply past the purchased amount. Exact grace size and related
-  fail-over behaviour are part of the customer licence contract; they are not published here.
-- When the pool is exhausted **and** the pool is configured to block, the message is **not
-  processed** and a structured error is returned:
-
-  ```json
-  { "status": "Error", "error": "Message quota for the User pool is exhausted. Visit … to request additional licenses.", "requestUrl": "…" }
-  ```
-
-- When remaining quota is unknown (for example before the first sync), the product may still
-  allow processing. Treat that as an operational detail of the licensing service, not as a
-  guarantee that calls will always succeed without quota.
-
-### Blocking or warning
-
-What happens to an exhausted pool is decided per pool. The effective value for each pool is
-exposed as `blockOnMissingQuota` in the license status JSON (see
-[Checking status](#checking-status)):
+- When a pool reaches zero, a **grace of 100 messages** still runs.
+- When the grace is used up, the pool is exhausted. Whether an exhausted pool refuses calls is
+  agreed per tenant and exposed as `blockOnMissingQuota` (see [Checking status](#checking-status)):
 
 | Value | Effect |
 |-------|--------|
 | `true` (the usual default) | The call is refused with the quota-exhausted error above. |
-| `false` | The call runs. It is still charged against the pool, and the response still carries the quota warning — the tenant simply keeps working past its purchased quota. |
+| `false` | The call runs. It is still counted, and the response still carries the quota warning. |
 
-Callers should read `blockOnMissingQuota` from the public status payload rather than assuming
-a particular storage or admin UI layout.
+- Before the first sync, when the remaining quota is not known yet, calls are allowed.
 
-## Low-quota warnings
+### Monthly quotas
 
-Successful JSON responses carry a `warnings` array when the caller's pool is running low.
-Severity values you may see:
+Any tenant can set a **Company Monthly Message Quota** (Bifröst Setup) and a **Monthly Msg Quota**
+per user (Bifröst User Setup) - on Subscription they are the only limit. `0` means no limit. A reached quota refuses calls until
+the next calendar month. The user quota is checked before the company quota.
+
+## Warnings
+
+A successful JSON response carries a `warnings` array when a quota that applies to the caller has
+**100 or fewer** messages left - a Prepaid pool or a monthly quota.
 
 | Severity | Meaning |
 |----------|---------|
-| `approaching` | The quota is about to run out. |
-| `grace` | The quota is spent; a small grace allowance may still apply. |
-| `exhausted` | The pool is fully used. Only reachable for a pool whose `blockOnMissingQuota` flag is `false` — otherwise the call was refused instead of warned. |
+| `approaching` | 100 or fewer messages left. |
+| `grace` | The Prepaid pool is spent; the grace of 100 messages is being used. |
+| `exhausted` | The Prepaid pool and its grace are spent. Only reachable when `blockOnMissingQuota` is `false` - otherwise the call was refused. |
 
 ```json
 {
   "status": "Success",
   "result": { "...": "..." },
   "warnings": [
-    { "code": "LicenseQuota", "severity": "approaching", "message": "…", "pool": "User", "remaining": 420, "requestUrl": "…" }
+    { "code": "LicenseQuota", "severity": "approaching", "message": "Message quota is running low. Visit … to review quotas or request a higher limit.", "requestUrl": "…" }
   ]
 }
 ```
 
-The Bifrost Setup page also shows a notification when either pool drops below 1,000.
+The Bifröst Setup page also shows a notification when either Prepaid pool drops below 1,000.
 
 ## Daily usage sync
 
-Usage is reported to the licensing service once per day **per company**:
-
-- The first chargeable message of the day schedules a background task.
-- The task counts each completed day's chargeable messages per pool, refreshes the cached
-  remaining quota for both pools, and resets the reported messages.
-- Usage is reported per **hashed company** under the **hashed tenant**.
-
-```json
-{
-  "docType": "usage",
-  "tenantId": "…",
-  "companyId": "…",
-  "date": "2026-09-05",
-  "licenseType": "User",
-  "quantity": 412
-}
-```
+Usage is reported to the licensing service once per day **per company**. The first chargeable
+message of the day schedules a background task that reports each completed day's chargeable messages
+per pool and refreshes the cached remaining quota. **Sync** on the Bifröst Setup page does the same
+immediately, including today's messages, and also applies invitations and cancellations - see
+[Leaving and cancelling](/foundation/licensing/leaving-and-cancelling/). Usage is reported per
+**hashed company** under the **hashed tenant**.
 
 ## Checking status
 
-- `Help.Bifrost.Get` returns the current license status as `licenseStatus`.
-- The **License** factbox on the Bifrost Setup page shows the same information plus the
-  number of unreported messages and the last sync date.
-
-Former `Help.License.*` message types are no longer in the live Foundation catalogue; use
-`Help.Bifrost.Get` and this overview rather than those retired contracts.
-
-The license status object looks like this:
+- `Help.Bifrost.Get` returns the current licence status as `licenseStatus`.
+- [`Bifrost.Subscription.GetStatus`](/foundation/reference/message-types/bifrost-subscription-getstatus/)
+  returns the tenant's configuration, licence status and current-month usage.
+- The **License** fact box on the Bifröst Setup page shows the same information plus the number of
+  unreported messages and the last sync date.
 
 ```json
 "licenseStatus": {
@@ -151,13 +130,11 @@ The license status object looks like this:
 
 | Field | Type | Meaning |
 |-------|------|---------|
-| `remaining` | int / null | Messages left in the pool; `null` while no value has been synced. |
-| `valid` | bool | False once the pool is past any grace allowance and is no longer considered within quota. |
-| `blockOnMissingQuota` | bool | `true` (the default) refuses calls once the pool is exhausted; `false` lets them run, still charges them and still returns the quota warning. Read-only from the caller's point of view — refreshed by license sync. |
+| `remaining` | int / null | Messages left in the pool; `null` while no value has been synced. Negative while the grace is being used. |
+| `valid` | bool | False once the pool is past the grace and no longer within quota. |
+| `blockOnMissingQuota` | bool | `true` (the default) refuses calls once the pool is exhausted; `false` lets them run, still counts them and still returns the warning. Read-only - refreshed by the licence sync. |
 
-## Requesting licenses
+## Buying more quota
 
-Use **Request License** on the Bifrost Setup page (or the low-quota notification action) to
-open a draft email to Origo. The email is pre-filled with your company name, the **hashed tenant id**,
-the hashed company id, and the **real tenant id** so the request can be provisioned. It also includes
-a placeholder where you should add any relevant details about your organisation before sending.
+Prepaid message quota is purchased from Origo, per pool. After a purchase, the next sync refreshes
+the remaining quota shown in `licenseStatus` and on the License fact box.

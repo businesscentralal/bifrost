@@ -53,13 +53,13 @@ Until programme decisions close them, **do not** fill these gaps with guessed pr
 - Full A/B/C tier split (Q1)
 - Whether `app.json` Application Insights / vault URL exposure is inherent and how to document
   it (Q4)
-- Exact public guarantees for grace size, fail-open behaviour, and Connection Status
-  visibility (§4 row 7)
 
-For grace / fail-open / Connection Status: prefer **contract-safe** wording. If grace must be
-mentioned, say only that a small grace allowance may exist and that exhausted pools are
-refused with the documented error. Do not publish exact grace sizes, storage-key tables, or
-internal sync codeunit names until §4 row 7 is confirmed.
+Decided 2026-09-24 (§4 row 7 closed): the licence numbers are public product copy - the trial
+(1,000 User + 1,000 App Registration messages), the grace (100 messages), the rate-limit tiers
+and their daily limits, and that calls run while the remaining quota is still unknown. The
+**Connection Status** and **On-Premises Secrets** pages stay off the site: they name the secret
+store and the backing store. Storage-key tables and internal sync codeunit names remain off the
+site.
 
 ## How to write licensing contract docs
 

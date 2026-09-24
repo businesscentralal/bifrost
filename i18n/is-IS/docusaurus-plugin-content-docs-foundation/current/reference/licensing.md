@@ -1,144 +1,127 @@
 ---
 id: licensing
-title: "Licensing"
+title: "Leyfisveitingar"
 sidebar_position: 7
 ---
 
-Bifröst notar leyfislíkan sem byggir á **skilaboðakvóta**. Engin úthlutun á einstaka notendur
-og engin athugun á leyfisþrepum. Tveir kvótapottar eru mældir, hvor um sig í **skilaboðum**:
+Þessi síða lýsir samningnum sem kallandi sér: hvaða köll eru talin, villunum sem kalli getur verið
+hafnað með, viðvörununum sem árangursríkt svar getur borið og gögnum leyfisstöðunnar. Um sjálft
+leyfislíkanið - fyrirframgreitt leyfi og áskrift, prufuleyfið, hlutverk söluaðila, samstarfsaðila
+og viðskiptavinar og hver rukkar hvern - sjá [Leyfi og samstarfsáætlun](/foundation/licensing).
 
-| Pottur | Notað af |
-|--------|----------|
-| **Notandi** (User) | Skilaboð unnin í samhengi venjulegs notanda (gagnvirkt eða vefþjónusta). |
-| **Forritsskráning** (App Registration) | Skilaboð unnin af Microsoft Entra forriti (þjónustuaðila). |
+## Hvað er talið
 
-## Hvað telur
+Skilaboð draga **eina** einingu úr potti kallandans þegar **allt** eftirfarandi á við:
 
-Skilaboð draga **eina** einingu úr potti kallandans þegar allt eftirfarandi á við:
+- Skilaboðategundin er **ekki undanþegin**. `Help.*` og `Webhook.*` tegundir eru undanþegnar - þær
+  draga aldrei af kvóta og þeim er aldrei hafnað vegna kvóta.
+- Skilaboðin voru unnin **með árangri** (JSON-svar þar sem `status` er annað en `Success` er ekki
+  talið; svör sem eru ekki JSON, t.d. PDF/CSV, teljast hafa tekist).
 
-- Skilaboðategundin er **ekki undanþegin**. `Help.*` og `Webhook.*` tegundir eru undanþegnar — þær
-  keyra alltaf, eru aldrei stöðvaðar og draga aldrei af kvóta.
-- Skilaboðin voru unnin **með árangri** (JSON-svar með `status` annað en `Success` telur ekki;
-  svör sem ekki eru JSON, t.d. PDF/CSV, teljast árangursrík).
+Það er ekkert gjaldvægi og ekkert verð á hverja tegund: hvert gjaldskylt kall kostar nákvæmlega eina
+einingu, og potturinn sem gjaldfært var á er skráður í reitinn **Gjaldtegund** (Charge Type) á
+skilaboðunum. Talning og höfnun fara fram á einum miðlægum stað; einstakar skilaboðategundir
+framkvæma ekki leyfisathuganir.
 
-Talning og framfylgd fara fram á einum miðlægum stað þegar skilaboð eru unnin; einstakar útfærslur
-skilaboðategunda framkvæma ekki leyfisathuganir.
+| Pottur | Notaður af |
+|--------|------------|
+| **Notandi** (User) | Skilaboðum sem unnin eru undir venjulegum notanda (gagnvirkt eða gegnum vefþjónustu). |
+| **Forritsskráning** (App Registration) | Skilaboðum sem Microsoft Entra forrit (þjónustuaðili) vinnur. |
 
-## Hvað skilaboð kosta
+Skilaboðategund getur fengið að vita að kallað hafi verið á hana: `Msg Metering ori` er krókur sem
+Foundation kallar á eftir hvert árangursríkt kall sem er ekki undanþegið, svo gjaldtökulausn geti
+haldið eigið bókhald. Krókurinn hefur engin áhrif á talninguna. Sjá
+[mælingaviðmótið](/foundation/reference/metering-interface/) og
+[Mæling skilaboðategundar](/extensibility/metering).
 
-Ein skilaboð. Það er ekkert gjaldvægi, enginn mælir og ekkert verð á hverja tegund: hvert
-gjaldskylt kall kostar nákvæmlega eina einingu úr pottinum, og potturinn sem gjaldfært var á
-er skráður í reitinn **Gjaldtegund** (Charge Type) á `Message ori` færslunni.
+## Hvers vegna kalli getur verið hafnað
 
-Skilaboðategund má hins vegar fá að vita að kallað hafi verið á hana. `Msg Metering ori` er
-krókur sem grunnurinn kallar á eftir hvert árangursríkt kall sem er ekki undanþegið, svo
-gjaldtöku- eða mælingalausn geti haldið eigið bókhald. Krókurinn hefur engin áhrif á
-talninguna hér að ofan. Sjá [mælingaviðmótið](/foundation/reference/metering-interface/)
-fyrir samninginn, og [Mæling skilaboðategundar](/extensibility/metering) fyrir hvernig háð
-forrit tekur hann upp.
+Athuganirnar eru gerðar í þessari röð; sú fyrsta sem á við svarar kallinu með `"status": "Error"`,
+og kallið er hvorki unnið né talið.
 
-## Prufuútgáfa
+| Röð | Skilyrði | Á við um | Svar |
+|---|---|---|---|
+| 1 | Fyrirtækið hefur ekki samþykkt notendaleyfissamninginn | Öll köll, líka `Help.*` | `code: "EULA_REQUIRED"`, `setupUrl`, `setupWizardUrl` |
+| 2 | Útleið HTTP-beiðnir eru ekki leyfðar fyrir Bifröst Foundation | Gjaldskyld köll, utan sandkassa | Villan nefnir uppsetningarsíðuna |
+| 3 | Prufuleyfið hefur ekki verið virkjað | Gjaldskyld köll, utan sandkassa | `activationMethod: "Setup"`, `requestUrl` |
+| 4 | Mánaðarlegum kvóta notandans er náð | Báðar tegundir leyfa, utan sandkassa | `quotaScope: "user"`, `requestUrl` |
+| 5 | Mánaðarlegum kvóta fyrirtækisins er náð | Báðar tegundir leyfa, utan sandkassa | `quotaScope: "company"`, `requestUrl` |
+| 6 | Pottur kallandans er tæmdur og potturinn lokar | Fyrirframgreitt leyfi, utan sandkassa | `requestUrl` |
 
-Við uppsetningu er útvegaður prufukvóti upp á **1.000 Notanda + 1.000 Forritsskráningar** skilaboð
-fyrir leigjandann.
+Engu er hafnað vegna kvóta í SaaS-**sandkassa**.
 
-## Sandkassi
+```json
+{ "status": "Error", "error": "Message quota for the User pool is exhausted. Visit … to request additional licenses.", "requestUrl": "…" }
+```
 
-Í **SaaS sandkassa**umhverfi hefur Bifröst sjálft **engin skilaboðatakmörk** — Notanda- /
-Forritsskráningarpottarnir eru ekki framfylgdir þar. Það er aðskilið frá **opinbera
-MCP-þjóninum**, sem takmarkar sandkassaumferð samt við **1.000 skilaboð á 24 klukkustundum**.
+```json
+{ "status": "Error", "error": "User monthly message quota is exhausted. Visit … to review quotas or request a higher limit.", "requestUrl": "…", "quotaScope": "user" }
+```
 
-Fyrir ótakmarkaða sandkassanotkun á móti eigin umhverfi skaltu nota **staðbundinn MCP**-þjón
-úr [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
+### Fyrirframgreiddir pottar, vikmörk og lokun
 
-Uppsetningarleiðsögnin birtir þetta á Ljúka-skrefinu sem hópinn **Sandkassaleyfi** (aðeins
-sýnilegur þegar umhverfið er sandkassi). Sjá
-[Uppsetningarleiðsögn Bifröst — Ljúkaskref (sandkassi)](/help/foundation/bifrost-setup-wizard/#ljúkaskref-sandkassi).
+Leyfisþjónustan heldur utan um eftirstöðvar hvers potts (keypt magn að frádreginni tilkynntri
+notkun), og dagleg samstilling geymir þær í skyndiminni.
 
-## Framfylgd
-
-Áður en gjaldfært skilaboð er unnið er pottur kallandans athugaður:
-
-- Lítil umlíðun getur gilt umfram keypt magn. Nákvæm stærð umlíðunar og tengd bilunarhegðun
-  tilheyra viðskiptasamningi viðskiptavinar; þær eru ekki birtar hér.
-- Þegar potturinn er uppurinn **og** potturinn er stilltur til að loka eru skilaboðin
-  **ekki unnin** og skilað er formuðu villusvari:
-
-  ```json
-  { "status": "Error", "error": "Message quota for the User pool is exhausted. Visit … to request additional licenses.", "requestUrl": "…" }
-  ```
-
-- Þegar eftirstöðvar eru óþekktar (t.d. fyrir fyrstu samstillingu) getur varan samt leyft
-  vinnslu. Lítið á það sem rekstrarlega smáatriði leyfisþjónustunnar, ekki sem tryggingu
-  fyrir að köll takist alltaf án kvóta.
-
-### Lokun eða viðvörun
-
-Það sem gerist við uppurinn pott ræðst fyrir hvern pott. Virka gildið fyrir hvorn pott birtist
-sem `blockOnMissingQuota` í JSON-leyfisstöðunni (sjá
-[Að skoða stöðu](#að-skoða-stöðu)):
+- Þegar pottur nær núlli er enn hægt að nota **100 skilaboð í vikmörk**.
+- Þegar vikmörkin eru uppurin er potturinn tæmdur. Hvort tæmdur pottur hafnar köllum er samið um
+  fyrir hvern leigjanda og birtist sem `blockOnMissingQuota` (sjá
+  [Staða skoðuð](#checking-status)):
 
 | Gildi | Áhrif |
 |-------|-------|
 | `true` (venjulega sjálfgefið) | Kallinu er hafnað með villunni um uppurinn kvóta hér að ofan. |
-| `false` | Kallið keyrir. Það er eftir sem áður gjaldfært á pottinn og svarið ber áfram kvótaviðvörunina — leigjandinn heldur einfaldlega áfram að vinna umfram keyptan kvóta. |
+| `false` | Kallið keyrir. Það er áfram talið og svarið ber áfram kvótaviðvörunina. |
 
-Kallarar eiga að lesa `blockOnMissingQuota` úr opinbera stöðusvarinu frekar en að gera ráð
-fyrir tiltekinni geymslu eða stjórnunarviðmóti.
+- Fyrir fyrstu samstillingu, á meðan eftirstöðvarnar eru enn óþekktar, eru köll leyfð.
 
-## Viðvaranir um lágan kvóta
+### Mánaðarlegir kvótar
 
-Árangursrík JSON-svör bera `warnings` fylki þegar pottur kallandans er að klárast.
-Alvarleikagildi sem þú gætir séð:
+Hvaða leigjandi sem er getur sett **Mánaðarlegan skilaboðakvóta fyrirtækis** (Uppsetning Bifröst) og
+**mánaðarlegan skilaboðakvóta** fyrir hvern notanda (Uppsetning notanda Bifröst) - á áskrift eru
+þeir einu takmörkin. `0` þýðir engin takmörk. Þegar kvóta er náð er köllum hafnað fram að næsta
+almanaksmánuði. Kvóti notanda er athugaður á undan kvóta fyrirtækis.
+
+## Viðvaranir
+
+Árangursríkt JSON-svar ber `warnings` fylki þegar kvóti sem á við um kallandann á **100 eða færri**
+skilaboð eftir - fyrirframgreiddur pottur eða mánaðarlegur kvóti.
 
 | Alvarleiki | Merking |
 |------------|---------|
-| `approaching` | Kvótinn er við það að klárast. |
-| `grace` | Kvótinn er uppurinn; lítil umlíðun getur enn gilt. |
-| `exhausted` | Potturinn er fullnýttur. Næst aðeins fyrir pott þar sem `blockOnMissingQuota` er `false` — annars var kallinu hafnað í stað þess að vara við. |
+| `approaching` | 100 eða færri skilaboð eftir. |
+| `grace` | Fyrirframgreiddi potturinn er uppurinn; verið er að nota vikmörkin upp á 100 skilaboð. |
+| `exhausted` | Fyrirframgreiddi potturinn og vikmörk hans eru uppurin. Næst aðeins þegar `blockOnMissingQuota` er `false` - annars hefði kallinu verið hafnað. |
 
 ```json
 {
   "status": "Success",
   "result": { "...": "..." },
   "warnings": [
-    { "code": "LicenseQuota", "severity": "approaching", "message": "…", "pool": "User", "remaining": 420, "requestUrl": "…" }
+    { "code": "LicenseQuota", "severity": "approaching", "message": "Message quota is running low. Visit … to review quotas or request a higher limit.", "requestUrl": "…" }
   ]
 }
 ```
 
-Uppsetningarsíða Bifröst sýnir einnig tilkynningu þegar annar potturinn fer undir 1.000.
+Síðan Uppsetning Bifröst sýnir einnig tilkynningu þegar annar hvor fyrirframgreiddi potturinn fer
+undir 1.000.
 
 ## Dagleg samstilling notkunar
 
-Notkun er tilkynnt til leyfisþjónustunnar einu sinni á dag **fyrir hvert fyrirtæki**:
+Notkun er tilkynnt til leyfisþjónustunnar einu sinni á dag **fyrir hvert fyrirtæki**. Fyrstu
+gjaldskyldu skilaboð dagsins setja af stað bakgrunnsverk sem tilkynnir gjaldskyld skilaboð hvers
+liðins dags eftir potti og endurnýjar eftirstöðvarnar í skyndiminni. **Samstilla** á síðunni
+Uppsetning Bifröst gerir það sama strax, að meðtöldum skilaboðum dagsins, og virkjar auk þess boð og
+uppsagnir - sjá [Úrsögn og uppsögn](/foundation/licensing/leaving-and-cancelling/). Notkun er
+tilkynnt eftir **tætigildi fyrirtækis** undir **tætigildi leigjanda**.
 
-- Fyrstu gjaldfæru skilaboð dagsins áætla bakgrunnsverk.
-- Verkið telur gjaldfærð skilaboð hvers liðins dags eftir potti, endurnýjar eftirstöðvar
-  beggja potta og núllstillir tilkynntu skilaboðin.
-- Notkun er tilkynnt eftir **tætigildi fyrirtækis** undir **tætigildi leigjanda**.
-
-```json
-{
-  "docType": "usage",
-  "tenantId": "…",
-  "companyId": "…",
-  "date": "2026-09-05",
-  "licenseType": "User",
-  "quantity": 412
-}
-```
-
-## Að skoða stöðu
+## Staða skoðuð {#checking-status}
 
 - `Help.Bifrost.Get` skilar núverandi leyfisstöðu sem `licenseStatus`.
-- **Leyfi**-staðreyndareiturinn á uppsetningarsíðunni sýnir sömu upplýsingar auk fjölda óskráðra
-  skilaboða og dagsetningar síðustu samstillingar.
-
-Fyrrum `Help.License.*` skilaboðategundir eru ekki lengur í raunverulegri Foundation-skrá; notaðu
-`Help.Bifrost.Get` og þetta yfirlit frekar en þá úreltu samninga.
-
-Leyfisstöðuhluturinn lítur svona út:
+- [`Bifrost.Subscription.GetStatus`](/foundation/reference/message-types/bifrost-subscription-getstatus/)
+  skilar stillingum leigjandans, leyfisstöðu og notkun yfirstandandi mánaðar.
+- Upplýsingareiturinn **Leyfi** á síðunni Uppsetning Bifröst sýnir sömu upplýsingar auk fjölda
+  ótilkynntra skilaboða og dagsetningar síðustu samstillingar.
 
 ```json
 "licenseStatus": {
@@ -152,14 +135,11 @@ Leyfisstöðuhluturinn lítur svona út:
 
 | Reitur | Tegund | Merking |
 |--------|--------|---------|
-| `remaining` | heiltala / null | Skilaboð sem eftir eru í pottinum; `null` meðan ekkert gildi hefur verið samstillt. |
-| `valid` | boolean | Ósatt um leið og potturinn er kominn fram úr umlíðun og telst ekki lengur innan kvóta. |
-| `blockOnMissingQuota` | boolean | `true` (sjálfgefið) hafnar köllum um leið og potturinn er uppurinn; `false` lætur þau keyra, gjaldfærir þau eftir sem áður og skilar áfram kvótaviðvöruninni. Skrifvarið frá sjónarhóli kallanda — endurnýjað við leyfissamstillingu. |
+| `remaining` | heiltala / null | Skilaboð sem eftir eru í pottinum; `null` á meðan ekkert gildi hefur verið samstillt. Neikvætt á meðan verið er að nota vikmörkin. |
+| `valid` | boolean | Ósatt þegar potturinn er kominn fram úr vikmörkunum og er ekki lengur innan kvóta. |
+| `blockOnMissingQuota` | boolean | `true` (sjálfgefið) hafnar köllum þegar potturinn er tæmdur; `false` lætur þau keyra, telur þau áfram og skilar áfram viðvöruninni. Skrifvarið - endurnýjað við leyfissamstillingu. |
 
-## Að óska eftir leyfum
+## Meiri kvóti keyptur
 
-Notaðu **Óska eftir leyfi** á uppsetningarsíðu Bifröst (eða aðgerð tilkynningar um lágan kvóta)
-til að opna drög að tölvupósti til Origo. Tölvupósturinn er forútfylltur með heiti fyrirtækisins,
-**tætigildi leigjandakennis**, tætigildi fyrirtækjakennis og **raunverulegt leigjandakenni** svo
-hægt sé að afgreiða beiðnina. Þar er einnig staðargeymir þar sem þú ættir að bæta við
-viðeigandi upplýsingum um þig og fyrirtækið þitt áður en þú sendir.
+Fyrirframgreiddur skilaboðakvóti er keyptur frá Origo, fyrir hvern pott. Eftir kaup endurnýjar
+næsta samstilling eftirstöðvarnar sem birtast í `licenseStatus` og í upplýsingareitnum Leyfi.
