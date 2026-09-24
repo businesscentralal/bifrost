@@ -80,6 +80,10 @@ Any tenant can set a **Company Monthly Message Quota** (Bifröst Setup) and a **
 per user (Bifröst User Setup) - on Subscription they are the only limit. `0` means no limit. A reached quota refuses calls until
 the next calendar month. The user quota is checked before the company quota.
 
+The count is taken from the chargeable messages in the company's **Bifrost Messages** that have not
+been reported to the licensing service yet: the daily usage sync and a retention policy on Bifrost
+Messages both lower it. See [How the monthly quotas are counted](/foundation/licensing/license-types/#how-monthly-quotas-are-counted).
+
 ## Warnings
 
 A successful JSON response carries a `warnings` array when a quota that applies to the caller has

@@ -39,7 +39,7 @@ The partner-program notifications are shown only to users with licence administr
 | **Export Company Name Type** | Which company name `CSV.Records.Get` and `CSV.DeletedRecords.Get` write to the `$Company` column: **Company Name** (default, stable) or **Company Display Name** (falls back to Company Name when blank). |
 | **Default Email Scenario** | The email scenario used to pick the sending account when a request does not name one. |
 | **Request Debug Mode** | Stores full, unmasked request and response bodies in the [Request Log](/help/foundation/bifrost-request-log/). Use only while troubleshooting. Requires the `BIFROST ReqLgAdm ori` permission set. |
-| **Company Monthly Message Quota** | The most chargeable messages the company may use in a calendar month, on either license type. `0` means no limit. When the quota is reached, calls are refused until the next month. Not enforced in a sandbox. See [Monthly quotas](/foundation/licensing/license-types/#monthly-quotas). |
+| **Company Monthly Message Quota** | The most chargeable messages the company may use in a calendar month, on either license type. `0` means no limit. When the quota is reached, calls are refused until the next month. Not enforced in a sandbox. Counted from the Bifrost Messages not yet reported by the daily usage sync, so it caps the messages since the last sync rather than the full month; keep at least 31 days of Bifrost Messages in the retention policy. See [How the monthly quotas are counted](/foundation/licensing/license-types/#how-monthly-quotas-are-counted). |
 
 The **Environment** group (online only) shows the **Environment Name**, **Company Id**, **Azure Tenant Id**, the **Task API Url** and **Queue API Url** of this company, and a **Connection Prompt** you can paste into an AI assistant to connect it to this environment.
 
@@ -54,7 +54,7 @@ The page also lists the **Available Message Types** and, for licence administrat
 | | **Delete Log** / **Delete Setup** | The audit log of deleted records and its setup. |
 | Setup | **User Setup** | Per-user setup: linked records, system prompt, monthly message quota. |
 | | **Field Access** | Field-level read/write restrictions - see [Bifrost Field Accesses](/help/foundation/bifrost-field-accesses/). |
-| | **ChangeLog Guard Exceptions**, **Change Log Setup**, **Retention Policies** | Change-log guard exceptions, change-log coverage and automatic clean-up. |
+| | **ChangeLog Guard Exceptions**, **Change Log Setup**, **Retention Policies** | Change-log guard exceptions, change-log coverage and automatic clean-up. Keep at least 31 days of Bifrost Messages when you use the monthly quotas. |
 | | **Secrets** | The secrets every installed Bifröst application needs - see [Bifrost App Secrets](/help/foundation/bifrost-app-secrets/). |
 | | **Setup Wizard** | Opens the [Setup Wizard](/help/foundation/bifrost-setup-wizard/). |
 | Licensing | **Sync** | Reports pending usage to the licensing service, refreshes the licence status, and applies invitations, cancellations and leave-request outcomes. Also runs once a day in the background. |

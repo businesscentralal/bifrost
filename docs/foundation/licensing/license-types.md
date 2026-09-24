@@ -101,6 +101,20 @@ or `company`) stopped the call. The user quota is checked before the company quo
 a Prepaid tenant's purchased pools. When a monthly quota has 100 or fewer messages left, successful
 responses carry a warning. Monthly quotas are not enforced in a sandbox.
 
+### How the monthly quotas are counted {#how-monthly-quotas-are-counted}
+
+Business Central counts the monthly quotas itself, from the **Bifrost Messages** of the company: the
+chargeable messages of the current calendar month that are still marked as chargeable there. Two
+things lower that count, so the quotas cap less than a full month in practice:
+
+- **The daily usage sync.** Once a day's messages have been reported to the licensing service they
+  are no longer marked as chargeable, and no longer count towards the monthly quotas. In effect the
+  quotas limit the messages since the last successful sync - usually the current day. What you are
+  invoiced for is the reported usage, which is not affected.
+- **Retention.** A retention policy on **Bifrost Messages** that deletes messages from the current
+  month removes them from the count. Keep at least 31 days of Bifrost Messages if you use the monthly
+  quotas.
+
 ## Sandbox environments
 
 In a Business Central online **sandbox**:
