@@ -5,54 +5,49 @@ sidebar_label: "Uppsetningarleiðsögn"
 sidebar_position: 23
 ---
 
-**Uppsetningarleiðsögn Bifröst** (setup wizard) er eini staðurinn þar sem allar Bifröst uppsetningartilkynningar birtast. Engin einstök Bifröst viðbót sýnir lengur eigin uppsetningarborða — þegar eitthvað þarfnast athygli (útleið HTTP, leyndarmál, prufuleyfi, tenging við MCP-þjóninn, heimild Entra fyrirtækjaforrits) vísar [Bifröst uppsetning](/help/foundation/bifrost-setup/) hingað, og leiðsögnin fer yfir hverja uppsettu viðbót.
+**Uppsetningarleiðsögn Bifröst** er eini áfangastaður allra uppsetningartilkynninga Bifröst. Ekkert einstakt Bifröst-forrit sýnir eigin uppsetningartilkynningu — þegar eitthvað þarfnast athygli (leyfissamningurinn, útleiðar HTTP, auðkenni, prufuleyfið, tengingin við MCP-þjóninn) vísar [Uppsetning Bifröst](/help/foundation/bifrost-setup/) hingað og leiðsögnin fer yfir öll forrit sem eru uppsett.
 
-Leiðsögnina má líka opna hvenær sem er úr Aðstoðaða uppsetningarlistanum (Assisted Setup), eða með **Hefja uppsetningarleiðsögn** á tilkynningunni um HTTP-beiðnir á Bifröst uppsetningu.
+Opnaðu hana úr listanum Aðstoðuð uppsetning, með **Uppsetningarleiðsögn** á Uppsetning Bifröst eða með **Hefja uppsetningarleiðsögn** í tilkynningu á Uppsetning Bifröst. Hvert fyrirtæki keyrir hana einu sinni: þar til leiðsögninni er lokið hafnar Bifröst öllum köllum fyrirtækisins.
 
 ## Skref
 
 | Skref | Hvað gerist |
 | --- | --- |
-| **1. Velkomin/n** | Útskýrir hvað leiðsögnin gerir og sýnir notendaleyfissamninginn (EULA) fyrir Bifröst Foundation. Þú verður að samþykkja hann áður en lengra er haldið. |
-| **2. HTTP** | Sýnir hverja skráða Bifröst viðbót og hvort útleið HTTP-beiðnir séu virkjaðar fyrir hana. Sjá [HTTP-skref](#http-skref) hér fyrir neðan. |
-| **3. Leyndarmál** _(valfrjálst)_ | Sýnir leyndarmálin sem hver uppsett Bifröst viðbót hefur skráð, svo hægt sé að skrá gildi sem vantar enn. Þetta skref hindrar aldrei **Áfram** — sjá [Leyndarmálaskref](#leyndarmálaskref) hér fyrir neðan. |
-| **4. Virkjun prufuleyfis** | Sýnir stöðu prufuleyfisins (1.000 notenda- og 1.000 forritaskráningarskilaboð, úthlutað sjálfkrafa við uppsetningu) og gerir kleift að óska eftir viðbótarleyfum ef prufan er að klárast. **Sleppt í sandkassa** — SaaS sandkassaumhverfi nota ekki prufuskrefið (sama og AL-leiðsögnin þegar `EnvironmentInformation.IsSandbox()` er satt). |
-| **5. Tenging við MCP-þjón** | Sýnir hvort Origo BC MCP-þjónninn nái sambandi við þetta umhverfi, og tengiupplýsingarnar sem stjórnandi þarf til að stilla hann. |
-| **6. Entra fyrirtækjaforrit** | Staðfestir að Entra ID fyrirtækjaforritið sem notað er til auðkenningar API hafi verið heimilað fyrir þetta leigjendaumhverfi, með tengli á að ljúka stjórnandasamþykki ef það hefur ekki verið gert. |
-| **7. Ljúka** | Merkir aðstoðuðu uppsetninguna sem lokið og lokar leiðsögninni. Hægt er að breyta öllum stillingum aftur síðar frá [Bifröst uppsetningu](/help/foundation/bifrost-setup/) eða úr leiðsögninni sjálfri. Í **sandkassa** sýnir þetta skref einnig hópinn **Sandkassaleyfi** — sjá [Ljúkaskref (sandkassi)](#ljúkaskref-sandkassi) hér fyrir neðan. |
+| **1. Velkomin í Bifröst** | Útskýrir hvað Bifröst geymir hjá Origo (einstefnutætigildi af leigjandaauðkenninu þínu, stillingar þessa fyrirtækis og skilaboðanotkun þess) og sýnir notendaleyfissamninginn. Veldu **Ég samþykki notendaleyfissamninginn** til að halda áfram. |
+| **2. Virkja HTTP-biðlarabeiðnir** | Telur upp öll uppsett Bifröst-forrit og hvort þau megi senda útleiðar HTTP-beiðnir. Sjá [HTTP-skref](#http-step). |
+| **3. Auðkenni** _(valfrjálst)_ | Telur upp auðkennin sem uppsettu forritin þurfa svo þú getir skráð gildi sem vantar. Sjá [Auðkennaskref](#credentials-step). |
+| **4. Leyfi** | Fer eftir umhverfinu - sjá [Leyfisskref](#licensing-step). |
+| **5. MCP-þjónustenging og heimild forrits** | Aðeins í skýinu. Sýnir vefslóð MCP-þjónsins sem þú bætir við gervigreindarvirkið þitt, tengilinn sem stjórnandi (alstjórnandi eða forritastjórnandi í Microsoft Entra) notar til að heimila Origo Bifrost-fyrirtækjaforritið og tengla á Bifröst-tenginguna í verslunum gervigreindarvirkja. |
+| **6. Uppsetningu lokið** | Veldu **Ljúka** til að samþykkja leyfissamninginn fyrir þetta fyrirtæki, skrá fyrirtækið hjá leyfisþjónustunni og, í framleiðsluumhverfi, virkja prufuleyfið. Aðstoðaða uppsetningin er þá merkt sem lokið. |
 
-### HTTP-skref
+Uppsetningar á staðnum sleppa skrefi 5.
 
-Útleið HTTP er nauðsynlegt fyrir flestar Bifröst viðbætur — fyrir tilkynningar, vefkróka og köll í ytri þjónustur. Skrefið sýnir töflu (ein lína fyrir hverja uppsetta Bifröst viðbót) með heiti viðbótarinnar og núverandi HTTP-stöðu hennar.
+### HTTP-skref {#http-step}
 
--   **Virkja HTTP fyrir allar viðbætur** birtist þegar minnst ein uppsett Bifröst viðbót hefur enn óvirkjað útleið HTTP — ekki aðeins Bifröst Foundation sjálft. Aðgerðin virkjar útleið HTTP fyrir allar skráðar viðbætur í einu; taflan og sýnileiki aðgerðarinnar sjálfrar uppfærast sjálfkrafa á eftir.
--   Ef þú hefur ekki heimild til að breyta viðbótarstillingum er aðgerðin áfram sýnileg en **óvirk**, og athugasemd útskýrir: _„Þú hefur ekki heimild til að breyta viðbótarstillingum. Biddu stjórnanda með SUPER heimildasamstæðuna (eða skrifheimild á töfluna NAV App Setting) um að virkja Allow HttpClient Requests fyrir viðbæturnar sem taldar eru upp hér að ofan.“_
--   **Sannreyna** les HTTP-stöðu allra viðbóta aftur án þess að fara af skrefinu.
+Flest Bifröst-forrit þurfa útleiðar HTTP — Bifröst Foundation þarf það til að ná sambandi við leyfisþjónustuna. Skrefið sýnir listann [Bifröst-forrit](/help/foundation/registered-apps/) með HTTP-stöðu hvers forrits.
 
-### Leyndarmálaskref
+-   **Virkja HTTP fyrir öll forrit** birtist hvenær sem að minnsta kosti eitt uppsett Bifröst-forrit er enn með útleiðar HTTP óvirkt. Aðgerðin virkjar útleiðar HTTP fyrir öll forritin á listanum í einu.
+-   Ef þú hefur ekki heimild til að breyta stillingum viðbóta er aðgerðin óvirk og athugasemd útskýrir: _„Þú hefur ekki heimild til að breyta stillingum viðbóta. Biddu kerfisstjóra sem hefur SUPER heimildasafnið (eða skrifheimild á töfluna NAV App Setting) um að virkja Leyfa HttpClient-beiðnir fyrir forritin hér að ofan.“_
+-   **Staðfesta** les HTTP-stöðu allra forrita aftur án þess að fara af skrefinu.
 
-Sérhver uppsett Bifröst viðbót getur skráð leyndarmálin sem hún þarfnast í sameiginlegu leyndarmálageymsluna (sjá [Leyndarmál](/foundation/reference/secrets/)). Þetta skref telur upp öll þau leyndarmál frá öllum uppsettum viðbótum. Veldu línu og notaðu **Skrá gildi...** til að skrá það í sameiginlega dulda innsláttarglugganum.
+### Auðkennaskref {#credentials-step}
 
-Leyndarmál sem vantar teljast aldrei sem villa hér eða á Bifröst uppsetningu — leyndarmál sem er ekki skráð gerir einfaldlega óvirkar þær skilaboðategundir sem reiða sig á það, og má skrá síðar hvenær sem er á Bifröst uppsetningu, aðgerðinni **Leyndarmál**.
+Hvert uppsett Bifröst-forrit getur skráð auðkennin sem það þarf í sameiginlegu leyndarmálageymsluna (sjá [Leyndarmál](/foundation/reference/secrets/)). Listinn [Auðkenni](/help/foundation/wizard-credentials/) sýnir þau öll. Veldu línu og síðan **Skrá gildi...** til að slá inn gildi.
 
-### Ljúkaskref (sandkassi)
+Auðkenni sem vantar eru aldrei villa, hvorki hér né á Uppsetning Bifröst — auðkenni sem er ekki skráð gerir óvirkar þær skilaboðategundir sem eru háðar því og hægt er að skrá það síðar með **Leyndarmál** á Uppsetning Bifröst.
 
-Þegar umhverfið er sandkassi (`IsSandbox`) birtist á Ljúka-skrefinu viðbótarhópurinn **Sandkassaleyfi** með þessari leiðbeiningu:
+### Leyfisskref {#licensing-step}
 
-> Þetta er sandkassaumhverfi. Á opinbera MCP-þjóninum er skilaboðanotkun takmörkuð við 1.000 skilaboð á 24 klukkustundum. Bifröst sjálft hefur engin skilaboðatakmörk. Fyrir ótakmarkaða sandkassanotkun skaltu nota staðbundinn MCP-þjón úr https://github.com/businesscentralal/origo-bc-mcp.
+| Umhverfi | Hvað skrefið sýnir |
+| --- | --- |
+| **Framleiðsluumhverfi (í skýinu)** | Prufuleyfið: **1.000 notendaskilaboð + 1.000 forritsskráningarskilaboð**, virkjað einu sinni fyrir hvern Microsoft Entra leigjanda. **Ljúka** virkjar það ef leigjandinn hefur ekki fengið prufuleyfi. Á fyrirframgreiddu leyfi útskýrir skrefið einnig hvernig áskriftarleyfið hefst: þegar Bifröst samstarfsaðili þinn býður leigjandanum sem viðskiptavin og þú samþykkir. |
+| **Sandkassi** | **Sandkassaleyfi**: ekki þarf prufuleyfi og Bifröst sjálft takmarkar ekki skilaboð; opinberi MCP-þjónninn leyfir 1.000 skilaboð á 24 klukkustundum fyrir hvern Microsoft Entra leigjanda. Fyrir ótakmarkaðar prófanir í sandkassa skaltu nota staðbundna MCP-þjóninn úr [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp). |
+| **Á staðnum** | Hvernig staðbundni MCP-þjónninn er settur upp við hlið uppsetningarinnar og **Staðfesta tengingu** fyrir tenginguna við leyfisþjónustuna sem Origo lét fylgja leyfinu á staðnum. Ekki er hægt að halda áfram fyrr en tengingin hefur verið staðfest. |
 
-Lykilatriði:
-
-- Hópurinn er **aðeins sýnilegur** á Ljúka-skrefinu þegar umhverfið er sandkassi.
-- **Opinber MCP:** takmarkaður við **1.000 skilaboð á 24 klukkustundum**.
-- **Bifröst sjálft** hefur **engin skilaboðatakmörk** í sandkassa (skilaboðakvótaleyfi gildir ekki þar).
-- Fyrir **ótakmarkaða sandkassanotkun** skaltu keyra **staðbundinn MCP**-þjón úr [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
-
-Sjá einnig [Leyfisveiting — Sandkassi](/foundation/reference/licensing/#sandbox).
+Sjá [Leyfi og samstarfsaðilakerfi](/foundation/licensing) um leyfislíkanið.
 
 ## Ábendingar
 
--   Leyndarmálaskrefið birtist alltaf, jafnvel þótt engin uppsett viðbót hafi enn skráð leyndarmál — þá sýnir það einfaldlega tóman lista.
--   Ekkert sem gert er í leiðsögninni er óafturkræft: **Til baka** og **Áfram** eyða aldrei gildum sem þegar hafa verið skráð, og hægt er að opna leiðsögnina aftur eins oft og þörf krefur.
--   Aðgerðin **Hefja uppsetningarleiðsögn** á tilkynningunni um HTTP-beiðnir opnar þessa sömu leiðsögn — það er ekkert sérstakt, styttra ferli eingöngu fyrir HTTP.
--   Í sandkassa sleppir leiðsögnin **virkjun prufuleyfis** (skref 4) og sýnir **Sandkassaleyfi** á Ljúka-skrefinu í stað prufupotts.
+-   Ný uppsetning byrjar alltaf á **fyrirframgreiddu** leyfi. **Áskriftarleyfið** hefst síðar, þegar leigjandinn samþykkir boð frá Bifröst samstarfsaðila - sjá [Að vera viðskiptavinur](/foundation/licensing/customer/).
+-   Ekkert sem þú gerir í leiðsögninni er óafturkræft: **Til baka** og **Áfram** henda aldrei gildum sem þú hefur þegar skráð og þú getur keyrt leiðsögnina aftur hvenær sem er.
+-   **Afturkalla samþykki notendaleyfissamnings** á Uppsetning Bifröst dregur samþykkið til baka fyrir fyrirtækið; keyrðu leiðsögnina aftur til að endurheimta það.

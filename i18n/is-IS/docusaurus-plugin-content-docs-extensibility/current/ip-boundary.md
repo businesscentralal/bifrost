@@ -53,13 +53,13 @@ hún geti lýst reglunni án þess að falla sjálf.
 - Full skipting í A/B/C-þrep (Q1)
 - Hvort birting Application Insights / slóðar leyndarmálageymslu í `app.json` sé óhjákvæmileg og
   hvernig eigi að skjala hana (Q4)
-- Nákvæmar opinberar tryggingar um stærð umlíðunar, áframhald við bilun og sýnileika Tengingarstöðu
-  (§4, lína 7)
 
-Notaðu **samningsöruggt** orðalag um umlíðun / áframhald við bilun / Tengingarstöðu. Ef minnast
-verður á umlíðun skal aðeins segja að lítil umlíðun geti verið til staðar og að kvótapottum sem
-séu uppurnir sé hafnað með skráðu villunni. Ekki birta nákvæma stærð umlíðunar, töflur yfir
-geymslulykla eða innri nöfn samstillingareininga fyrr en §4, lína 7 hefur verið staðfest.
+Ákveðið 2026-09-24 (§4, línu 7 lokað): leyfistölurnar eru opinber vörutexti - prufuleyfið
+(1.000 notendaskilaboð + 1.000 forritsskráningarskilaboð), vikmörkin (100 skilaboð), þrep
+álagsþaks og dagleg takmörk þeirra, og að köll keyri á meðan eftirstöðvar kvótans eru enn óþekktar.
+Síðurnar **Tengingastaða** og **Leyndarmál í eigin umhverfi** eru áfram utan vefsins: þær nefna
+leyndarmálageymsluna og bakgeymsluna. Töflur yfir geymslulykla og innri nöfn samstillingareininga
+eru áfram utan vefsins.
 
 ## Hvernig skrifa á leyfissamningsskjöl
 
