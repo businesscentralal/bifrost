@@ -15,9 +15,9 @@ description: "Hvernig leigjandi þiggur boð samstarfsaðila, hvað breytist á 
    byrjar á fyrirframgreiddu leyfi með samþykktan notendaleyfissamning og virkt prufuleyfi.
 2. Gefðu samstarfsaðilanum upp **Microsoft Entra leigjandaauðkenni** þitt (birtist sem **Azure
    leigjandakenni** á Uppsetningu Bifröst).
-3. Þegar samstarfsaðilinn hefur sent boðið skaltu opna **Uppsetning Bifröst** (keyrðu **Samstilla**
-   ef tilkynningin birtist ekki strax) og velja **Skrá sem viðskiptavinur** í tilkynningunni
-   *Bifröst samstarfsaðili hefur boðið þessum leigjanda sem viðskiptavin*.
+3. Þegar samstarfsaðilinn hefur sent boðið skaltu opna **Uppsetning Bifröst** og velja
+   **Samstilla** - boðið berst aðeins með samstillingu. Veldu síðan **Skrá sem viðskiptavinur** í
+   tilkynningunni *Bifröst samstarfsaðili hefur boðið þessum leigjanda sem viðskiptavin*.
 4. Ef fleiri en einn samstarfsaðili hefur boðið þér opnast
    [Óafgreidd boð viðskiptavinar](/help/foundation/pending-customer-invites/): veldu samstarfsaðilann og
    veldu **Samþykkja**.

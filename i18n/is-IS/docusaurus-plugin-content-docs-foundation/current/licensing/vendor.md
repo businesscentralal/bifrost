@@ -11,22 +11,30 @@ viðskiptavini, og söluaðilinn **rukkar samstarfsaðila sína** fyrir áskrift
 viðskiptavina.
 
 Origo samþykkir söluaðila; Bifröst býður ekki upp á skráningu söluaðila að eigin frumkvæði.
-Samþykktur leigjandi sér aðgerðir söluaðila sem hér er lýst á síðunni **Uppsetning Bifröst**.
+Samþykktum leigjanda býðst skráning sem söluaðili á síðunni **Uppsetning Bifröst** eftir
+**Samstillingu**.
 
 ## Skráning
 
-1. Opnaðu **Uppsetning Bifröst**. Samþykktur leigjandi sér tilkynninguna *Þessi leigjandi má skrá
-   sig sem söluaðili í Bifröst* og aðgerðina **Skrá söluaðila** undir **Leyfi**.
-2. Keyrðu [Bifröst söluaðilaskráningu](/help/foundation/vendor-onboarding-wizard/). Hún sýnir
-   leigjandann og **fyrirtækisupplýsingar** núverandi fyrirtækis, sem eru það sem samstarfsaðilar og
-   Origo sjá um söluaðilann. Leiðréttu fyrirtækisupplýsingarnar fyrst ef þörf krefur.
+1. Opnaðu **Uppsetning Bifröst** og veldu **Samstilla** (undir **Leyfi**; aðeins leyfisstjórar).
+   Skráning býðst aldrei fyrir samstillingu. Samþykktur leigjandi sér þá tilkynninguna *Þessi
+   leigjandi má skrá sig sem söluaðili í Bifröst*, og aðgerðin **Skrá söluaðila** birtist.
+2. Veldu **Skrá sem söluaðili** í tilkynningunni eða **Skrá söluaðila**. Hvort tveggja opnar
+   [Bifröst söluaðilaskráningu](/help/foundation/vendor-onboarding-wizard/). Hún sýnir leigjandann og
+   **fyrirtækisupplýsingar** núverandi fyrirtækis, sem eru það sem samstarfsaðilar og Origo sjá um
+   söluaðilann. Leiðréttu fyrirtækisupplýsingarnar fyrst ef þörf krefur. Ekki er hægt að opna
+   leiðsögnina á annan hátt.
 3. Veldu **Ljúka**. Leigjandinn er skráður sem söluaðili, og **Umsjón samstarfsaðila**,
-   **Umsjón viðskiptavina**, **Óafgreiddar uppsagnarbeiðnir samstarfsaðila** og **Afskrá sem
-   söluaðili** birtast á Uppsetningu Bifröst.
+   **Óafgreiddar uppsagnarbeiðnir samstarfsaðila** og **Afskrá sem söluaðili** birtast á
+   Uppsetningu Bifröst.
 
 Hlutverk söluaðila tilheyrir fyrirtækinu sem skráði það. Önnur fyrirtæki sama leigjanda fá ekki
-aðgerðir söluaðila. Keyrðu skráninguna aftur eftir að fyrirtækisupplýsingum hefur verið breytt til
-að uppfæra skráninguna.
+aðgerðir söluaðila.
+
+**Umsjón viðskiptavina er hlutverk samstarfsaðila.** Söluaðili sér viðskiptavini samstarfsaðila
+sinna aðeins til lestrar, með **Skoða viðskiptavini** á Umsjón samstarfsaðila; hann getur ekki
+boðið, sagt upp eða breytt neinu þar. Til að þjóna viðskiptavinum sjálfur skráir söluaðilinn sig
+sem eigin samstarfsaðila (sjá hér á eftir).
 
 ## Samstarfsaðilum boðið {#inviting-partners}
 
@@ -36,20 +44,20 @@ tætigildi leigjandans) og, ef þú vilt, gælunafn sem birtist þar til samstar
 
 - Samstarfsaðilinn verður þegar að hafa sett upp Bifröst og samþykkt notendaleyfissamninginn -
   annars er boðinu hafnað með *Umræddur leigjandi hefur ekki sett upp Bifröst*.
-- Boðið birtist á síðunni Uppsetning Bifröst hjá samstarfsaðilanum sem tilkynningin **Skrá sem
-  samstarfsaðili**. Þegar samstarfsaðilinn þiggur það breytist lína hans úr **Óskráður** í
+- Samstarfsaðilinn sér boðið sem tilkynninguna **Skrá sem samstarfsaðili** eftir að hann velur
+  **Samstilla** á síðunni Uppsetning Bifröst. Þegar samstarfsaðilinn þiggur það breytist lína hans úr **Óskráður** í
   **Opinn** og sýnir skráðar fyrirtækisupplýsingar samstarfsaðilans.
 - **Að þjóna viðskiptavinum sjálfur.** Sláðu inn eigið leigjandaauðkenni til að skrá söluaðilann
-  sem eigin samstarfsaðila. Samþykktu síðan tilkynninguna *Skrá sem samstarfsaðili* á eigin síðu
-  Uppsetning Bifröst; línan er merkt **Söluaðili sem samstarfsaðili**. Upp frá því getur þú boðið
-  viðskiptavinum eins og hver annar samstarfsaðili.
+  sem eigin samstarfsaðila. Veldu síðan **Samstilla** á eigin síðu Uppsetning Bifröst og samþykktu
+  tilkynninguna *Skrá sem samstarfsaðili*; línan er merkt **Söluaðili sem samstarfsaðili**. Upp frá
+  því birtist **Umsjón viðskiptavina** og þú býður viðskiptavinum eins og hver annar samstarfsaðili.
 
 ## Fylgst með samstarfsaðilum og viðskiptavinum þeirra
 
 | Hvar | Hvað þú sérð |
 |---|---|
 | [Umsjón samstarfsaðila](/help/foundation/partner-management/) | Alla samstarfsaðila sem þú hefur boðið, stöðu þeirra, skráðar fyrirtækisupplýsingar og hvenær þær voru síðast uppfærðar. **Skoða viðskiptavini** opnar viðskiptavini samstarfsaðilans og **Skoða notkun** notkunarfærslur viðskiptavina hans. |
-| [Umsjón viðskiptavina](/help/foundation/customer-management/) | Alla viðskiptavini allra samstarfsaðila þinna: fyrirtæki, umhverfi, hvenær sambandið var samþykkt, þrep álagsþaks og notendaskilaboð og forritsskráningarskilaboð það sem af er mánuði. Söluaðili sem er einnig skráður sem eigin samstarfsaðili sér hér eigin viðskiptavini; notaðu **Skoða viðskiptavini** á Umsjón samstarfsaðila fyrir hina samstarfsaðilana. |
+| **Skoða viðskiptavini** á Umsjón samstarfsaðila | Viðskiptavini valins samstarfsaðila, aðeins til lestrar: fyrirtæki, umhverfi, hvenær sambandið var samþykkt, þrep álagsþaks og notendaskilaboð og forritsskráningarskilaboð það sem af er mánuði. Ekki er boðið upp á að bjóða eða segja upp. |
 | [Leyfisnotkun](/help/foundation/license-usage/) | Einstakar notkunarfærslur, sem hægt er að sía eftir fyrirtæki, potti og dagsetningu. |
 | Skilaboðategundir reikningsfærslu | `Bifrost.Vendor.GetBillingSummary`, `Bifrost.Vendor.GetPartners` og `Bifrost.Vendor.GetCustomers` skila tölunum sem reikningsfært er eftir - sjá [Notkun og reikningsfærsla](./usage-and-billing.md). |
 

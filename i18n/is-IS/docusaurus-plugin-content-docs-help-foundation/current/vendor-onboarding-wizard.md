@@ -7,8 +7,9 @@ sidebar_position: 45
 
 Leiðsögnin **Bifröst söluaðilaskráning** skráir núverandi leigjanda sem **söluaðila** í Bifröst. Hún er
 aðeins í boði fyrir leigjanda sem Origo hefur samþykkt sem söluaðila og aðeins fyrir notendur með
-leyfisstjórnunarheimild. Hún opnast með **Skrá söluaðila** á síðunni [Uppsetning Bifröst](/help/foundation/bifrost-setup/)
-eða úr tilkynningunni *Skrá sem söluaðili*.
+leyfisstjórnunarheimild. Hún hefst aðeins með **Samstillingu** á síðunni [Uppsetning Bifröst](/help/foundation/bifrost-setup/):
+veldu **Skrá sem söluaðili** í tilkynningunni sem samstillingin birtir, eða **Skrá söluaðila**, sem
+birtist eftir samstillinguna. Sé hún opnuð á annan hátt, til dæmis með vefslóð, opnast hún ekki.
 
 ## Skref
 
@@ -17,8 +18,9 @@ eða úr tilkynningunni *Skrá sem söluaðili*.
 | **1. Söluaðilaskráning** | Sýnir Microsoft Entra leigjandaauðkennið þitt og hvort leigjandinn sé þegar skráður. |
 | **2. Yfirfara fyrirtækisupplýsingar** | Sýnir heiti, heimilisfang, stað, land/svæði, símanúmer, netfang og virðisaukaskattsnúmer úr **Fyrirtækisupplýsingar** - það sem samstarfsaðilar þínir og Origo sjá um söluaðilann. Leiðréttu fyrirtækisupplýsingarnar fyrst ef þörf krefur. |
 
-Veldu **Ljúka** til að skrá. **Umsjón samstarfsaðila**, **Umsjón viðskiptavina**, **Óafgreiddar
-uppsagnarbeiðnir samstarfsaðila** og **Afskrá sem söluaðili** birtast þá á Uppsetning Bifröst. Keyrðu
-leiðsögnina aftur eftir að fyrirtækisupplýsingum hefur verið breytt til að uppfæra skráninguna.
+Veldu **Ljúka** til að skrá. **Umsjón samstarfsaðila**, **Óafgreiddar uppsagnarbeiðnir
+samstarfsaðila** og **Afskrá sem söluaðili** birtast þá á Uppsetning Bifröst. **Umsjón
+viðskiptavina** er hlutverk samstarfsaðila: söluaðili sér viðskiptavini samstarfsaðila sinna aðeins
+til lestrar með **Skoða viðskiptavini** á Umsjón samstarfsaðila.
 
 Sjá [Að starfa sem söluaðili](/foundation/licensing/vendor/).

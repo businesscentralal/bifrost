@@ -24,8 +24,9 @@ og hafnaðri uppsagnarbeiðni fylgir alltaf ástæða; hinn leigjandinn sér han
 
 ## Hvenær breytingin tekur gildi
 
-Hver leigjandi virkjar það sem snertir hann næst þegar hann keyrir **Samstilla** - af síðunni
-Uppsetning Bifröst eða í daglegu samstillingunni í bakgrunni:
+Hver leigjandi virkjar það sem snertir hann næst þegar leyfisstjóri velur **Samstilla** á síðunni
+Uppsetning Bifröst. Daglega bakgrunnsverkið tilkynnir aðeins notkun; það virkjar aldrei uppsögn eða
+niðurstöðu uppsagnarbeiðni:
 
 ```mermaid
 sequenceDiagram

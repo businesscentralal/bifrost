@@ -57,13 +57,13 @@ The page also lists the **Available Message Types** and, for licence administrat
 | | **ChangeLog Guard Exceptions**, **Change Log Setup**, **Retention Policies** | Change-log guard exceptions, change-log coverage and automatic clean-up. Keep at least 31 days of Bifrost Messages when you use the monthly quotas. |
 | | **Secrets** | The secrets every installed Bifröst application needs - see [Bifrost App Secrets](/help/foundation/bifrost-app-secrets/). |
 | | **Setup Wizard** | Opens the [Setup Wizard](/help/foundation/bifrost-setup-wizard/). |
-| Licensing | **Sync** | Reports pending usage to the licensing service, refreshes the licence status, and applies invitations, cancellations and leave-request outcomes. Also runs once a day in the background. |
+| Licensing | **Sync** | Reports pending usage to the licensing service, refreshes the licence status, and applies cancellations and leave-request outcomes. It is the only thing that offers onboarding: the Register as Vendor, Register as Partner and Register as Customer notifications and the **Onboard as Vendor** action appear only after a Sync. The daily background task only reports usage. |
 | | **Revoke EULA Approval** | Withdraws the licence agreement approval for this company; calls are refused until the wizard is run again. |
 | | **License Usage** | The usage entries of your tenant - see [Bifrost Usage Entries](/help/foundation/license-usage/). |
 | | **Configure Rate Limit** | Subscription tenants, production only - see [Configure Rate Limit](/help/foundation/rate-limit-configuration/). |
-| | **Onboard as Vendor** | Tenants approved as a Vendor - see [Vendor Onboarding](/help/foundation/vendor-onboarding-wizard/). |
+| | **Onboard as Vendor** | After a Sync, for a tenant approved as a Vendor that is not registered yet - see [Vendor Onboarding](/help/foundation/vendor-onboarding-wizard/). |
 | | **Partner Management**, **Pending Partner Leave Requests**, **Deregister as Vendor** | Vendors - see [Working as a Vendor](/foundation/licensing/vendor/). |
-| | **Customer Management** | Partners and Vendors - see [Customer Management](/help/foundation/customer-management/). |
+| | **Customer Management** | Partners only - see [Customer Management](/help/foundation/customer-management/). |
 | | **Pending Customer Leave Requests**, **Request to Leave Vendor** | Partners - see [Working as a Partner](/foundation/licensing/partner/). |
 | | **Request to Leave Partner** | Customers - see [Being a Customer](/foundation/licensing/customer/). |
 | Connectors | **Microsoft Copilot**, **OpenAI ChatGPT** | Open the Bifröst connector in each AI agent store. |

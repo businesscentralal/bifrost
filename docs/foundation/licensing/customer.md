@@ -14,9 +14,9 @@ the **Subscription** license and is invoiced by its Partner for the messages it 
    is complete - the tenant starts on Prepaid with an approved EULA and an activated trial.
 2. Give your Partner your **Microsoft Entra tenant ID** (shown as **Azure Tenant Id** on Bifröst
    Setup).
-3. When the Partner has sent the invitation, open **Bifröst Setup** (run **Sync** if the notification
-   does not appear yet) and choose **Register as Customer** on the notification *A Bifrost Partner has
-   invited this tenant as a Customer*.
+3. When the Partner has sent the invitation, open **Bifröst Setup** and choose **Sync** - the
+   invitation is only picked up by a Sync. Then choose **Register as Customer** on the notification
+   *A Bifrost Partner has invited this tenant as a Customer*.
 4. If more than one Partner has invited you, [Pending Customer Invites](/help/foundation/pending-customer-invites/)
    opens: select the Partner and choose **Accept**.
 

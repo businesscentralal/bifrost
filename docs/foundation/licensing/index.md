@@ -66,8 +66,10 @@ stateDiagram-v2
 ```
 
 Every change that one tenant makes for another - an invitation, a cancellation, a leave request -
-reaches the other tenant the next time it runs **Sync** on the Bifröst Setup page (Sync also runs
-once a day in the background). See [Leaving and cancelling](./leaving-and-cancelling.md).
+reaches the other tenant only when a licence administrator there chooses **Sync** on the Bifröst
+Setup page. **Sync is the only thing that starts onboarding** - as a Vendor, a Partner or a
+Customer - and the only thing that applies a cancellation or a leave-request outcome. The daily
+background task reports usage and nothing else. See [Leaving and cancelling](./leaving-and-cancelling.md).
 
 ## In this section
 
