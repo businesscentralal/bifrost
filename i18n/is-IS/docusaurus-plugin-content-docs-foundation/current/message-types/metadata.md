@@ -345,9 +345,7 @@ Sjálfgefið skilar svarið uppsettum skilaboðategundum, líka þegar þær eru
 
 **Athugasemdir:**
 
-- Sjálfgefið er öllum enum-gildum skilað, þar á meðal skilaboðategundum sem eru uppsettar en ekki virkar í núverandi samhengi.
-- Sendu `onlyEnabled: true` til að fela óvirkar skilaboðategundir.
-- `isEnabled` getur byggt á heimildum, umhverfi og hlutverki. Bifröst áskriftar-, söluaðila- og samstarfsaðila skilaboðategundir fyrir gjaldtöku/lýsigögn eru til dæmis vísvitandi óvirkar í SaaS Sandbox og aðeins virkar fyrir viðeigandi leyfð framleiðsluhlutverk.
+- `isEnabled` getur einnig endurspeglað umhverfis- og hlutverkshlið. Skilaboðategundir Bifrastar fyrir lýsigögn um áskriftar-, söluaðila- og samstarfsaðilagjaldtöku eru til dæmis vísvitandi óvirkar í SaaS Sandbox og aðeins virkar fyrir viðeigandi leyfð framleiðsluhlutverk.
 
 **Dæmi um notkun:**
 
