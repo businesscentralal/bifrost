@@ -15,7 +15,7 @@ Every app on this page is a Business Central extension that depends on
 [Bifröst Foundation](/foundation/) and adds its own message types, help pages
 and setup. The list below is generated from a single JSON file,
 [`data/apps.json`](https://github.com/businesscentralal/bifrost/blob/main/data/apps.json),
-which is also published as-is at [`/apps.json`](/apps.json) for tools and
+which is also published as-is at [`/apps.json`](https://businesscentralal.github.io/bifrost/apps.json) for tools and
 in-product listings to read directly.
 
 Search by name or summary, or filter by domain, to find the app you need.

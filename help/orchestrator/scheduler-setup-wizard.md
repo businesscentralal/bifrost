@@ -16,7 +16,7 @@ The wizard is offered from the Assisted Setup list, and from the notification sh
 | **1\. Welcome** | Explains what the extension does: automated job queue scheduling, monitoring, restart and error handling, plus a declarative playbook runner that executes sequences of Bifrost message types. It also points out that a management job queue entry must be running for monitoring and restart to work. |
 | **2\. Enable HTTP Client Requests** | The extension needs outbound HTTP to send notifications and to talk to external services. The **HTTP Client Requests** field shows _Enabled_ or _Not Enabled_. You cannot continue to step 3 until it is enabled. |
 | **3\. Job Queue Orchestrator** | The **Job Queue Orchestrator Status** field shows whether the management job queue entry is running. Start it here, or open the full setup page for detailed configuration. |
-| **4\. Setup Complete** | Confirms that setup is done. Every setting can be changed later on the [Job Queue Orchestrator Setup](/help/orchestrator/scheduler-setup/) page, which is reached from Bifrost Setup. |
+| **4\. Setup Complete** | Confirms that setup is done. Every setting can be changed later on the [Bifröst Orchestrator Setup](/help/orchestrator/orchestrator-setup/) page, which is reached from Bifrost Setup. |
 
 ## Actions
 
@@ -27,5 +27,5 @@ The wizard is offered from the Assisted Setup list, and from the notification sh
 | **Open Extension Settings** | Opens the Extension Settings page so an administrator can allow HTTP client requests. Shown instead of the button above when you lack write permission. |
 | **Verify** | Re-reads the current status on step 2 and step 3. |
 | **Start Job Queue** | Creates and starts the management job queue entry. Shown on step 3 when the queue is not running. |
-| **Open Orchestrator Setup** | Opens the [Job Queue Orchestrator Setup](/help/orchestrator/scheduler-setup/) page for detailed configuration. |
+| **Open Orchestrator Setup** | Opens the [Bifröst Orchestrator Setup](/help/orchestrator/orchestrator-setup/) page for detailed configuration. |
 | **Finish** | Marks the assisted setup as complete and closes the wizard. |

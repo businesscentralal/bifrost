@@ -13,18 +13,18 @@ description: "Beiðni- og svarsamningur fyrir Help.Implementation.Get Bifröst s
 
 
 ## Yfirlit
-Skilar the runtime help markdown skjal fyrir hvaða skilaboðategund. Pass the skilaboðategund Heiti (e.g. `Help.Tables.Get`) in the Bifrost `subject`. The implementation looks up the enum Gildi og calls `GetMessageHelpAsMarkdownDocument` on the matching implementation codeunit.
+Skilar keyrsluhjálp á Markdown-sniði fyrir hvaða skilaboðategund sem er. Settu heiti skilaboðategundarinnar, til dæmis `Help.Tables.Get`, í Bifröst `subject` reitinn. Útfærslan finnur samsvarandi enum-gildi og kallar `GetMessageHelpAsMarkdownDocument` á viðeigandi útfærslukóðaeiningu.
 
 ## Stefna
-Útgående
+Útlæg
 
-## Response Content Gerð
+## Svarstegund
 `text/markdown`
 
 ## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+| Reitur | Tegund | Nauðsynlegt | Lýsing |
 |-------|------|----------|-------------|
-| subject | Text | Yes | skilaboðategund Heiti, e.g. `Help.Tables.Get` |
+| subject | Text | Já | Heiti skilaboðategundar, t.d. `Help.Tables.Get` |
 
 ## Dæmi um beiðni
 ```json
@@ -32,13 +32,16 @@ Skilar the runtime help markdown skjal fyrir hvaða skilaboðategund. Pass the s
 ```
 
 ## Uppbygging svars
-Raw markdown text (no JSON envelope). The exact markdown returned með the target implementation help codeunit.
+Hrátt Markdown (án JSON-umslags). Nákvæmlega sá Markdown-texti sem hjálparkóðaeining viðkomandi skilaboðategundar skilar.
+
+## Tungumál
+Keyrslu-Markdown er tækniskjölun fyrir forritara á ensku. `lcid` staðfærir Business Central birtitexta sem lýsigagnaendapunktar eins og `Help.Tables.Get` og `Help.Fields.Get` skila, en þýðir ekki Markdown-textann sem `Help.Implementation.Get` skilar.
 
 ## Villur
-| Condition | Villa message |
+| Skilyrði | Villuboð |
 |-----------|---------------|
-| subject er empty | `Subject field must contain the message type name (e.g., "Help.Tables.Get")` |
-| subject ekki a known enum Gildi | `Message type "{name}" is not valid or not found.` |
+| `subject` er tómt | `Subject field must contain the message type name (e.g., "Help.Tables.Get")` |
+| `subject` er ekki þekkt enum-gildi | `Message type "{name}" is not valid or not found.` |
 
 ## Tengdar skilaboðategundir
 - `Help.MessageTypes.Get`
