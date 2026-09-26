@@ -88,7 +88,7 @@ Talið er út frá gjaldskyldum skilaboðum í **Bifröst-skilaboðum** fyrirtæ
 verið skilað til leyfisþjónustunnar: dagleg notkunarsamstilling og varðveislustefna á
 Bifröst-skilaboðum lækka bæði töluna. Sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/foundation/licensing/license-types/#how-monthly-quotas-are-counted).
 
-## Viðvaranir
+## Viðvaranir {#warnings}
 
 Árangursríkt JSON-svar ber `warnings` fylki þegar kvóti sem á við um kallandann á **100 eða færri**
 skilaboð eftir - fyrirframgreiddur pottur eða mánaðarlegur kvóti.

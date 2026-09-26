@@ -78,9 +78,15 @@ Identical shape to `Data.Records.Get`. Same field-name normalization rules apply
 | Empty result for deleted records you know existed | Enable **Store Record** in Bifrost Delete Setup for the table. Snapshots are only captured from the moment Store Record is enabled. |
 | `Table {x} cannot be read via this API` | The table is internal to Bifrost. |
 
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
 ## Related Message Types
 
 - **Deleted.RecordIds.Get** — lighter; returns only `id` + `deletedAt`. Works even when Store Record is off.
 - **Data.Records.Get** — current (non-deleted) records, same shape.
 - **CSV.DeletedRecords.Get** — same data as CSV for compliance exports.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

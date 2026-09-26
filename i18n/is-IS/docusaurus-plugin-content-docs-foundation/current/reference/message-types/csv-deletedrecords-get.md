@@ -124,3 +124,6 @@ fyrir `CSV.DeletedRecords.Get`, the Gildi er always `2`, indicating a **deleted 
 
 This follows the opið Mirroring convention notað með bc2adls og Azure Data Lake sync pipelines.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

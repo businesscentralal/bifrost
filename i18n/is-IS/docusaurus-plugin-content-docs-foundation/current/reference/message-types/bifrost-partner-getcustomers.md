@@ -24,3 +24,7 @@ Skilar reikningslínum fyrir hvern viðskiptavin samstarfsaðilans sem kallar.
   - `customerTenantIdHash`, `companyName`, `friendlyName`
   - `billingMode`, `state`, `userMessages`, `appMessages`
   - `rateLimitTier`, `rateLimitPerDay`, `aboveFreeTier`
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

@@ -466,7 +466,7 @@ Direction: **Inbound**. Converts an existing sales **quote** into a sales **orde
 
 Success: `{ "status": "Success", "quoteNo": "SQ-001", "orderNo": "SO-005", "orderSystemId": "…", "customerNo": "10000", "customerName": "Adatum Corporation", "documentDate": "2026-03-07", "orderDate": "2026-03-07" }`
 
-Errors: `"Subject parameter is required."`, `"Sales header {No} not found."`, `"Sales document {No} is not a Quote (actual type: {Type})."`, or any BC validation error (callstack included as `callstack` field).
+Errors: `"Subject parameter is required."`, `"Sales header {No} not found."`, `"Sales document {No} is not a Quote (actual type: {Type})."`, or any BC validation error (code `BusinessCentralError`).
 
 #### `Sales.BlanketOrder.MakeOrder`
 
@@ -501,7 +501,7 @@ Follow-up with `Data.Records.Get` by `SystemId`: `Sales Header` (new draft), `Sa
 
 Linkage: original invoice has `Cancelled = true` and `Canceled By Cr. Memo No.`; credit memo has `Applies-to Doc. Type/No. = Invoice / <originalInvoiceNo>`; `Cancelled Document` row carries the formal link (`Source ID = 112`, `Cancelled Doc. No.`, `Cancelled By Doc. No.`). New draft has no field-level FK to the original.
 
-Errors: `"Message subject or request data must contain a record identifier"`, invoice not found, invoice cannot be corrected (already cancelled, payments applied, posting period closed) — BC error text with `callstack` field.
+Errors: `"Message subject or request data must contain a record identifier"`, invoice not found, invoice cannot be corrected (already cancelled, payments applied, posting period closed) — BC error text with code `BusinessCentralError`.
 
 #### `Sales.SalesInvoice.Cancel`
 
@@ -525,7 +525,7 @@ Direction: **Inbound**. Wraps BC standard `Sales Invoice Header.SendProfile(var 
 2. Resolve the `Document Sending Profile` using the chain below.
 3. Call `Sales Invoice Header.SendProfile(DocumentSendingProfile)` — from here, behaviour is exactly the standard BC Send.
 4. BC dispatches every channel the resolved profile has enabled: **Printer** (prints the report), **E-Mail** (renders + sends via the configured email account; sets `Sent as Email = true`), **Disk** (writes the file to user download location), **Electronic Document** (builds PEPPOL/OIOUBL/custom format, hands off to the Document Exchange Service, updates header tracking fields).
-5. Return the success envelope (with resolved profile + source), or an error envelope with the original BC error text and callstack.
+5. Return the success envelope (with resolved profile + source), or an error envelope with the original BC error text (code `BusinessCentralError`).
 
 **Document lookup order:** `data.invoiceNo` → `data.invoiceId` (SystemId) → `subject` (number or SystemId GUID; GUIDs auto-detected).
 
@@ -553,13 +553,13 @@ Sent-email history (subject, recipients, attachment, timestamp) is in the BC bas
 
 Success: `{ "status": "Success", "documentType": "PostedSalesInvoice", "documentNo": "POST-INV-000123", "documentId": "…", "customerNo": "10000", "customerName": "Adatum", "documentSendingProfileCode": "EMAIL", "documentSendingProfileSource": "Request", "message": "Document sent successfully." }`
 
-Errors (returned as `{ "status": "Error", "error": "...", "callstack": "..." }`):
+Errors (returned as `{ "status": "Error", "code": "BusinessCentralError", "error": "..." }`):
 - `"Subject parameter is required. Provide the invoice number or SystemId."`
 - `"Sales Invoice {no} not found."`
 - `"Document Sending Profile \"{code}\" not found."` (request override does not exist)
 - `"Document Sending Profile \"{code}\" referenced by customer {no} does not exist."` (dangling customer profile)
 - `"No Document Sending Profile resolved for customer {no} and no system default profile exists."`
-- Any error raised by BC's `SendProfile` (e.g., missing e-mail account, missing report selection, electronic document validation failure) — surfaced verbatim through `error` + `callstack`.
+- Any error raised by BC's `SendProfile` (e.g., missing e-mail account, missing report selection, electronic document validation failure) — surfaced verbatim through `error` (code `BusinessCentralError`).
 
 #### `Sales.SalesCreditMemo.Send`
 

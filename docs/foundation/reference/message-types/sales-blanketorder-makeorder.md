@@ -65,7 +65,7 @@ Same as other Sales document message types (via `FindSalesHeader`).
 
 ### Failure
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Response Fields
@@ -98,4 +98,7 @@ BC only converts lines where `Qty. to Ship > 0`. When you add a Sales Line with 
 - `Sales.Document.Create` — create the blanket order first.
 - `Sales.Quote.MakeOrder` — analogous conversion from a quote.
 - `Sales.Document.Release` / `Sales.Document.Post` — next steps on the resulting order.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

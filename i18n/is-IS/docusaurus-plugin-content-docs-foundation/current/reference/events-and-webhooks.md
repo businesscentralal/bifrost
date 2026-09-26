@@ -210,22 +210,20 @@ Authorization: Bearer {token}
   "time": "2026-03-08T14:35:15Z",
   "datacontenttype": "text/json",
   "data": "{
-    \"error\": \"Record not found\",
-    \"detailedMessage\": \"Table: Customer, SystemId: {guid}\",
-    \"stackTrace\": \"...\",
-    \"callStack\": \"...\"
+    \"status\": \"Error\",
+    \"code\": \"RecordNotFound\",
+    \"error\": \"Customer \\\"10000X\\\" was not found (from subject).\",
+    \"parameter\": \"subject\",
+    \"received\": \"10000X\"
   }"
 }
 ```
 
 ### Snið villusvars
 
-Villusvar er geymt á JSON-sniði með eftirfarandi reitum:
-
-- **error**: Stutt villutilkynning
-- **detailedMessage**: Nákvæm villuframsetning
-- **stackTrace**: Öll stafla (ef til staðar)
-- **callStack**: Kallstafla á villutíma (ef til staðar)
+Villusvar er geymt sem JSON með `status` = `Error`, stöðugum `code`, textanum `error` og, þegar þau
+eiga við, `parameter`, `received`, `expected`, `nextStep` og fylkinu `errors` sem telur upp öll
+vandamálin. Sjá [Villur og viðvaranir](./errors.md). Villusvör innihalda aldrei kallaröð.
 
 ### Notkunartilvik
 

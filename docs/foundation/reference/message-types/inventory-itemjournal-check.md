@@ -95,3 +95,6 @@ Resolved in this order:
 - `Inventory.ItemJournal.SetupNewLine` - add lines.
 - `Inventory.ItemJournal.Post` - post once validation is `Ready` or `ReadyWithWarnings`.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

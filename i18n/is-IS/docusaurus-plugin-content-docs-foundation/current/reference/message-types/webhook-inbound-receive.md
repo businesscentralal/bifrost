@@ -48,7 +48,7 @@ Subscribers receive two routing strings:
 
 | Property | Gerð | Lýsing |
 |---|---|---|
-| `status` | strengur | Always `"Success"` (subscriber Villur surface as platform Villur með callstack). |
+| `status` | strengur | Always `"Success"` (villur áskrifenda birtast sem kerfisvillur). |
 | `acknowledged` | sanngildi | Always `true`. The event was dispatched. |
 | `handled` | sanngildi | `true` ef at least one subscriber set `Handled := true`; otherwise `false`. |
 
@@ -68,9 +68,12 @@ end;
 ```
 
 ## Villur
-The implementation throws no Villur of its own. hvaða Villa raised inside a subscriber propagates og surfaces as a platform Villa með callstack.
+The implementation throws no Villur of its own. hvaða Villa raised inside a subscriber propagates og birtist sem kerfisvilla.
 
 ## Tengdar skilaboðategundir
 - `Help.MessageTypes.Get`
 - `Help.Implementation.Get`
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

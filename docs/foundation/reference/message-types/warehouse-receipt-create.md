@@ -133,3 +133,6 @@ Typical sequence to receive a Purchase Order via the warehouse:
 - `Warehouse.Receipt.Post.Preview` — simulate the post and inspect captured ledger entries.
 - `Warehouse.Shipment.Create` / `Warehouse.Shipment.Post` — outbound counterparts.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

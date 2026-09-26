@@ -34,8 +34,8 @@ Aggregates one or more Decimal fields across all matching records in a specified
 | `tableName` | string | One of table ID params | Table name, e.g. `"Item Ledger Entry"` |
 | `tableNumber` / `tableNo` / `tableId` | integer | One of table ID params | Table number, e.g. `32` |
 | `fieldNumbers` | array of int | **Required** | Field numbers to sum. All must be Decimal fields (Normal, not FlowField). |
-| `tableView` | string | No | BC AL table view filter in SetView format, e.g. `"WHERE(Entry Type=CONST(Purchase))"` |
-| `groupBy` | string or int | No | Field name or field number to group by. Returns one result row per distinct value of that field. |
+| `tableView` | string | No | BC SetView filter using **display field names**. Unknown fields or unbalanced parentheses → `status: Error` (fail closed). |
+| `groupBy` | string or int | No | Field name or field number to group by. Unknown names → `status: Error` (no silent whole-table total). |
 
 ```json
 {
@@ -173,4 +173,7 @@ If a field does not meet these requirements, BC raises a runtime error.
 - **Data.Records.Get** — returns full record data as JSON with pagination; supports the same table identification and tableView parameters
 - **Data.RecordIds.Get** — returns only record IDs and modification timestamps
 - **Help.Fields.Get** — returns field metadata including field class (Normal/FlowField/FlowFilter) and data type
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

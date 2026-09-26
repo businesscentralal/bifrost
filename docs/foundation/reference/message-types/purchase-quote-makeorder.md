@@ -64,7 +64,7 @@ Same as other Purchase document message types (via `FindPurchaseHeader`).
 
 ### Failure
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Response Fields
@@ -88,4 +88,7 @@ Same as other Purchase document message types (via `FindPurchaseHeader`).
 - `Purchase.Document.Create` — create the quote first.
 - `Purchase.BlanketOrder.MakeOrder` — analogous conversion from a blanket order.
 - `Purchase.Document.Release` / `Purchase.Document.Post` — next steps on the resulting order.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

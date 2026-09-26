@@ -95,3 +95,6 @@ Resolved in this order:
 - `Inventory.ItemJournal.SetupNewLine` - add lines.
 - `Inventory.ItemJournal.Post` - post once validation er `Ready` eða `ReadyWithWarnings`.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

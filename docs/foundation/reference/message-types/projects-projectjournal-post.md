@@ -79,7 +79,7 @@ Failures from `Job Jnl.-Post Batch.Run` are caught and returned as a structured 
 {
   "status": "Error",
   "error": "Job No. must have a value in Job Journal Line ...",
-  "callstack": "..."
+  "hint": "..."
 }
 ```
 
@@ -99,4 +99,7 @@ Calling this message type requires the `BIFROST Job Post ori` permission set in 
 ## Related Message Types
 - `Projects.ProjectJournal.SetupNewLine`
 - `Projects.ProjectJournal.Check`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

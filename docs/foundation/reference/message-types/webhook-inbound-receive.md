@@ -48,7 +48,7 @@ Subscribers receive two routing strings:
 
 | Property | Type | Description |
 |---|---|---|
-| `status` | string | Always `"Success"` (subscriber errors surface as platform errors with callstack). |
+| `status` | string | Always `"Success"` (subscriber errors surface as platform errors). |
 | `acknowledged` | boolean | Always `true`. The event was dispatched. |
 | `handled` | boolean | `true` if at least one subscriber set `Handled := true`; otherwise `false`. |
 
@@ -68,9 +68,12 @@ end;
 ```
 
 ## Errors
-The implementation throws no errors of its own. Any error raised inside a subscriber propagates and surfaces as a platform error with callstack.
+The implementation throws no errors of its own. Any error raised inside a subscriber propagates and surfaces as a platform error.
 
 ## Related Message Types
 - `Help.MessageTypes.Get`
 - `Help.Implementation.Get`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

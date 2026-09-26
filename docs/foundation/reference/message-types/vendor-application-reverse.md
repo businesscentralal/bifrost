@@ -26,7 +26,7 @@ Implementation delegates to codeunit `Vend. Apply Reverse Process` via `Codeunit
 Resolved by `Argument.FindVendorLedgerEntry`:
 1. `subject` as GUID → `VendorLedgerEntry.GetBySystemId`.
 2. `subject` parseable as integer (`Evaluate` fmt 9) → `Get` by `Entry No.`.
-3. Request JSON keys (first hit wins): `systemId`, `recordSystemId`, `id` (all GUID); `entryNo`, `entryNumber` (integers).
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id` (all GUID); `entryNo`, `entryNumber` (integers).
 
 ## Request Parameters
 | Field | Type | Required | Description |
@@ -93,9 +93,15 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 | `Detailed vendor ledger entry {n} not found.` | Explicit `detailedEntryNo` does not exist. |
 | `Detailed vendor ledger entry {n} is not an application entry.` | The detailed entry exists but its `Entry Type` is not `Application`. |
 | Underlying BC error text | Any error raised by `CheckVendorLedgerEntryToUnapply` or `PostUnApplyVendor` (e.g. dimensions changed since application, posting period closed). |
-| `Vendor ledger entry identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, entryNo, entryNumber).` | No vendor ledger entry resolved by `FindVendorLedgerEntry`. |
+| `Vendor Ledger Entry identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, entryNo, entryNumber.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Vendor Ledger Entry "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 
 ## Related Message Types
 - `Vendor.Application.Post` — Post the original application.
 - `Data.Records.Get` on `Vendor Ledger Entry` / `Detailed Vendor Ledg. Entry` — Inspect entry state.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

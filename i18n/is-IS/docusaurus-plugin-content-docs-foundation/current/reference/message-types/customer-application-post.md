@@ -89,7 +89,7 @@ Via `FindCustLedgerEntry` — Subject fyrsta, then JSON:
 
 ### Mistókst
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Svarreitir
@@ -133,7 +133,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 | Villa | Orsök |
 |---|---|
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Kallandi lacks the `BIFROST GL Post ori` heimild set. |
-| `Customer ledger entry identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, entryNo, entryNumber).` | Applying færsla could ekki be resolved. |
+| `Cust. Ledger Entry identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, entryNo, entryNumber.` (`MissingParameter`); gefið en fannst ekki: `Cust. Ledger Entry "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | Applying færsla could ekki be resolved. |
 | `Request JSON must include 'appliesToEntries' as a non-empty array.` | `appliesToEntries` vantar, ekki an fylki, eða empty. |
 | `Applying customer ledger entry {entryNo} is closed and cannot be applied.` | Applying færsla `Open = false`. |
 | `Target customer ledger entry {entryNo} not found.` | One of `appliesToEntries` did ekki match a `Cust. Ledger Entry`. |
@@ -146,4 +146,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 - `Customer.Application.Reverse` — reverse a previously posted jöfnun.
 - `Customer.CreditLimit.Get` — Sjá how the jöfnun affects exposure.
 - `Sales.Document.Post` — produces the reikningar/credit memos that get applied here.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

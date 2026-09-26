@@ -61,7 +61,7 @@ sama as `Sales.Document.Release` (via `FindSalesHeader`).
 
 ### Mistókst
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Svarreitir
@@ -79,7 +79,7 @@ sama as `Sales.Document.Release` (via `FindSalesHeader`).
 
 | Villa | Orsök |
 |---|---|
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | `FindSalesHeader` could ekki resolve a header. |
+| `Sales Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`); gefið en fannst ekki: `Sales Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | `FindSalesHeader` could ekki resolve a header. |
 | `Sales Document {no} is already open.` | Header `Status` er already `Open`. |
 | BC reopen Villur | Bubble up úr `Sales Manual Reopen`. |
 
@@ -87,4 +87,7 @@ sama as `Sales.Document.Release` (via `FindSalesHeader`).
 
 - `Sales.Document.Release` — reverse this operation.
 - `Sales.Document.Post` — post a released skjal (requires release fyrsta).
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

@@ -16,7 +16,11 @@ This page is generated from the message type's own help codeunit by
 
 Renders a Customer Statement as PDF via the BC standard `Standard Statement` report (saved with last-used request page parameters). The active implementation is resolved from `Bifrost Setup.Customer Statement Implementation` — default is `Standard Statement Impl` (codeunit 65359).
 
-**Direction**: Outbound (read-only)  **Content-Type**: `application/pdf`
+**Direction**: Both (writes on generation)  **Content-Type**: `application/pdf`
+
+## Side effects
+
+Writes: `Customer."Last Statement No."` is incremented (Report 1316 `Standard Statement`, `OnPostReport`). This call is not side-effect free despite returning a document. Out-of-box behavior; a custom statement implementation may differ.
 
 ## Identifier Resolution Order
 
@@ -70,4 +74,7 @@ From `Customer Statement PDF Tests` (`test/test/Sales/CustomerStatementPDFTests.
 - `Customer.CreditLimit.Get` — credit exposure for the same customer.
 - `Customer.SalesHistory.Get` — sales-by-item history.
 - `Sales.SalesInvoice.Pdf` — individual posted invoice PDF.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

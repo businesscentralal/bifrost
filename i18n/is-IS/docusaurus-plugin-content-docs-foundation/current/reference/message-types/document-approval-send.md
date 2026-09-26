@@ -84,3 +84,6 @@ Skilar an approval log wrapper of `approvalType` `Send` með `linkedApprovalEntr
 - `Document.Approval.Cancel`
 - `Document.Approval.Get`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

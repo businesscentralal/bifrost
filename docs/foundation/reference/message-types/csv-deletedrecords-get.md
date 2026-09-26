@@ -124,3 +124,6 @@ When combined with `CSV.Records.Get` exports (rowMarker = `4`), downstream syste
 
 This follows the Open Mirroring convention used by bc2adls and Azure Data Lake sync pipelines.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

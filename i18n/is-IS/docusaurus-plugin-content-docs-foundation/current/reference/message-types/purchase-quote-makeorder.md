@@ -64,7 +64,7 @@ sama as other Purchase skjal message types (via `FindPurchaseHeader`).
 
 ### Mistókst
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Svarreitir
@@ -88,4 +88,7 @@ sama as other Purchase skjal message types (via `FindPurchaseHeader`).
 - `Purchase.Document.Create` — create the quote fyrsta.
 - `Purchase.BlanketOrder.MakeOrder` — analogous conversion úr a blanket order.
 - `Purchase.Document.Release` / `Purchase.Document.Post` — next steps on the resulting order.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

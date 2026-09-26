@@ -87,3 +87,6 @@ A `creditLimitLCY` of `0` means "no limit configured" og `isCreditLimitExceeded`
 - `Customer.SalesHistory.Get` — sales-með-vöru history.
 - `Data.Records.Get` — raw `Customer` færsla.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

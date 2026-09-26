@@ -48,3 +48,6 @@ lesa access er granted með `BIFROST API ori` (the base API heimild set) plus th
 - `Memory.Company.Set`
 - `Memory.User.List`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

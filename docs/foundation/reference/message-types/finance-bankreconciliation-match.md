@@ -95,3 +95,6 @@ No `Applied Payment Entry` rows are written. That table is only used by Statemen
 - `Finance.BankReconciliation.Reset`
 - `Finance.BankReconciliation.Post`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

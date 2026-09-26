@@ -130,3 +130,6 @@ None — this skilaboðategund does ekki accept hvaða Kallandi-supplied Reitur 
 - `Data.Records.Set` on `Warehouse Activity Line` — til adjust `Qty. to Handle` áður en registering a partial pick.
 - `Data.Records.Get` — load hvaða Reitur on the resulting `Registered Whse. Activity Hdr.` / `Registered Whse. Activity Line`.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

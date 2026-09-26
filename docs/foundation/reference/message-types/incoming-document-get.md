@@ -99,11 +99,16 @@ Request body is not read.
 ## Errors
 | Scenario | Error |
 |----------|-------|
-| Subject does not resolve | `Incoming Document {subject} not found.` |
+| No identifier | `Incoming Document identifier is missing. Pass it as the subject, or as one of: entryNo, systemId, id.` (`MissingParameter`) |
+| Identifier is not a number or GUID | `"{value}" is not a valid integer (from {subject or key}).` (`InvalidParameterFormat`) |
+| Identifier does not resolve | `Incoming Document "{value}" was not found (from {subject or key}).` (`RecordNotFound`) |
 
 ## Related Message Types
 - `Incoming.Document.Create`
 - `Incoming.Document.Attach`
 - `Incoming.Document.SetDefault`
 - `Incoming.Document.Process`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

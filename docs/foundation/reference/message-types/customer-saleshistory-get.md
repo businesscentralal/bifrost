@@ -90,3 +90,6 @@ From `Customer Sales History Tests` (`test/test/Sales/CustomerSalesHistoryTests.
 - `Customer.Statement.Pdf` — customer statement PDF.
 - `Item.Price.Get` — current pricing for the items returned here.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

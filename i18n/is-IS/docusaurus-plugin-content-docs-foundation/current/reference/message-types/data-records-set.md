@@ -21,7 +21,7 @@ Inserts eða Uppfærir ein eða fleiri BC færslur using the Data Shipping stand
 ## Athugasemdir um endurtekningar og öryggi
 
 - **ekki endurtekningarþolið on insert** unless the tafla has a unique primary key in `primaryKey` — re-sending the sama insert against an auto-númer tafla Býr til a ný færsla.
-- The whole batch runs inside an isolated `Codeunit.Run` (`Data Records Set Process`, 65328). On hvaða Mistókst, the entire batch rolls back og Svarið contains `error` og `callstack`.
+- Öll lotan keyrir í einni einangraðri færslu. On hvaða Mistókst, the entire batch rolls back og Svarið inniheldur `code` og `error`.
 - bók-færsla edit töflur (`G/L Entry-Edit`, `Cust. Entry-Edit`, etc.) eru routed automatically so writes go through the stutt BC paths.
 - Pending-approval changes eru blocked með `PreventPendingApprovalChanges`.
 
@@ -244,11 +244,14 @@ A Reitur með a `Bypass` færsla in `Bifrost Field Access` er einnig considered 
 | ChangeLog skrifa Guard block | Sjá block response above (`blockedFields`, `guardMode`, `forceAvailable`). |
 | Pending approval | Villa úr `PreventPendingApprovalChanges`. |
 
-On hvaða Villa Svarið einnig includes a `callstack` Reitur (captured via `GetLastErrorCallStack`).
+On hvaða Villa Svarið einnig er villum frá Business Central skilað með kóða `BusinessCentralError`.
 
 ## Tengdar skilaboðategundir
 
 - **Data.Records.Get** — sama JSON shape; nota til get a template færsla áður en editing.
 - **Data.Notes.Set** — fyrir adding Athugasemdir (færsla Link tafla) instead of Reitur values.
 - **Help.Fields.Get** — discover Reitur numbers, types, og skrifa takmarkanir.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

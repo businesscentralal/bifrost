@@ -93,9 +93,12 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 | `Detailed vendor ledger entry {n} not found.` | Explicit `detailedEntryNo` does ekki exist. |
 | `Detailed vendor ledger entry {n} is not an application entry.` | The detailed færsla exists but its `Entry Type` er ekki `Application`. |
 | Underlying BC Villa text | hvaða Villa raised með `CheckVendorLedgerEntryToUnapply` eða `PostUnApplyVendor` (e.g. dimensions changed since jöfnun, posting period lokað). |
-| `Vendor ledger entry identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, entryNo, entryNumber).` | No birgi bók færsla resolved með `FindVendorLedgerEntry`. |
+| `Vendor Ledger Entry identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, entryNo, entryNumber.` (`MissingParameter`); gefið en fannst ekki: `Vendor Ledger Entry "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No birgi bók færsla resolved með `FindVendorLedgerEntry`. |
 
 ## Tengdar skilaboðategundir
 - `Vendor.Application.Post` — Post the original jöfnun.
 - `Data.Records.Get` on `Vendor Ledger Entry` / `Detailed Vendor Ledg. Entry` — Inspect færsla state.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

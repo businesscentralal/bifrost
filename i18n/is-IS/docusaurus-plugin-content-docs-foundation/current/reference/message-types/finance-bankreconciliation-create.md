@@ -93,3 +93,6 @@ Returned þegar no bank account identifier getur be resolved.
 - `Finance.BankReconciliation.Reset`
 - `Finance.BankReconciliation.Post`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

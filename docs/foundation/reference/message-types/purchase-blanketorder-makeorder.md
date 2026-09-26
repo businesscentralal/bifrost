@@ -65,7 +65,7 @@ Same as other Purchase document message types (via `FindPurchaseHeader`).
 
 ### Failure
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Response Fields
@@ -98,4 +98,7 @@ BC only converts lines where `Qty. to Receive > 0`. When you add a Purchase Line
 - `Purchase.Document.Create` — create the blanket order first.
 - `Purchase.Quote.MakeOrder` — analogous conversion from a quote.
 - `Purchase.Document.Release` / `Purchase.Document.Post` — next steps on the resulting order.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

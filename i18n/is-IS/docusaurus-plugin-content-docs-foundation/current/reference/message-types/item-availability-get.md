@@ -105,3 +105,6 @@ Alternative implementation: `Physical Inventory Impl` (codeunit 65332) Skilar a�
 - `Item.Price.Get` — pricing fyrir the sama vöru/viðskiptamanni.
 - `Data.Records.Get` — raw `Item` færsla.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

@@ -78,3 +78,6 @@ sama færsla shape as `Data.Records.Get`.
 - `Data.Records.Set` — populate fields on the ný line via SystemId.
 - `Data.Records.Get` — sama Uppbygging svars.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

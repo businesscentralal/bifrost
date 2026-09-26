@@ -111,3 +111,6 @@ Sjá `Inventory.ItemJournal.Post` help fyrir Physical Inventory template specifi
 - `Inventory.ItemJournal.Post` - post the batch.
 - `Data.Records.Set` - populate Reitur values on the ný lines.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

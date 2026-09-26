@@ -71,3 +71,6 @@ Binary PDF content. No JSON envelope. The PDF includes overdue færslur, opið f
 - `Customer.SalesHistory.Get` — sales-með-vöru history.
 - `Sales.SalesInvoice.Pdf` — individual posted reikningur PDF.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

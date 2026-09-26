@@ -48,7 +48,7 @@ One of the following must locate exactly one record (via `LocateSingleRecord`):
 | Parameter | Type | Required | Notes |
 |---|---|---|---|
 | Table key (see above) | — | Yes | — |
-| `recordId` *or* `tableView` | GUID / string | Yes | Must match a single record. |
+| `recordId` *or* `tableView` | GUID / string | Yes | Must match a single record. `tableView` uses display field names; unknown fields / unbalanced parentheses → `status: Error`. |
 | `notes` | object[] | Yes | Add/edit/delete instructions. |
 | `notes[].note` | string | Yes | Note text. Empty `""` with `lineNo` deletes. |
 | `notes[].description` | string (≤250) | No | Short subject line. Written on add; on edit only when non-empty. |
@@ -131,4 +131,7 @@ Note: delete operations are reported with `action: "modified"` and an empty `not
 
 - **Data.Notes.Get** — list existing notes / discover `lineNo`.
 - **Data.Records.Set** — for writing field values instead of notes.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -78,3 +78,6 @@ Same record shape as `Data.Records.Get`.
 - `Data.Records.Set` — populate fields on the new line via SystemId.
 - `Data.Records.Get` — same response shape.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

@@ -184,7 +184,7 @@ The document approval workflow end to end: sending a document for approval, appr
 }
 ```
 
-**Key errors:** Unsupported table → error listing 36/38/130. Record not found → error with SystemId + table ID. Missing `approvals` array → error. Missing `approverUserId` → error with element index. `lineNumbers` on Incoming Document → error. Document already Released/Pending Prepayment → status validation error. Process codeunit failure → returns `{ "status": "Error", "error": "...", "callstack": "..." }`.
+**Key errors:** Unsupported table → error listing 36/38/130. Record not found → error with SystemId + table ID. Missing `approvals` array → error. Missing `approverUserId` → error with element index. `lineNumbers` on Incoming Document → error. Document already Released/Pending Prepayment → status validation error. Process codeunit failure → returns `{ "status": "Error", "error": "...", "code": "BusinessCentralError" }`.
 
 #### `Document.Approval.Approve` — approve open approval entries
 
@@ -264,7 +264,7 @@ Each result element uses the approval log wrapper (same as Get/Send) with action
 | entryNo | Integer | Approval Entry No. that was approved |
 | statusBefore | Text | Status before action (always `"Open"`) |
 
-**Key errors:** No entries resolved → error. Entry not found → error with entry number. Entry not open → error with current status. Unauthorized caller → BC authorization error with callstack. Process codeunit failure → `{ "status": "Error", "error": "...", "callstack": "..." }`.
+**Key errors:** No entries resolved → error. Entry not found → error with entry number. Entry not open → error with current status. Unauthorized caller → BC authorization error (code `BusinessCentralError`). Process codeunit failure → `{ "status": "Error", "error": "...", "code": "BusinessCentralError" }`.
 
 #### `Document.Approval.Reject` — reject open approval entries
 
@@ -449,7 +449,7 @@ Same log-wrapped structure as Approve, with `approvalType` = `"Delegate"`. The l
 
 Note: `status` remains `"Open"` (delegation reassigns, does not change status).
 
-**Key errors:** Missing `delegateToUserId` → `"The delegateToUserId field is required for delegation."`. Target user not found → `"User Setup for delegate target user X not found."`. No entries resolved → error. Entry not found → error. Entry not open → error. Process codeunit failure → `{ "status": "Error", "error": "...", "callstack": "..." }`.
+**Key errors:** Missing `delegateToUserId` → `"The delegateToUserId field is required for delegation."`. Target user not found → `"User Setup for delegate target user X not found."`. No entries resolved → error. Entry not found → error. Entry not open → error. Process codeunit failure → `{ "status": "Error", "error": "...", "code": "BusinessCentralError" }`.
 
 #### `Document.Approval.Cancel` — cancel all open approval entries for a document
 
@@ -509,4 +509,4 @@ Same log-wrapped structure as Get/Send, with `approvalType` = `"Cancel"` and an 
 |---|---|---|
 | cancelledEntries | Integer | Number of approval entries that were set to Canceled |
 
-**Key errors:** Unsupported table → `"Table ID N is not supported..."` (lists 36/38/130). Missing `recordSystemId` → `"recordSystemId is required..."`. Record not found → `"Record with SystemId X not found in table Y."`. No open entries → `"No open approval entries found..."`. Process codeunit failure → `{ "status": "Error", "error": "...", "callstack": "..." }`.
+**Key errors:** Unsupported table → `"Table ID N is not supported..."` (lists 36/38/130). Missing `recordSystemId` → `"recordSystemId is required..."`. Record not found → `"Record with SystemId X not found in table Y."`. No open entries → `"No open approval entries found..."`. Process codeunit failure → `{ "status": "Error", "error": "...", "code": "BusinessCentralError" }`.

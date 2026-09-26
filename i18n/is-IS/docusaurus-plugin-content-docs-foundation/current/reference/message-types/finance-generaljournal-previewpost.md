@@ -114,3 +114,6 @@ fyrsta match wins:
 - `Finance.GeneralJournal.Post` — commit the actual post.
 - `Finance.GeneralJournal.ReverseRegister` — undo a register eftir a real post.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

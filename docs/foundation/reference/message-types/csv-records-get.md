@@ -49,7 +49,7 @@ The **data** field in the response contains a download URL to retrieve the CSV f
 | `tableName` | Table name. Use `tableNumber` (alias `tableNo` / `tableId`) instead to identify the table by number, e.g. `18`. |
 | `fieldNumbers` | Optional. Specific field numbers to include. Omit for all Normal fields. |
 | `startDateTime` / `endDateTime` | Optional. Filter on `SystemModifiedAt` (ISO 8601). |
-| `tableView` | Optional. Additional BC SetView filter/sort. |
+| `tableView` | Optional. BC SetView filter/sort using display field names; unknown fields / unbalanced parentheses → `status: Error`. |
 
 ## Response Format
 
@@ -234,4 +234,7 @@ When the CSV response approaches the 2 GB OutStream limit, the export stops afte
 - **Data.Records.Get** — same filtering, returns JSON instead of CSV, supports skip/take pagination
 - **Data.Record.Ids.Get** — returns only record IDs (SystemId + SystemModifiedAt) as JSON
 - **CSV.DeletedRecords.Get** — exports deleted record audit log entries as CSV (rowMarker = 2)
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

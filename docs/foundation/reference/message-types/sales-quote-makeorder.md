@@ -64,7 +64,7 @@ Same as other Sales document message types (via `FindSalesHeader`).
 
 ### Failure
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Response Fields
@@ -89,4 +89,7 @@ Same as other Sales document message types (via `FindSalesHeader`).
 - `Sales.Document.Create` — create the quote first.
 - `Sales.BlanketOrder.MakeOrder` — analogous conversion from a blanket order.
 - `Sales.Document.Release` / `Sales.Document.Post` — next steps on the resulting order.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

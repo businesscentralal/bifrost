@@ -65,7 +65,7 @@ sama as other Sales skjal message types (via `FindSalesHeader`).
 
 ### Mistókst
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Svarreitir
@@ -98,4 +98,7 @@ BC aðeins converts lines where `Qty. to Ship > 0`. þegar you add a Sales Line 
 - `Sales.Document.Create` — create the blanket order fyrsta.
 - `Sales.Quote.MakeOrder` — analogous conversion úr a quote.
 - `Sales.Document.Release` / `Sales.Document.Post` — next steps on the resulting order.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

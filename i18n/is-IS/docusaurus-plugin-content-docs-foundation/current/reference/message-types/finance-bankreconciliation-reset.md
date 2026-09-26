@@ -76,3 +76,6 @@ No `Applied Payment Entry` rows eru lesa eða written. That tafla er aðeins not
 - `Finance.BankReconciliation.Match`
 - `Finance.BankReconciliation.Post`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

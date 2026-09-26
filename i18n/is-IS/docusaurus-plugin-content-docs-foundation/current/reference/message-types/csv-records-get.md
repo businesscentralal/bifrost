@@ -235,3 +235,6 @@ No,Name,Address,City,Blocked,timestamp,SystemId,SystemCreatedAt,SystemCreatedBy,
 - **Data.Record.Ids.Get** — Skilar aðeins færsla IDs (SystemId + SystemModifiedAt) as JSON
 - **CSV.DeletedRecords.Get** — exports deleted færsla audit log færslur as CSV (rowMarker = 2)
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

@@ -109,7 +109,7 @@ fyrir Return Orders, the equivalent flag er `Receive` (Reitur 79) instead of `Sh
 
 ### Mistókst
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Svarreitir
@@ -133,7 +133,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 | Villa | Orsök |
 |---|---|
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Kallandi lacks the `BIFROST GL Post ori` heimild set. |
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | `FindSalesHeader` could ekki resolve a header. |
+| `Sales Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`); gefið en fannst ekki: `Sales Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | `FindSalesHeader` could ekki resolve a header. |
 | `Sales document {no} has no lines to post.` | Header has no `Sales Line` rows. |
 | BC posting Villur | Bubble up úr `Sales-Post` (e.g. vantar posting dagsetning, ógilt dimensions, viðskiptamanni blocked). |
 | `status: Success` but `postedDocuments` er empty | `Ship` og/eða `Invoice` flags on the header eru `false`. Run the two-step pre-flight in **áskilið Pre-Flight** above áður en posting. |
@@ -143,4 +143,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 - `Sales.Document.PreviewPost` — preview the sama posting án committing.
 - `Sales.Document.Release` — áskilið áður en posting ef `Status = Open`.
 - `Sales.SalesInvoice.Pdf` / `Sales.SalesCreditMemo.Pdf` / `Sales.SalesShipment.Pdf` / `Sales.ReturnReceipt.Pdf` — fetch a PDF of the resulting posted skjal með `no`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

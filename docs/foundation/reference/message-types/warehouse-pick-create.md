@@ -88,7 +88,10 @@ A restricted field aborts the request with an Error response — the pick still 
 
 | Error | Cause |
 |---|---|
-| `Warehouse Shipment identifier must be specified ...` | No Subject and no identifier key in request JSON. |
+| `Warehouse Shipment Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, shipmentNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Warehouse Shipment Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Warehouse Shipment {id} does not exist.` | Supplied SystemId or No. not found. |
 | `Warehouse Shipment {n} has no lines to pick.` | Shipment header exists but has zero lines. |
 | `sortingMethod '{x}' is not valid. Expected one of: ...` | Value not in `Whse. Activity Sorting Method.Names()`. |
@@ -131,4 +134,7 @@ When orchestrating this message type from an agent:
 - `Warehouse.Pick.Register` — registers the pick after the warehouse worker has picked the items.
 - `Warehouse.Shipment.Post` — final step after the pick is registered.
 - `Data.Records.Get` — load any field on the resulting `Warehouse Activity Header` / `Warehouse Activity Line`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

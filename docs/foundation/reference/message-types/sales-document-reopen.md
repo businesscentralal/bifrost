@@ -61,7 +61,7 @@ Same as `Sales.Document.Release` (via `FindSalesHeader`).
 
 ### Failure
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Response Fields
@@ -79,7 +79,11 @@ From `Sales Document Reopen Tests` (`test/test/Sales/SalesDocumentReopenTests.Co
 
 | Error | Cause |
 |---|---|
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | `FindSalesHeader` could not resolve a header. |
+| `Sales Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Sales Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `Sales Header "{value}" matches more than one document. Pass it as one of: {keys}.` (`AmbiguousRecord`) | A plain subject matches several document types; send it in the key of the type you mean. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Sales Document {no} is already open.` | Header `Status` is already `Open`. |
 | BC reopen errors | Bubble up from `Sales Manual Reopen`. |
 
@@ -87,4 +91,7 @@ From `Sales Document Reopen Tests` (`test/test/Sales/SalesDocumentReopenTests.Co
 
 - `Sales.Document.Release` — reverse this operation.
 - `Sales.Document.Post` — post a released document (requires release first).
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

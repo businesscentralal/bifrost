@@ -83,3 +83,6 @@ Get the 10 most-recent mistókst calls:
 }
 ```
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

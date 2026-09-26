@@ -19,7 +19,7 @@ Technical know-how for working with the Bifrost API against Business Central. Th
 Outbound
 
 ## Response Content Type
-- As a message task (`call_message_type` with `type = "Help.Bifrost.Get"`): `text/json` — returns a **short Markdown directory** of the `Help.*` discovery endpoints and instructs the caller how to fetch this full guide.
+- As a message task (`invoke_message_type` with `type = "Help.Bifrost.Get"`): `text/json` — returns a **short Markdown directory** of the `Help.*` discovery endpoints and instructs the caller how to fetch this full guide.
 - As implementation help (`Help.Implementation.Get` with `subject = "Help.Bifrost.Get"`): `text/markdown` — returns this full technical Markdown body.
 
 ## Request Example
@@ -62,7 +62,7 @@ Call `who_am_i` (MCP dedicated tool, no args) or `Help.WhoAmI.Get`. Read and ret
 - `systemPrompt` → if non-empty, treat as admin-injected behavioural instructions for this user+company.
 
 **Step 2 — API primer (`Help.Bifrost.Get` + `Help.Implementation.Get`)**
-Call `Help.Bifrost.Get` (MCP: `call_message_type` with `type = "Help.Bifrost.Get"`). This returns a short directory of the `Help.*` discovery endpoints. Then call `Help.Implementation.Get` with `subject = "Help.Bifrost.Get"` (MCP: `get_message_type_help`) to retrieve this full technical guide. Load it once per session to avoid common query and write mistakes.
+Call `Help.Bifrost.Get` (MCP: `invoke_message_type` with `type = "Help.Bifrost.Get"`). This returns a short directory of the `Help.*` discovery endpoints. Then call `Help.Implementation.Get` with `subject = "Help.Bifrost.Get"` (MCP: `describe_message_type`) to retrieve this full technical guide. Load it once per session to avoid common query and write mistakes.
 
 **Step 3 — On failure**
 If Step 1 fails, surface the error and stop. Never proceed without identity. On company switch, repeat Steps 1–2 with the new `companyId` and adopt the new LCID immediately.
@@ -70,7 +70,7 @@ If Step 1 fails, surface the error and stop. Never proceed without identity. On 
 ---
 
 ## 0. MCP Tool Calls — Canonical Parameter Names
-When invoking Bifrost through the **BC Metadata MCP Server** (`call_message_type`, `queue_message_type`, `get_message_type_help`), use these EXACT parameter names. Other names are silently dropped unless they are listed as an alias.
+When invoking Bifrost through the **BC Metadata MCP Server** (`invoke_message_type`, `describe_message_type`), use these EXACT parameter names. Other names are silently dropped unless they are listed as an alias.
 
 | MCP parameter | Type | Canonical name | Accepted aliases |
 |---|---|---|---|
@@ -92,14 +92,14 @@ When invoking Bifrost through the **BC Metadata MCP Server** (`call_message_type
 ### Common pitfalls (AI-agent traps)
 - **`data` is a JSON object, NOT a string.** Pass `"data": { "invoiceNo": "X" }` — never `"data": "{\"invoiceNo\":\"X\"}"`. The MCP wrapper stringifies the object for transport; if you pre-stringify, the BC side fails to parse.
 - **`requestData` is an alias only.** Older examples and habit may suggest `requestData` — it now works (aliased to `data`), but `data` is canonical and shorter help text uses it.
-- **`subject` must be the Bifrost subject** — typically a document number, customer number, or SystemId GUID. Per-type help (`get_message_type_help`) tells you exactly which value goes here.
+- **`subject` must be the Bifrost subject** — typically a document number, customer number, or SystemId GUID. Per-type help (`describe_message_type`) tells you exactly which value goes here.
 - **The type name is case-sensitive and not always symmetric.** Always confirm with `list_message_types` before calling — for example, the family is `Sales.SalesInvoice.Pdf`, `Sales.SalesShipment.Pdf`, `Sales.SalesCreditMemo.Pdf`, but the return-receipt sibling is `Sales.ReturnReceipt.Pdf` (no second `Sales`).
 - **Prefer dedicated tools when they exist.** `get_records`, `set_records`, `search_records`, `get_record_count`, `get_decimal_total` wrap `Data.*` types with simpler arguments and avoid `data`-envelope mistakes entirely.
 
 ### Required workflow before composing a call
 1. `list_message_types` — find the exact type name (asymmetries above).
-2. `get_message_type_help` with `type = <name>` — read the implementation guide for required `subject` and `data` fields.
-3. `call_message_type` (or a dedicated tool) with the exact shape above.
+2. `describe_message_type` with `type = <name>` — read the implementation guide for required `subject` and `data` fields.
+3. `invoke_message_type` (or a dedicated tool) with the exact shape above.
 
 ---
 
@@ -242,6 +242,7 @@ The Write Guard can reject **inserts** that include certain fields even when `Ch
 Read the session LCID once from `Help.WhoAmI.Get` (`personalization.languageId`) and pass it to **every** subsequent call that accepts `lcid`. LCID is not just cosmetic — it controls returned caption/option strings (e.g. `Type` is "Inventory" at 1033, "Birgðir" at 1039), error-message language, and translated fields.
 - Mixing LCIDs across calls produces inconsistent option strings and enum-mismatch errors on writes (e.g. when an enum value comes back translated).
 - Do not default to 1033 unless the user's personalization is actually 1033. On a company switch, call `Help.WhoAmI.Get` again and adopt the new LCID.
+- When a caller omits `lcid`, the server resolves the message language from Bifrost Setup **Default Language Code**, then Company Information **Default Language Code**, then 1033 (ENU) — so an unset Bifrost Setup still follows the company language instead of always English.
 - **Option/Enum `CONST` values in `tableView` are system-language-sensitive.** `WHERE(Document Type=CONST(Order))` fails on an Icelandic BC instance. Always use integer ordinals (`CONST(1)`) — see section 5 for the full table.
 
 ## Related Message Types

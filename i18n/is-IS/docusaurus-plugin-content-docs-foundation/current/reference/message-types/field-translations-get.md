@@ -97,3 +97,6 @@ Skilar all stored BC system translations fyrir a færsla. Optionally filtered ti
 - `Field.Translation.Get`
 - `Field.Translation.Set`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

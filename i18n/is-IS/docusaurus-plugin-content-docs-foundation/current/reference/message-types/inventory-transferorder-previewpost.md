@@ -76,7 +76,7 @@ Standard `Transfer Header` identification:
 ## Villur
 | Villa | Orsök |
 |-------|-------|
-| `Transfer order identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, documentNo, transferOrderNo, no).` | No identifier supplied eða lookup mistókst. |
+| `Transfer Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, transferOrderNo, no.` (`MissingParameter`); gefið en fannst ekki: `Transfer Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No identifier supplied eða lookup mistókst. |
 | `Transfer order %1 has no lines to post.` | Order had zero `Transfer Line` rows. `%1` er the skjal `No.`. |
 | `For a non-direct transfer order, postingType must be "Ship" or "Receive".` | Non-direct transfer og `postingType` omitted. |
 | `postingType must be "Ship" or "Receive". Received: {value}` | `postingType` had an unsupported Gildi. |
@@ -86,4 +86,7 @@ Standard `Transfer Header` identification:
 ## Tengdar skilaboðategundir
 - `Inventory.TransferOrder.Post` - actually post once preview er clean.
 - `Inventory.TransferOrder.Statistics` - inspect totals.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

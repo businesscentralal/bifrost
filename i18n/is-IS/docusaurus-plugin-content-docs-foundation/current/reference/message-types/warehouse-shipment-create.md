@@ -151,3 +151,6 @@ Capture `shipments[0].no` (e.g. `"SH000004"`).
 - `Warehouse.Pick.Register` — register the pick so `Qty. to Ship` er populated.
 - `Data.Records.Get` — load hvaða Reitur on the resulting `Warehouse Shipment Header` / `Warehouse Shipment Line`.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

@@ -304,7 +304,7 @@ Direction: **Inbound**. Converts an existing purchase **quote** into a purchase 
 
 Success: `{ "status": "Success", "quoteNo": "PQ-001", "orderNo": "PO-005", "orderSystemId": "…", "vendorNo": "10000", "vendorName": "Fabrikam, Inc.", "documentDate": "2026-03-07", "orderDate": "2026-03-07" }`
 
-Errors: `"Subject parameter is required."`, `"Purchase header {No} not found."`, `"Purchase document {No} is not a Quote (actual type: {Type})."`, or any BC validation error (callstack included as `callstack` field).
+Errors: `"Subject parameter is required."`, `"Purchase header {No} not found."`, `"Purchase document {No} is not a Quote (actual type: {Type})."`, or any BC validation error (code `BusinessCentralError`).
 
 #### `Purchase.BlanketOrder.MakeOrder`
 
@@ -339,7 +339,7 @@ Follow-up with `Data.Records.Get` by `SystemId`: `Purchase Header` (new draft), 
 
 Linkage: original invoice has `Cancelled = true` and `Canceled By Cr. Memo No.`; credit memo has `Applies-to Doc. Type/No. = Invoice / <originalInvoiceNo>`; `Cancelled Document` row carries the formal link (`Source ID = 122`, `Cancelled Doc. No.`, `Cancelled By Doc. No.`). New draft has no field-level FK to the original.
 
-Errors: missing identifier, invoice not found, invoice cannot be corrected — BC error text with `callstack` field.
+Errors: missing identifier, invoice not found, invoice cannot be corrected — BC error text with code `BusinessCentralError`.
 
 #### `Purchase.PurchaseInvoice.Cancel`
 

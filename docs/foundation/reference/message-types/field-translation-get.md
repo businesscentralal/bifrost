@@ -93,3 +93,6 @@ Outbound (read-only).
 - `Field.Translation.Set`
 - `Field.Translations.Get`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

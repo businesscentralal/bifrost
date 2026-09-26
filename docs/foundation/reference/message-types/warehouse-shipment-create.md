@@ -147,7 +147,8 @@ Capture `shipments[0].no` (e.g. `"SH000004"`).
 ## Related Message Types
 
 - `Warehouse.Shipment.Post` — post the created Warehouse Shipment.
-- `Warehouse.Pick.Create` — create the Warehouse Pick when `Require Pick = true`.
-- `Warehouse.Pick.Register` — register the pick so `Qty. to Ship` is populated.
 - `Data.Records.Get` — load any field on the resulting `Warehouse Shipment Header` / `Warehouse Shipment Line`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

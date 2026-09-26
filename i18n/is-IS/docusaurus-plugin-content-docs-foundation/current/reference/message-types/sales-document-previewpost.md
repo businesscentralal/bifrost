@@ -81,7 +81,7 @@ sama as `Sales.Document.Release` (via `FindSalesHeader`).
 
 ### Mistókst
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Svarreitir
@@ -103,7 +103,7 @@ sama as `Sales.Document.Release` (via `FindSalesHeader`).
 
 | Villa | Orsök |
 |---|---|
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | `FindSalesHeader` could ekki resolve a header. |
+| `Sales Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`); gefið en fannst ekki: `Sales Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | `FindSalesHeader` could ekki resolve a header. |
 | `Sales document {no} has no lines to post.` | Header has no `Sales Line` rows. |
 | `Posting preview failed and no entries were captured. The document cannot be posted in its current state.` | The preview pipeline finished án populating hvaða töflur — `Sales.Document.Post` would einnig fail. |
 | BC preview Villur | Bubble up úr `Sales-Post (Yes/No)` running under `Gen. Jnl.-Post Preview`. |
@@ -113,4 +113,7 @@ sama as `Sales.Document.Release` (via `FindSalesHeader`).
 - `Sales.Document.Post` — actually commit the posting.
 - `Sales.Document.Statistics` — header-level totals án running a preview.
 - `Sales.Document.Release` — áskilið áður en posting ef `Status = Open`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

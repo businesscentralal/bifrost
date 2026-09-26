@@ -14,7 +14,7 @@ This page is generated from the message type's own help codeunit by
 
 ## Overview
 
-Posts an FA Journal Batch via BC `FA Jnl.-Post Batch` and returns the resulting `FA Register` plus the posting summary. Errors from the BC posting engine are caught and returned as `{status, error, callstack}` instead of throwing — the message itself does not fail.
+Posts an FA Journal Batch via BC `FA Jnl.-Post Batch` and returns the resulting `FA Register` plus the posting summary. Errors from the BC posting engine are caught and returned as `{status, code, error, hint}` instead of throwing — the message itself does not fail.
 
 **Direction**: Inbound (write — creates FA Ledger Entries)  **Content-Type**: `text/json`
 
@@ -68,7 +68,7 @@ First match wins:
 {
   "status": "Error",
   "error": "FA No. must have a value in FA Journal Line ...",
-  "callstack": "<BC error callstack>"
+  "hint": "..."
 }
 ```
 
@@ -95,10 +95,13 @@ Calling this message type requires the `BIFROST FA Post ori` permission set in a
 | `Fixed asset journal batch {template}\|{batch} not found.` | Identification did not match an existing batch. |
 | `Fixed asset journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
 | `Nothing was posted. Review journal for errors.` | `FA Jnl.-Post Batch` returned without producing an FA Register (or the post-Line No. is 0). |
-| BC posting errors | Returned as `{status, error, callstack}` — `error` is the BC error text, `callstack` from `GetLastErrorCallStack()`. |
+| BC posting errors | Returned as `{status, code: BusinessCentralError, error, hint}` — `error` is the BC error text. |
 
 ## Related Message Types
 
 - `Finance.FAJournal.SetupNewLine` — create new FA journal lines.
 - `Finance.FAJournal.Check` — validate before posting.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

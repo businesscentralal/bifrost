@@ -76,3 +76,6 @@ No `Applied Payment Entry` rows are read or written. That table is only used by 
 - `Finance.BankReconciliation.Match`
 - `Finance.BankReconciliation.Post`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

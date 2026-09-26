@@ -66,3 +66,6 @@ Skilar the distinct SystemIds of færslur that were inserted eða modified in a 
 - `ChangeLog.Field.Restore`
 - `Data.Records.Get`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

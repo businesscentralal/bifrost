@@ -65,7 +65,7 @@ Via `FindCustLedgerEntry` (same as `Customer.Application.Post`).
 
 ### Failure
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Response Fields
@@ -100,7 +100,10 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 | Error | Cause |
 |---|---|
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Caller lacks the `BIFROST GL Post ori` permission set. |
-| `Customer ledger entry identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, entryNo, entryNumber).` | Customer ledger entry could not be resolved. |
+| `Cust. Ledger Entry identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, entryNo, entryNumber.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Cust. Ledger Entry "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `No posted application found on customer ledger entry {entryNo} to reverse.` | `detailedEntryNo` omitted and `FindLastApplEntry` returned nothing. |
 | `Detailed customer ledger entry {detailedEntryNo} not found.` | Supplied `detailedEntryNo` did not exist. |
 | `Detailed customer ledger entry {detailedEntryNo} is not an application entry.` | The row exists but its `Entry Type` is not `Application`. |
@@ -110,4 +113,7 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 
 - `Customer.Application.Post` — the operation this reverses.
 - `Customer.CreditLimit.Get` — see exposure after the reversal.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

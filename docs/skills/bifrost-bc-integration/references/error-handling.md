@@ -35,14 +35,21 @@ POST /tasks
             └─ if result.status === "Success" → use result
 ```
 
-Error shape:
+Error shape (see [Errors and warnings](https://businesscentralal.github.io/bifrost/en-us/foundation/reference/errors/)):
 ```json
 {
   "status": "Error",
-  "error": "Human-readable error message",
-  "callStack": "Codeunit.Method line N — ..."
+  "code": "RecordNotFound",
+  "error": "Vendor \"99999\" was not found (from subject).",
+  "parameter": "subject",
+  "received": "99999",
+  "nextStep": "Check the number with Data.Records.Get on table Vendor."
 }
 ```
+
+Branch on `code`, not on the text. When a request has several problems, all of them are in
+`errors[]` under a top-level `code` (usually `MultipleErrors`) - fix them all before calling again. A
+successful response can carry `warnings[]`. There is never a call stack.
 
 ---
 

@@ -53,3 +53,6 @@ Idempotent: re-sending the same payload produces no further changes.
 - `User.Notification.Get`
 - `User.Notification.Count`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

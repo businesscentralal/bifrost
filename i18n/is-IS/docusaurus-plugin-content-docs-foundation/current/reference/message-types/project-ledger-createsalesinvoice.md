@@ -88,7 +88,7 @@ The project er identified via:
 {
   "status": "Error",
   "error": "Project J99999 not found.",
-  "callstack": "..."
+  "hint": "..."
 }
 ```
 
@@ -102,7 +102,7 @@ Requires the `BIFROST Job Post ori` heimild set assigned til the calling user. �
 | vantar heimild set | Posting denied: vantar 'BIFROST Job Post ori' heimild set. |
 | Project fannst ekki | Project &#123;no&#125; fannst ekki. |
 | No billable lines | No billable planning lines fannst fyrir project &#123;no&#125; með the specified filters. |
-| BC validation Mistókst | (BC Villa text + callstack) |
+| BC validation Mistókst | Villutexti BC, kóði `BusinessCentralError` |
 
 ## Billable Line Selection
 aðeins Job Planning Lines where:
@@ -120,4 +120,7 @@ The created Sales reikningur er in draft state (ekki posted). til post it, nota 
 - `Project.Ledger.CreateSalesCreditMemo` — Býr til credit memos úr project planning lines
 - `Projects.ProjectJournal.Post` — Bókar project dagbók batches
 - `Sales.Document.Post` — Bókar the created reikningur
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

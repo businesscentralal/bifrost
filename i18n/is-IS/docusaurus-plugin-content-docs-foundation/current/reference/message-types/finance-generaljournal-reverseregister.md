@@ -58,7 +58,7 @@ Envelope `subject = "42"` — no data body áskilið.
 {
   "status": "Error",
   "error": "<BC reversal error text>",
-  "callstack": "<BC error callstack>"
+  "hint": "..."
 }
 ```
 
@@ -90,10 +90,13 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 | `Subject '{subject}' is not a valid G/L Register No.` | Subject er neither an heiltala nor a gilt GUID. |
 | `G/L Register {n} not found.` | No register með that `No.` / `SystemId` exists. |
 | `G/L Register {n} has already been reversed.` | The register has reversing færslur; BC mun ekki reverse it again. |
-| BC reversal Villur | Returned as `{status, error, callstack}`. Common: getur ekki reverse across lokað periods, applied færslur blocking reversal. |
+| BC reversal Villur | Skilað sem `{status, code: BusinessCentralError, error, hint}`. Common: getur ekki reverse across lokað periods, applied færslur blocking reversal. |
 
 ## Tengdar skilaboðategundir
 
 - `Finance.GeneralJournal.ReverseTransaction` — reverse a single `Transaction No.` rather than the whole register.
 - `Finance.GeneralJournal.Post` — the skilaboðategund that produced the register.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

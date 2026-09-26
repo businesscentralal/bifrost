@@ -64,7 +64,7 @@ sama as other Sales skjal message types (via `FindSalesHeader`).
 
 ### Mistókst
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Svarreitir
@@ -89,4 +89,7 @@ sama as other Sales skjal message types (via `FindSalesHeader`).
 - `Sales.Document.Create` — create the quote fyrsta.
 - `Sales.BlanketOrder.MakeOrder` — analogous conversion úr a blanket order.
 - `Sales.Document.Release` / `Sales.Document.Post` — next steps on the resulting order.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

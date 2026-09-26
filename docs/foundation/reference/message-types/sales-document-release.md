@@ -26,7 +26,7 @@ Releases an open Sales Header by running BC codeunit `Release Sales Document` wi
 ## Subject Identification Order
 
 Via `FindSalesHeader`. Subject is tried first, then request JSON:
-1. `subject` — GUID = `Sales Header.SystemId`, otherwise `No.` (assumed `Document Type::Order`).
+1. `subject` — GUID = `Sales Header.SystemId`, otherwise `No.` tried as every document type (several matches give `AmbiguousRecord`; then send the number in the key of the type you mean).
 2. JSON `systemId` / `recordSystemId` / `id` — `Sales Header.SystemId`.
 3. JSON `orderNo` / `quoteNo` / `invoiceNo` / `creditMemoNo` / `blanketOrderNo` / `returnOrderNo` — typed lookup by Document Type + No.
 
@@ -62,7 +62,7 @@ Via `FindSalesHeader`. Subject is tried first, then request JSON:
 
 ### Failure
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Response Fields
@@ -81,7 +81,11 @@ From `Sales Document Release Tests` (`test/test/Sales/SalesDocumentReleaseTests.
 
 | Error | Cause |
 |---|---|
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | `FindSalesHeader` could not resolve a header. |
+| `Sales Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Sales Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `Sales Header "{value}" matches more than one document. Pass it as one of: {keys}.` (`AmbiguousRecord`) | A plain subject matches several document types; send it in the key of the type you mean. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Sales Document {no} is already released.` | Header `Status` is already `Released`. |
 | BC release/validation errors | Bubble up from `Release Sales Document` (e.g. missing posting date, blocked customer). |
 
@@ -90,4 +94,7 @@ From `Sales Document Release Tests` (`test/test/Sales/SalesDocumentReleaseTests.
 - `Sales.Document.Reopen` — reverse this operation.
 - `Sales.Document.Post` — post a released document.
 - `Sales.Document.PreviewPost` — preview the posting without committing.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

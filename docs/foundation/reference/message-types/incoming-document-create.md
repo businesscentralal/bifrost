@@ -89,3 +89,6 @@ No `subject` is read. Other fields in `data` are ignored — populate vendor/dat
 - `Incoming.Document.SetDefault`
 - `Incoming.Document.Process`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

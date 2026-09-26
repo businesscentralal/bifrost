@@ -111,3 +111,6 @@ See `Inventory.ItemJournal.Post` help for Physical Inventory template specifics 
 - `Inventory.ItemJournal.Post` - post the batch.
 - `Data.Records.Set` - populate field values on the new lines.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

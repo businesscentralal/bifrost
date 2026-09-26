@@ -27,7 +27,7 @@ The same G/L posting gate as `Sales.Document.Post` is enforced.
 
 1. Resolve the posted sales invoice from `subject` or request JSON (see Identifier Resolution below).
 2. Assert the G/L posting gate; abort with an error response if the caller is not allowed to post.
-3. Run BC `CancelPostedInvoice` in an isolated `Codeunit.Run` so any BC error is caught and returned as JSON with the full callstack.
+3. Run BC `CancelPostedInvoice` in an isolated transaction so any BC error is caught and returned as a JSON error response (code `BusinessCentralError`).
 4. BC posts a cancelling sales credit memo and fully applies it to the original invoice; no draft invoice is created.
 5. Look up the cancelling credit memo through the BC `Cancelled Document` link table (Source ID = `Sales Invoice Header`, Cancelled Doc. No. = original invoice).
 6. Return the original invoice and the cancelling credit memo as a single JSON response.
@@ -126,7 +126,10 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 | Error | Cause |
 |---|---|
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Caller lacks the `BIFROST GL Post ori` permission set. |
-| `Posted sales invoice identifier must be specified ...` | No identifier in `subject` or request JSON. |
+| `Sales Invoice Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, invoiceNo, no, documentNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Sales Invoice Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `You cannot cancel this posted sales invoice ...` | BC blocks cancellation (already cancelled / paid / has open applications). |
 
 ## Related Message Types
@@ -134,4 +137,7 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 - `Sales.SalesInvoice.Correct` — cancel + create new editable draft.
 - `Data.Records.Get` — fetch full record data for the documents listed above.
 - `Purchase.PurchaseInvoice.Cancel` — purchase counterpart.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

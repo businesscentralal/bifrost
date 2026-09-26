@@ -130,3 +130,6 @@ When orchestrating this message type from an agent:
 - `Data.Records.Set` on `Warehouse Activity Line` — to adjust `Qty. to Handle` before registering a partial pick.
 - `Data.Records.Get` — load any field on the resulting `Registered Whse. Activity Hdr.` / `Registered Whse. Activity Line`.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

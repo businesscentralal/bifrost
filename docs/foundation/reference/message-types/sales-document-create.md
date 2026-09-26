@@ -80,7 +80,10 @@ From `Sales Document Create Tests` (`test/test/Sales/SalesDocumentCreateTests.Co
 
 | Error | Cause |
 |---|---|
-| `Customer identifier must be specified in subject field or request JSON (no, id, systemId, recordSystemId).` | `FindCustomer` could not resolve a customer. |
+| `Customer identifier is missing. Pass it as the subject, or as one of: no, id, systemId, recordSystemId.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Customer "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `documentType is required in request JSON. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` missing or empty. |
 | `Invalid document type '{value}'. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` supplied but did not match any enum name. |
 | BC validation errors | Bubble up from header field validation (e.g. blocked customer, invalid posting date). |
@@ -89,4 +92,7 @@ From `Sales Document Create Tests` (`test/test/Sales/SalesDocumentCreateTests.Co
 
 - `Data.Records.Set` — add `Sales Line` rows to the new header.
 - `Sales.Document.Release` / `Sales.Document.Post` — downstream lifecycle.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

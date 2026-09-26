@@ -21,7 +21,7 @@ Inserts or updates one or more BC records using the Data Shipping standard JSON 
 ## Idempotency / Safety Notes
 
 - **Not idempotent on insert** unless the table has a unique primary key in `primaryKey` — re-sending the same insert against an auto-number table creates a new record.
-- The whole batch runs inside an isolated `Codeunit.Run` (`Data Records Set Process`, 65328). On any failure, the entire batch rolls back and the response contains `error` and `callstack`.
+- The whole batch runs in one isolated transaction. On any failure, the entire batch rolls back and the response contains `code` and `error`.
 - Ledger-entry edit tables (`G/L Entry-Edit`, `Cust. Entry-Edit`, etc.) are routed automatically so writes go through the supported BC paths.
 - Pending-approval changes are blocked by `PreventPendingApprovalChanges`.
 
@@ -147,7 +147,7 @@ If you send the dependent field first, it validates against the record's *curren
 
 ## Field Access Restrictions
 
-Per-user field-level write restrictions are enforced via `Bifrost Field Access` (codeunit 65350). When a field carries restriction type `Both` or `Write` for the current user (or a wildcard entry matches), the write is rejected and the field is omitted from the `Did you mean` / valid-field hints. This check is **independent of** and runs **before** the ChangeLog Write Guard.
+Per-user field-level write restrictions are enforced via `Bifrost Field Access` (codeunit 65350). When a field carries restriction type `Both` or `Write` for the current user (or a wildcard entry matches), the write is rejected and the field is omitted from the `Did you mean` / valid-field hints. This check is **independent of** and runs **before** the ChangeLog Write Guard. Feature apps can also block individual fields via `OnAfterIsFieldWriteRestrictedForDataRecords`; when they (or a table-level write hint) supply a dedicated message-type hint for that field, the error ends with ` Use {hint}.` and the response `nextStep` property carries that text (code `PermissionDenied`).
 
 Wildcards: `Field No. = 0` covers all fields on a table; `Table No. = 0` covers all tables for the user. Resolution order: specific entry → all-fields wildcard → all-tables wildcard. First match wins.
 
@@ -237,18 +237,23 @@ When `forceAvailable: true`, retry with `"force": true`.
 |---|---|
 | Missing `data` array | `Missing required 'data' array in request.` |
 | Table not found | `Table {name} not found.` |
+| Table is internal / restricted | Error — `Table {id} ({name}) cannot be written via Data.Records.Set. This is an internal table.` When a named dedicated message type exists for that table (Foundation built-in or feature-app hint), the error text ends with ` Use {hint}.` and the response `nextStep` property carries that same text (e.g. `Memory.Company.Set`, `ChangeLog.Field.Restore`, `Email.Draft.Set`), with code `PermissionDenied`; `hint` stays the generic Help.Implementation.Get pointer. Unmapped Foundation-internal tables keep the generic built-in sentence. |
 | Record missing for SystemId without `identityInsert` | `Record with SystemId {guid} not found. Use "identityInsert": true to insert a new record with this SystemId.` |
 | PK mismatch | `Primary key does not match the record with SystemId {guid}` |
 | Field validate failed | `Failed to set field {name} ({n}) with value {v}` |
 | Unknown field key | `Invalid field "{name}" in {object} object. Field does not exist in the target table. Did you mean "{suggestion}"? Valid field names: ...`. The "Did you mean" hint appears when the supplied key matches a real field after normalization — use the suggestion verbatim. |
+| Write-restricted field with dedicated hint | Error — `Field {name} ({n}) in table {id} ({table}) cannot be written via Data.Records.Set. Use {hint}.` Response `nextStep` carries the dedicated type (field hint, else table-level write hint), with code `PermissionDenied`. Without a dedicated hint the prior InvalidField behaviour is unchanged. |
 | ChangeLog Write Guard block | See block response above (`blockedFields`, `guardMode`, `forceAvailable`). |
 | Pending approval | Error from `PreventPendingApprovalChanges`. |
 
-On any error the response also includes a `callstack` field (captured via `GetLastErrorCallStack`).
+Errors raised by Business Central are returned with code `BusinessCentralError`.
 
 ## Related Message Types
 
 - **Data.Records.Get** — same JSON shape; use to get a template record before editing.
 - **Data.Notes.Set** — for adding notes (Record Link table) instead of field values.
 - **Help.Fields.Get** — discover field numbers, types, and write restrictions.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

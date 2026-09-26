@@ -93,3 +93,6 @@ Skilar the stored BC system translation fyrir a single Reitur on a single færsl
 - `Field.Translation.Set`
 - `Field.Translations.Get`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

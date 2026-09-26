@@ -62,10 +62,13 @@ Request body er valfrjálst. No additional fields eru lesa.
 | Villa | Orsök |
 |-------|-------|
 | `Purchase Document {no} is already released.` | Header `Status` er already `Released`. |
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | No skjal resolved með `FindPurchaseHeader`. |
+| `Purchase Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`); gefið en fannst ekki: `Purchase Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No skjal resolved með `FindPurchaseHeader`. |
 | Underlying BC Villa text | hvaða Villa raised með `Release Purchase Document` (vantar áskilið fields, approval workflow blocks, etc.). |
 
 ## Tengdar skilaboðategundir
 - `Purchase.Document.Reopen` — Move back til `Open`.
 - `Purchase.Document.Post` — Posting handles its own release internally; explicit release er ekki áskilið áður en posting.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

@@ -58,7 +58,7 @@ Envelope `subject = "42"` — no data body required.
 {
   "status": "Error",
   "error": "<BC reversal error text>",
-  "callstack": "<BC error callstack>"
+  "hint": "..."
 }
 ```
 
@@ -90,10 +90,13 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 | `Subject '{subject}' is not a valid G/L Register No.` | Subject is neither an integer nor a valid GUID. |
 | `G/L Register {n} not found.` | No register with that `No.` / `SystemId` exists. |
 | `G/L Register {n} has already been reversed.` | The register has reversing entries; BC will not reverse it again. |
-| BC reversal errors | Returned as `{status, error, callstack}`. Common: cannot reverse across closed periods, applied entries blocking reversal. |
+| BC reversal errors | Returned as `{status, code: BusinessCentralError, error, hint}`. Common: cannot reverse across closed periods, applied entries blocking reversal. |
 
 ## Related Message Types
 
 - `Finance.GeneralJournal.ReverseTransaction` — reverse a single `Transaction No.` rather than the whole register.
 - `Finance.GeneralJournal.Post` — the message type that produced the register.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

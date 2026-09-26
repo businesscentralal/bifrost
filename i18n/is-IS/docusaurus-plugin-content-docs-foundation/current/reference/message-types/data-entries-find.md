@@ -136,3 +136,6 @@ eftir identifying which töflur contain færslur, nota `Data.Records.Get` með t
 - **Data.RecordIds.Get** — Get færsla IDs með filters fyrir a specific tafla
 - **Data.Totals.Get** — Aggregate numeric fields across matching færslur
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

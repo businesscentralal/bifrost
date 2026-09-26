@@ -23,8 +23,8 @@ Safe and idempotent — the wrapping `Gen. Jnl.-Post Preview.Run()` always error
 ## Identifier Resolution Order
 Resolved by `Argument.FindPurchaseHeader`:
 1. `subject` as GUID → `PurchaseHeader.GetBySystemId`.
-2. `subject` as text → `PurchaseHeader.Get(Order, <subject>)` (Order only).
-3. Request JSON keys (first hit wins): `systemId`, `recordSystemId`, `id` (all GUID); `orderNo`, `quoteNo`, `invoiceNo`, `creditMemoNo`, `blanketOrderNo`, `returnOrderNo`.
+2. `subject` as text → tried as each postable document type (Order, Invoice, Credit Memo, Return Order). One match is used; several give `AmbiguousRecord` - then send the number in `orderNo`, `invoiceNo`, `creditMemoNo` or `returnOrderNo`.
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id` (all GUID); `orderNo`, `quoteNo`, `invoiceNo`, `creditMemoNo`, `blanketOrderNo`, `returnOrderNo`.
 
 ## Posting Mode Flags
 The preview uses whatever `Receive`/`Invoice` (orders) or `Ship`/`Invoice` (return orders) values are currently on the header. This impl does **not** force them to `true`. The mix of populated `preview[]` tables depends on those flags exactly as for `Purchase.Document.Post`.
@@ -84,10 +84,17 @@ Field names use the same mechanical normalisation as `Data.Records.Get`: `No.` �
 | `Purchase document {no} has no lines to post.` | The source header has no `Purchase Line` rows. |
 | `Posting preview failed and no entries were captured. The document cannot be posted in its current state.` | The preview ran but the inner posting raised an error that left no entries. |
 | Underlying BC error text | Any error raised by `Purch.-Post (Yes/No)` during the simulated post (missing setup, validation failures, etc.). |
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | No document resolved by `FindPurchaseHeader`. |
+| `Purchase Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Purchase Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `Purchase Header "{value}" matches more than one document. Pass it as one of: {keys}.` (`AmbiguousRecord`) | A plain subject matches several document types; send it in the key of the type you mean. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 
 ## Related Message Types
 - `Purchase.Document.Post` — Commit the post (no rollback).
 - `Purchase.Document.Statistics` — Header totals without simulating posting.
 - `Sales.Document.PreviewPost` — Same mechanism for sales documents.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

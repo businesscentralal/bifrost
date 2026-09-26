@@ -85,3 +85,6 @@ Request body er ekki lesa.
 - `Incoming.Document.Get`
 - `Incoming.Document.SetDefault`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

@@ -27,7 +27,7 @@ Returns user-entered Notes (entries in the BC `Record Link` table where Type = N
 | Parameter | Type | Default | Notes |
 |---|---|---|---|
 | Table key (see above) | — | — | Required. |
-| `tableView` | string | — | BC `SetView` filter to scope which records to walk. |
+| `tableView` | string | — | BC `SetView` filter (display field names); unknown fields / unbalanced parentheses → `status: Error`. |
 | `startDateTime` / `endDateTime` | ISO 8601 | — | Filter records by `SystemModifiedAt`. |
 | `skip` / `take` | int / int | 0 / 100 | Record pagination. All notes for each returned record are included. |
 
@@ -92,8 +92,14 @@ Records with no notes are still returned with `notes: []`. `noOfRecords` counts 
 | Table not found | `Table {name} not found.` |
 | Read permission denied | populated by `CheckTableReadPermission`. |
 
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
 ## Related Message Types
 
 - **Data.Notes.Set** — add / edit / delete notes (writes the same `Record Link` rows).
 - **Data.Records.Get** — same iteration/filtering, returns field values instead of notes.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

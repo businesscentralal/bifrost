@@ -44,3 +44,6 @@ Sýnir lista yfir user-scoped memory færslur með `userName`, `id`, og `descrip
 - `Memory.User.Set`
 - `Memory.Company.List`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

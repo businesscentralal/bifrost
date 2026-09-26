@@ -174,3 +174,6 @@ ef a Reitur does ekki meet these requirements, BC raises a runtime Villa.
 - **Data.RecordIds.Get** — Skilar aðeins færsla IDs og modification timestamps
 - **Help.Fields.Get** — Skilar Reitur metadata þar á meðal Reitur class (Normal/FlowField/FlowFilter) og data Gerð
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

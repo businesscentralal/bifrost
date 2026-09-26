@@ -23,3 +23,6 @@ Returns per-Partner rollup rows for the calling Vendor. Each row aggregates the 
   - `totals` — `totalCustomers`, `customersAboveFreeTier`, `userMessages`, `appMessages`, `totalCapacityPerDay`
   - `tiers[]` — per-tier rows with `name`, `limitPerDay`, `customerCount`, `capacityPerDay`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

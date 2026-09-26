@@ -25,3 +25,6 @@ Returns per-Customer billing rows for the calling Vendor. Optional `partnerTenan
   - `billingMode`, `state`, `userMessages`, `appMessages`
   - `rateLimitTier`, `rateLimitPerDay`, `aboveFreeTier`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

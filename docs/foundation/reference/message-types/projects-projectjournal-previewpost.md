@@ -139,3 +139,6 @@ From `Project Jnl. Prev. Post Tests` (codeunit 95438):
 - `Projects.ProjectJournal.Post` — commit the actual post.
 - `Finance.GeneralJournal.PreviewPost` — same pattern for the general journal.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

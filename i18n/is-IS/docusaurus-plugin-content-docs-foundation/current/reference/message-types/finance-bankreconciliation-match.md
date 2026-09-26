@@ -95,3 +95,6 @@ No `Applied Payment Entry` rows eru written. That tafla er aðeins notað með S
 - `Finance.BankReconciliation.Reset`
 - `Finance.BankReconciliation.Post`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

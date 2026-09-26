@@ -80,7 +80,7 @@ JSON Reitur names follow the standard `RemoveNonAlphaNumericCharacters` rule (e.
 
 | Villa | Orsök |
 |---|---|
-| `Customer identifier must be specified in subject field or request JSON (no, id, systemId, recordSystemId).` | `FindCustomer` could ekki resolve a viðskiptamanni. |
+| `Customer identifier is missing. Pass it as the subject, or as one of: no, id, systemId, recordSystemId.` (`MissingParameter`); gefið en fannst ekki: `Customer "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | `FindCustomer` could ekki resolve a viðskiptamanni. |
 | `documentType is required in request JSON. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` vantar eða empty. |
 | `Invalid document type '{value}'. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` supplied but did ekki match hvaða enum Heiti. |
 | BC validation Villur | Bubble up úr header Reitur validation (e.g. blocked viðskiptamanni, ógilt posting dagsetning). |
@@ -89,4 +89,7 @@ JSON Reitur names follow the standard `RemoveNonAlphaNumericCharacters` rule (e.
 
 - `Data.Records.Set` — add `Sales Line` rows til the ný header.
 - `Sales.Document.Release` / `Sales.Document.Post` — downstream lifecycle.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

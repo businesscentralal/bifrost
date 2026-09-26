@@ -118,7 +118,7 @@ fyrsta match wins:
 
 | Villa | Orsök |
 |---|---|
-| `Warehouse Shipment identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, no, shipmentNo).` | No identifier was supplied. |
+| `Warehouse Shipment Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, shipmentNo, no.` (`MissingParameter`); gefið en fannst ekki: `Warehouse Shipment Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No identifier was supplied. |
 | `Warehouse Shipment {no} has no lines to post.` | Header exists but has no lines. |
 | `There is nothing to post because the document does not contain a quantity or amount.` | Every line has `Qty. to Ship = 0`. On WMS locations (`Require Pick = true`) this happens þegar no warehouse pick has been registered yet — the pick registration er what populates `Qty. to Ship`. Sjá Operational Athugasemdir. |
 | `Posting preview failed and no entries were captured. The shipment cannot be posted in its current state.` | Rare catch-all — aðeins fires þegar the BC subscriber completes án raising but writes no færslur. |
@@ -134,4 +134,7 @@ fyrsta match wins:
 - `Warehouse.Shipment.Create` — create a Warehouse Shipment úr a Uppruni skjal.
 - `Warehouse.Shipment.Post` — commit the actual post (með eða án reikningur).
 - `Finance.GeneralJournal.PreviewPost` — sama pattern fyrir the general dagbók.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

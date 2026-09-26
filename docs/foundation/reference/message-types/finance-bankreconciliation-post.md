@@ -24,6 +24,7 @@ Posts the specified bank reconciliation using standard Business Central posting 
 ## Overview
 - Inbound operation. Statement Type = `Bank Reconciliation`.
 - Resolves reconciliation from `subject` SystemId or request JSON keys.
+- Precondition: the reconciliation must contain at least one `Bank Acc. Reconciliation Line`; otherwise posting is refused before the standard posting codeunit runs.
 - Runs codeunit `Bank Acc. Reconciliation Post`.
 
 ## Data Effects
@@ -59,9 +60,11 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 
 ## Error Handling
 - Raises AL error when reconciliation identifier cannot be resolved.
+- Returns structured error `Bank reconciliation {bankAccountNo} {statementNo} has no lines to post.` when the reconciliation has zero lines (avoids the BC Confirm dialog that headless callers cannot answer).
 - Raises AL error when posting preconditions are not met by standard posting logic.
 
 Common posting preconditions:
+- At least one `Bank Acc. Reconciliation Line` must exist for the header.
 - `Statement Ending Balance` must equal `Total Balance` after the reconciliation. Imbalance is the most common cause of failure.
 - Every reconciliation line with a non-zero `Difference` must have a valid offsetting account (G/L or bank account, depending on the line type).
 - The user must have posting permission for the bank account`s G/L account and any offsetting accounts.
@@ -75,4 +78,7 @@ Common posting preconditions:
 - `Finance.BankReconciliation.Create`
 - `Finance.BankReconciliation.Match`
 - `Finance.BankReconciliation.Reset`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

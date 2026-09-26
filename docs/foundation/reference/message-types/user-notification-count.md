@@ -40,3 +40,6 @@ None.
 - `User.Notification.Get`
 - `User.Notification.Read`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

@@ -62,3 +62,6 @@ The created Bifrost Note færsla serialized til JSON (no wrapping `status`/`resu
 - `User.Notification.Thread`
 - `User.Notification.Read`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

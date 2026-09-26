@@ -65,7 +65,7 @@ sama as other Purchase skjal message types (via `FindPurchaseHeader`).
 
 ### Mistókst
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Svarreitir
@@ -98,4 +98,7 @@ BC aðeins converts lines where `Qty. to Receive > 0`. þegar you add a Purchase
 - `Purchase.Document.Create` — create the blanket order fyrsta.
 - `Purchase.Quote.MakeOrder` — analogous conversion úr a quote.
 - `Purchase.Document.Release` / `Purchase.Document.Post` — next steps on the resulting order.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

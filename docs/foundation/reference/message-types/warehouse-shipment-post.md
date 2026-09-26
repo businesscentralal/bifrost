@@ -85,7 +85,10 @@ No per-field restriction check — the entire operation is gated by the permissi
 |---|---|
 | `Posting denied: missing 'BIFROST WhsePost ori' permission set.` | Caller lacks the warehouse posting permission. |
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | `invoice = true` and caller lacks G/L posting. |
-| `Warehouse Shipment identifier must be specified ...` | Subject and JSON both empty. |
+| `Warehouse Shipment Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, shipmentNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Warehouse Shipment Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Warehouse Shipment {n} has no lines to post.` | Header exists with zero lines. |
 | `There is nothing to post because the document does not contain a quantity or amount.` | All Warehouse Shipment Lines have `Qty. to Ship = 0`. At a `Require Pick = true` location this means no pick has been registered yet — see Preconditions. |
 | BC posting errors | Bubble up from `Whse.-Post Shipment` (e.g. open pick exists, item tracking incomplete, posting date locked). |
@@ -100,4 +103,7 @@ See `Warehouse.Shipment.Create` help for the full chain: `Sales.Document.Create`
 - `Warehouse.Pick.Create` — create the Warehouse Pick when `Require Pick = true`.
 - `Warehouse.Pick.Register` — register the pick so `Qty. to Ship` is populated.
 - `Sales.Document.Post` — for the G/L invoice side without the warehouse step.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

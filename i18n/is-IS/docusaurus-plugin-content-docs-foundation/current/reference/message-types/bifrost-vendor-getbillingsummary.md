@@ -25,3 +25,7 @@ Aðeins áskriftarnotkun er reikningsfærð: viðskiptavinur er talinn með á m
 - `totals` — `totalCustomers`, `customersAboveFreeTier`, `userMessages`, `appMessages`, `totalCapacityPerDay`
 - `tiers[]` — línur fyrir hvert þrep með `name`, `limitPerDay`, `customerCount`, `capacityPerDay`
 - `billingPeriodStart` / `billingPeriodEnd`
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

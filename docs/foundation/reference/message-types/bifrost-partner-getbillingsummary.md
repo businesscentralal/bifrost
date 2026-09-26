@@ -22,3 +22,6 @@ Only Subscription usage is billed: a Customer is counted while it is linked to t
 - `totals` — `totalCustomers`, `customersAboveFreeTier`, `userMessages`, `appMessages`, `totalCapacityPerDay`
 - `tiers[]` — per-tier rows with `name`, `limitPerDay`, `customerCount`, `capacityPerDay`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

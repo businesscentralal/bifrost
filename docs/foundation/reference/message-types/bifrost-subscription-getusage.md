@@ -64,3 +64,6 @@ Vendor:
 - `Partners may only request usage for their own tenant.` — Partner scope requested by a Partner-only caller against a different partner id.
 - `Scope '<scope>' requires the Vendor role.` — Vendor or Partner scope requested without the Vendor role (except Partner=self).
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

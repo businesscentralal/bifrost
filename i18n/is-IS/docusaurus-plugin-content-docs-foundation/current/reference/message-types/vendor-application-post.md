@@ -110,9 +110,12 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 | `Target entry {n} belongs to vendor {a}; expected vendor {b}.` | Applies-til færsla belongs til a different birgi than the applying færsla. |
 | `Target vendor ledger entry {n} is closed and cannot be applied.` | Applies-til færsla er already lokað. |
 | `Failed to post application for entry {n}.` | `VendEntry-Apply Posted Entries` raised an Villa during post. The underlying BC Villa text er einnig included via `RespondWithLastError()`. |
-| `Vendor ledger entry identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, entryNo, entryNumber).` | No applying færsla resolved með `FindVendorLedgerEntry`. |
+| `Vendor Ledger Entry identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, entryNo, entryNumber.` (`MissingParameter`); gefið en fannst ekki: `Vendor Ledger Entry "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No applying færsla resolved með `FindVendorLedgerEntry`. |
 
 ## Tengdar skilaboðategundir
 - `Vendor.Application.Reverse` — Unapply a posted jöfnun.
 - `Data.Records.Get` on `Vendor Ledger Entry` / `Detailed Vendor Ledg. Entry` — Inspect færsla state.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

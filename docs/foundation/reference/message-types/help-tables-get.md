@@ -32,7 +32,7 @@ Outbound
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | tableName / tableNumber / tableNo / tableId | Text or Integer | No | Restricts result to a single table |
-| namespaceFilter | Text | No | Filters tables by AL namespace. Supports BC wildcards: `Microsoft.Sales.*` matches all Sales tables. |
+| namespaceFilter | Text | No | Filters tables by AL namespace. Exact value, or a case-insensitive wildcard (`*` any sequence, `?` one character). `Microsoft.Sales*` returns only Sales tables. |
 
 ## Recommended Discovery Workflow
 When you do not know which tables exist, use a two-step approach:

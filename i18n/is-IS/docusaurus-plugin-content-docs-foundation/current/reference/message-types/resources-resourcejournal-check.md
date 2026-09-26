@@ -85,3 +85,6 @@ Batch er resolved in this order:
 - `Resources.ResourceJournal.SetupNewLine`
 - `Resources.ResourceJournal.Post`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+
