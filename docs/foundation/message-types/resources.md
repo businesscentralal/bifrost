@@ -6,6 +6,8 @@ sidebar_position: 8
 
 This document describes the Resources-related message types in Bifröst Foundation.
 
+Errors and warnings follow the shared shape - see [Errors and warnings](../reference/errors.md). Error responses never contain a call stack.
+
 ## Overview
 
 Resources message types provide functionality for working with resource journals, including line setup, validation and posting.
@@ -266,8 +268,8 @@ Identification follows the same three-method pattern.
 ```json
 {
   "status": "Error",
-  "error": "Error message text",
-  "callstack": "Full error callstack from posting"
+  "code": "BusinessCentralError",
+  "error": "Error message text"
 }
 ```
 
@@ -288,7 +290,7 @@ Identification follows the same three-method pattern.
 | `fromEntryNo` | integer | First Resource Ledger Entry No. in register |
 | `toEntryNo` | integer | Last Resource Ledger Entry No. in register |
 | `error` | string | Error message (only on Error status) |
-| `callstack` | string | Error callstack (only on Error status) |
+| `code` | string | Error code, `BusinessCentralError` when Business Central refused the posting (only on Error status) - see [Errors and warnings](../reference/errors.md) |
 
 ### Error Handling
 
@@ -302,7 +304,7 @@ Identification follows the same three-method pattern.
 
 - Uses BC's "Res. Jnl.-Post Batch" codeunit for posting
 - All journal lines are cleared from the batch after successful posting
-- Posting is wrapped in an isolated codeunit so errors return a structured response with `callstack`
+- Posting is wrapped in an isolated codeunit so errors return a structured error response (code `BusinessCentralError`); the call stack goes to telemetry only
 
 **Recommended approach:** Validate with `Resources.ResourceJournal.Check` first, then post with `Resources.ResourceJournal.Post`.
 

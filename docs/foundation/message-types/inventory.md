@@ -6,6 +6,8 @@ sidebar_position: 6
 
 This document describes the Inventory-related message types in Bifröst Foundation.
 
+Errors and warnings follow the shared shape - see [Errors and warnings](../reference/errors.md). Error responses never contain a call stack.
+
 ## Overview
 
 Inventory message types provide functionality for working with item journals (line setup, validation, posting), transfer orders (create, release, reopen, post, preview post, statistics), assembly orders, and warehouse shipments (create from released source documents, post with optional invoicing).
@@ -358,8 +360,8 @@ Identification follows the same three-method pattern.
 ```json
 {
   "status": "Error",
-  "error": "Error message text",
-  "callstack": "Full error callstack from posting"
+  "code": "BusinessCentralError",
+  "error": "Error message text"
 }
 ```
 
@@ -380,7 +382,7 @@ Identification follows the same three-method pattern.
 | `fromEntryNo` | integer | First Item Ledger Entry No. in register |
 | `toEntryNo` | integer | Last Item Ledger Entry No. in register |
 | `error` | string | Error message (only on Error status) |
-| `callstack` | string | Error callstack (only on Error status) |
+| `code` | string | Error code, `BusinessCentralError` when Business Central refused the posting (only on Error status) - see [Errors and warnings](../reference/errors.md) |
 
 ### Error Handling
 
@@ -395,7 +397,7 @@ Identification follows the same three-method pattern.
 - Uses BC's standard "Item Jnl.-Post Batch" codeunit for posting
 - All journal lines are cleared from the batch after successful posting; the batch record itself remains
 - The Item Register record contains the entry-number range for audit
-- Posting through this message is wrapped in an isolated codeunit so errors return a structured response with `callstack` rather than aborting the queue task
+- Posting through this message is wrapped in an isolated codeunit so errors return a structured error response (code `BusinessCentralError`) rather than aborting the queue task; the call stack goes to telemetry only
 
 ### Workflow
 
@@ -404,7 +406,7 @@ Identification follows the same three-method pattern.
 3. Call "Item Jnl.-Post Batch" to post all lines
 4. Verify Item Register was created
 5. On success: return register statistics
-6. On error: return error message with callstack
+6. On error: return a structured error (code `BusinessCentralError` for a Business Central error) - see [Errors and warnings](../reference/errors.md)
 
 **Recommended approach:** Validate with `Inventory.ItemJournal.Check` first, then post with `Inventory.ItemJournal.Post`.
 
@@ -862,7 +864,7 @@ Posts an assembly order via codeunit 900 `Assembly-Post`. Consumes component inv
 
 - Insufficient component inventory.
 - Status is not Released (depending on Assembly Setup).
-- The underlying BC error message is returned with `callstack`.
+- The underlying BC error message is returned in `error` (no call stack).
 
 ---
 

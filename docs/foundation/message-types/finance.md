@@ -6,6 +6,8 @@ sidebar_position: 5
 
 This document describes the Finance-related message types in Bifröst Foundation.
 
+Errors and warnings follow the shared shape - see [Errors and warnings](../reference/errors.md). Error responses never contain a call stack.
+
 ## Overview
 
 Finance message types provide functionality for working with general journals, including validation and posting.
@@ -493,8 +495,8 @@ JSON data parameters take precedence over the subject field.
 ```json
 {
   "status": "Error",
-  "error": "Error message text",
-  "callstack": "Full error callstack from posting"
+  "code": "BusinessCentralError",
+  "error": "Error message text"
 }
 ```
 
@@ -517,7 +519,7 @@ JSON data parameters take precedence over the subject field.
 | `fromVATEntryNo` | integer | First VAT Entry No. in register (0 if none) |
 | `toVATEntryNo` | integer | Last VAT Entry No. in register (0 if none) |
 | `error` | string | Error message (only on Error status) |
-| `callstack` | string | Error callstack (only on Error status) |
+| `code` | string | Error code, `BusinessCentralError` when Business Central refused the posting (only on Error status) - see [Errors and warnings](../reference/errors.md) |
 
 ### Error Handling
 
@@ -545,7 +547,7 @@ JSON data parameters take precedence over the subject field.
 3. Call "Gen. Jnl.-Post Batch" (codeunit 80) to post all lines
 4. Verify G/L Register was created
 5. On success: return G/L Register statistics
-6. On error: return error message with callstack
+6. On error: return a structured error (code `BusinessCentralError` for a Business Central error) - see [Errors and warnings](../reference/errors.md)
 
 **Recommended approach:** Validate with `Finance.GeneralJournal.Check` first, then post with `Finance.GeneralJournal.Post`.
 
@@ -705,8 +707,7 @@ The subject identifies the G/L Register to reverse:
 ```json
 {
   "status": "Error",
-  "error": "The register has already been reversed.",
-  "callstack": "..."
+  "error": "The register has already been reversed."
 }
 ```
 
@@ -719,7 +720,7 @@ The subject identifies the G/L Register to reverse:
 | `fromEntryNo` | Integer | First entry number in the register |
 | `toEntryNo` | Integer | Last entry number in the register |
 | `error` | Text | Error message (only on failure) |
-| `callstack` | Text | AL callstack (only on failure) |
+| `code` | Text | Error code, `BusinessCentralError` when Business Central refused the reversal (only on failure) - see [Errors and warnings](../reference/errors.md) |
 
 ### Validations
 
@@ -733,7 +734,7 @@ The subject identifies the G/L Register to reverse:
 2. Validate register exists and is not already reversed
 3. Execute reversal using isolated write codeunit (Codeunit.Run pattern)
 4. On success: return register statistics
-5. On error: return error message with callstack
+5. On error: return a structured error (code `BusinessCentralError` for a Business Central error) - see [Errors and warnings](../reference/errors.md)
 
 ### Related Message Types
 
@@ -786,8 +787,7 @@ The subject identifies the transaction to reverse:
 ```json
 {
   "status": "Error",
-  "error": "The transaction has already been reversed.",
-  "callstack": "..."
+  "error": "The transaction has already been reversed."
 }
 ```
 
@@ -799,7 +799,7 @@ The subject identifies the transaction to reverse:
 | `reversedTransactionNo` | Integer | The transaction number that was reversed |
 | `entriesReversed` | Integer | Number of G/L entries reversed |
 | `error` | Text | Error message (only on failure) |
-| `callstack` | Text | AL callstack (only on failure) |
+| `code` | Text | Error code, `BusinessCentralError` when Business Central refused the reversal (only on failure) - see [Errors and warnings](../reference/errors.md) |
 
 ### Validations
 
@@ -813,7 +813,7 @@ The subject identifies the transaction to reverse:
 2. Validate entries exist and are not already reversed
 3. Execute reversal using isolated write codeunit (Codeunit.Run pattern)
 4. On success: return transaction statistics
-5. On error: return error message with callstack
+5. On error: return a structured error (code `BusinessCentralError` for a Business Central error) - see [Errors and warnings](../reference/errors.md)
 
 ### Related Message Types
 
@@ -1198,8 +1198,8 @@ Identification follows the same three-method pattern.
 ```json
 {
   "status": "Error",
-  "error": "Error message text",
-  "callstack": "Full error callstack from posting"
+  "code": "BusinessCentralError",
+  "error": "Error message text"
 }
 ```
 
@@ -1220,7 +1220,7 @@ Identification follows the same three-method pattern.
 | `fromEntryNo` | integer | First FA Ledger Entry No. in register |
 | `toEntryNo` | integer | Last FA Ledger Entry No. in register |
 | `error` | string | Error message (only on Error status) |
-| `callstack` | string | Error callstack (only on Error status) |
+| `code` | string | Error code, `BusinessCentralError` when Business Central refused the posting (only on Error status) - see [Errors and warnings](../reference/errors.md) |
 
 ### Error Handling
 
@@ -1234,7 +1234,7 @@ Identification follows the same three-method pattern.
 
 - Uses BC's "FA Jnl.-Post Batch" codeunit for posting
 - All journal lines are cleared from the batch after successful posting
-- Posting is wrapped in an isolated codeunit so errors return a structured response with `callstack`
+- Posting is wrapped in an isolated codeunit so errors return a structured error response (code `BusinessCentralError`); the call stack goes to telemetry only
 
 **Recommended approach:** Validate with `Finance.FAJournal.Check` first, then post with `Finance.FAJournal.Post`.
 
@@ -1546,12 +1546,11 @@ Adds the four posting fields below the preview shape:
 ```json
 {
   "status": "Error",
-  "error": "Settlement G/L Account 2150 must have Account Type = Posting.",
-  "callstack": "..."
+  "error": "Settlement G/L Account 2150 must have Account Type = Posting."
 }
 ```
 
-`callstack` is present only when the failure originated inside the isolated report run.
+Error responses never contain a call stack; it goes to telemetry only.
 
 ### Response Fields
 
@@ -1592,7 +1591,7 @@ Adds the four posting fields below the preview shape:
 
 ### Error Handling
 
-Validation errors return `status=Error` with an `error` field. Errors raised during the actual report run additionally include a `callstack` field for diagnostics. The isolated posting codeunit ensures a failed report run does not roll back the message-processing transaction.
+Validation errors return `status=Error` with an `error` field. Errors raised during the actual report run return the Business Central error text in `error`; the call stack goes to telemetry only, never to the response. The isolated posting codeunit ensures a failed report run does not roll back the message-processing transaction.
 
 ### Notes
 
@@ -1995,7 +1994,7 @@ Missing `Unrealized Gains Acc.` errors with `Unrealized Gains Acc. must have a v
 
 ### Error Handling
 
-Validation errors return `status=Error` and an `error` field describing the failure. Errors raised by the underlying adjustment engine during posting include a `callstack` field for diagnostics. Validated conditions:
+Validation errors return `status=Error` and an `error` field describing the failure. Errors raised by the underlying adjustment engine during posting are returned with code `BusinessCentralError` and the Business Central error text in `error`; the call stack goes to telemetry only. Validated conditions:
 - All required fields present (`endingDate`, `postingDate`, `documentNo`)
 - At least one `adjust*` toggle is true
 - Posting gate `G/L` granted

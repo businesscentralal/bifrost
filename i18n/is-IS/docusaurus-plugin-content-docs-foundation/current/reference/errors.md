@@ -26,7 +26,7 @@ fleiri en eitt vandamál eru **þau öll talin upp í einu**, svo næsta kall ge
 | Reitur | Merking |
 |---|---|
 | `status` | `Error`. |
-| `code` | Stöðugur kóði, óháður tungumáli - sjá [Kóðar](#codes). Veldu leið eftir honum, ekki textanum. |
+| `code` | Stöðugur kóði, óháður tungumáli - sjá [Kóðar](#codes). Byggðu á honum, ekki textanum. |
 | `error` | Skilaboðin fyrir manneskju. Þau geta verið þýdd. |
 | `parameter` | Beiðnihlutinn sem villan varðar: `subject`, JSON-lykill eins og `entryNo` eða slóð eins og `lines[2].no`. |
 | `received` | Gildið sem Bifröst tók við (mest 250 stafir). |
@@ -110,7 +110,7 @@ frá `subject` eða JSON-lyklum eins og `no`, `systemId` eða `orderNo` (hjálp 
 - tvö auðkenni fyrir mismunandi færslur → `ConflictingIdentifiers`;
 - venjulegt skjalanúmer sem passar við fleiri skjalagerðir → `AmbiguousRecord`.
 
-## Engin kallaröð (call stack)
+## Enginn kallastafli (call stack)
 
-Villusvör innihalda aldrei kallaröð. Origo fær hana í gegnum fjarmælingar þegar skilaboðategund
+Villusvör innihalda aldrei kallastafla. Origo fær hann í gegnum fjarmælingar þegar skilaboðategund
 mistekst, ásamt kenni skilaboðanna - vísaðu í kenni skilaboðanna þegar þú tilkynnir vandamál.

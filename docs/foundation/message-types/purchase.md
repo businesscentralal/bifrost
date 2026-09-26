@@ -13,6 +13,8 @@ sidebar_position: 4
 
 This document describes the Purchase Order message types in the Bifrost API. These message types provide lifecycle management for purchase orders, mirroring the same operations available for sales orders.
 
+Errors and warnings follow the shared shape - see [Errors and warnings](../reference/errors.md). Error responses never contain a call stack.
+
 | Message Type | Direction | Purpose | Related Table(s) |
 |--------------|-----------|---------|------------------|
 | Purchase.Document.Release | Inbound | Release an open purchase order to make it ready for receipt and invoicing | Purchase Header (38) |
@@ -408,7 +410,6 @@ Or:
 - **vendorNo**: Buy-from vendor number
 - **vendorName**: Buy-from vendor name
 - **error**: Error message (only present when status is "Error")
-- **callstack**: Error callstack (only present when status is "Error")
 
 ### postedDocuments Array
 
@@ -777,7 +778,7 @@ When the document is in LCY, the FCY columns mirror the LCY columns and the exch
 - `appliesToEntries` missing or empty.
 - A target entry belongs to a different vendor than the applying entry.
 - A target entry is closed.
-- Microsoft codeunit 227 rejects the application (caller still receives a structured JSON error with callstack).
+- Microsoft codeunit 227 rejects the application (caller still receives a structured JSON error with code `BusinessCentralError`).
 
 ### Related Message Types
 
@@ -945,7 +946,7 @@ The resolved document **must** have `Document Type = Quote`, otherwise an error 
 | `Subject parameter is required.` | Subject was empty |
 | `Purchase header {No} not found.` | No purchase header matches the subject |
 | `Purchase document {No} is not a Quote (actual type: {Type}).` | Subject resolved to a non-Quote document |
-| Error text from BC | The standard `Purch.-Quote to Order` codeunit raised an error (callstack included as `callstack` field) |
+| Error text from BC | The standard `Purch.-Quote to Order` codeunit raised an error (returned with code `BusinessCentralError`) |
 
 ### Related Message Types
 
@@ -1029,7 +1030,7 @@ Each blanket-order line that should be transferred must have `Qty. to Receive > 
 | `Subject parameter is required.` | Subject was empty |
 | `Purchase header {No} not found.` | No purchase header matches the subject |
 | `Purchase document {No} is not a Blanket Order (actual type: {Type}).` | Subject resolved to a non-blanket document |
-| Error text from BC | The standard `Blanket Purch. Order to Order` codeunit raised an error (e.g. no lines with `Qty. to Receive > 0`); callstack included as `callstack` field |
+| Error text from BC | The standard `Blanket Purch. Order to Order` codeunit raised an error (e.g. no lines with `Qty. to Receive > 0`); returned with code `BusinessCentralError` |
 
 ### Related Message Types
 
@@ -1108,7 +1109,7 @@ Or by JSON data:
 **Process Flow:**
 1. Resolve the posted invoice from `subject` or request JSON.
 2. Enforce the `G/L` posting gate.
-3. Run BC `CancelPostedInvoiceStartNewInvoice` inside an isolated `Codeunit.Run` so BC errors are returned as JSON with full callstack.
+3. Run BC `CancelPostedInvoiceStartNewInvoice` in isolation so BC errors are returned as a JSON error response (no call stack).
 4. BC posts a cancelling purchase credit memo, fully applies it to the original invoice, and creates a new draft `Purchase Header` (Document Type = Invoice) copied from the original.
 5. The cancelling credit memo is looked up via the `Cancelled Document` link table (`Source ID` = 122, `Cancelled Doc. No.` = original invoice).
 6. Original, cancelling credit memo, and new draft are returned in a single JSON response.
@@ -1150,7 +1151,7 @@ Each `id` is the BC `SystemId`. Use it with `Data.Records.Get`:
 **Error Scenarios:**
 - Missing identifier -> `Error` with `Message subject or request data must contain a record identifier`.
 - Invoice not found -> `Error`.
-- Invoice cannot be corrected (already cancelled, payments applied, posting period closed, etc.) -> `Error` with BC error text and `callstack` field.
+- Invoice cannot be corrected (already cancelled, payments applied, posting period closed, etc.) -> `Error` with the BC error text in `error`.
 
 **Related Message Types:**
 - [Purchase.PurchaseInvoice.Cancel](#purchasepurchaseinvoicecancel): Cancel without creating a new draft.
@@ -1200,7 +1201,7 @@ The `newDraftInvoice` object is intentionally omitted.
 **Process Flow:**
 1. Resolve the posted invoice from `subject` or request JSON.
 2. Enforce the `G/L` posting gate.
-3. Run BC `CancelPostedInvoice` inside an isolated `Codeunit.Run` so BC errors are returned as JSON with full callstack.
+3. Run BC `CancelPostedInvoice` in isolation so BC errors are returned as a JSON error response (no call stack).
 4. BC posts a cancelling purchase credit memo and fully applies it to the original invoice. No draft is created.
 5. The cancelling credit memo is looked up via the `Cancelled Document` link table (`Source ID` = 122, `Cancelled Doc. No.` = original invoice).
 6. Original invoice and cancelling credit memo are returned in a single JSON response.

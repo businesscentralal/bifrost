@@ -223,7 +223,7 @@ Authorization: Bearer {token}
 
 Villusvar er geymt sem JSON með `status` = `Error`, stöðugum `code`, textanum `error` og, þegar þau
 eiga við, `parameter`, `received`, `expected`, `nextStep` og fylkinu `errors` sem telur upp öll
-vandamálin. Sjá [Villur og viðvaranir](./errors.md). Villusvör innihalda aldrei kallaröð.
+vandamálin. Sjá [Villur og viðvaranir](./errors.md). Villusvör innihalda aldrei kallastafla.
 
 ### Notkunartilvik
 

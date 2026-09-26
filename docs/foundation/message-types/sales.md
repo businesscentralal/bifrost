@@ -13,6 +13,8 @@ sidebar_position: 3
 
 This document describes the Sales, Customer, and Item message types in the Bifrost API. These message types provide business operations for customer credit management, item availability checking, pricing information, sales order lifecycle management, and PDF document retrieval.
 
+Errors and warnings follow the shared shape - see [Errors and warnings](../reference/errors.md). Error responses never contain a call stack.
+
 | Message Type | Direction | Purpose | Related Table(s) |
 |--------------|-----------|---------|------------------|
 | Customer.CreditLimit.Get | Outbound | Retrieve customer credit limit information including balance, outstanding amounts, and credit status | Customer (18) |
@@ -2488,7 +2490,7 @@ None. The implementation uses Microsoft codeunit 226 and standard customer ledge
 - `appliesToEntries` missing or empty.
 - A target entry belongs to a different customer than the applying entry.
 - A target entry is closed.
-- Microsoft codeunit 226 rejects the application (caller still receives a structured JSON error with callstack).
+- Microsoft codeunit 226 rejects the application (caller still receives a structured JSON error with code `BusinessCentralError`).
 
 ### Related Message Types
 
@@ -2661,7 +2663,7 @@ The resolved document **must** have `Document Type = Quote`, otherwise an error 
 | `Subject parameter is required.` | Subject was empty |
 | `Sales document {No} not found.` | No sales header matches the subject |
 | `Sales document {No} is not a Quote (actual type: {Type}).` | Subject resolved to a non-Quote document |
-| Error text from BC | The standard `Sales-Quote to Order` codeunit raised an error (callstack included as `callstack` field) |
+| Error text from BC | The standard `Sales-Quote to Order` codeunit raised an error (returned with code `BusinessCentralError`) |
 
 ### Related Message Types
 
@@ -2745,7 +2747,7 @@ Each blanket-order line that should be transferred must have `Qty. to Ship > 0` 
 | `Subject parameter is required.` | Subject was empty |
 | `Sales document {No} not found.` | No sales header matches the subject |
 | `Sales document {No} is not a Blanket Order (actual type: {Type}).` | Subject resolved to a non-blanket document |
-| Error text from BC | The standard `Blanket Sales Order to Order` codeunit raised an error (e.g. no lines with `Qty. to Ship > 0`); callstack included as `callstack` field |
+| Error text from BC | The standard `Blanket Sales Order to Order` codeunit raised an error (e.g. no lines with `Qty. to Ship > 0`); returned with code `BusinessCentralError` |
 
 ### Related Message Types
 
@@ -2825,7 +2827,7 @@ Or by JSON data:
 **Process Flow:**
 1. Resolve the posted invoice from `subject` or request JSON.
 2. Enforce the `G/L` posting gate.
-3. Run BC `CancelPostedInvoiceCreateNewInvoice` inside an isolated `Codeunit.Run` so BC errors are returned as JSON with full callstack.
+3. Run BC `CancelPostedInvoiceCreateNewInvoice` in isolation so BC errors are returned as a JSON error response (no call stack).
 4. BC posts a cancelling sales credit memo, fully applies it to the original invoice, and creates a new draft `Sales Header` (Document Type = Invoice) copied from the original.
 5. The cancelling credit memo is looked up via the `Cancelled Document` link table (`Source ID` = 112, `Cancelled Doc. No.` = original invoice).
 6. Original, cancelling credit memo, and new draft are returned in a single JSON response.
@@ -2867,7 +2869,7 @@ Each `id` is the BC `SystemId`. Use it with `Data.Records.Get`:
 **Error Scenarios:**
 - Missing identifier → `Error` with `Message subject or request data must contain a record identifier`.
 - Invoice not found → `Error`.
-- Invoice cannot be corrected (already cancelled, payments applied, posting period closed, etc.) → `Error` with BC error text and `callstack` field.
+- Invoice cannot be corrected (already cancelled, payments applied, posting period closed, etc.) → `Error` with the BC error text in `error`.
 
 **Related Message Types:**
 - [Sales.SalesInvoice.Cancel](#salessalesinvoicecancel): Cancel without creating a new draft.
@@ -2918,7 +2920,7 @@ The `newDraftInvoice` object is intentionally omitted.
 **Process Flow:**
 1. Resolve the posted invoice from `subject` or request JSON.
 2. Enforce the `G/L` posting gate.
-3. Run BC `CancelPostedInvoice` inside an isolated `Codeunit.Run` so BC errors are returned as JSON with full callstack.
+3. Run BC `CancelPostedInvoice` in isolation so BC errors are returned as a JSON error response (no call stack).
 4. BC posts a cancelling sales credit memo and fully applies it to the original invoice. No draft is created.
 5. The cancelling credit memo is looked up via the `Cancelled Document` link table (`Source ID` = 112, `Cancelled Doc. No.` = original invoice).
 6. Original invoice and cancelling credit memo are returned in a single JSON response.
@@ -3021,8 +3023,7 @@ The `newDraftInvoice` object is intentionally omitted.
 ```json
 {
   "status": "Error",
-  "error": "Document Sending Profile NOSUCH not found.",
-  "callstack": "..."
+  "error": "Document Sending Profile NOSUCH not found."
 }
 ```
 
@@ -3040,7 +3041,6 @@ The `newDraftInvoice` object is intentionally omitted.
 | `documentSendingProfileSource` | Text | `Request`, `Customer`, or `Default` — which step of the resolution chain matched |
 | `message` | Text | Human-readable summary |
 | `error` | Text | Present only on `Error` — the underlying message |
-| `callstack` | Text | Present only on `Error` — full BC callstack for diagnostics |
 
 **Error Scenarios:**
 
@@ -3051,7 +3051,7 @@ The `newDraftInvoice` object is intentionally omitted.
 | `Document Sending Profile {code} not found.` | Request override code does not exist |
 | `Customer {no} references Document Sending Profile {code} which no longer exists.` | Customer profile code is dangling |
 | `No Document Sending Profile resolved for customer {no} and no system default exists.` | No override, no customer profile, no default |
-| (BC SendProfile errors) | Surfaced verbatim through `error` + `callstack` (e.g., missing e-mail account, unconfigured electronic document setup) |
+| (BC SendProfile errors) | Surfaced verbatim in `error` (e.g., missing e-mail account, unconfigured electronic document setup) |
 
 **Notes:**
 
@@ -3123,8 +3123,7 @@ The `newDraftInvoice` object is intentionally omitted.
 ```json
 {
   "status": "Error",
-  "error": "Sales Credit Memo POST-CRM-999999 not found.",
-  "callstack": "..."
+  "error": "Sales Credit Memo POST-CRM-999999 not found."
 }
 ```
 

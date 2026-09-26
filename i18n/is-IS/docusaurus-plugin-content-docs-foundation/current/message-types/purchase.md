@@ -13,6 +13,8 @@ sidebar_position: 4
 
 Þetta skjal lýsir skilaboðategundum innkaupapantana í Bifröst API. Þessar skilaboðategundir bjóða upp á líftímasstjórnun innkaupapantana, speglandi sömu aðgerðir og í boði eru fyrir sölupantanir.
 
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](../reference/errors.md). Villusvör innihalda aldrei kallastafla.
+
 | Skilaboðategund | Stefna | Tilgangur | Tengd tafla/töflur |
 |---|---|---|---|
 | Purchase.Document.Release | Innlæg | Gefa út opna innkaupapöntun til að gera hana tilbúna fyrir móttöku og reikningsfærslu | Purchase Header (38) |
@@ -686,7 +688,7 @@ Skjalið sem fannst **verður** að hafa `Document Type = Quote`, annars skilar 
 | `Subject parameter is required.` | Subject var tómt |
 | `Purchase header {No} not found.` | Enginn innkaupahaus passar við subject |
 | `Purchase document {No} is not a Quote (actual type: {Type}).` | Subject vísaði á annað skjal en Quote |
-| Villutexti frá BC | Staðlaða `Purch.-Quote to Order` codeunit kastaði villu (kallabók fylgir sem `callstack` reitur) |
+| Villutexti frá BC | Staðlaða `Purch.-Quote to Order` codeunit kastaði villu (skilað með kóðanum `BusinessCentralError`) |
 
 ### Tengdar skilaboðategundir
 
@@ -769,7 +771,7 @@ Hver lína rammapöntunar sem á að færast yfir verður að hafa `Qty. to Rece
 | `Subject parameter is required.` | Subject var tómt |
 | `Purchase header {No} not found.` | Enginn innkaupahaus passar við subject |
 | `Purchase document {No} is not a Blanket Order (actual type: {Type}).` | Subject vísaði á annað skjal en Blanket Order |
-| Villutexti frá BC | Staðlaða `Blanket Purch. Order to Order` codeunit kastaði villu (t.d. engar línur með `Qty. to Receive > 0`); kallabók fylgir sem `callstack` reitur |
+| Villutexti frá BC | Staðlaða `Blanket Purch. Order to Order` codeunit kastaði villu (t.d. engar línur með `Qty. to Receive > 0`); skilað með kóðanum `BusinessCentralError` |
 
 ### Tengdar skilaboðategundir
 
@@ -816,12 +818,12 @@ Hver lína rammapöntunar sem á að færast yfir verður að hafa `Qty. to Rece
 **Villuaðstæður:**
 - Vantar auðkenni → `Error`.
 - Reikningur fannst ekki → `Error`.
-- Ekki hægt að leiðrétta reikning → `Error` með villutexta frá BC og `callstack` reit.
+- Ekki hægt að leiðrétta reikning → `Error` með villutexta frá BC í `error`.
 
 **Ferli:**
 1. Auðkenni er leyst úr `subject` eða úr request JSON.
 2. `G/L` bókunarstýring er staðfest.
-3. BC `CancelPostedInvoiceStartNewInvoice` keyrt í einangruðu `Codeunit.Run`; villur skila sér sem JSON með callstack.
+3. BC `CancelPostedInvoiceStartNewInvoice` keyrt í einangrun; villur skila sér sem JSON-villusvar (án kallastafla).
 4. BC bókar jöfnunarkreditreikning, parar hann að fullu við upprunalega reikninginn, og býr til nýjan drög að `Purchase Header` (Document Type = Invoice) afritaðan úr upprunalega reikningnum.
 5. Jöfnunarkreditreikningurinn er sóttur í gegnum `Cancelled Document` (Source ID = 122, Cancelled Doc. No. = upprunalegur reikningur).
 6. Upprunalegi reikningurinn, jöfnunarkreditreikningur og nýju drögin eru skilað í einu JSON svari.
@@ -901,7 +903,7 @@ Hver lína rammapöntunar sem á að færast yfir verður að hafa `Qty. to Rece
 **Ferli:**
 1. Auðkenni er leyst úr `subject` eða úr request JSON.
 2. `G/L` bókunarstýring er staðfest.
-3. BC `CancelPostedInvoice` keyrt í einangruðu `Codeunit.Run`; villur skila sér sem JSON með callstack.
+3. BC `CancelPostedInvoice` keyrt í einangrun; villur skila sér sem JSON-villusvar (án kallastafla).
 4. BC bókar jöfnunarkreditreikning og parar hann að fullu við upprunalega reikninginn. Engin drög eru búin til.
 5. Jöfnunarkreditreikningurinn er sóttur í gegnum `Cancelled Document` (Source ID = 122, Cancelled Doc. No. = upprunalegur reikningur).
 6. Upprunalegi reikningurinn og jöfnunarkreditreikningurinn skilað í einu JSON svari.
