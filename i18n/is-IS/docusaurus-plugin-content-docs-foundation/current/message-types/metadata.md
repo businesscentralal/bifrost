@@ -282,6 +282,8 @@ Eða með tilgreindum reitum:
 
 **Lýsing:** Skilar lista yfir allar tiltækar skilaboðategundir með lýsigögn þeirra þ.m.t. síutöflunúmer, lýsingu og stefnu skilaboða.
 
+Sjálfgefið skilar svarið uppsettum skilaboðategundum, líka þegar þær eru ekki kallanlegar í núverandi notanda- eða umhverfissamhengi. Athugaðu `isEnabled` áður en þú kallar skilaboðategund, eða sendu `onlyEnabled: true` í `data` til að fá aðeins þær skilaboðategundir sem eru virkar fyrir núverandi notanda og umhverfi.
+
 **Stefna skilaboða:** Útlæg
 
 **Inntaksfæribreytur:**
@@ -341,6 +343,10 @@ Eða með tilgreindum reitum:
 - `description`: Lýsing á skilaboðategundinni
 - `messageDirection`: Stefna skilaboða (Inbound/Outbound/Both)
 
+**Athugasemdir:**
+
+- `isEnabled` getur einnig endurspeglað umhverfis- og hlutverkshlið. Skilaboðategundir Bifrastar fyrir lýsigögn um áskriftar-, söluaðila- og samstarfsaðilagjaldtöku eru til dæmis vísvitandi óvirkar í SaaS Sandbox og aðeins virkar fyrir viðeigandi leyfð framleiðsluhlutverk.
+
 **Dæmi um notkun:**
 
 ```json
@@ -381,6 +387,8 @@ Skilar hjálparskjöluninni á **text/markdown** sniði. Svarið inniheldur nák
 - Dæmi
 - Villutilvik
 - Bestu venjur
+
+**Tungumál:** Markdown-svarið er tækniskjölun fyrir forritara á ensku. `lcid` staðfærir birtitexta sem lýsigagnaendapunktar eins og `Help.Tables.Get` og `Help.Fields.Get` skila; það þýðir ekki hráa Markdown-textann sem `Help.Implementation.Get` skilar.
 
 **Villutilvik:**
 

@@ -370,6 +370,8 @@ To retrieve captions in a specific language, set the `lcid` field (Windows Langu
 
 **Description:** Returns a list of all available message types with their metadata including filter table number, description, and message direction.
 
+By default, the response includes installed message types even when they are not currently callable. Check `isEnabled` before invoking a type, or pass `onlyEnabled: true` in the request data to return only message types enabled for the current user and environment.
+
 **Message Direction:** Outbound
 
 **Input Parameters:**
@@ -450,6 +452,7 @@ To retrieve captions in a specific language, set the `lcid` field (Windows Langu
 - Pass `subject` to retrieve metadata for a single message type by exact name (result array contains at most one element)
 - Pass `onlyEnabled: true` to filter out message types the user lacks permission for
 - `isEnabled` reflects whether the user has the required table/posting permissions for that type
+- `isEnabled` can also reflect environment and role gates. For example, Bifrost subscription/vendor/partner billing metadata message types are intentionally disabled in SaaS Sandbox and enabled only for the relevant licensed production roles.
 - Both `subject` and `onlyEnabled` can be combined
 - Includes both built-in and custom message types (if extensions are installed)
 - Message Direction: Outbound
@@ -503,6 +506,8 @@ Returns the help documentation in **text/markdown** format. The response contain
 - Examples
 - Error cases
 - Best practices
+
+**Language:** The returned Markdown is English developer documentation. The `lcid` field localizes captions returned by metadata endpoints such as `Help.Tables.Get` and `Help.Fields.Get`; it does not translate the raw Markdown body returned by `Help.Implementation.Get`.
 
 **Example Usage:**
 

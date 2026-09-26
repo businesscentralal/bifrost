@@ -34,6 +34,9 @@ Outbound
 ## Response Shape
 Raw markdown text (no JSON envelope). The exact markdown returned by the target implementation help codeunit.
 
+## Language
+The runtime markdown is developer documentation in English. The `lcid` field localizes Business Central captions returned by metadata endpoints such as `Help.Tables.Get` and `Help.Fields.Get`, but it does not translate the markdown body returned by `Help.Implementation.Get`.
+
 ## Errors
 | Condition | Error message |
 |-----------|---------------|

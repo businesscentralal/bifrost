@@ -15,7 +15,7 @@ Hvert forrit hér að neðan er Business Central viðbót sem byggir á
 [Bifröst Foundation](/foundation/) og bætir við eigin skilaboðatögum,
 hjálparsíðum og uppsetningu. Listinn er búinn til úr einni JSON skrá,
 [`data/apps.json`](https://github.com/businesscentralal/bifrost/blob/main/data/apps.json),
-sem er einnig birt óbreytt á [`/apps.json`](/apps.json) svo verkfæri og
+sem er einnig birt óbreytt á [`/apps.json`](https://businesscentralal.github.io/bifrost/apps.json) svo verkfæri og
 innbyggðir listar geti lesið hana beint.
 
 Leitaðu eftir nafni eða lýsingu, eða síaðu eftir sviði, til að finna forritið
