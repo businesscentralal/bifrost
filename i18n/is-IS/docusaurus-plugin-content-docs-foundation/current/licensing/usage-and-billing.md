@@ -9,7 +9,7 @@ description: "Hver rukkar hvern, hvernig notkun er tilkynnt, og síðurnar og sk
 
 | Reikningur | Frá | Til | Byggir á |
 |---|---|---|---|
-| Áskriftarnotkun | **Samstarfsaðili** | **viðskiptavinir** hans | Notendaskilaboðunum og forritsskráningarskilaboðunum sem hver viðskiptavinur notaði í mánuðinum, auk þreps álagsþaks ofan við Frítt ef viðskiptavinurinn valdi slíkt - á því verði sem samið var um á milli þeirra. |
+| Áskriftarnotkun | **Samstarfsaðili** | **viðskiptavinir** hans | Skilaboðunum sem hver viðskiptavinur notaði í mánuðinum, eftir [gjaldfærslutegund](./license-types.md#charge-types), auk þreps álagsþaks ofan við Frítt ef viðskiptavinurinn valdi slíkt - á því verði sem samið var um á milli þeirra. |
 | Reikningsfærsla samstarfsaðila | **Söluaðili** | **samstarfsaðilar** hans | Áskriftarnotkun og þrepum allra viðskiptavina hvers samstarfsaðila. |
 | Fyrirframgreiddur kvóti | Origo | leigjandi með fyrirframgreitt leyfi | Keyptum skilaboðakvóta, fyrir hvern pott. |
 
@@ -20,10 +20,19 @@ hafði fyrir uppsögnina.
 ## Hvernig notkun er tilkynnt
 
 Hvert fyrirtæki tilkynnir gjaldskyld skilaboð sín til leyfisþjónustunnar einu sinni á dag, fyrir
-hvern pott, í bakgrunnsverki sem fyrsta gjaldskylda kall dagsins ræsir. **Samstilla** á Uppsetningu
-Bifröst tilkynnir öll óafgreidd skilaboð strax. Þar til skilaboð hafa verið tilkynnt eru þau talin
-sem *ótilkynnt* í upplýsingareitnum Leyfi. Notkun úr sandkassaumhverfum er tilkynnt sérstaklega og
-er ekki rukkuð.
+hvern dag og hverja gjaldfærslutegund, í bakgrunnsverki sem fyrsta gjaldskylda kall dagsins ræsir.
+**Samstilla** á Uppsetningu Bifröst tilkynnir öll óafgreidd skilaboð strax (nema skilaboð síðustu
+fimm mínútna). Þar til skilaboð hafa verið tilkynnt eru þau talin sem *ótilkynnt* í upplýsingareitnum
+Leyfi. Notkun úr sandkassaumhverfum er tilkynnt sérstaklega og er ekki rukkuð.
+
+Hver tilkynning bætir við nýjum notkunarfærslum; færslu er aldrei breytt eftir á. Dagur getur því
+haft nokkrar færslur af sömu gjaldfærslutegund - eina fyrir hverja tilkynningu - og notkun dagsins er
+summa magns þeirra. Hvert skilaboð er tilkynnt nákvæmlega einu sinni, líka þegar tilkynning rofnar
+og er reynd aftur.
+
+Notkun er tilkynnt degi eða meira eftir að hún varð þegar fyrirtæki kallar ekkert daginn eftir eða
+tilkynningin mistekst. Hver notkunarfærsla ber því tvær dagsetningar: **notkunardag** (daginn sem
+skilaboðin voru notuð) og **skráningardag** (daginn sem færslan var tilkynnt).
 
 ## Hvar notkun er skoðuð
 
@@ -40,13 +49,22 @@ samstarfsaðila og söluaðila krefjast auk þess hlutverks samstarfsaðila eða
 ## Reikningstímabil
 
 Skilaboðategundir reikningsfærslunnar taka við `period` - `currentMonth` (sjálfgefið) eða
-`previousMonth` - eða tilgreindum `startDate` og `endDate` (`yyyy-MM-dd`). Svör þeirra innihalda:
+`previousMonth` - eða tilgreindum `startDate` og `endDate` (`yyyy-MM-dd`), og `dateBasis`:
+`usageDate` (sjálfgefið) síar tímabilið á notkunardag, `reportedDate` á skráningardag. Svör þeirra
+innihalda:
 
-- **samtölur** - fjölda viðskiptavina, viðskiptavina yfir fría þrepinu, notendaskilaboð,
-  forritsskráningarskilaboð og heildargetu álagsþaks á dag;
+- **samtölur** - fjölda viðskiptavina, viðskiptavina yfir fría þrepinu, skilaboð eftir
+  gjaldfærslutegund (`userMessages`, `appMessages`, `internalMessages`, `demoMessages`,
+  `supportMessages`) og heildargetu álagsþaks á dag;
 - **þrep** - fyrir hvert þrep: köll á dag, fjölda viðskiptavina á því og getu á dag;
 - **línur** - ein fyrir hvern viðskiptavin (eða fyrir hvern samstarfsaðila í
   `Bifrost.Vendor.GetPartners`) með reikningsfærsluhætti, stöðu, skilaboðum og þrepi.
 
 Rukkaðu eftir tölum lokaðs tímabils (`previousMonth`): notkun er tilkynnt daglega, svo yfirstandandi
-mánuður heldur áfram að vaxa þar til honum lýkur.
+mánuður heldur áfram að vaxa þar til honum lýkur. Með `dateBasis` = `reportedDate` breytist lokað
+tímabil aldrei eftir á - notkun síðustu daga mánaðar sem er tilkynnt í næsta mánuði er rukkuð með
+næsta mánuði.
+
+Notkun af tegundinni Innri, Sýniumhverfi og Þjónustuaðili er tilkynnt aðskilin frá venjulegri
+notendanotkun, svo samstarfsaðili geti ákveðið hvernig hann rukkar hana - til dæmis að rukka alls
+ekki eigin innri notkun og sýninotkun.

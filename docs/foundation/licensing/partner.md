@@ -30,8 +30,10 @@ registered; other companies of the tenant do not get the Partner functions.
 
 On [Customer Management](/help/foundation/customer-management/), choose **Invite Customer** and
 enter the customer's **Microsoft Entra tenant ID** (or its 64-character tenant hash) and, optionally,
-a friendly name. The customer sees the invitation on its Bifröst Setup page and accepts it there -
-see [Being a Customer](./customer.md). From that moment:
+a friendly name. Select **Demo environment** when the tenant is one you use for demonstrations:
+its usage is then reported to you and your Vendor as **Demo**, separately from regular customer
+usage. The customer sees the invitation on its Bifröst Setup page and accepts it there - see
+[Being a Customer](./customer.md). From that moment:
 
 - the customer is on **Subscription**, in every company of its tenant;
 - its usage appears in your Customer Management, usage and billing figures;
@@ -39,20 +41,25 @@ see [Being a Customer](./customer.md). From that moment:
 
 A customer that has invitations from more than one Partner chooses which one to accept.
 
+To use Bifröst yourself on Subscription, invite **your own tenant** as a customer. Your people's
+usage there is reported as **Internal**, separately from your customers' usage. See
+[Charge types on Subscription](./license-types.md#charge-types).
+
 ## Following your customers
 
 | Where | What you see |
 |---|---|
-| [Customer Management](/help/foundation/customer-management/) | Each customer company: environment, when and by whom the relationship was approved, the rate-limit tier and calls per day, whether the tier is **above Free**, and the User and App Registration messages used so far this month. **View Usage** opens the customer's usage entries. |
-| [License Usage](/help/foundation/license-usage/) | The individual usage entries, filterable by company, pool and date. |
+| [Customer Management](/help/foundation/customer-management/) | Each customer company: environment, when and by whom the relationship was approved, the rate-limit tier and calls per day, whether the tier is **above Free**, and the messages used so far this month per charge type (User, App Registration, Internal, Demo, Support). **View Usage** opens the customer's usage entries. |
+| [License Usage](/help/foundation/license-usage/) | The individual usage entries, filterable by company, charge type and date (usage date or reporting date). |
 | Billing message types | `Bifrost.Partner.GetBillingSummary` and `Bifrost.Partner.GetCustomers` return the invoicing figures for a period - see [Usage and billing](./usage-and-billing.md). |
 
 ## Invoicing
 
 Invoice each customer for:
 
-- the **User** and **App Registration** messages it used in the period, at the Subscription prices
-  you agreed with it;
+- the messages it used in the period, at the Subscription prices you agreed with it. The billing
+  figures give **User**, **App Registration**, **Internal**, **Demo** and **Support** messages
+  separately, so you choose which of them to invoice;
 - its **rate-limit tier**, when it is above Free, at the tier price you agreed with it.
 
 A customer whose relationship ended during the period is still included in the billing figures for

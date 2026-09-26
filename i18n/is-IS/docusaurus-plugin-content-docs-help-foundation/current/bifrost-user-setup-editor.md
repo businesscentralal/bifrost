@@ -13,7 +13,8 @@ kerfisleiðbeiningar.
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Mánaðarlegur skilaboðakvóti notanda** | Hámarksfjöldi gjaldskyldra skilaboða sem notandinn má nota í almanaksmánuði, á hvorri leyfistegundinni sem er. `0` þýðir engin takmörk. Þegar kvótanum er náð er köllum notandans hafnað til næsta mánaðar. Ekki framfylgt í sandkassa. Talið út frá Bifröst-skilaboðum sem daglega notkunarsamstillingin hefur ekki enn skilað, svo kvótinn takmarkar skilaboð frá síðustu samstillingu frekar en allan mánuðinn - sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/foundation/licensing/license-types/#how-monthly-quotas-are-counted). |
+| **Mánaðarlegur skilaboðakvóti notanda** | Hámarksfjöldi gjaldskyldra skilaboða sem notandinn má nota í almanaksmánuði, á hvorri leyfistegundinni sem er. `0` þýðir engin takmörk. Þegar kvótanum er náð er köllum notandans hafnað til næsta mánaðar. Ekki framfylgt í sandkassa. Telur öll skilaboð notandans í mánuðinum, hver sem gjaldfærslutegund þeirra er - sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/foundation/licensing/license-types/#how-monthly-quotas-are-counted). |
+| **Gjaldfærslutegund** | Lesskráð. Sem hvað skilaboð þessa notanda eru gjaldfærð: **Notandi**, **Forritsskráning**, og í áskrift **Innri**, **Sýniumhverfi** eða **Þjónustuaðili**. Ákvörðuð þegar notandinn er settur upp og uppfærð með **Samstilla** á síðunni Uppsetning Bifröst og með daglegu notkunarsamstillingunni. Sjá [Gjaldfærslutegundir í áskrift](/foundation/licensing/license-types/#charge-types). |
 
 ## Uppruni setu {#session-source}
 

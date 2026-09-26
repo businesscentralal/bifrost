@@ -31,8 +31,10 @@ tilheyrir fyrirtækinu sem skráði sig; önnur fyrirtæki leigjandans fá ekki 
 
 Á [Umsjón viðskiptavina](/help/foundation/customer-management/) velur þú **Bjóða viðskiptavin** og
 slærð inn **Microsoft Entra leigjandaauðkenni** viðskiptavinarins (eða 64 stafa tætigildi
-leigjandans) og, ef þú vilt, gælunafn. Viðskiptavinurinn sér boðið á síðunni Uppsetning Bifröst hjá
-sér og þiggur það þar - sjá [Að vera viðskiptavinur](./customer.md). Frá þeirri stundu:
+leigjandans) og, ef þú vilt, gælunafn. Veldu **Sýniumhverfi** þegar leigjandinn er einn af þeim sem
+þú notar til kynninga: notkun hans er þá tilkynnt þér og söluaðila þínum sem **Sýniumhverfi**,
+aðskilin frá venjulegri notkun viðskiptavina. Viðskiptavinurinn sér boðið á síðunni Uppsetning
+Bifröst hjá sér og þiggur það þar - sjá [Að vera viðskiptavinur](./customer.md). Frá þeirri stundu:
 
 - er viðskiptavinurinn á **áskrift**, í öllum fyrirtækjum leigjanda síns;
 - birtist notkun hans í Umsjón viðskiptavina og í notkunar- og reikningsfærslutölum þínum;
@@ -40,20 +42,25 @@ sér og þiggur það þar - sjá [Að vera viðskiptavinur](./customer.md). Fr�
 
 Viðskiptavinur sem hefur fengið boð frá fleiri en einum samstarfsaðila velur hvert þeirra hann þiggur.
 
+Til að nota Bifröst sjálfur í áskrift býður þú **eigin leigjanda** sem viðskiptavini. Notkun fólksins
+þíns þar er tilkynnt sem **Innri**, aðskilin frá notkun viðskiptavina þinna. Sjá
+[Gjaldfærslutegundir í áskrift](./license-types.md#charge-types).
+
 ## Fylgst með viðskiptavinum
 
 | Hvar | Hvað þú sérð |
 |---|---|
-| [Umsjón viðskiptavina](/help/foundation/customer-management/) | Hvert fyrirtæki viðskiptavinar: umhverfi, hvenær og af hverjum sambandið var samþykkt, þrep álagsþaks og köll á dag, hvort þrepið er **yfir fría þrepinu**, og notendaskilaboð og forritsskráningarskilaboð sem notuð hafa verið það sem af er mánuði. **Skoða notkun** opnar notkunarfærslur viðskiptavinarins. |
-| [Leyfisnotkun](/help/foundation/license-usage/) | Einstakar notkunarfærslur, sem hægt er að sía eftir fyrirtæki, potti og dagsetningu. |
+| [Umsjón viðskiptavina](/help/foundation/customer-management/) | Hvert fyrirtæki viðskiptavinar: umhverfi, hvenær og af hverjum sambandið var samþykkt, þrep álagsþaks og köll á dag, hvort þrepið er **yfir fría þrepinu**, og skilaboð sem notuð hafa verið það sem af er mánuði eftir gjaldfærslutegund (Notandi, Forritsskráning, Innri, Sýniumhverfi, Þjónustuaðili). **Skoða notkun** opnar notkunarfærslur viðskiptavinarins. |
+| [Leyfisnotkun](/help/foundation/license-usage/) | Einstakar notkunarfærslur, sem hægt er að sía eftir fyrirtæki, gjaldfærslutegund og dagsetningu (notkunardegi eða skráningardegi). |
 | Skilaboðategundir reikningsfærslu | `Bifrost.Partner.GetBillingSummary` og `Bifrost.Partner.GetCustomers` skila tölunum sem reikningsfært er eftir fyrir tímabil - sjá [Notkun og reikningsfærsla](./usage-and-billing.md). |
 
 ## Reikningsfærsla
 
 Rukkaðu hvern viðskiptavin fyrir:
 
-- **notendaskilaboðin** og **forritsskráningarskilaboðin** sem hann notaði á tímabilinu, á því
-  áskriftarverði sem þið sömduð um;
+- skilaboðin sem hann notaði á tímabilinu, á því áskriftarverði sem þið sömduð um. Reikningsfærslutölurnar
+  gefa skilaboð af tegundunum **Notandi**, **Forritsskráning**, **Innri**, **Sýniumhverfi** og
+  **Þjónustuaðili** hvert fyrir sig, svo þú velur hver þeirra þú rukkar;
 - **þrep álagsþaks** hans, þegar það er ofan við Frítt, á því verði fyrir þrepið sem þið sömduð um.
 
 Viðskiptavinur sem sambandinu lauk við á tímabilinu er áfram með í reikningsfærslutölunum fyrir þá

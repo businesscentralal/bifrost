@@ -40,6 +40,31 @@ Messages are counted in two pools, according to who made the call:
 | **User** | Calls made under a normal user - interactive or web service. |
 | **App Registration** | Calls made by a Microsoft Entra application (service principal). |
 
+### Charge types on Subscription {#charge-types}
+
+On Subscription each message is also recorded with a **charge type**, so that your Partner and its
+Vendor can tell real customer usage apart from their own. Every user's charge type is shown in the
+**Charge Type** column of [Bifrost User Setup](/help/foundation/bifrost-user-setup-list/). The first
+rule that matches wins:
+
+| Charge type | The user is |
+|---|---|
+| **Support** | a Partner's user working in your tenant through a delegated partner plan (any of them, such as Delegated Admin or Delegated Helpdesk) |
+| **App Registration** | a Microsoft Entra application (service principal) |
+| **Internal** | a person in a tenant that its own Partner invited as a Customer - the Partner using Bifröst itself |
+| **Demo** | a person in a tenant the Partner marked as a **demo environment** when it invited it |
+| **User** | anyone else - regular customer usage |
+
+Internal and Demo apply only to people who would otherwise be **User**; an application registration
+or a delegated partner user keeps App Registration or Support. On **Prepaid** only User and App
+Registration are used.
+
+The charge type is set when a user starts using Bifröst in a company, and re-evaluated for every
+user of the company by the **daily usage sync** (started by the first chargeable call of the day)
+and by **Sync** on Bifröst Setup. After a license or partner change - a new Partner relationship, a
+cancelled one, a user given or removed a delegated plan - the new charge types apply from the next
+daily sync; choose **Sync** to apply them at once.
+
 ## Before the first call
 
 Every company must approve the **End-User License Agreement (EULA)** in the
@@ -90,10 +115,11 @@ and its rate limit returns to the Free tier. See [Leaving and cancelling](./leav
 
 Both license types can cap their own monthly usage:
 
-- **Company Monthly Message Quota** on the Bifröst Setup page - all chargeable messages of the company
-  in the calendar month;
+- **Company Monthly Message Quota** on the Bifröst Setup page - the chargeable messages of the company
+  in the calendar month. On Subscription it counts every charge type except **App Registration**, so
+  service-to-service calls never stop your users; on Prepaid it counts both pools;
 - **Monthly Msg Quota** on each user's Bifröst User Setup - that user's chargeable messages in the
-  calendar month.
+  calendar month, whatever their charge type.
 
 `0` (the default) means no limit. When a quota is reached, calls are refused with a
 monthly-quota-exhausted error until the next calendar month; the response names which quota (`user`
@@ -104,16 +130,12 @@ responses carry a warning. Monthly quotas are not enforced in a sandbox.
 ### How the monthly quotas are counted {#how-monthly-quotas-are-counted}
 
 Business Central counts the monthly quotas itself, from the **Bifrost Messages** of the company: the
-chargeable messages of the current calendar month that are still marked as chargeable there. Two
-things lower that count, so the quotas cap less than a full month in practice:
+chargeable messages of the current calendar month. Reporting usage to the licensing service does not
+change that count - a message reported by the daily usage sync still counts until the month ends.
 
-- **The daily usage sync.** Once a day's messages have been reported to the licensing service they
-  are no longer marked as chargeable, and no longer count towards the monthly quotas. In effect the
-  quotas limit the messages since the last successful sync - usually the current day. What you are
-  invoiced for is the reported usage, which is not affected.
-- **Retention.** A retention policy on **Bifrost Messages** that deletes messages from the current
-  month removes them from the count. Keep at least 31 days of Bifrost Messages if you use the monthly
-  quotas.
+**Retention** does: a retention policy on **Bifrost Messages** that deletes messages from the current
+month removes them from the count. Keep at least 31 days of Bifrost Messages if you use the monthly
+quotas.
 
 ## Sandbox environments
 
