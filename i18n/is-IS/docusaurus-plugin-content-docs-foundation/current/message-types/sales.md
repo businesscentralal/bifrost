@@ -13,6 +13,8 @@ sidebar_position: 3
 
 Þetta skjal lýsir Sölu-, Viðskiptavina- og Vöru-skilaboðategundunum í Bifröst API. Þessar skilaboðategundir bjóða upp á viðskiptaaðgerðir fyrir lánstraust viðskiptavina, vörugæðar, verðlag, verkferla sölupantana og PDF skjalasækingu.
 
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](../reference/errors.md). Villusvör innihalda aldrei kallastafla.
+
 | Skilaboðategund | Stefna | Tilgangur | Tengdar töflur |
 |---|---|---|---|
 | Customer.CreditLimit.Get | Útlæg | Sækir lánstraustaupplýsingar viðskiptavinar | Customer (18) |
@@ -933,7 +935,7 @@ Sjá enska útgáfu fyrir nákvæmt JSON-snið og reitalýsingar. Toppreitir: `s
 - `appliesToEntries` vantar eða er tómur.
 - Markfærsla tilheyrir öðrum viðskiptavini.
 - Markfærsla er lokuð.
-- Codeunit 226 hafnaði jöfnun (svar er JSON með villuboðum og callstack).
+- Codeunit 226 hafnaði jöfnun (svar er JSON-villa með kóðanum `BusinessCentralError`).
 
 ### Tengdar skilaboðategundir
 
@@ -1060,7 +1062,7 @@ Skjalið sem fannst **verður** að hafa `Document Type = Quote`, annars skilar 
 | `Subject parameter is required.` | Subject var tómt |
 | `Sales header {No} not found.` | Enginn söluhaus passar við subject |
 | `Sales document {No} is not a Quote (actual type: {Type}).` | Subject vísaði á annað skjal en Quote |
-| Villutexti frá BC | Staðlaða `Sales-Quote to Order` codeunit kastaði villu (kallabók fylgir sem `callstack` reitur) |
+| Villutexti frá BC | Staðlaða `Sales-Quote to Order` codeunit kastaði villu (skilað með kóðanum `BusinessCentralError`) |
 
 ### Tengdar skilaboðategundir
 
@@ -1144,7 +1146,7 @@ Hver lína rammapöntunar sem á að færast yfir verður að hafa `Qty. to Ship
 | `Subject parameter is required.` | Subject var tómt |
 | `Sales header {No} not found.` | Enginn söluhaus passar við subject |
 | `Sales document {No} is not a Blanket Order (actual type: {Type}).` | Subject vísaði á annað skjal en Blanket Order |
-| Villutexti frá BC | Staðlaða `Blanket Sales Order to Order` codeunit kastaði villu (t.d. engar línur með `Qty. to Ship > 0`); kallabók fylgir sem `callstack` reitur |
+| Villutexti frá BC | Staðlaða `Blanket Sales Order to Order` codeunit kastaði villu (t.d. engar línur með `Qty. to Ship > 0`); skilað með kóðanum `BusinessCentralError` |
 
 ### Tengdar skilaboðategundir
 
@@ -1192,12 +1194,12 @@ Hver lína rammapöntunar sem á að færast yfir verður að hafa `Qty. to Ship
 **Villuaðstæður:**
 - Vantar auðkenni → `Error` með `Message subject or request data must contain a record identifier`.
 - Reikningur fannst ekki → `Error`.
-- Ekki hægt að leiðrétta reikning (þegar bakfærður, greiðslur jafnaðar, tímabil lokað o.s.frv.) → `Error` með villutexta frá BC og `callstack` reit.
+- Ekki hægt að leiðrétta reikning (þegar bakfærður, greiðslur jafnaðar, tímabil lokað o.s.frv.) → `Error` með villutexta frá BC í `error`.
 
 **Ferli:**
 1. Auðkenni er leyst úr `subject` eða úr request JSON.
 2. `G/L` bókunarstýring er staðfest.
-3. BC `CancelPostedInvoiceCreateNewInvoice` keyrt í einangruðu `Codeunit.Run`; villur skila sér sem JSON með callstack.
+3. BC `CancelPostedInvoiceCreateNewInvoice` keyrt í einangrun; villur skila sér sem JSON-villusvar (án kallastafla).
 4. BC bókar jöfnunarkreditreikning, parar hann að fullu við upprunalega reikninginn, og býr til nýjan drög að `Sales Header` (Document Type = Invoice) afritaðan úr upprunalega reikningnum.
 5. Jöfnunarkreditreikningurinn er sóttur í gegnum `Cancelled Document` (Source ID = 112, Cancelled Doc. No. = upprunalegur reikningur).
 6. Upprunalegi reikningurinn, jöfnunarkreditreikningur og nýju drögin eru skilað í einu JSON svari.
@@ -1279,7 +1281,7 @@ Hver lína rammapöntunar sem á að færast yfir verður að hafa `Qty. to Ship
 **Ferli:**
 1. Auðkenni er leyst úr `subject` eða úr request JSON.
 2. `G/L` bókunarstýring er staðfest.
-3. BC `CancelPostedInvoice` keyrt í einangruðu `Codeunit.Run`; villur skila sér sem JSON með callstack.
+3. BC `CancelPostedInvoice` keyrt í einangrun; villur skila sér sem JSON-villusvar (án kallastafla).
 4. BC bókar jöfnunarkreditreikning og parar hann að fullu við upprunalega reikninginn. Engin drög eru búin til.
 5. Jöfnunarkreditreikningurinn er sóttur í gegnum `Cancelled Document` (Source ID = 112, Cancelled Doc. No. = upprunalegur reikningur).
 6. Upprunalegi reikningurinn og jöfnunarkreditreikningurinn skilað í einu JSON svari.
@@ -1381,8 +1383,7 @@ Hver lína rammapöntunar sem á að færast yfir verður að hafa `Qty. to Ship
 ```json
 {
   "status": "Error",
-  "error": "Document Sending Profile NOSUCH not found.",
-  "callstack": "..."
+  "error": "Document Sending Profile NOSUCH not found."
 }
 ```
 
@@ -1400,7 +1401,6 @@ Hver lína rammapöntunar sem á að færast yfir verður að hafa `Qty. to Ship
 | `documentSendingProfileSource` | Text | `Request`, `Customer` eða `Default` — hvert þrep keðjunnar passaði |
 | `message` | Text | Skýrandi texti fyrir notendur |
 | `error` | Text | Aðeins við `Error` — undirliggjandi villuskilaboð |
-| `callstack` | Text | Aðeins við `Error` — fullur BC callstack til greiningar |
 
 **Villuaðstæður:**
 
@@ -1411,7 +1411,7 @@ Hver lína rammapöntunar sem á að færast yfir verður að hafa `Qty. to Ship
 | `Document Sending Profile {kóði} not found.` | Yfirskriftarkóði í beiðni er ekki til |
 | `Customer {nr} references Document Sending Profile {kóði} which no longer exists.` | Snið viðskiptavinar vísar í kóða sem er ekki til |
 | `No Document Sending Profile resolved for customer {nr} and no system default exists.` | Engin yfirskrift, engin sniðsetning á viðskiptavin, ekkert sjálfgefið snið |
-| (BC SendProfile villur) | Skilað óbreyttum gegnum `error` + `callstack` (t.d. tölvupóstreikning vantar, rafrænt skjalasvæði ekki sett upp) |
+| (BC SendProfile villur) | Skilað óbreyttum í `error` (t.d. tölvupóstreikning vantar, rafrænt skjalasvæði ekki sett upp) |
 
 **Athugasemdir:**
 
@@ -1483,8 +1483,7 @@ Hver lína rammapöntunar sem á að færast yfir verður að hafa `Qty. to Ship
 ```json
 {
   "status": "Error",
-  "error": "Sales Credit Memo POST-CRM-999999 not found.",
-  "callstack": "..."
+  "error": "Sales Credit Memo POST-CRM-999999 not found."
 }
 ```
 

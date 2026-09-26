@@ -260,8 +260,10 @@ end;
 `RespondWithError` writes `{ "status": "Error", "error": "…" }`, sets the content type to
 JSON and appends a `hint` property telling the caller to read
 `Help.Implementation.Get` for this type before trying again. `RespondWithLastError` does
-the same from `GetLastErrorText()` and adds the call stack. The hint is skipped for
-`Help.*` types, which document themselves.
+the same from `GetLastErrorText()`, reported with the code `BusinessCentralError`. The call
+stack is not returned to the caller: Foundation logs it to telemetry together with the message
+id. The hint is skipped for `Help.*` types, which document themselves. See
+[Errors and warnings](/foundation/reference/errors/) for the full error shape.
 
 The guard pattern used throughout the family is early exit on a bad request:
 

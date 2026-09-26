@@ -13,6 +13,8 @@ sidebar_position: 9
 
 This document describes the Approval message types in the Bifrost API. These message types provide operations for creating and retrieving approval entries and their linked approval workflows from Business Central.
 
+Errors and warnings follow the shared shape - see [Errors and warnings](../reference/errors.md). Error responses never contain a call stack.
+
 | Message Type | Direction | Purpose | Related Table(s) |
 | ------------ | --------- | ------- | ---------------- |
 | Document.Approval.Get | Inbound | Retrieve approval log entries with linked approval entries and per-row permission checks | Approval Log ori (10077885), Approval Entry, Posted Approval Entry |
@@ -366,7 +368,7 @@ The response follows the same structure as Document.Approval.Get. See the [Respo
 | lineNumbers on Incoming Document | Error: lineNumbers not supported |
 | No document lines (Sales/Purchase) | Error from BC posting calculation |
 | Document already Released/Pending Prepayment | Error from status validation |
-| Process codeunit failure | Returns error JSON with `error` and `callstack` fields |
+| Process codeunit failure | Returns an error with code `BusinessCentralError` and the Business Central message in `error` - see [Errors and warnings](../reference/errors.md) |
 
 ---
 
@@ -510,8 +512,8 @@ Supports approval delegation via BC standard User Setup substitutes. If the call
 | No entry resolved | `{"status":"Error","error":"No approval entries could be resolved..."}` |
 | Entry not found | `{"status":"Error","error":"Approval Entry N not found."}` |
 | Entry not open | `{"status":"Error","error":"Approval Entry N has status X. Only entries with status Open can be approved."}` |
-| Unauthorized caller | `{"status":"Error","error":"...","callstack":"..."}` (BC standard authorization error from Approvals Mgmt.) |
-| Process codeunit failure | Returns error JSON with `error` and `callstack` fields |
+| Unauthorized caller | `{"status":"Error","error":"..."}` (BC standard authorization error from Approvals Mgmt.) |
+| Process codeunit failure | Returns an error with code `BusinessCentralError` and the Business Central message in `error` - see [Errors and warnings](../reference/errors.md) |
 
 ---
 
@@ -657,8 +659,8 @@ Supports rejection delegation via BC standard User Setup substitutes. If the cal
 | No entry resolved | `{"status":"Error","error":"No approval entries could be resolved..."}` |
 | Entry not found | `{"status":"Error","error":"Approval Entry N not found."}` |
 | Entry not open | `{"status":"Error","error":"Approval Entry N has status X. Only entries with status Open can be rejected."}` |
-| Unauthorized caller | `{"status":"Error","error":"...","callstack":"..."}` (BC standard authorization error from Approvals Mgmt.) |
-| Process codeunit failure | Returns error JSON with `error` and `callstack` fields |
+| Unauthorized caller | `{"status":"Error","error":"..."}` (BC standard authorization error from Approvals Mgmt.) |
+| Process codeunit failure | Returns an error with code `BusinessCentralError` and the Business Central message in `error` - see [Errors and warnings](../reference/errors.md) |
 
 ---
 
@@ -946,7 +948,7 @@ Supports delegation via BC standard User Setup. If the caller is defined as the 
 | No entry resolved | `{"status":"Error","error":"No approval entries could be resolved..."}` |
 | Entry not found | `{"status":"Error","error":"Approval Entry N not found."}` |
 | Entry not open | `{"status":"Error","error":"Approval Entry N has status X. Only entries with status Open can be delegated."}` |
-| Process codeunit failure | Returns error JSON with `error` and `callstack` fields |
+| Process codeunit failure | Returns an error with code `BusinessCentralError` and the Business Central message in `error` - see [Errors and warnings](../reference/errors.md) |
 
 ---
 
@@ -1060,7 +1062,7 @@ Same log-wrapped structure as other approval actions. Action-specific field:
 | Record not found | Error with SystemId and table ID |
 | No approval log entry found | Error: "No approval log entry found for the record" |
 | No open entries to cancel | Returns success with `cancelledEntries: 0` |
-| Process codeunit failure | Returns error JSON with `error` and `callstack` fields |
+| Process codeunit failure | Returns an error with code `BusinessCentralError` and the Business Central message in `error` - see [Errors and warnings](../reference/errors.md) |
 
 ---
 

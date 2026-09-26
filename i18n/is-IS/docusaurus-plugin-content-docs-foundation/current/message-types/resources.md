@@ -6,6 +6,8 @@ sidebar_position: 8
 
 Þetta skjal lýsir skilaboðategundum tengdum auðlindum (Resources) í Bifröst Foundation.
 
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](../reference/errors.md). Villusvör innihalda aldrei kallastafla.
+
 ## Yfirlit
 
 Skilaboðategundir fyrir auðlindir bjóða upp á virkni til að vinna með auðlindadagbækur, þar með talið stofnun lína, sannvottun og bókun.
@@ -168,8 +170,8 @@ Notar sama snið og `Data.Records.Get`. `primaryKey` inniheldur `JournalTemplate
 ```json
 {
   "status": "Error",
-  "error": "Error message text",
-  "callstack": "Full error callstack from posting"
+  "code": "BusinessCentralError",
+  "error": "Error message text"
 }
 ```
 
@@ -183,7 +185,7 @@ Allir aðrir reitir (`status`, `templateName`, `batchName`, `batchDescription`, 
 
 - Notar BC "Res. Jnl.-Post Batch" einingu.
 - Línur eru hreinsaðar eftir vel heppnaða bókun.
-- Bókun er pakkað í einangraða einingu — villur skila byggðu svari með `callstack`.
+- Bókun er pakkað í einangraða einingu — villur skila skipulegu villusvari (kóði `BusinessCentralError`); kallastaflinn fer eingöngu í fjarmælingar.
 
 ### Tengdar skilaboðategundir
 
