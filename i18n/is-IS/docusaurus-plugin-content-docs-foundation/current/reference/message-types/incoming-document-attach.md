@@ -98,3 +98,6 @@ The `subject` identifies the target `Incoming Document`:
 - `Incoming.Document.SetDefault`
 - `Incoming.Document.Process`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

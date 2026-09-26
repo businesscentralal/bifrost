@@ -64,10 +64,13 @@ None beyond identification.
 ## Villur
 | Villa | Orsök |
 |-------|-------|
-| `Transfer order identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, documentNo, transferOrderNo, no).` | No identifier supplied eða lookup mistókst. |
+| `Transfer Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, transferOrderNo, no.` (`MissingParameter`); gefið en fannst ekki: `Transfer Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No identifier supplied eða lookup mistókst. |
 | (BC validation Villa text) | `Release Transfer Document.Run` mistókst (vantar in-transit code, ógilt lines, etc.). |
 
 ## Tengdar skilaboðategundir
 - `Inventory.TransferOrder.Reopen` - reverse the release.
 - `Inventory.TransferOrder.Post` - ship og/eða receive eftir release.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

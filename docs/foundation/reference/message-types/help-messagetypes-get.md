@@ -69,6 +69,9 @@ Outbound
 | description | Text | Short description from the implementation codeunit |
 | messageDirection | Text | `Inbound` (write) or `Outbound` (read) |
 
+## Availability
+By default, this endpoint returns all enum values, including message types that are installed but not currently callable. Check `isEnabled` before invoking a type, or pass `onlyEnabled = true` in the request data to hide disabled types. Some Bifrost licensing and billing metadata types are production-only and intentionally return `isEnabled = false` in SaaS sandbox/dev environments.
+
 ## Related Message Types
 - `Help.Implementation.Get`
 - `Help.Tables.Get`

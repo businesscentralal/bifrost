@@ -208,7 +208,7 @@ Athugar run in order; the fyrsta Mistókst short-circuits Beiðnin með `status=
 ### 4b. Post Branch (`post=true`)
 1. Snapshot the current síðasta `G/L Register."No."` og síðasta `Exch. Rate Adjmt. Reg."No."`.
 2. Delegate the actual run til an isolated codeunit (`Codeunit.Run` með `TableNo = "Bifrost Message Argument ori"`). The isolated codeunit re-parses Beiðnin via `GetRequestJson`, populates the sama temporary Færibreyta færsla (this time með `"Preview Posting"=false`), og calls `Codeunit.Run(Codeunit::"Exch. Rate Adjmt. Process", ExchRateAdjmtParameters)`.
-3. ef the isolated run fails, the Villa JSON er built úr `GetLastErrorText` og `GetLastErrorCallStack`. The outer transaction er preserved so the message-processing pipeline getur færsla the Mistókst.
+3. ef the isolated run fails, villu-JSON er byggt úr `GetLastErrorText` (kóði `BusinessCentralError`). The outer transaction er preserved so the message-processing pipeline getur færsla the Mistókst.
 4. On Tókst, the ný `G/L Register` (með `No.` greater than the snapshot) er located via `SetLoadFields("No.", "From Entry No.", "To Entry No.", "Creation Date")`. `ComputeGLTotals` calls `CalcSums("Debit Amount", "Credit Amount")` over that færsla range.
 5. `Exch. Rate Adjmt. Reg.` færslur með `"No." > snapshot` eru walked once til collect distinct currency codes, then per-currency `CalcSums("Adjusted Base (LCY)", "Adjusted Amt. (LCY)")` builds the `byCurrency` fylki.
 6. `glRegisterNo`, `fromGLEntryNo`, `toGLEntryNo`, `newGLEntryCount`, og `durationMs` eru added til Svarið. It er written via `SetResponseJson` með `Content Type = text/json`.
@@ -221,7 +221,7 @@ Athugar run in order; the fyrsta Mistókst short-circuits Beiðnin með `status=
 - No locale-specific behaviour er applied. Iceland uses the BC standard FX revaluation rules.
 
 ## Villa Handling
-Validation Villur return `status=Error` og an `error` Reitur describing the Mistókst. Villur raised með the underlying adjustment engine during posting include a `callstack` Reitur fyrir diagnostics. Validated conditions:
+Validation Villur return `status=Error` og an `error` Reitur describing the Mistókst. Villur raised með the underlying adjustment engine during posting er skilað með kóða `BusinessCentralError`. Validated conditions:
 - All áskilið fields present (`endingDate`, `postingDate`, `documentNo`)
 - At least one `adjust*` toggle er true
 - Bókunarheimild `G/L` granted
@@ -382,7 +382,7 @@ The post response intentionally Skilar the færsla-númer range aðeins (`fromGL
 
 ### Isolation guarantees
 - Preview path: `GenJnlPostPreview.Run` raises `Error('')` eftir capturing færslur, which rolls back the in-memory skrifa set. No persistent changes survive a preview call, even ef Beiðnin triggered hundreds of simulated færslur.
-- Post path: the actual adjustment runs inside `Codeunit.Run`. ef the engine Villur, the outer transaction (message-processing pipeline) er preserved og a `callstack` Reitur er returned. ef it succeeds, the ný register er committed independently of hvaða Kallandi-side cleanup.
+- Bókunarleið: sjálf leiðréttingin keyrir í einangraðri færslu. ef the engine Villur, the outer transaction (message-processing pipeline) er preserved og villunni er skilað með kóða `BusinessCentralError`. ef it succeeds, the ný register er committed independently of hvaða Kallandi-side cleanup.
 
 ## AI Kallandi Guidance
 Practical tips fyrir LLM-driven callers (Copilot, agents, M365 plugins):
@@ -400,4 +400,7 @@ Practical tips fyrir LLM-driven callers (Copilot, agents, M365 plugins):
 - `Finance.VAT.CalcAndPostSettlement` - settles VAT færslur (a separate, complementary periodic close step).
 - `Finance.GeneralJournal.PreviewPost` / `Finance.GeneralJournal.Post` - manual currency-related færslur via journals.
 - `Data.Records.Get` - fetch the individual `G/L Entry` rows in the returned `fromGLEntryNo..toGLEntryNo` range, eða the `Exch. Rate Adjmt. Reg.` færslur til inspect Account Gerð / Posting Group splits.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

@@ -53,3 +53,6 @@ endurtekningarþolið: re-sending the sama payload produces no further changes.
 - `User.Notification.Get`
 - `User.Notification.Count`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

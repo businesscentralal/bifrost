@@ -34,6 +34,8 @@ Outbound
 ## Response Shape
 Raw markdown text (no JSON envelope). The exact markdown returned by the target implementation help codeunit.
 
+For every message type except the `Help.*` types, the markdown ends with a shared **Errors and warnings** section: the error and warning fields (`code`, `error`, `parameter`, `received`, `expected`, `nextStep`, `hint`), the `errors[]` and `warnings[]` arrays, and the list of codes.
+
 ## Language
 The runtime markdown is developer documentation in English. The `lcid` field localizes Business Central captions returned by metadata endpoints such as `Help.Tables.Get` and `Help.Fields.Get`, but it does not translate the markdown body returned by `Help.Implementation.Get`.
 

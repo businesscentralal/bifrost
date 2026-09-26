@@ -84,7 +84,7 @@ None enforced með this skilaboðategund. Standard BC validation applies on the 
 
 | Villa | Orsök |
 |---|---|
-| `Warehouse Receipt identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, no, receiptNo).` | None of subject, systemId, recordSystemId, id, no, receiptNo resolved a header. (Exact wording — verified live.) |
+| `Warehouse Receipt Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, receiptNo, no.` (`MissingParameter`); gefið en fannst ekki: `Warehouse Receipt Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | None of subject, systemId, recordSystemId, id, no, receiptNo resolved a header. (Exact wording — verified live.) |
 | `Warehouse Receipt {No} has no lines to post.` | All lines have Qty. til Receive = 0 eða header has no lines. |
 | `The Warehouse Receipt Header does not exist. ...` | Re-posting the sama receipt. eftir a tókst post the header er deleted. |
 | hvaða BC posting Villa (e.g. `Bin Code must have a value`) | Bubbled úr `Whse.-Post Receipt`. |
@@ -102,4 +102,7 @@ Sjá `Warehouse.Receipt.Create` fyrir the full create → release → receive �
 - `Warehouse.Receipt.Create` — create the receipt being posted.
 - `Warehouse.Receipt.Post.Preview` — simulate the post án committing.
 - `Warehouse.Shipment.Post` — Útgående counterpart.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

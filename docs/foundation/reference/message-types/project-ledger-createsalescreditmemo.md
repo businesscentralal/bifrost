@@ -75,7 +75,7 @@ The project is identified via:
 {
   "status": "Error",
   "error": "Project J99999 not found.",
-  "callstack": "..."
+  "hint": "..."
 }
 ```
 
@@ -89,7 +89,7 @@ Requires the `BIFROST Job Post ori` permission set assigned to the calling user.
 | Missing permission set | Posting denied: missing 'BIFROST Job Post ori' permission set. |
 | Project not found | Project &#123;no&#125; not found. |
 | No eligible lines | No billable planning lines found for project &#123;no&#125; with the specified filters. |
-| BC validation failure | (BC error text + callstack) |
+| BC validation failure | BC error text, code `BusinessCentralError` |
 
 ## Credit Memo Line Selection
 Only Job Planning Lines where:
@@ -103,4 +103,7 @@ The created Sales Credit Memo is in draft state. To post it, use `Sales.Document
 - `Project.Ledger.CreateSalesInvoice` — creates invoices from project planning lines
 - `Projects.ProjectJournal.Post` — posts project journal batches
 - `Sales.Document.Post` — posts the created credit memo
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

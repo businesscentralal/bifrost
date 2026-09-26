@@ -18,7 +18,7 @@ Bókar every line in the specified vöru dagbók batch með invoking BC `Item Jn
 **Stefna**: Innkomandi  **Efnisgerð**: `text/json`
 
 ## Idempotency / Safety
-ekki endurtekningarþolið. tókst posting deletes the Uppruni lines og writes vöru bók færslur, Gildi færslur, og an vöru Register færsla. Re-running on the sama batch Bókar whatever lines remain (eða Skilar an Villa ef none remain). Posting failures roll back via `Codeunit.Run` og return `status: "Error"` með `callstack` fyrir diagnosis.
+ekki endurtekningarþolið. tókst posting deletes the Uppruni lines og writes vöru bók færslur, Gildi færslur, og an vöru Register færsla. Re-running on the sama batch Bókar whatever lines remain (eða Skilar an Villa ef none remain). Bókunarvillur eru afturkallaðar og skila `status: "Error"` með kóða `BusinessCentralError`.
 
 ## Batch Identification
 Resolved in this order:
@@ -79,7 +79,7 @@ Resolved in this order:
 - Postable batch via pipe subject -> `Success`, `linesPosted = 2`, `itemRegisterNo > 0`, `toEntryNo - fromEntryNo + 1` equals the original line count.
 - SystemId subject (`Format(SystemId, 0, 4)`) -> equivalent `Success` response.
 - Data parameters `{ templateName, batchName }` -> equivalent `Success` response.
-- Zero-quantity lines -> `Error` með `callstack` propagated úr BC posting.
+- Zero-quantity lines -> `Error` með kóða `BusinessCentralError` og bókunarvillu BC.
 
 ## Bókunarheimild
 Calling this skilaboðategund requires the `BIFROST ItemPost ori` heimild set in addition til `BIFROST API ori`. án it Beiðnin Skilar: `Posting denied: missing 'BIFROST ItemPost ori' permission set.`
@@ -92,7 +92,7 @@ Calling this skilaboðategund requires the `BIFROST ItemPost ori` heimild set in
 | `Item journal batch {templateName}\|{batchName} not found.` | Batch lookup returned no færsla. |
 | `Item journal batch {templateName}\|{batchName} has no lines to post.` | Identified batch contained zero `Item Journal Line` rows. |
 | `Nothing was posted. Review journal for errors.` | `Item Jnl.-Post Batch.Run` completed án producing hvaða vöru bók færsla rows. |
-| (BC posting Villa text) | `Item Jnl.-Post Batch.Run` threw. The original Villa er surfaced in `error` og the full stack in `callstack`. |
+| (BC posting Villa text) | `Item Jnl.-Post Batch.Run` threw. The original Villa er surfaced in `error` með kóða `BusinessCentralError`. |
 
 ## Operational Athugasemdir — Populating Lines via Data.Records.Set
 
@@ -115,4 +115,7 @@ fyrir regular adjustment lines (where `Phys_Inventory = false`) in a Physical In
 ## Tengdar skilaboðategundir
 - `Inventory.ItemJournal.SetupNewLine` - create lines.
 - `Inventory.ItemJournal.Check` - validate áður en posting.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

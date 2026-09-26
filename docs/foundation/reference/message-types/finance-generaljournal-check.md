@@ -102,3 +102,6 @@ Validation issues are returned via `errors` / `warnings` with `status: "Success"
 - `Finance.GeneralJournal.PreviewPost` — simulate the post without committing.
 - `Finance.GeneralJournal.Post` — post the batch after a `Ready` / `ReadyWithWarnings` result.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

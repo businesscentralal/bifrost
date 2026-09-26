@@ -16,7 +16,11 @@ This page is generated from the message type's own help codeunit by
 
 Renders a posted Return Receipt as PDF using the customer-specific BC Report Selection (`S.Ret.Rcpt.` usage). The PDF bytes are returned inline in the response body.
 
-**Direction**: Outbound (read-only)  **Content-Type**: `application/pdf`
+**Direction**: Both (writes on generation)  **Content-Type**: `application/pdf`
+
+## Side effects
+
+Writes: `Return Receipt Header."No. Printed"` is incremented (via Codeunit 6661 `Return Receipt - Printed`, from Report Selection usage `S.Ret.Rcpt.` — typically Report 6646). This call is not side-effect free despite returning a document. Out-of-box default; a replaced Report Selection report may omit the counter.
 
 ## Identifier Resolution Order
 
@@ -59,4 +63,7 @@ From `Sales Document PDF Tests` (`test/test/Sales/SalesDocumentPDFTests.Codeunit
 - `Sales.SalesCreditMemo.Pdf` — posted Sales Credit Memo PDF.
 - `Sales.SalesInvoice.Pdf` — posted Sales Invoice PDF.
 - `Sales.SalesShipment.Pdf` — posted Sales Shipment PDF.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -28,7 +28,7 @@ The Bifrost `subject` field MUST contain the Thread ID as a GUID.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | skip | Integer | No | Number of records to skip |
-| take | Integer | No | Page size (0 = no limit) |
+| take | Integer | No | Page size (default 100, hard maximum 1000) |
 
 ## Response Shape
 ```json
@@ -45,7 +45,13 @@ The Bifrost `subject` field MUST contain the Thread ID as a GUID.
 | Subject is not a GUID | `The subject must contain the Thread ID (GUID) to retrieve.` |
 | Caller has no note in this thread | `No notifications found for the specified Thread ID and current user.` |
 
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
 ## Related Message Types
 - `User.Notification.Get`
 - `User.Notification.Send`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

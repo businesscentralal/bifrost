@@ -44,3 +44,6 @@ Skilar user-scoped memory færslur úr `Bifrost User Memory`, filtered til the c
 - `Memory.User.Set`
 - `Memory.Company.Get`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

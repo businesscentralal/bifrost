@@ -90,3 +90,6 @@ Mode 2:
 - `ChangeLog.Field.History`
 - `ChangeLog.Records.Delta`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

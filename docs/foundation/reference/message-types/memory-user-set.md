@@ -39,7 +39,7 @@ Idempotent per `id`: re-sending the same payload yields the same final state.
 ## Request Example
 The payload (the Bifrost `data` attribute) may be **either** a bare JSON array of records, **or** an object with a `data` array property. Both are accepted.
 
-Bare array (recommended via the `call_message_type` MCP tool — pass this as the tool's `data` argument):
+Bare array (recommended via the `invoke_message_type` MCP tool — pass this as the tool's `data` argument):
 ```json
 [
   { "id": "a1b2c3d4-...", "description": "My personal notes", "memory": "..." }
@@ -74,4 +74,7 @@ Object form (data attribute wraps a `data` array):
 - `Memory.User.Get`
 - `Memory.User.List`
 - `Memory.Company.Set`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

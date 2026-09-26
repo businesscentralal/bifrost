@@ -88,7 +88,7 @@ A restricted Reitur aborts Beiðnin með an Villa response — the pick still ex
 
 | Villa | Orsök |
 |---|---|
-| `Warehouse Shipment identifier must be specified ...` | No Subject og no identifier key in request JSON. |
+| `Warehouse Shipment Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, shipmentNo, no.` (`MissingParameter`); gefið en fannst ekki: `Warehouse Shipment Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No Subject og no identifier key in request JSON. |
 | `Warehouse Shipment {id} does not exist.` | Supplied SystemId eða No. fannst ekki. |
 | `Warehouse Shipment {n} has no lines to pick.` | Shipment header exists but has zero lines. |
 | `sortingMethod '{x}' is not valid. Expected one of: ...` | Gildi ekki in `Whse. Activity Sorting Method.Names()`. |
@@ -131,4 +131,7 @@ A restricted Reitur aborts Beiðnin með an Villa response — the pick still ex
 - `Warehouse.Pick.Register` — registers the pick eftir the warehouse worker has picked the items.
 - `Warehouse.Shipment.Post` — final step eftir the pick er registered.
 - `Data.Records.Get` — load hvaða Reitur on the resulting `Warehouse Activity Header` / `Warehouse Activity Line`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

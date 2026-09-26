@@ -127,7 +127,7 @@ None.
 
 | Villa | Orsök |
 |---|---|
-| `Warehouse Receipt identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, no, receiptNo).` | None of subject, systemId, recordSystemId, id, no, receiptNo resolved a header. (Exact wording — verified live.) |
+| `Warehouse Receipt Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, receiptNo, no.` (`MissingParameter`); gefið en fannst ekki: `Warehouse Receipt Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | None of subject, systemId, recordSystemId, id, no, receiptNo resolved a header. (Exact wording — verified live.) |
 | `Warehouse Receipt {No} has no lines to post.` | No lines eða all Qty. til Receive = 0. |
 | `Posting preview failed and no entries were captured ...` | Underlying `Whse.-Post Receipt` raised an Villa áður en capturing færslur (e.g. vantar Bin Code, blocked vöru). The original BC Villa text er bubbled through. |
 
@@ -136,4 +136,7 @@ None.
 - `Warehouse.Receipt.Post` — commit the actual posting eftir preview looks correct.
 - `Warehouse.Receipt.Create` — create the receipt áður en previewing it.
 - `Inventory.TransferOrder.PreviewPost` — analogous preview fyrir transfer orders.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

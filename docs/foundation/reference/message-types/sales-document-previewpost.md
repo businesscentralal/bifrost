@@ -81,7 +81,7 @@ Same as `Sales.Document.Release` (via `FindSalesHeader`).
 
 ### Failure
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Response Fields
@@ -103,7 +103,11 @@ From `Sales Doc Preview Post Tests` (`test/test/Sales/SalesDocPrevPostTests.Code
 
 | Error | Cause |
 |---|---|
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | `FindSalesHeader` could not resolve a header. |
+| `Sales Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Sales Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `Sales Header "{value}" matches more than one document. Pass it as one of: {keys}.` (`AmbiguousRecord`) | A plain subject matches several document types; send it in the key of the type you mean. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Sales document {no} has no lines to post.` | Header has no `Sales Line` rows. |
 | `Posting preview failed and no entries were captured. The document cannot be posted in its current state.` | The preview pipeline finished without populating any tables — `Sales.Document.Post` would also fail. |
 | BC preview errors | Bubble up from `Sales-Post (Yes/No)` running under `Gen. Jnl.-Post Preview`. |
@@ -113,4 +117,7 @@ From `Sales Doc Preview Post Tests` (`test/test/Sales/SalesDocPrevPostTests.Code
 - `Sales.Document.Post` — actually commit the posting.
 - `Sales.Document.Statistics` — header-level totals without running a preview.
 - `Sales.Document.Release` — required before posting if `Status = Open`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

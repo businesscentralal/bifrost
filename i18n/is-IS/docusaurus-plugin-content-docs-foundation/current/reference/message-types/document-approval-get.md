@@ -88,3 +88,6 @@ hver row er filtered against Kallandinn's lesa heimild fyrir the underlying fær
 - `Document.Approval.Cancel`
 - `Document.Approval.Me`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

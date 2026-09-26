@@ -88,7 +88,7 @@ Talið er út frá gjaldskyldum skilaboðum almanaksmánaðarins í **Bifröst-s
 skil á notkun lækka ekki töluna, varðveislustefna á Bifröst-skilaboðum gerir það. Í áskrift telur
 kvóti fyrirtækis ekki forritsskráningarskilaboð; kvóti notanda telur öll skilaboð notandans. Sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/foundation/licensing/license-types/#how-monthly-quotas-are-counted).
 
-## Viðvaranir
+## Viðvaranir {#warnings}
 
 Árangursríkt JSON-svar ber `warnings` fylki þegar kvóti sem á við um kallandann á **100 eða færri**
 skilaboð eftir - fyrirframgreiddur pottur eða mánaðarlegur kvóti.

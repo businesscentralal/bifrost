@@ -30,7 +30,7 @@ Use this message type when an upstream system (an MCP client, a workflow, an AI 
    - **E-Mail** - renders the report attachment + email body and sends through the configured email account if `E-Mail` is enabled. The `Sent as Email` flag on the header is set on success.
    - **Disk** - writes the report (PDF or electronic document file) to the user's download/temp location if `Disk` is enabled.
    - **Electronic Document** - builds the e-document (PEPPOL / OIOUBL / custom format), hands it to the configured Document Exchange Service (DES), and updates the header tracking fields if `Electronic Document` is enabled.
-5. **Return the response** - success envelope with the resolved profile + its source, or an error envelope with the original BC error text and callstack.
+5. **Return the response** - success envelope with the resolved profile + its source, or an error envelope with the original BC error text (code `BusinessCentralError`).
 
 ## Channel Support When Called via the API
 
@@ -112,7 +112,7 @@ A `Success` response means BC accepted the send call and dispatched all enabled 
 {
   "status": "Error",
   "error": "<message>",
-  "callstack": "<callstack>"
+  "hint": "..."
 }
 ```
 
@@ -145,4 +145,7 @@ A `Success` response means BC accepted the send call and dispatched all enabled 
 - `Sales.SalesInvoice.Send` - same behaviour for posted sales invoices.
 - `Data.Records.Get` (table 114) - read back `Sent as Email`, `Document Exchange Status`, `Document Exchange Identifier` to confirm delivery state.
 - `Data.Records.Get` (table 60 `Document Sending Profile`) - inspect which channels a given profile enables.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

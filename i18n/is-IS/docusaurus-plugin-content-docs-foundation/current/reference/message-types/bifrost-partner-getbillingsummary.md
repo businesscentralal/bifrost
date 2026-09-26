@@ -24,3 +24,7 @@ Aðeins áskriftarnotkun er reikningsfærð: viðskiptavinur er talinn með á m
 - `internalMessages` — notkun fólks hjá viðskiptavini sem er eigin leigjandi samstarfsaðilans; `demoMessages` — notkun hjá viðskiptavini sem samstarfsaðilinn merkti sem sýniumhverfi; `supportMessages` — notkun notenda samstarfsaðilans sem vinna hjá viðskiptavini gegnum framselda samstarfsaðilaáskrift. Hvert þeirra er tilkynnt aðskilið frá `userMessages` (venjuleg notkun viðskiptavina) og `appMessages` (forritsskráningar).
 - `dateBasis` — dagsetningargrunnurinn sem tímabilið var síað á
 - `tiers[]` — línur fyrir hvert þrep með `name`, `limitPerDay`, `customerCount`, `capacityPerDay`
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

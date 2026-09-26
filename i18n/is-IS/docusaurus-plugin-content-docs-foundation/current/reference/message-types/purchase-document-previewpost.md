@@ -84,10 +84,13 @@ Reitur names nota the sama mechanical normalisation as `Data.Records.Get`: `No.`
 | `Purchase document {no} has no lines to post.` | The Uppruni header has no `Purchase Line` rows. |
 | `Posting preview failed and no entries were captured. The document cannot be posted in its current state.` | The preview ran but the inner posting raised an Villa that left no færslur. |
 | Underlying BC Villa text | hvaða Villa raised með `Purch.-Post (Yes/No)` during the simulated post (vantar setup, validation failures, etc.). |
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | No skjal resolved með `FindPurchaseHeader`. |
+| `Purchase Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`); gefið en fannst ekki: `Purchase Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No skjal resolved með `FindPurchaseHeader`. |
 
 ## Tengdar skilaboðategundir
 - `Purchase.Document.Post` — Commit the post (no rollback).
 - `Purchase.Document.Statistics` — Header totals án simulating posting.
 - `Sales.Document.PreviewPost` — sama mechanism fyrir sales skjöl.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

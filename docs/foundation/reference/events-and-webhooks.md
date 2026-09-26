@@ -204,22 +204,20 @@ Authorization: Bearer {token}
   "time": "2026-03-08T14:35:15Z",
   "datacontenttype": "text/json",
   "data": "{
-    \"error\": \"Record not found\",
-    \"detailedMessage\": \"Table: Customer, SystemId: {guid}\",
-    \"stackTrace\": \"...\",
-    \"callStack\": \"...\"
+    \"status\": \"Error\",
+    \"code\": \"RecordNotFound\",
+    \"error\": \"Customer \\\"10000X\\\" was not found (from subject).\",
+    \"parameter\": \"subject\",
+    \"received\": \"10000X\"
   }"
 }
 ```
 
 ### Error Response Format
 
-Error responses are stored in JSON format with the following fields:
-
-- **error**: Short error message
-- **detailedMessage**: Detailed error description
-- **stackTrace**: Full stack trace (if available)
-- **callStack**: Call stack at time of error (if available)
+Error responses are stored as JSON with `status` = `Error`, a stable `code`, the `error` text and,
+when they apply, `parameter`, `received`, `expected`, `nextStep` and an `errors` array listing every
+problem. See [Errors and warnings](./errors.md). Error responses never contain a call stack.
 
 ### Example Integration Flow
 
@@ -638,12 +636,9 @@ Protect your webhook endpoint:
 
 ### 5. Error Information {#error-information}
 
-Error details (stackTrace, callStack) in failed message responses may contain:
-- Code structure information
-- Variable values
-- System paths
-
-**Recommendation**: Restrict access to error details to authorized personnel only.
+Failed message responses contain no call stack; it goes to Origo's telemetry only. The `error`
+text and `received` can still contain business data from the request (a customer number, a document
+number), so restrict access to failed responses as you would to the data itself.
 
 ---
 

@@ -25,7 +25,7 @@ Outbound
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | skip | Integer | No | Pagination offset (default 0) |
-| take | Integer | No | Page size (default 50, max 1000) |
+| take | Integer | No | Page size (default 100, hard maximum 1000) |
 | tableView | Text | No | BC-style filter against `Bifrost Approval Log` (e.g. `WHERE(Field1=FILTER(Value))`) |
 
 ## Permission Filtering
@@ -80,6 +80,9 @@ Each row is filtered against the caller's read permission for the underlying rec
 | linkedApprovalEntries | Array | Open Approval Entry rows for the document |
 | linkedPostedApprovalEntries | Array | Posted Approval Entry rows for the document |
 
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
 ## Related Message Types
 - `Document.Approval.Send`
 - `Document.Approval.Approve`
@@ -87,4 +90,7 @@ Each row is filtered against the caller's read permission for the underlying rec
 - `Document.Approval.Delegate`
 - `Document.Approval.Cancel`
 - `Document.Approval.Me`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

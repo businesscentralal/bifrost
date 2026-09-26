@@ -139,3 +139,6 @@ fyrsta match wins:
 - `Projects.ProjectJournal.Post` — commit the actual post.
 - `Finance.GeneralJournal.PreviewPost` — sama pattern fyrir the general dagbók.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

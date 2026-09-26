@@ -40,3 +40,6 @@ None.
 - `User.Notification.Get`
 - `User.Notification.Read`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

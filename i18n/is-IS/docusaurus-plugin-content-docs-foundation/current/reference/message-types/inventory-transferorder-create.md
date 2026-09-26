@@ -89,3 +89,6 @@ ekki endurtekningarþolið. Every call inserts a ný `Transfer Header` row og co
 - `Inventory.TransferOrder.PreviewPost` - dry run.
 - `Inventory.TransferOrder.Statistics` - totals.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

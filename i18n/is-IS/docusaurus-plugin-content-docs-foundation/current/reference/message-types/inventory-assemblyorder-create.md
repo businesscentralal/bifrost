@@ -99,3 +99,6 @@ ekki endurtekningarþolið. Every call inserts a ný Assembly Order header og co
 - `Inventory.AssemblyOrder.PreviewPost` - dry run.
 - `Data.Records.Set` - adjust component lines.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

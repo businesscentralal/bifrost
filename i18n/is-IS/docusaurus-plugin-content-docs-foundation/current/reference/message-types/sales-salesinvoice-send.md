@@ -30,7 +30,7 @@ nota this skilaboðategund þegar an upstream system (an MCP client, a workflow,
    - **E-Mail** - renders the report attachment + email body og Sendir through the configured email account ef `E-Mail` er enabled. The `Sent as Email` flag on the header er set on Tókst.
    - **Disk** - writes the report (PDF eða electronic skjal file) til the user's download/temp location ef `Disk` er enabled.
    - **Electronic skjal** - builds the e-skjal (PEPPOL / OIOUBL / custom format), hands it til the configured skjal Exchange Service (DES), og Uppfærir the header tracking fields ef `Electronic Document` er enabled.
-5. **Return Svarið** - Tókst envelope með the resolved profile + its Uppruni, eða an Villa envelope með the original BC Villa text og callstack.
+5. **Return Svarið** - Tókst envelope með the resolved profile + its Uppruni, eða villusvar með upprunalega villutexta BC (kóði `BusinessCentralError`).
 
 ## Channel Support þegar Called via the API
 
@@ -112,7 +112,7 @@ A `Success` response means BC accepted the send call og dispatched all enabled c
 {
   "status": "Error",
   "error": "<message>",
-  "callstack": "<callstack>"
+  "hint": "..."
 }
 ```
 
@@ -145,4 +145,7 @@ A `Success` response means BC accepted the send call og dispatched all enabled c
 - `Sales.SalesCreditMemo.Send` - sama behaviour fyrir posted credit memos.
 - `Data.Records.Get` (tafla 112) - lesa back `Sent as Email`, `Document Exchange Status`, `Document Exchange Identifier` til confirm delivery state.
 - `Data.Records.Get` (tafla 60 `Document Sending Profile`) - inspect which channels a given profile enables.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

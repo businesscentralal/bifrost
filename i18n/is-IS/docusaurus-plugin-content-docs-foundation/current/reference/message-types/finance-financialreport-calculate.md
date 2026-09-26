@@ -155,3 +155,6 @@ Calculation cost = rows × columns × CalcCell(). Observed performance: 38-row �
 | `Finance.GeneralJournal.Check` | Validate dagbók batches áður en posting. |
 | `Finance.GeneralJournal.Post` | Post dagbók batches. |
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

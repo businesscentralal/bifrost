@@ -91,3 +91,6 @@ Reitur names follow the sama normalization rules as `Data.Records.Get` (`.`/`/`/
 - `Data.Records.Set` — populate business fields on the ný lines.
 - `Data.Records.Get` — re-lesa lines eftir edits (sama Uppbygging svars).
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

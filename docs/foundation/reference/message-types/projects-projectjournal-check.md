@@ -85,3 +85,6 @@ Batch is resolved in this order:
 - `Projects.ProjectJournal.SetupNewLine`
 - `Projects.ProjectJournal.Post`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

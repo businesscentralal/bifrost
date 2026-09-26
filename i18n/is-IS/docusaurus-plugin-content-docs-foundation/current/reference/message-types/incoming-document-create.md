@@ -89,3 +89,6 @@ No `subject` er lesa. Other fields in `data` eru ignored — populate birgi/dags
 - `Incoming.Document.SetDefault`
 - `Incoming.Document.Process`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

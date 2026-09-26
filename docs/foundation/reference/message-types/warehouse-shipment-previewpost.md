@@ -118,7 +118,10 @@ From `Whse Ship. Prev. Post Tests` (codeunit 95439):
 
 | Error | Cause |
 |---|---|
-| `Warehouse Shipment identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, no, shipmentNo).` | No identifier was supplied. |
+| `Warehouse Shipment Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, shipmentNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Warehouse Shipment Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Warehouse Shipment {no} has no lines to post.` | Header exists but has no lines. |
 | `There is nothing to post because the document does not contain a quantity or amount.` | Every line has `Qty. to Ship = 0`. On WMS locations (`Require Pick = true`) this happens when no warehouse pick has been registered yet — the pick registration is what populates `Qty. to Ship`. See Operational Notes. |
 | `Posting preview failed and no entries were captured. The shipment cannot be posted in its current state.` | Rare catch-all — only fires when the BC subscriber completes without raising but writes no entries. |
@@ -134,4 +137,7 @@ From `Whse Ship. Prev. Post Tests` (codeunit 95439):
 - `Warehouse.Shipment.Create` — create a Warehouse Shipment from a source document.
 - `Warehouse.Shipment.Post` — commit the actual post (with or without invoice).
 - `Finance.GeneralJournal.PreviewPost` — same pattern for the general journal.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -26,3 +26,6 @@ The response contains status, configuration, account, licenseStatus, and current
 
 This message is available in SaaS Production and OnPrem and is disabled in SaaS Sandbox.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

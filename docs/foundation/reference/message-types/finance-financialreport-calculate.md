@@ -116,7 +116,7 @@ To discover available reports, use `Data.Records.Get` on table `Financial Report
 4. **Formula rows**: Rows with `totalingType` containing "Formula" (or its localized equivalent) reference other rows by their `rowNo`. These are computed subtotals/totals. They appear with `bold: true` in most report designs.
 5. **Finding the report name**: Use `Data.Records.Get` on table `Financial Report` to list all available reports. The Name field (Code[10]) goes into `subject`.
 6. **Date filter format**: Use BC date filter syntax — `2026-01-01..2026-06-30` (range), `..2026-12-31` (up to date), or `2026-01-01..` (from date). Omit for the report's saved default.
-7. **Async execution**: For reports with analysis views that may need updating, use async mode (set `async: true`) to avoid HTTP timeouts. Poll `queue_get_status` until complete.
+7. **Async execution**: For reports with analysis views that may need updating, use async mode (set `async: true`) to avoid HTTP timeouts. Poll the asynchronous operation until complete.
 
 ## Row Visibility Logic
 
@@ -154,4 +154,7 @@ Calculation cost = rows × columns × CalcCell(). Observed performance: 38-row �
 | `Data.Records.Get` (table: Column Layout) | Inspect column definitions. |
 | `Finance.GeneralJournal.Check` | Validate journal batches before posting. |
 | `Finance.GeneralJournal.Post` | Post journal batches. |
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

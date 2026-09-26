@@ -28,7 +28,7 @@ Returns `{id, modifiedAt}` pairs for records in a BC table — a lightweight ver
 |---|---|---|---|
 | Table key (see above) | — | — | Required. |
 | `startDateTime` / `endDateTime` | ISO 8601 UTC | `0DT` / `CurrentDateTime` | Filter on `SystemModifiedAt`. |
-| `tableView` | string | — | BC `SetView` syntax, e.g. `"WHERE(Blocked = CONST( ))"`. |
+| `tableView` | string | — | BC `SetView` syntax using display field names; unknown fields / unbalanced parentheses → `status: Error`. |
 | `skip` / `take` | int / int | 0 / 100 | Pagination. `noOfRecords` in response = unpaginated total. |
 
 ## Response Shape
@@ -72,9 +72,15 @@ Returns `{id, modifiedAt}` pairs for records in a BC table — a lightweight ver
 | Table not found | `Table {name} not found.` |
 | Read permission denied | populated by `CheckTableReadPermission` |
 
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
 ## Related Message Types
 
 - **Data.Records.Get** — full record data; follow-up step for changed IDs.
 - **Deleted.RecordIds.Get** — same shape but for deleted records (`deletedAt` instead of `modifiedAt`).
 - **Help.Tables.Get** — table discovery.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -125,3 +125,6 @@ From `FA Jnl. Prev. Post Tests` (codeunit 95437):
 - `Finance.FAJournal.Post` — commit the actual post.
 - `Finance.GeneralJournal.PreviewPost` — same pattern for the general journal.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

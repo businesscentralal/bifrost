@@ -338,6 +338,11 @@ function Write-MessageTypePage {
     # in the front matter renders one already.
     $body = [regex]::Replace($body, '^#\s+.*\r?\n', '')
 
+    # Help.Implementation.Get ends every type's help with the shared "Errors and warnings"
+    # section. The site documents it once, on reference/errors; link there instead of
+    # repeating it on every page.
+    $body = [regex]::Replace($body, '(?s)\r?\n## Errors and warnings\r?\n.*$', "`n## Errors and warnings`nErrors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).")
+
     $frontMatter = @(
         '---'
         "id: $slug"

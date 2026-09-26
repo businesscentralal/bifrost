@@ -84,7 +84,7 @@ Failures úr `Res. Jnl.-Post Batch.Run` eru caught og returned as a structured V
 {
   "status": "Error",
   "error": "Resource No. must have a value in Res. Journal Line ...",
-  "callstack": "..."
+  "hint": "..."
 }
 ```
 
@@ -103,4 +103,7 @@ Calling this skilaboðategund requires the `BIFROST Res Post ori` heimild set in
 ## Tengdar skilaboðategundir
 - `Resources.ResourceJournal.SetupNewLine`
 - `Resources.ResourceJournal.Check`
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

@@ -84,7 +84,7 @@ Failures from `Res. Jnl.-Post Batch.Run` are caught and returned as a structured
 {
   "status": "Error",
   "error": "Resource No. must have a value in Res. Journal Line ...",
-  "callstack": "..."
+  "hint": "..."
 }
 ```
 
@@ -103,4 +103,7 @@ Calling this message type requires the `BIFROST Res Post ori` permission set in 
 ## Related Message Types
 - `Resources.ResourceJournal.SetupNewLine`
 - `Resources.ResourceJournal.Check`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -73,11 +73,14 @@ JSON Reitur names follow `RemoveNonAlphaNumericCharacters` on the BC Reitur Heit
 |-------|-------|
 | `documentType is required in request JSON. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` vantar úr request JSON. |
 | `Invalid document type '{value}'. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` did ekki match hvaða enum Heiti. |
-| `Vendor identifier must be specified in subject field or request JSON (no, id, systemId, recordSystemId).` | No birgi resolved með `FindVendor`. |
+| `Vendor identifier is missing. Pass it as the subject, or as one of: no, id, systemId, recordSystemId.` (`MissingParameter`); gefið en fannst ekki: `Vendor "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No birgi resolved með `FindVendor`. |
 
 ## Tengdar skilaboðategundir
 - `Data.Records.Set` — Add lines eða update header fields.
 - `Purchase.Document.Release` / `Purchase.Document.Reopen` — Manage status.
 - `Purchase.Document.PreviewPost` / `Purchase.Document.Post` — Simulate eða commit posting.
 - `Purchase.Document.Statistics` — lesa totals.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

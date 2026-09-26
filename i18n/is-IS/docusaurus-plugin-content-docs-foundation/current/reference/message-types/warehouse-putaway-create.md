@@ -187,3 +187,6 @@ A full end-til-end test against a CRONUS-style tenant (all steps eru `call_messa
 - `Warehouse.Putaway.Register` — registers the put-away eftir the warehouse worker has placed the items.
 - `Data.Records.Get` — load hvaða Reitur on the resulting `Warehouse Activity Header` / `Warehouse Activity Line`.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

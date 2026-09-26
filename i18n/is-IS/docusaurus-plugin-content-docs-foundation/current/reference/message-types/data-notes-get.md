@@ -97,3 +97,6 @@ færslur með no Athugasemdir eru still returned með `notes: []`. `noOfRecords`
 - **Data.Notes.Set** — add / edit / delete Athugasemdir (writes the sama `Record Link` rows).
 - **Data.Records.Get** — sama iteration/filtering, Skilar Reitur values instead of Athugasemdir.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

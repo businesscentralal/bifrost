@@ -89,3 +89,6 @@ Not idempotent. Every call inserts a new `Transfer Header` row and consumes one 
 - `Inventory.TransferOrder.PreviewPost` - dry run.
 - `Inventory.TransferOrder.Statistics` - totals.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

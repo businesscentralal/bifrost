@@ -14,7 +14,7 @@ description: "Beiðni- og svarsamningur fyrir Finance.GeneralJournal.Post Bifrö
 
 ## Yfirlit
 
-Bókar a Gen. dagbók Batch via BC `Gen. Jnl.-Post Batch` og Skilar the resulting `G/L Register` plus the posting summary. Villur úr the BC posting engine eru caught og returned as `{status, error, callstack}` instead of throwing — the message itself does ekki fail.
+Bókar a Gen. dagbók Batch via BC `Gen. Jnl.-Post Batch` og Skilar the resulting `G/L Register` plus the posting summary. Villur úr the BC posting engine eru gripnar og skilað sem `{status, code, error, hint}` í stað þess að kasta villu — the message itself does ekki fail.
 
 **Stefna**: Innkomandi (skrifa — Býr til G/L, viðskiptamanni/birgi/bank/employee, VAT, FA, og hvaða other bók færslur the BC posting routine emits)  **Efnisgerð**: `text/json`
 
@@ -70,7 +70,7 @@ fyrsta match wins:
 {
   "status": "Error",
   "error": "<BC posting error text>",
-  "callstack": "<BC error callstack>"
+  "hint": "..."
 }
 ```
 
@@ -107,7 +107,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 | `Journal batch {template}\|{batch} not found.` | Identification did ekki match an fyrirliggjandi batch. |
 | `Journal batch {template}\|{batch} has no lines to post.` | Batch er empty. |
 | `Nothing was posted. Review journal for errors.` | `Gen. Jnl.-Post Batch` returned án producing a G/L Register. |
-| BC posting Villur | Returned as `{status, error, callstack}` — `error` er the BC Villa text, `callstack` úr `GetLastErrorCallStack()`. |
+| BC posting Villur | Skilað sem `{status, code: BusinessCentralError, error, hint}` — `error` er villutexti BC. |
 
 ## Tengdar skilaboðategundir
 
@@ -115,4 +115,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 - `Finance.GeneralJournal.Check` — validate áður en posting.
 - `Finance.GeneralJournal.PreviewPost` — simulate the post án committing.
 - `Finance.GeneralJournal.ReverseRegister` — reverse the G/L Register produced með this post.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

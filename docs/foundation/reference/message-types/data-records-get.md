@@ -33,7 +33,7 @@ The target table is resolved by checking these keys in order and using the first
 |---|---|---|---|
 | `tableName` / `tableNumber` / `tableNo` / `tableId` | string / int | — | One required (or `subject`). See resolution order above. |
 | `fieldNumbers` | int[] | all Normal fields | When set, only these field numbers are returned in `fields`. FlowFields are calculated and included **only** when listed here. Primary-key fields are always in `primaryKey` regardless. |
-| `tableView` | string | — | BC `SetView` syntax, e.g. `"WHERE(Blocked = CONST( ))"` or `"WHERE(Location Code = CONST(BLUE))"` |
+| `tableView` | string | — | BC `SetView` syntax using **display field names** (not `jsonName`). Unknown field names or unbalanced parentheses return `status: Error` (fail closed). |
 | `startDateTime` / `endDateTime` | ISO 8601 | — | Filter on `SystemModifiedAt`. Provide both. |
 | `skip` | int | 0 | Pagination offset. |
 | `take` | int | 100 | Page size. `noOfRecords` in the response is the unpaginated total. |
@@ -132,12 +132,19 @@ Use `noOfRecords` in the response to plan further pages.
 
 ## Errors
 
-| Condition | Status / message |
+Three failure shapes are **distinct from each other and from a legitimate empty result** (`status: Success`, `noOfRecords: 0`). Callers (including connector count tools that wrap this message type) must not treat a missing `noOfRecords` or a blank payload as "zero rows".
+
+| Condition | Status / shape |
 |---|---|
-| Table not identified | Error — `Table {name} not found.` |
-| Table is internal / restricted | Error — `Table {id} ({name}) cannot be read via Data.Records.Get. This is an internal table.` |
+| Nonexistent / unidentified table | `status: Error` — `Table {name} not found.` Generic `hint` points at Help.Implementation.Get. No `noOfRecords`. |
+| Table is internal / restricted (e.g. `User`) | `status: Error` via restricted-table response — `Table {id} ({name}) cannot be read via Data.Records.Get. This is an internal table.` When a named dedicated message type exists (Foundation built-in or feature-app hint), the error text ends with ` Use {hint}.` and the response `nextStep` carries that text (e.g. `Data.RequestLog.Get`), with code `PermissionDenied`; `hint` stays the generic Help.Implementation.Get pointer. Unmapped Foundation-internal tables keep the generic built-in sentence. Distinct from the nonexistent-table error above. |
+| Malformed `tableView` (unknown field / unbalanced parentheses) | `status: Error` — fail-closed validator message (may include did-you-mean). Distinct from both table errors above. |
+| Legitimate empty match | `status: Success`, `noOfRecords: 0`, `result: []` — never `status: Error`. |
 | Caller lacks read permission | Error — populated by `CheckTableReadPermission`. |
 | Read-restricted field requested via `fieldNumbers` | Field silently dropped from response (see `Bifrost Field Access`). |
+
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
 
 ## Related Message Types
 
@@ -146,4 +153,7 @@ Use `noOfRecords` in the response to plan further pages.
 - **CSV.Records.Get** — same filtering, CSV output, supports 4 MB chunked continuation.
 - **Data.Records.Set** — accepts the same `{id, primaryKey, fields}` shape on the way back.
 - **Help.Tables.Get** / **Help.Fields.Get** — schema discovery.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

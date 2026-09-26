@@ -208,7 +208,7 @@ Checks run in order; the first failure short-circuits the request with `status=E
 ### 4b. Post Branch (`post=true`)
 1. Snapshot the current last `G/L Register."No."` and last `Exch. Rate Adjmt. Reg."No."`.
 2. Delegate the actual run to an isolated codeunit (`Codeunit.Run` with `TableNo = "Bifrost Message Argument ori"`). The isolated codeunit re-parses the request via `GetRequestJson`, populates the same temporary parameter record (this time with `"Preview Posting"=false`), and calls `Codeunit.Run(Codeunit::"Exch. Rate Adjmt. Process", ExchRateAdjmtParameters)`.
-3. If the isolated run fails, the error JSON is built from `GetLastErrorText` and `GetLastErrorCallStack`. The outer transaction is preserved so the message-processing pipeline can record the failure.
+3. If the isolated run fails, the error JSON is built from `GetLastErrorText` (code `BusinessCentralError`). The outer transaction is preserved so the message-processing pipeline can record the failure.
 4. On success, the new `G/L Register` (with `No.` greater than the snapshot) is located via `SetLoadFields("No.", "From Entry No.", "To Entry No.", "Creation Date")`. `ComputeGLTotals` calls `CalcSums("Debit Amount", "Credit Amount")` over that entry range.
 5. `Exch. Rate Adjmt. Reg.` records with `"No." > snapshot` are walked once to collect distinct currency codes, then per-currency `CalcSums("Adjusted Base (LCY)", "Adjusted Amt. (LCY)")` builds the `byCurrency` array.
 6. `glRegisterNo`, `fromGLEntryNo`, `toGLEntryNo`, `newGLEntryCount`, and `durationMs` are added to the response. It is written via `SetResponseJson` with `Content Type = text/json`.
@@ -221,7 +221,7 @@ Checks run in order; the first failure short-circuits the request with `status=E
 - No locale-specific behaviour is applied. Iceland uses the BC standard FX revaluation rules.
 
 ## Error Handling
-Validation errors return `status=Error` and an `error` field describing the failure. Errors raised by the underlying adjustment engine during posting include a `callstack` field for diagnostics. Validated conditions:
+Validation errors return `status=Error` and an `error` field describing the failure. Errors raised by the underlying adjustment engine during posting are returned with code `BusinessCentralError`. Validated conditions:
 - All required fields present (`endingDate`, `postingDate`, `documentNo`)
 - At least one `adjust*` toggle is true
 - Posting gate `G/L` granted
@@ -295,7 +295,7 @@ On an empty-exposure test (no foreign-currency open entries):
 - Preview branch: ~500 ms (posting-preview framework has higher per-call overhead).
 - Post branch: ~130 ms (direct `Codeunit.Run` of codeunit 699).
 
-Real-world runs scale with the number of open foreign-currency entries and the number of currencies in the filter. Plan timeouts accordingly; for very large month-end runs prefer the queue endpoint (`queue_message_type`) over the synchronous one.
+Real-world runs scale with the number of open foreign-currency entries and the number of currencies in the filter. Plan timeouts accordingly; for very large month-end runs prefer asynchronous execution over the synchronous one.
 
 ### Full Test - USD customer invoice + EUR vendor invoice, ~10% rate drift
 End-to-end validation against Icelandic Cronus (LCY=ISK). Seed data posted via `Finance.GeneralJournal.Post` on 2025-01-15:
@@ -382,7 +382,7 @@ The post response intentionally returns the entry-number range only (`fromGLEntr
 
 ### Isolation guarantees
 - Preview path: `GenJnlPostPreview.Run` raises `Error('')` after capturing entries, which rolls back the in-memory write set. No persistent changes survive a preview call, even if the request triggered hundreds of simulated entries.
-- Post path: the actual adjustment runs inside `Codeunit.Run`. If the engine errors, the outer transaction (message-processing pipeline) is preserved and a `callstack` field is returned. If it succeeds, the new register is committed independently of any caller-side cleanup.
+- Post path: the actual adjustment runs in an isolated transaction. If the engine errors, the outer transaction (message-processing pipeline) is preserved and the error is returned with code `BusinessCentralError`. If it succeeds, the new register is committed independently of any caller-side cleanup.
 
 ## AI Caller Guidance
 Practical tips for LLM-driven callers (Copilot, agents, M365 plugins):
@@ -392,7 +392,7 @@ Practical tips for LLM-driven callers (Copilot, agents, M365 plugins):
 - **Pick `documentNo` deterministically**, e.g. `FXADJ-<YYYY-MM>` or `FX-<YYYY-MM>-PREVIEW`. The G/L Register is searchable by this value afterwards.
 - **Empty result is success, not failure.** If `newGLEntryCount` is `0` (post) or `preview` is `[]` (preview), tell the user "no adjustment needed" rather than reporting an error.
 - **Use `endingDate` = month-end** for normal periodic revaluation; `postingDate` is usually the same date but can differ for back-dated postings.
-- **For large month-end runs**, switch from `call_message_type` to `queue_message_type` to avoid synchronous timeouts; poll with `queue_get_status`.
+- **For large month-end runs**, use asynchronous execution to avoid synchronous timeouts; poll the asynchronous operation until complete.
 - **After a successful post**, use `Data.Records.Get` on `G/L Entry` with `Entry No.` between `fromGLEntryNo` and `toGLEntryNo` to fetch line-level detail. Use `Data.Records.Get` on `Exch. Rate Adjmt. Reg.` filtered by `No.` `>fromGLEntryNo-style snapshot` for register-level detail.
 - **Currency filter syntax** mirrors BC: single value (`USD`), alternatives (`USD|EUR|GBP`), wildcards (`U*`). Quotes around the filter value are **not** required.
 
@@ -400,4 +400,7 @@ Practical tips for LLM-driven callers (Copilot, agents, M365 plugins):
 - `Finance.VAT.CalcAndPostSettlement` - settles VAT entries (a separate, complementary periodic close step).
 - `Finance.GeneralJournal.PreviewPost` / `Finance.GeneralJournal.Post` - manual currency-related entries via journals.
 - `Data.Records.Get` - fetch the individual `G/L Entry` rows in the returned `fromGLEntryNo..toGLEntryNo` range, or the `Exch. Rate Adjmt. Reg.` records to inspect Account Type / Posting Group splits.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

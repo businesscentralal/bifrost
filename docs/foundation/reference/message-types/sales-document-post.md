@@ -109,7 +109,7 @@ For Return Orders, the equivalent flag is `Receive` (field 79) instead of `Ship`
 
 ### Failure
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Response Fields
@@ -133,7 +133,11 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 | Error | Cause |
 |---|---|
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Caller lacks the `BIFROST GL Post ori` permission set. |
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | `FindSalesHeader` could not resolve a header. |
+| `Sales Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Sales Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `Sales Header "{value}" matches more than one document. Pass it as one of: {keys}.` (`AmbiguousRecord`) | A plain subject matches several document types; send it in the key of the type you mean. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Sales document {no} has no lines to post.` | Header has no `Sales Line` rows. |
 | BC posting errors | Bubble up from `Sales-Post` (e.g. missing posting date, invalid dimensions, customer blocked). |
 | `status: Success` but `postedDocuments` is empty | `Ship` and/or `Invoice` flags on the header are `false`. Run the two-step pre-flight in **Required Pre-Flight** above before posting. |
@@ -143,4 +147,7 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 - `Sales.Document.PreviewPost` — preview the same posting without committing.
 - `Sales.Document.Release` — required before posting if `Status = Open`.
 - `Sales.SalesInvoice.Pdf` / `Sales.SalesCreditMemo.Pdf` / `Sales.SalesShipment.Pdf` / `Sales.ReturnReceipt.Pdf` — fetch a PDF of the resulting posted document by `no`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

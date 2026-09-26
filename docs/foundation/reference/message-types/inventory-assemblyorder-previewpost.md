@@ -24,7 +24,7 @@ Safe and idempotent. The transaction is always rolled back. No `Posted Assembly 
 Standard `Assembly Header` identification:
 1. `subject` parsed as GUID -> header `SystemId`.
 2. `subject` as text -> header `No.` (with `Document Type = Order`).
-3. Request JSON keys (first match wins): `systemId`, `recordSystemId`, `id`, `documentNo`, `assemblyOrderNo`, `no`.
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id`, `documentNo`, `assemblyOrderNo`, `no`.
 
 ## Request Parameters
 None beyond identification.
@@ -74,7 +74,10 @@ None beyond identification.
 ## Errors
 | Error | Cause |
 |-------|-------|
-| `Assembly order identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, documentNo, assemblyOrderNo, no).` | No identifier supplied or lookup failed. |
+| `Assembly Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, assemblyOrderNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Assembly Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Assembly order %1 has no lines to post.` | Order had zero `Assembly Line` rows. `%1` is the document `No.`. |
 | `Posting preview failed and no entries were captured. The assembly order cannot be posted in its current state.` | `Gen. Jnl.-Post Preview.Run` failed without surfacing a specific BC error text. |
 | (BC posting error text) | Preview captured a real BC posting error - returned verbatim. |
@@ -82,4 +85,7 @@ None beyond identification.
 ## Related Message Types
 - `Inventory.AssemblyOrder.Post` - actually post once preview is clean.
 - `Inventory.AssemblyOrder.Statistics` - inspect costs without simulation.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

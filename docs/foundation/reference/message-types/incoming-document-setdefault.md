@@ -67,7 +67,9 @@ The `subject` identifies the target `Incoming Document`:
 | Scenario | Error |
 |----------|-------|
 | Missing `lineNo` | `lineNo is required.` |
-| Subject does not resolve | `Incoming Document {subject} not found.` |
+| No identifier | `Incoming Document identifier is missing. Pass it as the subject, or as one of: entryNo, systemId, id.` (`MissingParameter`) |
+| Identifier is not a number or GUID | `"{value}" is not a valid integer (from {subject or key}).` (`InvalidParameterFormat`) |
+| Identifier does not resolve | `Incoming Document "{value}" was not found (from {subject or key}).` (`RecordNotFound`) |
 | Fewer than 2 attachments | `At least 2 attachments are required to set a default.` |
 | `lineNo` does not exist on the document | `Attachment with lineNo {lineNo} not found.` |
 
@@ -80,4 +82,7 @@ The `subject` identifies the target `Incoming Document`:
 - `Incoming.Document.Attach`
 - `Incoming.Document.Get`
 - `Incoming.Document.Process`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

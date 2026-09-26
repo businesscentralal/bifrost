@@ -20,8 +20,8 @@ Returns header totals (amounts, VAT breakdown, total quantity / weight / volume)
 ## Identifier Resolution Order
 Resolved by `Argument.FindPurchaseHeader`:
 1. `subject` as GUID → `PurchaseHeader.GetBySystemId`.
-2. `subject` as text → `PurchaseHeader.Get(Order, <subject>)` (Order only).
-3. Request JSON keys (first hit wins): `systemId`, `recordSystemId`, `id` (all GUID); `orderNo`, `quoteNo`, `invoiceNo`, `creditMemoNo`, `blanketOrderNo`, `returnOrderNo`.
+2. `subject` as text → tried as every document type. One match is used; several give `AmbiguousRecord` - then send the number in the key of the type you mean (`orderNo`, `quoteNo`, `invoiceNo`, `creditMemoNo`, `blanketOrderNo`, `returnOrderNo`).
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id` (all GUID); `orderNo`, `quoteNo`, `invoiceNo`, `creditMemoNo`, `blanketOrderNo`, `returnOrderNo`.
 
 ## Request Parameters
 Request body is optional. No additional fields are read.
@@ -80,10 +80,17 @@ All decimal amounts are rounded using the precision of the document currency (or
 ## Errors
 | Error | Cause |
 |-------|-------|
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | No document resolved by `FindPurchaseHeader`. |
+| `Purchase Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Purchase Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `Purchase Header "{value}" matches more than one document. Pass it as one of: {keys}.` (`AmbiguousRecord`) | A plain subject matches several document types; send it in the key of the type you mean. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 
 ## Related Message Types
 - `Purchase.Document.PreviewPost` — Adds predicted document numbers and full ledger preview.
 - `Purchase.Document.Post` — Commit the document.
 - `Data.Records.Get` on `Purchase Line` — Read individual lines.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

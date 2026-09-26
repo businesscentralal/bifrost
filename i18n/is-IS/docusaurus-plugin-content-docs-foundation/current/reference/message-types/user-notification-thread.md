@@ -49,3 +49,6 @@ The Bifrost `subject` Reitur verður að contain the Thread ID as a GUID.
 - `User.Notification.Get`
 - `User.Notification.Send`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

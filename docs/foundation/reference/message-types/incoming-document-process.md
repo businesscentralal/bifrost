@@ -15,6 +15,9 @@ This page is generated from the message type's own help codeunit by
 ## Overview
 Processes an `Incoming Document` by invoking its standard BC processing — creating a linked purchase invoice, credit memo, or journal line according to the document's Data Exchange Type and configuration. Work runs inside `Codeunit.Run` so AL errors are captured and returned as a JSON `error` field rather than rolling back the outer transaction.
 
+## Prerequisites
+The target `Incoming Document` must have `Data Exchange Type` populated before it can be processed. This value tells Business Central which data exchange definition to use when interpreting the incoming document attachment and creating the linked document.
+
 ## Direction
 Inbound (write)
 
@@ -75,7 +78,10 @@ Request body is not read.
 ## Errors
 | Scenario | Surface | Message |
 |----------|---------|---------|
-| Subject does not resolve | AL error → `error` field | `Incoming Document {subject} not found.` |
+| No identifier | error response | `Incoming Document identifier is missing. Pass it as the subject, or as one of: entryNo, systemId, id.` (`MissingParameter`) |
+| Identifier is not a number or GUID | error response | `"{value}" is not a valid integer (from {subject or key}).` (`InvalidParameterFormat`) |
+| Identifier does not resolve | error response | `Incoming Document "{value}" was not found (from {subject or key}).` (`RecordNotFound`) |
+| Data Exchange Type is blank | AL error | `You must select a value in the Data Exchange Type field on the incoming document.` |
 | Document has no main attachment | AL error → `error` field | `Incoming Document {entryNo} has no main attachment.` |
 | Document already posted | AL error → `error` field | `Incoming Document {entryNo} has already been posted.` |
 
@@ -84,4 +90,7 @@ Request body is not read.
 - `Incoming.Document.Attach`
 - `Incoming.Document.Get`
 - `Incoming.Document.SetDefault`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

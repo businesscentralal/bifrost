@@ -92,12 +92,12 @@ Success:
 }
 ```
 
-Error (with callstack):
+Error (a Business Central posting error):
 ```json
 {
   "status": "Error",
   "error": "Journal batch is not balanced.",
-  "callstack": "Gen. Jnl.-Post Batch(CodeUnit 80).OnRun..."
+  "code": "BusinessCentralError"
 }
 ```
 
@@ -217,12 +217,12 @@ Error (already reversed):
 }
 ```
 
-Error (reversal failure with callstack):
+Error (reversal failure):
 ```json
 {
   "status": "Error",
   "error": "The transaction cannot be reversed because...",
-  "callstack": "Reversal-Post(CodeUnit 179).OnRun..."
+  "code": "BusinessCentralError"
 }
 ```
 
@@ -259,12 +259,12 @@ Error (already reversed):
 }
 ```
 
-Error (reversal failure with callstack):
+Error (reversal failure):
 ```json
 {
   "status": "Error",
   "error": "The transaction cannot be reversed because...",
-  "callstack": "Reversal-Post(CodeUnit 179).OnRun..."
+  "code": "BusinessCentralError"
 }
 ```
 
@@ -371,7 +371,7 @@ Preview success fields: `status`, `posted=false`, `documentNo`, `postingDate`, `
 
 Post success adds: `posted=true`, `glRegisterNo`, `fromVATEntryNo`, `toVATEntryNo`, `settlementVATEntryCount`. Individual VAT entries are omitted; retrieve them via `Data.Records.Get` against `VAT Entry` filtered by `Entry No.` between the returned bounds.
 
-Validation errors (`status=Error`): missing required field, `endingDate < startingDate`, settlement account missing / not `Account Type = Posting` / blocked, or no open VAT entries match the filters. Report-time failures additionally include `callstack`.
+Validation errors (`status=Error`): missing required field, `endingDate < startingDate`, settlement account missing / not `Account Type = Posting` / blocked, or no open VAT entries match the filters. Report-time failures are returned with code `BusinessCentralError`.
 
 Detailed help: call `Help.Implementation.Get` with `name = Finance.VAT.CalcAndPostSettlement`.
 
@@ -441,7 +441,7 @@ Both branches enforce the `Posting Gate ori` for posting type `G/L`. Calling thi
 
 Missing values surface as `Unrealized Gains Acc. must have a value in Currency: Code=XYZ.` (or the field-40/41 variant). Re-running with the same payload succeeds once the Currency Card is populated.
 
-Validation errors (`status=Error`): missing required field, all `adjust*` toggles false, posting gate denied. Engine-time failures (post branch only) additionally include `callstack`. Engine failures during posting are isolated via `Codeunit.Run` so the outer message-processing transaction is preserved.
+Validation errors (`status=Error`): missing required field, all `adjust*` toggles false, posting gate denied. Engine-time failures (post branch only) are returned with code `BusinessCentralError`. Engine failures during posting are isolated in their own transaction, so the outer message-processing transaction is preserved.
 
 **Operational notes for AI callers**:
 - `adjustedBaseLCY` is `0.00` when the underlying open entries already net to zero LCY in the source currency (e.g. recently posted clearing transactions); only `adjustedAmtLCY` carries the FX delta. Do not flag as an error.
@@ -481,7 +481,7 @@ Response: `status`, `validationResult` (`Ready` / `ReadyWithWarnings` / `NotRead
 
 #### `Finance.FAJournal.Post`
 
-Posts the batch via BC `FA Jnl.-Post Batch`. Wrapped in an isolated codeunit so errors return a built response with `callstack`.
+Posts the batch via BC `FA Jnl.-Post Batch`. Wrapped in an isolated codeunit so errors return a built response with code `BusinessCentralError`.
 
 ```json
 { "specversion": "1.0", "type": "Finance.FAJournal.Post", "source": "MyApp", "subject": "FA|BATCH001" }

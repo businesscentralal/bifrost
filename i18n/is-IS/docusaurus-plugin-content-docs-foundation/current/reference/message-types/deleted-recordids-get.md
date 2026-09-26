@@ -78,3 +78,6 @@ Skilar `{id, deletedAt}` pairs úr the Bifrost Delete Log — the deletion equiv
 - **Data.RecordIds.Get** — sama shape fyrir current (non-deleted) færslur.
 - **CSV.DeletedRecords.Get** — CSV export fyrir compliance.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

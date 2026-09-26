@@ -102,3 +102,6 @@ From `Item Price Calculation Tests` (`test/test/Sales/ItemPriceCalculationTests.
 - `Item.Availability.Get` — availability of the same item set.
 - `Customer.SalesHistory.Get` — items recently sold to a customer.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

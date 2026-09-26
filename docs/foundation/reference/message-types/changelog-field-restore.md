@@ -90,3 +90,6 @@ Mode 2:
 - `ChangeLog.Field.History`
 - `ChangeLog.Records.Delta`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

@@ -24,7 +24,7 @@ Idempotent. Releasing an already-`Released` order returns `Success` with `status
 Standard `Transfer Header` identification:
 1. `subject` parsed as GUID -> header `SystemId`.
 2. `subject` as text -> header `No.`.
-3. Request JSON keys (first match wins): `systemId`, `recordSystemId`, `id`, `documentNo`, `transferOrderNo`, `no`.
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id`, `documentNo`, `transferOrderNo`, `no`.
 
 ## Request Parameters
 None beyond identification.
@@ -64,10 +64,16 @@ None beyond identification.
 ## Errors
 | Error | Cause |
 |-------|-------|
-| `Transfer order identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, documentNo, transferOrderNo, no).` | No identifier supplied or lookup failed. |
+| `Transfer Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, transferOrderNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Transfer Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | (BC validation error text) | `Release Transfer Document.Run` failed (missing in-transit code, invalid lines, etc.). |
 
 ## Related Message Types
 - `Inventory.TransferOrder.Reopen` - reverse the release.
 - `Inventory.TransferOrder.Post` - ship and/or receive after release.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

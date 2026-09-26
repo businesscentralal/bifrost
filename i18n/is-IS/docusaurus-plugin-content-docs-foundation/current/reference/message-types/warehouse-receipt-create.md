@@ -133,3 +133,6 @@ Typical sequence til receive a Purchase Order via the warehouse:
 - `Warehouse.Receipt.Post.Preview` — simulate the post og inspect captured bók færslur.
 - `Warehouse.Shipment.Create` / `Warehouse.Shipment.Post` — Útgående counterparts.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

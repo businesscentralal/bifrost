@@ -66,3 +66,6 @@ Reports whether a specific tafla Reitur er covered með the BC Change Log Setup,
 - `ChangeLog.Field.Restore`
 - `ChangeLog.Records.Delta`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

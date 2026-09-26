@@ -184,3 +184,6 @@ A mistókst attachment aborts the whole call: no draft er saved, so nothing need
 ## Tengdar skilaboðategundir
 - `User.Notification.Send`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

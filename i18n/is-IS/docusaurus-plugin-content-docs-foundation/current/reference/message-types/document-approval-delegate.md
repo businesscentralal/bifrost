@@ -74,3 +74,6 @@ hver `result` element er an approval log wrapper (sama as `Document.Approval.Get
 - `Document.Approval.Get`
 - `Document.Approval.Me`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

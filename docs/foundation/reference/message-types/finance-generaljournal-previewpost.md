@@ -114,3 +114,6 @@ From `Gen. Jnl. Prev. Post Tests` (codeunit 95389):
 - `Finance.GeneralJournal.Post` — commit the actual post.
 - `Finance.GeneralJournal.ReverseRegister` — undo a register after a real post.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

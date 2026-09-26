@@ -27,7 +27,7 @@ The same G/L posting gate as `Sales.Document.Post` is enforced. Bifrost Setup mu
 
 1. Resolve the posted sales invoice from `subject` or request JSON (see Identifier Resolution below).
 2. Assert the G/L posting gate; abort with an error response if the caller is not allowed to post.
-3. Run BC `CancelPostedInvoiceCreateNewInvoice` in an isolated `Codeunit.Run` so any BC error is caught and returned as JSON with the full callstack.
+3. Run BC `CancelPostedInvoiceCreateNewInvoice` in an isolated transaction so any BC error is caught and returned as a JSON error response (code `BusinessCentralError`).
 4. BC posts a cancelling sales credit memo, fully applies it to the original invoice, and creates a new draft `Sales Header` (Document Type = Invoice) copied from the original.
 5. Look up the cancelling credit memo through the BC `Cancelled Document` link table (Source ID = `Sales Invoice Header`, Cancelled Doc. No. = original invoice).
 6. Return the original invoice, the cancelling credit memo, and the new draft invoice as a single JSON response.
@@ -147,9 +147,12 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 | Error | Cause |
 |---|---|
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Caller lacks the `BIFROST GL Post ori` permission set. |
-| `Posted sales invoice identifier must be specified ...` | No identifier in `subject` or request JSON. |
+| `Sales Invoice Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, invoiceNo, no, documentNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Sales Invoice Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `You cannot cancel this posted sales invoice ...` | BC blocks correction (already cancelled / corrective entries closed / paid). |
-| Posting period / dimension / customer ledger errors | Bubble up from BC posting framework with full callstack. |
+| Posting period / dimension / customer ledger errors | Returned from the BC posting framework with code `BusinessCentralError`. |
 
 ## Related Message Types
 
@@ -157,4 +160,7 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 - `Sales.Document.Post` — post the new draft once edited.
 - `Data.Records.Get` — fetch full record data for the documents listed above.
 - `Purchase.PurchaseInvoice.Correct` — purchase counterpart.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

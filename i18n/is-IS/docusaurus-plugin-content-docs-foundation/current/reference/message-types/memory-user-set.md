@@ -75,3 +75,6 @@ hlutur form (data attribute wraps a `data` fylki):
 - `Memory.User.List`
 - `Memory.Company.Set`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

@@ -24,7 +24,7 @@ Idempotent. Reopening an already-`Open` order returns `Success` with `statusBefo
 Standard `Assembly Header` identification:
 1. `subject` parsed as GUID -> header `SystemId`.
 2. `subject` as text -> header `No.` (with `Document Type = Order`).
-3. Request JSON keys (first match wins): `systemId`, `recordSystemId`, `id`, `documentNo`, `assemblyOrderNo`, `no`.
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id`, `documentNo`, `assemblyOrderNo`, `no`.
 
 ## Request Parameters
 None beyond identification.
@@ -64,10 +64,16 @@ None beyond identification.
 ## Errors
 | Error | Cause |
 |-------|-------|
-| `Assembly order identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, documentNo, assemblyOrderNo, no).` | No identifier supplied or lookup failed. |
+| `Assembly Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, assemblyOrderNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Assembly Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | (BC validation error text) | `Assembly Order Reopen Process` failed. |
 
 ## Related Message Types
 - `Inventory.AssemblyOrder.Release` - return to Released.
 - `Inventory.AssemblyOrder.RefreshLines` - refresh BOM lines once Open again.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -102,3 +102,6 @@ Items eru resolved via `FindItemRange` (sama precedence as `Item.Availability.Ge
 - `Item.Availability.Get` — availability of the sama vöru set.
 - `Customer.SalesHistory.Get` — items recently sold til a viðskiptamanni.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

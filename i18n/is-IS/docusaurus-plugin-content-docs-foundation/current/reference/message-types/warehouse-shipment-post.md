@@ -85,7 +85,7 @@ No per-Reitur takmörkun check — the entire operation er gated með the heimil
 |---|---|
 | `Posting denied: missing 'BIFROST WhsePost ori' permission set.` | Kallandi lacks the warehouse posting heimild. |
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | `invoice = true` og Kallandi lacks G/L posting. |
-| `Warehouse Shipment identifier must be specified ...` | Subject og JSON both empty. |
+| `Warehouse Shipment Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, shipmentNo, no.` (`MissingParameter`); gefið en fannst ekki: `Warehouse Shipment Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | Subject og JSON both empty. |
 | `Warehouse Shipment {n} has no lines to post.` | Header exists með zero lines. |
 | `There is nothing to post because the document does not contain a quantity or amount.` | All Warehouse Shipment Lines have `Qty. to Ship = 0`. At a `Require Pick = true` location this means no pick has been registered yet — Sjá Preconditions. |
 | BC posting Villur | Bubble up úr `Whse.-Post Shipment` (e.g. opið pick exists, vöru tracking incomplete, posting dagsetning locked). |
@@ -100,4 +100,7 @@ Sjá `Warehouse.Shipment.Create` help fyrir the full chain: `Sales.Document.Crea
 - `Warehouse.Pick.Create` — create the Warehouse Pick þegar `Require Pick = true`.
 - `Warehouse.Pick.Register` — register the pick so `Qty. to Ship` er populated.
 - `Sales.Document.Post` — fyrir the G/L reikningur side án the warehouse step.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

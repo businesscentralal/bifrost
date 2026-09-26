@@ -27,7 +27,7 @@ The sama G/L Bókunarheimild as `Sales.Document.Post` er enforced. Bifrost Setup
 
 1. Resolve the posted sales reikningur úr `subject` eða request JSON (Sjá Identifier Resolution below).
 2. Assert the G/L Bókunarheimild; abort með an Villa response ef Kallandinn er ekki allowed til post.
-3. Run BC `CancelPostedInvoiceCreateNewInvoice` in an isolated `Codeunit.Run` so hvaða BC Villa er caught og returned as JSON með the full callstack.
+3. Run BC `CancelPostedInvoiceCreateNewInvoice` í einangraðri færslu svo hver villa frá BC er gripin og skilað sem JSON-villusvari (kóði `BusinessCentralError`).
 4. BC Bókar a cancelling sales credit memo, fully applies it til the original reikningur, og Býr til a ný draft `Sales Header` (skjal Gerð = reikningur) copied úr the original.
 5. Look up the cancelling credit memo through the BC `Cancelled Document` link tafla (Uppruni ID = `Sales Invoice Header`, Cancelled Doc. No. = original reikningur).
 6. Return the original reikningur, the cancelling credit memo, og the ný draft reikningur as a single JSON response.
@@ -147,9 +147,9 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 | Villa | Orsök |
 |---|---|
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Kallandi lacks the `BIFROST GL Post ori` heimild set. |
-| `Posted sales invoice identifier must be specified ...` | No identifier in `subject` eða request JSON. |
+| `Sales Invoice Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, invoiceNo, no, documentNo.` (`MissingParameter`); gefið en fannst ekki: `Sales Invoice Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No identifier in `subject` eða request JSON. |
 | `You cannot cancel this posted sales invoice ...` | BC blocks correction (already cancelled / corrective færslur lokað / paid). |
-| Posting period / dimension / viðskiptamanni bók Villur | Bubble up úr BC posting framework með full callstack. |
+| Posting period / dimension / viðskiptamanni bók Villur | Skilað úr bókunarkerfi BC með kóða `BusinessCentralError`. |
 
 ## Tengdar skilaboðategundir
 
@@ -157,4 +157,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 - `Sales.Document.Post` — post the ný draft once edited.
 - `Data.Records.Get` — fetch full færsla data fyrir the skjöl listed above.
 - `Purchase.PurchaseInvoice.Correct` — purchase counterpart.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

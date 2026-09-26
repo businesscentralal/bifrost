@@ -60,6 +60,9 @@ Bank account is resolved in this order:
   "statementDate": "2026-05-30",
   "systemId": "<guid>",
   "lineCount": 3,
+  "importedFrom": "2026-05-01",
+  "importedTo": "2026-05-30",
+  "importNotes": ["Statement window was imported from the bank feed."],
   "warning": "<optional import warning>"
 }
 ```
@@ -72,6 +75,9 @@ Bank account is resolved in this order:
 - `statementDate`: assigned statement date, blank when reset to `0D`.
 - `systemId`: reconciliation SystemId (GUID, no braces).
 - `lineCount`: number of imported reconciliation lines.
+- `importedFrom`: optional first date in the bank statement window imported by the format handler; included only when the handler provides a window.
+- `importedTo`: optional last date in the bank statement window imported by the format handler; included only when the handler provides a window.
+- `importNotes`: optional array of note strings emitted by the handler during import.
 - `warning`: optional import warning text.
 
 ## Error Handling
@@ -92,4 +98,7 @@ Returned when no bank account identifier can be resolved.
 - `Finance.BankReconciliation.Match`
 - `Finance.BankReconciliation.Reset`
 - `Finance.BankReconciliation.Post`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

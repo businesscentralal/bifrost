@@ -84,3 +84,6 @@ Identical shape til `Data.Records.Get`. sama Reitur-Heiti normalization rules ap
 - **Data.Records.Get** — current (non-deleted) færslur, sama shape.
 - **CSV.DeletedRecords.Get** — sama data as CSV fyrir compliance exports.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

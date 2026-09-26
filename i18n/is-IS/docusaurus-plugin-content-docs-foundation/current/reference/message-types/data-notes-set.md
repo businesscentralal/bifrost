@@ -132,3 +132,6 @@ Note: delete operations eru reported með `action: "modified"` og an empty `note
 - **Data.Notes.Get** — list fyrirliggjandi Athugasemdir / discover `lineNo`.
 - **Data.Records.Set** — fyrir writing Reitur values instead of Athugasemdir.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

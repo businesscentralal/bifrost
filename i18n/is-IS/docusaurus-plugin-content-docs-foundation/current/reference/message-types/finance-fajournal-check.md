@@ -92,3 +92,6 @@ Validation issues eru returned via `errors` / `warnings` með `status: "Success"
 - `Finance.FAJournal.SetupNewLine` — create ný FA dagbók lines.
 - `Finance.FAJournal.Post` — post the batch eftir a `Ready` / `ReadyWithWarnings` result.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

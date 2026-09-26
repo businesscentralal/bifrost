@@ -27,7 +27,7 @@ The sama G/L Bókunarheimild as `Purchase.Document.Post` er enforced.
 
 1. Resolve the posted purchase reikningur úr `subject` eða request JSON (Sjá Identifier Resolution below).
 2. Assert the G/L Bókunarheimild; abort með an Villa response ef Kallandinn er ekki allowed til post.
-3. Run BC `CancelPostedInvoice` in an isolated `Codeunit.Run` so hvaða BC Villa er caught og returned as JSON með the full callstack.
+3. Run BC `CancelPostedInvoice` í einangraðri færslu svo hver villa frá BC er gripin og skilað sem JSON-villusvari (kóði `BusinessCentralError`).
 4. BC Bókar a cancelling purchase credit memo og fully applies it til the original reikningur; no draft reikningur er created.
 5. Look up the cancelling credit memo through the BC `Cancelled Document` link tafla (Uppruni ID = `Purch. Inv. Header`, Cancelled Doc. No. = original reikningur).
 6. Return the original reikningur og the cancelling credit memo as a single JSON response.
@@ -126,7 +126,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 | Villa | Orsök |
 |---|---|
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Kallandi lacks the `BIFROST GL Post ori` heimild set. |
-| `Posted purchase invoice identifier must be specified ...` | No identifier in `subject` eða request JSON. |
+| `Purch. Inv. Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, invoiceNo, no, documentNo.` (`MissingParameter`); gefið en fannst ekki: `Purch. Inv. Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No identifier in `subject` eða request JSON. |
 | `You cannot cancel this posted purchase invoice ...` | BC blocks cancellation (already cancelled / paid / has opið jöfnanir). |
 | `{CreditMemoNo} must be approved and released ...` + client callback Villa | Approval workflow er configured fyrir purchase credit memos. BC internally Býr til the cancelling credit memo then tries til post it; the approval workflow blocks posting og BC raises a UI confirmation dialog that getur ekki be rendered in the API/web-service context. **Workaround**: temporarily set `Enabled = false` on the purchase credit memo approval workflow (`Workflow` tafla, e.g. code `MS-PCMAPW-01`) via `Data.Records.Set` áður en calling Cancel, then re-enable it eftir. |
 
@@ -135,4 +135,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 - `Purchase.PurchaseInvoice.Correct` — cancel + create ný editable draft.
 - `Data.Records.Get` — fetch full færsla data fyrir the skjöl listed above.
 - `Sales.SalesInvoice.Cancel` — sales counterpart.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

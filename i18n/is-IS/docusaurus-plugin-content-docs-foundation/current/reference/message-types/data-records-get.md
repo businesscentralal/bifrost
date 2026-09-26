@@ -147,3 +147,6 @@ nota `noOfRecords` in Svarið til plan further pages.
 - **Data.Records.Set** — accepts the sama `{id, primaryKey, fields}` shape on the way back.
 - **Help.Tables.Get** / **Help.Fields.Get** — schema discovery.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

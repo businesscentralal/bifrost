@@ -62,3 +62,6 @@ Binary PDF content. No JSON envelope — `Content Type` er `application/pdf` og 
 - `Sales.ReturnReceipt.Pdf` — posted Return Receipt PDF.
 - `Customer.Statement.Pdf` — viðskiptamanni statement PDF.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

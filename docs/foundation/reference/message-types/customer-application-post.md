@@ -72,7 +72,7 @@ Required, non-empty JSON array. Each element may be:
   "documentNo": "PAY-005",
   "postingDate": "2026-01-15",
   "amountToApply": -2500.00,
-  "totalApplied": 2500.00,
+  "totalApplied": -2500.00,
   "remainingAmount": 0.00,
   "open": false,
   "applications": [
@@ -81,15 +81,28 @@ Required, non-empty JSON array. Each element may be:
       "recordSystemId": "...",
       "documentType": "Invoice",
       "documentNo": "PS-INV103001",
-      "amountApplied": 2500.00
+      "amountApplied": -2500.00
     }
+  ]
+}
+```
+
+Partial apply of 1000 against a larger open invoice (invoice Remaining Amount 62850 → 61850):
+```json
+{
+  "amountToApply": -1000.00,
+  "totalApplied": -1000.00,
+  "remainingAmount": 0.00,
+  "open": false,
+  "applications": [
+    { "entryNo": 3229, "documentType": "Invoice", "amountApplied": -1000.00 }
   ]
 }
 ```
 
 ### Failure
 ```json
-{ "status": "Error", "error": "...", "callstack": "..." }
+{ "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
 ### Response Fields
@@ -97,7 +110,8 @@ Required, non-empty JSON array. Each element may be:
 | Field | Source |
 |---|---|
 | `remainingAmount` / `open` | Re-read from the applying entry after posting. |
-| `applications[]` | One entry per target. `amountApplied` comes from the matched `Detailed Cust. Ledg. Entry` rows created under the `ApplyId`. |
+| `totalApplied` | `amountToApply` minus the applying entry's Remaining Amount after posting. |
+| `applications[].amountApplied` | Target entry Remaining Amount **after** posting minus Remaining Amount **before** posting (FlowField via `CalcFields`). Formatted with `Format(..., 0, 9)`. The sum of `applications[].amountApplied` equals `totalApplied`. Customer invoice partial apply of 1000 → `amountApplied = -1000`. |
 
 ## Posting Date Constraint
 
@@ -123,7 +137,7 @@ To prevent discount absorption, set `postingDate` after the `Pmt. Discount Date`
 
 ## Examples (from unit tests)
 
-From `Cust. Application Tests` (`test/test/Sales/CustApplicationTests.Codeunit.al`) — covers single and multi-target application, scalar vs object entry references, override of `postingDate`/`documentNo`/`amountToApply`, closed-entry rejections, and cross-customer rejections.
+From `Cust. Application Tests` (`test/test/Sales/CustApplicationTests.Codeunit.al`) — covers single and multi-target application, partial apply amountApplied semantics, scalar vs object entry references, override of `postingDate`/`documentNo`/`amountToApply`, closed-entry rejections, and cross-customer rejections.
 
 ## Posting Gate
 Calling this message type requires the `BIFROST GL Post ori` permission set in addition to `BIFROST API ori`. Without it the request returns: `Posting denied: missing 'BIFROST GL Post ori' permission set.`
@@ -133,7 +147,10 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 | Error | Cause |
 |---|---|
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Caller lacks the `BIFROST GL Post ori` permission set. |
-| `Customer ledger entry identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, entryNo, entryNumber).` | Applying entry could not be resolved. |
+| `Cust. Ledger Entry identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, entryNo, entryNumber.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Cust. Ledger Entry "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Request JSON must include 'appliesToEntries' as a non-empty array.` | `appliesToEntries` missing, not an array, or empty. |
 | `Applying customer ledger entry {entryNo} is closed and cannot be applied.` | Applying entry `Open = false`. |
 | `Target customer ledger entry {entryNo} not found.` | One of `appliesToEntries` did not match a `Cust. Ledger Entry`. |
@@ -146,4 +163,7 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 - `Customer.Application.Reverse` — reverse a previously posted application.
 - `Customer.CreditLimit.Get` — see how the application affects exposure.
 - `Sales.Document.Post` — produces the invoices/credit memos that get applied here.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

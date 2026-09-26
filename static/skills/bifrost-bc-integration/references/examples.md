@@ -43,7 +43,7 @@ async function cePost(companyId: string, message: object, token: string) {
   if (task.data) {
     const dataRes = await fetch(task.data, { headers: { Authorization: `Bearer ${token}` } });
     const result = await dataRes.json();
-    if (result.status === 'Error') throw new Error(`${result.error}\n${result.callStack}`);
+    if (result.status === 'Error') throw new Error(`${result.code ?? 'Error'}: ${result.error}${result.nextStep ? `\n${result.nextStep}` : ''}`);
     return result;
   }
   return task;

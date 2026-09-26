@@ -74,7 +74,7 @@ None beyond identification.
 ## Villur
 | Villa | Orsök |
 |-------|-------|
-| `Assembly order identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, documentNo, assemblyOrderNo, no).` | No identifier supplied eða lookup mistókst. |
+| `Assembly Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, assemblyOrderNo, no.` (`MissingParameter`); gefið en fannst ekki: `Assembly Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No identifier supplied eða lookup mistókst. |
 | `Assembly order %1 has no lines to post.` | Order had zero `Assembly Line` rows. `%1` er the skjal `No.`. |
 | `Posting preview failed and no entries were captured. The assembly order cannot be posted in its current state.` | `Gen. Jnl.-Post Preview.Run` mistókst án surfacing a specific BC Villa text. |
 | (BC posting Villa text) | Preview captured a real BC posting Villa - returned verbatim. |
@@ -82,4 +82,7 @@ None beyond identification.
 ## Tengdar skilaboðategundir
 - `Inventory.AssemblyOrder.Post` - actually post once preview er clean.
 - `Inventory.AssemblyOrder.Statistics` - inspect costs án simulation.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

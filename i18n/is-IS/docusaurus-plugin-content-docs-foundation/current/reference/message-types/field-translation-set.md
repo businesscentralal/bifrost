@@ -99,3 +99,6 @@ Replaces hvaða fyrirliggjandi translation fyrir the (færsla, Reitur, language)
 - `Field.Translation.Get`
 - `Field.Translations.Get`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

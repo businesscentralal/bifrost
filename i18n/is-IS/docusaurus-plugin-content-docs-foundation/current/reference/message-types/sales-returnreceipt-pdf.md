@@ -60,3 +60,6 @@ Binary PDF content. No JSON envelope — bytes come úr `ReportSelections.GetPdf
 - `Sales.SalesInvoice.Pdf` — posted Sales reikningur PDF.
 - `Sales.SalesShipment.Pdf` — posted Sales Shipment PDF.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

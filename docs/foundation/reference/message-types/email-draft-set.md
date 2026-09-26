@@ -184,3 +184,6 @@ A failed attachment aborts the whole call: no draft is saved, so nothing needs c
 ## Related Message Types
 - `User.Notification.Send`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

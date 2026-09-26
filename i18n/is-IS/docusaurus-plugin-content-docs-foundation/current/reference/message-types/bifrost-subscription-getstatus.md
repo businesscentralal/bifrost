@@ -25,3 +25,7 @@ Auðkenni fyrirtækisins er GUID. Útfærslan reiknar tætigildi (hash) úr þv�
 Svarið inniheldur status, configuration, account, licenseStatus og currentMonthUsage. Birtingarreitir nota heiti fyrirtækis, söluaðila og samstarfsaðila þar sem þau liggja fyrir.
 
 Þessi skilaboð eru í boði í SaaS-framleiðsluumhverfi (Production) og í uppsetningu á staðnum (OnPrem) en eru óvirk í SaaS-prófunarumhverfi (Sandbox).
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

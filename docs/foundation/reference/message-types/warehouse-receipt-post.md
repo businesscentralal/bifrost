@@ -84,7 +84,10 @@ None enforced by this message type. Standard BC validation applies on the wareho
 
 | Error | Cause |
 |---|---|
-| `Warehouse Receipt identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, no, receiptNo).` | None of subject, systemId, recordSystemId, id, no, receiptNo resolved a header. (Exact wording — verified live.) |
+| `Warehouse Receipt Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, receiptNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Warehouse Receipt Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Warehouse Receipt {No} has no lines to post.` | All lines have Qty. to Receive = 0 or header has no lines. |
 | `The Warehouse Receipt Header does not exist. ...` | Re-posting the same receipt. After a successful post the header is deleted. |
 | Any BC posting error (e.g. `Bin Code must have a value`) | Bubbled from `Whse.-Post Receipt`. |
@@ -102,4 +105,7 @@ See `Warehouse.Receipt.Create` for the full create → release → receive → p
 - `Warehouse.Receipt.Create` — create the receipt being posted.
 - `Warehouse.Receipt.Post.Preview` — simulate the post without committing.
 - `Warehouse.Shipment.Post` — outbound counterpart.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

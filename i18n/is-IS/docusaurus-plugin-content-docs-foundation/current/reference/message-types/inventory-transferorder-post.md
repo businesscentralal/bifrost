@@ -78,7 +78,7 @@ Calling this skilaboðategund requires the `BIFROST ItemPost ori` heimild set in
 | Villa | Orsök |
 |-------|-------|
 | `Posting denied: missing 'BIFROST ItemPost ori' permission set.` | Kallandi lacks the `BIFROST ItemPost ori` heimild set. |
-| `Transfer order identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, documentNo, transferOrderNo, no).` | No identifier supplied eða lookup mistókst. |
+| `Transfer Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, transferOrderNo, no.` (`MissingParameter`); gefið en fannst ekki: `Transfer Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No identifier supplied eða lookup mistókst. |
 | `For a non-direct transfer order, postingType must be "Ship" or "Receive".` | Non-direct transfer og `postingType` omitted. |
 | `postingType must be "Ship", "Receive", or "ShipReceive". Received: {value}` | `postingType` had an unsupported Gildi, eða `ShipReceive`/`Ship+Receive` was requested fyrir a non-direct transfer (ekki stutt með BC in one step). |
 | (BC posting Villa text) | `TransferOrder-Post (Yes/No).Run` threw (e.g. insufficient inventory, unreleased order). |
@@ -87,4 +87,7 @@ Calling this skilaboðategund requires the `BIFROST ItemPost ori` heimild set in
 - `Inventory.TransferOrder.PreviewPost` - simulate áður en posting.
 - `Inventory.TransferOrder.Release` - release áður en posting.
 - `Inventory.TransferOrder.Statistics` - inspect totals.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

@@ -90,3 +90,6 @@ Note: this implementation Stillir `Content Type` til `application/json` rather t
 - `Customer.Statement.Pdf` — viðskiptamanni statement PDF.
 - `Item.Price.Get` — current pricing fyrir the items returned here.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

@@ -18,7 +18,7 @@ Posts every line in the specified item journal batch by invoking BC `Item Jnl.-P
 **Direction**: Inbound  **Content-Type**: `text/json`
 
 ## Idempotency / Safety
-Not idempotent. Successful posting deletes the source lines and writes Item Ledger Entries, Value Entries, and an Item Register record. Re-running on the same batch posts whatever lines remain (or returns an error if none remain). Posting failures roll back via `Codeunit.Run` and return `status: "Error"` with `callstack` for diagnosis.
+Not idempotent. Successful posting deletes the source lines and writes Item Ledger Entries, Value Entries, and an Item Register record. Re-running on the same batch posts whatever lines remain (or returns an error if none remain). Posting failures roll back and return `status: "Error"` with code `BusinessCentralError`.
 
 ## Batch Identification
 Resolved in this order:
@@ -79,7 +79,7 @@ Resolved in this order:
 - Postable batch via pipe subject -> `Success`, `linesPosted = 2`, `itemRegisterNo > 0`, `toEntryNo - fromEntryNo + 1` equals the original line count.
 - SystemId subject (`Format(SystemId, 0, 4)`) -> equivalent `Success` response.
 - Data parameters `{ templateName, batchName }` -> equivalent `Success` response.
-- Zero-quantity lines -> `Error` with `callstack` propagated from BC posting.
+- Zero-quantity lines -> `Error` with code `BusinessCentralError` and the BC posting error text.
 
 ## Posting Gate
 Calling this message type requires the `BIFROST ItemPost ori` permission set in addition to `BIFROST API ori`. Without it the request returns: `Posting denied: missing 'BIFROST ItemPost ori' permission set.`
@@ -92,7 +92,7 @@ Calling this message type requires the `BIFROST ItemPost ori` permission set in 
 | `Item journal batch {templateName}\|{batchName} not found.` | Batch lookup returned no record. |
 | `Item journal batch {templateName}\|{batchName} has no lines to post.` | Identified batch contained zero `Item Journal Line` rows. |
 | `Nothing was posted. Review journal for errors.` | `Item Jnl.-Post Batch.Run` completed without producing any Item Ledger Entry rows. |
-| (BC posting error text) | `Item Jnl.-Post Batch.Run` threw. The original error is surfaced in `error` and the full stack in `callstack`. |
+| (BC posting error text) | `Item Jnl.-Post Batch.Run` threw. The original error is surfaced in `error`, with code `BusinessCentralError`. |
 
 ## Operational Notes — Populating Lines via Data.Records.Set
 
@@ -115,4 +115,7 @@ For regular adjustment lines (where `Phys_Inventory = false`) in a Physical Inve
 ## Related Message Types
 - `Inventory.ItemJournal.SetupNewLine` - create lines.
 - `Inventory.ItemJournal.Check` - validate before posting.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

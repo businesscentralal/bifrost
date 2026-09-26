@@ -14,7 +14,7 @@ description: "Beiðni- og svarsamningur fyrir Finance.FAJournal.Post Bifröst sk
 
 ## Yfirlit
 
-Bókar an FA dagbók Batch via BC `FA Jnl.-Post Batch` og Skilar the resulting `FA Register` plus the posting summary. Villur úr the BC posting engine eru caught og returned as `{status, error, callstack}` instead of throwing — the message itself does ekki fail.
+Bókar an FA dagbók Batch via BC `FA Jnl.-Post Batch` og Skilar the resulting `FA Register` plus the posting summary. Villur úr the BC posting engine eru gripnar og skilað sem `{status, code, error, hint}` í stað þess að kasta villu — the message itself does ekki fail.
 
 **Stefna**: Innkomandi (skrifa — Býr til FA bók færslur)  **Efnisgerð**: `text/json`
 
@@ -68,7 +68,7 @@ fyrsta match wins:
 {
   "status": "Error",
   "error": "FA No. must have a value in FA Journal Line ...",
-  "callstack": "<BC error callstack>"
+  "hint": "..."
 }
 ```
 
@@ -95,10 +95,13 @@ Calling this skilaboðategund requires the `BIFROST FA Post ori` heimild set in 
 | `Fixed asset journal batch {template}\|{batch} not found.` | Identification did ekki match an fyrirliggjandi batch. |
 | `Fixed asset journal batch {template}\|{batch} has no lines to post.` | Batch er empty. |
 | `Nothing was posted. Review journal for errors.` | `FA Jnl.-Post Batch` returned án producing an FA Register (eða the post-Line No. er 0). |
-| BC posting Villur | Returned as `{status, error, callstack}` — `error` er the BC Villa text, `callstack` úr `GetLastErrorCallStack()`. |
+| BC posting Villur | Skilað sem `{status, code: BusinessCentralError, error, hint}` — `error` er villutexti BC. |
 
 ## Tengdar skilaboðategundir
 
 - `Finance.FAJournal.SetupNewLine` — create ný FA dagbók lines.
 - `Finance.FAJournal.Check` — validate áður en posting.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

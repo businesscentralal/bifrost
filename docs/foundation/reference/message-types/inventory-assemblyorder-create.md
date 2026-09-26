@@ -99,3 +99,6 @@ Not idempotent. Every call inserts a new Assembly Order header and consumes one 
 - `Inventory.AssemblyOrder.PreviewPost` - dry run.
 - `Data.Records.Set` - adjust component lines.
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

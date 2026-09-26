@@ -79,7 +79,7 @@ Failures úr `Job Jnl.-Post Batch.Run` eru caught og returned as a structured Vi
 {
   "status": "Error",
   "error": "Job No. must have a value in Job Journal Line ...",
-  "callstack": "..."
+  "hint": "..."
 }
 ```
 
@@ -99,4 +99,7 @@ Calling this skilaboðategund requires the `BIFROST Job Post ori` heimild set in
 ## Tengdar skilaboðategundir
 - `Projects.ProjectJournal.SetupNewLine`
 - `Projects.ProjectJournal.Check`
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

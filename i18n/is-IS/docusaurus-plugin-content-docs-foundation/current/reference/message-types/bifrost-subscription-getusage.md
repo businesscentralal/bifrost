@@ -63,3 +63,7 @@ Vendor:
 - `The specified customer tenant is not linked to the caller.` — beðið var um umfangið CustomerTenant fyrir leigjanda sem er ekki á meðal viðskiptavina kallarans.
 - `Partners may only request usage for their own tenant.` — kallari sem er aðeins samstarfsaðili bað um umfangið Partner fyrir annað auðkenni samstarfsaðila.
 - `Scope '<scope>' requires the Vendor role.` — beðið var um umfangið Vendor eða Partner án hlutverks söluaðila (nema Partner fyrir eigin leigjanda).
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

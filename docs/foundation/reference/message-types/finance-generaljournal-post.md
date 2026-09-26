@@ -14,7 +14,7 @@ This page is generated from the message type's own help codeunit by
 
 ## Overview
 
-Posts a Gen. Journal Batch via BC `Gen. Jnl.-Post Batch` and returns the resulting `G/L Register` plus the posting summary. Errors from the BC posting engine are caught and returned as `{status, error, callstack}` instead of throwing — the message itself does not fail.
+Posts a Gen. Journal Batch via BC `Gen. Jnl.-Post Batch` and returns the resulting `G/L Register` plus the posting summary. Errors from the BC posting engine are caught and returned as `{status, code, error, hint}` instead of throwing — the message itself does not fail.
 
 **Direction**: Inbound (write — creates G/L, customer/vendor/bank/employee, VAT, FA, and any other ledger entries the BC posting routine emits)  **Content-Type**: `text/json`
 
@@ -70,7 +70,7 @@ First match wins:
 {
   "status": "Error",
   "error": "<BC posting error text>",
-  "callstack": "<BC error callstack>"
+  "hint": "..."
 }
 ```
 
@@ -107,7 +107,7 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 | `Journal batch {template}\|{batch} not found.` | Identification did not match an existing batch. |
 | `Journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
 | `Nothing was posted. Review journal for errors.` | `Gen. Jnl.-Post Batch` returned without producing a G/L Register. |
-| BC posting errors | Returned as `{status, error, callstack}` — `error` is the BC error text, `callstack` from `GetLastErrorCallStack()`. |
+| BC posting errors | Returned as `{status, code: BusinessCentralError, error, hint}` — `error` is the BC error text. |
 
 ## Related Message Types
 
@@ -115,4 +115,7 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 - `Finance.GeneralJournal.Check` — validate before posting.
 - `Finance.GeneralJournal.PreviewPost` — simulate the post without committing.
 - `Finance.GeneralJournal.ReverseRegister` — reverse the G/L Register produced by this post.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

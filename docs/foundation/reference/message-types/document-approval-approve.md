@@ -93,3 +93,6 @@ Each `result` element is an approval log wrapper (same as `Document.Approval.Get
 - `Document.Approval.Get`
 - `Document.Approval.Me`
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

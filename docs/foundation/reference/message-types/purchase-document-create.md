@@ -24,7 +24,7 @@ Not idempotent — each call inserts a new Purchase Header and consumes a number
 Resolved by `Argument.FindVendor`:
 1. `subject` parsed as GUID → `Vendor.GetBySystemId`.
 2. `subject` as text → `Vendor.Get` by `No.`.
-3. Request JSON keys (first hit wins): `no`, `id` (GUID), `systemId` (GUID), `recordSystemId` (GUID).
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `no`, `id` (GUID), `systemId` (GUID), `recordSystemId` (GUID).
 
 ## Request Parameters
 | Field | Type | Required | Description |
@@ -73,11 +73,17 @@ JSON field names follow `RemoveNonAlphaNumericCharacters` on the BC field name: 
 |-------|-------|
 | `documentType is required in request JSON. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` missing from request JSON. |
 | `Invalid document type '{value}'. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` did not match any enum name. |
-| `Vendor identifier must be specified in subject field or request JSON (no, id, systemId, recordSystemId).` | No vendor resolved by `FindVendor`. |
+| `Vendor identifier is missing. Pass it as the subject, or as one of: no, id, systemId, recordSystemId.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Vendor "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 
 ## Related Message Types
 - `Data.Records.Set` — Add lines or update header fields.
 - `Purchase.Document.Release` / `Purchase.Document.Reopen` — Manage status.
 - `Purchase.Document.PreviewPost` / `Purchase.Document.Post` — Simulate or commit posting.
 - `Purchase.Document.Statistics` — Read totals.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

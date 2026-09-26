@@ -91,3 +91,6 @@ Field names follow the same normalization rules as `Data.Records.Get` (`.`/`/`/`
 - `Data.Records.Set` — populate business fields on the new lines.
 - `Data.Records.Get` — re-read lines after edits (same response shape).
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

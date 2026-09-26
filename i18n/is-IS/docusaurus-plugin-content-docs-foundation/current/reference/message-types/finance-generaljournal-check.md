@@ -102,3 +102,6 @@ Validation issues eru returned via `errors` / `warnings` með `status: "Success"
 - `Finance.GeneralJournal.PreviewPost` — simulate the post án committing.
 - `Finance.GeneralJournal.Post` — post the batch eftir a `Ready` / `ReadyWithWarnings` result.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

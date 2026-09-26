@@ -75,3 +75,6 @@ hver `result` element wraps one Approval færsla. Fields prefixed með `record*`
 - `Document.Approval.Reject`
 - `Document.Approval.Delegate`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

@@ -79,3 +79,6 @@ Writing company memory requires the `BIFROST CoMem ori` heimild set in addition 
 - `Memory.Company.List`
 - `Memory.User.Set`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

@@ -29,7 +29,7 @@ Implementation binds the `Transfer Post Subscriber` to override `OnBeforeGetPost
 Standard `Transfer Header` identification:
 1. `subject` parsed as GUID -> header `SystemId`.
 2. `subject` as text -> header `No.`.
-3. Request JSON keys (first match wins): `systemId`, `recordSystemId`, `id`, `documentNo`, `transferOrderNo`, `no`.
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id`, `documentNo`, `transferOrderNo`, `no`.
 
 ## Request Parameters
 | Field | Type | Required | Description |
@@ -78,7 +78,10 @@ Calling this message type requires the `BIFROST ItemPost ori` permission set in 
 | Error | Cause |
 |-------|-------|
 | `Posting denied: missing 'BIFROST ItemPost ori' permission set.` | Caller lacks the `BIFROST ItemPost ori` permission set. |
-| `Transfer order identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, documentNo, transferOrderNo, no).` | No identifier supplied or lookup failed. |
+| `Transfer Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, transferOrderNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Transfer Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `For a non-direct transfer order, postingType must be "Ship" or "Receive".` | Non-direct transfer and `postingType` omitted. |
 | `postingType must be "Ship", "Receive", or "ShipReceive". Received: {value}` | `postingType` had an unsupported value, or `ShipReceive`/`Ship+Receive` was requested for a non-direct transfer (not supported by BC in one step). |
 | (BC posting error text) | `TransferOrder-Post (Yes/No).Run` threw (e.g. insufficient inventory, unreleased order). |
@@ -87,4 +90,7 @@ Calling this message type requires the `BIFROST ItemPost ori` permission set in 
 - `Inventory.TransferOrder.PreviewPost` - simulate before posting.
 - `Inventory.TransferOrder.Release` - release before posting.
 - `Inventory.TransferOrder.Statistics` - inspect totals.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

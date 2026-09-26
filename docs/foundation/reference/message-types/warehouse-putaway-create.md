@@ -97,7 +97,7 @@ Verified live (BC 27, CRONUS IS, location `CEPUT` with `Use Put-away Worksheet =
 
 ## Verified Behaviour Matrix
 
-Each row was executed live via the BC Bifrost MCP `call_message_type` tool:
+Each row was executed live via the BC Bifrost MCP `invoke_message_type` tool:
 
 | Scenario | Result |
 |---|---|
@@ -161,7 +161,7 @@ When orchestrating this message type from an agent:
 
 ## Reproduce / Test via the BC Bifrost MCP
 
-A full end-to-end test against a CRONUS-style tenant (all steps are `call_message_type` / `set_records` MCP tools):
+A full end-to-end test against a CRONUS-style tenant (all steps are `invoke_message_type` / `set_records` MCP tools):
 
 1. `set_records` on `Location` — create a worksheet put-away location: `{ RequireReceive: true, RequirePutaway: true, UsePutawayWorksheet: true, BinMandatory: false }`.
 2. `set_records` on `Inventory Posting Setup` — add a row for the new location + the item's Invt. Posting Group (copy accounts from an existing location).
@@ -186,4 +186,7 @@ A full end-to-end test against a CRONUS-style tenant (all steps are `call_messag
 - `Warehouse.Receipt.Post` — produces the input (the Posted Whse. Receipt).
 - `Warehouse.Putaway.Register` — registers the put-away after the warehouse worker has placed the items.
 - `Data.Records.Get` — load any field on the resulting `Warehouse Activity Header` / `Warehouse Activity Line`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

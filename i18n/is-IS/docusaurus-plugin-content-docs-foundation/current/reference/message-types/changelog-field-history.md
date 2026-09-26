@@ -81,3 +81,6 @@ Skilar the current Gildi of a Reitur plus its full change history úr BC Change 
 - `ChangeLog.Field.Restore`
 - `ChangeLog.Records.Delta`
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

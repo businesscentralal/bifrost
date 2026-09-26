@@ -22,3 +22,7 @@ Skilar samantektarlínum fyrir hvern samstarfsaðila söluaðilans sem kallar. H
   - `partnerTenantIdHash`, `partnerCompanyName`, `partnerFriendlyName`
   - `totals` — `totalCustomers`, `customersAboveFreeTier`, `userMessages`, `appMessages`, `totalCapacityPerDay`
   - `tiers[]` — línur fyrir hvert þrep með `name`, `limitPerDay`, `customerCount`, `capacityPerDay`
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+

@@ -72,9 +72,15 @@ Returns `{id, deletedAt}` pairs from the Bifrost Delete Log — the deletion equ
 | Read permission denied | populated by `CheckTableReadPermission` |
 | Invalid table | `Table {name} not found.` |
 
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
 ## Related Message Types
 
 - **Deleted.Records.Get** — full snapshot per deleted record (requires Store Record).
 - **Data.RecordIds.Get** — same shape for current (non-deleted) records.
 - **CSV.DeletedRecords.Get** — CSV export for compliance.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

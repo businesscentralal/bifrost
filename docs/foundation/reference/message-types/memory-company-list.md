@@ -25,7 +25,7 @@ Outbound
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | skip | Integer | No | Number of records to skip |
-| take | Integer | No | Page size (0 = no limit) |
+| take | Integer | No | Page size (default 100, hard maximum 1000) |
 | tableView | Text | No | BC `SetView` filter expression |
 
 ## Response Shape
@@ -43,8 +43,14 @@ Outbound
 ## Required Permissions
 Read access is granted by `BIFROST API ori` (the base API permission set) plus the inherent permission on the implementation codeunit. No additional permission set is required to list company memory.
 
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
 ## Related Message Types
 - `Memory.Company.Get`
 - `Memory.Company.Set`
 - `Memory.User.List`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -136,3 +136,6 @@ After identifying which tables contain entries, use `Data.Records.Get` with the 
 - **Data.RecordIds.Get** — Get record IDs with filters for a specific table
 - **Data.Totals.Get** — Aggregate numeric fields across matching records
 
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
+

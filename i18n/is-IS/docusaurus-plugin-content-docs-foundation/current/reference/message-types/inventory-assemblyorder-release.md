@@ -64,10 +64,13 @@ None beyond identification.
 ## Villur
 | Villa | Orsök |
 |-------|-------|
-| `Assembly order identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, documentNo, assemblyOrderNo, no).` | No identifier supplied eða lookup mistókst. |
+| `Assembly Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, assemblyOrderNo, no.` (`MissingParameter`); gefið en fannst ekki: `Assembly Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No identifier supplied eða lookup mistókst. |
 | (BC validation Villa text) | `Release Assembly Document.Run` mistókst (e.g. lines vantar áskilið fields, insufficient inventory). |
 
 ## Tengdar skilaboðategundir
 - `Inventory.AssemblyOrder.Reopen` - reverse the release.
 - `Inventory.AssemblyOrder.Post` - post eftir release.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

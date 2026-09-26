@@ -121,11 +121,14 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 |-------|-------|
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Kallandi lacks the `BIFROST GL Post ori` heimild set. |
 | `Purchase document {no} has no lines to post.` | The Uppruni header has no `Purchase Line` rows. |
-| `Document identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo).` | No skjal resolved með `FindPurchaseHeader`. |
+| `Purchase Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`); gefið en fannst ekki: `Purchase Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No skjal resolved með `FindPurchaseHeader`. |
 | Underlying BC Villa text | hvaða Villa raised með `Purch.-Post` (vantar `Vendor Invoice No.`, duplicate `Vendor Cr. Memo No.`, both posting flags false, vantar posting setup, blocked items, dimension Villur, etc.). |
 
 ## Tengdar skilaboðategundir
 - `Purchase.Document.PreviewPost` — Simulate the post og inspect the would-be bók færslur.
 - `Purchase.Document.Statistics` — Header totals án posting.
 - `Purchase.Document.Release` / `Purchase.Document.Reopen` — Manage status áður en posting.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

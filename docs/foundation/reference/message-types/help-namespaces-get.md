@@ -13,7 +13,7 @@ This page is generated from the message type's own help codeunit by
 
 
 ## Overview
-Returns the distinct list of AL namespace values for all non-obsolete normal tables in `Table Metadata`. This is a lightweight server-side aggregation — the BC server collects unique namespace strings without returning full table metadata. Use this as **Step 1** in table discovery before calling `Help.Tables.Get` with a `namespace` filter.
+Returns the distinct list of AL namespace values for all non-obsolete normal tables in `Table Metadata`. This is a lightweight server-side aggregation — the BC server collects unique namespace strings without returning full table metadata. Use this as **Step 1** in table discovery before calling `Help.Tables.Get` with a `namespaceFilter`.
 
 ## Direction
 Outbound
@@ -24,7 +24,7 @@ Outbound
 ## Request Parameters
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| namespaceFilter | Text | No | Optional filter expression. Supports BC wildcards: `Microsoft.Finance.*` returns only Finance namespaces. Omit to return all namespaces. |
+| namespaceFilter | Text | No | Optional filter on AL namespace. Exact value, or a case-insensitive wildcard (`*` any sequence, `?` one character). `Microsoft.Sales*` returns only namespaces with that prefix. Omit to return all namespaces. |
 
 ## Request Examples
 All namespaces:
@@ -57,7 +57,7 @@ Step 1 — discover namespaces (this type, lightweight):
   → { "namespaces": ["Microsoft.Sales.Customer", "Microsoft.Finance.GeneralLedger", ...] }
 
 Step 2 — list tables in the relevant namespace:
-  { "type": "Help.Tables.Get", "data": { "namespace": "Microsoft.Sales.*" } }
+  { "type": "Help.Tables.Get", "data": { "namespaceFilter": "Microsoft.Sales*" } }
   → { "result": [ { "id": 18, "name": "Customer", ... }, ... ] }
 ```
 
@@ -66,7 +66,7 @@ Step 2 — list tables in the relevant namespace:
 ## Notes
 - Only non-obsolete (`ObsoleteState = No | Pending`) tables of type `Normal` are included.
 - Namespaces are returned in the order first encountered during a table scan; the order may vary between calls.
-- The `namespace` filter uses standard BC `SetFilter` wildcards: `*` matches any substring, `?` matches a single character.
+- `namespaceFilter` is an exact match or a case-insensitive `*` / `?` wildcard against each namespace. `Microsoft.Sales*` includes `Microsoft.Sales.Customer` and excludes `Microsoft.Service.*` and `System.*`.
 
 ## Related Message Types
 - `Help.Tables.Get` — use after this type to list tables within a namespace

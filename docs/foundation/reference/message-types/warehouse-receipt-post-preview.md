@@ -127,7 +127,10 @@ None.
 
 | Error | Cause |
 |---|---|
-| `Warehouse Receipt identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, no, receiptNo).` | None of subject, systemId, recordSystemId, id, no, receiptNo resolved a header. (Exact wording — verified live.) |
+| `Warehouse Receipt Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, receiptNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Warehouse Receipt Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Warehouse Receipt {No} has no lines to post.` | No lines or all Qty. to Receive = 0. |
 | `Posting preview failed and no entries were captured ...` | Underlying `Whse.-Post Receipt` raised an error before capturing entries (e.g. missing Bin Code, blocked item). The original BC error text is bubbled through. |
 
@@ -136,4 +139,7 @@ None.
 - `Warehouse.Receipt.Post` — commit the actual posting after preview looks correct.
 - `Warehouse.Receipt.Create` — create the receipt before previewing it.
 - `Inventory.TransferOrder.PreviewPost` — analogous preview for transfer orders.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

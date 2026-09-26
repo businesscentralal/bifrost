@@ -13,7 +13,7 @@ This page is generated from the message type's own help codeunit by
 
 
 ## Overview
-Returns the BC identity context of the caller — user, roles, linked master-data records (Resource, Salesperson, Employee, Customer, Vendor, Contact), notification/approval setup, company info, warehouse locations, responsibility centers, and currently pending notifications and approval requests.
+Returns the BC environment and identity context of the caller, plus user, roles, linked master-data records, notification/approval setup, company information, and pending work.
 
 Most subsection links default to BC standard fields on `User Setup`. When a `Bifrost User Setup` row exists for the user, its override fields (Resource No., Salesperson Code, Employee No., G/L Account No., Customer No., Vendor No., Contact No.) take precedence.
 
@@ -35,8 +35,10 @@ None. The request body is not read.
 ```json
 {
   "status": "Success",
+  "environment": { "name": "Production", "entraTenantId": "...", "companyId": "...", "companyName": "CRONUS", "companyDisplayName": "CRONUS International Ltd.", "isSaaS": true, "isOnPremises": false, "isProduction": true, "isSandbox": false },
   "user": { },
   "personalization": { },
+  "sessionSourceApproval": { "approvalType": "Manual", "requiresApproval": true },
   "userSetup": { },
   "approvalSetup": { },
   "notificationSetup": { },
@@ -63,8 +65,10 @@ None. The request body is not read.
 | Field | Type | Description |
 |-------|------|-------------|
 | status | Text | `Success` |
+| environment | Object | Active BC environment and company: `{ name, entraTenantId, companyId, companyName, companyDisplayName, isSaaS, isOnPremises, isProduction, isSandbox }`. On-premises uses the BC tenant ID fallback. |
 | user | Object | Logged-in user (User Security Id, name, language, email) |
 | personalization | Object | User personalization (profile, role center, language code) |
+| sessionSourceApproval | Object | Bifrost session-source configuration: `{ approvalType, requiresApproval }`. Help messages remain callable when approval is required. |
 | userSetup | Object | `User Setup` record for the user |
 | approvalSetup | Object | Approval-related fields from `User Setup` |
 | notificationSetup | Object | Notification entry preferences |

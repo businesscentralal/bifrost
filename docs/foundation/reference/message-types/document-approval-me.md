@@ -25,7 +25,7 @@ Outbound
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | skip | Integer | No | Pagination offset (default 0) |
-| take | Integer | No | Page size (default 50, max 1000) |
+| take | Integer | No | Page size (default 100, hard maximum 1000) |
 
 ## Request Example
 ```json
@@ -69,9 +69,15 @@ Each `result` element wraps one Approval Entry. Fields prefixed with `record*` d
 | approvalCode | Code | Bifrost approval log code, if a log entry exists |
 | tableId / tableName / tableCaption / recordSystemId | mixed | Document being approved |
 
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
 ## Related Message Types
 - `Document.Approval.Get`
 - `Document.Approval.Approve`
 - `Document.Approval.Reject`
 - `Document.Approval.Delegate`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -78,3 +78,6 @@ Skilar `{id, modifiedAt}` pairs fyrir færslur in a BC tafla — a lightweight v
 - **Deleted.RecordIds.Get** — sama shape but fyrir deleted færslur (`deletedAt` instead of `modifiedAt`).
 - **Help.Tables.Get** — tafla discovery.
 
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+
