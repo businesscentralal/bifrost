@@ -22,8 +22,9 @@
     app in the mapping table below.
 
 .PARAMETER BaseUrl
-    Bifröst API root, including the company segment. Defaults to the documentation
-    container.
+    Bifröst API root, including the company segment
+    (`https://<host>/<instance>/api/origo/bifrost/v1.0/companies(<id>)`). Defaults to the
+    BIFROST_DOCS_BASEURL environment variable (a repository secret in CI).
 
 .PARAMETER SiteRoot
     Repository root of the documentation site. Defaults to the parent of this script.
@@ -52,7 +53,8 @@
 param(
     [string] $App,
 
-    [string] $BaseUrl = 'https://cosmo-alpaca-enterprise.westeurope.cloudapp.azure.com:443/f068155f0c39rest/api/origo/bifrost/v1.0/companies(b93c35e0-6a9d-f111-90df-7ced8d9d7f83)',
+    # Never commit an environment URL here: the repository is public.
+    [string] $BaseUrl = $env:BIFROST_DOCS_BASEURL,
 
     [string] $Tenant = 'default',
 
@@ -410,6 +412,10 @@ if (Test-Path $LockFile) {
         throw "Another Bifröst run holds $LockFile (started $([int]$age.TotalMinutes) minute(s) ago). Wait for it to finish, or delete the file if it is stale."
     }
     Write-Warning "Ignoring stale lock file $LockFile ($([int]$age.TotalHours) hour(s) old)."
+}
+
+if (-not $BaseUrl) {
+    throw 'No Bifröst API root. Set the BIFROST_DOCS_BASEURL environment variable or pass -BaseUrl.'
 }
 
 New-Item -ItemType File -Path $LockFile -Force | Out-Null

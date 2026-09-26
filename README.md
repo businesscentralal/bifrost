@@ -190,7 +190,9 @@ The script calls the Bifröst queue API on the development container
 type to its owning app, and writes one Markdown page per type into
 `docs/<app>/reference/message-types/`. Credentials come from the user-level
 environment variables `BC28IS_USER` and `BC28IS_PASSWORD` locally, or from the
-`BC_USER` / `BC_PASSWORD` repository secrets in CI. See the script header for the
+`BC_USER` / `BC_PASSWORD` repository secrets in CI. The API root comes from
+`BIFROST_DOCS_BASEURL` (environment variable locally, repository secret in CI); it
+is never committed. See the script header for the
 type-to-app mapping table.
 
 Calls go out strictly one at a time, and the script takes a lock file
@@ -210,6 +212,7 @@ variables → Actions*):
 | --- | --- |
 | `BC_USER` | Business Central user name for the documentation container |
 | `BC_PASSWORD` | That user's web service access key or password |
+| `BIFROST_DOCS_BASEURL` | Bifröst API root of the documentation container, including the company segment |
 
 The workflow is skipped automatically when the secrets are absent.
 

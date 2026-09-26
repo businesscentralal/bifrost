@@ -315,9 +315,8 @@ run its scenarios, and clean up afterwards — all through message types. The pa
 
 ## Test data conventions
 
-Bifröst apps are tested in shared company databases — CRONUS IS on the Icelandic container,
-CRONUS International on the W1 one — which are also used for manual verification and demos.
-Two rules follow.
+Test runs often share a company database (a CRONUS company, for example) with manual
+verification and demos. Two rules follow.
 
 **Prefix everything you create, per test stream.** The convention across the family is
 `BIFT-<letter>`: `BIFT-A0001`, `BIFT-B0001`. The prefix makes a test's own records
