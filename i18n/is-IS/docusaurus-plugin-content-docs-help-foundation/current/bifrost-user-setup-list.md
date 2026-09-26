@@ -13,6 +13,7 @@ Síðan **Bifröst notandauppsetning** sýnir uppsetningu á hvern notanda fyrir
 | --- | --- |
 | **Öryggisauðkenni notanda** | Einstakt öryggisauðkenni Business Central notandans. |
 | **Notandanafn** | Birtinganafn notandans (lesskráð, dregið af öryggisauðkenni notanda). |
+| **Gjaldfærslutegund** | Lesskráð. Sem hvað skilaboð þessa notanda eru gjaldfærð: **Notandi**, **Forritsskráning**, og í áskrift **Innri**, **Sýniumhverfi** eða **Þjónustuaðili**. Ákvörðuð þegar notandinn er settur upp og uppfærð með **Samstilla** á síðunni Uppsetning Bifröst og með daglegu notkunarsamstillingunni. Sjá [Gjaldfærslutegundir í áskrift](/foundation/licensing/license-types/#charge-types). |
 | **Kerfisleiðbeining** | Texti leiðbeiningarinnar sem bætt er við AI-samhengi fyrir þennan notanda. Stýrt í gegnum `User Setup Mgt ori` kóðaeininguna eða notandauppsetningarspjaldið. |
 | **Fjárhagslykill nr.** | Valfrjáls fjárhagslykill notaður af `Help.WhoAmI.Get` fyrir stöðuskýrslugerð. |
 | **Starfsmannsnr.** | Valfrjáls starfsmannatengsl fyrir auðkennissamhengi notandans. |

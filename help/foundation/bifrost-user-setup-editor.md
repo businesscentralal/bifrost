@@ -11,7 +11,8 @@ The **User Setup Editor** allows you to configure per-user settings for the Bifr
 
 | Field | Description |
 | --- | --- |
-| **User Monthly Message Quota** | The most chargeable messages this user may use in a calendar month, on either license type. `0` means no limit. When it is reached, the user's calls are refused until the next month. Not enforced in a sandbox. Counted from the Bifrost Messages not yet reported by the daily usage sync, so it caps the messages since the last sync rather than the full month - see [How the monthly quotas are counted](/foundation/licensing/license-types/#how-monthly-quotas-are-counted). |
+| **User Monthly Message Quota** | The most chargeable messages this user may use in a calendar month, on either license type. `0` means no limit. When it is reached, the user's calls are refused until the next month. Not enforced in a sandbox. Counts every charge type of the user's messages in the month - see [How the monthly quotas are counted](/foundation/licensing/license-types/#how-monthly-quotas-are-counted). |
+| **Charge Type** | Read-only. What this user's messages are charged as: **User**, **App Registration**, and on Subscription **Internal**, **Demo** or **Support**. Set when the user is set up and updated by **Sync** on Bifröst Setup and by the daily usage sync. See [Charge types on Subscription](/foundation/licensing/license-types/#charge-types). |
 
 ## Session Source
 

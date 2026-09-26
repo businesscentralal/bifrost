@@ -27,6 +27,9 @@ The **View** field at the top shows whose customers are listed.
 | **Rate Limit Tier** / **Rate Limit Per Day** | The tier the customer chose and its API calls per day. Free is the default 1,000 calls per day. |
 | **Above Free Tier** | The customer chose a tier above Free - invoice it at the tier price agreed with the customer. |
 | **User Msgs MTD** / **App Msgs MTD** | User and App Registration messages used this month - invoice them at the Subscription prices agreed with the customer. |
+| **Internal Messages MTD** | Messages this month by people in this customer when it is your own tenant. Reported separately from customer usage. |
+| **Demo Messages MTD** | Messages this month by people in this customer when you marked it as a demo environment. Reported separately from customer usage. |
+| **Support Messages MTD** | Messages this month by your users working in this customer through a delegated partner plan. Reported separately from customer usage. |
 
 ## Actions
 

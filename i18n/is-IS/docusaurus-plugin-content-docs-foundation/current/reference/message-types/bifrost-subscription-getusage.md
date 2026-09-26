@@ -30,7 +30,7 @@ Umfangið Partner og Vendor nær yfir alla viðskiptavini í framleiðsluumhverf
 Viðskiptavinur er tengdur þegar hann hefur samþykkt boð frá samstarfsaðila söluaðilans.
 
 ## Almennar síur
-`licenseType` takmarkar niðurstöðuna við einn pott (t.d. `User` eða `App Registration`). `startDate` og `endDate` afmarka notkunardagsetninguna (yyyy-MM-dd). `skip` / `take` veita afmarkaða síðuskiptingu. Allar síur eiga við um öll umfang, þar á meðal umfangið Partner og Vendor.
+`licenseType` takmarkar niðurstöðuna við eina gjaldfærslutegund: `User`, `App Registration`, og í áskrift einnig `Internal`, `Demo` og `Support`. `startDate` og `endDate` afmarka dagsetninguna (yyyy-MM-dd); `dateBasis` velur hvaða dagsetningu: `usageDate` (sjálfgefið, daginn sem skilaboðin voru notuð) eða `reportedDate` (daginn sem notkunin var tilkynnt til leyfisþjónustunnar, sem getur verið degi eða meira seinna). Dagur getur haft nokkrar notkunarfærslur af sömu gjaldfærslutegund, eina fyrir hverja tilkynningu; leggðu saman `quantity` þeirra. `skip` / `take` veita afmarkaða síðuskiptingu. Allar síur eiga við um öll umfang, þar á meðal umfangið Partner og Vendor.
 
 ## Dæmi um beiðnir
 CurrentCompany (sjálfgefið):
@@ -56,7 +56,7 @@ Vendor:
 
 ## Svar
 ```json
-{ "status": "Success", "scope": "Vendor", "totalCount": 128, "count": 50, "skip": 0, "take": 50, "items": [ /* usage documents */ ] }
+{ "status": "Success", "scope": "Vendor", "dateBasis": "usageDate", "totalCount": 128, "count": 50, "skip": 0, "take": 50, "items": [ /* usage documents */ ] }
 ```
 
 ## Heimildavillur

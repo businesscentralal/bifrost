@@ -30,7 +30,7 @@ The Partner and Vendor scopes cover every production customer linked to that Par
 A customer is linked when it has accepted an invitation from a Partner of the Vendor.
 
 ## Common filters
-`licenseType` restricts to a pool (e.g. `User` or `App Registration`). `startDate` and `endDate` bound the usage date (yyyy-MM-dd). `skip` / `take` provide bounded paging. All filters apply to every scope, including the Partner and Vendor scopes.
+`licenseType` restricts to a charge type: `User`, `App Registration`, and on Subscription also `Internal`, `Demo` and `Support`. `startDate` and `endDate` bound the date (yyyy-MM-dd); `dateBasis` chooses which date: `usageDate` (default, the day the messages were used) or `reportedDate` (the day the usage was reported to the licensing service, which can be a day or more later). A day can have several usage entries of the same charge type, one per report; add their `quantity`. `skip` / `take` provide bounded paging. All filters apply to every scope, including the Partner and Vendor scopes.
 
 ## Request examples
 CurrentCompany (default):
@@ -56,7 +56,7 @@ Vendor:
 
 ## Response
 ```json
-{ "status": "Success", "scope": "Vendor", "totalCount": 128, "count": 50, "skip": 0, "take": 50, "items": [ /* usage documents */ ] }
+{ "status": "Success", "scope": "Vendor", "dateBasis": "usageDate", "totalCount": 128, "count": 50, "skip": 0, "take": 50, "items": [ /* usage documents */ ] }
 ```
 
 ## Authorization errors

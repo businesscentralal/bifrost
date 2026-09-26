@@ -40,6 +40,33 @@ Skilaboð eru talin í tveimur pottum, eftir því hver framkvæmdi kallið:
 | **Notandi** (User) | Köllum sem venjulegur notandi framkvæmir - gagnvirkt eða gegnum vefþjónustu. |
 | **Forritsskráning** (App Registration) | Köllum sem Microsoft Entra forrit (þjónustuaðili) framkvæmir. |
 
+### Gjaldfærslutegundir í áskrift {#charge-types}
+
+Í áskrift er hvert skilaboð einnig skráð með **gjaldfærslutegund**, svo samstarfsaðilinn þinn og
+söluaðili hans geti greint raunverulega notkun viðskiptavina frá eigin notkun. Gjaldfærslutegund
+hvers notanda birtist í dálkinum **Gjaldfærslutegund** á síðunni
+[Uppsetning notanda Bifröst](/help/foundation/bifrost-user-setup-list/). Fyrsta reglan sem á við
+gildir:
+
+| Gjaldfærslutegund | Notandinn er |
+|---|---|
+| **Þjónustuaðili** (Support) | notandi samstarfsaðila sem vinnur í leigjandanum þínum gegnum framselda samstarfsaðilaáskrift (hvaða sem er, t.d. Delegated Admin eða Delegated Helpdesk) |
+| **Forritsskráning** (App Registration) | Microsoft Entra forrit (þjónustuaðili) |
+| **Innri** (Internal) | manneskja í leigjanda sem eigin samstarfsaðili bauð sem viðskiptavini - samstarfsaðilinn að nota Bifröst sjálfur |
+| **Sýniumhverfi** (Demo) | manneskja í leigjanda sem samstarfsaðilinn merkti sem **sýniumhverfi** þegar hann bauð honum |
+| **Notandi** (User) | allir aðrir - venjuleg notkun viðskiptavinar |
+
+Innri og Sýniumhverfi eiga aðeins við um fólk sem annars væri **Notandi**; forritsskráning eða
+framseldur notandi samstarfsaðila heldur Forritsskráningu eða Þjónustuaðila. Í **fyrirframgreiddu
+leyfi** eru aðeins Notandi og Forritsskráning notuð.
+
+Gjaldfærslutegundin er ákvörðuð þegar notandi byrjar að nota Bifröst í fyrirtæki og endurmetin fyrir
+alla notendur fyrirtækisins með **daglegu notkunarsamstillingunni** (sem fyrsta gjaldskylda kall
+dagsins ræsir) og með **Samstilla** á síðunni Uppsetning Bifröst. Eftir breytingu á leyfi eða
+samstarfsaðila - nýtt samband við samstarfsaðila, uppsagt samband, notandi sem fær eða missir
+framselda áskrift - gilda nýju gjaldfærslutegundirnar frá næstu daglegu samstillingu; veldu
+**Samstilla** til að virkja þær strax.
+
 ## Fyrir fyrsta kallið {#before-the-first-call}
 
 Hvert fyrirtæki verður að samþykkja **notendaleyfissamninginn** (EULA) í
@@ -91,10 +118,12 @@ viðskiptavinarins - fer leigjandinn aftur á **fyrirframgreitt leyfi** og álag
 
 Báðar tegundir leyfa geta sett þak á eigin mánaðarlega notkun:
 
-- **Mánaðarlegur skilaboðakvóti fyrirtækis** á síðunni Uppsetning Bifröst - öll gjaldskyld
-  skilaboð fyrirtækisins í almanaksmánuðinum;
+- **Mánaðarlegur skilaboðakvóti fyrirtækis** á síðunni Uppsetning Bifröst - gjaldskyld skilaboð
+  fyrirtækisins í almanaksmánuðinum. Í áskrift telur hann allar gjaldfærslutegundir nema
+  **Forritsskráningu**, svo köll milli þjónusta stöðva aldrei notendurna þína; í fyrirframgreiddu
+  leyfi telur hann báða pottana;
 - **Mánaðarlegur skilaboðakvóti notanda** í Uppsetningu notanda Bifröst fyrir hvern notanda -
-  gjaldskyld skilaboð þess notanda í almanaksmánuðinum.
+  gjaldskyld skilaboð þess notanda í almanaksmánuðinum, hver sem gjaldfærslutegund þeirra er.
 
 `0` (sjálfgefið) þýðir engin takmörk. Þegar kvóta er náð er köllum hafnað með villu um uppurinn
 mánaðarlegan kvóta fram að næsta almanaksmánuði; svarið tilgreinir hvaða kvóti (`user` eða
@@ -105,16 +134,13 @@ mánaðarlegum kvóta bera árangursrík svör viðvörun. Mánaðarlegum kvóta
 ### Hvernig mánaðarlegu kvótarnir eru taldir {#how-monthly-quotas-are-counted}
 
 Business Central telur mánaðarlegu kvótana sjálft, út frá **Bifröst-skilaboðum** fyrirtækisins:
-gjaldskyldum skilaboðum yfirstandandi almanaksmánaðar sem eru enn merkt gjaldskyld þar. Tvennt
-lækkar þá tölu, svo í reynd takmarka kvótarnir minna en heilan mánuð:
+gjaldskyldum skilaboðum yfirstandandi almanaksmánaðar. Skil á notkun til leyfisþjónustunnar breyta
+ekki þeirri tölu - skilaboð sem dagleg notkunarsamstilling hefur skilað teljast áfram með þar til
+mánuðinum lýkur.
 
-- **Dagleg notkunarsamstilling.** Þegar skilaboðum dagsins hefur verið skilað til leyfisþjónustunnar
-  eru þau ekki lengur merkt gjaldskyld og teljast ekki lengur með í mánaðarlegu kvótunum. Í raun
-  takmarka kvótarnir skilaboð frá síðustu árangursríku samstillingu - yfirleitt yfirstandandi dag.
-  Reikningsfært er eftir skilaðri notkun, sem þetta hefur ekki áhrif á.
-- **Varðveisla.** Varðveislustefna á **Bifröst-skilaboðum** sem eyðir skilaboðum yfirstandandi
-  mánaðar fjarlægir þau úr talningunni. Geymdu Bifröst-skilaboð í minnst 31 dag ef þú notar
-  mánaðarlegu kvótana.
+**Varðveisla** breytir henni: varðveislustefna á **Bifröst-skilaboðum** sem eyðir skilaboðum
+yfirstandandi mánaðar fjarlægir þau úr talningunni. Geymdu Bifröst-skilaboð í minnst 31 dag ef þú
+notar mánaðarlegu kvótana.
 
 ## Sandkassaumhverfi
 

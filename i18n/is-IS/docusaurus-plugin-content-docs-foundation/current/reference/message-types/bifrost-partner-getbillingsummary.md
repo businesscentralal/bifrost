@@ -17,7 +17,10 @@ Aðeins áskriftarnotkun er reikningsfærð: viðskiptavinur er talinn með á m
 
 ## Beiðni
 `period` = `currentMonth` (sjálfgefið) eða `previousMonth`. Eða tilgreind `startDate` + `endDate` (yyyy-MM-dd).
+`dateBasis` = `usageDate` (sjálfgefið) síar tímabilið á daginn sem skilaboðin voru notuð; `reportedDate` síar á daginn sem notkunin var tilkynnt til leyfisþjónustunnar. Notkun getur verið tilkynnt degi eða meira eftir að hún varð, svo reikningsfærsla eftir `reportedDate` breytir aldrei tímabili sem þegar er lokað. Öðrum gildum er hafnað.
 
 ## Svar
-- `totals` — `totalCustomers`, `customersAboveFreeTier`, `userMessages`, `appMessages`, `totalCapacityPerDay`
+- `totals` — `totalCustomers`, `customersAboveFreeTier`, `userMessages`, `appMessages`, `internalMessages`, `demoMessages`, `supportMessages`, `totalCapacityPerDay`
+- `internalMessages` — notkun fólks hjá viðskiptavini sem er eigin leigjandi samstarfsaðilans; `demoMessages` — notkun hjá viðskiptavini sem samstarfsaðilinn merkti sem sýniumhverfi; `supportMessages` — notkun notenda samstarfsaðilans sem vinna hjá viðskiptavini gegnum framselda samstarfsaðilaáskrift. Hvert þeirra er tilkynnt aðskilið frá `userMessages` (venjuleg notkun viðskiptavina) og `appMessages` (forritsskráningar).
+- `dateBasis` — dagsetningargrunnurinn sem tímabilið var síað á
 - `tiers[]` — línur fyrir hvert þrep með `name`, `limitPerDay`, `customerCount`, `capacityPerDay`

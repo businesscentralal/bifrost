@@ -84,9 +84,9 @@ Hvaða leigjandi sem er getur sett **Mánaðarlegan skilaboðakvóta fyrirtækis
 þeir einu takmörkin. `0` þýðir engin takmörk. Þegar kvóta er náð er köllum hafnað fram að næsta
 almanaksmánuði. Kvóti notanda er athugaður á undan kvóta fyrirtækis.
 
-Talið er út frá gjaldskyldum skilaboðum í **Bifröst-skilaboðum** fyrirtækisins sem hafa ekki enn
-verið skilað til leyfisþjónustunnar: dagleg notkunarsamstilling og varðveislustefna á
-Bifröst-skilaboðum lækka bæði töluna. Sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/foundation/licensing/license-types/#how-monthly-quotas-are-counted).
+Talið er út frá gjaldskyldum skilaboðum almanaksmánaðarins í **Bifröst-skilaboðum** fyrirtækisins;
+skil á notkun lækka ekki töluna, varðveislustefna á Bifröst-skilaboðum gerir það. Í áskrift telur
+kvóti fyrirtækis ekki forritsskráningarskilaboð; kvóti notanda telur öll skilaboð notandans. Sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/foundation/licensing/license-types/#how-monthly-quotas-are-counted).
 
 ## Viðvaranir
 

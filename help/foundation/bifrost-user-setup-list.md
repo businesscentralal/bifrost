@@ -13,6 +13,7 @@ The **Bifrost User Setup** page displays per-user configuration for the Bifrost 
 | --- | --- |
 | **User Security ID** | The unique security identifier of the Business Central user. |
 | **User Name** | The display name of the user (read-only, derived from the User Security ID). |
+| **Charge Type** | Read-only. What this user's messages are charged as: **User**, **App Registration**, and on Subscription **Internal**, **Demo** or **Support**. Set when the user is set up and updated by **Sync** on Bifröst Setup and by the daily usage sync. See [Charge types on Subscription](/foundation/licensing/license-types/#charge-types). |
 | **System Prompt** | Prompt text appended to AI context for this user. Managed through the `User Setup Mgt ori` codeunit or the User Setup Editor card. |
 | **G/L Account No.** | Optional G/L account override used by `Help.WhoAmI.Get` for balance reporting. |
 | **Employee No.** | Optional employee override for the user's identity context. |
