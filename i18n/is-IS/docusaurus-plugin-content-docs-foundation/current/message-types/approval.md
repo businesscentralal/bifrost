@@ -13,6 +13,8 @@ sidebar_position: 9
 
 Þetta skjal lýsir samþykktarskilaboðategundunum í Bifröst API. Þessar skilaboðategundir bjóða upp á aðgerðir til að stofna og sækja samþykktarfærslur og tengd samþykktarverkferli úr Business Central.
 
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](../reference/errors.md). Villusvör innihalda aldrei kallastafla.
+
 | Skilaboðategund | Stefna | Tilgangur | Tengdar töflur |
 | --- | --- | --- | --- |
 | Document.Approval.Get | Útlæg | Sækir samþykktarfærslur með tengdum samþykktaraðgerðum og heimildasíu | Approval Log ori (10077885), Approval Entry, Posted Approval Entry |
@@ -375,7 +377,7 @@ Svarið fylgir sama sniði og Document.Approval.Get. Sjá kaflann um [Snið svar
 | lineNumbers á Incoming Document | Villa: lineNumbers ekki stutt |
 | Engar skjalalínur (Sales/Purchase) | Villa frá bókunarútreikningi BC |
 | Skjal þegar Released/Pending Prepayment | Villa frá stöðustaðfestingu |
-| Bilun í vinnslukóðaeiningu | Skilar villujson með `error` og `callstack` reitum |
+| Bilun í vinnslukóðaeiningu | Skilar villu með kóðanum `BusinessCentralError` og skilaboðum Business Central í `error` - sjá [Villur og viðvaranir](../reference/errors.md) |
 
 ---
 
@@ -519,8 +521,8 @@ Styður varasamþykki í gegnum BC staðlaða notandauppsetningu. Ef sá sem kal
 | Engin færsla fundin | `{"status":"Error","error":"No approval entries could be resolved..."}` |
 | Færsla finnst ekki | `{"status":"Error","error":"Approval Entry N not found."}` |
 | Færsla ekki opin | `{"status":"Error","error":"Approval Entry N has status X. Only entries with status Open can be approved."}` |
-| Óheimilt kall | `{"status":"Error","error":"...","callstack":"..."}` (BC staðlað heimildarvilla frá Approvals Mgmt.) |
-| Bilun í vinnslukóðaeiningu | Skilar villujson með `error` og `callstack` reitum |
+| Óheimilt kall | `{"status":"Error","error":"..."}` (BC staðlað heimildarvilla frá Approvals Mgmt.) |
+| Bilun í vinnslukóðaeiningu | Skilar villu með kóðanum `BusinessCentralError` og skilaboðum Business Central í `error` - sjá [Villur og viðvaranir](../reference/errors.md) |
 
 ---
 
@@ -666,8 +668,8 @@ Styður höfnun varamanns í gegnum BC staðlaða notandauppsetningu. Ef sá sem
 | Engin færsla fundin | `{"status":"Error","error":"No approval entries could be resolved..."}` |
 | Færsla finnst ekki | `{"status":"Error","error":"Approval Entry N not found."}` |
 | Færsla ekki opin | `{"status":"Error","error":"Approval Entry N has status X. Only entries with status Open can be rejected."}` |
-| Óheimilt kall | `{"status":"Error","error":"...","callstack":"..."}` (BC staðlað heimildarvilla frá Approvals Mgmt.) |
-| Bilun í vinnslukóðaeiningu | Skilar villujson með `error` og `callstack` reitum |
+| Óheimilt kall | `{"status":"Error","error":"..."}` (BC staðlað heimildarvilla frá Approvals Mgmt.) |
+| Bilun í vinnslukóðaeiningu | Skilar villu með kóðanum `BusinessCentralError` og skilaboðum Business Central í `error` - sjá [Villur og viðvaranir](../reference/errors.md) |
 
 ---
 
@@ -956,7 +958,7 @@ Styður framseljingu í gegnum BC staðlaða notandauppsetningu. Ef sá sem kall
 | Engin færsla fundin | `{"status":"Error","error":"No approval entries could be resolved..."}` |
 | Færsla finnst ekki | `{"status":"Error","error":"Approval Entry N not found."}` |
 | Færsla ekki opin | `{"status":"Error","error":"Approval Entry N has status X. Only entries with status Open can be delegated."}` |
-| Bilun í vinnslukóðaeiningu | Skilar villujson með `error` og `callstack` reitum |
+| Bilun í vinnslukóðaeiningu | Skilar villu með kóðanum `BusinessCentralError` og skilaboðum Business Central í `error` - sjá [Villur og viðvaranir](../reference/errors.md) |
 
 ---
 
@@ -1070,7 +1072,7 @@ Sama log-wrapped snið og aðrar samþykktaraðgerðir. Aðgerðarsértækur rei
 | Færsla finnst ekki | Villa með SystemId og tafla-ID |
 | Engin samþykktarskráningarfærsla fundin | Villa: "No approval log entry found for the record" |
 | Engar opnar færslur til afturköllunar | Skilar success með `cancelledEntries: 0` |
-| Bilun í vinnslukóðaeiningu | Skilar villujson með `error` og `callstack` reitum |
+| Bilun í vinnslukóðaeiningu | Skilar villu með kóðanum `BusinessCentralError` og skilaboðum Business Central í `error` - sjá [Villur og viðvaranir](../reference/errors.md) |
 
 ---
 

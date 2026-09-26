@@ -6,6 +6,8 @@ sidebar_position: 6
 
 Þetta skjal lýsir skilaboðategundum tengdum birgðum í Bifröst Foundation.
 
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](../reference/errors.md). Villusvör innihalda aldrei kallastafla.
+
 ## Yfirlit
 
 Skilaboðategundir fyrir birðir bjóða upp á virkni til að vinna með vörudagbækur (stofnun lína, sannvottun, bókun), tilfærsluskjöl (stofnun, útgáfu, opnun aftur, bókun, forskoðun bókunar, tölfræði), samsetningarpantanir og vöruhús-sendingar (stofnun úr útgefnum frumskjölum, bókun með valkvæðum reikning).
@@ -251,8 +253,8 @@ Auðkenning fylgir sömu þremur aðferðum.
 ```json
 {
   "status": "Error",
-  "error": "Error message text",
-  "callstack": "Full error callstack from posting"
+  "code": "BusinessCentralError",
+  "error": "Error message text"
 }
 ```
 
@@ -260,7 +262,7 @@ Auðkenning fylgir sömu þremur aðferðum.
 
 - Notar BC "Item Jnl.-Post Batch" einingu fyrir bókun.
 - Allar línur eru hreinsaðar úr runu eftir vel heppnaða bókun.
-- Bókun er pakkað í einangraða einingu þannig að villur skila byggðu svari með `callstack`.
+- Bókun er pakkað í einangraða einingu þannig að villur skila skipulegu villusvari (kóði `BusinessCentralError`); kallastaflinn fer eingöngu í fjarmælingar.
 
 **Ráðlögð aðferð:** Sannvotta með `Inventory.ItemJournal.Check` áður, bóka síðan með `Inventory.ItemJournal.Post`.
 
@@ -597,7 +599,7 @@ Inniheldur `documentNo`, `postedDocumentNo`, `postedSystemId`, `postedQuantity`,
 
 - Ófullnægjandi birgðir af íhlutum.
 - Staða ekki Losuð (háð Assembly Setup).
-- Undirliggjandi BC-villuboð skila aftur með `callstack`.
+- Undirliggjandi BC-villuboð skila sér í `error` (án kallastafla).
 
 ---
 

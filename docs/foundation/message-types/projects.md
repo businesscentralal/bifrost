@@ -6,6 +6,8 @@ sidebar_position: 7
 
 This document describes the Projects-related message types in Bifröst Foundation. These operate on BC's Job Journal tables under the new "Projects" namespace.
 
+Errors and warnings follow the shared shape - see [Errors and warnings](../reference/errors.md). Error responses never contain a call stack.
+
 ## Overview
 
 Projects message types provide functionality for working with project (job) journals, including line setup, validation and posting.
@@ -267,8 +269,8 @@ Identification follows the same three-method pattern.
 ```json
 {
   "status": "Error",
-  "error": "Error message text",
-  "callstack": "Full error callstack from posting"
+  "code": "BusinessCentralError",
+  "error": "Error message text"
 }
 ```
 
@@ -289,7 +291,7 @@ Identification follows the same three-method pattern.
 | `fromEntryNo` | integer | First Job Ledger Entry No. in register |
 | `toEntryNo` | integer | Last Job Ledger Entry No. in register |
 | `error` | string | Error message (only on Error status) |
-| `callstack` | string | Error callstack (only on Error status) |
+| `code` | string | Error code, `BusinessCentralError` when Business Central refused the posting (only on Error status) - see [Errors and warnings](../reference/errors.md) |
 
 ### Error Handling
 
@@ -303,7 +305,7 @@ Identification follows the same three-method pattern.
 
 - Uses BC's "Job Jnl.-Post Batch" codeunit for posting
 - All journal lines are cleared from the batch after successful posting
-- Posting is wrapped in an isolated codeunit so errors return a structured response with `callstack`
+- Posting is wrapped in an isolated codeunit so errors return a structured error response (code `BusinessCentralError`); the call stack goes to telemetry only
 - Note: although the namespace is `Projects`, the underlying BC tables remain `Job Journal Batch`, `Job Journal Line`, `Job Register`, and `Job Ledger Entry`
 
 **Recommended approach:** Validate with `Projects.ProjectJournal.Check` first, then post with `Projects.ProjectJournal.Post`.

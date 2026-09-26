@@ -6,6 +6,8 @@ sidebar_position: 5
 
 Þetta skjal lýsir skilaboðategundum tengdum fjármálum í Bifröst Foundation.
 
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](../reference/errors.md). Villusvör innihalda aldrei kallastafla.
+
 ## Yfirlit
 
 Skilaboðategundir fyrir fjármál bjóða upp á virkni til að vinna með almenn dagbókabókhald, þar með talið sannvottun og bókun.
@@ -491,8 +493,8 @@ JSON-gagnafæribreytur hafa forgang yfir subject-reitinn.
 ```json
 {
   "status": "Error",
-  "error": "Error message text",
-  "callstack": "Full error callstack from posting"
+  "code": "BusinessCentralError",
+  "error": "Error message text"
 }
 ```
 
@@ -515,7 +517,7 @@ JSON-gagnafæribreytur hafa forgang yfir subject-reitinn.
 | `fromVATEntryNo` | integer | Fyrsta VSK-færslunúmer í skráningu (0 ef engin) |
 | `toVATEntryNo` | integer | Síðasta VSK-færslunúmer í skráningu (0 ef engin) |
 | `error` | string | Villuboð (aðeins við Error stöðu) |
-| `callstack` | string | Villu-kallstafli (aðeins við Error stöðu) |
+| `code` | string | Villukóði, `BusinessCentralError` þegar Business Central hafnaði bókuninni (aðeins við Error stöðu) - sjá [Villur og viðvaranir](../reference/errors.md) |
 
 ### Villumeðferð
 
@@ -543,7 +545,7 @@ JSON-gagnafæribreytur hafa forgang yfir subject-reitinn.
 3. Kalla „Gen. Jnl.-Post Batch" (kóðaeining 80) til að bóka allar línur
 4. Sannvirkja að fjárhagsskráning hafi verið búin til
 5. Við velgengni: Skila tölfræði fjárhagsskráningar
-6. Við villu: Skila villuboðum með kallstafla
+6. Við villu: Skila skipulegri villu (kóði `BusinessCentralError` fyrir villu frá Business Central) - sjá [Villur og viðvaranir](../reference/errors.md)
 
 **Ráðlögð nálgun:** Sannvirkja með `Finance.GeneralJournal.Check` fyrst, svo bóka með `Finance.GeneralJournal.Post`.
 
@@ -697,8 +699,7 @@ Subject-reiturinn auðkennir fjárhagsskráninguna sem á að bakfæra:
 ```json
 {
   "status": "Error",
-  "error": "The register has already been reversed.",
-  "callstack": "..."
+  "error": "The register has already been reversed."
 }
 ```
 
@@ -711,7 +712,7 @@ Subject-reiturinn auðkennir fjárhagsskráninguna sem á að bakfæra:
 | `fromEntryNo` | Integer | Fyrsta færslunúmer í skráningunni |
 | `toEntryNo` | Integer | Síðasta færslunúmer í skráningunni |
 | `error` | Text | Villuboð (eingöngu við villu) |
-| `callstack` | Text | AL-kallstafli (eingöngu við villu) |
+| `code` | Text | Villukóði, `BusinessCentralError` þegar Business Central hafnaði bakfærslunni (eingöngu við villu) - sjá [Villur og viðvaranir](../reference/errors.md) |
 
 ### Sannvottun
 
@@ -725,7 +726,7 @@ Subject-reiturinn auðkennir fjárhagsskráninguna sem á að bakfæra:
 2. Staðfesta að skráning sé til og sé ekki þegar bakfærð
 3. Framkvæma bakfærslu með einangruðum skrif-kóðaeiningu (Codeunit.Run mynstur)
 4. Við velgengni: skila tölfræði skráningar
-5. Við villu: skila villuboðum með kallstafla
+5. Við villu: skila skipulegri villu (kóði `BusinessCentralError` fyrir villu frá Business Central) - sjá [Villur og viðvaranir](../reference/errors.md)
 
 ### Tengdar skilaboðategundir
 
@@ -778,8 +779,7 @@ Subject-reiturinn auðkennir færsluna sem á að bakfæra:
 ```json
 {
   "status": "Error",
-  "error": "The transaction has already been reversed.",
-  "callstack": "..."
+  "error": "The transaction has already been reversed."
 }
 ```
 
@@ -791,7 +791,7 @@ Subject-reiturinn auðkennir færsluna sem á að bakfæra:
 | `reversedTransactionNo` | Integer | Færslunúmerið sem var bakfært |
 | `entriesReversed` | Integer | Fjöldi fjárhagsfærslna sem voru bakfærðar |
 | `error` | Text | Villuboð (eingöngu við villu) |
-| `callstack` | Text | AL-kallstafli (eingöngu við villu) |
+| `code` | Text | Villukóði, `BusinessCentralError` þegar Business Central hafnaði bakfærslunni (eingöngu við villu) - sjá [Villur og viðvaranir](../reference/errors.md) |
 
 ### Sannvottun
 
@@ -805,7 +805,7 @@ Subject-reiturinn auðkennir færsluna sem á að bakfæra:
 2. Staðfesta að færslur séu til og séu ekki þegar bakfærðar
 3. Framkvæma bakfærslu með einangruðum skrif-kóðaeiningu (Codeunit.Run mynstur)
 4. Við velgengni: skila tölfræði færslu
-5. Við villu: skila villuboðum með kallstafla
+5. Við villu: skila skipulegri villu (kóði `BusinessCentralError` fyrir villu frá Business Central) - sjá [Villur og viðvaranir](../reference/errors.md)
 
 ### Tengdar skilaboðategundir
 
@@ -1095,8 +1095,8 @@ Notar sama snið og `Data.Records.Get`. `primaryKey` inniheldur `JournalTemplate
 ```json
 {
   "status": "Error",
-  "error": "Error message text",
-  "callstack": "Full error callstack from posting"
+  "code": "BusinessCentralError",
+  "error": "Error message text"
 }
 ```
 
@@ -1105,7 +1105,7 @@ Notar sama snið og `Data.Records.Get`. `primaryKey` inniheldur `JournalTemplate
 - Notar BC "FA Jnl.-Post Batch" einingu.
 - `totalQuantity` er yfirleitt 0 fyrir FA-bókanir (upphæðamiðað).
 - Línur eru hreinsaðar eftir vel heppnaða bókun.
-- Bókun er pakkað í einangraða einingu — villur skila byggðu svari með `callstack`.
+- Bókun er pakkað í einangraða einingu — villur skila skipulegu villusvari (kóði `BusinessCentralError`); kallastaflinn fer eingöngu í fjarmælingar.
 
 ### Tengdar skilaboðategundir
 
@@ -1388,12 +1388,11 @@ app/src/Message Type/
 ```json
 {
   "status": "Error",
-  "error": "Settlement G/L Account 2150 must have Account Type = Posting.",
-  "callstack": "..."
+  "error": "Settlement G/L Account 2150 must have Account Type = Posting."
 }
 ```
 
-`callstack` er aðeins til staðar þegar villa á uppruna í einangruðu skýrslukeyrslunni.
+Villusvör innihalda aldrei kallastafla; hann fer eingöngu í fjarmælingar.
 
 ### Reitir í svari
 
@@ -1429,7 +1428,7 @@ app/src/Message Type/
 
 ### Villumeðhöndlun
 
-Sannvottunarvillur skila `status=Error` með reitnum `error`. Villur sem koma frá raunverulegri skýrslukeyrslu bæta einnig við reitnum `callstack` til greiningar. Einangraði bókunarcodeunit-inn tryggir að misheppnuð skýrslukeyrsla bakvelti ekki færslu skilaboðakerfisins.
+Sannvottunarvillur skila `status=Error` með reitnum `error`. Villur sem koma frá raunverulegri skýrslukeyrslu skila villutexta Business Central í `error`; kallastaflinn fer eingöngu í fjarmælingar, aldrei í svarið. Einangraði bókunarcodeunit-inn tryggir að misheppnuð skýrslukeyrsla bakvelti ekki færslu skilaboðakerfisins.
 
 ### Athugasemdir
 
@@ -1553,12 +1552,11 @@ Sannvottunarvillur skila `status=Error` með reitnum `error`. Villur sem koma fr
 ```json
 {
   "status": "Error",
-  "error": "Settlement G/L Account 2150 must have Account Type = Posting.",
-  "callstack": "..."
+  "error": "Settlement G/L Account 2150 must have Account Type = Posting."
 }
 ```
 
-`callstack` er aðeins til staðar þegar villa á uppruna í einangruðu skýrslukeyrslunni.
+Villusvör innihalda aldrei kallastafla; hann fer eingöngu í fjarmælingar.
 
 ### Reitir í svari
 
@@ -1594,7 +1592,7 @@ Sannvottunarvillur skila `status=Error` með reitnum `error`. Villur sem koma fr
 
 ### Villumeðhöndlun
 
-Sannvottunarvillur skila `status=Error` með reitnum `error`. Villur sem koma frá raunverulegri skýrslukeyrslu bæta einnig við reitnum `callstack` til greiningar. Einangraði bókunarcodeunit-inn tryggir að misheppnuð skýrslukeyrsla bakvelti ekki færslu skilaboðakerfisins.
+Sannvottunarvillur skila `status=Error` með reitnum `error`. Villur sem koma frá raunverulegri skýrslukeyrslu skila villutexta Business Central í `error`; kallastaflinn fer eingöngu í fjarmælingar, aldrei í svarið. Einangraði bókunarcodeunit-inn tryggir að misheppnuð skýrslukeyrsla bakvelti ekki færslu skilaboðakerfisins.
 
 ### Athugasemdir
 
@@ -1925,7 +1923,7 @@ Vantar á `Unrealized Gains Acc.` veldur `Unrealized Gains Acc. must have a valu
 
 ### Villumeðhöndlun
 
-Staðfestingarvillur skila `status=Error` og `error` reit sem lýsir bilun. Villur úr undirliggjandi leiðréttingarvél við bókun innihalda `callstack` reit til greiningar. Staðfestar aðstæður:
+Staðfestingarvillur skila `status=Error` og `error` reit sem lýsir bilun. Villur úr undirliggjandi leiðréttingarvél við bókun skila kóðanum `BusinessCentralError` og villutexta Business Central í `error`; kallastaflinn fer eingöngu í fjarmælingar. Staðfestar aðstæður:
 - Allir nauðsynlegir reitir til staðar (`endingDate`, `postingDate`, `documentNo`)
 - Að minnsta kosti einn `adjust*` rofi sannur
 - Bókunarhlið `G/L` veitt
