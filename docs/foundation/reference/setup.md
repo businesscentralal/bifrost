@@ -1282,7 +1282,7 @@ The six permission sets are independent and **not bundled into `BIFROST Read ori
 | `BIFROST FA Post ori` | 10077892 | `FA Posting ori` (10077903) | `FixedAssets.FAJournal.Post` |
 | `BIFROST Job Post ori` | 10077897 | `Job Posting ori` (10077906) | `Projects.ProjectJournal.Post` |
 | `BIFROST Res Post ori` | 10077899 | `Resource Posting ori` (10077907) | `Resources.ResourceJournal.Post` |
-| `BIFROST WhsePost ori` | 10077900 | `Warehouse Posting ori` (10077908) | `Warehouse.Shipment.Post` (always; additionally requires `BIFROST GL Post ori` when `invoice = true`); `Warehouse.Pick.Register` (always); `Warehouse.Putaway.Register` (always) |
+| `BIFROST WhsePost ori` | 10077900 | `Warehouse Posting ori` (10077908) | `Warehouse.Shipment.Post` (always; additionally requires `BIFROST GL Post ori` when `invoice = true`); `Warehouse.Receipt.Post` (always); `Warehouse.Pick.Register` (always); `Warehouse.Putaway.Register` (always). These message types ship in the separate [Bifröst Warehouse](/warehouse/) app; the gate itself stays in Foundation. |
 
 **Note:** `Sales.Document.Post` and `Purchase.Document.Post` are gated to **G/L only** even though they may produce item and other ledger entries downstream. The gate represents the user's intent to trigger posting, not the entries that BC ultimately writes. `Warehouse.Shipment.Post` with `invoice = true` is the only operation that requires two permission sets simultaneously.
 

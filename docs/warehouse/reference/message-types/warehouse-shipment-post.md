@@ -2,13 +2,18 @@
 id: warehouse-shipment-post
 title: "Warehouse.Shipment.Post"
 sidebar_label: "Warehouse.Shipment.Post"
-sidebar_position: 152
+sidebar_position: 9
 description: "Request and response contract for the Warehouse.Shipment.Post Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
 `tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+:::
+
+:::note Requires Bifröst Warehouse
+This message type is part of **Bifröst Warehouse**, which runs on **Bifröst Foundation**. Install both;
+without Bifröst Warehouse the type is not in the `Help.MessageTypes.Get` catalogue.
 :::
 
 

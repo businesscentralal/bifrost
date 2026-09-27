@@ -138,6 +138,11 @@ $PrefixMap = [ordered]@{
     'Ja.'                   = 'iceland'
     'Help.Ja'               = 'iceland'
     'Finance.VAT'           = 'iceland'
+
+    # Bifröst Warehouse — warehouse shipments, receipts, picks and put-aways.
+    # The Warehouse.* types moved here from Foundation (core#163, warehouse#4).
+    'Warehouse.'            = 'warehouse'
+    'Help.Warehouse'        = 'warehouse'
 }
 
 # Apps whose documentation this repository generates. Every app in the family is
@@ -146,10 +151,18 @@ $PrefixMap = [ordered]@{
 # Inventory.*, Projects.*, Resources.*, Help.MessageTypes.Get and the rest).
 $KnownApps = @(
     'foundation', 'iceland', 'iceland-treasury', 'iceland-docex',
-    'bragi', 'hnitbjorg', 'nornir', 'clockify', 'subscription-billing'
+    'bragi', 'hnitbjorg', 'nornir', 'clockify', 'subscription-billing',
+    'warehouse'
 )
 
 $FallbackApp = 'foundation'
+
+# Feature apps whose pages say up front which app the caller needs installed.
+# The note is written after the "Generated page" banner. Add an app here when
+# its message types are easily mistaken for Foundation's own.
+$RequiresApp = @{
+    'warehouse' = 'Bifröst Warehouse'
+}
 
 # Test-only message types exist so a test app can reach setup that is
 # `Access = Internal`, or to stand in for an external service. They are not part
@@ -359,7 +372,20 @@ function Write-MessageTypePage {
         '`tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.'
         ':::'
         ''
-    ) -join "`n"
+    )
+
+    if ($RequiresApp.ContainsKey($AppId)) {
+        $appName = $RequiresApp[$AppId]
+        $frontMatter += @(
+            ":::note Requires $appName"
+            "This message type is part of **$appName**, which runs on **Bifröst Foundation**. Install both;"
+            "without $appName the type is not in the ``Help.MessageTypes.Get`` catalogue."
+            ':::'
+            ''
+        )
+    }
+
+    $frontMatter = $frontMatter -join "`n"
 
     $file = Join-Path $dir "$slug.md"
     Set-Content -Path $file -Value "$frontMatter`n$body`n" -Encoding utf8NoBOM

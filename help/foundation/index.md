@@ -68,7 +68,7 @@ shared by every locale.
 | [Sales, customer and item message types](/foundation/message-types/sales/) | Credit limit, sales history, item availability and price, and the sales document lifecycle. |
 | [Purchase message types](/foundation/message-types/purchase/) | The purchase order lifecycle — Release, Reopen, Statistics and Post. |
 | [Finance message types](/foundation/message-types/finance/) | General journal posting, chart of accounts, G/L budget and G/L entry queries. |
-| [Inventory message types](/foundation/message-types/inventory/) | Item ledger, stock and warehouse queries. |
+| [Inventory message types](/foundation/message-types/inventory/) | Item ledger and stock queries. Warehouse documents are in the separate [Bifröst Warehouse](/help/warehouse/) app. |
 | [Projects message types](/foundation/message-types/projects/) | Project journals and project ledger operations. |
 | [Resources message types](/foundation/message-types/resources/) | Resource lookups and resource ledger operations. |
 | [Approval message types](/foundation/message-types/approval/) | Sending documents for approval and acting on approval entries. |

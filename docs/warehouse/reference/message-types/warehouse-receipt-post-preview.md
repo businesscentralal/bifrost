@@ -2,13 +2,18 @@
 id: warehouse-receipt-post-preview
 title: "Warehouse.Receipt.Post.Preview"
 sidebar_label: "Warehouse.Receipt.Post.Preview"
-sidebar_position: 150
+sidebar_position: 7
 description: "Request and response contract for the Warehouse.Receipt.Post.Preview Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
 `tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+:::
+
+:::note Requires Bifröst Warehouse
+This message type is part of **Bifröst Warehouse**, which runs on **Bifröst Foundation**. Install both;
+without Bifröst Warehouse the type is not in the `Help.MessageTypes.Get` catalogue.
 :::
 
 

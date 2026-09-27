@@ -5,8 +5,8 @@ description: >
   for Business Central: a queue, a task and a response endpoint, self-describing message
   types, and the platform every other Bifröst app is built on. Load alongside
   bifrost-bc-integration, which carries the API itself; this skill is the index of what
-  Foundation adds — 149 message types across 24 families (Inventory.*, Finance.*, Sales.*,
-  Help.*, Purchase.*, Warehouse.*, Data.*, Bifrost.*, Document.*, Memory.*, Customer.*,
+  Foundation adds — 139 message types across 23 families (Inventory.*, Finance.*, Sales.*,
+  Help.*, Purchase.*, Data.*, Bifrost.*, Document.*, Memory.*, Customer.*,
   Incoming.*, User.*, ChangeLog.*, Projects.*, Field.*, Resources.*, CSV.*, Deleted.*, Item.*,
   Project.*, Vendor.*, Email.*, Webhook.*).
 license: MIT
@@ -14,7 +14,7 @@ metadata:
   version: 1.0.0
   updated: 2026-09-24
   app: Bifrost Foundation
-  messageTypes: 149
+  messageTypes: 139
   source: https://github.com/businesscentralal/bifrost
 ---
 
@@ -147,21 +147,6 @@ From the deployed site the same paths resolve against this file’s own URL.
 | `Purchase.PurchaseInvoice.Cancel` | `message-types/purchase-purchaseinvoice-cancel/` |
 | `Purchase.PurchaseInvoice.Correct` | `message-types/purchase-purchaseinvoice-correct/` |
 | `Purchase.Quote.MakeOrder` | `message-types/purchase-quote-makeorder/` |
-
-### `Warehouse.*` (10)
-
-| Message type | Page |
-| --- | --- |
-| `Warehouse.Pick.Create` | `message-types/warehouse-pick-create/` |
-| `Warehouse.Pick.Register` | `message-types/warehouse-pick-register/` |
-| `Warehouse.Putaway.Create` | `message-types/warehouse-putaway-create/` |
-| `Warehouse.Putaway.Register` | `message-types/warehouse-putaway-register/` |
-| `Warehouse.Receipt.Create` | `message-types/warehouse-receipt-create/` |
-| `Warehouse.Receipt.Post` | `message-types/warehouse-receipt-post/` |
-| `Warehouse.Receipt.Post.Preview` | `message-types/warehouse-receipt-post-preview/` |
-| `Warehouse.Shipment.Create` | `message-types/warehouse-shipment-create/` |
-| `Warehouse.Shipment.Post` | `message-types/warehouse-shipment-post/` |
-| `Warehouse.Shipment.PreviewPost` | `message-types/warehouse-shipment-previewpost/` |
 
 ### `Data.*` (8)
 

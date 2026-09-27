@@ -130,6 +130,7 @@ const appSections = [
   ['orchestrator', 'Bifröst Orchestrator — job queue scheduling and declarative playbooks'],
   ['timesheets', 'Bifröst Timesheets — time tracking'],
   ['subscription-billing', 'Bifröst Subscription Billing — recurring billing'],
+  ['warehouse', 'Bifröst Warehouse — warehouse shipments, receipts, picks and put-aways'],
 ];
 
 /**

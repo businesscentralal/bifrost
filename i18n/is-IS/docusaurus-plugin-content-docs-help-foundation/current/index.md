@@ -68,7 +68,7 @@ sameiginleg fyrir bæði tungumál.
 | [Sölu-, viðskiptamanna- og vöruskilaboðagerðir](/foundation/message-types/sales/) | Lánamark, söluferill, birgðastaða og verð vöru, og lífsferill söluskjala. |
 | [Innkaupaskilaboðagerðir](/foundation/message-types/purchase/) | Lífsferill innkaupapöntunar — Release, Reopen, Statistics og Post. |
 | [Fjármálaskilaboðagerðir](/foundation/message-types/finance/) | Bókun almennrar færslubókar, bókhaldslyklar, fjárhagsáætlun og fyrirspurnir um fjárhagsfærslur. |
-| [Birgðaskilaboðagerðir](/foundation/message-types/inventory/) | Vöruskrá, birgðastaða og vöruhúsafyrirspurnir. |
+| [Birgðaskilaboðagerðir](/foundation/message-types/inventory/) | Vöruskrá og birgðastaða. Vöruhúsaskjöl eru í sérstöku forriti, [Bifröst Warehouse](/help/warehouse/). |
 | [Verkefnaskilaboðagerðir](/foundation/message-types/projects/) | Verkbækur og aðgerðir á verkfærslum. |
 | [Tilfangaskilaboðagerðir](/foundation/message-types/resources/) | Uppflettingar á tilföngum og aðgerðir á tilfangafærslum. |
 | [Samþykktarskilaboðagerðir](/foundation/message-types/approval/) | Senda skjöl í samþykkt og bregðast við samþykktarfærslum. |

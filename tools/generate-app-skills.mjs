@@ -155,6 +155,17 @@ const notes = {
       'Resolve the item via subject (SystemId GUID or Item No.) before falling back to data.itemNo / id fields / tableView.',
     ],
   },
+  warehouse: {
+    when: [
+      'warehouse shipments or receipts have to be created from released source documents (sales, purchase, sales return or transfer orders) and posted;',
+      'warehouse picks or put-aways have to be created and registered, or a shipment or receipt posting has to be previewed first.',
+    ],
+    rules: [
+      'The source document must be Released before a shipment or receipt can be created from it. Release it first (Sales.Document.Release, Purchase.Order.Release and the like).',
+      'On locations that require picks, register the pick before posting the shipment; on locations that require put-aways, post the receipt before creating the put-away.',
+      'Posting and registering are gated by the Warehouse Posting ori permission set in Foundation; Warehouse.Shipment.Post with invoice = true also needs G/L Posting ori.',
+    ],
+  },
 };
 
 const apps = await readApps();

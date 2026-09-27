@@ -2,13 +2,18 @@
 id: warehouse-pick-create
 title: "Warehouse.Pick.Create"
 sidebar_label: "Warehouse.Pick.Create"
-sidebar_position: 144
+sidebar_position: 1
 description: "Request and response contract for the Warehouse.Pick.Create Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
 `tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+:::
+
+:::note Requires Bifröst Warehouse
+This message type is part of **Bifröst Warehouse**, which runs on **Bifröst Foundation**. Install both;
+without Bifröst Warehouse the type is not in the `Help.MessageTypes.Get` catalogue.
 :::
 
 

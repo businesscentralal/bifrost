@@ -16,6 +16,7 @@ const summaries: Record<string, string> = {
   timesheets: 'Time tracking synchronised with Business Central resources and jobs.',
   'subscription-billing': 'Recurring billing and subscription management.',
   inventory: 'Item attributes — get, create, update and define via message types.',
+  warehouse: 'Warehouse shipments, receipts, picks and put-aways — create, register, post and preview.',
 };
 
 function AppCard({id, title, wave}: {id: string; title: string; wave: 1 | 2}): ReactNode {

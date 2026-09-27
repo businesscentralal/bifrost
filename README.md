@@ -37,6 +37,7 @@ creates both instances and both navbar entries.
 | `timesheets` | Bifrost Timesheets | `bc-origo-bifrost-timesheets` |
 | `subscription-billing` | Bifrost Subscription Billing | `bc-origo-bifrost-subscription-billing` |
 | `inventory` | Bifrost Inventory | `bc-origo-bifrost-inventory` |
+| `warehouse` | Bifrost Warehouse | `bc-origo-bifrost-warehouse` |
 
 Every app has a docs instance. A help instance holds one page per Business
 Central page that carries `ContextSensitiveHelpPage`, so an app with no pages of

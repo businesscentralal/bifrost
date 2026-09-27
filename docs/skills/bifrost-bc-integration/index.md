@@ -175,7 +175,7 @@ skill, which is what an in-text reference like "see §11" points at.
 | [sales.md](./references/sales.md) | 7.3 | Customers, items, sales documents, statements, PDFs |
 | [purchasing.md](./references/purchasing.md) | 7.4 | Purchase documents, vendor application, corrections |
 | [finance.md](./references/finance.md) | 7.5, 7.5a, 7.5b | General journal, bank reconciliation, VAT, currency adjustment, FA journal |
-| [inventory.md](./references/inventory.md) | 7.5c–7.5c.4 | Item journal, transfer, assembly, warehouse shipment, pick, put-away, receipt |
+| [inventory.md](./references/inventory.md) | 7.5c–7.5c.4 | Item journal, transfer, assembly; warehouse shipment, pick, put-away, receipt (Bifröst Warehouse app) |
 | [projects.md](./references/projects.md) | 7.5d, 7.5e | Project journal, resource journal |
 | [changelog-guard.md](./references/changelog-guard.md) | 7.6 | Field history, restore, delta feed, the ChangeLog Write Guard |
 | [incoming-documents.md](./references/incoming-documents.md) | 7.7 | Create, attach, process and read incoming documents |

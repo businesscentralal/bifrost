@@ -2,13 +2,18 @@
 id: warehouse-shipment-previewpost
 title: "Warehouse.Shipment.PreviewPost"
 sidebar_label: "Warehouse.Shipment.PreviewPost"
-sidebar_position: 153
+sidebar_position: 10
 description: "Request and response contract for the Warehouse.Shipment.PreviewPost Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
 `tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+:::
+
+:::note Requires Bifröst Warehouse
+This message type is part of **Bifröst Warehouse**, which runs on **Bifröst Foundation**. Install both;
+without Bifröst Warehouse the type is not in the `Help.MessageTypes.Get` catalogue.
 :::
 
 

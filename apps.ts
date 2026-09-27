@@ -36,6 +36,7 @@ export const apps: BifrostApp[] = [
   {id: 'timesheets', title: 'Timesheets', appName: 'Bifrost Timesheets', wave: 1},
   {id: 'subscription-billing', title: 'Subscription Billing', appName: 'Bifrost Subscription Billing', wave: 1},
   {id: 'inventory', title: 'Inventory', appName: 'Bifrost Inventory', wave: 1},
+  {id: 'warehouse', title: 'Warehouse', appName: 'Bifrost Warehouse', wave: 1},
 ];
 
 /** Cross-app documentation instances that are not tied to a single extension. */

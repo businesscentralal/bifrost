@@ -96,6 +96,30 @@ const slugRenames: Array<{from: string; to: string}> = [
   {from: '/help/clockify/clockify-workspace-lookup', to: '/help/timesheets/timesheets-workspace-lookup'},
 ];
 
+/**
+ * Pages that moved from one app's docs instance to another's. The ten
+ * Warehouse.* message types moved from Bifrost Foundation to Bifrost Warehouse
+ * (core#163, warehouse#4); their reference pages keep the same slug under the
+ * new app, so the old Foundation URLs redirect one-to-one.
+ */
+const warehouseMessageTypeSlugs = [
+  'warehouse-pick-create',
+  'warehouse-pick-register',
+  'warehouse-putaway-create',
+  'warehouse-putaway-register',
+  'warehouse-receipt-create',
+  'warehouse-receipt-post',
+  'warehouse-receipt-post-preview',
+  'warehouse-shipment-create',
+  'warehouse-shipment-post',
+  'warehouse-shipment-previewpost',
+];
+
+const pageMoves: Array<{from: string; to: string}> = warehouseMessageTypeSlugs.map((slug) => ({
+  from: `/foundation/reference/message-types/${slug}`,
+  to: `/warehouse/reference/message-types/${slug}`,
+}));
+
 function withTrailingSlash(path: string): string {
   return path.endsWith('/') ? path : `${path}/`;
 }
@@ -169,7 +193,7 @@ const config: Config = {
     [
       '@docusaurus/plugin-client-redirects',
       {
-        redirects: slugRenames.map(({from, to}) => ({
+        redirects: [...slugRenames, ...pageMoves].map(({from, to}) => ({
           from: withTrailingSlash(from),
           to: withTrailingSlash(to),
         })),

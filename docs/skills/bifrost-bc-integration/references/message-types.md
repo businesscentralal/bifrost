@@ -21,7 +21,7 @@ An index of the message-type catalogue. The catalogue is split across the refere
 | Sales, customers, items | 7.3 | [sales.md](./sales.md) |
 | Purchasing and vendors | 7.4 | [purchasing.md](./purchasing.md) |
 | Finance, bank reconciliation, VAT, fixed assets | 7.5, 7.5a, 7.5b | [finance.md](./finance.md) |
-| Item journal, transfer, assembly, warehouse | 7.5c–7.5c.4 | [inventory.md](./inventory.md) |
+| Item journal, transfer, assembly, warehouse (Bifröst Warehouse app) | 7.5c–7.5c.4 | [inventory.md](./inventory.md) |
 | Project and resource journals | 7.5d, 7.5e | [projects.md](./projects.md) |
 | Change Log history, restore and the Write Guard | 7.6 | [changelog-guard.md](./changelog-guard.md) |
 | Incoming documents | 7.7 | [incoming-documents.md](./incoming-documents.md) |

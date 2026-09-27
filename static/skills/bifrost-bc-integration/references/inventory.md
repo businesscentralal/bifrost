@@ -1,6 +1,6 @@
 # Inventory and warehouse
 
-The item journal and the physical document flow around it: transfer orders, assembly orders, warehouse shipments, picks, put-aways and receipts — each with its create, release, post and preview-post message types.
+The item journal and the physical document flow around it: transfer orders, assembly orders, warehouse shipments, picks, put-aways and receipts — each with its create, release, post and preview-post message types. The warehouse sections (7.5c.3 and 7.5c.4) need the separate Bifröst Warehouse app on top of Foundation.
 
 [← back to SKILL.md](../SKILL.md) · originally sections 7.5c, 7.5c.1 – 7.5c.4 of the single-file skill.
 
@@ -146,6 +146,8 @@ Mirrors Page 920 `Assembly Order Statistics`. Read-only. Response includes heade
 ---
 
 ### 7.5c.3 WAREHOUSE SHIPMENT OPERATIONS
+
+> **Requires the Bifröst Warehouse app.** The `Warehouse.*` message types are not part of Foundation; they ship in the separate Bifröst Warehouse app (which depends on Foundation). Without it installed, the `Warehouse.*` message types are not available. The posting gates (`Warehouse Posting ori`, `G/L Posting ori`) stay in Foundation. Field-by-field contract: https://bifrost.origo.is/warehouse/reference/message-types/
 
 **Subject identification:** Warehouse Shipment `No.` or `SystemId`. Also accepts request JSON keys `systemId`, `recordSystemId`, `id`, `shipmentNo`, `no` (SystemId/GUID variants resolve first).
 
@@ -426,6 +428,8 @@ Errors: missing identifier; put-away does not exist or is not Type = Put-away; p
 ---
 
 ### 7.5c.4 WAREHOUSE RECEIPT OPERATIONS
+
+> **Requires the Bifröst Warehouse app.** The `Warehouse.*` message types are not part of Foundation; they ship in the separate Bifröst Warehouse app (which depends on Foundation). Without it installed, the `Warehouse.*` message types are not available. The posting gates (`Warehouse Posting ori`, `G/L Posting ori`) stay in Foundation. Field-by-field contract: https://bifrost.origo.is/warehouse/reference/message-types/
 
 **Subject identification:** Warehouse Receipt `No.` or `SystemId`. Also accepts request JSON keys `systemId`, `recordSystemId`, `id`, `receiptNo`, `no` (SystemId/GUID variants resolve first).
 

@@ -2,13 +2,18 @@
 id: warehouse-shipment-create
 title: "Warehouse.Shipment.Create"
 sidebar_label: "Warehouse.Shipment.Create"
-sidebar_position: 151
+sidebar_position: 8
 description: "Request and response contract for the Warehouse.Shipment.Create Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
 `tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+:::
+
+:::note Requires Bifröst Warehouse
+This message type is part of **Bifröst Warehouse**, which runs on **Bifröst Foundation**. Install both;
+without Bifröst Warehouse the type is not in the `Help.MessageTypes.Get` catalogue.
 :::
 
 
@@ -49,7 +54,7 @@ Use `Data.Records.Get` on `Location` (table 14) with `tableView` `WHERE(Require 
 | `sourceDocuments[].documentNo` | code[20] | **Yes** | The source document's `No.`. |
 | `locationCode` | code[10] | No | If supplied, validates each source uses the same location. Subject to write-restriction on `Warehouse Shipment Header."Location Code"`. |
 | `assignedUserId` | code[50] | No | Applied to every created header after creation. |
-| `postingDate` | date | No | Format 9. Applied to every created header after creation. |
+| `postingDate` | date | No | `YYYY-MM-DD`. Omitted: the header posting date is unchanged. An invalid value is an error. |
 
 ### Request Example
 ```json
