@@ -12,27 +12,27 @@ description: "Beiðni- og svarsamningur fyrir Inventory.TransferOrder.Create Bif
 :::
 
 
-## Yfirlit
-Býr til a ný Transfer Order header (`Transfer Header`) með úr/til locations, posting/shipment/receipt dates, og an valfrjálst `Direct Transfer` flag. **Lines eru ekki created** - add lines afterwards via `Data.Records.Set` on tafla `5741 Transfer Line`.
+## Overview
+Creates a new Transfer Order header (`Transfer Header`) with from/to locations, posting/shipment/receipt dates, an optional `Direct Transfer` flag, and optional `lines`. Without `lines`, only the header is created.
 
-**Stefna**: Innkomandi  **Efnisgerð**: `text/json`
+**Direction**: Inbound  **Content-Type**: `text/json`
 
 ## Idempotency / Safety
-ekki endurtekningarþolið. Every call inserts a ný `Transfer Header` row og consumes one númer úr the Transfer Order No. Series.
+Not idempotent. Every call inserts a new `Transfer Header` row and consumes one number from the Transfer Order No. Series.
 
-## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| transferFromCode | Code[10] | Yes | Uppruni location. |
+| transferFromCode | Code[10] | Yes | Source location. |
 | transferToCode | Code[10] | Yes | Destination location. |
-| directTransfer | sanngildi | No | þegar `true`, marks header as Direct Transfer (no in-transit step). Sjálfgefið `false`. |
-| inTransitCode | Code[10] | áskilið þegar `directTransfer = false` | In-transit location code. |
-| postingDate | dagsetning | No | Posting dagsetning. Defaults til `WorkDate()` Ef það er ekki gefið upp eða `0D`. Format `0,9`. |
-| shipmentDate | dagsetning | No | Shipment dagsetning. Format `0,9`. |
-| receiptDate | dagsetning | No | Receipt dagsetning. Format `0,9`. |
-| externalDocumentNo | Code[35] | No | External skjal No. |
+| directTransfer | Boolean | No | When `true`, marks header as Direct Transfer (no in-transit step). Default `false`. `true` or `false`; any other value is an error. |
+| inTransitCode | Code[10] | Required when `directTransfer = false` | In-transit location code. |
+| postingDate | Date | No | `YYYY-MM-DD`. Omitted: `WorkDate()`. An invalid value is an error. |
+| shipmentDate | Date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. |
+| receiptDate | Date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. |
+| externalDocumentNo | Code[35] | No | External Document No. |
 
-## Dæmi um beiðni
+## Request Example
 ```json
 {
   "type": "Inventory.TransferOrder.Create",
@@ -46,7 +46,7 @@ ekki endurtekningarþolið. Every call inserts a ný `Transfer Header` row og co
 }
 ```
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -64,31 +64,58 @@ ekki endurtekningarþolið. Every call inserts a ný `Transfer Header` row og co
 }
 ```
 
-| Property | Lýsing |
+| Property | Description |
 |----------|-------------|
-| status | `Success`. Validation failures nota the Villa envelope. |
-| documentNo | ný `Transfer Header.No.` (úr No. Series). |
-| systemId | ný header `SystemId` (Format `0,4`). |
-| transferFromCode / transferToCode / inTransitCode / directTransfer | Echo eftir BC validation. |
+| status | `Success`. Validation failures use the error envelope. |
+| documentNo | New `Transfer Header.No.` (from No. Series). |
+| systemId | New header `SystemId` (Format `0,4`). |
+| transferFromCode / transferToCode / inTransitCode / directTransfer | Echo after BC validation. |
 | postingDate / shipmentDate / receiptDate | Format `0,9`. |
-| externalDocumentNo | Echo (empty þegar ekki supplied). |
-| statusAfter | Always `Open` fyrir newly created orders. |
+| externalDocumentNo | Echo (empty when not supplied). |
+| statusAfter | Always `Open` for newly created orders. |
 
-## Villur
-| Villa | Orsök |
+## Errors
+| Error | Cause |
 |-------|-------|
-| `transferFromCode must be specified in the request JSON.` | `transferFromCode` vantar. |
-| `transferToCode must be specified in the request JSON.` | `transferToCode` vantar. |
-| `inTransitCode must be specified when directTransfer is false.` | `directTransfer != true` og `inTransitCode` empty. |
-| (BC validation Villa text) | Unknown location, equal úr/til codes, location lacks Require Shipment/Receipt, etc. |
+| `transferFromCode must be specified in the request JSON.` | `transferFromCode` missing. |
+| `transferToCode must be specified in the request JSON.` | `transferToCode` missing. |
+| `inTransitCode must be specified when directTransfer is false.` | `directTransfer != true` and `inTransitCode` empty. |
+| (BC validation error text) | Unknown location, equal from/to codes, location lacks Require Shipment/Receipt, etc. |
 
-## Tengdar skilaboðategundir
-- `Data.Records.Set` on `Transfer Line` (tafla 5741) - add lines.
+## Related Message Types
+- `Data.Records.Set` — update header fields. Transfer lines belong on `Inventory.TransferOrder.Create`.
 - `Inventory.TransferOrder.Release` - release once lines exist.
-- `Inventory.TransferOrder.Post` - ship og/eða receive.
+- `Inventory.TransferOrder.Post` - ship and/or receive.
 - `Inventory.TransferOrder.PreviewPost` - dry run.
 - `Inventory.TransferOrder.Statistics` - totals.
+## Lines
+Optional `lines` array. Field names are camelCase. Foundation assigns line numbers in steps of 10000. Do not send `lineNo`. The index in an error is 1-based (`lines[1]` is the first line).
+The call is all-or-nothing: every problem is collected before any insert, and nothing is created when the pre-check fails. A validation error is reported as `lines[n].field: ...`, for example `lines[2].quantity: ...`.
+A request can contain at most 200 lines.
+Validation order: Item No., Variant Code, Unit of Measure Code, Quantity, Shipment Date, Description.
+| Field | Type | Required | Description |
+|---|---|---|---|
+| itemNo | Text | Yes | Item number. |
+| variantCode | Text | No | Item variant. |
+| unitOfMeasureCode | Text | No | Unit of measure for the item. |
+| quantity | Decimal | No | Decimal. |
+| shipmentDate | Date | No | `YYYY-MM-DD`. |
+| description | Text | No | Line description. |
+Transfer lines have no type or price. When `lines` is sent the response adds `lines` and `totals` (`quantity`). Without `lines` the response is unchanged.
+```json
+{
+  "type": "Inventory.TransferOrder.Create",
+  "data": {
+    "transferFromCode": "BLUE",
+    "transferToCode": "RED",
+    "inTransitCode": "OWN LOG.",
+    "lines": [
+      { "itemNo": "1896-S", "quantity": 2, "unitOfMeasureCode": "PCS" }
+    ]
+  }
+}
+```
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

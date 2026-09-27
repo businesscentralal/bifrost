@@ -12,36 +12,36 @@ description: "Beiðni- og svarsamningur fyrir Finance.Currency.AdjustExchangeRat
 :::
 
 
-## Yfirlit
-Runs BC 'Exch. Rate Adjmt. Process' (codeunit 699) fyrir foreign-currency revaluation. þegar `post=false` (Sjálfgefið) Svarið contains the simulated færslur that would be created ef the run were committed (G/L færsla, Detailed viðskiptamanni/birgi/Employee bók færsla, Bank Account bók færsla) - captured via the BC posting-preview framework og rolled back. þegar `post=true` the run er performed inside an isolated `Codeunit.Run`, og Svarið contains the ný G/L Register together með the resulting færsla range plus a per-currency breakdown of adjusted LCY amounts.
+## Overview
+Runs BC 'Exch. Rate Adjmt. Process' (codeunit 699) for foreign-currency revaluation. When `post=false` (default) the response contains the simulated entries that would be created if the run were committed (G/L Entry, Detailed Customer/Vendor/Employee Ledger Entry, Bank Account Ledger Entry) - captured via the BC posting-preview framework and rolled back. When `post=true` the run is performed inside an isolated `Codeunit.Run`, and the response contains the new G/L Register together with the resulting entry range plus a per-currency breakdown of adjusted LCY amounts.
 
-## Stefna
-Innkomandi
+## Direction
+Inbound
 
-## Response Content Gerð
+## Response Content Type
 `text/json`
 
-## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| endingDate | dagsetning | Yes | síðasta posting dagsetning considered fyrir adjustment. All opið bók færslur með posting dagsetning on eða áður en this dagsetning eru evaluated. |
-| postingDate | dagsetning | Yes | Posting dagsetning fyrir the adjustment G/L færslur. |
-| documentNo | Code[20] | Yes | skjal númer on the adjustment G/L færslur. |
-| post | sanngildi | No (Sjálfgefið false) | `true` til run og commit; `false` fyrir preview aðeins. |
-| currencyCode | Text | No | BC-style filter expression (e.g. `USD` eða `USD\|EUR`). Defaults til all foreign currencies set up in BC. |
-| adjustCustomers | sanngildi | No (Sjálfgefið true) | Adjust Detailed viðskiptamanni bók færslur. |
-| adjustVendors | sanngildi | No (Sjálfgefið true) | Adjust Detailed birgi bók færslur. |
-| adjustEmployees | sanngildi | No (Sjálfgefið true) | Adjust Detailed Employee bók færslur. |
-| adjustBankAccounts | sanngildi | No (Sjálfgefið true) | Adjust Bank Account bók færslur. |
-| adjustGLAccounts | sanngildi | No (Sjálfgefið true) | Adjust G/L Account currency balances. |
-| postingDescription | Text[100] | No | Lýsing on the adjustment G/L lines. Sjálfgefið: `Exchange rate adjustment <currencyCode-filter-or-blank> <endingDate>`. |
+| endingDate | Date | Yes | `YYYY-MM-DD`. Required. Last posting date considered for adjustment. An invalid value is an error. |
+| postingDate | Date | Yes | `YYYY-MM-DD`. Required. Posting date for the adjustment G/L entries. An invalid value is an error. |
+| documentNo | Code[20] | Yes | Document number on the adjustment G/L entries. |
+| post | Boolean | No (default false) | `true` to run and commit; `false` for preview only. `true` or `false`; any other value is an error. |
+| currencyCode | Text | No | BC-style filter expression (e.g. `USD` or `USD\|EUR`). Defaults to all foreign currencies set up in BC. |
+| adjustCustomers | Boolean | No (default true) | Adjust Detailed Customer Ledger Entries. `true` or `false`; any other value is an error. |
+| adjustVendors | Boolean | No (default true) | Adjust Detailed Vendor Ledger Entries. `true` or `false`; any other value is an error. |
+| adjustEmployees | Boolean | No (default true) | Adjust Detailed Employee Ledger Entries. `true` or `false`; any other value is an error. |
+| adjustBankAccounts | Boolean | No (default true) | Adjust Bank Account Ledger Entries. `true` or `false`; any other value is an error. |
+| adjustGLAccounts | Boolean | No (default true) | Adjust G/L Account currency balances. `true` or `false`; any other value is an error. |
+| postingDescription | Text[100] | No | Description on the adjustment G/L lines. Default: `Exchange rate adjustment <currencyCode-filter-or-blank> <endingDate>`. |
 
-At least one of `adjustCustomers`, `adjustVendors`, `adjustEmployees`, `adjustBankAccounts`, `adjustGLAccounts` verður að be true; otherwise Beiðnin fails validation.
+At least one of `adjustCustomers`, `adjustVendors`, `adjustEmployees`, `adjustBankAccounts`, `adjustGLAccounts` must be true; otherwise the request fails validation.
 
-## Bókunarheimild
-Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in addition til `BIFROST API ori`. Both preview og post enforce the `Bifrost Posting Gate` fyrir posting Gerð `G/L`; the gate er checked áður en parameters eru populated, so a denial never reaches the BC adjustment engine. án the heimild set Beiðnin Skilar: `Posting denied: missing 'BIFROST GL Post ori' permission set.` `status=Error` er returned, no preview færslur eru produced, og no G/L Register er created.
+## Posting Gate
+Calling this message type requires the `BIFROST GL Post ori` permission set in addition to `BIFROST API ori`. Both preview and post enforce the `Bifrost Posting Gate` for posting type `G/L`; the gate is checked before parameters are populated, so a denial never reaches the BC adjustment engine. Without the permission set the request returns: `Posting denied: missing 'BIFROST GL Post ori' permission set.` `status=Error` is returned, no preview entries are produced, and no G/L Register is created.
 
-## Dæmi um beiðni (Post)
+## Request Example (Post)
 ```json
 {
   "type": "Finance.Currency.AdjustExchangeRates",
@@ -60,7 +60,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 }
 ```
 
-## Dæmi um beiðni (Preview)
+## Request Example (Preview)
 ```json
 {
   "type": "Finance.Currency.AdjustExchangeRates",
@@ -73,7 +73,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 }
 ```
 
-## Uppbygging svars - Post
+## Response Shape - Post
 ```json
 {
   "status": "Success",
@@ -117,7 +117,7 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 }
 ```
 
-## Uppbygging svars - Preview
+## Response Shape - Preview
 ```json
 {
   "status": "Success",
@@ -157,79 +157,79 @@ Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in 
 }
 ```
 
-## Svarreitir
-| Reitur | Gerð | Lýsing |
+## Response Fields
+| Field | Type | Description |
 |-------|------|-------------|
-| status | Text | `Success` eða `Error`. |
-| posted | sanngildi | `true` þegar the adjustment actually ran og committed (i.e. `post=true` og the run succeeded). |
-| rollback | sanngildi | aðeins present in preview responses; always `true`. Indicates that no database changes remain visible eftir the call. |
-| postingDate / endingDate | dagsetning | Echoes the input. |
-| documentNo | Code[20] | skjal númer on the adjustment lines. |
-| postingDescription | Text[100] | Lýsing on the adjustment lines (input eða Sjálfgefið). |
-| currencyFilter | Text | Filter applied til currency selection (input eða empty fyrir "all"). |
-| adjustCustomers / adjustVendors / adjustEmployees / adjustBankAccounts / adjustGLAccounts | sanngildi | Echoes the input toggles. |
-| lcyCode | Code[10] | LCY code úr General bók Setup, fyrir context. |
-| totals | hlutur | LCY totals across all færslur written með the run. Preview adds `balanced`; post adds `netLCY` og `newGLEntryCount`. |
-| byCurrency | fylki | Post aðeins. Per-currency breakdown of adjusted LCY amounts og register counts. One element per currency that produced at least one adjustment register. |
-| preview | fylki | Preview aðeins. One element per bók tafla touched (G/L færsla, Detailed Cust./birgi/Empl. Ledg. færsla, Bank Account bók færsla, etc.), hver með the simulated færslur projected til a curated Reitur set. |
-| glRegisterNo | heiltala | Post aðeins. G/L Register númer created með the run. |
-| fromGLEntryNo / toGLEntryNo | heiltala | Post aðeins. Range of G/L færslur written með the adjustment. |
-| newGLEntryCount | heiltala | Post aðeins. númer of G/L færslur in the ný register. `0` þegar no adjustment was needed. |
-| durationMs | BigInteger | Wall-clock time spent inside the BC engine (excludes parsing og response build). |
+| status | Text | `Success` or `Error`. |
+| posted | Boolean | `true` when the adjustment actually ran and committed (i.e. `post=true` and the run succeeded). |
+| rollback | Boolean | Only present in preview responses; always `true`. Indicates that no database changes remain visible after the call. |
+| postingDate / endingDate | Date | Echoes the input. |
+| documentNo | Code[20] | Document number on the adjustment lines. |
+| postingDescription | Text[100] | Description on the adjustment lines (input or default). |
+| currencyFilter | Text | Filter applied to currency selection (input or empty for "all"). |
+| adjustCustomers / adjustVendors / adjustEmployees / adjustBankAccounts / adjustGLAccounts | Boolean | Echoes the input toggles. |
+| lcyCode | Code[10] | LCY code from General Ledger Setup, for context. |
+| totals | Object | LCY totals across all entries written by the run. Preview adds `balanced`; post adds `netLCY` and `newGLEntryCount`. |
+| byCurrency | Array | Post only. Per-currency breakdown of adjusted LCY amounts and register counts. One element per currency that produced at least one adjustment register. |
+| preview | Array | Preview only. One element per ledger table touched (G/L Entry, Detailed Cust./Vendor/Empl. Ledg. Entry, Bank Account Ledger Entry, etc.), each with the simulated entries projected to a curated field set. |
+| glRegisterNo | Integer | Post only. G/L Register number created by the run. |
+| fromGLEntryNo / toGLEntryNo | Integer | Post only. Range of G/L entries written by the adjustment. |
+| newGLEntryCount | Integer | Post only. Number of G/L entries in the new register. `0` when no adjustment was needed. |
+| durationMs | BigInteger | Wall-clock time spent inside the BC engine (excludes parsing and response build). |
 
 ## Processing Flow
-Preview og post share the parsing, validation, og posting-gate phases. They diverge aðeins on the engine invocation.
+Preview and post share the parsing, validation, and posting-gate phases. They diverge only on the engine invocation.
 
 ### 1. Request Parsing
-- `AssertVersion1` confirms the message envelope er stutt.
-- Request JSON er parsed í local variables: dates, skjal no., posting Lýsing, currency filter, the five `adjust*` toggles (hver defaulting til `true`), og `post`.
-- A typed Gildi parse Mistókst (e.g. an unparseable dagsetning) Skilar `status=Error` immediately.
+- `AssertVersion1` confirms the message envelope is supported.
+- Request JSON is parsed into local variables: dates, document no., posting description, currency filter, the five `adjust*` toggles (each defaulting to `true`), and `post`.
+- A typed value parse failure (e.g. an unparseable date) returns `status=Error` immediately.
 
-### 2. Bókunarheimild
-Both branches call `Bifrost Posting Gate.AssertCanPost` fyrir posting Gerð `G/L`. A denial writes the Villa response og stops the run.
+### 2. Posting Gate
+Both branches call `Bifrost Posting Gate.AssertCanPost` for posting type `G/L`. A denial writes the error response and stops the run.
 
 ### 3. Input Validation
-Athugar run in order; the fyrsta Mistókst short-circuits Beiðnin með `status=Error`.
-1. `endingDate` er present.
-2. `postingDate` er present.
-3. `documentNo` er present.
-4. At least one `adjust*` toggle er true.
-5. ef `postingDescription` er blank, the Sjálfgefið `Exchange rate adjustment <currencyFilter> <endingDate>` er substituted.
+Checks run in order; the first failure short-circuits the request with `status=Error`.
+1. `endingDate` is present.
+2. `postingDate` is present.
+3. `documentNo` is present.
+4. At least one `adjust*` toggle is true.
+5. If `postingDescription` is blank, the default `Exchange rate adjustment <currencyFilter> <endingDate>` is substituted.
 
 ### 4a. Preview Branch (`post=false`)
-1. Populate a temporary `"Exch. Rate Adjmt. Parameters"` færsla (tafla 596) með the parsed inputs, `"Hide UI"=true`, `"Preview Posting"=true`, og the valfrjálst currency filter.
-2. `BindSubscription` codeunit 699 `"Exch. Rate Adjmt. Process"` (declared `EventSubscriberInstance = Manual`; its `OnRunPreview` event subscriber receives the Færibreyta færsla).
-3. `GenJnlPostPreview.SetContext` + `GenJnlPostPreview.Run` invoke the BC posting-preview engine headlessly. The engine raises `Error('')` eftir capturing færslur, which er the expected signal.
-4. `GenJnlPostPreview.GetPreviewHandler` Skilar the populated `Posting Preview Event Handler`.
-5. `FillDocumentEntry` enumerates the populated töflur. `Bifrost Preview Helper.AddTableToPreview` projects hver tafla til a curated Reitur set; extensions getur extend the projection via `OnGetPreviewFieldNames`.
-6. `ComputeGLTotals` aggregates LCY debits/credits úr the captured G/L færsla rows, og `balanced` er derived (`Round(diff, 0.01) = 0`).
-7. Svarið er written via `SetResponseJson`. No database changes remain visible eftir the call.
+1. Populate a temporary `"Exch. Rate Adjmt. Parameters"` record (table 596) with the parsed inputs, `"Hide UI"=true`, `"Preview Posting"=true`, and the optional currency filter.
+2. `BindSubscription` codeunit 699 `"Exch. Rate Adjmt. Process"` (declared `EventSubscriberInstance = Manual`; its `OnRunPreview` event subscriber receives the parameter record).
+3. `GenJnlPostPreview.SetContext` + `GenJnlPostPreview.Run` invoke the BC posting-preview engine headlessly. The engine raises `Error('')` after capturing entries, which is the expected signal.
+4. `GenJnlPostPreview.GetPreviewHandler` returns the populated `Posting Preview Event Handler`.
+5. `FillDocumentEntry` enumerates the populated tables. `Bifrost Preview Helper.AddTableToPreview` projects each table to a curated field set; extensions can extend the projection via `OnGetPreviewFieldNames`.
+6. `ComputeGLTotals` aggregates LCY debits/credits from the captured G/L Entry rows, and `balanced` is derived (`Round(diff, 0.01) = 0`).
+7. The response is written via `SetResponseJson`. No database changes remain visible after the call.
 
 ### 4b. Post Branch (`post=true`)
-1. Snapshot the current síðasta `G/L Register."No."` og síðasta `Exch. Rate Adjmt. Reg."No."`.
-2. Delegate the actual run til an isolated codeunit (`Codeunit.Run` með `TableNo = "Bifrost Message Argument ori"`). The isolated codeunit re-parses Beiðnin via `GetRequestJson`, populates the sama temporary Færibreyta færsla (this time með `"Preview Posting"=false`), og calls `Codeunit.Run(Codeunit::"Exch. Rate Adjmt. Process", ExchRateAdjmtParameters)`.
-3. ef the isolated run fails, villu-JSON er byggt úr `GetLastErrorText` (kóði `BusinessCentralError`). The outer transaction er preserved so the message-processing pipeline getur færsla the Mistókst.
-4. On Tókst, the ný `G/L Register` (með `No.` greater than the snapshot) er located via `SetLoadFields("No.", "From Entry No.", "To Entry No.", "Creation Date")`. `ComputeGLTotals` calls `CalcSums("Debit Amount", "Credit Amount")` over that færsla range.
-5. `Exch. Rate Adjmt. Reg.` færslur með `"No." > snapshot` eru walked once til collect distinct currency codes, then per-currency `CalcSums("Adjusted Base (LCY)", "Adjusted Amt. (LCY)")` builds the `byCurrency` fylki.
-6. `glRegisterNo`, `fromGLEntryNo`, `toGLEntryNo`, `newGLEntryCount`, og `durationMs` eru added til Svarið. It er written via `SetResponseJson` með `Content Type = text/json`.
+1. Snapshot the current last `G/L Register."No."` and last `Exch. Rate Adjmt. Reg."No."`.
+2. Delegate the actual run to an isolated codeunit (`Codeunit.Run` with `TableNo = "Bifrost Message Argument ori"`). The isolated codeunit re-parses the request via `GetRequestJson`, populates the same temporary parameter record (this time with `"Preview Posting"=false`), and calls `Codeunit.Run(Codeunit::"Exch. Rate Adjmt. Process", ExchRateAdjmtParameters)`.
+3. If the isolated run fails, the error JSON is built from `GetLastErrorText` (code `BusinessCentralError`). The outer transaction is preserved so the message-processing pipeline can record the failure.
+4. On success, the new `G/L Register` (with `No.` greater than the snapshot) is located via `SetLoadFields("No.", "From Entry No.", "To Entry No.", "Creation Date")`. `ComputeGLTotals` calls `CalcSums("Debit Amount", "Credit Amount")` over that entry range.
+5. `Exch. Rate Adjmt. Reg.` records with `"No." > snapshot` are walked once to collect distinct currency codes, then per-currency `CalcSums("Adjusted Base (LCY)", "Adjusted Amt. (LCY)")` builds the `byCurrency` array.
+6. `glRegisterNo`, `fromGLEntryNo`, `toGLEntryNo`, `newGLEntryCount`, and `durationMs` are added to the response. It is written via `SetResponseJson` with `Content Type = text/json`.
 
-### Athugasemdir on Svarið
-- Individual `G/L Entry` rows eru intentionally ekki embedded in the post response. nota `Data.Records.Get` against `G/L Entry` filtered með `Entry No.` between `fromGLEntryNo` og `toGLEntryNo` þegar line-level detail er needed.
-- The `byCurrency` fylki uses `Exch. Rate Adjmt. Reg.` (tafla 86) as the Uppruni. hver register represents one (Account Gerð x Posting Group x Currency) tuple; the per-currency view collapses Account Gerð og Posting Group via `CalcSums`.
-- `adjustVATEntries` er intentionally **ekki** exposed. VAT færslur eru settled through the `Finance.VAT.CalcAndPostSettlement` skilaboðategund.
-- Dimensions eru inherited úr the Uppruni bók færslur (BC Sjálfgefið); they getur ekki be overridden via Beiðnin.
-- No locale-specific behaviour er applied. Iceland uses the BC standard FX revaluation rules.
+### Notes on the Response
+- Individual `G/L Entry` rows are intentionally not embedded in the post response. Use `Data.Records.Get` against `G/L Entry` filtered by `Entry No.` between `fromGLEntryNo` and `toGLEntryNo` when line-level detail is needed.
+- The `byCurrency` array uses `Exch. Rate Adjmt. Reg.` (table 86) as the source. Each register represents one (Account Type x Posting Group x Currency) tuple; the per-currency view collapses Account Type and Posting Group via `CalcSums`.
+- `adjustVATEntries` is intentionally **not** exposed. VAT entries are settled through the `Finance.VAT.CalcAndPostSettlement` message type.
+- Dimensions are inherited from the source ledger entries (BC default); they cannot be overridden via the request.
+- No locale-specific behaviour is applied. Iceland uses the BC standard FX revaluation rules.
 
-## Villa Handling
-Validation Villur return `status=Error` og an `error` Reitur describing the Mistókst. Villur raised með the underlying adjustment engine during posting er skilað með kóða `BusinessCentralError`. Validated conditions:
-- All áskilið fields present (`endingDate`, `postingDate`, `documentNo`)
-- At least one `adjust*` toggle er true
-- Bókunarheimild `G/L` granted
+## Error Handling
+Validation errors return `status=Error` and an `error` field describing the failure. Errors raised by the underlying adjustment engine during posting are returned with code `BusinessCentralError`. Validated conditions:
+- All required fields present (`endingDate`, `postingDate`, `documentNo`)
+- At least one `adjust*` toggle is true
+- Posting gate `G/L` granted
 
 ## Observed Behavior (Validated via MCP)
 
 ### Empty Exposure - Preview
-þegar no opið foreign-currency bók færslur match the filter, the preview response er still `status=Success`:
+When no open foreign-currency ledger entries match the filter, the preview response is still `status=Success`:
 ```json
 {
   "status": "Success",
@@ -251,10 +251,10 @@ Validation Villur return `status=Error` og an `error` Reitur describing the Mist
   "durationMs": 510
 }
 ```
-Note: `preview` er `[]` (ekki omitted) og `totals.balanced` er `true` með zero debit/credit.
+Note: `preview` is `[]` (not omitted) and `totals.balanced` is `true` with zero debit/credit.
 
 ### Empty Exposure - Post
-þegar the engine has nothing til revalue, no G/L Register er created og the register-related fields eru omitted:
+When the engine has nothing to revalue, no G/L Register is created and the register-related fields are omitted:
 ```json
 {
   "status": "Success",
@@ -276,34 +276,34 @@ Note: `preview` er `[]` (ekki omitted) og `totals.balanced` er `true` með zero 
   "durationMs": 132
 }
 ```
-Note: `glRegisterNo`, `fromGLEntryNo`, `toGLEntryNo` eru **omitted** þegar no register er created. Callers should treat their absence as "nothing til adjust" rather than an Villa. `byCurrency` er `[]` (ekki omitted).
+Note: `glRegisterNo`, `fromGLEntryNo`, `toGLEntryNo` are **omitted** when no register is created. Callers should treat their absence as "nothing to adjust" rather than an error. `byCurrency` is `[]` (not omitted).
 
-### Validation Villa - vantar postingDate
-Request omitting `postingDate` Skilar:
+### Validation Error - Missing postingDate
+Request omitting `postingDate` returns:
 ```json
 { "status": "Error", "error": "postingDate is required." }
 ```
 
-### Validation Villa - All Toggles False
-Setting every `adjust*` toggle til `false` Skilar:
+### Validation Error - All Toggles False
+Setting every `adjust*` toggle to `false` returns:
 ```json
 { "status": "Error", "error": "At least one of adjustCustomers, adjustVendors, adjustEmployees, adjustBankAccounts, adjustGLAccounts must be true." }
 ```
 
 ### Performance Baseline
-On an empty-exposure test (no foreign-currency opið færslur):
+On an empty-exposure test (no foreign-currency open entries):
 - Preview branch: ~500 ms (posting-preview framework has higher per-call overhead).
 - Post branch: ~130 ms (direct `Codeunit.Run` of codeunit 699).
 
-Real-world runs scale með the númer of opið foreign-currency færslur og the númer of currencies in the filter. Plan timeouts accordingly; fyrir very large month-end runs prefer the queue endpoint (`queue_message_type`) over the synchronous one.
+Real-world runs scale with the number of open foreign-currency entries and the number of currencies in the filter. Plan timeouts accordingly; for very large month-end runs prefer asynchronous execution over the synchronous one.
 
-### Full Test - USD viðskiptamanni reikningur + EUR birgi reikningur, ~10% rate drift
-End-til-end validation against Icelandic Cronus (LCY=ISK). Seed data posted via `Finance.GeneralJournal.Post` on 2025-01-15:
-- viðskiptamanni 30000 (FLYTJA UT): reikningur USDFX-001, 1,000 USD at rate 100/6519.9591 -> Cust. bók færsla upphæð(LCY) = 65,199.59 ISK.
-- birgi 10000 (ERLENT): reikningur EURFX-001, 500 EUR at rate 1/64.8936 -> birgi bók færsla upphæð(LCY) = -32,446.80 ISK.
-Both dagbók lines balanced through G/L 2340 (clearing). ný rates inserted at 2025-06-01: USD 100/7,172.00 (+10.0%), EUR 1/71.383 (+10.0%). Adjustment ran með `endingDate=2025-06-30`, `postingDate=2025-06-30`, `currencyCode="USD|EUR"`, `adjustGLAccounts=false`.
+### Full Test - USD customer invoice + EUR vendor invoice, ~10% rate drift
+End-to-end validation against Icelandic Cronus (LCY=ISK). Seed data posted via `Finance.GeneralJournal.Post` on 2025-01-15:
+- Customer 30000 (FLYTJA UT): Invoice USDFX-001, 1,000 USD at rate 100/6519.9591 -> Cust. Ledger Entry Amount(LCY) = 65,199.59 ISK.
+- Vendor 10000 (ERLENT): Invoice EURFX-001, 500 EUR at rate 1/64.8936 -> Vendor Ledger Entry Amount(LCY) = -32,446.80 ISK.
+Both journal lines balanced through G/L 2340 (clearing). New rates inserted at 2025-06-01: USD 100/7,172.00 (+10.0%), EUR 1/71.383 (+10.0%). Adjustment ran with `endingDate=2025-06-30`, `postingDate=2025-06-30`, `currencyCode="USD|EUR"`, `adjustGLAccounts=false`.
 
-Preview response (`post=false`) - 4 G/L færslur, balanced totals:
+Preview response (`post=false`) - 4 G/L entries, balanced totals:
 ```json
 {
   "status": "Success",
@@ -321,15 +321,15 @@ Preview response (`post=false`) - 4 G/L færslur, balanced totals:
   "durationMs": 437
 }
 ```
-G/L færsla rows (curated projection):
-| G/L Account | Lýsing                  | Debit    | Credit   |
+G/L Entry rows (curated projection):
+| G/L Account | Description                  | Debit    | Credit   |
 |-------------|------------------------------|----------|----------|
-| 2320        | FX revaluation 2025-06-30    | 6,520.41 |        0 |  &lt;- viðskiptamanni receivable (USD) up
+| 2320        | FX revaluation 2025-06-30    | 6,520.41 |        0 |  &lt;- customer receivable (USD) up
 | 6700        | FX revaluation 2025-06-30    |        0 | 6,520.41 |  &lt;- unrealised gain (USD)
-| 5420        | FX revaluation 2025-06-30    |        0 | 3,244.70 |  &lt;- birgi payable (EUR) up
+| 5420        | FX revaluation 2025-06-30    |        0 | 3,244.70 |  &lt;- vendor payable (EUR) up
 | 7250        | FX revaluation 2025-06-30    | 3,244.70 |        0 |  &lt;- unrealised loss (EUR)
 
-Post response (`post=true`) - sama payload, `byCurrency` populated:
+Post response (`post=true`) - same payload, `byCurrency` populated:
 ```json
 {
   "status": "Success",
@@ -349,58 +349,58 @@ Post response (`post=true`) - sama payload, `byCurrency` populated:
 }
 ```
 Observations:
-- `adjustedBaseLCY` er the **signed** LCY base of opið færslur áður en revaluation (viðskiptamanni positive, birgi negative).
-- `adjustedAmtLCY` er the **signed** LCY adjustment (gain positive, loss negative). Net across currencies = 6,520.41 - 3,244.70 = 3,275.71 ISK net gain on this run.
-- `registerCount` er 1 per currency in this test - hver currency produces one Exch. Rate Adjmt. Reg. færsla.
-- Preview vs post duration ratio (~1.3x) matches the empty-exposure baseline; preview overhead er dominated með the preview-framework `BindSubscription` + `Run` round-trip rather than the færsla count at this scale.
-- Currency master verður að have `Unrealized Gains Acc.` / `Unrealized Losses Acc.` / `Realized Gains Acc.` / `Realized Losses Acc.` populated fyrir every currency in the filter, eða BC Villur með `Unrealized Gains Acc. must have a value in Currency: Code=<XYZ>`. This er **separate** úr the `Realized G/L Gains Account` validation (which aðeins triggers þegar `adjustGLAccounts=true`, Sjá gotcha below).
-- The receivables / payables G/L accounts (2320 / 5420 in this test) eru inferred úr hver viðskiptamanni/birgi's Posting Group, ekki úr Beiðnin.
+- `adjustedBaseLCY` is the **signed** LCY base of open entries before revaluation (customer positive, vendor negative).
+- `adjustedAmtLCY` is the **signed** LCY adjustment (gain positive, loss negative). Net across currencies = 6,520.41 - 3,244.70 = 3,275.71 ISK net gain on this run.
+- `registerCount` is 1 per currency in this test - each currency produces one Exch. Rate Adjmt. Reg. entry.
+- Preview vs post duration ratio (~1.3x) matches the empty-exposure baseline; preview overhead is dominated by the preview-framework `BindSubscription` + `Run` round-trip rather than the entry count at this scale.
+- Currency master must have `Unrealized Gains Acc.` / `Unrealized Losses Acc.` / `Realized Gains Acc.` / `Realized Losses Acc.` populated for every currency in the filter, or BC errors with `Unrealized Gains Acc. must have a value in Currency: Code=<XYZ>`. This is **separate** from the `Realized G/L Gains Account` validation (which only triggers when `adjustGLAccounts=true`, see gotcha below).
+- The receivables / payables G/L accounts (2320 / 5420 in this test) are inferred from each customer/vendor's Posting Group, not from the request.
 
 ## Known Gotchas
 
 ### G/L Account adjustment requires "Realized G/L Gains Account" on ALL currencies
-BC codeunit 699 validates the `Realized G/L Gains Account` og `Realized G/L Losses Account` fields on **every configured currency** áður en running the G/L Account adjustment phase - the `currencyCode` filter er **ekki** consulted fyrir this validation. ef hvaða currency er vantar those accounts, the call fails með:
+BC codeunit 699 validates the `Realized G/L Gains Account` and `Realized G/L Losses Account` fields on **every configured currency** before running the G/L Account adjustment phase - the `currencyCode` filter is **not** consulted for this validation. If any currency is missing those accounts, the call fails with:
 ```
 Realized G/L Gains Account must have a value in Currency: Code=<XYZ>. It cannot be zero or empty.
 ```
-even ef `<XYZ>` was excluded úr `currencyCode`.
+even if `<XYZ>` was excluded from `currencyCode`.
 
-Two ways til work around this:
-1. Set `adjustGLAccounts: false` in Beiðnin (recommended þegar you aðeins need til revalue bók færslur, ekki G/L account balances). This bypasses the G/L account phase entirely og lets the viðskiptamanni/birgi/employee/bank phases run normally.
-2. Populate `Realized G/L Gains Account` og `Realized G/L Losses Account` on every virkt currency in the Currency Card. This er the correct production fix þegar G/L account revaluation er needed.
+Two ways to work around this:
+1. Set `adjustGLAccounts: false` in the request (recommended when you only need to revalue ledger entries, not G/L account balances). This bypasses the G/L account phase entirely and lets the customer/vendor/employee/bank phases run normally.
+2. Populate `Realized G/L Gains Account` and `Realized G/L Losses Account` on every active currency in the Currency Card. This is the correct production fix when G/L account revaluation is needed.
 
-Note: `Realized Gains Acc.` / `Realized Losses Acc.` (the legacy/viðskiptamanni-bók pair) og `Realized G/L Gains Account` / `Realized G/L Losses Account` (the G/L-balance pair) eru **different** Currency fields. The currency may have the fyrsta pair set but still fail the second-pair validation.
+Note: `Realized Gains Acc.` / `Realized Losses Acc.` (the legacy/customer-ledger pair) and `Realized G/L Gains Account` / `Realized G/L Losses Account` (the G/L-balance pair) are **different** Currency fields. The currency may have the first pair set but still fail the second-pair validation.
 
 ### Currency filter scope
-The `currencyCode` filter er applied during viðskiptamanni/birgi/employee/bank færsla selection inside codeunit 699. The G/L Account adjustment phase iterates all currencies (Sjá gotcha above). It einnig drives the per-currency breakdown in the post response (`byCurrency`), so passing an explicit filter er the cleanest way til scope a run.
+The `currencyCode` filter is applied during customer/vendor/employee/bank entry selection inside codeunit 699. The G/L Account adjustment phase iterates all currencies (see gotcha above). It also drives the per-currency breakdown in the post response (`byCurrency`), so passing an explicit filter is the cleanest way to scope a run.
 
-### postingDescription Sjálfgefið format
-þegar `postingDescription` er blank, the substituted Gildi er `Exchange rate adjustment <currencyFilter> <endingDate>` með a single space between hver token. þegar `currencyCode` er einnig blank, the result er `Exchange rate adjustment  <endingDate>` (note the double space). Callers that pattern-match descriptions should treat the currency token as valfrjálst.
+### postingDescription default format
+When `postingDescription` is blank, the substituted value is `Exchange rate adjustment <currencyFilter> <endingDate>` with a single space between each token. When `currencyCode` is also blank, the result is `Exchange rate adjustment  <endingDate>` (note the double space). Callers that pattern-match descriptions should treat the currency token as optional.
 
-### G/L færsla rows eru ekki embedded in post responses
-The post response intentionally Skilar the færsla-númer range aðeins (`fromGLEntryNo`, `toGLEntryNo`). til get the actual G/L lines, follow up með `Data.Records.Get` on `G/L Entry` filtered með `Entry No.` between those bounds. This keeps the post response small even fyrir large registers.
+### G/L Entry rows are not embedded in post responses
+The post response intentionally returns the entry-number range only (`fromGLEntryNo`, `toGLEntryNo`). To get the actual G/L lines, follow up with `Data.Records.Get` on `G/L Entry` filtered by `Entry No.` between those bounds. This keeps the post response small even for large registers.
 
 ### Isolation guarantees
-- Preview path: `GenJnlPostPreview.Run` raises `Error('')` eftir capturing færslur, which rolls back the in-memory skrifa set. No persistent changes survive a preview call, even ef Beiðnin triggered hundreds of simulated færslur.
-- Bókunarleið: sjálf leiðréttingin keyrir í einangraðri færslu. ef the engine Villur, the outer transaction (message-processing pipeline) er preserved og villunni er skilað með kóða `BusinessCentralError`. ef it succeeds, the ný register er committed independently of hvaða Kallandi-side cleanup.
+- Preview path: `GenJnlPostPreview.Run` raises `Error('')` after capturing entries, which rolls back the in-memory write set. No persistent changes survive a preview call, even if the request triggered hundreds of simulated entries.
+- Post path: the actual adjustment runs in an isolated transaction. If the engine errors, the outer transaction (message-processing pipeline) is preserved and the error is returned with code `BusinessCentralError`. If it succeeds, the new register is committed independently of any caller-side cleanup.
 
-## AI Kallandi Guidance
-Practical tips fyrir LLM-driven callers (Copilot, agents, M365 plugins):
-- **Always run preview fyrsta** fyrir unfamiliar data Stillir. The `preview` fylki shows exactly what would be posted; aðeins call `post=true` eftir confirming the færslur og totals.
-- **Scope every run með `currencyCode`** þegar possible. It limits the viðskiptamanni/birgi/employee/bank phase og yields a focused `byCurrency` breakdown.
-- **Set `adjustGLAccounts: false`** unless the user skýrt asked til revalue G/L account balances. This avoids the cross-currency `Realized G/L Gains Account` validation trap described above.
-- **Pick `documentNo` deterministically**, e.g. `FXADJ-<YYYY-MM>` eða `FX-<YYYY-MM>-PREVIEW`. The G/L Register er searchable með this Gildi afterwards.
-- **Empty result er Tókst, ekki Mistókst.** ef `newGLEntryCount` er `0` (post) eða `preview` er `[]` (preview), tell the user "no adjustment needed" rather than reporting an Villa.
-- **nota `endingDate` = month-end** fyrir normal periodic revaluation; `postingDate` er usually the sama dagsetning but getur differ fyrir back-dated postings.
-- **fyrir large month-end runs**, switch úr `call_message_type` til `queue_message_type` til avoid synchronous timeouts; poll með `queue_get_status`.
-- **eftir a tókst post**, nota `Data.Records.Get` on `G/L Entry` með `Entry No.` between `fromGLEntryNo` og `toGLEntryNo` til fetch line-level detail. nota `Data.Records.Get` on `Exch. Rate Adjmt. Reg.` filtered með `No.` `>fromGLEntryNo-style snapshot` fyrir register-level detail.
-- **Currency filter syntax** mirrors BC: single Gildi (`USD`), alternatives (`USD|EUR|GBP`), wildcards (`U*`). Quotes around the filter Gildi eru **ekki** áskilið.
+## AI Caller Guidance
+Practical tips for LLM-driven callers (Copilot, agents, M365 plugins):
+- **Always run preview first** for unfamiliar data sets. The `preview` array shows exactly what would be posted; only call `post=true` after confirming the entries and totals.
+- **Scope every run with `currencyCode`** when possible. It limits the customer/vendor/employee/bank phase and yields a focused `byCurrency` breakdown.
+- **Set `adjustGLAccounts: false`** unless the user explicitly asked to revalue G/L account balances. This avoids the cross-currency `Realized G/L Gains Account` validation trap described above.
+- **Pick `documentNo` deterministically**, e.g. `FXADJ-<YYYY-MM>` or `FX-<YYYY-MM>-PREVIEW`. The G/L Register is searchable by this value afterwards.
+- **Empty result is success, not failure.** If `newGLEntryCount` is `0` (post) or `preview` is `[]` (preview), tell the user "no adjustment needed" rather than reporting an error.
+- **Use `endingDate` = month-end** for normal periodic revaluation; `postingDate` is usually the same date but can differ for back-dated postings.
+- **For large month-end runs**, use asynchronous execution to avoid synchronous timeouts; poll the asynchronous operation until complete.
+- **After a successful post**, use `Data.Records.Get` on `G/L Entry` with `Entry No.` between `fromGLEntryNo` and `toGLEntryNo` to fetch line-level detail. Use `Data.Records.Get` on `Exch. Rate Adjmt. Reg.` filtered by `No.` `>fromGLEntryNo-style snapshot` for register-level detail.
+- **Currency filter syntax** mirrors BC: single value (`USD`), alternatives (`USD|EUR|GBP`), wildcards (`U*`). Quotes around the filter value are **not** required.
 
-## Tengdar skilaboðategundir
-- `Finance.VAT.CalcAndPostSettlement` - settles VAT færslur (a separate, complementary periodic close step).
-- `Finance.GeneralJournal.PreviewPost` / `Finance.GeneralJournal.Post` - manual currency-related færslur via journals.
-- `Data.Records.Get` - fetch the individual `G/L Entry` rows in the returned `fromGLEntryNo..toGLEntryNo` range, eða the `Exch. Rate Adjmt. Reg.` færslur til inspect Account Gerð / Posting Group splits.
+## Related Message Types
+- `Finance.VAT.CalcAndPostSettlement` - settles VAT entries (a separate, complementary periodic close step).
+- `Finance.GeneralJournal.PreviewPost` / `Finance.GeneralJournal.Post` - manual currency-related entries via journals.
+- `Data.Records.Get` - fetch the individual `G/L Entry` rows in the returned `fromGLEntryNo..toGLEntryNo` range, or the `Exch. Rate Adjmt. Reg.` records to inspect Account Type / Posting Group splits.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

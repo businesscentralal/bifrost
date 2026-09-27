@@ -35,8 +35,8 @@ The target table is resolved by checking these keys in order and using the first
 | `fieldNumbers` | int[] | all Normal fields | When set, only these field numbers are returned in `fields`. FlowFields are calculated and included **only** when listed here. Primary-key fields are always in `primaryKey` regardless. |
 | `tableView` | string | — | BC `SetView` syntax using **display field names** (not `jsonName`). Unknown field names or unbalanced parentheses return `status: Error` (fail closed). |
 | `startDateTime` / `endDateTime` | ISO 8601 | — | Filter on `SystemModifiedAt`. Provide both. |
-| `skip` | int | 0 | Pagination offset. |
-| `take` | int | 100 | Page size. `noOfRecords` in the response is the unpaginated total. |
+| `skip` | int | 0 | Pagination offset. A JSON integer or a string of digits; any other value is an error. |
+| `take` | int | 100 | Page size. `noOfRecords` in the response is the unpaginated total. A JSON integer or a string of digits; any other value is an error. |
 
 ## Response Shape
 

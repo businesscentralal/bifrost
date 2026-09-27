@@ -13,7 +13,7 @@ This page is generated from the message type's own help codeunit by
 
 
 ## Overview
-Creates a new Transfer Order header (`Transfer Header`) with from/to locations, posting/shipment/receipt dates, and an optional `Direct Transfer` flag. **Lines are not created** - add lines afterwards via `Data.Records.Set` on table `5741 Transfer Line`.
+Creates a new Transfer Order header (`Transfer Header`) with from/to locations, posting/shipment/receipt dates, an optional `Direct Transfer` flag, and optional `lines`. Without `lines`, only the header is created.
 
 **Direction**: Inbound  **Content-Type**: `text/json`
 
@@ -25,11 +25,11 @@ Not idempotent. Every call inserts a new `Transfer Header` row and consumes one 
 |-------|------|----------|-------------|
 | transferFromCode | Code[10] | Yes | Source location. |
 | transferToCode | Code[10] | Yes | Destination location. |
-| directTransfer | Boolean | No | When `true`, marks header as Direct Transfer (no in-transit step). Default `false`. |
+| directTransfer | Boolean | No | When `true`, marks header as Direct Transfer (no in-transit step). Default `false`. `true` or `false`; any other value is an error. |
 | inTransitCode | Code[10] | Required when `directTransfer = false` | In-transit location code. |
-| postingDate | Date | No | Posting Date. Defaults to `WorkDate()` when omitted or `0D`. Format `0,9`. |
-| shipmentDate | Date | No | Shipment Date. Format `0,9`. |
-| receiptDate | Date | No | Receipt Date. Format `0,9`. |
+| postingDate | Date | No | `YYYY-MM-DD`. Omitted: `WorkDate()`. An invalid value is an error. |
+| shipmentDate | Date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. |
+| receiptDate | Date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. |
 | externalDocumentNo | Code[35] | No | External Document No. |
 
 ## Request Example
@@ -83,11 +83,38 @@ Not idempotent. Every call inserts a new `Transfer Header` row and consumes one 
 | (BC validation error text) | Unknown location, equal from/to codes, location lacks Require Shipment/Receipt, etc. |
 
 ## Related Message Types
-- `Data.Records.Set` on `Transfer Line` (table 5741) - add lines.
+- `Data.Records.Set` — update header fields. Transfer lines belong on `Inventory.TransferOrder.Create`.
 - `Inventory.TransferOrder.Release` - release once lines exist.
 - `Inventory.TransferOrder.Post` - ship and/or receive.
 - `Inventory.TransferOrder.PreviewPost` - dry run.
 - `Inventory.TransferOrder.Statistics` - totals.
+## Lines
+Optional `lines` array. Field names are camelCase. Foundation assigns line numbers in steps of 10000. Do not send `lineNo`. The index in an error is 1-based (`lines[1]` is the first line).
+The call is all-or-nothing: every problem is collected before any insert, and nothing is created when the pre-check fails. A validation error is reported as `lines[n].field: ...`, for example `lines[2].quantity: ...`.
+A request can contain at most 200 lines.
+Validation order: Item No., Variant Code, Unit of Measure Code, Quantity, Shipment Date, Description.
+| Field | Type | Required | Description |
+|---|---|---|---|
+| itemNo | Text | Yes | Item number. |
+| variantCode | Text | No | Item variant. |
+| unitOfMeasureCode | Text | No | Unit of measure for the item. |
+| quantity | Decimal | No | Decimal. |
+| shipmentDate | Date | No | `YYYY-MM-DD`. |
+| description | Text | No | Line description. |
+Transfer lines have no type or price. When `lines` is sent the response adds `lines` and `totals` (`quantity`). Without `lines` the response is unchanged.
+```json
+{
+  "type": "Inventory.TransferOrder.Create",
+  "data": {
+    "transferFromCode": "BLUE",
+    "transferToCode": "RED",
+    "inTransitCode": "OWN LOG.",
+    "lines": [
+      { "itemNo": "1896-S", "quantity": 2, "unitOfMeasureCode": "PCS" }
+    ]
+  }
+}
+```
 
 ## Errors and warnings
 Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
