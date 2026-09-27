@@ -39,7 +39,7 @@ The first match wins:
 | `batchName` | string | No | Journal batch (Code[10]). |
 | `lines` | object[] | No | Lines with values, at most 200. See **With lines**. |
 | `noOfLines` | int | No | Blank lines to create when `lines` is left out. Default `1`, from `1` to `100`. A JSON integer or a string of digits. Cannot be sent with `lines`. |
-| `clearExistingLines` | bool | No | **Destructive.** When `true`, every existing line in the batch is deleted (with its triggers) before the new lines are inserted. It cannot be undone. Default `false`; `true` or `false`, any other value is an error. |
+| `clearExistingLines` | bool | No | When `true`, every existing line in the batch is deleted (with its triggers) before the new lines are inserted. This is destructive and cannot be undone. Default `false`; `true` or `false`, any other value is an error. |
 | `fieldNumbers` | int[] | No | Restrict the returned `fields` to these field numbers. All fields when omitted. |
 
 ## With lines
