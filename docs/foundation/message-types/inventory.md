@@ -931,7 +931,7 @@ The ten `Warehouse.*` message types — warehouse shipments, receipts, picks and
 | [Warehouse.Putaway.Create](/warehouse/reference/message-types/warehouse-putaway-create/) | Creates, or returns the existing, put-away for a posted warehouse receipt |
 | [Warehouse.Putaway.Register](/warehouse/reference/message-types/warehouse-putaway-register/) | Registers a warehouse put-away |
 
-The warehouse posting gate stays in Foundation: posting, previewing a posting and registering need the `BIFROST WhsePost ori` permission set (see [Posting Gates](/foundation/reference/setup/#posting-gates-bifrost-gl--item--fa--job--resource--warehouse-posting)).
+The warehouse posting gate stays in Foundation: posting and registering need the `BIFROST WhsePost ori` permission set (see [Posting Gates](/foundation/reference/setup/#posting-gates-bifrost-gl--item--fa--job--resource--warehouse-posting)).
 
 ---
 

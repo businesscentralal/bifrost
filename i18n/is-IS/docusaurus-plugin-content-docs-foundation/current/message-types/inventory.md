@@ -628,7 +628,7 @@ Skilaboðategundirnar tíu `Warehouse.*` — vöruhúsaafhendingar, vöruhúsam�
 | [Warehouse.Putaway.Create](/warehouse/reference/message-types/warehouse-putaway-create/) | Stofnar, eða skilar fyrirliggjandi, frágangi fyrir bókaða vöruhúsamóttöku |
 | [Warehouse.Putaway.Register](/warehouse/reference/message-types/warehouse-putaway-register/) | Skráir vöruhúsafrágang |
 
-Bókunarhlið vöruhúss er áfram í Foundation: bókun, forskoðun bókunar og skráning krefjast heimildasafnsins `BIFROST WhsePost ori` (sjá [Bókunarhlið](/foundation/reference/setup/#bókunarhlið-bifröst-gl--item--fa--job--resource--warehouse-posting)).
+Bókunarhlið vöruhúss er áfram í Foundation: bókun og skráning krefjast heimildasafnsins `BIFROST WhsePost ori` (sjá [Bókunarhlið](/foundation/reference/setup/#bókunarhlið-bifröst-gl--item--fa--job--resource--warehouse-posting)).
 
 ---
 
