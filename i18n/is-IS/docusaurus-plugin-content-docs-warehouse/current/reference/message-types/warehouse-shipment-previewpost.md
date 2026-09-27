@@ -136,6 +136,7 @@ Fyrsta samsvörun gildir:
 - **WMS-birgðageymslur krefjast skráðrar tínslu fyrst.** Í birgðageymslu með `Require Pick = true` (t.d. CRONUS `WHITE` / `GULUR`) byrja línur vöruhúsaafhendingarinnar með `Qty. to Ship = 0`. Vöruhúsatínsluna verður að stofna **og skrá** fyrir forskoðun — það er skráning tínslunnar sem skrifar `Qty. to Ship` aftur á línur afhendingarinnar.
 - **Birgðageymslur með `Require Shipment = true` og `Require Pick = false`** haga sér eins og einfalt afhendingarferli: `Qty. to Ship` er fyllt út þegar lína afhendingarinnar er stofnuð, svo forskoðunin keyrir beint án tínsluskrefs.
 - **Reikningsflaggið er fast á `true`.** Áhrif afhendingar + reiknings eru alltaf sýnd, óháð því hvernig þú myndir bóka í raun. Til að forskoða eingöngu afhendingu skaltu nota bókunarforskoðun upprunaskjalsins sjálfs (t.d. `Sales.Order.PreviewPost` þegar hún er komin), eða bóka afhendinguna með `Warehouse.Shipment.Post` eftir að tínslur hafa verið skráðar.
+- **Bókunarhlið.** Krefst heimildasafnsins `BIFROST WhsePost ori`, eins og `Warehouse.Shipment.Post`, þótt ekkert sé vistað. Án þess er skilaboðategundin óvirk fyrir notandann (`isEnabled = false` í `Help.MessageTypes.Get`) og ekki hægt að kalla á hana.
 
 ## Tengdar skilaboðategundir
 

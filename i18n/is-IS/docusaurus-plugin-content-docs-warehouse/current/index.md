@@ -23,9 +23,7 @@ Vöruhúsastjórnun er sérhæft svið sem mörg fyrirtæki nota ekki, og því 
 1. Settu upp og virkjaðu **Bifröst Foundation**.
 2. Settu upp **Bifröst Warehouse**. Hún er aðeins háð Foundation.
 3. Utanaðkomandi kerfi senda Bifröst-skilaboð sem heita `Warehouse.*` gegnum hefðbundna mynstrið biðröð → verk → gögn.
-4. Bókun og skráning fara gegnum bókunarhlið Foundation. `Warehouse.Shipment.Post`, `Warehouse.Receipt.Post`, `Warehouse.Pick.Register` og `Warehouse.Putaway.Register` krefjast heimildasafnsins `BIFROST WhsePost ori` á notandanum sem kallar; `Warehouse.Shipment.Post` með `invoice = true` krefst líka `BIFROST GL Post ori`. Stofnun skjala og forskoðun bókana eru ekki varðar.
-
-Heiti skilaboðategundanna eru óbreytt frá því þær voru hluti af Foundation, svo að kallandi sem notar þegar `Warehouse.Receipt.Create` og hinar þarf engu að breyta öðru en að setja upp þetta forrit.
+4. Bókun, forskoðun bókunar og skráning fara gegnum bókunarhlið Foundation. `Warehouse.Shipment.Post`, `Warehouse.Shipment.PreviewPost`, `Warehouse.Receipt.Post`, `Warehouse.Receipt.Post.Preview`, `Warehouse.Pick.Register` og `Warehouse.Putaway.Register` krefjast heimildasafnsins `BIFROST WhsePost ori` á notandanum sem kallar; án þess eru þær óvirkar fyrir þann notanda (`isEnabled = false` í `Help.MessageTypes.Get`). `Warehouse.Shipment.Post` með `invoice = true` krefst líka `BIFROST GL Post ori`. Aðeins stofnunartegundirnar (`Warehouse.Shipment.Create`, `Warehouse.Receipt.Create`, `Warehouse.Pick.Create`, `Warehouse.Putaway.Create`) eru án bókunarhliðs.
 
 ## Skilaboðategundir
 

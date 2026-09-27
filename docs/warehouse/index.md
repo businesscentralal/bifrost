@@ -23,9 +23,7 @@ Warehouse handling is a specialist area that many companies do not use, so these
 1. Install and activate **Bifröst Foundation**.
 2. Install **Bifröst Warehouse**. It depends on Foundation only.
 3. External systems send Bifröst messages named `Warehouse.*` through the standard queue → task → data pattern.
-4. Posting and registering go through Foundation's posting gate. `Warehouse.Shipment.Post`, `Warehouse.Receipt.Post`, `Warehouse.Pick.Register` and `Warehouse.Putaway.Register` need the `BIFROST WhsePost ori` permission set on the calling user; `Warehouse.Shipment.Post` with `invoice = true` also needs `BIFROST GL Post ori`. Creating documents and previewing postings are not gated.
-
-The message type names are unchanged from the time they shipped inside Foundation, so a caller that already uses `Warehouse.Receipt.Create` and the others needs no change beyond installing this app.
+4. Posting, previewing and registering go through Foundation's posting gate. `Warehouse.Shipment.Post`, `Warehouse.Shipment.PreviewPost`, `Warehouse.Receipt.Post`, `Warehouse.Receipt.Post.Preview`, `Warehouse.Pick.Register` and `Warehouse.Putaway.Register` need the `BIFROST WhsePost ori` permission set on the calling user; without it they are disabled for that user (`isEnabled = false` in `Help.MessageTypes.Get`). `Warehouse.Shipment.Post` with `invoice = true` also needs `BIFROST GL Post ori`. Only the create types (`Warehouse.Shipment.Create`, `Warehouse.Receipt.Create`, `Warehouse.Pick.Create`, `Warehouse.Putaway.Create`) are not gated.
 
 ## Message types
 

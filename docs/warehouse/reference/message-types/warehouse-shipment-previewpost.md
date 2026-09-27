@@ -136,6 +136,7 @@ From `Whse Ship. Prev. Post Tests` (codeunit 95439):
 - **WMS locations require a registered pick first.** On a location with `Require Pick = true` (e.g. CRONUS `WHITE` / `GULUR`), the Warehouse Shipment lines start with `Qty. to Ship = 0`. The warehouse pick must be created **and registered** before previewing — pick registration is what writes `Qty. to Ship` back onto the shipment lines.
 - **Locations with `Require Shipment = true` and `Require Pick = false`** behave like a basic shipping flow: `Qty. to Ship` is populated when the shipment line is created, so the preview runs directly without a pick step.
 - **Invoice flag is fixed at `true`.** The Ship + Invoice impact is always reported regardless of how you would post in production. To preview Ship-only behaviour, use the source document's own posting preview (e.g. `Sales.Order.PreviewPost` once available, or post the shipment with `Warehouse.Shipment.Post` after registering picks).
+- **Posting gate.** Requires the `BIFROST WhsePost ori` permission set, the same as `Warehouse.Shipment.Post`, even though nothing is committed. Without it the message type is disabled for the user (`isEnabled = false` in `Help.MessageTypes.Get`) and cannot be called.
 
 ## Related Message Types
 

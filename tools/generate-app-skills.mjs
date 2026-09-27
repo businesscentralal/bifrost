@@ -163,7 +163,7 @@ const notes = {
     rules: [
       'The source document must be Released before a shipment or receipt can be created from it. Release it first (Sales.Document.Release, Purchase.Order.Release and the like).',
       'On locations that require picks, register the pick before posting the shipment; on locations that require put-aways, post the receipt before creating the put-away.',
-      'Posting and registering are gated by the Warehouse Posting ori permission set in Foundation; Warehouse.Shipment.Post with invoice = true also needs G/L Posting ori.',
+      'Posting, previewing a posting and registering are gated by the Warehouse Posting ori permission set (BIFROST WhsePost ori) in Foundation — without it the post, preview and register types are disabled for the user; Warehouse.Shipment.Post with invoice = true also needs G/L Posting ori.',
     ],
   },
 };

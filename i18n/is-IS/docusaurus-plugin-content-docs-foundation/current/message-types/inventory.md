@@ -613,7 +613,7 @@ Skilar haus og kostnaðartölum samsetningarpöntunar. Útreikningur fylgir Sí�
 
 ## Skilaboðategundir fyrir vöruhús
 
-Skilaboðategundirnar tíu `Warehouse.*` — vöruhúsaafhendingar, vöruhúsamóttökur, tínsla og frágangur — eru ekki hluti af Bifröst Foundation. Þær fylgja sérstöku forriti, **[Bifröst Warehouse](/warehouse/)**, sem keyrir ofan á Foundation. Heiti þeirra eru óbreytt, svo að kallandi þarf aðeins að hafa Bifröst Warehouse uppsett.
+Skilaboðategundirnar tíu `Warehouse.*` — vöruhúsaafhendingar, vöruhúsamóttökur, tínsla og frágangur — eru ekki hluti af Bifröst Foundation. Þær fylgja sérstöku forriti, **[Bifröst Warehouse](/warehouse/)**, sem keyrir ofan á Foundation. Til að kalla á þær þarf að setja upp Bifröst Warehouse.
 
 | Skilaboðategund | Tilgangur |
 |----------------|-----------|
@@ -628,7 +628,7 @@ Skilaboðategundirnar tíu `Warehouse.*` — vöruhúsaafhendingar, vöruhúsam�
 | [Warehouse.Putaway.Create](/warehouse/reference/message-types/warehouse-putaway-create/) | Stofnar, eða skilar fyrirliggjandi, frágangi fyrir bókaða vöruhúsamóttöku |
 | [Warehouse.Putaway.Register](/warehouse/reference/message-types/warehouse-putaway-register/) | Skráir vöruhúsafrágang |
 
-Bókunarhlið vöruhúss er áfram í Foundation: bókun og skráning krefjast enn heimildasafnsins `BIFROST WhsePost ori` (sjá [Bókunarhlið](/foundation/reference/setup/#bókunarhlið-bifröst-gl--item--fa--job--resource--warehouse-posting)).
+Bókunarhlið vöruhúss er áfram í Foundation: bókun, forskoðun bókunar og skráning krefjast heimildasafnsins `BIFROST WhsePost ori` (sjá [Bókunarhlið](/foundation/reference/setup/#bókunarhlið-bifröst-gl--item--fa--job--resource--warehouse-posting)).
 
 ---
 

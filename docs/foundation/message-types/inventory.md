@@ -916,7 +916,7 @@ Expected costs are derived from the assembly order lines (`Cost Amount` on each 
 
 ## Warehouse message types
 
-The ten `Warehouse.*` message types — warehouse shipments, receipts, picks and put-aways — are not part of Bifröst Foundation. They ship in the separate **[Bifröst Warehouse](/warehouse/)** app, which runs on Foundation. Their names are unchanged, so a caller only needs Bifröst Warehouse installed.
+The ten `Warehouse.*` message types — warehouse shipments, receipts, picks and put-aways — are not part of Bifröst Foundation. They ship in the separate **[Bifröst Warehouse](/warehouse/)** app, which runs on Foundation. To call them, install Bifröst Warehouse.
 
 | Message Type | Purpose |
 |--------------|---------|
@@ -931,7 +931,7 @@ The ten `Warehouse.*` message types — warehouse shipments, receipts, picks and
 | [Warehouse.Putaway.Create](/warehouse/reference/message-types/warehouse-putaway-create/) | Creates, or returns the existing, put-away for a posted warehouse receipt |
 | [Warehouse.Putaway.Register](/warehouse/reference/message-types/warehouse-putaway-register/) | Registers a warehouse put-away |
 
-The warehouse posting gate stays in Foundation: posting and registering still need the `BIFROST WhsePost ori` permission set (see [Posting Gates](/foundation/reference/setup/#posting-gates-bifrost-gl--item--fa--job--resource--warehouse-posting)).
+The warehouse posting gate stays in Foundation: posting, previewing a posting and registering need the `BIFROST WhsePost ori` permission set (see [Posting Gates](/foundation/reference/setup/#posting-gates-bifrost-gl--item--fa--job--resource--warehouse-posting)).
 
 ---
 

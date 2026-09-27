@@ -50,7 +50,7 @@ Same as `Warehouse.Receipt.Post`: the Warehouse Receipt Header must exist, conta
 ## Idempotency / Safety Notes
 
 - **Read-only**: BC's Gen. Jnl.-Post Preview always rolls back the transaction after capturing entries. No data is persisted.
-- No Posting Gate required (no state change).
+- Needs the `BIFROST WhsePost ori` permission set even though nothing is committed (see Posting Gate below).
 - Number series advance and then roll back — the predicted posted document numbers are the numbers BC would have assigned but are released back to the series.
 
 ## Request Parameters
@@ -122,7 +122,7 @@ Warehouse Receipts typically have **no direct G/L impact** (inventory recognised
 
 ## Posting Gate
 
-None — preview does not commit.
+Requires the `BIFROST WhsePost ori` permission set, the same as `Warehouse.Receipt.Post`. Without it the message type is disabled for the user (`isEnabled = false` in `Help.MessageTypes.Get`) and cannot be called.
 
 ## Field Restrictions
 

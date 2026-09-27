@@ -151,7 +151,7 @@ Mirrors Page 920 `Assembly Order Statistics`. Read-only. Response includes heade
 
 **Subject identification:** Warehouse Shipment `No.` or `SystemId`. Also accepts request JSON keys `systemId`, `recordSystemId`, `id`, `shipmentNo`, `no` (SystemId/GUID variants resolve first).
 
-**Posting gate:** `Warehouse.Shipment.Post` is gated by `Warehouse Posting ori` always and by `G/L Posting ori` when `invoice = true`. `Warehouse.Shipment.Create` is not gated (creating a shipment is not a posting operation).
+**Posting gate:** `Warehouse.Shipment.Post` is gated by `Warehouse Posting ori` always and by `G/L Posting ori` when `invoice = true`. `Warehouse.Shipment.PreviewPost` is gated by `Warehouse Posting ori` too: without `BIFROST WhsePost ori` the type is disabled for the user (`isEnabled = false`), just like the post type. `Warehouse.Shipment.Create` is not gated (creating a shipment is not a posting operation).
 
 #### `Warehouse.Shipment.Create`
 
@@ -433,7 +433,7 @@ Errors: missing identifier; put-away does not exist or is not Type = Put-away; p
 
 **Subject identification:** Warehouse Receipt `No.` or `SystemId`. Also accepts request JSON keys `systemId`, `recordSystemId`, `id`, `receiptNo`, `no` (SystemId/GUID variants resolve first).
 
-**Posting gate:** `Warehouse.Receipt.Post` is gated by `Warehouse Posting ori`. There is no invoice option and no G/L posting gate (warehouse receipts only post receipt of goods). `Warehouse.Receipt.Create` and `Warehouse.Receipt.Post.Preview` are not gated.
+**Posting gate:** `Warehouse.Receipt.Post` is gated by `Warehouse Posting ori`. There is no invoice option and no G/L posting gate (warehouse receipts only post receipt of goods). `Warehouse.Receipt.Post.Preview` is gated by `Warehouse Posting ori` too: without `BIFROST WhsePost ori` the type is disabled for the user (`isEnabled = false`), just like the post type. `Warehouse.Receipt.Create` is not gated.
 
 #### `Warehouse.Receipt.Create`
 

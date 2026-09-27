@@ -40,7 +40,7 @@ Call `Help.MessageTypes.Get` for the registered catalogue, or ask any single mes
 
 1. Install and activate **Bifröst Foundation**.
 2. Install **Bifröst Warehouse**.
-3. Give the calling user or service the Foundation permission sets it needs. Posting and registering also need `BIFROST WhsePost ori`, and posting a shipment with the invoice also needs `BIFROST GL Post ori`.
+3. Give the calling user or service the Foundation permission sets it needs. Posting, previewing a posting and registering also need `BIFROST WhsePost ori`, and posting a shipment with the invoice also needs `BIFROST GL Post ori`.
 4. Make sure the locations you use require the warehouse documents you plan to create (`Require Shipment`, `Require Receive`, `Require Pick`, `Require Put-away`).
 5. Send Bifröst messages named `Warehouse.*` through the Bifröst queue.
 

@@ -40,7 +40,7 @@ Kallaðu á `Help.MessageTypes.Get` til að fá skrána yfir skráðar tegundir,
 
 1. Settu upp og virkjaðu **Bifröst Foundation**.
 2. Settu upp **Bifröst Warehouse**.
-3. Gefðu notandanum eða þjónustunni sem kallar þau heimildasöfn Foundation sem þarf. Bókun og skráning krefjast líka `BIFROST WhsePost ori`, og bókun afhendingar með reikningi krefst líka `BIFROST GL Post ori`.
+3. Gefðu notandanum eða þjónustunni sem kallar þau heimildasöfn Foundation sem þarf. Bókun, forskoðun bókunar og skráning krefjast líka `BIFROST WhsePost ori`, og bókun afhendingar með reikningi krefst líka `BIFROST GL Post ori`.
 4. Gakktu úr skugga um að birgðageymslurnar sem þú notar krefjist þeirra vöruhúsaskjala sem þú ætlar að stofna (`Require Shipment`, `Require Receive`, `Require Pick`, `Require Put-away`).
 5. Sendu Bifröst-skilaboð sem heita `Warehouse.*` gegnum biðröð Bifrastar.
 

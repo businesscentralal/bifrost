@@ -552,7 +552,7 @@ Heimildarsettin sex eru sjálfstæð og **eru ekki innifalin í `BIFROST Read or
 | `BIFROST FA Post ori` | 10077892 | `FA Posting ori` (10077903) | `FixedAssets.FAJournal.Post` |
 | `BIFROST Job Post ori` | 10077897 | `Job Posting ori` (10077906) | `Projects.ProjectJournal.Post` |
 | `BIFROST Res Post ori` | 10077899 | `Resource Posting ori` (10077907) | `Resources.ResourceJournal.Post` |
-| `BIFROST WhsePost ori` | 10077900 | `Warehouse Posting ori` (10077908) | `Warehouse.Shipment.Post` (alltaf; krefst einnig `BIFROST GL Post ori` þegar `invoice = true`); `Warehouse.Receipt.Post` (alltaf); `Warehouse.Pick.Register` (alltaf); `Warehouse.Putaway.Register` (alltaf). Þessar skilaboðategundir fylgja sérstöku forriti, [Bifröst Warehouse](/warehouse/); hliðið sjálft er áfram í Foundation. |
+| `BIFROST WhsePost ori` | 10077900 | `Warehouse Posting ori` (10077908) | `Warehouse.Shipment.Post` (alltaf; krefst einnig `BIFROST GL Post ori` þegar `invoice = true`); `Warehouse.Shipment.PreviewPost` (alltaf); `Warehouse.Receipt.Post` (alltaf); `Warehouse.Receipt.Post.Preview` (alltaf); `Warehouse.Pick.Register` (alltaf); `Warehouse.Putaway.Register` (alltaf). Þessar skilaboðategundir fylgja sérstöku forriti, [Bifröst Warehouse](/warehouse/); hliðið sjálft er áfram í Foundation. |
 
 **Athugið:** `Sales.Document.Post` og `Purchase.Document.Post` eru gættar af **G/L eingöngu** þrátt fyrir að þær geti búið til vöru- og aðrar færslur í framhaldinu. Hliðið endurspeglar áform notandans um að ræsa bókun, ekki færslurnar sem BC skrifar að lokum. `Warehouse.Shipment.Post` með `invoice = true` er eina aðgerðin sem krefst tveggja heimildarsetta samtímis.
 

@@ -50,7 +50,7 @@ Bókunarforskoðun BC safnar aðeins innsetningum í fastan lista af töflum. Vi
 ## Endurtekning og öryggi
 
 - **Les eingöngu**: Gen. Jnl.-Post Preview í BC rúllar aðgerðinni alltaf til baka eftir að færslunum hefur verið safnað. Ekkert er vistað.
-- Ekkert bókunarhlið þarf (engin stöðubreyting).
+- Krefst heimildasafnsins `BIFROST WhsePost ori` þótt ekkert sé vistað (sjá Bókunarhlið hér fyrir neðan).
 - Númeraraðir færast fram og svo til baka — áætluðu númer bókaðra skjala eru þau sem BC hefði úthlutað, en þeim er skilað aftur í númeraröðina.
 
 ## Færibreytur beiðni
@@ -122,7 +122,7 @@ Vöruhúsamóttökur hafa yfirleitt **engin bein áhrif á fjárhag** (birgðir 
 
 ## Bókunarhlið
 
-Ekkert — forskoðun vistar ekkert.
+Krefst heimildasafnsins `BIFROST WhsePost ori`, eins og `Warehouse.Receipt.Post`. Án þess er skilaboðategundin óvirk fyrir notandann (`isEnabled = false` í `Help.MessageTypes.Get`) og ekki hægt að kalla á hana.
 
 ## Reitatakmarkanir
 
