@@ -12,25 +12,25 @@ description: "Beiðni- og svarsamningur fyrir Inventory.ItemJournal.Post Bifrös
 :::
 
 
-## Yfirlit
-Bókar every line in the specified vöru dagbók batch með invoking BC `Item Jnl.-Post Batch.Run`. On Tókst Skilar batch totals plus the produced vöru Register og vöru bók færsla / Gildi færsla ranges.
+## Overview
+Posts every line in the specified item journal batch by invoking BC `Item Jnl.-Post Batch.Run`. On success returns batch totals plus the produced Item Register and Item Ledger Entry / Value Entry ranges.
 
-**Stefna**: Innkomandi  **Efnisgerð**: `text/json`
+**Direction**: Inbound  **Content-Type**: `text/json`
 
 ## Idempotency / Safety
-ekki endurtekningarþolið. tókst posting deletes the Uppruni lines og writes vöru bók færslur, Gildi færslur, og an vöru Register færsla. Re-running on the sama batch Bókar whatever lines remain (eða Skilar an Villa ef none remain). Bókunarvillur eru afturkallaðar og skila `status: "Error"` með kóða `BusinessCentralError`.
+Not idempotent. Successful posting deletes the source lines and writes Item Ledger Entries, Value Entries, and an Item Register record. Re-running on the same batch posts whatever lines remain (or returns an error if none remain). Posting failures roll back and return `status: "Error"` with code `BusinessCentralError`.
 
 ## Batch Identification
 Resolved in this order:
-1. Request JSON `templateName` (+ valfrjálst `batchName`).
+1. Request JSON `templateName` (+ optional `batchName`).
 2. `subject` parsed as GUID -> batch `SystemId`.
-3. `subject` containing `|` -> split í `TEMPLATE|BATCH`.
+3. `subject` containing `|` -> split into `TEMPLATE|BATCH`.
 
-## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| templateName | Code[10] | One of the three identification paths verður að succeed | vöru dagbók Template Heiti. |
-| batchName | Code[10] | No | vöru dagbók Batch Heiti. Combined með `templateName`. |
+| templateName | Code[10] | One of the three identification paths must succeed | Item Journal Template name. |
+| batchName | Code[10] | No | Item Journal Batch name. Combined with `templateName`. |
 
 ## Request Examples
 ```json
@@ -43,7 +43,7 @@ Resolved in this order:
 }
 ```
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -63,59 +63,59 @@ Resolved in this order:
 }
 ```
 
-| Property | Lýsing |
+| Property | Description |
 |----------|-------------|
 | status | `Success` on completed posting; `Error` otherwise. |
-| templateName / batchName / batchDescription | Identifying info fyrir the posted batch. |
-| linesPosted | númer of dagbók lines that were present immediately áður en posting. |
-| postingDate | Posting dagsetning notað fyrir the fyrsta line (Format `0,9`). |
+| templateName / batchName / batchDescription | Identifying info for the posted batch. |
+| linesPosted | Number of journal lines that were present immediately before posting. |
+| postingDate | Posting Date used for the first line (Format `0,9`). |
 | totalQuantity / totalAmount | Aggregates summed across the posted lines. |
-| itemRegisterNo | `No.` of the ný vöru Register row covering this posting. |
-| itemRegisterId | `SystemId` of the vöru Register row (Format `0,4`, no braces). |
-| fromEntryNo / toEntryNo | Inclusive range of vöru bók færsla `Entry No.` values created. |
-| fromValueEntryNo / toValueEntryNo | Inclusive range of Gildi færsla `Entry No.` values created. Zero þegar no Gildi færslur were posted. |
+| itemRegisterNo | `No.` of the new Item Register row covering this posting. |
+| itemRegisterId | `SystemId` of the Item Register row (Format `0,4`, no braces). |
+| fromEntryNo / toEntryNo | Inclusive range of Item Ledger Entry `Entry No.` values created. |
+| fromValueEntryNo / toValueEntryNo | Inclusive range of Value Entry `Entry No.` values created. Zero when no value entries were posted. |
 
-## Dæmi (úr einingaprófum)
+## Examples (from unit tests)
 - Postable batch via pipe subject -> `Success`, `linesPosted = 2`, `itemRegisterNo > 0`, `toEntryNo - fromEntryNo + 1` equals the original line count.
 - SystemId subject (`Format(SystemId, 0, 4)`) -> equivalent `Success` response.
 - Data parameters `{ templateName, batchName }` -> equivalent `Success` response.
-- Zero-quantity lines -> `Error` með kóða `BusinessCentralError` og bókunarvillu BC.
+- Zero-quantity lines -> `Error` with code `BusinessCentralError` and the BC posting error text.
 
-## Bókunarheimild
-Calling this skilaboðategund requires the `BIFROST ItemPost ori` heimild set in addition til `BIFROST API ori`. án it Beiðnin Skilar: `Posting denied: missing 'BIFROST ItemPost ori' permission set.`
+## Posting Gate
+Calling this message type requires the `BIFROST ItemPost ori` permission set in addition to `BIFROST API ori`. Without it the request returns: `Posting denied: missing 'BIFROST ItemPost ori' permission set.`
 
-## Villur
-| Villa | Orsök |
+## Errors
+| Error | Cause |
 |-------|-------|
-| `Posting denied: missing 'BIFROST ItemPost ori' permission set.` | Kallandi lacks the `BIFROST ItemPost ori` heimild set. |
-| `Item journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | None of the three identification paths produced a Gildi. |
-| `Item journal batch {templateName}\|{batchName} not found.` | Batch lookup returned no færsla. |
+| `Posting denied: missing 'BIFROST ItemPost ori' permission set.` | Caller lacks the `BIFROST ItemPost ori` permission set. |
+| `Item journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | None of the three identification paths produced a value. |
+| `Item Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Item journal batch {templateName}\|{batchName} has no lines to post.` | Identified batch contained zero `Item Journal Line` rows. |
-| `Nothing was posted. Review journal for errors.` | `Item Jnl.-Post Batch.Run` completed án producing hvaða vöru bók færsla rows. |
-| (BC posting Villa text) | `Item Jnl.-Post Batch.Run` threw. The original Villa er surfaced in `error` með kóða `BusinessCentralError`. |
+| `Nothing was posted. Review journal for errors.` | `Item Jnl.-Post Batch.Run` completed without producing any Item Ledger Entry rows. |
+| (BC posting error text) | `Item Jnl.-Post Batch.Run` threw. The original error is surfaced in `error`, with code `BusinessCentralError`. |
 
-## Operational Athugasemdir — Populating Lines via Data.Records.Set
+## Operational Notes — Populating Lines via Data.Records.Set
 
-`SetupNewLine` inserts lines via `Insert(true)` (triggers run), but `Data.Records.Set` writes via `Modify` **án** calling `OnValidate`. Therefore, þegar using `Data.Records.Set` til populate a dagbók line, supply every derived Reitur manually:
+`Create` inserts lines via `Insert(true)` (triggers run), but `Data.Records.Set` writes via `Modify` **without** calling `OnValidate`. Therefore, when using `Data.Records.Set` to populate a journal line, supply every derived field manually:
 
-- **`InventoryPostingGroup`** — úr the vöru's `Inventory Posting Group` Reitur.
-- **`Gen_Prod_PostingGroup`** — úr the vöru's `Gen. Prod. Posting Group` Reitur.
-- **`Gen_Bus_PostingGroup`** — verður að be supplied alongside `Gen_Prod_PostingGroup`. BC looks up `General Posting Setup` using both fields til find the inventory adjustment G/L accounts. Omitting `Gen_Bus_PostingGroup` causes a "General Posting Setup does ekki exist" Villa at posting time even þegar `Gen_Prod_PostingGroup` er correct.
-- **`UnitCost`** — úr the vöru's `Unit Cost` Reitur (eða síðasta direct cost).
+- **`InventoryPostingGroup`** — from the item's `Inventory Posting Group` field.
+- **`Gen_Prod_PostingGroup`** — from the item's `Gen. Prod. Posting Group` field.
+- **`Gen_Bus_PostingGroup`** — must be supplied alongside `Gen_Prod_PostingGroup`. BC looks up `General Posting Setup` using both fields to find the inventory adjustment G/L accounts. Omitting `Gen_Bus_PostingGroup` causes a "General Posting Setup does not exist" error at posting time even when `Gen_Prod_PostingGroup` is correct.
+- **`UnitCost`** — from the item's `Unit Cost` field (or last direct cost).
 
 ### Physical Inventory Template (RAUNBIRGÐI)
 
-Lines created með the BC "Calculate Inventory" function have `Phys_Inventory = true`. These lines eru **locked** — hvaða attempt til modify them via `Data.Records.Set` fails með "Raunbirgðir verður að be equal til 'Nei'" (Physical Inventory verður að equal 'No'). aðeins lines með `Phys_Inventory = false` getur be modified via `Data.Records.Set`.
+Lines created by the BC "Calculate Inventory" function have `Phys_Inventory = true`. These lines are **locked** — any attempt to modify them via `Data.Records.Set` fails with "Raunbirgðir must be equal to 'Nei'" (Physical Inventory must equal 'No'). Only lines with `Phys_Inventory = false` can be modified via `Data.Records.Set`.
 
-fyrir regular adjustment lines (where `Phys_Inventory = false`) in a Physical Inventory template, setting `EntryType` til a Gildi other than what the template allows may trigger the reverse Villa ("Raunbirgðir verður að be equal til 'Já'"). The safe approach er:
-1. Leave `EntryType` at its Sjálfgefið (`SetUpNewLine` initialises it úr the síðasta line eða template; fyrir a fresh empty batch it defaults til `Purchase`).
-2. Set `ItemNo_`, `Quantity` (positive fyrir additions), `InventoryPostingGroup`, `Gen_Bus_PostingGroup`, `Gen_Prod_PostingGroup`, `UnitCost`, `DocumentNo_`.
-3. Run `Inventory.ItemJournal.Check` til confirm `validationResult = "Ready"` áður en posting.
+For regular adjustment lines (where `Phys_Inventory = false`) in a Physical Inventory template, setting `EntryType` to a value other than what the template allows may trigger the reverse error ("Raunbirgðir must be equal to 'Já'"). The safe approach is:
+1. Leave `EntryType` at its default (`SetUpNewLine` initialises it from the last line or template; for a fresh empty batch it defaults to `Purchase`).
+2. Set `ItemNo_`, `Quantity` (positive for additions), `InventoryPostingGroup`, `Gen_Bus_PostingGroup`, `Gen_Prod_PostingGroup`, `UnitCost`, `DocumentNo_`.
+3. Run `Inventory.ItemJournal.Check` to confirm `validationResult = "Ready"` before posting.
 
-## Tengdar skilaboðategundir
-- `Inventory.ItemJournal.SetupNewLine` - create lines.
-- `Inventory.ItemJournal.Check` - validate áður en posting.
+## Related Message Types
+- `Inventory.ItemJournal.Create` - create lines.
+- `Inventory.ItemJournal.Check` - validate before posting.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

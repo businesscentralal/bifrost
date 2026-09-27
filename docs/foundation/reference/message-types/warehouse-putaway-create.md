@@ -106,8 +106,8 @@ Each row was executed live via the BC Bifrost MCP `invoke_message_type` tool:
 | Call again while an open put-away exists | `Success`, `alreadyExisted = true` (same put-away). |
 | Call after the receipt is fully put away | Error `Posted Whse. Receipt {n} has no lines to put away.` |
 | `sortingMethod = "NotAMethod"` | Error `sortingMethod 'NotAMethod' is not valid. Expected one of: None, Item, ...` |
-| No identifier | Error `Posted Whse. Receipt identifier must be specified ...` |
-| Unknown receipt | Error `Posted Whse. Receipt {id} does not exist.` |
+| No identifier | Error `Posted Whse. Receipt Header identifier is missing. ...` (`MissingParameter`) |
+| Unknown receipt | Error `Posted Whse. Receipt Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) |
 | `setBreakbulkFilter = true` | Error `setBreakbulkFilter = true is not supported by this API version. ...` |
 
 ## Posting Gate
@@ -127,8 +127,9 @@ A restricted field aborts the request with an Error response — the put-away st
 
 | Error | Cause |
 |---|---|
-| `Posted Whse. Receipt identifier must be specified ...` | No Subject and no identifier key in request JSON. |
-| `Posted Whse. Receipt {id} does not exist.` | Supplied SystemId or No. not found. |
+| `Posted Whse. Receipt Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, postedWhseReceiptNo, receiptNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Posted Whse. Receipt Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
 | `Posted Whse. Receipt {n} has no lines to put away.` | Header exists but every line is `Completely Put Away` or has `Quantity = 0`. |
 | `sortingMethod '{x}' is not valid. Expected one of: ...` | Value not in `Whse. Activity Sorting Method.Names()`. |
 | `Field {n} is restricted for write on table {t}.` | `Bifrost Field Access` blocks `assignedUserId` or `sortingMethod`. |

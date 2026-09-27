@@ -106,8 +106,8 @@ From `FA Jnl. Prev. Post Tests` (codeunit 95437):
 
 | Error | Cause |
 |---|---|
-| `Fixed asset journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification was supplied. |
-| `Fixed asset journal batch {template}\|{batch} not found.` | Identification did not match an existing batch. |
+| `Fixed asset journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
+| `FA Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Fixed asset journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
 | `FA Posting Type {Type} must be posted in the general journal in FA Journal Line ...` | **Critical** — BC blocks the FA Journal when the depreciation book has `G/L Integration - {Type} = true` for that FA Posting Type. See Operational Notes below. |
 | `Posting preview failed and no entries were captured. The journal cannot be posted in its current state.` | Rare catch-all — only fires when the BC subscriber completes without raising but writes no entries. Run `Finance.FAJournal.Check` to enumerate the underlying validation failures. |

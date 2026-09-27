@@ -49,7 +49,7 @@ Use `Data.Records.Get` on `Location` (table 14) with `tableView` `WHERE(Require 
 | `sourceDocuments[].documentNo` | code[20] | **Yes** | The source document's `No.`. |
 | `locationCode` | code[10] | No | If supplied, validates each source uses the same location. Subject to write-restriction on `Warehouse Shipment Header."Location Code"`. |
 | `assignedUserId` | code[50] | No | Applied to every created header after creation. |
-| `postingDate` | date | No | Format 9. Applied to every created header after creation. |
+| `postingDate` | date | No | `YYYY-MM-DD`. Omitted: the header posting date is unchanged. An invalid value is an error. |
 
 ### Request Example
 ```json
@@ -98,7 +98,7 @@ None — creation does not post. The companion `Warehouse.Shipment.Post` require
 | `sourceDocuments is required and must contain at least one entry.` | Request missing the array or array empty. |
 | `Source #{n} is missing sourceType or documentNo (both required).` | One of the entries lacks a value. |
 | `Unsupported sourceType '{value}'. Expected: SalesOrder, TransferOrder.` | Source type not recognised. |
-| `Sales Order/Transfer Order '{no}' not found.` | Document does not exist. |
+| `Sales Header / Transfer Header "{no}" was not found (from sourceDocuments.documentNo).` (`RecordNotFound`) | The source document does not exist. |
 | `... is not Released.` | Source must be Released before warehouse shipment creation. |
 | `... uses location '{x}' which does not match the requested locationCode '{y}'.` | When `locationCode` filter is supplied. |
 | `Location '{x}' (from ...) does not require shipment routing` | Location card has `Require Shipment = false`. |

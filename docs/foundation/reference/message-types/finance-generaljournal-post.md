@@ -92,7 +92,7 @@ From `Gen. Journal Post Tests` (codeunit, see `test/test/Finance/GenJournalPostT
 - `FinanceGeneralJournalPost_BalancedBatch_ReturnsSuccess` — subject = `"GENERAL|DEFAULT"` with balanced lines → `status: "Success"` and a populated G/L Register.
 - `FinanceGeneralJournalPost_SystemIdSubject_ReturnsSuccess` — subject = batch `SystemId` (`Format(SystemId, 0, 4)`).
 - `FinanceGeneralJournalPost_DataParameters_ReturnsSuccess` — data = `{ "templateName": "GENERAL", "batchName": "DEFAULT" }`.
-- `FinanceGeneralJournalPost_NonExistentBatch_ReturnsError` — subject = `"GENERAL|NONEXISTENT"` → `Journal batch GENERAL|NONEXISTENT not found.`.
+- `FinanceGeneralJournalPost_NonExistentBatch_ReturnsError` — subject = `"GENERAL|NONEXISTENT"` → `Gen. Journal Batch "GENERAL|NONEXISTENT" was not found (from subject).` (`RecordNotFound`).
 - `FinanceGeneralJournalPost_EmptySubjectNoData_ReturnsError` — missing identification.
 
 ## Posting Gate
@@ -103,15 +103,15 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 | Error | Cause |
 |---|---|
 | `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Caller lacks the `BIFROST GL Post ori` permission set. |
-| `Journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification was supplied. |
-| `Journal batch {template}\|{batch} not found.` | Identification did not match an existing batch. |
+| `Journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
+| `Gen. Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
 | `Nothing was posted. Review journal for errors.` | `Gen. Jnl.-Post Batch` returned without producing a G/L Register. |
 | BC posting errors | Returned as `{status, code: BusinessCentralError, error, hint}` — `error` is the BC error text. |
 
 ## Related Message Types
 
-- `Finance.GeneralJournal.SetupNewLine` — create new journal lines.
+- `Finance.GeneralJournal.Create` — create new journal lines.
 - `Finance.GeneralJournal.Check` — validate before posting.
 - `Finance.GeneralJournal.PreviewPost` — simulate the post without committing.
 - `Finance.GeneralJournal.ReverseRegister` — reverse the G/L Register produced by this post.

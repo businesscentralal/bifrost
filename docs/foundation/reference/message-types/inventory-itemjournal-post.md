@@ -88,15 +88,15 @@ Calling this message type requires the `BIFROST ItemPost ori` permission set in 
 | Error | Cause |
 |-------|-------|
 | `Posting denied: missing 'BIFROST ItemPost ori' permission set.` | Caller lacks the `BIFROST ItemPost ori` permission set. |
-| `Item journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | None of the three identification paths produced a value. |
-| `Item journal batch {templateName}\|{batchName} not found.` | Batch lookup returned no record. |
+| `Item journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | None of the three identification paths produced a value. |
+| `Item Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Item journal batch {templateName}\|{batchName} has no lines to post.` | Identified batch contained zero `Item Journal Line` rows. |
 | `Nothing was posted. Review journal for errors.` | `Item Jnl.-Post Batch.Run` completed without producing any Item Ledger Entry rows. |
 | (BC posting error text) | `Item Jnl.-Post Batch.Run` threw. The original error is surfaced in `error`, with code `BusinessCentralError`. |
 
 ## Operational Notes — Populating Lines via Data.Records.Set
 
-`SetupNewLine` inserts lines via `Insert(true)` (triggers run), but `Data.Records.Set` writes via `Modify` **without** calling `OnValidate`. Therefore, when using `Data.Records.Set` to populate a journal line, supply every derived field manually:
+`Create` inserts lines via `Insert(true)` (triggers run), but `Data.Records.Set` writes via `Modify` **without** calling `OnValidate`. Therefore, when using `Data.Records.Set` to populate a journal line, supply every derived field manually:
 
 - **`InventoryPostingGroup`** — from the item's `Inventory Posting Group` field.
 - **`Gen_Prod_PostingGroup`** — from the item's `Gen. Prod. Posting Group` field.
@@ -113,7 +113,7 @@ For regular adjustment lines (where `Phys_Inventory = false`) in a Physical Inve
 3. Run `Inventory.ItemJournal.Check` to confirm `validationResult = "Ready"` before posting.
 
 ## Related Message Types
-- `Inventory.ItemJournal.SetupNewLine` - create lines.
+- `Inventory.ItemJournal.Create` - create lines.
 - `Inventory.ItemJournal.Check` - validate before posting.
 
 ## Errors and warnings

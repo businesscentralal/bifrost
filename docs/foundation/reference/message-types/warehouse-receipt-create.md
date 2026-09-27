@@ -57,7 +57,7 @@ Use `Data.Records.Get` on `Location` (table 14) with `tableView = "WHERE(Require
 | `sourceDocuments[].documentNo` | code[20] | **Yes** | The source document's `No.`. |
 | `locationCode` | code[10] | No | If supplied, validates each source uses the same receiving location. Subject to write-restriction on `Warehouse Receipt Header."Location Code"`. |
 | `assignedUserId` | code[50] | No | Applied to every created header after creation. |
-| `postingDate` | date | No | Format 9. Applied to every created header after creation. |
+| `postingDate` | date | No | `YYYY-MM-DD`. Omitted: the header posting date is unchanged. An invalid value is an error. |
 
 ### Request Example
 ```json
@@ -108,7 +108,7 @@ Wording below is the exact text returned by the implementation (verified live).
 | `sourceDocuments is required and must contain at least one entry.` | Request missing the array or array empty. |
 | `Source #{n} is missing sourceType or documentNo (both required).` | One of the entries lacks a value. |
 | `Unsupported sourceType '{value}'. Expected: SalesReturnOrder, PurchaseOrder, TransferOrder.` | Source type not recognised. |
-| `Sales Return / Purchase / Transfer Order '{no}' not found.` | Document does not exist. |
+| `Sales Header / Purchase Header / Transfer Header "{no}" was not found (from sourceDocuments.documentNo).` (`RecordNotFound`) | The source document does not exist. |
 | `Purchase Order '{no}' is not Released. Release it before creating a Warehouse Receipt.` | Source must be Released first. (`Sales Return Order` / `Transfer Order` variants use the same wording.) |
 | `... uses/receives at location '{x}' which does not match the requested locationCode '{y}'.` | When `locationCode` filter is supplied. |
 | `Location '{x}' (from/Transfer-to on ...) does not require receipt routing` | Location card has `Require Receive = false`. |

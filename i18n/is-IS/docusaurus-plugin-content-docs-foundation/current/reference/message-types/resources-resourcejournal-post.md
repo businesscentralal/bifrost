@@ -12,53 +12,53 @@ description: "Beiðni- og svarsamningur fyrir Resources.ResourceJournal.Post Bif
 :::
 
 
-## Yfirlit
-Bókar a resource dagbók batch via BC `Res. Jnl.-Post Batch` og Skilar aggregate posting statistics. Recommend calling `Resources.ResourceJournal.Check` fyrsta.
+## Overview
+Posts a resource journal batch via BC `Res. Jnl.-Post Batch` and returns aggregate posting statistics. Recommend calling `Resources.ResourceJournal.Check` first.
 
-**Stefna**: Innkomandi (writes Resource bók færslur) · **Efnisgerð**: `text/json`
+**Direction**: Inbound (writes Resource Ledger Entries) · **Content-Type**: `text/json`
 
 ## Idempotency
-ekki endurtekningarþolið. tókst posting consumes the batch lines; reposting mun produce different (eða no) Resource bók færslur.
+Not idempotent. Successful posting consumes the batch lines; reposting will produce different (or no) Resource Ledger Entries.
 
 ## Identifier Resolution
-Batch er resolved in this order:
-1. JSON `templateName` (+ valfrjálst `batchName`)
-2. `subject` er a GUID → batch SystemId
+Batch is resolved in this order:
+1. JSON `templateName` (+ optional `batchName`)
+2. `subject` is a GUID → batch SystemId
 3. `subject` contains `|` → `TEMPLATE|BATCH`
 
-## Beiðnibreytur
+## Request Parameters
 
-| Heiti | Gerð | Lýsing |
+| Name | Type | Description |
 |---|---|---|
-| `templateName` | strengur | dagbók template Heiti (`Code[10]`). |
-| `batchName` | strengur | dagbók batch Heiti (`Code[10]`). |
+| `templateName` | string | Journal template name (`Code[10]`). |
+| `batchName` | string | Journal batch name (`Code[10]`). |
 
-## Dæmi um beiðni
+## Request Example
 ```json
 { "templateName": "RESOURCE", "batchName": "DEFAULT" }
 ```
 
-## Uppbygging svars (Tókst)
+## Response Shape (Success)
 
-| Property | Gerð | Lýsing |
+| Property | Type | Description |
 |---|---|---|
-| `status` | strengur | `"Success"`. |
-| `templateName` | strengur | dagbók template Heiti posted. |
-| `batchName` | strengur | dagbók batch Heiti posted. |
-| `batchDescription` | strengur | Batch Lýsing. |
-| `linesPosted` | heiltala | númer of lines in the batch áður en posting (`Count`). |
-| `postingDate` | strengur | `Posting Date` of the fyrsta line, formatted XML (`yyyy-MM-dd`). |
-| `totalQuantity` | tugabrot | `CalcSums(Quantity)` across posted lines. |
-| `totalCost` | tugabrot | `CalcSums("Total Cost")` across posted lines. |
+| `status` | string | `"Success"`. |
+| `templateName` | string | Journal template name posted. |
+| `batchName` | string | Journal batch name posted. |
+| `batchDescription` | string | Batch description. |
+| `linesPosted` | integer | Number of lines in the batch before posting (`Count`). |
+| `postingDate` | string | `Posting Date` of the first line, formatted XML (`yyyy-MM-dd`). |
+| `totalQuantity` | decimal | `CalcSums(Quantity)` across posted lines. |
+| `totalCost` | decimal | `CalcSums("Total Cost")` across posted lines. |
 
-The following four properties eru present **aðeins þegar a Resource Register er created** með the posting (some configurations may ekki produce one):
+The following four properties are present **only when a Resource Register is created** by the posting (some configurations may not produce one):
 
-| Property | Gerð | Lýsing |
+| Property | Type | Description |
 |---|---|---|
-| `resourceRegisterNo` | heiltala | `Resource Register."No."`. |
-| `resourceRegisterId` | strengur | `Resource Register.SystemId` (GUID, no braces). |
-| `fromEntryNo` | heiltala | `Resource Register."From Entry No."`. |
-| `toEntryNo` | heiltala | `Resource Register."To Entry No."`. |
+| `resourceRegisterNo` | integer | `Resource Register."No."`. |
+| `resourceRegisterId` | string | `Resource Register.SystemId` (GUID, no braces). |
+| `fromEntryNo` | integer | `Resource Register."From Entry No."`. |
+| `toEntryNo` | integer | `Resource Register."To Entry No."`. |
 
 ```json
 {
@@ -77,8 +77,8 @@ The following four properties eru present **aðeins þegar a Resource Register e
 }
 ```
 
-## Uppbygging svars (Posting Mistókst)
-Failures úr `Res. Jnl.-Post Batch.Run` eru caught og returned as a structured Villa.
+## Response Shape (Posting Failure)
+Failures from `Res. Jnl.-Post Batch.Run` are caught and returned as a structured error.
 
 ```json
 {
@@ -88,22 +88,22 @@ Failures úr `Res. Jnl.-Post Batch.Run` eru caught og returned as a structured V
 }
 ```
 
-## Bókunarheimild
-Calling this skilaboðategund requires the `BIFROST Res Post ori` heimild set in addition til `BIFROST API ori`. án it Beiðnin Skilar: `Posting denied: missing 'BIFROST Res Post ori' permission set.`
+## Posting Gate
+Calling this message type requires the `BIFROST Res Post ori` permission set in addition to `BIFROST API ori`. Without it the request returns: `Posting denied: missing 'BIFROST Res Post ori' permission set.`
 
-## Villur
+## Errors
 
-| Message | Orsök |
+| Message | Cause |
 |---|---|
-| `Posting denied: missing 'BIFROST Res Post ori' permission set.` | Kallandi lacks the `BIFROST Res Post ori` heimild set. |
-| `Resource journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification provided. |
-| `Resource journal batch {templateName}\|{batchName} not found.` | Batch lookup mistókst. |
-| `Resource journal batch {templateName}\|{batchName} has no lines to post.` | Batch er empty. |
+| `Posting denied: missing 'BIFROST Res Post ori' permission set.` | Caller lacks the `BIFROST Res Post ori` permission set. |
+| `Resource journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification provided. |
+| `Res. Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
+| `Resource journal batch {templateName}\|{batchName} has no lines to post.` | Batch is empty. |
 
-## Tengdar skilaboðategundir
-- `Resources.ResourceJournal.SetupNewLine`
+## Related Message Types
+- `Resources.ResourceJournal.Create`
 - `Resources.ResourceJournal.Check`
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

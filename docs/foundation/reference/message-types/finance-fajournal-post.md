@@ -91,15 +91,15 @@ Calling this message type requires the `BIFROST FA Post ori` permission set in a
 | Error | Cause |
 |---|---|
 | `Posting denied: missing 'BIFROST FA Post ori' permission set.` | Caller lacks the `BIFROST FA Post ori` permission set. |
-| `Fixed asset journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification was supplied. |
-| `Fixed asset journal batch {template}\|{batch} not found.` | Identification did not match an existing batch. |
+| `Fixed asset journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
+| `FA Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Fixed asset journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
 | `Nothing was posted. Review journal for errors.` | `FA Jnl.-Post Batch` returned without producing an FA Register (or the post-Line No. is 0). |
 | BC posting errors | Returned as `{status, code: BusinessCentralError, error, hint}` — `error` is the BC error text. |
 
 ## Related Message Types
 
-- `Finance.FAJournal.SetupNewLine` — create new FA journal lines.
+- `Finance.FAJournal.Create` — create new FA journal lines.
 - `Finance.FAJournal.Check` — validate before posting.
 
 ## Errors and warnings

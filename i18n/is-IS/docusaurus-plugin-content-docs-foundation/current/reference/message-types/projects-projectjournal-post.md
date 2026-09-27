@@ -12,48 +12,48 @@ description: "Beiðni- og svarsamningur fyrir Projects.ProjectJournal.Post Bifr�
 :::
 
 
-## Yfirlit
-Bókar a project (job) dagbók batch via BC `Job Jnl.-Post Batch` og Skilar the resulting `Job Register` plus aggregate posting statistics. Recommend calling `Projects.ProjectJournal.Check` fyrsta.
+## Overview
+Posts a project (job) journal batch via BC `Job Jnl.-Post Batch` and returns the resulting `Job Register` plus aggregate posting statistics. Recommend calling `Projects.ProjectJournal.Check` first.
 
-**Stefna**: Innkomandi (writes Job bók færslur) · **Efnisgerð**: `text/json`
+**Direction**: Inbound (writes Job Ledger Entries) · **Content-Type**: `text/json`
 
 ## Idempotency
-ekki endurtekningarþolið. tókst posting consumes the batch lines; reposting mun produce different (eða no) Job bók færslur.
+Not idempotent. Successful posting consumes the batch lines; reposting will produce different (or no) Job Ledger Entries.
 
 ## Identifier Resolution
-Batch er resolved in this order:
-1. JSON `templateName` (+ valfrjálst `batchName`)
-2. `subject` er a GUID → batch SystemId
+Batch is resolved in this order:
+1. JSON `templateName` (+ optional `batchName`)
+2. `subject` is a GUID → batch SystemId
 3. `subject` contains `|` → `TEMPLATE|BATCH`
 
-## Beiðnibreytur
+## Request Parameters
 
-| Heiti | Gerð | Lýsing |
+| Name | Type | Description |
 |---|---|---|
-| `templateName` | strengur | dagbók template Heiti (`Code[10]`). |
-| `batchName` | strengur | dagbók batch Heiti (`Code[10]`). |
+| `templateName` | string | Journal template name (`Code[10]`). |
+| `batchName` | string | Journal batch name (`Code[10]`). |
 
-## Dæmi um beiðni
+## Request Example
 ```json
 { "templateName": "PROJECT", "batchName": "DEFAULT" }
 ```
 
-## Uppbygging svars (Tókst)
+## Response Shape (Success)
 
-| Property | Gerð | Lýsing |
+| Property | Type | Description |
 |---|---|---|
-| `status` | strengur | `"Success"`. |
-| `templateName` | strengur | dagbók template Heiti posted. |
-| `batchName` | strengur | dagbók batch Heiti posted. |
-| `batchDescription` | strengur | Batch Lýsing. |
-| `linesPosted` | heiltala | númer of lines in the batch áður en posting (`Count`). |
-| `postingDate` | strengur | `Posting Date` of the fyrsta line, formatted XML (`yyyy-MM-dd`). |
-| `totalQuantity` | tugabrot | `CalcSums(Quantity)` across posted lines. |
-| `totalLineAmount` | tugabrot | `CalcSums("Line Amount")` across posted lines. |
-| `jobRegisterNo` | heiltala | `Job Register."No."` created með the posting. |
-| `jobRegisterId` | strengur | `Job Register.SystemId` (GUID, no braces). |
-| `fromEntryNo` | heiltala | `Job Register."From Entry No."`. |
-| `toEntryNo` | heiltala | `Job Register."To Entry No."`. |
+| `status` | string | `"Success"`. |
+| `templateName` | string | Journal template name posted. |
+| `batchName` | string | Journal batch name posted. |
+| `batchDescription` | string | Batch description. |
+| `linesPosted` | integer | Number of lines in the batch before posting (`Count`). |
+| `postingDate` | string | `Posting Date` of the first line, formatted XML (`yyyy-MM-dd`). |
+| `totalQuantity` | decimal | `CalcSums(Quantity)` across posted lines. |
+| `totalLineAmount` | decimal | `CalcSums("Line Amount")` across posted lines. |
+| `jobRegisterNo` | integer | `Job Register."No."` created by the posting. |
+| `jobRegisterId` | string | `Job Register.SystemId` (GUID, no braces). |
+| `fromEntryNo` | integer | `Job Register."From Entry No."`. |
+| `toEntryNo` | integer | `Job Register."To Entry No."`. |
 
 ```json
 {
@@ -72,8 +72,8 @@ Batch er resolved in this order:
 }
 ```
 
-## Uppbygging svars (Posting Mistókst)
-Failures úr `Job Jnl.-Post Batch.Run` eru caught og returned as a structured Villa instead of thrown.
+## Response Shape (Posting Failure)
+Failures from `Job Jnl.-Post Batch.Run` are caught and returned as a structured error instead of thrown.
 
 ```json
 {
@@ -83,23 +83,23 @@ Failures úr `Job Jnl.-Post Batch.Run` eru caught og returned as a structured Vi
 }
 ```
 
-## Bókunarheimild
-Calling this skilaboðategund requires the `BIFROST Job Post ori` heimild set in addition til `BIFROST API ori`. án it Beiðnin Skilar: `Posting denied: missing 'BIFROST Job Post ori' permission set.`
+## Posting Gate
+Calling this message type requires the `BIFROST Job Post ori` permission set in addition to `BIFROST API ori`. Without it the request returns: `Posting denied: missing 'BIFROST Job Post ori' permission set.`
 
-## Villur
+## Errors
 
-| Message | Orsök |
+| Message | Cause |
 |---|---|
-| `Posting denied: missing 'BIFROST Job Post ori' permission set.` | Kallandi lacks the `BIFROST Job Post ori` heimild set. |
-| `Project journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification provided. |
-| `Project journal batch {templateName}\|{batchName} not found.` | Batch lookup mistókst. |
-| `Project journal batch {templateName}\|{batchName} has no lines to post.` | Batch er empty. |
-| `Nothing was posted. Review journal for errors.` | Posting completed but produced no Job Register færsla. |
+| `Posting denied: missing 'BIFROST Job Post ori' permission set.` | Caller lacks the `BIFROST Job Post ori` permission set. |
+| `Project journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification provided. |
+| `Project Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
+| `Project journal batch {templateName}\|{batchName} has no lines to post.` | Batch is empty. |
+| `Nothing was posted. Review journal for errors.` | Posting completed but produced no Job Register entry. |
 
-## Tengdar skilaboðategundir
-- `Projects.ProjectJournal.SetupNewLine`
+## Related Message Types
+- `Projects.ProjectJournal.Create`
 - `Projects.ProjectJournal.Check`
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

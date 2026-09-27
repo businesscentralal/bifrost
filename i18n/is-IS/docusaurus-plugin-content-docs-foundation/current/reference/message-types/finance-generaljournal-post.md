@@ -12,40 +12,40 @@ description: "Beiðni- og svarsamningur fyrir Finance.GeneralJournal.Post Bifrö
 :::
 
 
-## Yfirlit
+## Overview
 
-Bókar a Gen. dagbók Batch via BC `Gen. Jnl.-Post Batch` og Skilar the resulting `G/L Register` plus the posting summary. Villur úr the BC posting engine eru gripnar og skilað sem `{status, code, error, hint}` í stað þess að kasta villu — the message itself does ekki fail.
+Posts a Gen. Journal Batch via BC `Gen. Jnl.-Post Batch` and returns the resulting `G/L Register` plus the posting summary. Errors from the BC posting engine are caught and returned as `{status, code, error, hint}` instead of throwing — the message itself does not fail.
 
-**Stefna**: Innkomandi (skrifa — Býr til G/L, viðskiptamanni/birgi/bank/employee, VAT, FA, og hvaða other bók færslur the BC posting routine emits)  **Efnisgerð**: `text/json`
+**Direction**: Inbound (write — creates G/L, customer/vendor/bank/employee, VAT, FA, and any other ledger entries the BC posting routine emits)  **Content-Type**: `text/json`
 
-## Athugasemdir um endurtekningar og öryggi
+## Idempotency / Safety Notes
 
-- **ekki endurtekningarþolið** — `Gen. Jnl.-Post Batch` clears the dagbók lines on Tókst, so re-posting the sama batch Skilar `No lines to post`.
-- The batch færsla itself survives the post; aðeins the lines eru removed.
-- Recommended workflow: call `Finance.GeneralJournal.Check` fyrsta og aðeins post þegar `validationResult ∈ {Ready, ReadyWithWarnings}`. fyrir high-risk batches, nota `Finance.GeneralJournal.PreviewPost` til inspect the færslur that would be created.
+- **Not idempotent** — `Gen. Jnl.-Post Batch` clears the journal lines on success, so re-posting the same batch returns `No lines to post`.
+- The batch record itself survives the post; only the lines are removed.
+- Recommended workflow: call `Finance.GeneralJournal.Check` first and only post when `validationResult ∈ {Ready, ReadyWithWarnings}`. For high-risk batches, use `Finance.GeneralJournal.PreviewPost` to inspect the entries that would be created.
 
 ## Batch Identification Order
 
-fyrsta match wins:
-1. `data.templateName` (+ valfrjálst `data.batchName`).
-2. `subject` envelope attribute er a GUID → batch SystemId.
+First match wins:
+1. `data.templateName` (+ optional `data.batchName`).
+2. `subject` envelope attribute is a GUID → batch SystemId.
 3. `subject` envelope attribute contains a `|` → `TEMPLATE|BATCH`.
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| `templateName` | strengur | Sjá above | Gen. dagbók template (Code[10]). |
-| `batchName` | strengur | No | Gen. dagbók batch (Code[10]). |
+| `templateName` | string | See above | Gen. journal template (Code[10]). |
+| `batchName` | string | No | Gen. journal batch (Code[10]). |
 
-### Dæmi um beiðni
+### Request Example
 ```json
 { "templateName": "GENERAL", "batchName": "DEFAULT" }
 ```
 
-## Uppbygging svars
+## Response Shape
 
-### Tókst
+### Success
 ```json
 {
   "status": "Success",
@@ -65,7 +65,7 @@ fyrsta match wins:
 }
 ```
 
-### Posting Mistókst (BC Villa caught)
+### Posting Failure (BC error caught)
 ```json
 {
   "status": "Error",
@@ -74,48 +74,48 @@ fyrsta match wins:
 }
 ```
 
-### Svarreitir
+### Response Fields
 
-| Reitur | Gerð | Athugasemdir |
+| Field | Type | Notes |
 |---|---|---|
-| `linesPosted` | int | Lines counted áður en posting. |
-| `postingDate` | strengur | `Posting Date` of the fyrsta line (ISO 8601, culture-invariant format 9). |
-| `totalAmount` / `totalAmountLCY` | tugabrot | `CalcSums` across the pre-post lines. fyrir a balanced dagbók both eru `0.0`. |
-| `glRegisterNo` | int | ný G/L Register `No.`. |
+| `linesPosted` | int | Lines counted before posting. |
+| `postingDate` | string | `Posting Date` of the first line (ISO 8601, culture-invariant format 9). |
+| `totalAmount` / `totalAmountLCY` | decimal | `CalcSums` across the pre-post lines. For a balanced journal both are `0.0`. |
+| `glRegisterNo` | int | New G/L Register `No.`. |
 | `glRegisterId` | GUID | G/L Register `SystemId` (no braces). |
-| `fromEntryNo` / `toEntryNo` | int | G/L færsla range úr the ný register. |
-| `fromVATEntryNo` / `toVATEntryNo` | int | VAT færsla range úr the ný register. `0` þegar no VAT færslur were created. |
+| `fromEntryNo` / `toEntryNo` | int | G/L Entry range from the new register. |
+| `fromVATEntryNo` / `toVATEntryNo` | int | VAT Entry range from the new register. `0` when no VAT entries were created. |
 
-## Dæmi (úr einingaprófum)
+## Examples (from unit tests)
 
-úr `Gen. Journal Post Tests` (codeunit, Sjá `test/test/Finance/GenJournalPostTests.Codeunit.al`):
-- `FinanceGeneralJournalPost_BalancedBatch_ReturnsSuccess` — subject = `"GENERAL|DEFAULT"` með balanced lines → `status: "Success"` og a populated G/L Register.
+From `Gen. Journal Post Tests` (codeunit, see `test/test/Finance/GenJournalPostTests.Codeunit.al`):
+- `FinanceGeneralJournalPost_BalancedBatch_ReturnsSuccess` — subject = `"GENERAL|DEFAULT"` with balanced lines → `status: "Success"` and a populated G/L Register.
 - `FinanceGeneralJournalPost_SystemIdSubject_ReturnsSuccess` — subject = batch `SystemId` (`Format(SystemId, 0, 4)`).
 - `FinanceGeneralJournalPost_DataParameters_ReturnsSuccess` — data = `{ "templateName": "GENERAL", "batchName": "DEFAULT" }`.
-- `FinanceGeneralJournalPost_NonExistentBatch_ReturnsError` — subject = `"GENERAL|NONEXISTENT"` → `Journal batch GENERAL|NONEXISTENT not found.`.
-- `FinanceGeneralJournalPost_EmptySubjectNoData_ReturnsError` — vantar identification.
+- `FinanceGeneralJournalPost_NonExistentBatch_ReturnsError` — subject = `"GENERAL|NONEXISTENT"` → `Gen. Journal Batch "GENERAL|NONEXISTENT" was not found (from subject).` (`RecordNotFound`).
+- `FinanceGeneralJournalPost_EmptySubjectNoData_ReturnsError` — missing identification.
 
-## Bókunarheimild
-Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in addition til `BIFROST API ori`. án it Beiðnin Skilar: `Posting denied: missing 'BIFROST GL Post ori' permission set.`
+## Posting Gate
+Calling this message type requires the `BIFROST GL Post ori` permission set in addition to `BIFROST API ori`. Without it the request returns: `Posting denied: missing 'BIFROST GL Post ori' permission set.`
 
-## Villur
+## Errors
 
-| Villa | Orsök |
+| Error | Cause |
 |---|---|
-| `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Kallandi lacks the `BIFROST GL Post ori` heimild set. |
-| `Journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification was supplied. |
-| `Journal batch {template}\|{batch} not found.` | Identification did ekki match an fyrirliggjandi batch. |
-| `Journal batch {template}\|{batch} has no lines to post.` | Batch er empty. |
-| `Nothing was posted. Review journal for errors.` | `Gen. Jnl.-Post Batch` returned án producing a G/L Register. |
-| BC posting Villur | Skilað sem `{status, code: BusinessCentralError, error, hint}` — `error` er villutexti BC. |
+| `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Caller lacks the `BIFROST GL Post ori` permission set. |
+| `Journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
+| `Gen. Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
+| `Journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
+| `Nothing was posted. Review journal for errors.` | `Gen. Jnl.-Post Batch` returned without producing a G/L Register. |
+| BC posting errors | Returned as `{status, code: BusinessCentralError, error, hint}` — `error` is the BC error text. |
 
-## Tengdar skilaboðategundir
+## Related Message Types
 
-- `Finance.GeneralJournal.SetupNewLine` — create ný dagbók lines.
-- `Finance.GeneralJournal.Check` — validate áður en posting.
-- `Finance.GeneralJournal.PreviewPost` — simulate the post án committing.
-- `Finance.GeneralJournal.ReverseRegister` — reverse the G/L Register produced með this post.
+- `Finance.GeneralJournal.Create` — create new journal lines.
+- `Finance.GeneralJournal.Check` — validate before posting.
+- `Finance.GeneralJournal.PreviewPost` — simulate the post without committing.
+- `Finance.GeneralJournal.ReverseRegister` — reverse the G/L Register produced by this post.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

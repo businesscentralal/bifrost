@@ -88,8 +88,9 @@ None — this message type does not accept any caller-supplied field overrides.
 
 | Error | Cause |
 |---|---|
-| `Warehouse Pick identifier must be specified ...` | No Subject and no identifier key in request JSON. |
-| `Warehouse Pick {id} does not exist.` | Supplied SystemId or No. not found, or activity is not Type Pick. |
+| `Warehouse Activity Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, pickNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Warehouse Activity Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
 | `Warehouse Activity {n} is not of Type Pick.` | Activity exists but is a Put-away / Movement / Invt. Pick. |
 | `Warehouse Pick {n} has no lines.` | Header exists with zero lines (shouldn't happen for picks created by BC). |
 | `Nothing to register.` | All lines have `Qty. to Handle = 0`. |
@@ -97,7 +98,7 @@ None — this message type does not accept any caller-supplied field overrides.
 
 ## Pitfalls
 
-- **Pick header disappears after registration**: On `Success` the `Warehouse Activity Header` row is deleted and a `Registered Whse. Activity Hdr.` row appears. A second `Warehouse.Pick.Register` call against the same `pickNo` therefore returns `Warehouse Pick {n} does not exist.` — that is the success indicator, not a failure. Read the history via `Data.Records.Get` on `Registered Whse. Activity Hdr.` (filter by `Whse. Activity No.`).
+- **Pick header disappears after registration**: On `Success` the `Warehouse Activity Header` row is deleted and a `Registered Whse. Activity Hdr.` row appears. A second `Warehouse.Pick.Register` call against the same `pickNo` therefore returns `RecordNotFound` (`Warehouse Activity Header "{n}" was not found (from pickNo).`) — that is the success indicator, not a failure. Read the history via `Data.Records.Get` on `Registered Whse. Activity Hdr.` (filter by `Whse. Activity No.`).
 - **Activity Type filter**: `Warehouse Activity Header` is shared by Picks, Put-aways, Movements, and Invt. Picks. The wrapper checks `Type = Pick` and rejects others — but make sure the `pickNo` / SystemId you supply is genuinely a Pick.
 - **Partial picks need `Data.Records.Set` first**: BC fills `Qty. to Handle` automatically when the pick is created. If the warehouse worker picked less, update each line's `Qty. to Handle` via `Data.Records.Set` on `Warehouse Activity Line` (primaryKey = `Activity Type`, `No.`, `Line No.`) before calling Register. Zero `Qty. to Handle` across all lines yields `Nothing to register.`
 - **Both Take and Place lines**: BC pick lines come in pairs — one `Action Type = Take` and one `Action Type = Place` per source line. When updating `Qty. to Handle`, update **both** rows to the same value or BC rejects the register with `Qty. to Handle (Base) in the line must be equal to ...`.
@@ -109,9 +110,9 @@ None — this message type does not accept any caller-supplied field overrides.
 
 When orchestrating this message type from an agent:
 
-1. **Identifier resolution order is fixed**: Subject > `systemId` > `recordSystemId` > `id` > `pickNo` > `no`. Pick exactly one.
+1. **Every identifier sent is tried**: `subject`, `systemId`, `recordSystemId`, `id`, `pickNo` and `no`. Two that point to different activities give `ConflictingIdentifiers`; send one.
 2. **Capture `registeredPickSystemId` from the response** if you need to navigate to the history record afterwards — re-deriving it from `pickNo` after registration requires a `Registered Whse. Activity Hdr.` lookup keyed on `Whse. Activity No.`.
-3. **Treat `Warehouse Pick {n} does not exist.` on a known pick as evidence the pick was already registered** (the activity header moved to history). Confirm by reading `Registered Whse. Activity Hdr.` before retrying.
+3. **Treat `RecordNotFound` on a known pick as evidence the pick was already registered** (the activity header moved to history). Confirm by reading `Registered Whse. Activity Hdr.` before retrying.
 4. **Idempotency**: This message type is **not** idempotent — second successful invocation against the same `pickNo` is impossible because the header is gone. Use `Registered Whse. Activity Hdr.` to check whether registration already happened.
 5. **Workflow continuation**: On `Success`, the originating Warehouse Shipment is ready for `Warehouse.Shipment.Post`. The response includes `shipmentNo` and `shipmentSystemId` for that chained call.
 
