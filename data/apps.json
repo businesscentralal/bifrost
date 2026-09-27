@@ -163,6 +163,22 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/inventory.png"
       }
+    },
+    {
+      "appId": "47acac54-3873-496f-9e88-157f36413e89",
+      "name": "Bifrost Warehouse",
+      "publisher": "Origo",
+      "summary": "Read bin content and open warehouse activities through dedicated Bifrost message types in Business Central.",
+      "domains": ["inventory", "integration"],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://bifrost.origo.is/en-us/warehouse/",
+        "repository": "https://github.com/businesscentralal/bc-origo-bifrost-warehouse",
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/warehouse.png"
+      }
     }
   ]
 }
