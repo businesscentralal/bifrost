@@ -18,15 +18,11 @@ Posts a Sales Header by running BC codeunit `Sales-Post` with `SetHideValidation
 
 **Direction**: Inbound (state change)  **Content-Type**: `text/json`
 
-> ⚠️ **Ship and Invoice flags are NOT set automatically via the API.**
-> Unlike the BC UI (which defaults to "Ship and Invoice" when you click Post), the API reads `Ship` and `Invoice` exactly as stored on the header.
-> Orders created via API have both flags `false` by default. You **must** set them with `Data.Records.Set` before calling this message type, or posting will silently produce no posted documents.
-> See **Required Pre-Flight** below.
 
 ## Idempotency / Safety Notes
 
 - Not idempotent: each successful call creates ledger entries and posted documents.
-- All BC standard posting validation runs (Ship/Invoice/Receive flags on the header, number series availability, dimensions, ...). BC errors are returned as `status: Error` with the BC `GetLastErrorText()` message.
+- All BC standard posting validation runs (number series availability, dimensions, ...). BC errors are returned as `status: Error` with the BC `GetLastErrorText()` message.
 - Pre-flight: refuses headers with no `Sales Line` rows.
 
 ## Subject Identification Order
@@ -39,38 +35,13 @@ Same as `Sales.Document.Release` (via `FindSalesHeader`).
 |---|---|---|---|
 | `systemId` / `recordSystemId` / `id` | GUID | See above | `Sales Header.SystemId`. |
 | `orderNo` / `quoteNo` / `invoiceNo` / `creditMemoNo` / `blanketOrderNo` / `returnOrderNo` | string | See above | Typed `No.` lookup. |
+| `ship` | bool | No | Orders: post the shipment (`Ship`). |
+| `receive` | bool | No | Return orders: post the return receipt (`Receive`). |
+| `invoice` | bool | No | Orders and return orders: post the invoice or credit memo (`Invoice`). |
 
-Ship/Invoice flags are taken from the header itself; this call does not override them.
+## Ship and Invoice
 
-## Required Pre-Flight: Ship and Invoice Flags
-
-The BC UI sets `Ship = true` and `Invoice = true` implicitly when the user clicks **Post**. The API does **not** — it reads whatever is stored on the `Sales Header` record. For orders created via `Data.Records.Set` or any `Sales.*` message type, both flags default to `false`.
-
-**Consequence:** calling `Sales.Document.Post` without setting these flags will succeed (status: Success) but produce **no posted documents** — the order remains open and no ledger entries are created. This is the most common silent failure when posting via API.
-
-**Required two-step pattern (sequential — do not parallelize):**
-
-**Step 1 — Set flags on the header**
-```json
-{
-  "type": "Data.Records.Set",
-  "tableName": "Sales Header",
-  "primaryKey": { "DocumentType": 1, "No_": "PS-ORD103001" },
-  "fields": { "Ship": true, "Invoice": true }
-}
-```
-
-**Step 2 — Post**
-```json
-{ "type": "Sales.Document.Post", "orderNo": "PS-ORD103001" }
-```
-
-| Flag | Field No. | Meaning | Default for API-created orders |
-|---|---|---|---|
-| `Ship` | 75 | Create a Posted Shipment | `false` |
-| `Invoice` | 76 | Create a Posted Invoice | `false` |
-
-For Return Orders, the equivalent flag is `Receive` (field 79) instead of `Ship`. Set it the same way before posting.
+An order posts what `ship` and `invoice` say (a return order: `receive` and `invoice`). When the request sends neither and the header has neither flag set, both are `true`, which is the "Ship and Invoice" choice of the Post dialog in Business Central. Send `"invoice": false` to ship only. Both `false` is `InvalidParameter`: nothing would be posted. Invoices and credit memos need no flags.
 
 ### Request Example
 ```json
@@ -140,7 +111,6 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 | `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Sales document {no} has no lines to post.` | Header has no `Sales Line` rows. |
 | BC posting errors | Bubble up from `Sales-Post` (e.g. missing posting date, invalid dimensions, customer blocked). |
-| `status: Success` but `postedDocuments` is empty | `Ship` and/or `Invoice` flags on the header are `false`. Run the two-step pre-flight in **Required Pre-Flight** above before posting. |
 
 ## Related Message Types
 

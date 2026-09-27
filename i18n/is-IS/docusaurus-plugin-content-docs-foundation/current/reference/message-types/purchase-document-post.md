@@ -12,73 +12,48 @@ description: "Beiðni- og svarsamningur fyrir Purchase.Document.Post Bifröst sk
 :::
 
 
-## Yfirlit
-Bókar a purchase skjal via Microsoft codeunit `Purch.-Post` og Skilar the list of posted skjöl that were created. styður Order, reikningur, Credit Memo, og Return Order. The Uppruni skjal er consumed (deleted) fyrir Orders og Return Orders þegar posting completes fully.
+## Overview
+Posts a purchase document via Microsoft codeunit `Purch.-Post` and returns the list of posted documents that were created. Supports Order, Invoice, Credit Memo, and Return Order. The source document is consumed (deleted) for Orders and Return Orders when posting completes fully.
 
-| Uppruni | Posted skjöl created |
+| Source | Posted documents created |
 |--------|--------------------------|
-| Order | Posted Purchase reikningur + Posted Purchase Receipt |
-| reikningur | Posted Purchase reikningur |
+| Order | Posted Purchase Invoice + Posted Purchase Receipt |
+| Invoice | Posted Purchase Invoice |
 | Credit Memo | Posted Purchase Credit Memo |
 | Return Order | Posted Purchase Credit Memo + Posted Return Shipment |
 
-**Stefna**: Innkomandi  **Efnisgerð**: text/json
+**Direction**: Inbound  **Content-Type**: text/json
 
-> ⚠️ **Receive/reikningur flags eru ekki set automatically via the API.**
-> Unlike the BC UI, the API Les `Receive` og `Invoice` (fyrir Orders) og `Ship` og `Invoice` (fyrir Return Orders) exactly as stored on the header.
-> Orders created via API have all flags `false` með Sjálfgefið. You **verður að** set them með `Data.Records.Set` áður en calling this skilaboðategund.
-> Sjá **Posting Mode Flags** below fyrir the áskilið two-step pattern.
 
 ## Idempotency / Safety
-**ekki endurtekningarþolið og ekki retry-safe.** A tókst post er irreversible; the Uppruni skjal er gone eða its `Status` has advanced. Retrying may post the skjal again (ef it er still present) eða surface a ekki-fannst Villa.
+**Not idempotent and not retry-safe.** A successful post is irreversible; the source document is gone or its `Status` has advanced. Retrying may post the document again (if it is still present) or surface a not-found error.
 
-Discovery of newly created posted skjöl uses a snapshot-then-compare pattern: `Last Posting No.`, `Last Receiving No.` og `Last Return Shipment No.` eru captured áður en posting og the corresponding posted-skjal töflur eru looked up afterward með the **ný** values. ef `Last *No.` did ekki change, no færsla er emitted in `postedDocuments` fyrir that channel.
+Discovery of newly created posted documents uses a snapshot-then-compare pattern: `Last Posting No.`, `Last Receiving No.` and `Last Return Shipment No.` are captured before posting and the corresponding posted-document tables are looked up afterward by the **new** values. If `Last *No.` did not change, no entry is emitted in `postedDocuments` for that channel.
 
-## Posting Mode Flags
-fyrir Orders og Return Orders, BC requires at least one of `Receive`/`Invoice` (orders) eða `Ship`/`Invoice` (return orders) til be `true` on the header. This impl does **ekki** set these flags automatically — set them via `Data.Records.Set` áður en calling, eða BC mun return `Enter Yes in Receive and/or Invoice and/or Ship.`.
-
-**áskilið two-step pattern (sequential — do ekki parallelize):**
-
-**Step 1 — Set flags on the header**
-```json
-{
-  "type": "Data.Records.Set",
-  "tableName": "Purchase Header",
-  "primaryKey": { "DocumentType": 1, "No_": "PO-001" },
-  "fields": { "Receive": true, "Invoice": true }
-}
-```
-
-**Step 2 — Post**
-```json
-{ "type": "Purchase.Document.Post", "subject": "PO-001" }
-```
-
-| Flag | Reitur No. | Order | Return Order |
-|---|---|---|---|
-| `Receive` | 77 | Create a Posted Receipt | — |
-| `Ship` | 78 | — | Create a Posted Return Shipment |
-| `Invoice` | 79 | Create a Posted reikningur | Create a Posted Credit Memo |
-
-Other BC-side prerequisites that verður að be satisfied áður en calling:
-- reikningur / Order → reikningur: `Vendor Invoice No.` verður að be filled.
-- Credit Memo / Return Order → Credit Memo: `Vendor Cr. Memo No.` verður að be filled og unique per birgi.
-
-## Forgangsröð auðkenna
-Resolved með `Argument.FindPurchaseHeader`:
+## Identifier Resolution Order
+Resolved by `Argument.FindPurchaseHeader`:
 1. `subject` as GUID → `PurchaseHeader.GetBySystemId`.
-2. `subject` as text → `PurchaseHeader.Get(Order, <subject>)` (Order aðeins).
-3. Request JSON keys (fyrsta hit wins): `systemId`, `recordSystemId`, `id` (all GUID); `orderNo`, `quoteNo`, `invoiceNo`, `creditMemoNo`, `blanketOrderNo`, `returnOrderNo`.
+2. `subject` as text → tried as each postable document type (Order, Invoice, Credit Memo, Return Order). One match is used; several give `AmbiguousRecord` - then send the number in `orderNo`, `invoiceNo`, `creditMemoNo` or `returnOrderNo`.
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id` (all GUID); `orderNo`, `quoteNo`, `invoiceNo`, `creditMemoNo`, `blanketOrderNo`, `returnOrderNo`.
 
-## Beiðnibreytur
-Request body er valfrjálst. No additional fields eru lesa.
+## Request Parameters
+| Parameter | Type | Required | Notes |
+|---|---|---|---|
+| `receive` | bool | No | Orders: post the receipt (`Receive`). |
+| `ship` | bool | No | Return orders: post the return shipment (`Ship`). |
+| `invoice` | bool | No | Orders and return orders: post the invoice or credit memo (`Invoice`). |
 
-## Dæmi um beiðni
+## Receive and Invoice
+
+An order posts what `receive` and `invoice` say (a return order: `ship` and `invoice`). When the request sends neither and the header has neither flag set, both are `true`, which is the "Receive and Invoice" choice of the Post dialog in Business Central. Send `"invoice": false` to receive only. Both `false` is `InvalidParameter`: nothing would be posted. Invoices and credit memos need no flags.
+
+
+## Request Example
 ```json
 { "type": "Purchase.Document.Post", "subject": "PO-001" }
 ```
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -101,34 +76,38 @@ Request body er valfrjálst. No additional fields eru lesa.
 }
 ```
 
-| Property | Lýsing |
+| Property | Description |
 |----------|-------------|
-| documentType | Localised enum Heiti of the **Uppruni** skjal. |
-| documentNo | The Uppruni (pre-assigned) skjal númer. |
-| postedDocuments[].Gerð | One of `Posted Purchase Invoice`, `Posted Purchase Receipt`, `Posted Purchase Credit Memo`, `Posted Return Shipment`. |
-| postedDocuments[].recordSystemId | GUID of the posted færsla (án braces, lowercase). |
-| postedDocuments[].no | skjal númer of the posted færsla. |
-| postedDocuments[].postingDate | Posting dagsetning of the posted færsla. |
-| postedDocuments[].upphæð / amountIncludingVAT / vendorLedgerEntryNo | Present **aðeins** fyrir reikningur og credit memo færslur, omitted fyrir receipts og return shipments. |
+| documentType | Localised enum name of the **source** document. |
+| documentNo | The source (pre-assigned) document number. |
+| postedDocuments[].type | One of `Posted Purchase Invoice`, `Posted Purchase Receipt`, `Posted Purchase Credit Memo`, `Posted Return Shipment`. |
+| postedDocuments[].recordSystemId | GUID of the posted record (without braces, lowercase). |
+| postedDocuments[].no | Document number of the posted record. |
+| postedDocuments[].postingDate | Posting date of the posted record. |
+| postedDocuments[].amount / amountIncludingVAT / vendorLedgerEntryNo | Present **only** for invoice and credit memo entries, omitted for receipts and return shipments. |
 
-Discovery fallback: þegar `Get(Last Posting No.)` misses (númer-series quirk), the impl falls back til `Pre-Assigned No.` fyrir reikningur / Credit Memo sources, og til `Order No.` / `Return Order No.` fyrir Order / Return Order sources.
+Discovery fallback: when `Get(Last Posting No.)` misses (number-series quirk), the impl falls back to `Pre-Assigned No.` for Invoice / Credit Memo sources, and to `Order No.` / `Return Order No.` for Order / Return Order sources.
 
-## Bókunarheimild
-Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in addition til `BIFROST API ori`. án it Beiðnin Skilar: `Posting denied: missing 'BIFROST GL Post ori' permission set.`
+## Posting Gate
+Calling this message type requires the `BIFROST GL Post ori` permission set in addition to `BIFROST API ori`. Without it the request returns: `Posting denied: missing 'BIFROST GL Post ori' permission set.`
 
-## Villur
-| Villa | Orsök |
+## Errors
+| Error | Cause |
 |-------|-------|
-| `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Kallandi lacks the `BIFROST GL Post ori` heimild set. |
-| `Purchase document {no} has no lines to post.` | The Uppruni header has no `Purchase Line` rows. |
-| `Purchase Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`); gefið en fannst ekki: `Purchase Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No skjal resolved með `FindPurchaseHeader`. |
-| Underlying BC Villa text | hvaða Villa raised með `Purch.-Post` (vantar `Vendor Invoice No.`, duplicate `Vendor Cr. Memo No.`, both posting flags false, vantar posting setup, blocked items, dimension Villur, etc.). |
+| `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Caller lacks the `BIFROST GL Post ori` permission set. |
+| `Purchase document {no} has no lines to post.` | The source header has no `Purchase Line` rows. |
+| `Purchase Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Purchase Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `Purchase Header "{value}" matches more than one document. Pass it as one of: {keys}.` (`AmbiguousRecord`) | A plain subject matches several document types; send it in the key of the type you mean. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
+| Underlying BC error text | Any error raised by `Purch.-Post` (missing `Vendor Invoice No.`, duplicate `Vendor Cr. Memo No.`, missing posting setup, blocked items, dimension errors, etc.). |
 
-## Tengdar skilaboðategundir
-- `Purchase.Document.PreviewPost` — Simulate the post og inspect the would-be bók færslur.
-- `Purchase.Document.Statistics` — Header totals án posting.
-- `Purchase.Document.Release` / `Purchase.Document.Reopen` — Manage status áður en posting.
+## Related Message Types
+- `Purchase.Document.PreviewPost` — Simulate the post and inspect the would-be ledger entries.
+- `Purchase.Document.Statistics` — Header totals without posting.
+- `Purchase.Document.Release` / `Purchase.Document.Reopen` — Manage status before posting.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 
