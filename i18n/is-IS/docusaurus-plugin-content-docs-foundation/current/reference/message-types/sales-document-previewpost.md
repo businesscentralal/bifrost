@@ -12,37 +12,37 @@ description: "Beiðni- og svarsamningur fyrir Sales.Document.PreviewPost Bifrös
 :::
 
 
-## Yfirlit
+## Overview
 
-Predicts the færslur a `Sales.Document.Post` call would create — án committing hvaða changes. Uses BC 's `Gen. Jnl.-Post Preview` framework: `Sales-Post (Yes/No)` runs under preview, throws `Error('')` eftir the `Posting Preview Event Handler` has captured every populated tafla, og the whole transaction rolls back.
+Predicts the entries a `Sales.Document.Post` call would create — without committing any changes. Uses BC 's `Gen. Jnl.-Post Preview` framework: `Sales-Post (Yes/No)` runs under preview, throws `Error('')` after the `Posting Preview Event Handler` has captured every populated table, and the whole transaction rolls back.
 
-**Stefna**: Innkomandi (rollback — preview aðeins)  **Efnisgerð**: `text/json`
+**Direction**: Inbound (rollback — preview only)  **Content-Type**: `text/json`
 
-## Athugasemdir um endurtekningar og öryggi
+## Idempotency / Safety Notes
 
-- **Always rolls back** — no posted skjöl, no bók færslur, no númer-series consumption eru persisted. Safe til call repeatedly.
-- `predictedNumbers` shows the skjal numbers the post **would** nota; they eru ekki actually consumed.
-- Reitur-Heiti curation per preview tafla comes úr `Bifrost Preview Helper.GetPreviewFieldNames` (extensible event) — fields ekki listed eru omitted úr the per-row payload.
+- **Always rolls back** — no posted documents, no ledger entries, no number-series consumption are persisted. Safe to call repeatedly.
+- `predictedNumbers` shows the document numbers the post **would** use; they are not actually consumed.
+- Field-name curation per preview table comes from `Bifrost Preview Helper.GetPreviewFieldNames` (extensible event) — fields not listed are omitted from the per-row payload.
 
 ## Subject Identification Order
 
-sama as `Sales.Document.Release` (via `FindSalesHeader`).
+Same as `Sales.Document.Release` (via `FindSalesHeader`).
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| `systemId` / `recordSystemId` / `id` | GUID | Sjá above | `Sales Header.SystemId`. |
-| `orderNo` / `quoteNo` / `invoiceNo` / `creditMemoNo` / `blanketOrderNo` / `returnOrderNo` | strengur | Sjá above | Typed `No.` lookup. |
+| `systemId` / `recordSystemId` / `id` | GUID | See above | `Sales Header.SystemId`. |
+| `orderNo` / `quoteNo` / `invoiceNo` / `creditMemoNo` / `blanketOrderNo` / `returnOrderNo` | string | See above | Typed `No.` lookup. |
 
-### Dæmi um beiðni
+### Request Example
 ```json
 { "orderNo": "PS-ORD103001" }
 ```
 
-## Uppbygging svars
+## Response Shape
 
-### Tókst
+### Success
 ```json
 {
   "status": "Success",
@@ -79,41 +79,54 @@ sama as `Sales.Document.Release` (via `FindSalesHeader`).
 }
 ```
 
-### Mistókst
+### Failure
 ```json
 { "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
-### Svarreitir
+### Response Fields
 
-| Reitur | Uppruni |
+| Field | Source |
 |---|---|
 | `lcyCode` | `General Ledger Setup."LCY Code"`. |
 | `documentCurrencyCode` / `documentExchangeRate` | `Sales Header."Currency Code"` / `"Currency Factor"`. |
-| `predictedNumbers` | Keys depend on `documentType`: Order → `postedInvoiceNo` + `postedShipmentNo`. reikningur → `postedInvoiceNo`. Credit Memo → `postedCreditMemoNo`. Return Order → `postedCreditMemoNo` + `postedReturnReceiptNo`. |
-| `totals` LCY | `G/L Entry.CalcSums("Debit Amount", "Credit Amount")` úr the captured preview. |
-| `totals` FCY | `Detailed Cust. Ledg. Entry` totals, excluding `Entry Type::Application` og `Entry Type::"Appln. Rounding"`. |
-| `preview[]` | One færsla per tafla that the posting preview populated (e.g. `G/L Entry`, `Cust. Ledger Entry`, `VAT Entry`, `Item Ledger Entry`, `Value Entry`, `Detailed Cust. Ledg. Entry`). `fields[]` comes úr the curated list fyrir that tafla. |
+| `predictedNumbers` | Keys depend on `documentType`: Order → `postedInvoiceNo` + `postedShipmentNo`. Invoice → `postedInvoiceNo`. Credit Memo → `postedCreditMemoNo`. Return Order → `postedCreditMemoNo` + `postedReturnReceiptNo`. |
+| `totals` LCY | `G/L Entry.CalcSums("Debit Amount", "Credit Amount")` from the captured preview. |
+| `totals` FCY | `Detailed Cust. Ledg. Entry` totals, excluding `Entry Type::Application` and `Entry Type::"Appln. Rounding"`. |
+| `preview[]` | One entry per table that the posting preview populated (e.g. `G/L Entry`, `Cust. Ledger Entry`, `VAT Entry`, `Item Ledger Entry`, `Value Entry`, `Detailed Cust. Ledg. Entry`). `fields[]` comes from the curated list for that table. |
 
-## Dæmi (úr einingaprófum)
+## Examples (from unit tests)
 
-úr `Sales Doc Preview Post Tests` (`test/test/Sales/SalesDocPrevPostTests.Codeunit.al`) — covers preview fyrir hver skjal Gerð, verifies `rollback: true`, asserts no posted skjal er persisted, validates `predictedNumbers` keys, og exercises BC posting Villur surfaced via the preview pipeline.
+From `Sales Doc Preview Post Tests` (`test/test/Sales/SalesDocPrevPostTests.Codeunit.al`) — covers preview for each document type, verifies `rollback: true`, asserts no posted document is persisted, validates `predictedNumbers` keys, and exercises BC posting errors surfaced via the preview pipeline.
 
-## Villur
+## Preview Outcome
 
-| Villa | Orsök |
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: No line has a quantity to ship or invoice. Set Qty. to Ship / Qty. to Invoice, or review with `Sales.Document.Statistics`.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+
+## Errors
+
+| Error | Cause |
 |---|---|
-| `Sales Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`); gefið en fannst ekki: `Sales Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | `FindSalesHeader` could ekki resolve a header. |
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: No line has a quantity to ship or invoice. Set Qty. to Ship / Qty. to Invoice, or review with `Sales.Document.Statistics`. |
+| `Sales Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Sales Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `Sales Header "{value}" matches more than one document. Pass it as one of: {keys}.` (`AmbiguousRecord`) | A plain subject matches several document types; send it in the key of the type you mean. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 | `Sales document {no} has no lines to post.` | Header has no `Sales Line` rows. |
-| `Posting preview failed and no entries were captured. The document cannot be posted in its current state.` | The preview pipeline finished án populating hvaða töflur — `Sales.Document.Post` would einnig fail. |
-| BC preview Villur | Bubble up úr `Sales-Post (Yes/No)` running under `Gen. Jnl.-Post Preview`. |
+| `Posting preview failed and no entries were captured. The document cannot be posted in its current state.` | The preview pipeline finished without populating any tables — `Sales.Document.Post` would also fail. |
+| BC preview errors | Bubble up from `Sales-Post (Yes/No)` running under `Gen. Jnl.-Post Preview`. |
 
-## Tengdar skilaboðategundir
+## Related Message Types
 
 - `Sales.Document.Post` — actually commit the posting.
-- `Sales.Document.Statistics` — header-level totals án running a preview.
-- `Sales.Document.Release` — áskilið áður en posting ef `Status = Open`.
+- `Sales.Document.Statistics` — header-level totals without running a preview.
+- `Sales.Document.Release` — required before posting if `Status = Open`.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

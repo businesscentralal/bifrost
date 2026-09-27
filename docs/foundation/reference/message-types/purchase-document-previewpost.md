@@ -70,7 +70,7 @@ Request body is optional. No additional fields are read.
 | documentCurrencyCode | `Currency Code` from the header. Empty string means the document is in LCY. |
 | documentExchangeRate | FCY → LCY rate computed as `Round(1 / Currency Factor, 0.00001)`. **Always `1` when `documentCurrencyCode` is empty**, and `0` when the document has a currency but no factor yet. |
 | predictedNumbers | Document numbers that would be assigned. Informational only — not reserved against the No. Series. Keys depend on `documentType`: Order → `postedInvoiceNo` + `postedReceiptNo`; Invoice → `postedInvoiceNo`; Credit Memo → `postedCreditMemoNo`; Return Order → `postedCreditMemoNo` + `postedReturnShipmentNo`. |
-| totals.balanced | `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Balanced is always computed in LCY. |
+| totals.balanced | Present only when G/L entries were captured (`glEntryCount > 0`): `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Omitted when the posting creates no G/L entry. |
 | totals.totalDebitLCY / totalCreditLCY | Sum of G/L Entry `Debit Amount` / `Credit Amount`. |
 | totals.totalDebitFCY / totalCreditFCY | Source-currency totals derived from captured `Detailed Vendor Ledg. Entry.Amount` (excluding `Application` / `Appln. Rounding` rows). Vendor postings are one-sided in FCY, so FCY totals surface the document amount in document currency rather than a balanced view. Equal to the LCY totals when the document is in LCY. |
 | preview[] | One element per ledger table populated by the BC posting routine. Tables are discovered dynamically via `Posting Preview Event Handler.FillDocumentEntry` — extensions can add tables through the `OnAfterFillDocumentEntry` event. |
@@ -78,9 +78,18 @@ Request body is optional. No additional fields are read.
 
 Field names use the same mechanical normalisation as `Data.Records.Get`: `No.` → `No_`, `Amount (LCY)` → `AmountLCY`, etc.
 
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: No line has a quantity to receive or invoice. Set Qty. to Receive / Qty. to Invoice on the lines, or review them with `Purchase.Document.Statistics`.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+
 ## Errors
 | Error | Cause |
 |-------|-------|
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: No line has a quantity to receive or invoice. Set Qty. to Receive / Qty. to Invoice on the lines, or review them with `Purchase.Document.Statistics`. |
 | `Purchase document {no} has no lines to post.` | The source header has no `Purchase Line` rows. |
 | `Posting preview failed and no entries were captured. The document cannot be posted in its current state.` | The preview ran but the inner posting raised an error that left no entries. |
 | Underlying BC error text | Any error raised by `Purch.-Post (Yes/No)` during the simulated post (missing setup, validation failures, etc.). |

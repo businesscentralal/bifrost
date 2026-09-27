@@ -47,7 +47,7 @@ First match wins:
 {
   "status": "Success",
   "rollback": true,
-  "summary": "Preview-posting fixed asset journal batch ASSETS|DEFAULT (1 lines) would create 2 ledger entries across 2 tables. G/L impact is balanced.",
+  "summary": "Preview-posting fixed asset journal batch ASSETS|DEFAULT (1 lines) would create 2 ledger entries across 2 tables. No G/L entries would be posted.",
   "templateName": "ASSETS",
   "batchName": "DEFAULT",
   "batchDescription": "Default Journal Batch",
@@ -55,7 +55,7 @@ First match wins:
   "postingDate": "2026-04-15",
   "lcyCode": "USD",
   "predictedDocumentNos": [],
-  "totals": { "balanced": true, "totalDebitLCY": 0.0, "totalCreditLCY": 0.0 },
+  "totals": { "totalDebitLCY": 0.0, "totalCreditLCY": 0.0 },
   "preview": [
     {
       "tableId": 5625,
@@ -85,7 +85,7 @@ First match wins:
 | `lcyCode` | string | `GLSetup."LCY Code"`. |
 | `batchDescription` | string | The batch's `Description` field. May be empty when the batch has no description. |
 | `predictedDocumentNos` | string[] | Distinct `Document No.` values across the previewed G/L entries. May contain the literal `"***"` when BC's preview engine masks an unassigned number-series value. Empty when the depreciation book does not post to G/L for the line's FA Posting Type (see Operational Notes). |
-| `totals.balanced` | bool | `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Always true when no G/L entries are produced. |
+| `totals.balanced` | bool | Present only when G/L entries were captured (`glEntryCount > 0`): `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Omitted when the posting creates no G/L entry. |
 | `totals.totalDebitLCY` / `totalCreditLCY` | decimal | Aggregated from the previewed G/L entries (zero when no G/L integration applies). |
 | `preview[]` | array | One element per populated ledger / journal table that BC would write to (`FA Ledger Entry`, `Maintenance Ledger Entry`, `G/L Entry`, `VAT Entry`, etc.). |
 | `preview[].tableId` / `tableName` | int / string | BC table identification. |
@@ -100,12 +100,22 @@ From `FA Jnl. Prev. Post Tests` (codeunit 95437):
 - `PreviewPost_PostableBatch_DoesNotCreateFALedgerEntry` — verifies no `FA Ledger Entry` row is actually persisted.
 - `PreviewPost_PostableBatch_ReturnsBatchContextAndPreviewArray` — verifies the batch context fields and that `preview[]` contains at least one populated table.
 
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: Run `Finance.FAJournal.Check` to see which lines are incomplete.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+- **Empty lines** (lines posting would skip): `linesInBatch` and `skippedLines` are always present. When `skippedLines > 0` the answer stays `Success` and adds a `LinesSkipped` warning ("2 of 3 lines are empty and would be skipped by posting."), a `nextStep` naming `Finance.FAJournal.Check`, and the same sentence in `summary`. When every line is empty, nothing would be posted (above).
+
 ## Errors
 
 **BC validation errors propagate verbatim** to the caller. The catch-all below is only used when the preview subscriber runs cleanly but produces zero captured entries.
 
 | Error | Cause |
 |---|---|
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: Run `Finance.FAJournal.Check` to see which lines are incomplete. |
 | `Fixed asset journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
 | `FA Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Fixed asset journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |

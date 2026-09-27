@@ -45,7 +45,7 @@ Standard `Transfer Header` identification:
 {
   "status": "Success",
   "rollback": true,
-  "summary": "Transfer Order TO000456 (BLUE -> RED) Ship preview produced 2 entries (balanced).",
+  "summary": "Transfer Order TO000456 (BLUE -> RED) Ship preview produced 2 entries. No G/L entries would be posted.",
   "documentNo": "TO000456",
   "transferFromCode": "BLUE",
   "transferToCode": "RED",
@@ -53,7 +53,7 @@ Standard `Transfer Header` identification:
   "postingType": "Ship",
   "lcyCode": "USD",
   "predictedNumbers": { "postedShipmentNo": "PTS00012" },
-  "totals": { "balanced": true, "totalDebitLCY": 0, "totalCreditLCY": 0 },
+  "totals": { "totalDebitLCY": 0, "totalCreditLCY": 0 },
   "preview": [
     { "tableId": 32, "tableName": "Item Ledger Entry", "entryCount": 2, "entries": [] }
   ]
@@ -69,13 +69,22 @@ Standard `Transfer Header` identification:
 | postingType | `Ship`, `Receive`, or `DirectTransfer`. |
 | lcyCode | `General Ledger Setup."LCY Code"`. |
 | predictedNumbers | One of `postedShipmentNo` / `postedReceiptNo` / `postedDirectTransferNo` depending on the posting type. Empty string when nothing predicted. |
-| totals.balanced | `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. |
+| totals.balanced | Present only when G/L entries were captured (`glEntryCount > 0`): `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Omitted when the posting creates no G/L entry. |
 | totals.totalDebitLCY / totals.totalCreditLCY | Sums of G/L Entry debit/credit (LCY). |
 | preview[] | One element per captured table (`tableId`, `tableName`, `entryCount`, `entries`). Field set per table is configured by `Bifrost Preview Helper`. |
+
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: No line has a quantity to ship or receive. Review with `Inventory.TransferOrder.Statistics`.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
 
 ## Errors
 | Error | Cause |
 |-------|-------|
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: No line has a quantity to ship or receive. Review with `Inventory.TransferOrder.Statistics`. |
 | `Transfer Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, transferOrderNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
 | `Transfer Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
 | `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |

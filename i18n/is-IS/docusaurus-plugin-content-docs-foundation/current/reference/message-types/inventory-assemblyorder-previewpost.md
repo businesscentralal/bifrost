@@ -12,21 +12,21 @@ description: "Beiðni- og svarsamningur fyrir Inventory.AssemblyOrder.PreviewPos
 :::
 
 
-## Yfirlit
-Simulates posting an Assembly Order og Skilar the captured bók færslur (vöru bók, Gildi færsla, G/L færsla where applicable) án committing. Uses BC `Gen. Jnl.-Post Preview.SetContext(Assembly-Post, AssemblyHeader)` then `Run()` og the `Posting Preview Event Handler` til capture færslur áður en BC rolls back.
+## Overview
+Simulates posting an Assembly Order and returns the captured ledger entries (Item Ledger, Value Entry, G/L Entry where applicable) without committing. Uses BC `Gen. Jnl.-Post Preview.SetContext(Assembly-Post, AssemblyHeader)` then `Run()` and the `Posting Preview Event Handler` to capture entries before BC rolls back.
 
-**Stefna**: Innkomandi  **Efnisgerð**: `text/json`
+**Direction**: Inbound  **Content-Type**: `text/json`
 
 ## Idempotency / Safety
-Safe og endurtekningarþolið. The transaction er always rolled back. No `Posted Assembly Header`, bók færslur, eða No. Series numbers persist eftir the call. `rollback: true` er included in every tókst response til make this explicit.
+Safe and idempotent. The transaction is always rolled back. No `Posted Assembly Header`, ledger entries, or No. Series numbers persist after the call. `rollback: true` is included in every successful response to make this explicit.
 
 ## Order Identification
 Standard `Assembly Header` identification:
 1. `subject` parsed as GUID -> header `SystemId`.
-2. `subject` as text -> header `No.` (með `Document Type = Order`).
-3. Request JSON keys (fyrsta match wins): `systemId`, `recordSystemId`, `id`, `documentNo`, `assemblyOrderNo`, `no`.
+2. `subject` as text -> header `No.` (with `Document Type = Order`).
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id`, `documentNo`, `assemblyOrderNo`, `no`.
 
-## Beiðnibreytur
+## Request Parameters
 None beyond identification.
 
 ## Request Examples
@@ -40,49 +40,61 @@ None beyond identification.
 }
 ```
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
   "rollback": true,
-  "summary": "Assembly Order AO000123 (BICYCLE x 5) preview produced 4 entries (balanced).",
+  "summary": "Assembly Order AO000123 (BICYCLE x 5) preview produced 4 entries. No G/L entries would be posted.",
   "documentNo": "AO000123",
   "itemNo": "BICYCLE",
   "locationCode": "BLUE",
   "quantityToAssemble": 5,
   "lcyCode": "USD",
   "predictedNumbers": { "postedAssemblyNo": "PA000045" },
-  "totals": { "balanced": true, "totalDebitLCY": 0, "totalCreditLCY": 0 },
+  "totals": { "totalDebitLCY": 0, "totalCreditLCY": 0 },
   "preview": [
     { "tableId": 32, "tableName": "Item Ledger Entry", "entryCount": 4, "entries": [] }
   ]
 }
 ```
 
-| Property | Lýsing |
+| Property | Description |
 |----------|-------------|
-| status | `Success` whenever the preview completed; `Error` ef preview itself threw. |
+| status | `Success` whenever the preview completed; `Error` if preview itself threw. |
 | rollback | Always `true` - reminder that nothing was persisted. |
-| summary | Human-readable one-liner combining skjal, vöru, quantity, færsla count, og balance state. |
+| summary | Human-readable one-liner combining document, item, quantity, entry count, and balance state. |
 | documentNo / itemNo / locationCode / quantityToAssemble | Echo of header fields. |
 | lcyCode | `General Ledger Setup."LCY Code"`. |
-| predictedNumbers.postedAssemblyNo | fyrsta captured `Posted Assembly Header.No.` (the skjal númer that would be assigned at real post). |
-| totals.balanced | `true` þegar `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. |
-| totals.totalDebitLCY / totals.totalCreditLCY | Sums of G/L færsla debit/credit (LCY) - typically zero fyrir non-stockkeeping/non-cost-accounting items. |
-| preview[] | One element per captured tafla. hver contains `tableId`, `tableName`, `entryCount`, `entries` (subset of fields configured með `Bifrost Preview Helper`). |
+| predictedNumbers.postedAssemblyNo | First captured `Posted Assembly Header.No.` (the document number that would be assigned at real post). |
+| totals.balanced | Present only when G/L entries were captured (`glEntryCount > 0`): `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Omitted when the posting creates no G/L entry. |
+| totals.totalDebitLCY / totals.totalCreditLCY | Sums of G/L Entry debit/credit (LCY) - typically zero for non-stockkeeping/non-cost-accounting items. |
+| preview[] | One element per captured table. Each contains `tableId`, `tableName`, `entryCount`, `entries` (subset of fields configured by `Bifrost Preview Helper`). |
 
-## Villur
-| Villa | Orsök |
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: Quantity to Assemble is 0. Review with `Inventory.AssemblyOrder.Statistics`.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+
+## Errors
+| Error | Cause |
 |-------|-------|
-| `Assembly Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, assemblyOrderNo, no.` (`MissingParameter`); gefið en fannst ekki: `Assembly Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No identifier supplied eða lookup mistókst. |
-| `Assembly order %1 has no lines to post.` | Order had zero `Assembly Line` rows. `%1` er the skjal `No.`. |
-| `Posting preview failed and no entries were captured. The assembly order cannot be posted in its current state.` | `Gen. Jnl.-Post Preview.Run` mistókst án surfacing a specific BC Villa text. |
-| (BC posting Villa text) | Preview captured a real BC posting Villa - returned verbatim. |
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: Quantity to Assemble is 0. Review with `Inventory.AssemblyOrder.Statistics`. |
+| `Assembly Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, assemblyOrderNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Assembly Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
+| `Assembly order %1 has no lines to post.` | Order had zero `Assembly Line` rows. `%1` is the document `No.`. |
+| `Posting preview failed and no entries were captured. The assembly order cannot be posted in its current state.` | `Gen. Jnl.-Post Preview.Run` failed without surfacing a specific BC error text. |
+| (BC posting error text) | Preview captured a real BC posting error - returned verbatim. |
 
-## Tengdar skilaboðategundir
-- `Inventory.AssemblyOrder.Post` - actually post once preview er clean.
-- `Inventory.AssemblyOrder.Statistics` - inspect costs án simulation.
+## Related Message Types
+- `Inventory.AssemblyOrder.Post` - actually post once preview is clean.
+- `Inventory.AssemblyOrder.Statistics` - inspect costs without simulation.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -45,14 +45,14 @@ None beyond identification.
 {
   "status": "Success",
   "rollback": true,
-  "summary": "Assembly Order AO000123 (BICYCLE x 5) preview produced 4 entries (balanced).",
+  "summary": "Assembly Order AO000123 (BICYCLE x 5) preview produced 4 entries. No G/L entries would be posted.",
   "documentNo": "AO000123",
   "itemNo": "BICYCLE",
   "locationCode": "BLUE",
   "quantityToAssemble": 5,
   "lcyCode": "USD",
   "predictedNumbers": { "postedAssemblyNo": "PA000045" },
-  "totals": { "balanced": true, "totalDebitLCY": 0, "totalCreditLCY": 0 },
+  "totals": { "totalDebitLCY": 0, "totalCreditLCY": 0 },
   "preview": [
     { "tableId": 32, "tableName": "Item Ledger Entry", "entryCount": 4, "entries": [] }
   ]
@@ -67,13 +67,22 @@ None beyond identification.
 | documentNo / itemNo / locationCode / quantityToAssemble | Echo of header fields. |
 | lcyCode | `General Ledger Setup."LCY Code"`. |
 | predictedNumbers.postedAssemblyNo | First captured `Posted Assembly Header.No.` (the document number that would be assigned at real post). |
-| totals.balanced | `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. |
+| totals.balanced | Present only when G/L entries were captured (`glEntryCount > 0`): `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Omitted when the posting creates no G/L entry. |
 | totals.totalDebitLCY / totals.totalCreditLCY | Sums of G/L Entry debit/credit (LCY) - typically zero for non-stockkeeping/non-cost-accounting items. |
 | preview[] | One element per captured table. Each contains `tableId`, `tableName`, `entryCount`, `entries` (subset of fields configured by `Bifrost Preview Helper`). |
+
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: Quantity to Assemble is 0. Review with `Inventory.AssemblyOrder.Statistics`.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
 
 ## Errors
 | Error | Cause |
 |-------|-------|
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: Quantity to Assemble is 0. Review with `Inventory.AssemblyOrder.Statistics`. |
 | `Assembly Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, documentNo, assemblyOrderNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
 | `Assembly Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
 | `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |

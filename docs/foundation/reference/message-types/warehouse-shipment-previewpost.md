@@ -51,7 +51,7 @@ First match wins:
 {
   "status": "Success",
   "rollback": true,
-  "summary": "Preview-posting warehouse shipment WS00001 (2 lines, Ship + Invoice) would create 10 ledger entries across 6 tables. G/L impact is balanced.",
+  "summary": "Preview-posting warehouse shipment WS00001 (2 lines, Ship + Invoice) would create 10 ledger entries across 6 tables. Transaction is balanced.",
   "shipmentNo": "WS00001",
   "locationCode": "WHITE",
   "invoice": true,
@@ -97,7 +97,7 @@ First match wins:
 | `postingDate` | string | `Posting Date` of the shipment header. |
 | `lcyCode` | string | `GLSetup."LCY Code"`. |
 | `predictedNumbers` | string[] | Distinct `Document No.` values across the previewed G/L entries (typically the future Sales Invoice No., Posted Whse. Shipment No., etc.). May contain the literal `"***"` when BC's preview engine masks an unassigned number-series value. |
-| `totals.balanced` | bool | `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. |
+| `totals.balanced` | bool | Present only when G/L entries were captured (`glEntryCount > 0`): `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Omitted when the posting creates no G/L entry. |
 | `totals.totalDebitLCY` / `totalCreditLCY` | decimal | Aggregated from the previewed G/L entries. |
 | `preview[]` | array | One element per populated ledger / posted-document table that BC would write to. |
 | `preview[].tableId` / `tableName` | int / string | BC table identification. |
@@ -112,12 +112,21 @@ From `Whse Ship. Prev. Post Tests` (codeunit 95439):
 - `PreviewPost_PostableShipment_DoesNotPostShipment` — verifies no `Posted Whse. Shipment Header` row is actually persisted.
 - `PreviewPost_PostableShipment_ReturnsContextAndPreviewArray` — verifies the shipment context fields and that `preview[]` contains at least one populated table.
 
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: No shipment line has Qty. to Ship. Set quantities on the shipment lines.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+
 ## Errors
 
 **BC validation errors propagate verbatim** to the caller. The catch-all below is only used when the preview subscriber runs cleanly but produces zero captured entries.
 
 | Error | Cause |
 |---|---|
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: No shipment line has Qty. to Ship. Set quantities on the shipment lines. |
 | `Warehouse Shipment Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, shipmentNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
 | `Warehouse Shipment Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
 | `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |

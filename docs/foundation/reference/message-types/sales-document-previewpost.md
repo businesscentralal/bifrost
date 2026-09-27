@@ -99,10 +99,19 @@ Same as `Sales.Document.Release` (via `FindSalesHeader`).
 
 From `Sales Doc Preview Post Tests` (`test/test/Sales/SalesDocPrevPostTests.Codeunit.al`) — covers preview for each document type, verifies `rollback: true`, asserts no posted document is persisted, validates `predictedNumbers` keys, and exercises BC posting errors surfaced via the preview pipeline.
 
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: No line has a quantity to ship or invoice. Set Qty. to Ship / Qty. to Invoice, or review with `Sales.Document.Statistics`.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+
 ## Errors
 
 | Error | Cause |
 |---|---|
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: No line has a quantity to ship or invoice. Set Qty. to Ship / Qty. to Invoice, or review with `Sales.Document.Statistics`. |
 | `Sales Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
 | `Sales Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
 | `Sales Header "{value}" matches more than one document. Pass it as one of: {keys}.` (`AmbiguousRecord`) | A plain subject matches several document types; send it in the key of the type you mean. |

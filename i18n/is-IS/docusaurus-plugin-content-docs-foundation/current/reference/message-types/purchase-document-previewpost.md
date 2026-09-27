@@ -12,32 +12,32 @@ description: "Beiðni- og svarsamningur fyrir Purchase.Document.PreviewPost Bifr
 :::
 
 
-## Yfirlit
-Simulates posting a purchase skjal via the BC `Gen. Jnl.-Post Preview` framework driving `Purch.-Post (Yes/No)` in preview mode, captures every bók row that **would** be written, then rolls the transaction back. The header er unchanged eftir the call.
+## Overview
+Simulates posting a purchase document via the BC `Gen. Jnl.-Post Preview` framework driving `Purch.-Post (Yes/No)` in preview mode, captures every ledger row that **would** be written, then rolls the transaction back. The header is unchanged after the call.
 
-**Stefna**: Innkomandi  **Efnisgerð**: text/json
+**Direction**: Inbound  **Content-Type**: text/json
 
 ## Idempotency / Safety
-Safe og endurtekningarþolið — the wrapping `Gen. Jnl.-Post Preview.Run()` always Villur out internally til trigger rollback, so no data er persisted. Repeat calls return the sama shape (modulo predicted skjal numbers, which advance ef the No. Series er consumed með another transaction between calls).
+Safe and idempotent — the wrapping `Gen. Jnl.-Post Preview.Run()` always errors out internally to trigger rollback, so no data is persisted. Repeat calls return the same shape (modulo predicted document numbers, which advance if the No. Series is consumed by another transaction between calls).
 
-## Forgangsröð auðkenna
-Resolved með `Argument.FindPurchaseHeader`:
+## Identifier Resolution Order
+Resolved by `Argument.FindPurchaseHeader`:
 1. `subject` as GUID → `PurchaseHeader.GetBySystemId`.
-2. `subject` as text → `PurchaseHeader.Get(Order, <subject>)` (Order aðeins).
-3. Request JSON keys (fyrsta hit wins): `systemId`, `recordSystemId`, `id` (all GUID); `orderNo`, `quoteNo`, `invoiceNo`, `creditMemoNo`, `blanketOrderNo`, `returnOrderNo`.
+2. `subject` as text → tried as each postable document type (Order, Invoice, Credit Memo, Return Order). One match is used; several give `AmbiguousRecord` - then send the number in `orderNo`, `invoiceNo`, `creditMemoNo` or `returnOrderNo`.
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id` (all GUID); `orderNo`, `quoteNo`, `invoiceNo`, `creditMemoNo`, `blanketOrderNo`, `returnOrderNo`.
 
 ## Posting Mode Flags
-The preview uses whatever `Receive`/`Invoice` (orders) eða `Ship`/`Invoice` (return orders) values eru currently on the header. This impl does **ekki** force them til `true`. The mix of populated `preview[]` töflur depends on those flags exactly as fyrir `Purchase.Document.Post`.
+The preview uses whatever `Receive`/`Invoice` (orders) or `Ship`/`Invoice` (return orders) values are currently on the header. This impl does **not** force them to `true`. The mix of populated `preview[]` tables depends on those flags exactly as for `Purchase.Document.Post`.
 
-## Beiðnibreytur
-Request body er valfrjálst. No additional fields eru lesa.
+## Request Parameters
+Request body is optional. No additional fields are read.
 
-## Dæmi um beiðni
+## Request Example
 ```json
 { "type": "Purchase.Document.PreviewPost", "subject": "PO-001" }
 ```
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -63,34 +63,47 @@ Request body er valfrjálst. No additional fields eru lesa.
 }
 ```
 
-| Property | Lýsing |
+| Property | Description |
 |----------|-------------|
 | rollback | Always `true`. |
-| summary | One-line natural-language summary built með `Bifrost Preview Helper`. |
-| documentCurrencyCode | `Currency Code` úr the header. Empty strengur means the skjal er in LCY. |
-| documentExchangeRate | FCY → LCY rate computed as `Round(1 / Currency Factor, 0.00001)`. **Always `1` þegar `documentCurrencyCode` er empty**, og `0` þegar the skjal has a currency but no factor yet. |
-| predictedNumbers | skjal numbers that would be assigned. Informational aðeins — ekki reserved against the No. Series. Keys depend on `documentType`: Order → `postedInvoiceNo` + `postedReceiptNo`; reikningur → `postedInvoiceNo`; Credit Memo → `postedCreditMemoNo`; Return Order → `postedCreditMemoNo` + `postedReturnShipmentNo`. |
-| totals.balanced | `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Balanced er always computed in LCY. |
-| totals.totalDebitLCY / totalCreditLCY | Sum of G/L færsla `Debit Amount` / `Credit Amount`. |
-| totals.totalDebitFCY / totalCreditFCY | Uppruni-currency totals derived úr captured `Detailed Vendor Ledg. Entry.Amount` (excluding `Application` / `Appln. Rounding` rows). birgi postings eru one-sided in FCY, so FCY totals surface the skjal upphæð in skjal currency rather than a balanced view. Equal til the LCY totals þegar the skjal er in LCY. |
-| preview[] | One element per bók tafla populated með the BC posting routine. töflur eru discovered dynamically via `Posting Preview Event Handler.FillDocumentEntry` — extensions getur add töflur through the `OnAfterFillDocumentEntry` event. |
-| preview[].færslur | Curated Reitur set úr `Bifrost Preview Helper`. Extensions getur add Reitur-Heiti blocks via `OnGetPreviewFieldNames` og FlowField precalculation via `OnPrecalculateFlowFields`. Fields restricted via `Bifrost Field Access` eru omitted. |
+| summary | One-line natural-language summary built by `Bifrost Preview Helper`. |
+| documentCurrencyCode | `Currency Code` from the header. Empty string means the document is in LCY. |
+| documentExchangeRate | FCY → LCY rate computed as `Round(1 / Currency Factor, 0.00001)`. **Always `1` when `documentCurrencyCode` is empty**, and `0` when the document has a currency but no factor yet. |
+| predictedNumbers | Document numbers that would be assigned. Informational only — not reserved against the No. Series. Keys depend on `documentType`: Order → `postedInvoiceNo` + `postedReceiptNo`; Invoice → `postedInvoiceNo`; Credit Memo → `postedCreditMemoNo`; Return Order → `postedCreditMemoNo` + `postedReturnShipmentNo`. |
+| totals.balanced | Present only when G/L entries were captured (`glEntryCount > 0`): `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Omitted when the posting creates no G/L entry. |
+| totals.totalDebitLCY / totalCreditLCY | Sum of G/L Entry `Debit Amount` / `Credit Amount`. |
+| totals.totalDebitFCY / totalCreditFCY | Source-currency totals derived from captured `Detailed Vendor Ledg. Entry.Amount` (excluding `Application` / `Appln. Rounding` rows). Vendor postings are one-sided in FCY, so FCY totals surface the document amount in document currency rather than a balanced view. Equal to the LCY totals when the document is in LCY. |
+| preview[] | One element per ledger table populated by the BC posting routine. Tables are discovered dynamically via `Posting Preview Event Handler.FillDocumentEntry` — extensions can add tables through the `OnAfterFillDocumentEntry` event. |
+| preview[].entries | Curated field set from `Bifrost Preview Helper`. Extensions can add field-name blocks via `OnGetPreviewFieldNames` and FlowField precalculation via `OnPrecalculateFlowFields`. Fields restricted via `Bifrost Field Access` are omitted. |
 
-Reitur names nota the sama mechanical normalisation as `Data.Records.Get`: `No.` → `No_`, `Amount (LCY)` → `AmountLCY`, etc.
+Field names use the same mechanical normalisation as `Data.Records.Get`: `No.` → `No_`, `Amount (LCY)` → `AmountLCY`, etc.
 
-## Villur
-| Villa | Orsök |
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: No line has a quantity to receive or invoice. Set Qty. to Receive / Qty. to Invoice on the lines, or review them with `Purchase.Document.Statistics`.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+
+## Errors
+| Error | Cause |
 |-------|-------|
-| `Purchase document {no} has no lines to post.` | The Uppruni header has no `Purchase Line` rows. |
-| `Posting preview failed and no entries were captured. The document cannot be posted in its current state.` | The preview ran but the inner posting raised an Villa that left no færslur. |
-| Underlying BC Villa text | hvaða Villa raised með `Purch.-Post (Yes/No)` during the simulated post (vantar setup, validation failures, etc.). |
-| `Purchase Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`); gefið en fannst ekki: `Purchase Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No skjal resolved með `FindPurchaseHeader`. |
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: No line has a quantity to receive or invoice. Set Qty. to Receive / Qty. to Invoice on the lines, or review them with `Purchase.Document.Statistics`. |
+| `Purchase document {no} has no lines to post.` | The source header has no `Purchase Line` rows. |
+| `Posting preview failed and no entries were captured. The document cannot be posted in its current state.` | The preview ran but the inner posting raised an error that left no entries. |
+| Underlying BC error text | Any error raised by `Purch.-Post (Yes/No)` during the simulated post (missing setup, validation failures, etc.). |
+| `Purchase Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, orderNo, quoteNo, invoiceNo, creditMemoNo, blanketOrderNo, returnOrderNo.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Purchase Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `Purchase Header "{value}" matches more than one document. Pass it as one of: {keys}.` (`AmbiguousRecord`) | A plain subject matches several document types; send it in the key of the type you mean. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 
-## Tengdar skilaboðategundir
+## Related Message Types
 - `Purchase.Document.Post` — Commit the post (no rollback).
-- `Purchase.Document.Statistics` — Header totals án simulating posting.
-- `Sales.Document.PreviewPost` — sama mechanism fyrir sales skjöl.
+- `Purchase.Document.Statistics` — Header totals without simulating posting.
+- `Sales.Document.PreviewPost` — Same mechanism for sales documents.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

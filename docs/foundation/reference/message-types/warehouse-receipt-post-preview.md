@@ -113,7 +113,7 @@ Treat `***` as "the system would have assigned a number from the corresponding N
 
 ### Totals — balanced flag
 
-Warehouse Receipts typically have **no direct G/L impact** (inventory recognised at cost, not at booking) — `balanced = true` with `totalDebitLCY = totalCreditLCY = 0`. If the receipt triggers an automatic cost adjustment, the captured G/L entries will appear in `preview` and the totals will reflect them.
+Warehouse receipts often have **no direct G/L impact** (inventory recognised at cost, not at booking): then `glEntryCount` is 0, `totals.balanced` is omitted and `totalDebitLCY = totalCreditLCY = 0`. If the receipt triggers an automatic cost adjustment, the captured G/L entries appear in `preview`, and `totals.balanced` says whether they balance.
 
 ## Posting Gate
 
@@ -123,10 +123,19 @@ None — preview does not commit.
 
 None.
 
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: No receipt line has Qty. to Receive. Set quantities on the receipt lines.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+
 ## Errors
 
 | Error | Cause |
 |---|---|
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: No receipt line has Qty. to Receive. Set quantities on the receipt lines. |
 | `Warehouse Receipt Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, receiptNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
 | `Warehouse Receipt Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
 | `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |

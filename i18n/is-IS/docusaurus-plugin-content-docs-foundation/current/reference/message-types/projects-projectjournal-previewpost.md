@@ -47,7 +47,7 @@ First match wins:
 {
   "status": "Success",
   "rollback": true,
-  "summary": "Preview-posting project journal batch JOB|DEFAULT (1 lines) would create 1 ledger entries across 1 tables. G/L impact is balanced.",
+  "summary": "Preview-posting project journal batch JOB|DEFAULT (1 lines) would create 1 ledger entries across 1 tables. No G/L entries would be posted.",
   "templateName": "JOB",
   "batchName": "DEFAULT",
   "batchDescription": "Default Journal Batch",
@@ -55,7 +55,7 @@ First match wins:
   "postingDate": "2026-04-15",
   "lcyCode": "USD",
   "predictedDocumentNos": [],
-  "totals": { "balanced": true, "totalDebitLCY": 0.0, "totalCreditLCY": 0.0 },
+  "totals": { "totalDebitLCY": 0.0, "totalCreditLCY": 0.0 },
   "preview": [
     {
       "tableId": 169,
@@ -100,7 +100,7 @@ First match wins:
 | `lcyCode` | string | `GLSetup."LCY Code"`. |
 | `batchDescription` | string | The batch's `Description` field. May be empty when the batch has no description. |
 | `predictedDocumentNos` | string[] | Distinct `Document No.` values across the previewed G/L entries. May contain the literal `"***"` when BC's preview engine masks an unassigned number-series value. Empty when the line does not produce G/L impact (e.g. Resource Usage without billing). |
-| `totals.balanced` | bool | `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Always true when no G/L entries are produced. |
+| `totals.balanced` | bool | Present only when G/L entries were captured (`glEntryCount > 0`): `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Omitted when the posting creates no G/L entry. |
 | `totals.totalDebitLCY` / `totalCreditLCY` | decimal | Aggregated from the previewed G/L entries (zero when none). |
 | `preview[]` | array | One element per populated ledger / journal table that BC would write to. For Resource lines: `Job Ledger Entry` (169) + `Res. Ledger Entry` (203). For Item lines: `Job Ledger Entry` + `Item Ledger Entry` (32) + `Value Entry` (5802). Billable usage may also produce `G/L Entry` (17) + `VAT Entry` (254). |
 | `preview[].tableId` / `tableName` | int / string | BC table identification. |
@@ -115,12 +115,22 @@ From `Project Jnl. Prev. Post Tests` (codeunit 95438):
 - `PreviewPost_PostableBatch_DoesNotCreateJobLedgerEntry` — verifies no `Job Ledger Entry` row is actually persisted.
 - `PreviewPost_PostableBatch_ReturnsBatchContextAndPreviewArray` — verifies the batch context fields and that `preview[]` contains at least one populated table.
 
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: Run `Projects.ProjectJournal.Check` to see which lines are incomplete.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+- **Empty lines** (lines posting would skip): `linesInBatch` and `skippedLines` are always present. When `skippedLines > 0` the answer stays `Success` and adds a `LinesSkipped` warning ("2 of 3 lines are empty and would be skipped by posting."), a `nextStep` naming `Projects.ProjectJournal.Check`, and the same sentence in `summary`. When every line is empty, nothing would be posted (above).
+
 ## Errors
 
 **BC validation errors propagate verbatim** to the caller. BC may also raise CONFIRM dialogs at post time (see Operational Notes) which surface as errors because headless callers cannot answer them.
 
 | Error | Cause |
 |---|---|
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: Run `Projects.ProjectJournal.Check` to see which lines are incomplete. |
 | `Project journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
 | `Project Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Project journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
