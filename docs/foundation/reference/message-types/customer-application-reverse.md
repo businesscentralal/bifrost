@@ -33,15 +33,14 @@ Via `FindCustLedgerEntry` (same as `Customer.Application.Post`).
 |---|---|---|---|
 | Cust. ledger entry keys | — | Yes (Subject or JSON) | See resolution order. |
 | `detailedEntryNo` | integer | No | `Detailed Cust. Ledg. Entry."Entry No."` of the application row to reverse. Default: latest application entry. |
-| `postingDate` | date | **Recommended** | Format 9. Reversal posting date. Always supply explicitly — when omitted BC defaults to `WorkDate()`. Must be ≥ the customer ledger entry's `Posting Date`. |
+| `postingDate` | date | No | `YYYY-MM-DD`. Omitted: the `Posting Date` of the application being reversed, which is usually what you want; send it only to reverse on another date. An invalid value is an error. Must be ≥ the customer ledger entry's `Posting Date`. |
 | `documentNo` | string | No | Reversal document number. |
 
 ### Request Example
 ```json
 {
   "entryNo": 5001,
-  "detailedEntryNo": 9123,
-  "postingDate": "2026-02-01"
+  "detailedEntryNo": 9123
 }
 ```
 
@@ -73,12 +72,12 @@ Via `FindCustLedgerEntry` (same as `Customer.Application.Post`).
 | Field | Source |
 |---|---|
 | `reversedDetailedEntryNo` | The actual `Detailed Cust. Ledg. Entry` row that was unapplied (resolved value when `detailedEntryNo` was omitted). |
-| `reversedAmount` | `Detailed Cust. Ledg. Entry."Amount"` of the reversed row. |
-| `remainingAmount` / `open` | Re-read from the customer ledger entry after the reversal. |
+| `reversedAmount` | `Detailed Cust. Ledg. Entry."Amount"` of the reversed row. A JSON number. |
+| `remainingAmount` / `open` | Re-read from the customer ledger entry after the reversal; `remainingAmount` is a JSON number. |
 
 ## Posting Date Guidance
 
-**Always supply `postingDate` explicitly.** When omitted, BC defaults to `WorkDate()` which may be different from the original application date. The reversal date must be ≥ the customer ledger entry's `Posting Date` and ≥ the BC work date.
+**`postingDate` is optional.** When omitted, the reversal is posted on the `Posting Date` of the application being reversed (not the work date). A date you send must be on or after the customer ledger entry's `Posting Date` and inside the allowed posting period.
 
 ## detailedEntryNo Guidance
 

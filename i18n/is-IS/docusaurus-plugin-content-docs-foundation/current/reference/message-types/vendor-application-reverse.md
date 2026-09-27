@@ -12,41 +12,41 @@ description: "Beiðni- og svarsamningur fyrir Vendor.Application.Reverse Bifrös
 :::
 
 
-## Yfirlit
-Unapplies a previously posted birgi bók jöfnun using Microsoft codeunit `VendEntry-Apply Posted Entries.PostUnApplyVendor`. Reopens both the applying og applies-til færslur (ef they were lokað með the jöfnun) og Bókar a reversing detailed bók færsla.
+## Overview
+Unapplies a previously posted vendor ledger application using Microsoft codeunit `VendEntry-Apply Posted Entries.PostUnApplyVendor`. Reopens both the applying and applies-to entries (if they were closed by the application) and posts a reversing detailed ledger entry.
 
-Implementation delegates til codeunit `Vend. Apply Reverse Process` via `Codeunit.Run`; hvaða Villa er caught og returned via `Argument.RespondWithLastError()`.
+Implementation delegates to codeunit `Vend. Apply Reverse Process` via `Codeunit.Run`; any error is caught and returned via `Argument.RespondWithLastError()`.
 
-**Stefna**: Innkomandi  **Efnisgerð**: text/json
+**Direction**: Inbound  **Content-Type**: text/json
 
 ## Idempotency / Safety
-**ekki endurtekningarþolið.** þegar `detailedEntryNo` er omitted, the impl resolves the síðasta jöfnun færsla via `VendEntryApplyPostedEntries.FindLastApplEntry`. Calling Reverse twice án `detailedEntryNo` mun reverse two **different** jöfnanir (ef hvaða exist). Always pass `detailedEntryNo` skýrt þegar retrying.
+**Not idempotent.** When `detailedEntryNo` is omitted, the impl resolves the last application entry via `VendEntryApplyPostedEntries.FindLastApplEntry`. Calling Reverse twice without `detailedEntryNo` will reverse two **different** applications (if any exist). Always pass `detailedEntryNo` explicitly when retrying.
 
-## Forgangsröð auðkenna (birgi bók færsla)
-Resolved með `Argument.FindVendorLedgerEntry`:
+## Identifier Resolution Order (Vendor Ledger Entry)
+Resolved by `Argument.FindVendorLedgerEntry`:
 1. `subject` as GUID → `VendorLedgerEntry.GetBySystemId`.
-2. `subject` parseable as heiltala (`Evaluate` fmt 9) → `Get` með `Entry No.`.
-3. Request JSON keys (fyrsta hit wins): `systemId`, `recordSystemId`, `id` (all GUID); `entryNo`, `entryNumber` (integers).
+2. `subject` parseable as integer (`Evaluate` fmt 9) → `Get` by `Entry No.`.
+3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id` (all GUID); `entryNo`, `entryNumber` (integers).
 
-## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| detailedEntryNo | heiltala | No (recommended) | `Entry No.` of the `Detailed Vendor Ledg. Entry` row that represents the jöfnun til reverse. verður að have `Entry Type = Application`. Ef það er ekki gefið upp, the impl reverses the **síðasta** jöfnun on the birgi bók færsla. |
-| postingDate | dagsetning | **Recommended** | Posting dagsetning fyrir the reversal. Defaults til `WorkDate()` (BC Sjálfgefið in `PostUnApplyVendor`). Gefðu alltaf upp skýrt — verður að be ≥ the birgi bók færsla's `Posting Date` og ≥ the BC work dagsetning. |
-| documentNo | Text[20] | No | skjal No. tagged onto the reversal. Defaults til BC behaviour (typically the original jöfnun's `Document No.`). |
+| detailedEntryNo | Integer | No (recommended) | `Entry No.` of the `Detailed Vendor Ledg. Entry` row that represents the application to reverse. Must have `Entry Type = Application`. When omitted, the impl reverses the **last** application on the vendor ledger entry. |
+| postingDate | Date | No | `YYYY-MM-DD`. Omitted: the `Posting Date` of the application being reversed, which is usually what you want; send it only to reverse on another date. An invalid value is an error. Must be ≥ the vendor ledger entry's `Posting Date`. |
+| documentNo | Text[20] | No | Document No. tagged onto the reversal. Defaults to BC behaviour (typically the original application's `Document No.`). |
 
-## Dæmi um beiðni
-Reverse the síðasta jöfnun on færsla 21:
+## Request Example
+Reverse the last application on entry 21:
 ```json
 { "type": "Vendor.Application.Reverse", "subject": "21" }
 ```
 
-Reverse a specific jöfnun með detailed færsla númer:
+Reverse a specific application by detailed entry number:
 ```json
-{ "type": "Vendor.Application.Reverse", "subject": "21", "data": { "detailedEntryNo": 5043, "postingDate": "2026-03-15" } }
+{ "type": "Vendor.Application.Reverse", "subject": "21", "data": { "detailedEntryNo": 5043 } }
 ```
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -62,43 +62,46 @@ Reverse a specific jöfnun með detailed færsla númer:
 }
 ```
 
-| Property | Lýsing |
+| Property | Description |
 |----------|-------------|
-| entryNo | `Entry No.` of the birgi bók færsla Beiðnin was issued against. |
-| reversedDetailedEntryNo | `Entry No.` of the detailed bók jöfnun that was reversed. |
-| reversedAmount | `Detailed Vendor Ledg. Entry.Amount` of the reversed jöfnun (signed). |
-| remainingAmount | `Remaining Amount` on the birgi bók færsla eftir the reversal — typically Skilar til the original signed upphæð þegar the jöfnun er fully reversed. |
-| opið | `Open` flag on the birgi bók færsla eftir the reversal. |
+| entryNo | `Entry No.` of the vendor ledger entry the request was issued against. |
+| reversedDetailedEntryNo | `Entry No.` of the detailed ledger application that was reversed. |
+| reversedAmount | `Detailed Vendor Ledg. Entry.Amount` of the reversed application (signed). A JSON number. |
+| remainingAmount | A JSON number: `Remaining Amount` on the vendor ledger entry after the reversal — typically returns to the original signed amount when the application is fully reversed. |
+| open | `Open` flag on the vendor ledger entry after the reversal. |
 
-## Posting dagsetning Guidance
+## Posting Date Guidance
 
-**Gefðu alltaf upp `postingDate` skýrt.** Ef það er ekki gefið upp, BC defaults til `WorkDate()`. The reversal dagsetning verður að be ≥ the birgi bók færsla's `Posting Date` og ≥ the BC work dagsetning.
+**`postingDate` is optional.** When omitted, the reversal is posted on the `Posting Date` of the application being reversed (not the work date). A date you send must be on or after the vendor ledger entry's `Posting Date` and inside the allowed posting period.
 
 ## detailedEntryNo Guidance
 
-þegar `detailedEntryNo` er omitted, the implementation reverses the **síðasta** `Detailed Vendor Ledg. Entry` of Gerð `Application` on the færsla. Supply `detailedEntryNo` skýrt þegar:
-- Reversing a specific older jöfnun (ekki the síðasta one)
-- Retrying eftir a mistókst reversal til avoid accidentally reversing a different jöfnun
+When `detailedEntryNo` is omitted, the implementation reverses the **last** `Detailed Vendor Ledg. Entry` of type `Application` on the entry. Supply `detailedEntryNo` explicitly when:
+- Reversing a specific older application (not the last one)
+- Retrying after a failed reversal to avoid accidentally reversing a different application
 
-til find the `detailedEntryNo`, call `Data.Records.Get` on `Detailed Vendor Ledg. Entry` með a filter like `WHERE(Vendor Ledger Entry No.=CONST(21),Entry Type=CONST(Application))`.
+To find the `detailedEntryNo`, call `Data.Records.Get` on `Detailed Vendor Ledg. Entry` with a filter like `WHERE(Vendor Ledger Entry No.=CONST(21),Entry Type=CONST(Application))`.
 
-## Bókunarheimild
-Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in addition til `BIFROST API ori`. án it Beiðnin Skilar: `Posting denied: missing 'BIFROST GL Post ori' permission set.`
+## Posting Gate
+Calling this message type requires the `BIFROST GL Post ori` permission set in addition to `BIFROST API ori`. Without it the request returns: `Posting denied: missing 'BIFROST GL Post ori' permission set.`
 
-## Villur
-| Villa | Orsök |
+## Errors
+| Error | Cause |
 |-------|-------|
-| `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Kallandi lacks the `BIFROST GL Post ori` heimild set. |
-| `No posted application found on vendor ledger entry {n} to reverse.` | `detailedEntryNo` omitted og `FindLastApplEntry` returned 0 — no jöfnun exists on the færsla. |
-| `Detailed vendor ledger entry {n} not found.` | Explicit `detailedEntryNo` does ekki exist. |
-| `Detailed vendor ledger entry {n} is not an application entry.` | The detailed færsla exists but its `Entry Type` er ekki `Application`. |
-| Underlying BC Villa text | hvaða Villa raised með `CheckVendorLedgerEntryToUnapply` eða `PostUnApplyVendor` (e.g. dimensions changed since jöfnun, posting period lokað). |
-| `Vendor Ledger Entry identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, entryNo, entryNumber.` (`MissingParameter`); gefið en fannst ekki: `Vendor Ledger Entry "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | No birgi bók færsla resolved með `FindVendorLedgerEntry`. |
+| `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Caller lacks the `BIFROST GL Post ori` permission set. |
+| `No posted application found on vendor ledger entry {n} to reverse.` | `detailedEntryNo` omitted and `FindLastApplEntry` returned 0 — no application exists on the entry. |
+| `Detailed vendor ledger entry {n} not found.` | Explicit `detailedEntryNo` does not exist. |
+| `Detailed vendor ledger entry {n} is not an application entry.` | The detailed entry exists but its `Entry Type` is not `Application`. |
+| Underlying BC error text | Any error raised by `CheckVendorLedgerEntryToUnapply` or `PostUnApplyVendor` (e.g. dimensions changed since application, posting period closed). |
+| `Vendor Ledger Entry identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, entryNo, entryNumber.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Vendor Ledger Entry "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
 
-## Tengdar skilaboðategundir
-- `Vendor.Application.Post` — Post the original jöfnun.
-- `Data.Records.Get` on `Vendor Ledger Entry` / `Detailed Vendor Ledg. Entry` — Inspect færsla state.
+## Related Message Types
+- `Vendor.Application.Post` — Post the original application.
+- `Data.Records.Get` on `Vendor Ledger Entry` / `Detailed Vendor Ledg. Entry` — Inspect entry state.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

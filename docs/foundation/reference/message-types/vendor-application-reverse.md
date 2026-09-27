@@ -32,7 +32,7 @@ Resolved by `Argument.FindVendorLedgerEntry`:
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | detailedEntryNo | Integer | No (recommended) | `Entry No.` of the `Detailed Vendor Ledg. Entry` row that represents the application to reverse. Must have `Entry Type = Application`. When omitted, the impl reverses the **last** application on the vendor ledger entry. |
-| postingDate | Date | **Recommended** | Posting date for the reversal. Defaults to `WorkDate()` (BC default in `PostUnApplyVendor`). Always supply explicitly — must be ≥ the vendor ledger entry's `Posting Date` and ≥ the BC work date. |
+| postingDate | Date | No | `YYYY-MM-DD`. Omitted: the `Posting Date` of the application being reversed, which is usually what you want; send it only to reverse on another date. An invalid value is an error. Must be ≥ the vendor ledger entry's `Posting Date`. |
 | documentNo | Text[20] | No | Document No. tagged onto the reversal. Defaults to BC behaviour (typically the original application's `Document No.`). |
 
 ## Request Example
@@ -43,7 +43,7 @@ Reverse the last application on entry 21:
 
 Reverse a specific application by detailed entry number:
 ```json
-{ "type": "Vendor.Application.Reverse", "subject": "21", "data": { "detailedEntryNo": 5043, "postingDate": "2026-03-15" } }
+{ "type": "Vendor.Application.Reverse", "subject": "21", "data": { "detailedEntryNo": 5043 } }
 ```
 
 ## Response Shape
@@ -66,13 +66,13 @@ Reverse a specific application by detailed entry number:
 |----------|-------------|
 | entryNo | `Entry No.` of the vendor ledger entry the request was issued against. |
 | reversedDetailedEntryNo | `Entry No.` of the detailed ledger application that was reversed. |
-| reversedAmount | `Detailed Vendor Ledg. Entry.Amount` of the reversed application (signed). |
-| remainingAmount | `Remaining Amount` on the vendor ledger entry after the reversal — typically returns to the original signed amount when the application is fully reversed. |
+| reversedAmount | `Detailed Vendor Ledg. Entry.Amount` of the reversed application (signed). A JSON number. |
+| remainingAmount | A JSON number: `Remaining Amount` on the vendor ledger entry after the reversal — typically returns to the original signed amount when the application is fully reversed. |
 | open | `Open` flag on the vendor ledger entry after the reversal. |
 
 ## Posting Date Guidance
 
-**Always supply `postingDate` explicitly.** When omitted, BC defaults to `WorkDate()`. The reversal date must be ≥ the vendor ledger entry's `Posting Date` and ≥ the BC work date.
+**`postingDate` is optional.** When omitted, the reversal is posted on the `Posting Date` of the application being reversed (not the work date). A date you send must be on or after the vendor ledger entry's `Posting Date` and inside the allowed posting period.
 
 ## detailedEntryNo Guidance
 
