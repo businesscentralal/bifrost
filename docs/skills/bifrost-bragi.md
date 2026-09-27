@@ -2,8 +2,8 @@
 id: bifrost-bragi
 title: "Bragi message types"
 sidebar_label: "Bragi message types"
-sidebar_position: 7
-description: "Message types added to the Bifröst API by Bifrost Language Models. AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index…"
+sidebar_position: 8
+description: "Message types added to the Bifröst API by Bifrost Language Models. AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type. Load alongside bifrost-bc-integration, which carries the API itself; this skill is…"
 ---
 
 AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type.

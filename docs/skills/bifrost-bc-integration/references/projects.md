@@ -16,13 +16,25 @@ The project (job) journal and the resource journal: preparing a line, checking i
 
 **Identification:** Same three modes (pipe-form, SystemId, JSON `{templateName, batchName}` with JSON precedence). Targets BC Job Journal Lines (project = job in BC terminology).
 
-**Workflow:** `Projects.ProjectJournal.SetupNewLine` → `Data.Records.Set` → `Projects.ProjectJournal.Check` → `Projects.ProjectJournal.Post`.
+**Workflow:** `Projects.ProjectJournal.Create` (with `lines`) → `Projects.ProjectJournal.Check` → `Projects.ProjectJournal.Post`.
 
-#### `Projects.ProjectJournal.SetupNewLine`
+#### `Projects.ProjectJournal.Create` — add lines to a batch
+
+Direction: **Inbound** (creates records). `subject` = `TEMPLATE|BATCH` or the batch SystemId, or `templateName`/`batchName` in `data`. The batch must exist; it is never created.
+
+Send the lines with their values in `lines` (at most 200). Every line is checked before anything is inserted and every problem is reported in one answer (`code: InvalidLine`, one `errors[]` entry per problem with `parameter` `lines[n].<field>`), so nothing is created when one line is wrong. Required on each line: jobNo, jobTaskNo, type, no, quantity. A field you leave out keeps its BC default.
 
 ```json
-{ "specversion": "1.0", "type": "Projects.ProjectJournal.SetupNewLine", "source": "MyApp", "subject": "PROJECT|DEFAULT" }
+{ "specversion": "1.0", "type": "Projects.ProjectJournal.Create", "source": "MyApp", "subject": "PROJECT|DEFAULT",
+  "data": { "lines": [
+    { "jobNo": "JOB00010", "jobTaskNo": "1000", "type": "Resource", "no": "LINDA", "quantity": 2 }
+  ] } }
 ```
+
+Without `lines`, `noOfLines` (1-100, default 1) inserts blank lines with the BC defaults. `clearExistingLines: true` deletes every line in the batch first and is destructive. The response lists the inserted lines in the `Data.Records.Get` shape.
+
+Full contract: [Projects.ProjectJournal.Create](https://businesscentralal.github.io/bifrost/en-us/foundation/reference/message-types/projects-projectjournal-create/).
+
 
 #### `Projects.ProjectJournal.Check`
 
@@ -47,7 +59,7 @@ Response uses the same envelope as other PreviewPost types. Notable:
 - `predictedDocumentNos` may contain `"***"` when BC masks an unallocated number.
 
 **Operational notes:**
-- **`Line Type` must not be blank.** BC requires a non-blank `Line Type` (`Schedule`, `Billable`, or `Both Schedule and Contract`). A new line created by `SetupNewLine` starts with blank `Line Type` — set it before previewing.
+- **`Line Type` must not be blank.** BC requires a non-blank `Line Type` (`Schedule`, `Billable`, or `Both Schedule and Contract`). A line created by `Projects.ProjectJournal.Create` starts with a blank `Line Type`, and `lines` does not take it — set it with `Data.Records.Set` before previewing.
 - Item lines additionally produce `Item Ledger Entry` / `Value Entry` rows.
 
 ---
@@ -56,13 +68,25 @@ Response uses the same envelope as other PreviewPost types. Notable:
 
 **Identification:** Same three modes (pipe-form, SystemId, JSON `{templateName, batchName}` with JSON precedence).
 
-**Workflow:** `Resources.ResourceJournal.SetupNewLine` → `Data.Records.Set` → `Resources.ResourceJournal.Check` → `Resources.ResourceJournal.Post`.
+**Workflow:** `Resources.ResourceJournal.Create` (with `lines`) → `Resources.ResourceJournal.Check` → `Resources.ResourceJournal.Post`.
 
-#### `Resources.ResourceJournal.SetupNewLine`
+#### `Resources.ResourceJournal.Create` — add lines to a batch
+
+Direction: **Inbound** (creates records). `subject` = `TEMPLATE|BATCH` or the batch SystemId, or `templateName`/`batchName` in `data`. The batch must exist; it is never created.
+
+Send the lines with their values in `lines` (at most 200). Every line is checked before anything is inserted and every problem is reported in one answer (`code: InvalidLine`, one `errors[]` entry per problem with `parameter` `lines[n].<field>`), so nothing is created when one line is wrong. Required on each line: resourceNo, quantity. A field you leave out keeps its BC default.
 
 ```json
-{ "specversion": "1.0", "type": "Resources.ResourceJournal.SetupNewLine", "source": "MyApp", "subject": "RESOURCE|DEFAULT" }
+{ "specversion": "1.0", "type": "Resources.ResourceJournal.Create", "source": "MyApp", "subject": "RESOURCE|DEFAULT",
+  "data": { "lines": [
+    { "resourceNo": "LINDA", "quantity": 2 }
+  ] } }
 ```
+
+Without `lines`, `noOfLines` (1-100, default 1) inserts blank lines with the BC defaults. `clearExistingLines: true` deletes every line in the batch first and is destructive. The response lists the inserted lines in the `Data.Records.Get` shape.
+
+Full contract: [Resources.ResourceJournal.Create](https://businesscentralal.github.io/bifrost/en-us/foundation/reference/message-types/resources-resourcejournal-create/).
+
 
 #### `Resources.ResourceJournal.Check`
 

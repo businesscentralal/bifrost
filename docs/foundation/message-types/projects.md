@@ -16,117 +16,38 @@ Projects message types provide functionality for working with project (job) jour
 
 | Message Type | Direction | Purpose |
 |--------------|-----------|---------|
-| [Projects.ProjectJournal.SetupNewLine](#projectsprojectjournalsetupnewline) | Inbound | Creates a new project journal line with defaults |
+| [Projects.ProjectJournal.Create](#projectsprojectjournalcreate) | Inbound | Adds lines to an existing batch, with values or blank |
 | [Projects.ProjectJournal.Check](#projectsprojectjournalcheck) | Outbound | Validates a project journal batch and returns readiness status |
 | [Projects.ProjectJournal.Post](#projectsprojectjournalpost) | Inbound | Posts a project journal batch and returns posting statistics |
 | [Projects.ProjectJournal.PreviewPost](#projectsprojectjournalpreviewpost) | Inbound | Simulates posting a project journal batch and returns predicted ledger entries (rolled back) |
 
 ---
 
-## Projects.ProjectJournal.SetupNewLine
+## Projects.ProjectJournal.Create
 
-**Direction**: Inbound (creates a new journal line)
+**Direction**: Inbound
 
-**Purpose**: Creates and inserts a new project (job) journal line in the specified batch, pre-populated with defaults from BC's `SetUpNewLine` procedure. This is the default way to prepare a project journal line before populating business fields via `Data.Records.Set`.
-
-Default values inherited from the template and batch include Posting Date, Document No. (when a No. Series is configured), and template-driven fields. The line is assigned the next available Line No. (last line + 10000, or 10000 if the batch is empty).
-
-### Request Format
+Adds lines to an existing project journal batch in one call. With `lines`, every line is checked before anything is inserted and every problem is reported in one answer, so nothing is created when one line is wrong (at most 200 lines). Without `lines`, `noOfLines` blank lines are inserted with the BC defaults. `clearExistingLines` deletes the batch's lines first and is destructive. The call never creates a batch.
 
 ```json
 {
-  "specversion": "1.0",
-  "type": "Projects.ProjectJournal.SetupNewLine",
-  "source": "MyIntegrationApp v1.0",
+  "type": "Projects.ProjectJournal.Create",
   "subject": "PROJECT|DEFAULT",
-  "id": "c3d4e5f6-7890-12cd-ef34-567890abcdef",
-  "time": "2026-04-15T10:00:00Z",
-  "datacontenttype": "application/json",
-  "data": {}
-}
-```
-
-#### Journal Batch Identification
-
-1. **Pipe-separated in subject**: `"subject": "TEMPLATE|BATCH"`
-2. **SystemId in subject**: `"subject": "guid-without-braces"`
-3. **JSON data parameters**:
-```json
-{
   "data": {
-    "templateName": "PROJECT",
-    "batchName": "DEFAULT"
+    "lines": [
+      { "jobNo": "JOB00010", "jobTaskNo": "1000", "type": "Resource", "no": "LINDA", "quantity": 2 }
+    ]
   }
 }
 ```
 
-JSON data parameters take precedence over the subject field.
-
-#### Optional Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `fieldNumbers` | int[] | all fields | Field numbers to include in response |
-| `noOfLines` | integer | 1 | Number of lines to create (1–100) |
-| `clearExistingLines` | boolean | false | When true, deletes all existing lines in the batch first |
-
-### Response Format
-
-Uses the `Data.Records.Get` response shape.
-
-```json
-{
-  "status": "Success",
-  "noOfRecords": 1,
-  "result": [
-    {
-      "id": "A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
-      "primaryKey": {
-        "JournalTemplateName": "PROJECT",
-        "JournalBatchName": "DEFAULT",
-        "LineNo_": 10000
-      },
-      "fields": {
-        "PostingDate": "2026-04-15",
-        "DocumentNo_": "PJ-00001",
-        "Type": "Resource",
-        "..."
-      }
-    }
-  ]
-}
-```
-
-### Response Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `status` | string | "Success" or "Error" |
-| `noOfRecords` | integer | Number of lines created |
-| `result[].id` | string | SystemId of the new journal line |
-| `result[].primaryKey` | object | `JournalTemplateName`, `JournalBatchName`, `LineNo_` |
-| `result[].fields` | object | All non-PK fields (or only those in `fieldNumbers`) |
-
 ### Typical Workflow
 
-1. Call `Projects.ProjectJournal.SetupNewLine` to create one or more lines with defaults.
-2. Use the returned `id` with `Data.Records.Set` to populate Project No., Quantity, Unit Cost, etc.
-3. Call `Projects.ProjectJournal.Check` to validate.
-4. Call `Projects.ProjectJournal.Post` to post.
+1. `Projects.ProjectJournal.Create` with `lines`.
+2. `Projects.ProjectJournal.Check` to validate the batch.
+3. `Projects.ProjectJournal.Post` to post.
 
-### Error Handling
-
-| Error | Cause |
-|-------|-------|
-| Missing identification | No template/batch, SystemId, or pipe-separated subject provided |
-| Batch not found | The specified batch does not exist |
-
-### Related Message Types
-
-- [Projects.ProjectJournal.Check](#projectsprojectjournalcheck)
-- [Projects.ProjectJournal.Post](#projectsprojectjournalpost)
-- [Data.Records.Set](/foundation/message-types/data/#datarecordsset)
-- [Data.Records.Get](/foundation/message-types/data/#datarecordsget)
+The request parameters, the line fields (required and optional), the validation order and the errors are on the reference page: [Projects.ProjectJournal.Create](/foundation/reference/message-types/projects-projectjournal-create/).
 
 ---
 
@@ -219,7 +140,7 @@ Uses BC's "Job Jnl.-Check Line" codeunit via the Error Message Management framew
 
 ### Related Message Types
 
-- [Projects.ProjectJournal.SetupNewLine](#projectsprojectjournalsetupnewline)
+- [Projects.ProjectJournal.Create](#projectsprojectjournalcreate)
 - [Projects.ProjectJournal.Post](#projectsprojectjournalpost)
 - [Help.Tables.Get](/foundation/message-types/metadata/#helptablesget)
 
@@ -312,7 +233,7 @@ Identification follows the same three-method pattern.
 
 ### Related Message Types
 
-- [Projects.ProjectJournal.SetupNewLine](#projectsprojectjournalsetupnewline)
+- [Projects.ProjectJournal.Create](#projectsprojectjournalcreate)
 - [Projects.ProjectJournal.Check](#projectsprojectjournalcheck)
 - [Data.Records.Get](/foundation/message-types/data/#datarecordsget)
 - [Data.Records.Set](/foundation/message-types/data/#datarecordsset)
@@ -431,7 +352,7 @@ BC validation errors propagate verbatim. Common errors:
 
 | Object Type | Object ID | Object Name |
 |-------------|-----------|-------------|
-| Enum Value | 10078091 | Projects.ProjectJournal.SetupNewLine |
+| Enum Value | 10078091 | Projects.ProjectJournal.Create |
 | Implementation Codeunit | 10078178 | Proj. Jnl. SetupLine Impl ori |
 | Help Codeunit | 10078017 | Proj. Jnl. SetupLine Help ori |
 | Enum Value | 10078092 | Projects.ProjectJournal.Check |

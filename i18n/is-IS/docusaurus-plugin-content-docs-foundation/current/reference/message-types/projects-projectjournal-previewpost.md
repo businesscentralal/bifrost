@@ -135,6 +135,7 @@ From `Project Jnl. Prev. Post Tests` (codeunit 95438):
 
 ## Related Message Types
 
+- `Projects.ProjectJournal.Create` — add the lines to preview.
 - `Projects.ProjectJournal.Check` — get the validation results that would gate the post.
 - `Projects.ProjectJournal.Post` — commit the actual post.
 - `Finance.GeneralJournal.PreviewPost` — same pattern for the general journal.

@@ -121,6 +121,7 @@ From `FA Jnl. Prev. Post Tests` (codeunit 95437):
 
 ## Related Message Types
 
+- `Finance.FAJournal.Create` — add the lines to preview.
 - `Finance.FAJournal.Check` — get the validation results that would gate the post.
 - `Finance.FAJournal.Post` — commit the actual post.
 - `Finance.GeneralJournal.PreviewPost` — same pattern for the general journal.

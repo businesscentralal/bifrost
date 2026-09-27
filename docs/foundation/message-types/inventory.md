@@ -16,7 +16,7 @@ Inventory message types provide functionality for working with item journals (li
 
 | Message Type | Direction | Purpose |
 |--------------|-----------|---------|
-| [Inventory.ItemJournal.SetupNewLine](#inventoryitemjournalsetupnewline) | Inbound | Creates a new item journal line with defaults — the default way to prepare a journal line |
+| [Inventory.ItemJournal.Create](#inventoryitemjournalcreate) | Inbound | Adds lines to an existing batch, with values or blank |
 | [Inventory.ItemJournal.Check](#inventoryitemjournalcheck) | Outbound | Validates an item journal batch and returns readiness status |
 | [Inventory.ItemJournal.Post](#inventoryitemjournalpost) | Inbound | Posts an item journal batch and returns posting statistics |
 | [Inventory.ItemJournal.PreviewPost](#inventoryitemjournalpreviewpost) | Inbound | Simulates posting an item journal batch and returns predicted ledger entries (rolled back) |
@@ -46,134 +46,31 @@ Inventory message types provide functionality for working with item journals (li
 
 ---
 
-## Inventory.ItemJournal.SetupNewLine
+## Inventory.ItemJournal.Create
 
-**Direction**: Inbound (creates a new journal line)
+**Direction**: Inbound
 
-**Purpose**: Creates and inserts a new item journal line in the specified batch, pre-populated with defaults from BC's `SetUpNewLine` procedure. This is the default way to prepare an item journal line before populating business fields via `Data.Records.Set`.
-
-Default values inherited from the template and batch include Entry Type, Posting Date, Location Code, and other template-driven defaults. If a No. Series is configured on the journal batch, the Document No. is automatically populated from the next number in the series.
-
-The line is assigned the next available Line No. (last line + 10000, or 10000 if the batch is empty).
-
-### Request Format
+Adds lines to an existing item journal batch in one call. With `lines`, every line is checked before anything is inserted and every problem is reported in one answer, so nothing is created when one line is wrong (at most 200 lines). Without `lines`, `noOfLines` blank lines are inserted with the BC defaults. `clearExistingLines` deletes the batch's lines first and is destructive. The call never creates a batch.
 
 ```json
 {
-  "specversion": "1.0",
-  "type": "Inventory.ItemJournal.SetupNewLine",
-  "source": "MyIntegrationApp v1.0",
+  "type": "Inventory.ItemJournal.Create",
   "subject": "ITEM|DEFAULT",
-  "id": "c3d4e5f6-7890-12cd-ef34-567890abcdef",
-  "time": "2026-04-15T10:00:00Z",
-  "datacontenttype": "application/json",
-  "data": {}
-}
-```
-
-#### Journal Batch Identification
-
-1. **Pipe-separated in subject**: `"subject": "TEMPLATE|BATCH"`
-2. **SystemId in subject**: `"subject": "guid-without-braces"`
-3. **JSON data parameters**:
-```json
-{
   "data": {
-    "templateName": "ITEM",
-    "batchName": "DEFAULT"
+    "lines": [
+      { "entryType": "Positive Adjmt.", "itemNo": "1896-S", "quantity": 2 }
+    ]
   }
 }
 ```
-
-JSON data parameters take precedence over the subject field.
-
-#### Optional Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `fieldNumbers` | int[] | all fields | Field numbers to include in response. When omitted, all fields are returned. |
-| `noOfLines` | integer | 1 | Number of lines to create in a single call (1–100). |
-| `clearExistingLines` | boolean | false | When true, deletes all existing lines in the batch before creating new ones. |
-
-```json
-{
-  "data": {
-    "templateName": "ITEM",
-    "batchName": "DEFAULT",
-    "noOfLines": 5,
-    "clearExistingLines": true,
-    "fieldNumbers": [1, 2, 5, 12]
-  }
-}
-```
-
-### Response Format
-
-The response uses the same shape as `Data.Records.Get`: an array of records each with `id`, `primaryKey`, and `fields`.
-
-```json
-{
-  "status": "Success",
-  "noOfRecords": 1,
-  "result": [
-    {
-      "id": "A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
-      "primaryKey": {
-        "JournalTemplateName": "ITEM",
-        "JournalBatchName": "DEFAULT",
-        "LineNo_": 10000
-      },
-      "fields": {
-        "PostingDate": "2026-04-15",
-        "DocumentNo_": "T-00001",
-        "EntryType": "Purchase",
-        "LocationCode": "BLUE",
-        "..."
-      }
-    }
-  ]
-}
-```
-
-### Response Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `status` | string | "Success" or "Error" |
-| `noOfRecords` | integer | Number of lines created |
-| `result` | array | One element per newly inserted line |
-| `result[].id` | string | SystemId of the new journal line |
-| `result[].primaryKey` | object | `JournalTemplateName`, `JournalBatchName`, `LineNo_` |
-| `result[].fields` | object | All non-PK fields (or only those in `fieldNumbers` if specified) |
-
-### Behaviour
-
-1. The batch is identified using one of the three methods above.
-2. If `clearExistingLines` is true, all existing lines in the batch are deleted.
-3. The last existing line in the batch is found (if any).
-4. For each new line, BC's `SetUpNewLine` is called using the previous line as reference. This applies defaults from the template and batch. If a No. Series is configured, Document No. is populated from the next number in the series.
-5. The line is inserted with triggers, then included in the response.
 
 ### Typical Workflow
 
-1. Call `Inventory.ItemJournal.SetupNewLine` to create one or more lines with defaults.
-2. Use the returned `id` (SystemId) with `Data.Records.Set` to populate Item No., Quantity, Unit Cost, etc.
-3. Call `Inventory.ItemJournal.Check` to validate the batch.
-4. Call `Inventory.ItemJournal.Post` to post.
+1. `Inventory.ItemJournal.Create` with `lines`.
+2. `Inventory.ItemJournal.Check` to validate the batch.
+3. `Inventory.ItemJournal.Post` to post.
 
-### Error Handling
-
-| Error | Cause |
-|-------|-------|
-| Missing identification | No template/batch, SystemId, or pipe-separated subject provided |
-| Batch not found | The specified batch does not exist |
-
-### Related Message Types
-
-- [Inventory.ItemJournal.Check](#inventoryitemjournalcheck) — Validate batch before posting
-- [Inventory.ItemJournal.Post](#inventoryitemjournalpost) — Post a validated batch
-- [Data.Records.Set](/foundation/message-types/data/#datarecordsset) — Update fields on the newly created line
-- [Data.Records.Get](/foundation/message-types/data/#datarecordsget) — Read journal lines (same response shape)
+The request parameters, the line fields (required and optional), the validation order and the errors are on the reference page: [Inventory.ItemJournal.Create](/foundation/reference/message-types/inventory-itemjournal-create/).
 
 ---
 
@@ -306,7 +203,7 @@ Uses BC's Error Message Management framework with codeunit "Item Jnl.-Check Line
 
 ### Related Message Types
 
-- [Inventory.ItemJournal.SetupNewLine](#inventoryitemjournalsetupnewline)
+- [Inventory.ItemJournal.Create](#inventoryitemjournalcreate)
 - [Inventory.ItemJournal.Post](#inventoryitemjournalpost)
 - [Data.Records.Get](/foundation/message-types/data/#datarecordsget)
 - [Help.Tables.Get](/foundation/message-types/metadata/#helptablesget)
@@ -417,7 +314,7 @@ Identification follows the same three-method pattern.
 
 ### Related Message Types
 
-- [Inventory.ItemJournal.SetupNewLine](#inventoryitemjournalsetupnewline)
+- [Inventory.ItemJournal.Create](#inventoryitemjournalcreate)
 - [Inventory.ItemJournal.Check](#inventoryitemjournalcheck)
 - [Data.Records.Get](/foundation/message-types/data/#datarecordsget)
 - [Data.Records.Set](/foundation/message-types/data/#datarecordsset)
@@ -1679,7 +1576,7 @@ BC validation errors propagate verbatim. Common errors:
 
 | Object Type | Object ID | Object Name |
 |-------------|-----------|-------------|
-| Enum Value | 10078085 | Inventory.ItemJournal.SetupNewLine |
+| Enum Value | 10078085 | Inventory.ItemJournal.Create |
 | Implementation Codeunit | 10078128 | Item Jnl. SetupLine Impl ori |
 | Help Codeunit | 10077973 | Item Jnl. SetupLine Help ori |
 | Enum Value | 10078086 | Inventory.ItemJournal.Check |

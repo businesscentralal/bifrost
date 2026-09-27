@@ -119,6 +119,7 @@ From `Item Jnl. Prev. Post Tests` (codeunit 95436):
 
 ## Related Message Types
 
+- `Inventory.ItemJournal.Create` — add the lines to preview.
 - `Inventory.ItemJournal.Check` — get the validation results that would gate the post.
 - `Inventory.ItemJournal.Post` — commit the actual post.
 - `Finance.GeneralJournal.PreviewPost` — same pattern for the general journal.

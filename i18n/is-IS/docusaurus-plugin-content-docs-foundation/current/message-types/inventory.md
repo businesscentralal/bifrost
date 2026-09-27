@@ -16,7 +16,7 @@ Skilaboðategundir fyrir birðir bjóða upp á virkni til að vinna með vörud
 
 | Skilaboðategund | Stefna | Tilgangur |
 |----------------|--------|-----------|
-| [Inventory.ItemJournal.SetupNewLine](#inventoryitemjournalsetupnewline) | Innlæg | Stofnar nýja vörudagbókarlínu með sjálfgefnum gildum |
+| [Inventory.ItemJournal.Create](#inventoryitemjournalcreate) | Innlæg | Bætir línum í fyrirliggjandi runu, með gildum eða auðar |
 | [Inventory.ItemJournal.Check](#inventoryitemjournalcheck) | Útlæg | Sannvirðir vörudagbókarrunu og skilar stöðu |
 | [Inventory.ItemJournal.Post](#inventoryitemjournalpost) | Innlæg | Bókar vörudagbókarrunu og skilar tölfræði |
 | [Inventory.ItemJournal.PreviewPost](#inventoryitemjournalpreviewpost) | Innlæg | Hermir bókun á vörudagbókarrunu og skilar spáðum færslum (afturkallað) |
@@ -46,85 +46,31 @@ Skilaboðategundir fyrir birðir bjóða upp á virkni til að vinna með vörud
 
 ---
 
-## Inventory.ItemJournal.SetupNewLine
+## Inventory.ItemJournal.Create
 
-**Stefna**: Innlæg (stofnar nýja dagbókarlínu)
+**Stefna**: Innlæg
 
-**Tilgangur**: Stofnar og setur inn nýja vörudagbókarlínu í tilgreindri runu, með sjálfgefnum gildum úr BC `SetUpNewLine` ferli. Þetta er sjálfgefin leið til að undirbúa vörudagbókarlínu áður en viðskiptaupplýsingar eru fylltar út með `Data.Records.Set`.
-
-Sjálfgefin gildi sem erfast frá sniðmáti og runu eru meðal annars færslutegund (Entry Type), bókunardagsetning og sviðstýringarháð gildi. Ef númeraröð er stillt á rununa er skjalanúmerið fyllt út úr næsta númeri í röðinni. Línan fær næsta Line No. (síðasta lína + 10000, eða 10000 ef runan er tóm).
-
-### Snið beiðni
+Bætir línum í fyrirliggjandi vörudagbókarrunu í einu kalli. Með `lines` er hver lína yfirfarin áður en nokkuð er skráð og öll vandamál koma í einu svari, svo ekkert er stofnað ef ein lína er röng (mest 200 línur). Án `lines` eru `noOfLines` auðar línur settar inn með sjálfgefnum gildum BC. `clearExistingLines` eyðir fyrst línum runnunnar og er óafturkræft. Kallið stofnar aldrei runu.
 
 ```json
 {
-  "specversion": "1.0",
-  "type": "Inventory.ItemJournal.SetupNewLine",
-  "source": "MyIntegrationApp v1.0",
+  "type": "Inventory.ItemJournal.Create",
   "subject": "ITEM|DEFAULT",
-  "data": {}
-}
-```
-
-#### Auðkenning vörudagbókarrunu
-
-1. **Rör-aðskilið í subject**: `"subject": "TEMPLATE|BATCH"`
-2. **SystemId í subject**: `"subject": "guid-without-braces"`
-3. **JSON-gagnafæribreytur**:
-```json
-{
   "data": {
-    "templateName": "ITEM",
-    "batchName": "DEFAULT"
+    "lines": [
+      { "entryType": "Positive Adjmt.", "itemNo": "1896-S", "quantity": 2 }
+    ]
   }
 }
 ```
 
-JSON-gagnafæribreytur hafa forgang yfir subject-reitinn.
+### Dæmigert verkflæði
 
-#### Valkvæðar færibreytur
+1. `Inventory.ItemJournal.Create` með `lines`.
+2. `Inventory.ItemJournal.Check` til að yfirfara rununa.
+3. `Inventory.ItemJournal.Post` til að bóka.
 
-| Færibreyta | Tegund | Sjálfgefið | Lýsing |
-|-----------|--------|-----------|--------|
-| `fieldNumbers` | int[] | öll svið | Svið sem á að taka með í svari |
-| `noOfLines` | integer | 1 | Fjöldi lína sem á að stofna (1–100) |
-| `clearExistingLines` | boolean | false | Þegar `true`, eyðir öllum línum í runu fyrst |
-
-### Snið svars
-
-Notar sama snið og `Data.Records.Get`.
-
-```json
-{
-  "status": "Success",
-  "noOfRecords": 1,
-  "result": [
-    {
-      "id": "A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
-      "primaryKey": {
-        "JournalTemplateName": "ITEM",
-        "JournalBatchName": "DEFAULT",
-        "LineNo_": 10000
-      },
-      "fields": { "..." }
-    }
-  ]
-}
-```
-
-### Dæmigert vinnuferli
-
-1. Kalla á `Inventory.ItemJournal.SetupNewLine` til að stofna línur með sjálfgefnum gildum.
-2. Nota `id` úr svarinu með `Data.Records.Set` til að fylla út vörunúmer, magn, einingarkostnað o.s.frv.
-3. Kalla á `Inventory.ItemJournal.Check` til að sannvotta.
-4. Kalla á `Inventory.ItemJournal.Post` til að bóka.
-
-### Tengdar skilaboðategundir
-
-- [Inventory.ItemJournal.Check](#inventoryitemjournalcheck)
-- [Inventory.ItemJournal.Post](#inventoryitemjournalpost)
-- [Data.Records.Set](/foundation/message-types/data/#datarecordsset)
-- [Data.Records.Get](/foundation/message-types/data/#datarecordsget)
+Færibreytur, reitir línanna (skyldu- og valkvæðir), röð prófana og villur eru á tilvísunarsíðunni: [Inventory.ItemJournal.Create](/foundation/reference/message-types/inventory-itemjournal-create/).
 
 ---
 
@@ -204,7 +150,7 @@ Notar BC "Item Jnl.-Check Line" einingu í gegnum Error Message Management ramma
 
 ### Tengdar skilaboðategundir
 
-- [Inventory.ItemJournal.SetupNewLine](#inventoryitemjournalsetupnewline)
+- [Inventory.ItemJournal.Create](#inventoryitemjournalcreate)
 - [Inventory.ItemJournal.Post](#inventoryitemjournalpost)
 
 ---
@@ -268,7 +214,7 @@ Auðkenning fylgir sömu þremur aðferðum.
 
 ### Tengdar skilaboðategundir
 
-- [Inventory.ItemJournal.SetupNewLine](#inventoryitemjournalsetupnewline)
+- [Inventory.ItemJournal.Create](#inventoryitemjournalcreate)
 - [Inventory.ItemJournal.Check](#inventoryitemjournalcheck)
 
 ---
@@ -1331,7 +1277,7 @@ BC sannvottunarvillur skila sér orðrétt. Algengar villur:
 
 | Tegund hlutar | Auðkenni | Heiti |
 |---------------|----------|-------|
-| Enum-gildi | 10078085 | Inventory.ItemJournal.SetupNewLine |
+| Enum-gildi | 10078085 | Inventory.ItemJournal.Create |
 | Implementation Codeunit | 10078128 | Item Jnl. SetupLine Impl ori |
 | Help Codeunit | 10077973 | Item Jnl. SetupLine Help ori |
 | Enum-gildi | 10078086 | Inventory.ItemJournal.Check |

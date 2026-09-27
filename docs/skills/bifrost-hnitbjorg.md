@@ -2,8 +2,8 @@
 id: bifrost-hnitbjorg
 title: "Hnitbjörg message types"
 sidebar_label: "Hnitbjörg message types"
-sidebar_position: 8
-description: "Message types added to the Bifröst API by Bifrost Attachments. Azure Blob Storage, Azure File Share and SharePoint exposed as Bifröst message types for Business Central file operations. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index of…"
+sidebar_position: 10
+description: "Message types added to the Bifröst API by Bifrost Attachments. Azure Blob Storage, Azure File Share and SharePoint exposed as Bifröst message types for Business Central file operations. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index…"
 ---
 
 Azure Blob Storage, Azure File Share and SharePoint exposed as Bifröst message types for Business Central file operations.

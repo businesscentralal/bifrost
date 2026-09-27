@@ -53,7 +53,7 @@ From the deployed site the same paths resolve against this file’s own URL.
 | `Inventory.ItemJournal.Check` | `message-types/inventory-itemjournal-check/` |
 | `Inventory.ItemJournal.Post` | `message-types/inventory-itemjournal-post/` |
 | `Inventory.ItemJournal.PreviewPost` | `message-types/inventory-itemjournal-previewpost/` |
-| `Inventory.ItemJournal.SetupNewLine` | `message-types/inventory-itemjournal-setupnewline/` |
+| `Inventory.ItemJournal.Create` | `message-types/inventory-itemjournal-create/` |
 | `Inventory.TransferOrder.Create` | `message-types/inventory-transferorder-create/` |
 | `Inventory.TransferOrder.Post` | `message-types/inventory-transferorder-post/` |
 | `Inventory.TransferOrder.PreviewPost` | `message-types/inventory-transferorder-previewpost/` |
@@ -73,14 +73,14 @@ From the deployed site the same paths resolve against this file’s own URL.
 | `Finance.FAJournal.Check` | `message-types/finance-fajournal-check/` |
 | `Finance.FAJournal.Post` | `message-types/finance-fajournal-post/` |
 | `Finance.FAJournal.PreviewPost` | `message-types/finance-fajournal-previewpost/` |
-| `Finance.FAJournal.SetupNewLine` | `message-types/finance-fajournal-setupnewline/` |
+| `Finance.FAJournal.Create` | `message-types/finance-fajournal-create/` |
 | `Finance.FinancialReport.Calculate` | `message-types/finance-financialreport-calculate/` |
 | `Finance.GeneralJournal.Check` | `message-types/finance-generaljournal-check/` |
 | `Finance.GeneralJournal.Post` | `message-types/finance-generaljournal-post/` |
 | `Finance.GeneralJournal.PreviewPost` | `message-types/finance-generaljournal-previewpost/` |
 | `Finance.GeneralJournal.ReverseRegister` | `message-types/finance-generaljournal-reverseregister/` |
 | `Finance.GeneralJournal.ReverseTransaction` | `message-types/finance-generaljournal-reversetransaction/` |
-| `Finance.GeneralJournal.SetupNewLine` | `message-types/finance-generaljournal-setupnewline/` |
+| `Finance.GeneralJournal.Create` | `message-types/finance-generaljournal-create/` |
 
 ### `Sales.*` (16)
 
@@ -243,7 +243,7 @@ From the deployed site the same paths resolve against this file’s own URL.
 | `Projects.ProjectJournal.Check` | `message-types/projects-projectjournal-check/` |
 | `Projects.ProjectJournal.Post` | `message-types/projects-projectjournal-post/` |
 | `Projects.ProjectJournal.PreviewPost` | `message-types/projects-projectjournal-previewpost/` |
-| `Projects.ProjectJournal.SetupNewLine` | `message-types/projects-projectjournal-setupnewline/` |
+| `Projects.ProjectJournal.Create` | `message-types/projects-projectjournal-create/` |
 
 ### `Field.*` (3)
 
@@ -259,7 +259,7 @@ From the deployed site the same paths resolve against this file’s own URL.
 | --- | --- |
 | `Resources.ResourceJournal.Check` | `message-types/resources-resourcejournal-check/` |
 | `Resources.ResourceJournal.Post` | `message-types/resources-resourcejournal-post/` |
-| `Resources.ResourceJournal.SetupNewLine` | `message-types/resources-resourcejournal-setupnewline/` |
+| `Resources.ResourceJournal.Create` | `message-types/resources-resourcejournal-create/` |
 
 ### `CSV.*` (2)
 

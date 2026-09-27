@@ -110,6 +110,7 @@ From `Gen. Jnl. Prev. Post Tests` (codeunit 95389):
 
 ## Related Message Types
 
+- `Finance.GeneralJournal.Create` — add the lines to preview.
 - `Finance.GeneralJournal.Check` — get the validation results that would gate the post.
 - `Finance.GeneralJournal.Post` — commit the actual post.
 - `Finance.GeneralJournal.ReverseRegister` — undo a register after a real post.

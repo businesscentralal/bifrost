@@ -12,46 +12,86 @@ description: "Beiðni- og svarsamningur fyrir Sales.Document.Create Bifröst ski
 :::
 
 
-## Yfirlit
+## Overview
 
-Býr til a ný (header-aðeins) Sales Header fyrir a given viðskiptamanni og skjal Gerð. The header er `Insert(true)` then validates `Sell-to Customer No.` og `Posting Date`. The full inserted færsla er returned in the `Data.Records.Get` shape so downstream calls getur immediately add lines eða modify fields.
+Creates a sales document for one customer: the header and, when `lines` is sent, its lines in the same call. Without `lines` only the header is created.
 
-**Stefna**: Innkomandi (state change)  **Efnisgerð**: `text/json`
+The header is inserted with the next number from the No. Series of the document type, then `Sell-to Customer No.` and `Posting Date` are validated, so the customer's defaults (addresses, payment terms, currency, dimensions) are filled in as in the BC page.
 
-## Athugasemdir um endurtekningar og öryggi
+**Direction**: Inbound (write)  **Content-Type**: `text/json`
 
-- ekki endurtekningarþolið: hver call inserts a ný header með a fresh `No.` úr the relevant númer series.
-- No lines eru created — nota a follow-up call til add `Sales Line` færslur.
+**Not idempotent**: each call creates a new document and uses a number from the No. Series. Retrying after a successful answer creates a second document.
 
-## viðskiptamanni Forgangsröð úrlausnar
+## Identifying the Customer
 
-Via `Argument.FindCustomer` — Subject fyrsta, then JSON:
-1. `subject` — GUID = `Customer.SystemId`, otherwise `Customer.No.`.
-2. JSON `no`.
-3. JSON `id` / `systemId` / `recordSystemId` — `Customer.SystemId`.
+Resolved by `Argument.FindCustomer`. Every identifier supplied is tried; identifiers that point to different records are refused.
+1. `subject`: a GUID is the customer `SystemId`, any other value is the customer `No.`.
+2. Request JSON `no`.
+3. Request JSON `id`, `systemId` or `recordSystemId`: the customer `SystemId`.
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| `documentType` | strengur | **Yes** | One of: `Quote`, `Order`, `Invoice`, `Credit Memo`, `Blanket Order`, `Return Order`. Matched case-insensitively against `Enum::"Sales Document Type".Names()`. |
-| viðskiptamanni keys | — | Yes (Subject eða JSON) | Sjá Forgangsröð úrlausnar. |
-| `postingDate` | dagsetning | No | Format 9. Sjálfgefið: `WorkDate`. |
+| `documentType` | string | Yes | `Quote`, `Order`, `Invoice`, `Credit Memo`, `Blanket Order` or `Return Order`. Case-insensitive. |
+| Customer keys | string | Yes | `subject`, `no`, `id`, `systemId` or `recordSystemId`. See above. |
+| `postingDate` | date | No | `YYYY-MM-DD`. The work date when omitted. Any other format is an error. |
+| `lines` | object[] | No | The document lines, at most 200. See **With lines**. |
 
-### Dæmi um beiðni
+## With lines
+
+The call is all-or-nothing. Every line is checked before the header is created, and every problem is reported in one answer, so nothing is created when one line is wrong. An error that BC raises while validating a line also rolls back the whole call: the header and the lines before it are not kept.
+
+- Field names are camelCase. Foundation assigns the line numbers (10000, 20000, ...); do not send `lineNo`.
+- A request can contain at most 200 lines.
+- The index in an error is 1-based: `lines[1]` is the first line.
+- `type` is `Item` when omitted. A `Comment` line needs only `description`.
+- Validation order (the order BC validates the fields in): Type, No., Location Code, Variant Code, Unit of Measure Code, Quantity, Unit Price, Line Discount %, Shipment Date, Description.
+- A field you leave out keeps its BC default. A field you send overrides it.
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| type | Text | No | `Item` (default), `G/L Account`, `Resource`, `Fixed Asset`, `Charge (Item)` or `Comment`. |
+| no | Text | Yes, except Comment | Number of `type`. It must exist and not be blocked. |
+| locationCode | Text | No | Location code. It must exist. The header location when omitted. |
+| variantCode | Text | No | Item variant. It must exist for the item. |
+| unitOfMeasureCode | Text | No | Unit of measure of the item. The item's default when omitted. |
+| quantity | Decimal | Yes, except Comment | Quantity in `unitOfMeasureCode`. |
+| unitPrice | Decimal | No | Unit price. BC fills it from the item or the price list when omitted. |
+| lineDiscountPercent | Decimal | No | Line discount %. |
+| shipmentDate | Date | No | `YYYY-MM-DD`. The header date when omitted. |
+| description | Text | Yes for Comment | Line description. BC fills it from `no` when omitted. |
+
 ```json
 {
-  "documentType": "Order",
-  "no": "10000",
-  "postingDate": "2026-01-15"
+  "type": "Sales.Document.Create",
+  "subject": "10000",
+  "data": {
+    "documentType": "Order",
+    "lines": [
+      { "type": "Item", "no": "1896-S", "quantity": 2, "unitPrice": 100, "locationCode": "BLUE" },
+      { "type": "G/L Account", "no": "8410", "quantity": 1, "unitPrice": 25 },
+      { "type": "Comment", "description": "Deliver before noon" }
+    ]
+  }
 }
 ```
 
-## Uppbygging svars
+## Without lines
 
-### Tókst
+Only the header is created. A second `Sales.Document.Create` call always creates a new document, so send the lines on this call when you have them. Header fields can be changed later with `Data.Records.Set`.
 
-Skilar the inserted Sales Header in `Data.Records.Get` shape — `noOfRecords: 1` með a single `result[]` færsla containing every accessible Reitur (subject til `Bifrost Field Access` skrifa-takmörkun rules).
+```json
+{
+  "type": "Sales.Document.Create",
+  "subject": "10000",
+  "data": { "documentType": "Order", "postingDate": "2026-09-27" }
+}
+```
+
+## Response Shape
+
+The header in the `Data.Records.Get` shape. With `lines`, the answer also has `lines` and `totals`.
 
 ```json
 {
@@ -59,37 +99,57 @@ Skilar the inserted Sales Header in `Data.Records.Get` shape — `noOfRecords: 1
   "noOfRecords": 1,
   "result": [
     {
-      "tableName": "Sales Header",
-      "tableNo": 36,
-      "DocumentType": "Order",
-      "No_": "PS-ORD103001",
-      "SelltoCustomerNo_": "10000",
-      "PostingDate": "2026-01-15"
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "primaryKey": { "DocumentType": "Order", "No_": "<assigned no.>" },
+      "fields": { "DocumentType": "Order", "No_": "<assigned no.>", "SelltoCustomerNo_": "10000", "PostingDate": "2026-09-27", "Status": "Open" }
     }
-  ]
+  ],
+  "lines": [
+    { "lineNo": 10000, "type": "Item", "no": "1896-S", "description": "ATHENS Desk", "quantity": 2, "unitOfMeasureCode": "PCS", "unitPrice": 100, "lineAmount": 200 }
+  ],
+  "totals": { "amount": 225, "amountIncludingVAT": 281.25, "quantity": 3 }
 }
 ```
 
-JSON Reitur names follow the standard `RemoveNonAlphaNumericCharacters` rule (e.g. `No.` → `No_`, `Sell-to Customer No.` → `SelltoCustomerNo_`, `Balance (LCY)` → `BalanceLCY`).
-
-## Dæmi (úr einingaprófum)
-
-úr `Sales Document Create Tests` (`test/test/Sales/SalesDocumentCreateTests.Codeunit.al`) — covers hver `documentType` Gildi, viðskiptamanni með `no`/`subject`/SystemId, custom `postingDate`, the vantar-`documentType` Villa og the ógilt-`documentType` Villa.
-
-## Villur
-
-| Villa | Orsök |
+| Property | Description |
 |---|---|
-| `Customer identifier is missing. Pass it as the subject, or as one of: no, id, systemId, recordSystemId.` (`MissingParameter`); gefið en fannst ekki: `Customer "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | `FindCustomer` could ekki resolve a viðskiptamanni. |
-| `documentType is required in request JSON. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` vantar eða empty. |
-| `Invalid document type '{value}'. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` supplied but did ekki match hvaða enum Heiti. |
-| BC validation Villur | Bubble up úr header Reitur validation (e.g. blocked viðskiptamanni, ógilt posting dagsetning). |
+| `status` | `Success`. |
+| `noOfRecords` | Always `1`. |
+| `result[0]` | The new Sales Header: `id` (SystemId), `primaryKey` (`DocumentType`, `No_`) and every field in `fields`. Names follow the `Data.Records.Get` rules. |
+| `lines[]` | Only with `lines`: each created line with `lineNo`, `type`, `no`, `description`, `quantity`, `unitOfMeasureCode`, `unitPrice` and `lineAmount`. |
+| `totals` | Only with `lines`: `amount`, `amountIncludingVAT` and `quantity` of the document. |
 
-## Tengdar skilaboðategundir
+## Errors
 
-- `Data.Records.Set` — add `Sales Line` rows til the ný header.
-- `Sales.Document.Release` / `Sales.Document.Post` — downstream lifecycle.
+| Code | Error | Cause |
+|---|---|---|
+| `MissingParameter` | `documentType is required in request JSON. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` was not sent. |
+| `InvalidParameter` | `Invalid document type {value}. Expected: Quote, Order, Invoice, Credit Memo, Blanket Order, Return Order.` | `documentType` is not one of the names. |
+| `MissingParameter` | `Customer identifier is missing. Pass it as the subject, or as one of: no, id, systemId, recordSystemId.` | No customer identifier. |
+| `RecordNotFound` | `Customer "{value}" was not found (from {subject or key}).` | The identifier matches no customer; `parameter` and `received` name it. |
+| `ConflictingIdentifiers` | `The identifiers in {a} and {b} point to different records.` | Two identifiers resolve to different records. |
+| `InvalidParameterFormat` | `"{value}" is not a valid GUID (from {key}).` | A SystemId that cannot be read. |
+| `InvalidParameterFormat` | `Parameter "postingDate" has value "{value}", which is not a valid Date. Expected YYYY-MM-DD.` | `postingDate` is not an ISO date. |
+| `InvalidLine` | `{n} problem(s) in lines. Nothing was created.` | The pre-check found problems. `errors[]` lists each one with `parameter` `lines[n].<field>`: `MissingParameter` (`<field> is required.`), `InvalidParameterFormat` (not a number or not a date), `InvalidParameter` (not a valid option), `RecordNotFound` (the item, account or other record does not exist) or `PreconditionFailed` (it is blocked). With one problem, that problem is the answer and there is no `errors[]`. |
+| `BusinessCentralError` | `lines[n].<field>: <BC error>` | BC rejected a value while validating line `n`. `parameter` is `lines[n].<field>`. Nothing was created, not even the header. |
+| `LimitExceeded` | `A request can contain at most 200 lines. Received: {n}.` | More than 200 lines. `received` is the count, `expected` is `200`. |
+| `InvalidParameterFormat` | `lines must be an array.` | `lines` is not a JSON array. |
+| `BusinessCentralError` | (BC error text) | BC rejected the header, for example a blocked customer. |
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Typical Workflow
+
+1. `Sales.Document.Create` with `lines`.
+2. `Sales.Document.Release`: release the document.
+3. `Sales.Document.PreviewPost`: optional, see the entries without posting.
+4. `Sales.Document.Post`: post it.
+
+## Related Message Types
+
+- `Sales.Document.Release` / `Sales.Document.Reopen`: change the status.
+- `Sales.Document.PreviewPost` / `Sales.Document.Post`: simulate or post.
+- `Sales.Document.Statistics`: read the totals.
+- `Data.Records.Set`: change header fields. Lines belong on `Sales.Document.Create`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -103,7 +103,7 @@ Error (a Business Central posting error):
 
 Uses "Gen. Jnl.-Post Batch" codeunit 80 for posting. Returns G/L Register details including entry ranges for audit trail. All journal lines are cleared after successful posting.
 
-**Workflow:** Prepare lines with `Finance.GeneralJournal.SetupNewLine`, populate fields with `Data.Records.Set`, validate with `Finance.GeneralJournal.Check`, then post with `Finance.GeneralJournal.Post`.
+**Workflow:** Add the lines with values using `Finance.GeneralJournal.Create`, validate with `Finance.GeneralJournal.Check`, then post with `Finance.GeneralJournal.Post`.
 
 #### `Finance.GeneralJournal.PreviewPost`
 
@@ -146,48 +146,24 @@ Success:
 - Field-level access restrictions from `Field Access ori` are honoured: read-restricted fields are omitted from `preview[].entries`.
 - Uses BC codeunit `Gen. Jnl.-Post Preview` to drive `Gen. Jnl.-Post` headlessly via `SetContext + Run()`. Tables are enumerated dynamically via `Posting Preview Event Handler.FillDocumentEntry()`, so any extension-registered ledger tables also appear in the `preview` array.
 
-#### `Finance.GeneralJournal.SetupNewLine` — create a new journal line with defaults
+#### `Finance.GeneralJournal.Create` — add lines to a batch
 
-Direction: **Inbound** (creates a record). `subject` = `TEMPLATE|BATCH` (pipe-separated) or SystemId GUID. Or pass `templateName`/`batchName` in `data`. Optional: `fieldNumbers` to limit response fields. Optional: `clearExistingLines` (Boolean, default `false`) — when `true`, deletes all existing lines in the batch before creating the new line (line numbering restarts at 10000).
+Direction: **Inbound** (creates records). `subject` = `TEMPLATE|BATCH` or the batch SystemId, or `templateName`/`batchName` in `data`. The batch must exist; it is never created.
 
-This is the default way to prepare a general journal line. It creates and inserts a new line pre-populated with defaults from BC's `SetUpNewLine` procedure. Default values inherited from the template and batch include Bal. Account Type, Bal. Account No., Document Type, and Posting Date. If a No. Series is configured on the journal batch, the Document No. is automatically populated from the next number in the series.
+Send the lines with their values in `lines` (at most 200). Every line is checked before anything is inserted and every problem is reported in one answer (`code: InvalidLine`, one `errors[]` entry per problem with `parameter` `lines[n].<field>`), so nothing is created when one line is wrong. Required on each line: accountType, accountNo, amount. A field you leave out keeps its BC default.
 
 ```json
-{ "specversion": "1.0", "type": "Finance.GeneralJournal.SetupNewLine", "source": "MyApp", "subject": "GENERAL|DEFAULT" }
+{ "specversion": "1.0", "type": "Finance.GeneralJournal.Create", "source": "MyApp", "subject": "GENERAL|DEFAULT",
+  "data": { "lines": [
+    { "accountType": "G/L Account", "accountNo": "8410", "amount": 100 },
+    { "accountType": "G/L Account", "accountNo": "2910", "amount": -100 }
+  ] } }
 ```
 
-Response (same format as `Data.Records.Get` — single record):
-```json
-{
-  "status": "Success",
-  "noOfRecords": 1,
-  "result": [
-    {
-      "id": "A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
-      "primaryKey": {
-        "JournalTemplateName": "GENERAL",
-        "JournalBatchName": "DEFAULT",
-        "LineNo_": 10000
-      },
-      "fields": {
-        "PostingDate": "2026-04-15",
-        "DocumentNo_": "GJ-00001",
-        "DocumentType": " ",
-        "AccountType": "G/L Account",
-        "BalAccountType": "G/L Account",
-        "BalAccountNo_": "29900"
-      }
-    }
-  ]
-}
-```
+Without `lines`, `noOfLines` (1-100, default 1) inserts blank lines with the BC defaults. `clearExistingLines: true` deletes every line in the batch first and is destructive. The response lists the inserted lines in the `Data.Records.Get` shape.
 
-**Typical workflow:**
-1. `Finance.GeneralJournal.SetupNewLine` — create line with defaults
-2. `Data.Records.Set` — populate Account No., Amount, etc. using the returned SystemId
-3. Repeat 1–2 for each line
-4. `Finance.GeneralJournal.Check` — validate
-5. `Finance.GeneralJournal.Post` — post
+Full contract: [Finance.GeneralJournal.Create](https://businesscentralal.github.io/bifrost/en-us/foundation/reference/message-types/finance-generaljournal-create/).
+
 
 #### `Finance.GeneralJournal.ReverseRegister` — reverse all entries in a G/L Register
 
@@ -457,17 +433,25 @@ Detailed help: call `Help.Implementation.Get` with `name = Finance.Currency.Adju
 
 **Identification:** Fixed Asset journals use the same three identification modes as general journals: pipe-form `"TEMPLATE|BATCH"`, SystemId via `Format(SystemId, 0, 4)`, or JSON `{"templateName": "FA", "batchName": "DEFAULT"}` (JSON has precedence).
 
-**Workflow:** `Finance.FAJournal.SetupNewLine` → `Data.Records.Set` → `Finance.FAJournal.Check` → `Finance.FAJournal.Post` (or `Finance.FAJournal.PreviewPost` for a dry run).
+**Workflow:** `Finance.FAJournal.Create` (with `lines`) → `Finance.FAJournal.Check` → `Finance.FAJournal.Post` (or `Finance.FAJournal.PreviewPost` for a dry run).
 
-#### `Finance.FAJournal.SetupNewLine`
+#### `Finance.FAJournal.Create` — add lines to a batch
 
-Creates a new FA Journal Line with defaults from template/batch via BC `SetUpNewLine`. Returns the new line in `Data.Records.Get` shape with `primaryKey { JournalTemplateName, JournalBatchName, LineNo_ }`.
+Direction: **Inbound** (creates records). `subject` = `TEMPLATE|BATCH` or the batch SystemId, or `templateName`/`batchName` in `data`. The batch must exist; it is never created.
+
+Send the lines with their values in `lines` (at most 200). Every line is checked before anything is inserted and every problem is reported in one answer (`code: InvalidLine`, one `errors[]` entry per problem with `parameter` `lines[n].<field>`), so nothing is created when one line is wrong. Required on each line: faNo, faPostingType, amount. A field you leave out keeps its BC default.
 
 ```json
-{ "specversion": "1.0", "type": "Finance.FAJournal.SetupNewLine", "source": "MyApp", "subject": "FA|DEFAULT" }
+{ "specversion": "1.0", "type": "Finance.FAJournal.Create", "source": "MyApp", "subject": "ASSETS|DEFAULT",
+  "data": { "lines": [
+    { "faNo": "FA000010", "faPostingType": "Acquisition Cost", "amount": 1000 }
+  ] } }
 ```
 
-Optional: `fieldNumbers` (int[]), `noOfLines` (1–100), `clearExistingLines` (boolean).
+Without `lines`, `noOfLines` (1-100, default 1) inserts blank lines with the BC defaults. `clearExistingLines: true` deletes every line in the batch first and is destructive. The response lists the inserted lines in the `Data.Records.Get` shape.
+
+Full contract: [Finance.FAJournal.Create](https://businesscentralal.github.io/bifrost/en-us/foundation/reference/message-types/finance-fajournal-create/).
+
 
 #### `Finance.FAJournal.Check`
 

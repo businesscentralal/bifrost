@@ -16,53 +16,37 @@ Skilaboðategundir fyrir auðlindir bjóða upp á virkni til að vinna með au�
 
 | Skilaboðategund | Stefna | Tilgangur |
 |----------------|--------|-----------|
-| [Resources.ResourceJournal.SetupNewLine](#resourcesresourcejournalsetupnewline) | Innlæg | Stofnar nýja auðlindadagbókarlínu með sjálfgefnum gildum |
+| [Resources.ResourceJournal.Create](#resourcesresourcejournalcreate) | Innlæg | Bætir línum í fyrirliggjandi runu, með gildum eða auðar |
 | [Resources.ResourceJournal.Check](#resourcesresourcejournalcheck) | Útlæg | Sannvirðir auðlindadagbókarrunu |
 | [Resources.ResourceJournal.Post](#resourcesresourcejournalpost) | Innlæg | Bókar auðlindadagbókarrunu |
 
 ---
 
-## Resources.ResourceJournal.SetupNewLine
+## Resources.ResourceJournal.Create
 
 **Stefna**: Innlæg
 
-**Tilgangur**: Stofnar og setur inn nýja auðlindadagbókarlínu með sjálfgefnum gildum úr BC `SetUpNewLine` ferli. Sjálfgefin gildi (færslutegund, bókunardagsetning, sviðsgildi) erfast frá sniðmáti og runu.
-
-### Snið beiðni
+Bætir línum í fyrirliggjandi aðfangadagbókarrunu í einu kalli. Með `lines` er hver lína yfirfarin áður en nokkuð er skráð og öll vandamál koma í einu svari, svo ekkert er stofnað ef ein lína er röng (mest 200 línur). Án `lines` eru `noOfLines` auðar línur settar inn með sjálfgefnum gildum BC. `clearExistingLines` eyðir fyrst línum runnunnar og er óafturkræft. Kallið stofnar aldrei runu.
 
 ```json
 {
-  "specversion": "1.0",
-  "type": "Resources.ResourceJournal.SetupNewLine",
-  "source": "MyIntegrationApp v1.0",
+  "type": "Resources.ResourceJournal.Create",
   "subject": "RESOURCE|DEFAULT",
-  "data": {}
+  "data": {
+    "lines": [
+      { "resourceNo": "LINDA", "quantity": 2 }
+    ]
+  }
 }
 ```
 
-#### Auðkenning auðlindadagbókarrunu
+### Dæmigert verkflæði
 
-1. **Rör-aðskilið í subject**: `"subject": "TEMPLATE|BATCH"`
-2. **SystemId í subject**: `"subject": "guid-without-braces"`
-3. **JSON-gagnafæribreytur**: `templateName` + `batchName` (forgangur)
+1. `Resources.ResourceJournal.Create` með `lines`.
+2. `Resources.ResourceJournal.Check` til að yfirfara rununa.
+3. `Resources.ResourceJournal.Post` til að bóka.
 
-#### Valkvæðar færibreytur
-
-| Færibreyta | Tegund | Sjálfgefið | Lýsing |
-|-----------|--------|-----------|--------|
-| `fieldNumbers` | int[] | öll svið | Svið sem á að taka með í svari |
-| `noOfLines` | integer | 1 | Fjöldi lína sem á að stofna (1–100) |
-| `clearExistingLines` | boolean | false | Þegar `true`, eyðir öllum línum í runu fyrst |
-
-### Snið svars
-
-Notar sama snið og `Data.Records.Get`. `primaryKey` inniheldur `JournalTemplateName`, `JournalBatchName`, `LineNo_`.
-
-### Tengdar skilaboðategundir
-
-- [Resources.ResourceJournal.Check](#resourcesresourcejournalcheck)
-- [Resources.ResourceJournal.Post](#resourcesresourcejournalpost)
-- [Data.Records.Set](/foundation/message-types/data/#datarecordsset)
+Færibreytur, reitir línanna (skyldu- og valkvæðir), röð prófana og villur eru á tilvísunarsíðunni: [Resources.ResourceJournal.Create](/foundation/reference/message-types/resources-resourcejournal-create/).
 
 ---
 
@@ -124,7 +108,7 @@ Notar sama snið og `Data.Records.Get`. `primaryKey` inniheldur `JournalTemplate
 
 ### Tengdar skilaboðategundir
 
-- [Resources.ResourceJournal.SetupNewLine](#resourcesresourcejournalsetupnewline)
+- [Resources.ResourceJournal.Create](#resourcesresourcejournalcreate)
 - [Resources.ResourceJournal.Post](#resourcesresourcejournalpost)
 
 ---
@@ -189,7 +173,7 @@ Allir aðrir reitir (`status`, `templateName`, `batchName`, `batchDescription`, 
 
 ### Tengdar skilaboðategundir
 
-- [Resources.ResourceJournal.SetupNewLine](#resourcesresourcejournalsetupnewline)
+- [Resources.ResourceJournal.Create](#resourcesresourcejournalcreate)
 - [Resources.ResourceJournal.Check](#resourcesresourcejournalcheck)
 
 ---
@@ -200,7 +184,7 @@ Allir aðrir reitir (`status`, `templateName`, `batchName`, `batchDescription`, 
 
 | Tegund hlutar | Auðkenni | Heiti |
 |---------------|----------|-------|
-| Enum-gildi | 10078094 | Resources.ResourceJournal.SetupNewLine |
+| Enum-gildi | 10078094 | Resources.ResourceJournal.Create |
 | Implementation Codeunit | 10078197 | Res. Jnl. SetupLine Impl ori |
 | Help Codeunit | 10078032 | Res. Jnl. SetupLine Help ori |
 | Enum-gildi | 10078095 | Resources.ResourceJournal.Check |
