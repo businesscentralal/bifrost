@@ -36,7 +36,7 @@ Items are resolved as a *range* (the call iterates the resulting set). First non
 | Parameter | Type | Required | Notes |
 |---|---|---|---|
 | `itemNo` / `itemId` / `tableView` | string / GUID / string | See above | Item selection. |
-| `requestedDeliveryDate` | date | No | Format 9. Default: `WorkDate`. Used as the date cutoff for requirements/receipts. |
+| `requestedDeliveryDate` | date | No | `YYYY-MM-DD`. Omitted: `WorkDate()`. An invalid value is an error. Used as the date cutoff for requirements/receipts. |
 | `locationFilter` | string | No | BC filter expression applied to `Location.Code`. Default: per-item `Item."Location Filter"`. |
 | `variantCode` | string | No | Restricts entries to a single variant. |
 
@@ -94,6 +94,7 @@ Locations marked as in-transit are excluded. Locations with zero activity for th
 
 | Error | Cause |
 |---|---|
+| `Invalid tableView: field "{token}" does not exist in table 27. Did you mean "{field}"? Valid field names: ...` (`InvalidFilterField`, `parameter: tableView`, `received` is the token) | `tableView` names a field that does not exist, or its parentheses do not balance. No item is returned; the call does not fall back to all unblocked items. |
 | `No items found matching the specified criteria.` | Item selection produced an empty set. |
 
 ## Related Message Types

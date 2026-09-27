@@ -12,23 +12,23 @@ description: "Beiðni- og svarsamningur fyrir Memory.Company.List Bifröst skila
 :::
 
 
-## Yfirlit
-Sýnir lista yfir company-scoped memory færslur með `id` og `description` aðeins — the `memory` blob er omitted. nota this fyrir browsing eða selection screens áður en fetching content via `Memory.Company.Get`.
+## Overview
+Lists company-scoped memory records with `id` and `description` only — the `memory` blob is omitted. Use this for browsing or selection screens before fetching content via `Memory.Company.Get`.
 
-## Stefna
-Útgående
+## Direction
+Outbound
 
-## Response Content Gerð
+## Response Content Type
 `text/json`
 
-## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| skip | heiltala | No | númer of færslur til skip |
-| take | heiltala | No | Page size (0 = no limit) |
+| skip | Integer | No | Number of records to skip |
+| take | Integer | No | Page size (default 100, hard maximum 1000) |
 | tableView | Text | No | BC `SetView` filter expression |
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -40,14 +40,24 @@ Sýnir lista yfir company-scoped memory færslur með `id` og `description` aðe
 }
 ```
 
-## áskilið heimildir
-lesa access er granted með `BIFROST API ori` (the base API heimild set) plus the inherent heimild on the implementation codeunit. No additional heimild set er áskilið til list company memory.
+## Required Permissions
+Read access is granted by `BIFROST API ori` (the base API permission set) plus the inherent permission on the implementation codeunit. No additional permission set is required to list company memory.
 
-## Tengdar skilaboðategundir
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
+## Errors
+
+| Code | Error | Cause |
+|---|---|---|
+| `InvalidFilterField` | `Invalid tableView: field "{token}" does not exist in table 10077893. Did you mean "{field}"? Valid field names: ...` | `tableView` names a field that does not exist. `parameter` is `tableView`, `received` the field token, `nextStep` the suggestion. Nothing is returned. |
+| `InvalidFilterField` | `Invalid tableView: unbalanced parentheses.` | The parentheses in `tableView` do not balance. Nothing is returned. |
+
+## Related Message Types
 - `Memory.Company.Get`
 - `Memory.Company.Set`
 - `Memory.User.List`
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

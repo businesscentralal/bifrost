@@ -12,23 +12,23 @@ description: "Beiðni- og svarsamningur fyrir Memory.User.Get Bifröst skilaboð
 :::
 
 
-## Yfirlit
-Skilar user-scoped memory færslur úr `Bifrost User Memory`, filtered til the current user. Includes the `memory` text blob.
+## Overview
+Returns user-scoped memory records from `Bifrost User Memory`, filtered to the current user. Includes the `memory` text blob.
 
-## Stefna
-Útgående
+## Direction
+Outbound
 
-## Response Content Gerð
+## Response Content Type
 `text/json`
 
-## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| skip | heiltala | No | númer of færslur til skip |
-| take | heiltala | No | Page size (0 = no limit) |
+| skip | Integer | No | Number of records to skip |
+| take | Integer | No | Page size (default 100, hard maximum 1000) |
 | tableView | Text | No | BC `SetView` filter expression |
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -39,11 +39,21 @@ Skilar user-scoped memory færslur úr `Bifrost User Memory`, filtered til the c
 }
 ```
 
-## Tengdar skilaboðategundir
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
+## Errors
+
+| Code | Error | Cause |
+|---|---|---|
+| `InvalidFilterField` | `Invalid tableView: field "{token}" does not exist in table 10077894. Did you mean "{field}"? Valid field names: ...` | `tableView` names a field that does not exist. `parameter` is `tableView`, `received` the field token, `nextStep` the suggestion. Nothing is returned. |
+| `InvalidFilterField` | `Invalid tableView: unbalanced parentheses.` | The parentheses in `tableView` do not balance. Nothing is returned. |
+
+## Related Message Types
 - `Memory.User.List`
 - `Memory.User.Set`
 - `Memory.Company.Get`
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 
