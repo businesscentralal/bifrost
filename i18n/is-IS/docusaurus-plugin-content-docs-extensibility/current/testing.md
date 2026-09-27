@@ -322,9 +322,8 @@ auðkennum sem forritið undir prófun kallar eftir, keyra sviðsmyndirnar sína
 
 ## Venjur um prófgögn
 
-Bifröst-forrit eru prófuð í sameiginlegum fyrirtækjagagnagrunnum — CRONUS IS á íslenska
-gámnum, CRONUS International á W1-gámnum — sem eru einnig notaðir til handvirkrar
-staðfestingar og sýnikennslu. Tvær reglur fylgja af því.
+Prófkeyrslur deila oft fyrirtækjagagnagrunni (til dæmis CRONUS-fyrirtæki) með handvirkri
+staðfestingu og sýnikennslu. Tvær reglur fylgja af því.
 
 **Settu forskeyti á allt sem þú býrð til, eitt á hverja prófsstraum.** Venjan yfir alla
 fjölskylduna er `BIFT-<bókstafur>`: `BIFT-A0001`, `BIFT-B0001`. Forskeytið gerir eigin

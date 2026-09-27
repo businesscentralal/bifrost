@@ -26,6 +26,12 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 // Foundation guard vocabulary. Patterns with identifier-like casing stay exact;
 // product names are case-insensitive, and Key Vault also catches KeyVault.
+//
+// The line this list draws: infrastructure, credentials and Origo's internal
+// object names are off the site. The public contract and the patterns partners
+// need to build on Bifröst (message types, their descriptions and help, the
+// interfaces, isolated writes via Codeunit.Run as in the reference repo) are not
+// IP and must not be blocked here.
 const FORBIDDEN = [
   {token: 'Cosmos', pattern: /Cosmos/i},
   {token: 'Key Vault', pattern: /Key\s*Vault/i},
@@ -39,7 +45,7 @@ const FORBIDDEN = [
   {token: 'DefaultEndpointsProtocol=', pattern: /DefaultEndpointsProtocol=/},
   {token: ' Impl ori', pattern: / Impl ori/},
   {token: ' Handler ori', pattern: / Handler ori/},
-  {token: 'Codeunit.Run', pattern: /Codeunit\.Run/},
+  {token: 'cloudapp.azure.com', pattern: /cloudapp\.azure\.com/i},
 ];
 
 const SCAN_ROOTS = ['docs', 'help', 'i18n'];

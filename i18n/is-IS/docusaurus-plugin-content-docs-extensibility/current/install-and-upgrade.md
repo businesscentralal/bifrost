@@ -17,9 +17,9 @@ Arftaki er nýtt forrit, ekki ný útgáfa af því gamla. `app.json` hans fær:
 
 - **nýtt auðkenni forrits** — og prófunarforritið fær líka nýtt auðkenni;
 - **útgáfu endurstillta á `28.0.0.0`**, því útgáfusagan tilheyrir forritinu sem er lagt af;
-- **nýtt númerabil hluta** úr sameiginlegu vinnubókinni, skráð áður en nokkur hlutur notar það;
-- **sama Application Insights tengistreng og sömu leyfisuppsetningu** og forritið sem það
-  leysir af, svo fjarmælingar og leyfismál haldist á einum stað;
+- **nýtt númerabil hluta**, úthlutað áður en nokkur hlutur notar það;
+- **fjarmælinga- og leyfisuppsetningu** forritsins sem það leysir af, svo hvort tveggja haldist
+  á einum stað;
 - `"publisher": "Origo"`, óbreytt.
 
 Ekkert annað erfist. Heiti forritsins breytist, nafnrýmið breytist, API-slóðin breytist, og

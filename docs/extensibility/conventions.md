@@ -15,9 +15,8 @@ follows them, register it in the [app registry](/apps/).
 
 ## Object ID ranges
 
-**Every app has its own registered block.** Ranges are allocated in the shared object-range
-workbook, and a block is registered there *before* any object uses it — for the product app
-and, separately, for its test app.
+**Every app has its own registered block.** A block is allocated *before* any object uses
+it — for the product app and, separately, for its test app.
 
 | App | Product range | Test app range |
 | --- | --- | --- |
@@ -44,9 +43,8 @@ a new block, not to take the unused tail of the app next to it. A neighbour's sp
 capacity is spare because that app will grow into it.
 
 **Register the test app separately.** Test apps live in the 50000–99999 space and collide
-easily — Nornir's test range was moved from 96300–96399 to 96400–96499 precisely because
-another, unregistered app already occupied the first block on the shared containers. Check
-the workbook, and check what is actually installed.
+easily with other per-tenant apps. Check what is actually installed in the environment
+before you pick a block.
 
 **A successor gets a new range.** An app replacing a published Cloud Events app does not
 reuse the retired app's ids: the two are installed side by side while the take-over runs.
@@ -112,8 +110,8 @@ permission set, and text like that has to be corrected to `BIFROST GL Post ori`.
 
 Telemetry emitted with `Session.LogMessage` carries an event id of the form
 **`ORI-BIF-xxxx`**, and the id is unique across the whole publisher — not just across your
-app. Two apps in the family must never emit the same id, because the shared Application
-Insights resource is queried by event id. Allocate ids in a block alongside your object ID
+app. Two apps in the family must never emit the same id, because telemetry is queried by
+event id. Allocate ids in a block alongside your object ID
 block and record them in the app's own documentation.
 
 **The brand is not a prefix.** "Bifrost" belongs in the namespace, the app name, the
@@ -169,9 +167,9 @@ tests run a message type through `Dispatcher ori` instead:
 ```json
 "internalsVisibleTo": [
     {
-        "id": "194ecd04-5688-4af6-94bc-732c714251fc",
-        "name": "Bifrost Orchestrator - Tests",
-        "publisher": "Origo"
+        "id": "<your test app id>",
+        "name": "<Your App> - Tests",
+        "publisher": "<Your publisher>"
     }
 ]
 ```
@@ -250,7 +248,7 @@ covered in [Help codeunits](/extensibility/help-codeunits).
 
 ## Checklist
 
-- [ ] Range registered in the workbook, for the app and its test app, before any object uses it
+- [ ] Range allocated for the app and its test app before any object uses it
 - [ ] Every object name in the product app ends in ` ori` and is at most 30 characters
 - [ ] Permission set names are at most 20 characters and read `BIFROST <short> ori`
 - [ ] Test app objects carry no ` ori` suffix

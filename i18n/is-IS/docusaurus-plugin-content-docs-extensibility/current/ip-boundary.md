@@ -9,26 +9,28 @@ description: "Hvað má birtast á opinbera Bifröst-skjölunarvefnum og hvað v
 # Hugverkamörk opinbera vefsins
 
 Opinberi vefurinn í [`businesscentralal/bifrost`](https://github.com/businesscentralal/bifrost)
-birtir **aðeins opinberar upplýsingar**. Hegðun leyfisveitinga gagnvart viðskiptavinum á heima hér
-þegar hún er hluti af samningnum sem kallendur og stjórnendur reiða sig á. Innri útfærsluatriði eiga
-það ekki.
+birtir **aðeins opinberar upplýsingar**. Bifröst er smíðuð til að byggja ofan á hana, svo samningurinn
+sem samstarfsaðilar byggja á er opinber og á heima hér í heild. Það sem helst utan vefsins er hvernig
+Origo rekur og útfærir vöruna.
 
-Þessi síða er sameiginleg vinnuregla sem verkefnið getur þróað áfram. Staðfestar ákvarðanir
-verkefnisins (2026-09-16) eru rétthærri en eldri texti ef þeim ber ekki saman.
+## Opinbert: skjalaðu það til fulls
 
-## Alltaf heimilt
+- **Skilaboðategundir.** Heiti, lýsingar, hjálparskjöl, lögun beiðna og svara og villusvör, þar á
+  meðal leyfisstöðureitir `Help.Bifrost.Get` á borð við `blockOnMissingQuota`.
+- **Viðbótaryfirborðið.** Allt sem samstarfsaðili notar til að smíða háð forrit: enum og viðmót
+  skilaboðategunda, skilaboðafærsluna, dreifarann, skráningu forrita, API leyndarmálageymslunnar,
+  opinberu atburðina og mynstrin sem sýnd eru í tilvísunarsafninu (aðskilin útfærslu-, einangrunar-
+  og hjálparhlutir; einangruð skrif með `Codeunit.Run`; útgáfu- og leyfisvarnir; skráning).
+- **Hegðun gagnvart viðskiptavinum.** Kvótapottar, hvað telst með, birta prufuleyfið (1.000
+  notendaskilaboð + 1.000 forritsskráningarskilaboð), vikmörkin (100 skilaboð), þrep álagsþaks og
+  dagleg takmörk þeirra, ferli leyfisbeiðna og að köll keyri á meðan eftirstöðvar kvótans eru enn
+  óþekktar.
+- **Skráðar API-villur,** þar á meðal villusvör vegna uppurins kvóta, án þess að nefna
+  undirliggjandi gagnageymslur í sýnidæmum.
 
-- Hegðun vörunnar gagnvart viðskiptavinum: kvótapottar, hvað telst með, birt stærð prufukvóta,
-  takmarkanir sandkassa / MCP sem þegar eru opinber vörulýsing og ferli leyfisbeiðna.
-- Opinberir samningar skilaboðategunda: lögun beiðna og svara sem kallendur sjá, þar á meðal
-  leyfisstöðureitir `Help.Bifrost.Get` á borð við `blockOnMissingQuota`.
-- Villusvör vegna uppurinns kvóta og aðrar skráðar opinberar API-villur (án þess að nefna
-  undirliggjandi gagnageymslur í sýnidæmum).
-
-Leyfishegðun sem kallendur og stjórnendur reiða sig á er **opinber samningur**. Skjalaðu hana
-á yfirliti [Leyfisveitinga](/foundation/reference/licensing/) og á lifandi skilaboðategundasíðum
-á borð við `Help.Bifrost.Get` — ekki sem leiðsögn um innviði leyfisveitinga. Ekki finna upp
-úreltar `Help.License.*` skilaboðategundasíður.
+Leyfishegðun sem kallendur og stjórnendur reiða sig á er opinber samningur. Skjalaðu hana á yfirliti
+[Leyfisveitinga](/foundation/reference/licensing/) og á lifandi skilaboðategundasíðum á borð við
+`Help.Bifrost.Get`, ekki sem leiðsögn um innviði leyfisveitinga.
 
 ## Aldrei birta á þessum vef
 
@@ -38,35 +40,31 @@ Leyfishegðun sem kallendur og stjórnendur reiða sig á er **opinber samningur
 | Vöruheiti leyndarmálageymslna í skýi eða vélarheiti þeirra | Innviðaupplýsingar, ekki samningur við viðskiptavin |
 | Vöruheiti gagnageymslna sem standa að baki leyfisveitingum | Útfærsluatriði, ekki opinbert API |
 | Lögun aðgangslykla, hlutar tengistrengja og auðkenni reikninga / gagnagrunna / gáma | Efni sem varðar aðgangsupplýsingar |
+| Vélarheiti, slóðir og auðkenni leigjenda og fyrirtækja í eigin umhverfum Origo | Vísar á lifandi kerfi |
+| Innri hlutaheiti Origo (til dæmis `… Impl ori`, `… Handler ori`) og innri codeunit-einingar sem útfæra geymslu eða samstillingu leyfa | Útfærsla, ekki hluti af opinbera samningnum. Samstarfsaðilar læra mynstrið af tilvísunarsafninu, með eigin heitum |
+| Innra verklag Origo: sameiginleg vinnuskjöl, sameiginlegir gámar, fjarmælingaauðlindir, innri gagnasöfn, ákvarðanir verkefnisins | Ekki ætlað viðskiptavinum |
 | `TODO`-merkingar og ókláraðar innri hönnunarglósur | Ekki ætlað viðskiptavinum |
-| Innri nöfn codeunit-eininga sem eru aðeins til að útfæra geymslu eða samstillingu leyfa | Ekki hluti af opinbera samningnum |
+
+Síðurnar **Tengingastaða** og **Leyndarmál í eigin umhverfi** eru áfram utan vefsins: þær nefna
+leyndarmálageymsluna og bakgeymsluna.
+
+Slóðir umhverfa og aðgangsupplýsingar fara heldur aldrei í `tools/` eða `.github/`. Skriftur lesa þær
+úr umhverfisbreytum og leyndarmálum gagnasafnsins.
+
+## Að yfirfara breytingu
 
 Keyrðu `npm run check:ip-boundary` áður en þú opnar skjölunar-PR. Athugunin
 (`tools/check-docs.mjs` í `ipBoundary`-ham) leitar í `docs/` og `help/` (og samsvarandi
-`i18n/`-speglum) að föstum lista bannaðra hugtaka. Þessi reglusiða er undanskilin leitinni svo
-hún geti lýst reglunni án þess að falla sjálf.
-
-## Enn óákveðið — ekki finna upp svör
-
-Þar til ákvarðanir verkefnisins loka þessum atriðum má **ekki** fylla í eyðurnar með ágiskunum:
-
-- Full skipting í A/B/C-þrep (Q1)
-- Hvort birting Application Insights / slóðar leyndarmálageymslu í `app.json` sé óhjákvæmileg og
-  hvernig eigi að skjala hana (Q4)
-
-Ákveðið 2026-09-24 (§4, línu 7 lokað): leyfistölurnar eru opinber vörutexti - prufuleyfið
-(1.000 notendaskilaboð + 1.000 forritsskráningarskilaboð), vikmörkin (100 skilaboð), þrep
-álagsþaks og dagleg takmörk þeirra, og að köll keyri á meðan eftirstöðvar kvótans eru enn óþekktar.
-Síðurnar **Tengingastaða** og **Leyndarmál í eigin umhverfi** eru áfram utan vefsins: þær nefna
-leyndarmálageymsluna og bakgeymsluna. Töflur yfir geymslulykla og innri nöfn samstillingareininga
-eru áfram utan vefsins.
+`i18n/`-speglum) að föstum lista bannaðra hugtaka. Þessi reglusíða er undanskilin leitinni svo hún
+geti lýst reglunni án þess að falla sjálf. Athugunin leitar ekki í `tools/` eða `.github/`, svo farðu
+yfir þær möppur handvirkt.
 
 ## Hvernig skrifa á leyfissamningsskjöl
 
 1. Notaðu frekar yfirlit [Leyfisveitinga](/foundation/reference/licensing/) og lifandi tegundir á borð
    við `Help.Bifrost.Get`. Ekki endurgera úreltar `Help.License.*` skilaboðategundasíður.
 2. Lýstu því sem kallandinn sendir og því sem kallandinn fær til baka.
-3. Segðu „leyfisþjónusta“ þegar nafnorð þarf um ytri þjónustuna — aldrei vöruheiti gagnageymslu.
+3. Segðu „leyfisþjónusta“ þegar nafnorð þarf um ytri þjónustuna, aldrei vöruheiti gagnageymslu.
 4. Um leyndarmál í eigin uppsetningu: taktu fram að Origo afhendi gildin með leyfi fyrir eigin
    uppsetningu; ekki líma inn raunhæf heiti reikninga, lykla eða auðkenni gagnagrunna.
 5. Haltu `blockOnMissingQuota` og öðrum reitum sem birtast í opinbera JSON-svarinu; ekki útskýra

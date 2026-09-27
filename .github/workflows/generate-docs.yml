@@ -50,6 +50,7 @@ jobs:
           # line, so they cannot end up in a process listing or the run log.
           BC_USER: ${{ secrets.BC_USER }}
           BC_PASSWORD: ${{ secrets.BC_PASSWORD }}
+          BIFROST_DOCS_BASEURL: ${{ secrets.BIFROST_DOCS_BASEURL }}
         run: |
           $arguments = @{}
           if ('${{ inputs.app }}') { $arguments['App'] = '${{ inputs.app }}' }
