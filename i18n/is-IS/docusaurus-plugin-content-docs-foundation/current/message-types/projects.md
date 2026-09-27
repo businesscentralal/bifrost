@@ -242,7 +242,7 @@ Sami umslag og aðrar PreviewPost-gerðir (`rollback`, `summary`, `totals`, `pre
 
 ### Rekstraráminningar
 
-- **`Line Type` má ekki vera autt.** Verkefnadagbókarlínur þarfnast `Line Type` reits sem er **ekki autt** (`Schedule`, `Billable` eða `Both Schedule and Contract`). Lína sem `Projects.ProjectJournal.Create` stofnar byrjar með autt `Line Type`, og `lines` tekur ekki við því; setjið það með `Data.Records.Set` áður en forskoðun er keyrð.
+- **`Line Type` má ekki vera autt.** Verkefnadagbókarlínur þarfnast `Line Type` reits sem er **ekki autt** (`Schedule`, `Billable` eða `Both Schedule and Contract`). Sendið `lineType` á hverri línu `Projects.ProjectJournal.Create`; auð lína sem er stofnuð án `lines` þarf að fá það með `Data.Records.Set` áður en forskoðun er keyrð.
 - **Lúðann vörulínur eyk færslur í `Item Ledger Entry`/`Value Entry` töflum.**
 - Forskoun afturkallar færslur en endurkallað ekki sniðgjöf á lyklum (t.d. lýsing runu).
 

@@ -49,7 +49,7 @@ The call is all-or-nothing. Every line is checked before anything is inserted, a
 - Field names are camelCase. Foundation assigns the line numbers; do not send `lineNo`.
 - A request can contain at most 200 lines.
 - The index in an error is 1-based: `lines[1]` is the first line.
-- Validation order (the order BC validates the fields in): Job No., Job Task No., Type, No., Posting Date, Document No., Quantity, Unit Cost, Unit Price, Work Type Code, Description.
+- Validation order (the order BC validates the fields in): Job No., Job Task No., Type, No., Line Type, Posting Date, Document No., Quantity, Unit Cost, Unit Price, Work Type Code, Description.
 - A field you leave out keeps its BC default. A field you send overrides it.
 
 | Field | Type | Required | Description |
@@ -58,6 +58,7 @@ The call is all-or-nothing. Every line is checked before anything is inserted, a
 | jobTaskNo | Text | Yes | Project task number. It must exist on `jobNo`. |
 | type | Text | Yes | `Resource`, `Item` or `G/L Account`. |
 | no | Text | Yes | Number of `type`. It must exist and not be blocked. |
+| lineType | Text | No | `Budget`, `Billable` or `Both Budget and Billable`. Blank when omitted; a blank line type stops `Projects.ProjectJournal.PreviewPost` and `.Post` at a BC confirmation an API caller cannot answer, so send it. |
 | postingDate | Date | No | `YYYY-MM-DD`. The batch default when omitted. |
 | documentNo | Text | No | Document number. The batch No. Series number when omitted. |
 | quantity | Decimal | Yes | Quantity. |
@@ -73,7 +74,7 @@ The call is all-or-nothing. Every line is checked before anything is inserted, a
     "templateName": "PROJECT",
     "batchName": "DEFAULT",
     "lines": [
-      { "jobNo": "JOB00010", "jobTaskNo": "1000", "type": "Resource", "no": "LINDA", "quantity": 2, "unitPrice": 50 }
+      { "jobNo": "JOB00010", "jobTaskNo": "1000", "type": "Resource", "no": "LINDA", "lineType": "Billable", "quantity": 2, "unitPrice": 50 }
     ]
   }
 }
@@ -91,7 +92,7 @@ The call is all-or-nothing. Every line is checked before anything is inserted, a
 }
 ```
 
-A line with a blank `Line Type` stops `Projects.ProjectJournal.PreviewPost` and `Projects.ProjectJournal.Post` at a BC confirmation that an API caller cannot answer. `lines` does not take `Line Type`: set it with `Data.Records.Set` before you preview or post.
+A line with a blank `Line Type` stops `Projects.ProjectJournal.PreviewPost` and `Projects.ProjectJournal.Post` at a BC confirmation that an API caller cannot answer. Send `lineType` on each line; blank lines created without `lines` need it set with `Data.Records.Set`.
 
 ## Response Shape
 

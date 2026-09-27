@@ -59,7 +59,7 @@ Response uses the same envelope as other PreviewPost types. Notable:
 - `predictedDocumentNos` may contain `"***"` when BC masks an unallocated number.
 
 **Operational notes:**
-- **`Line Type` must not be blank.** BC requires a non-blank `Line Type` (`Schedule`, `Billable`, or `Both Schedule and Contract`). A line created by `Projects.ProjectJournal.Create` starts with a blank `Line Type`, and `lines` does not take it — set it with `Data.Records.Set` before previewing.
+- **`Line Type` must not be blank.** BC requires a non-blank `Line Type` (`Schedule`, `Billable`, or `Both Schedule and Contract`). Send `lineType` on each line of `Projects.ProjectJournal.Create`; a blank line created without `lines` needs it set with `Data.Records.Set` before previewing.
 - Item lines additionally produce `Item Ledger Entry` / `Value Entry` rows.
 
 ---
