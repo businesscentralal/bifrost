@@ -249,8 +249,8 @@ Sami umslag og aðrar PreviewPost-gerðir (`rollback`, `summary`, `totals`, `pre
 ### Villur
 
 BC sannvottunarvillur skila sér orðrétt. Algengar villur:
-- `Project journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).`
-- `Project journal batch {template}|{batch} not found.`
+- `Project journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`)
+- `Project Journal Batch "{template}|{batch}" was not found (from subject).` (`RecordNotFound`) — `parameter` er `subject`, eða `templateName, batchName` þegar þeir lyklar voru sendir.
 - `Project journal batch {template}|{batch} has no lines to post.`
 - `Line Type must have a value in Job Journal Line: ...` — `Line Type` reiturinn er auður. Setjið `Budget`, `Billable` eða `Both Budget and Billable` áður en forskoðun er keyrð.
 - `Posting preview failed and no entries were captured. The project journal cannot be posted in its current state.` — sjaldgæf heildarvilla.
