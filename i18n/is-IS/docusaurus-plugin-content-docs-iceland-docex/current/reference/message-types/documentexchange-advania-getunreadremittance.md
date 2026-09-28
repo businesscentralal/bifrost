@@ -30,7 +30,7 @@ Paged envelope með items[]. Same as GetUnread but Aðeins RemittanceAdvice skj�
 
 ## Verkflæði: greiðsla Matching
 ```
-1. DocumentExchange.Advania.GetUnreadRemittance { "endpointId": "5801120800" }
+1. DocumentExchange.Advania.GetUnreadRemittance { "endpointId": "0000000000" }
 2. For each item: match remittance_document_reference to your posted invoice
 3. Mark payment applied in BC
 4. DocumentExchange.Advania.UpdateStatus { "messageId": "<uuid>", "status": 3 }

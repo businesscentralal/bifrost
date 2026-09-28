@@ -29,7 +29,7 @@ Checks which skjal types a specific trading partner getur receive.
 
 ### Advania
 ```json
-{ "ean": "5801120800", "name": "Gestsson ehf.", "supported_types": [
+{ "ean": "0000000000", "name": "Dæmi ehf.", "supported_types": [
   { "standard_code": "STI", "type_code": "TS236Reikningur", "root": "Invoice", "simpletypename": "Reikningur" }
 ] }
 ```
