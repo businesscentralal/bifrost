@@ -48,8 +48,11 @@ Error shape (see [Errors and warnings](https://businesscentralal.github.io/bifro
 ```
 
 Branch on `code`, not on the text. When a request has several problems, all of them are in
-`errors[]` under a top-level `code` (usually `MultipleErrors`) - fix them all before calling again. A
-successful response can carry `warnings[]`. There is never a call stack.
+`errors[]` under a top-level `code` (`MultipleErrors`, or `InvalidLine` for the `lines` of a Create
+type) - fix them all before calling again. A Business Central validation error raised while a record
+is written comes on its own: `code` = `BusinessCentralError`, Business Central's text, and `parameter`
+naming the request part, e.g. `lines[1].accountNo`. A successful response can carry `warnings[]`.
+There is never a call stack.
 
 ---
 

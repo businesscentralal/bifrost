@@ -39,7 +39,9 @@ Fields that do not apply are left out.
 ## Several errors
 
 When a request has more than one problem, all of them are listed in `errors`, each with the fields
-above, under a top-level `code` (usually `MultipleErrors`) and a summary:
+above, under a top-level `code` and a summary. The top-level code is `MultipleErrors`, or a code the
+problems share - the `lines` of a Create type answer `InvalidLine`. A request with a single problem
+reports it at the top level, with no `errors`:
 
 ```json
 {
@@ -74,6 +76,24 @@ Any other value answers `InvalidParameterFormat`, with `parameter`, `received` a
 unambiguous local form such as `26.09.2026` or `12,5`, `nextStep` gives the value to resend
 (`Resend postingDate as 2026-09-26.`); an ambiguous one such as `01/02/2026` gets the format instead.
 Every bad value of a request is reported together.
+
+## Business Central validation errors
+
+Bifröst checks the request values first and reports every problem it finds together. Once the values
+pass, Business Central validates the record as it is written. The first error Business Central raises
+stops the call and is reported on its own, with Business Central's own text and the request part that
+was being applied:
+
+```json
+{
+  "status": "Error",
+  "code": "BusinessCentralError",
+  "error": "Direct Posting must be equal to 'Yes'  in G/L Account: No.=1110. Current value is 'No'.",
+  "parameter": "lines[1].accountNo"
+}
+```
+
+Nothing is written. Fix that value and call again; a later line may raise its own error then.
 
 ## Warnings
 

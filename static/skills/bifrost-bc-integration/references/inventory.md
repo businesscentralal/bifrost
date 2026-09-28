@@ -199,7 +199,7 @@ Response:
 }
 ```
 
-Errors: no sources supplied; unsupported `sourceType`; source document is not `Released`; source location does not have `Require Shipment` = true; no lines were available to ship (already on an open shipment or already being picked); `Location Code` field is write-restricted by `Field Access ori`.
+Errors: no sources supplied; unsupported `sourceType`; unknown source document (`RecordNotFound`, `parameter` = `sourceDocuments.documentNo`); source document is not `Released`; source location does not have `Require Shipment` = true; no lines were available to ship (already on an open shipment or already being picked); `Location Code` field is write-restricted by `Field Access ori`.
 
 #### `Warehouse.Shipment.Post`
 
@@ -276,7 +276,7 @@ Response:
 
 **Unsupported in this API version:** `setBreakbulkFilter = true` and `doNotFillQtyToHandle = true`. Sending either returns an Error response (avoids silent option-loss). The BC defaults (`false`) are honoured.
 
-Errors: missing identifier; shipment does not exist; shipment has no lines; invalid `sortingMethod` (error lists valid names); field-restriction; unsupported option flag; no pick created (nothing to pick, pick already exists, or location does not require a pick); any error raised by BC report 7318.
+Errors: missing identifier (`MissingParameter`); unknown shipment (`RecordNotFound`, `Warehouse Shipment Header "{value}" was not found (from {subject or key}).`); two identifiers that point to different shipments (`ConflictingIdentifiers`); shipment has no lines; invalid `sortingMethod` (error lists valid names); field-restriction; unsupported option flag; no pick created (nothing to pick, pick already exists, or location does not require a pick); any error raised by BC report 7318.
 
 #### `Warehouse.Pick.Register`
 
@@ -326,11 +326,11 @@ Response:
 
 `qtyOutstanding` mirrors `Warehouse Shipment Line."Qty. Outstanding"` (= `Quantity - Qty. Shipped`); pick registration does not ship, so it stays equal to line `Quantity` until `Warehouse.Shipment.Post` runs.
 
-After a successful register the source `Warehouse Activity Header` row is deleted (moved to `Registered Whse. Activity Hdr.`). A second `Warehouse.Pick.Register` against the same `pickNo` therefore returns `Warehouse Pick {n} does not exist.` — that is the success indicator, not a failure. Look the registered pick up via `Data.Records.Get` on table `Registered Whse. Activity Hdr.` filtered by `Whse. Activity No.`.
+After a successful register the source `Warehouse Activity Header` row is deleted (moved to `Registered Whse. Activity Hdr.`). A second `Warehouse.Pick.Register` against the same `pickNo` therefore returns `RecordNotFound` (`Warehouse Activity Header "{n}" was not found (from pickNo).`) — that is the success indicator, not a failure. Look the registered pick up via `Data.Records.Get` on table `Registered Whse. Activity Hdr.` filtered by `Whse. Activity No.`.
 
 `shipmentLines` is omitted (empty array) when the pick was not created from a Warehouse Shipment (e.g. inventory pick). `registeredPickNo` is resolved from `Registered Whse. Activity Hdr.` filtered by the original `Whse. Activity No.`.
 
-Errors: missing identifier; pick does not exist or is not Type = Pick; pick has no lines; `Nothing to register.` (all lines have `Qty. to Handle = 0`); missing `Warehouse Posting ori`; any error raised by `Whse.-Activity-Register`.
+Errors: missing identifier (`MissingParameter`); unknown pick (`RecordNotFound`, `Warehouse Activity Header "{value}" was not found (from {subject or key}).`); two identifiers that point to different activities (`ConflictingIdentifiers`); activity is not Type = Pick; pick has no lines; `Nothing to register.` (all lines have `Qty. to Handle = 0`); missing `Warehouse Posting ori`; any error raised by `Whse.-Activity-Register`.
 
 **Workflow chain:** `Sales.Document.Release` → `Warehouse.Shipment.Create` → `Warehouse.Pick.Create` → `Warehouse.Pick.Register` → `Warehouse.Shipment.Post`.
 
@@ -377,7 +377,7 @@ Response (verified live, BC 27 / CRONUS IS, worksheet location `CEPUT`, 5 × ite
 
 **Unsupported in this API version:** `setBreakbulkFilter = true` and `doNotFillQtyToHandle = true`. Sending either returns an Error response.
 
-Errors: missing identifier; receipt does not exist; receipt has no lines to put away (every line `Completely Put Away` or `Quantity = 0`); invalid `sortingMethod`; field-restriction; unsupported option flag; `No Warehouse Put-away was created for ...` (report 7305 ran but produced no header AND none pre-existed — e.g. location does not actually require put-away, or cross-dock consumed the lines); any error raised by BC report 7305 (e.g. `No available bin ...` on directed put-away locations without a bin policy). Note: `There is nothing to handle.` (report 7305 when a put-away already exists) is **not** surfaced — it is converted to a `Success` with `alreadyExisted = true`.
+Errors: missing identifier (`MissingParameter`); unknown posted receipt (`RecordNotFound`, `Posted Whse. Receipt Header "{value}" was not found (from {subject or key}).`); two identifiers that point to different receipts (`ConflictingIdentifiers`); receipt has no lines to put away (every line `Completely Put Away` or `Quantity = 0`); invalid `sortingMethod`; field-restriction; unsupported option flag; `No Warehouse Put-away was created for ...` (report 7305 ran but produced no header AND none pre-existed — e.g. location does not actually require put-away, or cross-dock consumed the lines); any error raised by BC report 7305 (e.g. `No available bin ...` on directed put-away locations without a bin policy). Note: `There is nothing to handle.` (report 7305 when a put-away already exists) is **not** surfaced — it is converted to a `Success` with `alreadyExisted = true`.
 
 #### `Warehouse.Putaway.Register`
 
@@ -425,11 +425,11 @@ Response:
 }
 ```
 
-After a successful register the source `Warehouse Activity Header` row is deleted (moved to `Registered Whse. Activity Hdr.`). A second `Warehouse.Putaway.Register` against the same `putawayNo` therefore returns `Warehouse Put-away {n} does not exist.` — that is the success indicator, not a failure. Look the registered put-away up via `Data.Records.Get` on table `Registered Whse. Activity Hdr.` filtered by `Whse. Activity No.`.
+After a successful register the source `Warehouse Activity Header` row is deleted (moved to `Registered Whse. Activity Hdr.`). A second `Warehouse.Putaway.Register` against the same `putawayNo` therefore returns `RecordNotFound` (`Warehouse Activity Header "{n}" was not found (from putawayNo).`) — that is the success indicator, not a failure. Look the registered put-away up via `Data.Records.Get` on table `Registered Whse. Activity Hdr.` filtered by `Whse. Activity No.`.
 
 `receiptLines` is omitted (empty array) when the put-away was not sourced from a Posted Whse. Receipt. `registeredPutawayNo` is resolved from `Registered Whse. Activity Hdr.` filtered by the original `Whse. Activity No.`.
 
-Errors: missing identifier; put-away does not exist or is not Type = Put-away; put-away has no lines; `Nothing to register.` (all lines have `Qty. to Handle = 0`); missing `Warehouse Posting ori`; any error raised by `Whse.-Activity-Register` (e.g. Take/Place pair mismatch).
+Errors: missing identifier (`MissingParameter`); unknown put-away (`RecordNotFound`, `Warehouse Activity Header "{value}" was not found (from {subject or key}).`); two identifiers that point to different activities (`ConflictingIdentifiers`); activity is not Type = Put-away; put-away has no lines; `Nothing to register.` (all lines have `Qty. to Handle = 0`); missing `Warehouse Posting ori`; any error raised by `Whse.-Activity-Register` (e.g. Take/Place pair mismatch).
 
 **Workflow chain:** `Purchase.Order.Release` (or `Sales.ReturnOrder.Release`) → `Warehouse.Receipt.Create` → `Warehouse.Receipt.Post` → `Warehouse.Putaway.Create` → `Warehouse.Putaway.Register`.
 
@@ -481,7 +481,7 @@ Response:
 
 Location source per type: `PurchaseOrder` uses `Purchase Header."Location Code"`, `SalesReturnOrder` uses `Sales Header."Location Code"`, `TransferOrder` uses `Transfer Header."Transfer-to Code"`.
 
-Errors: no sources supplied; unsupported `sourceType`; source document not `Released` (exact: `Purchase Order '<no>' is not Released. Release it before creating a Warehouse Receipt.`, or per-type equivalents); receiving location does not have `Require Receive` = true; bundled `No Warehouse Receipt was created for <sourceType> '<no>' — already on an open receipt, no lines remain to receive, or put-away already started.`; `Location Code` field write-restricted by `Field Access ori`.
+Errors: no sources supplied; unsupported `sourceType`; unknown source document (`RecordNotFound`, `parameter` = `sourceDocuments.documentNo`); source document not `Released` (exact: `Purchase Order '<no>' is not Released. Release it before creating a Warehouse Receipt.`, or per-type equivalents); receiving location does not have `Require Receive` = true; bundled `No Warehouse Receipt was created for <sourceType> '<no>' — already on an open receipt, no lines remain to receive, or put-away already started.`; `Location Code` field write-restricted by `Field Access ori`.
 
 **Discovery:** to enumerate receipt-required locations, call `Data.Records.Get` on `Location` (table 14) with `tableView = "WHERE(Require Receive=CONST(true))"`. Inspect `RequirePutaway`, `DirectedPutawayandPick`, and `BinMandatory` to anticipate downstream put-away or bin behaviour.
 
