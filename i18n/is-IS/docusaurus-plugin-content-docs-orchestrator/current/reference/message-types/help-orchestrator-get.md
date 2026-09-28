@@ -593,17 +593,17 @@ These eru seeded automatically at playbook start. No steps needed to populate th
 
 | Path | Example | Lýsing |
 |---|---|---|
-| `_who.user.userName` | `GUNNAR` | Login heiti |
-| `_who.user.userSecurityId` | GUID | Notaður security ID |
-| `_who.salesperson.name` | `Gunnar Gestsson` | Salesperson full heiti |
-| `_who.salesperson.email` | `user@company.is` | Salesperson email |
-| `_who.salesperson.code` | `GG` | Salesperson kóði |
-| `_who.salesperson.phoneNo` | `5551234` | Phone number |
-| `_who.companyInfo.name` | `CRONUS Ltd.` | Legal company heiti |
-| `_who.companyInfo.registrationNo` | `4112032630` | Company kennitala |
-| `_who.companyInfo.vatRegistrationNo` | `101067` | VAT number |
-| `_who.companyInfo.address` | `5 The Ring` | Company address |
-| `_who.telegramChatId` | `8866830259` | Notaður's Telegram chat ID |
+| `_who.user.userName` | `JOHN` | Innskráningarheiti |
+| `_who.user.userSecurityId` | GUID | Öryggisauðkenni notanda |
+| `_who.salesperson.name` | `John Smith` | Fullt nafn sölumanns |
+| `_who.salesperson.email` | `user@company.is` | Netfang sölumanns |
+| `_who.salesperson.code` | `JS` | Kóði sölumanns |
+| `_who.salesperson.phoneNo` | `5551234` | Símanúmer |
+| `_who.companyInfo.name` | `CRONUS Ltd.` | Lögheiti fyrirtækis |
+| `_who.companyInfo.registrationNo` | `0000000000` | Kennitala fyrirtækis |
+| `_who.companyInfo.vatRegistrationNo` | `00000` | VSK-númer |
+| `_who.companyInfo.address` | `5 The Ring` | Heimilisfang fyrirtækis |
+| `_who.telegramChatId` | `123456789` | Telegram-spjallauðkenni notanda |
 | `_who.personalization.languageId` | `1033` | Session language LCID |
 
 ## Data Reference — Tables & Fields fyrir Data.Records.Get/Stilltu

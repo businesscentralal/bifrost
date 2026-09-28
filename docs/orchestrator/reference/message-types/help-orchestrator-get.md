@@ -593,17 +593,17 @@ These are seeded automatically at playbook start. No steps needed to populate th
 
 | Path | Example | Description |
 |---|---|---|
-| `_who.user.userName` | `GUNNAR` | Login name |
+| `_who.user.userName` | `JOHN` | Login name |
 | `_who.user.userSecurityId` | GUID | User security ID |
-| `_who.salesperson.name` | `Gunnar Gestsson` | Salesperson full name |
+| `_who.salesperson.name` | `John Smith` | Salesperson full name |
 | `_who.salesperson.email` | `user@company.is` | Salesperson email |
-| `_who.salesperson.code` | `GG` | Salesperson code |
+| `_who.salesperson.code` | `JS` | Salesperson code |
 | `_who.salesperson.phoneNo` | `5551234` | Phone number |
 | `_who.companyInfo.name` | `CRONUS Ltd.` | Legal company name |
-| `_who.companyInfo.registrationNo` | `4112032630` | Company kennitala |
-| `_who.companyInfo.vatRegistrationNo` | `101067` | VAT number |
+| `_who.companyInfo.registrationNo` | `0000000000` | Company kennitala |
+| `_who.companyInfo.vatRegistrationNo` | `00000` | VAT number |
 | `_who.companyInfo.address` | `5 The Ring` | Company address |
-| `_who.telegramChatId` | `8866830259` | User's Telegram chat ID |
+| `_who.telegramChatId` | `123456789` | User's Telegram chat ID |
 | `_who.personalization.languageId` | `1033` | Session language LCID |
 
 ## Data Reference — Tables & Fields for Data.Records.Get/Set
