@@ -131,7 +131,7 @@ Uses BC's "Job Jnl.-Check Line" codeunit via the Error Message Management framew
 | Error | Cause |
 |-------|-------|
 | Missing identification | No subject or data parameters provided |
-| Batch not found | Template/batch combination does not exist |
+| Batch not found | Template/batch combination does not exist (`RecordNotFound`) |
 
 ### Notes
 
@@ -217,7 +217,7 @@ Identification follows the same three-method pattern.
 ### Error Handling
 
 **Common errors:**
-- Journal batch not found
+- Journal batch not found (`RecordNotFound`)
 - No lines to post
 - Posting validation errors
 - Missing journal batch identification
@@ -332,8 +332,8 @@ Same envelope as `Inventory.ItemJournal.PreviewPost` (`rollback`, `summary`, `to
 ### Errors
 
 BC validation errors propagate verbatim. Common errors:
-- `Project journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).`
-- `Project journal batch {template}|{batch} not found.`
+- `Project journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`)
+- `Project Journal Batch "{template}|{batch}" was not found (from subject).` (`RecordNotFound`) — `parameter` is `subject`, or `templateName, batchName` when those keys were sent.
 - `Project journal batch {template}|{batch} has no lines to post.`
 - `Do you want to allow usage on Project Task lines of type Posting only?` (CONFIRM dialog) — triggered when `Line Type` is blank. Set `Line Type` to a non-blank value on every line before previewing.
 - `Posting preview failed and no entries were captured. The project journal cannot be posted in its current state.` — rare catch-all.

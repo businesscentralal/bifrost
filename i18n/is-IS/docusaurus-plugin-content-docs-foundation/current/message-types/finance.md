@@ -186,7 +186,7 @@ JSON-gagnafæribreytur hafa forgang yfir subject-reitinn.
 | Villa | Ástæða |
 |-------|--------|
 | Vantar auðkenningu | Ekkert subject eða gagnafæribreytur gefnar |
-| Runa finnst ekki | Sniðmát/runu samsetning er ekki til |
+| Runa finnst ekki | Sniðmát/runu samsetning er ekki til (`RecordNotFound`) |
 | Engar línur | Runa er til en hefur engar dagbókarlínur |
 
 ### Athugasemdir
@@ -522,7 +522,7 @@ JSON-gagnafæribreytur hafa forgang yfir subject-reitinn.
 ### Villumeðferð
 
 **Algengar villur:**
-- Bókhaldsruna finnst ekki
+- Bókhaldsruna finnst ekki (`RecordNotFound`)
 - Engar línur til að bóka í rununni
 - Bókunarsannvottunarvillur (jafnvægi athugað, nauðsynlegar víddar, o.fl.)
 - Vantar auðkenningu bókhaldsrunu
@@ -642,7 +642,7 @@ Bókhaldsrunu getur innihaldið línur í mörgum gjaldmiðlum. Þess vegna sýn
 
 Villur eru tilkynntar sem `{ "status": "Error", "error": "..." }`. Algengar villur:
 - Auðkenning bókhaldsrunu vantar.
-- Bókhaldsrunu fannst ekki.
+- Bókhaldsruna fannst ekki (`RecordNotFound`).
 - Bókhaldsrunu hefur engar línur.
 - Sannvirkjun mistókst (ójöfnuð, vantar G/L reikninga, víddir, o.s.frv.).
 
@@ -1064,8 +1064,8 @@ Sami umslag og hjá `Inventory.ItemJournal.PreviewPost` (`rollback`, `summary`, 
 ### Villur
 
 BC sannvottunarvillur skila sér orðrétt. Algengar villur:
-- `FA journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).`
-- `FA journal batch {template}|{batch} not found.`
+- `FA journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`)
+- `FA Journal Batch "{template}|{batch}" was not found (from subject).` (`RecordNotFound`) — `parameter` er `subject`, eða `templateName, batchName` þegar þeir lyklar voru sendir.
 - `FA journal batch {template}|{batch} has no lines to post.`
 - `FA Posting Type {Type} must be posted in the general journal in FA Journal Line ...` — `G/L Integration - {Type}` flagg er `true`. Annaðhvort skiptu um flagg eða notaðu GeneralJournal leiðina.
 - `Posting preview failed and no entries were captured. The FA journal cannot be posted in its current state.` — sjaldgæf heildarvilla.
