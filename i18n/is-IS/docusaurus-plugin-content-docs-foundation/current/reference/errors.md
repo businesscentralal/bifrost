@@ -39,7 +39,9 @@ Reitum sem eiga ekki við er sleppt.
 ## Fleiri villur
 
 Þegar beiðni hefur fleiri en eitt vandamál eru þau öll talin upp í `errors`, hvert með reitunum hér
-að ofan, undir `code` efst (yfirleitt `MultipleErrors`) og samantekt:
+að ofan, undir `code` efst og samantekt. Efsti kóðinn er `MultipleErrors`, eða kóði sem vandamálin
+eiga sameiginlegan - `lines` í Create-gerð svara `InvalidLine`. Beiðni með aðeins eitt vandamál gefur
+það upp efst, án `errors`:
 
 ```json
 {
@@ -57,6 +59,24 @@ að ofan, undir `code` efst (yfirleitt `MultipleErrors`) og samantekt:
 ```
 
 Lagaðu þau öll áður en þú kallar aftur.
+
+## Staðfestingarvillur úr Business Central
+
+Bifröst yfirfer gildin í beiðninni fyrst og gefur upp öll vandamál sem finnast í einu. Þegar gildin
+standast staðfestir Business Central færsluna um leið og hún er skrifuð. Fyrsta villan sem Business
+Central vekur stöðvar kallið og er gefin upp ein og sér, með texta Business Central og þeim hluta
+beiðninnar sem verið var að nota:
+
+```json
+{
+  "status": "Error",
+  "code": "BusinessCentralError",
+  "error": "Direct Posting must be equal to 'Yes'  in G/L Account: No.=1110. Current value is 'No'.",
+  "parameter": "lines[1].accountNo"
+}
+```
+
+Ekkert er skrifað. Lagaðu gildið og kallaðu aftur; síðari lína getur þá vakið sína eigin villu.
 
 ## Viðvaranir
 
