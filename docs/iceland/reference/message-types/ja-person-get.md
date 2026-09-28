@@ -22,7 +22,7 @@ Use this for person registry data from Þjóðskrá through Já Skrá v1.
 
 ## Request — single lookup
 ```json
-{ "kennitala": "0102034579" }   // 10 digits, no hyphen
+{ "kennitala": "0000000000" }   // 10 digits, no hyphen
 ```
 
 ## Request — search (at least one parameter)
@@ -40,7 +40,7 @@ Use this for person registry data from Þjóðskrá through Já Skrá v1.
 
 ## Response — single lookup
 ```json
-{ "status": "Success", "person": { "kennitala": "0102034579", "full_name": "Jón Jónsson",
+{ "status": "Success", "person": { "kennitala": "0000000000", "full_name": "Jón Jónsson",
   "legal_address": { "street": { "nominative": "Álfheimar 74" }, "postal_code": 104, "town": { "nominative": "Reykjavík" } } } }
 ```
 

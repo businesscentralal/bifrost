@@ -19,7 +19,7 @@ Sækir search results by search string, Heiti, address, eða postal address.
 - Slóð: `/api/Search/{id}`
 
 ## Beiðni
-- **Subject**: Any search text — Heiti, social ID, address, eða postal address.\n  - Free-text search across the national registry.\n  - Dæmi: `1102713369` eða `Gunnar` eða `Eyrartúni 4`.
+- **Subject**: Any search text — Heiti, social ID, address, eða postal address.\n  - Free-text search across the national registry.\n  - Dæmi: `0000000000` eða `Gunnar` eða `Dæmigata 1`.
 
 ## Svar
 - Tengingin wraps the Umsja Svar in a staðlaða JSON envelope með `status` og `result`.

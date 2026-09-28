@@ -40,7 +40,7 @@ Correction: Reopen -> modify entries -> Submit (Adgerd=Breyta)
 ## Entry fields
 | Reitur | Lýsing |
 |---|---|
-| Kennitala | Recipient kennitala (who received income, e.g. 1102713369) |
+| Kennitala | Recipient kennitala (who received income, e.g. 0000000000) |
 | Gerð Id | Income Gerð frá GetTypes (11=Hlutabref/Ardur, 6=Bankareikningur/Vextir) |
 | Tekjur | Income amount |
 | Stadgreidsla | Withholding amount |

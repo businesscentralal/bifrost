@@ -111,7 +111,7 @@ Notaðu fyrir reikningur-til-reikningur transfer. nauðsynlegt fields in practic
 {
   "kind": "Transfer",
   "recipientAccount": "031026009009",
-  "recipientAccountOwnerId": "1102713369",
+  "recipientAccountOwnerId": "0000000000",
   "recipientReference": "TEST-200",
   "amount": 200,
   "description": "Transfer test 200 ISK",
@@ -132,7 +132,7 @@ Notaðu fyrir claim/slip greiðslur. JSON fields map til bank Claim XML as follo
   "kind": "PaymentSlip",
   "recipientAccount": "000166320770",
   "recipientAccountOwnerId": "6811023020",
-  "personId": "4112032630",
+  "personId": "0000000000",
   "dueDate": "2026-06-15",
   "isDeposit": false,
   "amount": 432640,
@@ -147,7 +147,7 @@ Notaðu fyrir claim/slip greiðslur. JSON fields map til bank Claim XML as follo
   "batches": [
     {
       "outAccount": "031026000336",
-      "outAccountOwnerId": "4112032630",
+      "outAccountOwnerId": "0000000000",
       "nameOfBatch": "*TEST Mixed Batch",
       "isOneToMany": true,
       "rollbackOnError": false,
@@ -156,7 +156,7 @@ Notaðu fyrir claim/slip greiðslur. JSON fields map til bank Claim XML as follo
           "kind": "PaymentSlip",
           "recipientAccount": "000166320770",
           "recipientAccountOwnerId": "6811023020",
-          "personId": "4112032630",
+          "personId": "0000000000",
           "dueDate": "2026-06-15",
           "isDeposit": false,
           "amount": 432640,
@@ -166,7 +166,7 @@ Notaðu fyrir claim/slip greiðslur. JSON fields map til bank Claim XML as follo
         {
           "kind": "Transfer",
           "recipientAccount": "031026009009",
-          "recipientAccountOwnerId": "1102713369",
+          "recipientAccountOwnerId": "0000000000",
           "recipientReference": "TEST-200",
           "amount": 200,
           "description": "Transfer test 200 ISK",

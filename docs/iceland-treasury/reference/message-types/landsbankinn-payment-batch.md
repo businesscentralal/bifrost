@@ -98,7 +98,7 @@ Use for account-to-account transfer. Required fields in practice:
 {
   "kind": "Transfer",
   "recipientAccount": "031026009009",
-  "recipientAccountOwnerId": "1102713369",
+  "recipientAccountOwnerId": "0000000000",
   "recipientReference": "TEST-200",
   "amount": 200,
   "description": "Transfer test 200 ISK",
@@ -121,7 +121,7 @@ JSON fields map to bank Claim XML as follows:
   "kind": "PaymentSlip",
   "recipientAccount": "000166320770",
   "recipientAccountOwnerId": "6811023020",
-  "personId": "4112032630",
+  "personId": "0000000000",
   "dueDate": "2026-06-15",
   "isDeposit": false,
   "amount": 432640,
@@ -136,7 +136,7 @@ JSON fields map to bank Claim XML as follows:
   "batches": [
     {
       "outAccount": "031026000336",
-      "outAccountOwnerId": "4112032630",
+      "outAccountOwnerId": "0000000000",
       "nameOfBatch": "*TEST Mixed Batch",
       "isOneToMany": true,
       "rollbackOnError": false,
@@ -145,7 +145,7 @@ JSON fields map to bank Claim XML as follows:
           "kind": "PaymentSlip",
           "recipientAccount": "000166320770",
           "recipientAccountOwnerId": "6811023020",
-          "personId": "4112032630",
+          "personId": "0000000000",
           "dueDate": "2026-06-15",
           "isDeposit": false,
           "amount": 432640,
@@ -155,7 +155,7 @@ JSON fields map to bank Claim XML as follows:
         {
           "kind": "Transfer",
           "recipientAccount": "031026009009",
-          "recipientAccountOwnerId": "1102713369",
+          "recipientAccountOwnerId": "0000000000",
           "recipientReference": "TEST-200",
           "amount": 200,
           "description": "Transfer test 200 ISK",

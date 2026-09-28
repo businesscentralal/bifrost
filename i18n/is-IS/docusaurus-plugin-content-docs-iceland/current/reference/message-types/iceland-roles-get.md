@@ -19,7 +19,7 @@ Sækir fyrirtæki roles held by a person.
 - Slóð: `/api/Roles`
 
 ## Beiðni
-- **Beiðni Body (JSON)**:\n  - `SocialID` (nauðsynlegt): 10-digit kennitala of a **person**.\n  - `TypesOfRoles` (valfrjálst): Array of role Gerð IDs til filter.\n    Values: `1` Stjórn, `2` Endurskoðandi, `3` Eigandi, `4` Framkvæmdastjórn, `5` Prókúruhafi, `6` Stofnandi, `7` Útibússtjóri, `8` Umboðsaðili, `9` Varastjórn.\n  - Dæmi: `{"SocialID": "1102713369", "TypesOfRoles": ["1", "4"]}`
+- **Beiðni Body (JSON)**:\n  - `SocialID` (nauðsynlegt): 10-digit kennitala of a **person**.\n  - `TypesOfRoles` (valfrjálst): Array of role Gerð IDs til filter.\n    Values: `1` Stjórn, `2` Endurskoðandi, `3` Eigandi, `4` Framkvæmdastjórn, `5` Prókúruhafi, `6` Stofnandi, `7` Útibússtjóri, `8` Umboðsaðili, `9` Varastjórn.\n  - Dæmi: `{"SocialID": "0000000000", "TypesOfRoles": ["1", "4"]}`
 
 ## Svar
 - Tengingin wraps the Umsja Svar in a staðlaða JSON envelope með `status` og `result`.

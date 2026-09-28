@@ -62,8 +62,8 @@ Kennitala decision rule: first digit `0-3` is person, `4-9` is company.
 - Company kennitala adds 40 to the day digits; subtract 40 to recover day.
 
 Examples:
-- `1102713369` -> person -> 11 Feb 1971.
-- `4112032630` -> company -> day 41-40 = 1 -> 1 Dec 2003 registration.
+- `0000000000` -> person -> birth date read from `DDMMYY` (placeholder value).
+- `0000000000` -> company -> day digits minus 40, then `MMYY` -> registration date (placeholder value).
 
 ## Troubleshooting failed requests
 If a request fails, check **Bifrost Setup -> Request Log** (table `Request Log ori`, Log Type = Ja):

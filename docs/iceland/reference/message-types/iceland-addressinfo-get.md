@@ -19,7 +19,7 @@ Gets address information for a social ID.
 - Path: `/api/AddressInfo/{id}`
 
 ## Request
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a person or company.\n  - Returns the registered address for the given ID.\n  - Example: `1102713369` (person) or `4112032630` (company).
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a person or company.\n  - Returns the registered address for the given ID.\n  - Example: `0000000000` (person) or `0000000000` (company).
 
 ## Response
 - The connector wraps the Umsja response in a standard JSON envelope with `status` and `result`.

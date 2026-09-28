@@ -33,13 +33,13 @@ Submit → [Submitted] → **Correct** → [Open] (new rev) → Validate → Sub
 
 ## Beiðni
 ```json
-{ "vat": { "vskNumer": "101067", "ar": 2026, "timabil": "16" } }
+{ "vat": { "vskNumer": "000000", "ar": 2026, "timabil": "16" } }
 ```
 
 ## Svar
 ```json
 {
-  "period": { "vskNumber": "101067", "year": 2026, "period": "16", "revisionNo": 2, "status": "Opin" },
+  "period": { "vskNumber": "000000", "year": 2026, "period": "16", "revisionNo": 2, "status": "Opin" },
   "entries": [ { "categoryId": "67", "amount": 0 }, ... ]
 }
 ```
