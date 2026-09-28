@@ -96,12 +96,12 @@ Calling this message type requires the `BIFROST Res Post ori` permission set in 
 | Message | Cause |
 |---|---|
 | `Posting denied: missing 'BIFROST Res Post ori' permission set.` | Caller lacks the `BIFROST Res Post ori` permission set. |
-| `Resource journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification provided. |
-| `Resource journal batch {templateName}\|{batchName} not found.` | Batch lookup failed. |
+| `Resource journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification provided. |
+| `Res. Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Resource journal batch {templateName}\|{batchName} has no lines to post.` | Batch is empty. |
 
 ## Related Message Types
-- `Resources.ResourceJournal.SetupNewLine`
+- `Resources.ResourceJournal.Create`
 - `Resources.ResourceJournal.Check`
 
 ## Errors and warnings

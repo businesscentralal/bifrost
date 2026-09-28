@@ -91,13 +91,13 @@ Calling this message type requires the `BIFROST Job Post ori` permission set in 
 | Message | Cause |
 |---|---|
 | `Posting denied: missing 'BIFROST Job Post ori' permission set.` | Caller lacks the `BIFROST Job Post ori` permission set. |
-| `Project journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification provided. |
-| `Project journal batch {templateName}\|{batchName} not found.` | Batch lookup failed. |
+| `Project journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification provided. |
+| `Project Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Project journal batch {templateName}\|{batchName} has no lines to post.` | Batch is empty. |
 | `Nothing was posted. Review journal for errors.` | Posting completed but produced no Job Register entry. |
 
 ## Related Message Types
-- `Projects.ProjectJournal.SetupNewLine`
+- `Projects.ProjectJournal.Create`
 - `Projects.ProjectJournal.Check`
 
 ## Errors and warnings

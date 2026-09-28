@@ -12,7 +12,7 @@ description: "Beiðni- og svarsamningur fyrir Finance.BankReconciliation.Create 
 :::
 
 
-## Dæmi um beiðni
+## Request Example
 ```json
 {
   "subject": "BANK-MAIN",
@@ -21,36 +21,36 @@ description: "Beiðni- og svarsamningur fyrir Finance.BankReconciliation.Create 
   }
 }
 ```
-Býr til a bank reconciliation fyrir statement Gerð `Bank Reconciliation`, eða reuses an fyrirliggjandi empty reconciliation fyrir the sama bank account.
+Creates a bank reconciliation for statement type `Bank Reconciliation`, or reuses an existing empty reconciliation for the same bank account.
 
 ## Workflow Context
-This er the fyrsta step in the bank reconciliation cycle:
-1. `Finance.BankReconciliation.Create` -- create eða reuse the reconciliation header (`Bank Acc. Reconciliation` með `Statement Type = Bank Reconciliation`) og import lines í `Bank Acc. Reconciliation Line`.
-2. `Finance.BankReconciliation.Match` -- pair statement lines með `Bank Account Ledger Entry` rows. Match stamps the BLE (`Statement No.`, `Statement Line No.`, `Statement Status = Bank Acc. Entry Applied`).
-3. `Finance.BankReconciliation.Reset` (valfrjálst) -- clear all match stamps til redo the match plan.
-4. `Finance.BankReconciliation.Post` -- run `Bank Acc. Reconciliation Post`, close matched BLEs, og delete the reconciliation header.
+This is the first step in the bank reconciliation cycle:
+1. `Finance.BankReconciliation.Create` -- create or reuse the reconciliation header (`Bank Acc. Reconciliation` with `Statement Type = Bank Reconciliation`) and import lines into `Bank Acc. Reconciliation Line`.
+2. `Finance.BankReconciliation.Match` -- pair statement lines with `Bank Account Ledger Entry` rows. Match stamps the BLE (`Statement No.`, `Statement Line No.`, `Statement Status = Bank Acc. Entry Applied`).
+3. `Finance.BankReconciliation.Reset` (optional) -- clear all match stamps to redo the match plan.
+4. `Finance.BankReconciliation.Post` -- run `Bank Acc. Reconciliation Post`, close matched BLEs, and delete the reconciliation header.
 
-This flow does ekki create `Applied Payment Entry` rows. Those exist aðeins fyrir Statement Gerð = `Payment Application`, which er ekki exposed með this extension.
+This flow does not create `Applied Payment Entry` rows. Those exist only for Statement Type = `Payment Application`, which is not exposed by this extension.
 
-## Yfirlit
-- Innkomandi operation.
-- Resolves bank account úr `subject` eða request JSON.
-- Imports bank statement lines; import failures eru returned as `warning` while `status` stays `Success`.
-- ef `statementDate` er omitted og an fyrirliggjandi reconciliation er reused, statement dagsetning er reset til blank (`0D`).
+## Overview
+- Inbound operation.
+- Resolves bank account from `subject` or request JSON.
+- Imports bank statement lines; import failures are returned as `warning` while `status` stays `Success`.
+- If `statementDate` is omitted and an existing reconciliation is reused, statement date is reset to blank (`0D`).
 
 ## Identifier Resolution
-Bank account er resolved in this order:
+Bank account is resolved in this order:
 1. `subject` as GUID -> Bank Account SystemId
 2. `subject` as text -> Bank Account No.
 3. JSON keys `bankAccountNo`, `bankAccountId`, `id`, `systemId`, `recordSystemId`.
 
 ## Request Fields
-- `subject` (Text|Guid, valfrjálst): Bank Account No. eða Bank Account SystemId.
-- `data.statementDate` (dagsetning, valfrjálst): statement dagsetning til assign.
-- `data.bankAccountNo` (Code[20], valfrjálst): bank account númer fallback þegar subject er empty.
-- `data.bankAccountId` / `data.id` / `data.systemId` / `data.recordSystemId` (Guid, valfrjálst): bank account GUID fallback fields.
+- `subject` (Text|Guid, optional): Bank Account No. or Bank Account SystemId.
+- `data.statementDate` (Date, optional): `YYYY-MM-DD`. Omitted: blank (`0D`). An invalid value is an error.
+- `data.bankAccountNo` (Code[20], optional): bank account number fallback when subject is empty.
+- `data.bankAccountId` / `data.id` / `data.systemId` / `data.recordSystemId` (Guid, optional): bank account GUID fallback fields.
 
-## Tókst Dæmi um svar
+## Success Response Example
 ```json
 {
   "status": "Success",
@@ -60,39 +60,46 @@ Bank account er resolved in this order:
   "statementDate": "2026-05-30",
   "systemId": "<guid>",
   "lineCount": 3,
+  "importedFrom": "2026-05-01",
+  "importedTo": "2026-05-30",
+  "importNotes": ["Statement window was imported from the bank feed."],
   "warning": "<optional import warning>"
 }
 ```
 
-## Svarreitir
-- `status`: `Success` eða `Error`.
-- `reused`: `true` þegar an empty reconciliation was reused; `false` þegar a ný one was created.
-- `bankAccountNo`: resolved bank account númer.
-- `statementNo`: reconciliation statement númer.
-- `statementDate`: assigned statement dagsetning, blank þegar reset til `0D`.
+## Response Fields
+- `status`: `Success` or `Error`.
+- `reused`: `true` when an empty reconciliation was reused; `false` when a new one was created.
+- `bankAccountNo`: resolved bank account number.
+- `statementNo`: reconciliation statement number.
+- `statementDate`: assigned statement date, blank when reset to `0D`.
 - `systemId`: reconciliation SystemId (GUID, no braces).
-- `lineCount`: númer of imported reconciliation lines.
-- `warning`: valfrjálst import warning text.
+- `lineCount`: number of imported reconciliation lines.
+- `importedFrom`: optional first date in the bank statement window imported by the format handler; included only when the handler provides a window.
+- `importedTo`: optional last date in the bank statement window imported by the format handler; included only when the handler provides a window.
+- `importNotes`: optional array of note strings emitted by the handler during import.
+- `warning`: optional import warning text.
 
-## Villa Handling
+## Error Handling
 ```json
 {
   "status": "Error",
-  "error": "Bank account identifier must be specified..."
+  "code": "MissingParameter",
+  "error": "Bank Account identifier is missing. Pass it as the subject, or as one of: bankAccountNo, bankAccountId, id, systemId, recordSystemId."
 }
 ```
-Returned þegar no bank account identifier getur be resolved.
+Returned when no bank account identifier is given. A bank account that is given but does not exist answers `RecordNotFound`: `Bank Account "{value}" was not found (from {subject or key}).`, with `parameter`, `received` and `nextStep`.
 
 ## AI-Oriented Usage
-- nota this operation fyrsta in bank reconciliation workflows.
-- Persist `systemId` úr Svarið og nota it as `subject` fyrir `Match`, `Reset`, og `Post`.
-- Treat `warning` as non-blocking: continue flow og decide ef operator review er needed.
+- Use this operation first in bank reconciliation workflows.
+- Persist `systemId` from the response and use it as `subject` for `Match`, `Reset`, and `Post`.
+- Treat `warning` as non-blocking: continue flow and decide if operator review is needed.
 
-## Tengdar skilaboðategundir
+## Related Message Types
 - `Finance.BankReconciliation.Match`
 - `Finance.BankReconciliation.Reset`
 - `Finance.BankReconciliation.Post`
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

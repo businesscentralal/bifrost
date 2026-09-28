@@ -103,8 +103,8 @@ From `Gen. Jnl. Prev. Post Tests` (codeunit 95389):
 
 | Error | Cause |
 |---|---|
-| `Journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification was supplied. |
-| `Journal batch {template}\|{batch} not found.` | Identification did not match an existing batch. |
+| `Journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
+| `Gen. Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
 | `Posting preview failed and no entries were captured. The journal cannot be posted in its current state.` | The BC posting engine raised during preview — usually means the same error would occur during a real post. Run `Finance.GeneralJournal.Check` to enumerate the underlying validation failures. |
 

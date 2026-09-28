@@ -90,8 +90,9 @@ None — this message type does not accept any caller-supplied field overrides.
 
 | Error | Cause |
 |---|---|
-| `Warehouse Put-away identifier must be specified ...` | No Subject and no identifier key in request JSON. |
-| `Warehouse Put-away {id} does not exist.` | Supplied SystemId or No. not found, or activity is not Type Put-away. |
+| `Warehouse Activity Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, putawayNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Warehouse Activity Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
 | `Warehouse Activity {n} is not of Type Put-away.` | Activity exists but is a Pick / Movement / Invt. Put-away. |
 | `Warehouse Put-away {n} has no lines.` | Header exists with zero lines (shouldn't happen for put-aways created by BC). |
 | `Nothing to register.` | All lines have `Qty. to Handle = 0`. |
@@ -99,7 +100,7 @@ None — this message type does not accept any caller-supplied field overrides.
 
 ## Pitfalls
 
-- **Put-away header disappears after registration**: On `Success` the `Warehouse Activity Header` row is deleted and a `Registered Whse. Activity Hdr.` row appears. A second `Warehouse.Putaway.Register` call against the same `putawayNo` therefore returns `Warehouse Put-away {n} does not exist.` — that is the success indicator, not a failure. Read the history via `Data.Records.Get` on `Registered Whse. Activity Hdr.` (filter by `Whse. Activity No.`).
+- **Put-away header disappears after registration**: On `Success` the `Warehouse Activity Header` row is deleted and a `Registered Whse. Activity Hdr.` row appears. A second `Warehouse.Putaway.Register` call against the same `putawayNo` therefore returns `RecordNotFound` (`Warehouse Activity Header "{n}" was not found (from putawayNo).`) — that is the success indicator, not a failure. Read the history via `Data.Records.Get` on `Registered Whse. Activity Hdr.` (filter by `Whse. Activity No.`).
 - **Activity Type filter**: `Warehouse Activity Header` is shared by Picks, Put-aways, Movements, and Invt. Put-aways. The wrapper checks `Type = Put-away` and rejects others — but make sure the `putawayNo` / SystemId you supply is genuinely a Put-away.
 - **Partial put-aways need `Data.Records.Set` first**: BC fills `Qty. to Handle` automatically when the put-away is created. If the warehouse worker placed less, update each line's `Qty. to Handle` via `Data.Records.Set` on `Warehouse Activity Line` (primaryKey = `Activity Type`, `No.`, `Line No.`) before calling Register. Zero `Qty. to Handle` across all lines yields `Nothing to register.`
 - **Take and Place lines (bin locations only)**: On `Bin Mandatory` / `Directed Put-away and Pick` locations BC put-away lines come in pairs — one `Action Type = Take` (from the receive bin) and one `Action Type = Place` (to the storage bin) per source line. When updating `Qty. to Handle`, update **both** rows to the same value or BC rejects the register with `Qty. to Handle (Base) in the line must be equal to ...`. Non-bin locations have a single line per source line with no Take/Place split.
@@ -111,9 +112,9 @@ None — this message type does not accept any caller-supplied field overrides.
 
 When orchestrating this message type from an agent:
 
-1. **Identifier resolution order is fixed**: Subject > `systemId` > `recordSystemId` > `id` > `putawayNo` > `no`. Pick exactly one.
+1. **Every identifier sent is tried**: `subject`, `systemId`, `recordSystemId`, `id`, `putawayNo` and `no`. Two that point to different activities give `ConflictingIdentifiers`; send one.
 2. **Capture `registeredPutawaySystemId` from the response** if you need to navigate to the history record afterwards — re-deriving it from `putawayNo` after registration requires a `Registered Whse. Activity Hdr.` lookup keyed on `Whse. Activity No.`.
-3. **Treat `Warehouse Put-away {n} does not exist.` on a known put-away as evidence the put-away was already registered** (the activity header moved to history). Confirm by reading `Registered Whse. Activity Hdr.` before retrying.
+3. **Treat `RecordNotFound` on a known put-away as evidence the put-away was already registered** (the activity header moved to history). Confirm by reading `Registered Whse. Activity Hdr.` before retrying.
 4. **Idempotency**: This message type is **not** idempotent — second successful invocation against the same `putawayNo` is impossible because the header is gone. Use `Registered Whse. Activity Hdr.` to check whether registration already happened.
 5. **Workflow completion**: On `Success` against the last outstanding line of a Posted Whse. Receipt, the Posted Receipt Line transitions to `Completely Put Away` and the inbound flow is complete. The response includes `postedWhseReceiptNo` and `postedWhseReceiptSystemId` for downstream queries.
 

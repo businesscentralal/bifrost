@@ -25,16 +25,19 @@ Inbound (write)
 `text/json`
 
 ## Identifier Resolution
-The `subject` identifies the target `Incoming Document`:
-1. If `subject` is a valid GUID — interpreted as `SystemId`
-2. Otherwise — interpreted as `Entry No.` (integer)
+The target `Incoming Document` is identified by the `subject` or by the request keys `entryNo`, `systemId` or `id`. Every identifier sent is tried:
+1. A GUID is read as the `SystemId`.
+2. Anything else is read as the `Entry No.` (an integer); text that is not a number gives `InvalidParameterFormat`.
+3. Two identifiers that point to different documents give `ConflictingIdentifiers`.
 
 ## Request Parameters
 | Field | Location | Type | Required | Description |
 |-------|----------|------|----------|-------------|
-| subject | Bifrost | Text | Yes | Incoming Document `Entry No.` or `SystemId` GUID |
+| subject | Bifrost | Text | One of these | Incoming Document `Entry No.` or `SystemId` GUID |
+| entryNo | data | Integer | One of these | Incoming Document `Entry No.` |
+| systemId / id | data | GUID | One of these | Incoming Document `SystemId` |
 
-Request body is not read.
+The request body is read only for these identifier keys.
 
 ## Request Example
 ```json

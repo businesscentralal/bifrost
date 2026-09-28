@@ -49,8 +49,10 @@ Batch is resolved in this order:
 | `totalCost` | decimal | `CalcSums("Total Cost")` across all lines. |
 | `errorCount` | integer | Length of `errors[]`. |
 | `warningCount` | integer | Length of `warnings[]`. |
-| `errors` | string[] | Blocking errors collected from the BC Error Message framework. |
-| `warnings` | string[] | Non-blocking warnings: zero `Quantity` line, and `Posting Date` in the future. |
+| `errors` | object[] | Blocking errors collected from the BC Error Message framework. |
+| `warnings` | object[] | Non-blocking warnings: zero `Quantity` line, and `Posting Date` in the future. |
+
+Each `errors` entry is an object `{code, error, parameter}` and each `warnings` entry `{code, message, parameter}`. `parameter` is `line <Line No.>` (the journal line's own Line No., e.g. `line 10000`) for a problem on one line, and is left out for a batch-level problem. `code` is `InvalidLine` for a Foundation check, `BusinessCentralError` for a Business Central check, and `PreconditionFailed` for an empty or unbalanced batch.
 
 ```json
 {
@@ -78,11 +80,11 @@ Batch is resolved in this order:
 
 | Message | Cause |
 |---|---|
-| `Resource journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification provided. |
-| `Resource journal batch {templateName}\|{batchName} not found.` | Batch lookup failed. |
+| `Resource journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification provided. |
+| `Res. Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 
 ## Related Message Types
-- `Resources.ResourceJournal.SetupNewLine`
+- `Resources.ResourceJournal.Create`
 - `Resources.ResourceJournal.Post`
 
 ## Errors and warnings

@@ -12,19 +12,19 @@ description: "Beiðni- og svarsamningur fyrir Warehouse.Receipt.Create Bifröst 
 :::
 
 
-## Yfirlit
+## Overview
 
-Býr til one Warehouse Receipt per Uppruni skjal supplied. Wraps BC's `Get Source Doc. Inbound` (codeunit 5751) — hver Sales Return Order, Purchase Order, eða Innkomandi Transfer Order produces its own Warehouse Receipt Header at the Uppruni's receiving location.
+Creates one Warehouse Receipt per source document supplied. Wraps BC's `Get Source Doc. Inbound` (codeunit 5751) — each Sales Return Order, Purchase Order, or Inbound Transfer Order produces its own Warehouse Receipt Header at the source's receiving location.
 
-**Stefna**: Innkomandi (state change)  **Efnisgerð**: `text/json`
+**Direction**: Inbound (state change)  **Content-Type**: `text/json`
 
 ## Location Prerequisites
 
-The Uppruni skjal's receiving Location verður að have `Require Receive = true`. Otherwise BC produces posted skjöl directly úr the Uppruni án going through a Warehouse Receipt.
+The source document's receiving Location must have `Require Receive = true`. Otherwise BC produces posted documents directly from the source without going through a Warehouse Receipt.
 
 Receiving location resolution:
 
-| Uppruni Gerð | Receiving location |
+| Source type | Receiving location |
 |---|---|
 | `SalesReturnOrder` | `Sales Header.Location Code` |
 | `PurchaseOrder` | `Purchase Header.Location Code` |
@@ -34,32 +34,32 @@ Additional behaviour depending on the Location setup:
 
 | Location flags | Effect on Warehouse Receipt line |
 |---|---|
-| `Require Receive = true`, `Require Put-away = false` | `Qty. to Receive` er populated úr the Uppruni line. `Warehouse.Receipt.Post` getur run immediately. |
-| `Require Receive = true`, `Require Put-away = true` | eftir posting the receipt, a Warehouse Put-away er created automatically. The receipt itself still Bókar successfully on its own. |
-| `Directed Put-away and Pick = true` (e.g. WMS bin-mandatory location) | Bin Code verður að be set on the Warehouse Receipt Line áður en posting. |
+| `Require Receive = true`, `Require Put-away = false` | `Qty. to Receive` is populated from the source line. `Warehouse.Receipt.Post` can run immediately. |
+| `Require Receive = true`, `Require Put-away = true` | After posting the receipt, a Warehouse Put-away is created automatically. The receipt itself still posts successfully on its own. |
+| `Directed Put-away and Pick = true` (e.g. WMS bin-mandatory location) | Bin Code must be set on the Warehouse Receipt Line before posting. |
 
-### Discovery — find receipt-áskilið locations
+### Discovery — find receipt-required locations
 
-nota `Data.Records.Get` on `Location` (tafla 14) með `tableView = "WHERE(Require Receive=CONST(true))"` til enumerate the candidates. Inspect `RequirePutaway`, `DirectedPutawayandPick`, og `BinMandatory` on hver row til anticipate downstream put-away eða bin requirements.
+Use `Data.Records.Get` on `Location` (table 14) with `tableView = "WHERE(Require Receive=CONST(true))"` to enumerate the candidates. Inspect `RequirePutaway`, `DirectedPutawayandPick`, and `BinMandatory` on each row to anticipate downstream put-away or bin requirements.
 
-## Athugasemdir um endurtekningar og öryggi
+## Idempotency / Safety Notes
 
-- ekki endurtekningarþolið: hver call inserts ný Warehouse Receipt Headers úr the relevant númer series.
-- hver Uppruni skjal Býr til a separate header (BC standard behaviour).
-- Uppruni skjöl that eru already on an opið Warehouse Receipt, have no quantity til receive, eða have an virkt put-away mun fail með `No Warehouse Receipt was created`.
+- Not idempotent: each call inserts new Warehouse Receipt Headers from the relevant number series.
+- Each source document creates a separate header (BC standard behaviour).
+- Source documents that are already on an open Warehouse Receipt, have no quantity to receive, or have an active put-away will fail with `No Warehouse Receipt was created`.
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| `sourceDocuments` | fylki | **Yes** | ein eða fleiri `{ sourceType, documentNo }` færslur. |
-| `sourceDocuments[].sourceType` | strengur | **Yes** | `SalesReturnOrder`, `PurchaseOrder`, eða `TransferOrder` (case-insensitive). |
-| `sourceDocuments[].documentNo` | code[20] | **Yes** | The Uppruni skjal's `No.`. |
-| `locationCode` | code[10] | No | ef supplied, validates hver Uppruni uses the sama receiving location. Subject til skrifa-takmörkun on `Warehouse Receipt Header."Location Code"`. |
-| `assignedUserId` | code[50] | No | Applied til every created header eftir creation. |
-| `postingDate` | dagsetning | No | Format 9. Applied til every created header eftir creation. |
+| `sourceDocuments` | array | **Yes** | One or more `{ sourceType, documentNo }` entries. |
+| `sourceDocuments[].sourceType` | string | **Yes** | `SalesReturnOrder`, `PurchaseOrder`, or `TransferOrder` (case-insensitive). |
+| `sourceDocuments[].documentNo` | code[20] | **Yes** | The source document's `No.`. |
+| `locationCode` | code[10] | No | If supplied, validates each source uses the same receiving location. Subject to write-restriction on `Warehouse Receipt Header."Location Code"`. |
+| `assignedUserId` | code[50] | No | Applied to every created header after creation. |
+| `postingDate` | date | No | `YYYY-MM-DD`. Omitted: the header posting date is unchanged. An invalid value is an error. |
 
-### Dæmi um beiðni
+### Request Example
 ```json
 {
   "locationCode": "GREEN",
@@ -71,7 +71,7 @@ nota `Data.Records.Get` on `Location` (tafla 14) með `tableView = "WHERE(Requir
 }
 ```
 
-## Uppbygging svars
+## Response Shape
 
 ```json
 {
@@ -91,48 +91,48 @@ nota `Data.Records.Get` on `Location` (tafla 14) með `tableView = "WHERE(Requir
 }
 ```
 
-## Bókunarheimild
+## Posting Gate
 
-None — creation does ekki post. The companion `Warehouse.Receipt.Post` requires the `BIFROST WhsePost ori` heimild set.
+None — creation does not post. The companion `Warehouse.Receipt.Post` requires the `BIFROST WhsePost ori` permission set.
 
-## Reitur takmarkanir
+## Field Restrictions
 
-- `Warehouse Receipt Header."Location Code"` — providing `locationCode` while this Reitur er skrifa-restricted er denied.
+- `Warehouse Receipt Header."Location Code"` — providing `locationCode` while this field is write-restricted is denied.
 
-## Villur
+## Errors
 
-Wording below er the exact text returned með the implementation (verified live).
+Wording below is the exact text returned by the implementation (verified live).
 
-| Villa | Orsök |
+| Error | Cause |
 |---|---|
-| `sourceDocuments is required and must contain at least one entry.` | Request vantar the fylki eða fylki empty. |
-| `Source #{n} is missing sourceType or documentNo (both required).` | One of the færslur lacks a Gildi. |
-| `Unsupported sourceType '{value}'. Expected: SalesReturnOrder, PurchaseOrder, TransferOrder.` | Uppruni Gerð ekki recognised. |
-| `Sales Return / Purchase / Transfer Order '{no}' not found.` | skjal does ekki exist. |
-| `Purchase Order '{no}' is not Released. Release it before creating a Warehouse Receipt.` | Uppruni verður að be Released fyrsta. (`Sales Return Order` / `Transfer Order` variants nota the sama wording.) |
-| `... uses/receives at location '{x}' which does not match the requested locationCode '{y}'.` | þegar `locationCode` filter er supplied. |
+| `sourceDocuments is required and must contain at least one entry.` | Request missing the array or array empty. |
+| `Source #{n} is missing sourceType or documentNo (both required).` | One of the entries lacks a value. |
+| `Unsupported sourceType '{value}'. Expected: SalesReturnOrder, PurchaseOrder, TransferOrder.` | Source type not recognised. |
+| `Sales Header / Purchase Header / Transfer Header "{no}" was not found (from sourceDocuments.documentNo).` (`RecordNotFound`) | The source document does not exist. |
+| `Purchase Order '{no}' is not Released. Release it before creating a Warehouse Receipt.` | Source must be Released first. (`Sales Return Order` / `Transfer Order` variants use the same wording.) |
+| `... uses/receives at location '{x}' which does not match the requested locationCode '{y}'.` | When `locationCode` filter is supplied. |
 | `Location '{x}' (from/Transfer-to on ...) does not require receipt routing` | Location card has `Require Receive = false`. |
-| `No Warehouse Receipt was created for {sourceType} '{no}' — already on an open receipt, no lines remain to receive, or put-away already started.` | Bundled Orsök: Uppruni er on an fyrirliggjandi opið WR, eða has been fully received, eða has an virkt put-away. (Returned even þegar the PO has been previously fully received via a posted WR.) |
+| `No Warehouse Receipt was created for {sourceType} '{no}' — already on an open receipt, no lines remain to receive, or put-away already started.` | Bundled cause: source is on an existing open WR, or has been fully received, or has an active put-away. (Returned even when the PO has been previously fully received via a posted WR.) |
 | `Field {n} is restricted for write on table {t}.` | `Bifrost Field Access` blocks `locationCode`. |
 
-## End-til-End Workflow
+## End-to-End Workflow
 
-Typical sequence til receive a Purchase Order via the warehouse:
+Typical sequence to receive a Purchase Order via the warehouse:
 
-1. **Create the Purchase Order** — `Purchase.Document.Create` (eða `Data.Records.Set` on `Purchase Header`).
-2. **Add Purchase Lines at the receipt-áskilið Location** — `Data.Records.Set` on tafla `39` (`Purchase Line`).
+1. **Create the Purchase Order** — `Purchase.Document.Create` (or `Data.Records.Set` on `Purchase Header`).
+2. **Add Purchase Lines at the receipt-required Location** — `Data.Records.Set` on table `39` (`Purchase Line`).
 3. **Release the Purchase Order** — `Purchase.Document.Release`.
-4. **Create the Warehouse Receipt** — `Warehouse.Receipt.Create` (this skilaboðategund).
-5. (valfrjálst) Adjust `Qty. to Receive` on the Warehouse Receipt Lines via `Data.Records.Set` ef partial receive er intended.
-6. **Post the Warehouse Receipt** — `Warehouse.Receipt.Post`. This Býr til Posted Whse. Receipt og Posted Purchase Receipt færslur og increases inventory.
-7. (valfrjálst) nota `Warehouse.Receipt.Post.Preview` between steps 5 og 6 til Sjá the predicted bók færslur án committing.
+4. **Create the Warehouse Receipt** — `Warehouse.Receipt.Create` (this message type).
+5. (Optional) Adjust `Qty. to Receive` on the Warehouse Receipt Lines via `Data.Records.Set` if partial receive is intended.
+6. **Post the Warehouse Receipt** — `Warehouse.Receipt.Post`. This creates Posted Whse. Receipt and Posted Purchase Receipt records and increases inventory.
+7. (Optional) Use `Warehouse.Receipt.Post.Preview` between steps 5 and 6 to see the predicted ledger entries without committing.
 
-## Tengdar skilaboðategundir
+## Related Message Types
 
 - `Warehouse.Receipt.Post` — post the created Warehouse Receipt.
-- `Warehouse.Receipt.Post.Preview` — simulate the post og inspect captured bók færslur.
-- `Warehouse.Shipment.Create` / `Warehouse.Shipment.Post` — Útgående counterparts.
+- `Warehouse.Receipt.Post.Preview` — simulate the post and inspect captured ledger entries.
+- `Warehouse.Shipment.Create` / `Warehouse.Shipment.Post` — outbound counterparts.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -12,45 +12,47 @@ description: "Beiðni- og svarsamningur fyrir Projects.ProjectJournal.Check Bifr
 :::
 
 
-## Yfirlit
-Validates a project (job) dagbók batch og Skilar an aggregated readiness report. Runs BC `Job Jnl.-Check Line.RunCheck` per line via a try-function og collects Villur úr the BC Villa Message framework.
+## Overview
+Validates a project (job) journal batch and returns an aggregated readiness report. Runs BC `Job Jnl.-Check Line.RunCheck` per line via a try-function and collects errors from the BC Error Message framework.
 
-**Stefna**: Útgående (lesa-aðeins) · **Efnisgerð**: `text/json`
+**Direction**: Outbound (read-only) · **Content-Type**: `text/json`
 
 ## Identifier Resolution
-Batch er resolved in this order:
-1. JSON `templateName` (+ valfrjálst `batchName`)
-2. `subject` er a GUID → batch SystemId
+Batch is resolved in this order:
+1. JSON `templateName` (+ optional `batchName`)
+2. `subject` is a GUID → batch SystemId
 3. `subject` contains `|` → `TEMPLATE|BATCH`
 
-## Beiðnibreytur
+## Request Parameters
 
-| Heiti | Gerð | Lýsing |
+| Name | Type | Description |
 |---|---|---|
-| `templateName` | strengur | dagbók template Heiti (`Code[10]`). |
-| `batchName` | strengur | dagbók batch Heiti (`Code[10]`). |
+| `templateName` | string | Journal template name (`Code[10]`). |
+| `batchName` | string | Journal batch name (`Code[10]`). |
 
-## Dæmi um beiðni
+## Request Example
 ```json
 { "templateName": "PROJECT", "batchName": "DEFAULT" }
 ```
 
-## Uppbygging svars
+## Response Shape
 
-| Property | Gerð | Lýsing |
+| Property | Type | Description |
 |---|---|---|
-| `status` | strengur | `"Success"`. |
-| `validationResult` | strengur | `Ready` (no issues), `ReadyWithWarnings` (warnings aðeins), `NotReady` (Villur eða empty batch). |
-| `templateName` | strengur | Echoed template Heiti. |
-| `batchName` | strengur | Echoed batch Heiti. |
-| `batchDescription` | strengur | Batch Lýsing. |
-| `lineCount` | heiltala | númer of lines in the batch (0 þegar empty). |
-| `totalQuantity` | tugabrot | `CalcSums(Quantity)` across all lines. |
-| `totalLineAmount` | tugabrot | `CalcSums("Line Amount")` across all lines. |
-| `errorCount` | heiltala | Length of `errors[]`. |
-| `warningCount` | heiltala | Length of `warnings[]`. |
-| `errors` | strengur[] | Blocking Villur: zero-quantity lines, BC `Job Jnl.-Check Line` failures, og færslur úr the BC Villa Message framework. |
-| `warnings` | strengur[] | Non-blocking warnings. Currently: `Posting Date` in the future. |
+| `status` | string | `"Success"`. |
+| `validationResult` | string | `Ready` (no issues), `ReadyWithWarnings` (warnings only), `NotReady` (errors or empty batch). |
+| `templateName` | string | Echoed template name. |
+| `batchName` | string | Echoed batch name. |
+| `batchDescription` | string | Batch description. |
+| `lineCount` | integer | Number of lines in the batch (0 when empty). |
+| `totalQuantity` | decimal | `CalcSums(Quantity)` across all lines. |
+| `totalLineAmount` | decimal | `CalcSums("Line Amount")` across all lines. |
+| `errorCount` | integer | Length of `errors[]`. |
+| `warningCount` | integer | Length of `warnings[]`. |
+| `errors` | object[] | Blocking errors: zero-quantity lines, BC `Job Jnl.-Check Line` failures, and entries from the BC Error Message framework. |
+| `warnings` | object[] | Non-blocking warnings. Currently: `Posting Date` in the future. |
+
+Each `errors` entry is an object `{code, error, parameter}` and each `warnings` entry `{code, message, parameter}`. `parameter` is `line <Line No.>` (the journal line's own Line No., e.g. `line 10000`) for a problem on one line, and is left out for a batch-level problem. `code` is `InvalidLine` for a Foundation check, `BusinessCentralError` for a Business Central check, and `PreconditionFailed` for an empty or unbalanced batch.
 
 ```json
 {
@@ -70,21 +72,21 @@ Batch er resolved in this order:
 ```
 
 ## Validation Outcomes
-- Empty batch → `validationResult = "NotReady"`, Villur contain `"No project journal lines exist in the batch."`.
-- Zero `Quantity` on a line → Villa `"Line {n}: Quantity is zero."`.
-- `Posting Date` eftir `WorkDate()` → warning `"Line {n}: Posting Date is in the future ({date})."`.
+- Empty batch → `validationResult = "NotReady"`, errors contain `"No project journal lines exist in the batch."`.
+- Zero `Quantity` on a line → error `"Line {n}: Quantity is zero."`.
+- `Posting Date` after `WorkDate()` → warning `"Line {n}: Posting Date is in the future ({date})."`.
 
-## Villur
+## Errors
 
-| Message | Orsök |
+| Message | Cause |
 |---|---|
-| `Project journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification provided. |
-| `Project journal batch {templateName}\|{batchName} not found.` | Batch lookup mistókst. |
+| `Project journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification provided. |
+| `Project Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 
-## Tengdar skilaboðategundir
-- `Projects.ProjectJournal.SetupNewLine`
+## Related Message Types
+- `Projects.ProjectJournal.Create`
 - `Projects.ProjectJournal.Post`
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

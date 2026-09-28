@@ -12,45 +12,45 @@ description: "Beiðni- og svarsamningur fyrir Warehouse.Putaway.Register Bifrös
 :::
 
 
-## Yfirlit
+## Overview
 
-Registers a Warehouse Put-away. Wraps BC codeunit 7307 `Whse.-Activity-Register` (the sama codeunit notað fyrir Pick registration). eftir registration the bin contents eru updated (stock moves úr the receive bin til the storage bin), the put-away header er deleted og a row appears in `Registered Whse. Activity Hdr.`, og the Uppruni Posted Whse. Receipt Line's `Qty. Put Away` er incremented.
+Registers a Warehouse Put-away. Wraps BC codeunit 7307 `Whse.-Activity-Register` (the same codeunit used for Pick registration). After registration the bin contents are updated (stock moves from the receive bin to the storage bin), the put-away header is deleted and a row appears in `Registered Whse. Activity Hdr.`, and the source Posted Whse. Receipt Line's `Qty. Put Away` is incremented.
 
-**Stefna**: Innkomandi (state change)  **Efnisgerð**: `text/json`
+**Direction**: Inbound (state change)  **Content-Type**: `text/json`
 
-## Bókunarheimild
+## Posting Gate
 
-Requires `Bifrost Posting Type::Warehouse` — i.e. the `BIFROST WhsePost ori` heimild set on the message-task user. án it Beiðnin Skilar an Villa response og nothing er registered.
+Requires `Bifrost Posting Type::Warehouse` — i.e. the `BIFROST WhsePost ori` permission set on the message-task user. Without it the request returns an Error response and nothing is registered.
 
 ## Identifying the Warehouse Put-away
 
-Provide the put-away via the Bifrost Subject (GUID = SystemId of the activity header, eða text = `No.`) eða via one of these request JSON keys:
+Provide the put-away via the Bifrost Subject (GUID = SystemId of the activity header, or text = `No.`) or via one of these request JSON keys:
 
 | Key | Meaning |
 |---|---|
-| `systemId` / `recordSystemId` / `id` | SystemId of the `Warehouse Activity Header` (Gerð = Put-away). |
-| `putawayNo` / `no` | `No.` of the `Warehouse Activity Header` (Gerð = Put-away). |
+| `systemId` / `recordSystemId` / `id` | SystemId of the `Warehouse Activity Header` (Type = Put-away). |
+| `putawayNo` / `no` | `No.` of the `Warehouse Activity Header` (Type = Put-away). |
 
-## Pre-condition: Lines verður að Have Qty. til Handle
+## Pre-condition: Lines Must Have Qty. to Handle
 
-BC registers aðeins what the warehouse worker has confirmed put away. með Sjálfgefið `Warehouse.Putaway.Create` populates `Qty. to Handle` on every line (the `doNotFillQtyToHandle = false` Sjálfgefið of the BC report). ef you call `Warehouse.Putaway.Register` against a put-away með zero `Qty. to Handle` on every line, BC raises `Nothing to register.`
+BC registers only what the warehouse worker has confirmed put away. By default `Warehouse.Putaway.Create` populates `Qty. to Handle` on every line (the `doNotFillQtyToHandle = false` default of the BC report). If you call `Warehouse.Putaway.Register` against a put-away with zero `Qty. to Handle` on every line, BC raises `Nothing to register.`
 
-til register a partial put-away, fyrsta call `Data.Records.Set` on `Warehouse Activity Line` til update `Qty. to Handle` per line. On `Bin Mandatory` / `Directed Put-away and Pick` locations put-away lines come in **Take + Place pairs** — update both rows til the sama Gildi. On a **non-bin** location (`Bin Mandatory = false`) there er a single line per Uppruni line og no pairing (verified live: a 1-line receipt produced 1 put-away line).
+To register a partial put-away, first call `Data.Records.Set` on `Warehouse Activity Line` to update `Qty. to Handle` per line. On `Bin Mandatory` / `Directed Put-away and Pick` locations put-away lines come in **Take + Place pairs** — update both rows to the same value. On a **non-bin** location (`Bin Mandatory = false`) there is a single line per source line and no pairing (verified live: a 1-line receipt produced 1 put-away line).
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| `putawayNo` | code[20] | One identifier áskilið | eða nota `no` / `systemId` / Subject. |
+| `putawayNo` | code[20] | One identifier required | Or use `no` / `systemId` / Subject. |
 
-### Dæmi um beiðni
+### Request Example
 ```json
 { "putawayNo": "WPA000456" }
 ```
 
-## Uppbygging svars
+## Response Shape
 
-Verified live (BC 27, CRONUS er) — registering put-away `PU000025` (1 line, 5 × vöru `1896-S`) created úr Posted Whse. Receipt `R_000030`:
+Verified live (BC 27, CRONUS IS) — registering put-away `PU000025` (1 line, 5 × item `1896-S`) created from Posted Whse. Receipt `R_000030`:
 
 ```json
 {
@@ -80,57 +80,58 @@ Verified live (BC 27, CRONUS er) — registering put-away `PU000025` (1 line, 5 
 }
 ```
 
-`qtyPutAway` og `status` on hver receipt line reflect the post-registration totals: full registrations transition the line til `Completely Put Away`; partial registrations leave the line at `Partially Put Away` (`Qty. Outstanding > 0`).
+`qtyPutAway` and `status` on each receipt line reflect the post-registration totals: full registrations transition the line to `Completely Put Away`; partial registrations leave the line at `Partially Put Away` (`Qty. Outstanding > 0`).
 
-## Reitur takmarkanir
+## Field Restrictions
 
-None — this skilaboðategund does ekki accept hvaða Kallandi-supplied Reitur overrides.
+None — this message type does not accept any caller-supplied field overrides.
 
-## Villur
+## Errors
 
-| Villa | Orsök |
+| Error | Cause |
 |---|---|
-| `Warehouse Put-away identifier must be specified ...` | No Subject og no identifier key in request JSON. |
-| `Warehouse Put-away {id} does not exist.` | Supplied SystemId eða No. fannst ekki, eða activity er ekki Gerð Put-away. |
-| `Warehouse Activity {n} is not of Type Put-away.` | Activity exists but er a Pick / Movement / Invt. Put-away. |
-| `Warehouse Put-away {n} has no lines.` | Header exists með zero lines (shouldn't happen fyrir put-aways created með BC). |
+| `Warehouse Activity Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, putawayNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Warehouse Activity Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `Warehouse Activity {n} is not of Type Put-away.` | Activity exists but is a Pick / Movement / Invt. Put-away. |
+| `Warehouse Put-away {n} has no lines.` | Header exists with zero lines (shouldn't happen for put-aways created by BC). |
 | `Nothing to register.` | All lines have `Qty. to Handle = 0`. |
-| `Posting type {x} is not allowed for this user.` | Bókunarheimild (BIFROST WhsePost ori) denied Beiðnin. |
+| `Posting type {x} is not allowed for this user.` | Posting gate (BIFROST WhsePost ori) denied the request. |
 
 ## Pitfalls
 
-- **Put-away header disappears eftir registration**: On `Success` the `Warehouse Activity Header` row er deleted og a `Registered Whse. Activity Hdr.` row appears. A second `Warehouse.Putaway.Register` call against the sama `putawayNo` therefore Skilar `Warehouse Put-away {n} does not exist.` — that er the Tókst indicator, ekki a Mistókst. lesa the history via `Data.Records.Get` on `Registered Whse. Activity Hdr.` (filter með `Whse. Activity No.`).
-- **Activity Gerð filter**: `Warehouse Activity Header` er shared með Picks, Put-aways, Movements, og Invt. Put-aways. The wrapper Athugar `Type = Put-away` og rejects others — but make sure the `putawayNo` / SystemId you supply er genuinely a Put-away.
-- **Partial put-aways need `Data.Records.Set` fyrsta**: BC fills `Qty. to Handle` automatically þegar the put-away er created. ef the warehouse worker placed less, update hver line's `Qty. to Handle` via `Data.Records.Set` on `Warehouse Activity Line` (primaryKey = `Activity Type`, `No.`, `Line No.`) áður en calling Register. Zero `Qty. to Handle` across all lines yields `Nothing to register.`
-- **Take og Place lines (bin locations aðeins)**: On `Bin Mandatory` / `Directed Put-away and Pick` locations BC put-away lines come in pairs — one `Action Type = Take` (úr the receive bin) og one `Action Type = Place` (til the storage bin) per Uppruni line. þegar updating `Qty. to Handle`, update **both** rows til the sama Gildi eða BC rejects the register með `Qty. to Handle (Base) in the line must be equal to ...`. Non-bin locations have a single line per Uppruni line með no Take/Place split.
-- **Bin contents update**: Registration credits the storage bin og debits the receive bin via `Whse. Item Tracking` og `Bin Content`. Subsequent picks fyrir the sama vöru mun pull úr the ný storage bin.
-- **Bókunarheimild**: The message-task user verður að have `BIFROST WhsePost ori` even though no vöru bók færslur eru produced með put-away registration — BC still treats it as a warehouse posting action.
-- **Uppruni Posted Receipt status**: A partially registered put-away leaves the Posted Whse. Receipt Line at `Partially Put Away`. A second `Warehouse.Putaway.Create` against the sama Posted Receipt then generates a ný put-away fyrir the outstanding quantity.
+- **Put-away header disappears after registration**: On `Success` the `Warehouse Activity Header` row is deleted and a `Registered Whse. Activity Hdr.` row appears. A second `Warehouse.Putaway.Register` call against the same `putawayNo` therefore returns `RecordNotFound` (`Warehouse Activity Header "{n}" was not found (from putawayNo).`) — that is the success indicator, not a failure. Read the history via `Data.Records.Get` on `Registered Whse. Activity Hdr.` (filter by `Whse. Activity No.`).
+- **Activity Type filter**: `Warehouse Activity Header` is shared by Picks, Put-aways, Movements, and Invt. Put-aways. The wrapper checks `Type = Put-away` and rejects others — but make sure the `putawayNo` / SystemId you supply is genuinely a Put-away.
+- **Partial put-aways need `Data.Records.Set` first**: BC fills `Qty. to Handle` automatically when the put-away is created. If the warehouse worker placed less, update each line's `Qty. to Handle` via `Data.Records.Set` on `Warehouse Activity Line` (primaryKey = `Activity Type`, `No.`, `Line No.`) before calling Register. Zero `Qty. to Handle` across all lines yields `Nothing to register.`
+- **Take and Place lines (bin locations only)**: On `Bin Mandatory` / `Directed Put-away and Pick` locations BC put-away lines come in pairs — one `Action Type = Take` (from the receive bin) and one `Action Type = Place` (to the storage bin) per source line. When updating `Qty. to Handle`, update **both** rows to the same value or BC rejects the register with `Qty. to Handle (Base) in the line must be equal to ...`. Non-bin locations have a single line per source line with no Take/Place split.
+- **Bin contents update**: Registration credits the storage bin and debits the receive bin via `Whse. Item Tracking` and `Bin Content`. Subsequent picks for the same item will pull from the new storage bin.
+- **Posting gate**: The message-task user must have `BIFROST WhsePost ori` even though no item ledger entries are produced by put-away registration — BC still treats it as a warehouse posting action.
+- **Source Posted Receipt status**: A partially registered put-away leaves the Posted Whse. Receipt Line at `Partially Put Away`. A second `Warehouse.Putaway.Create` against the same Posted Receipt then generates a new put-away for the outstanding quantity.
 
 ## AI-Agent Guidance
 
-þegar orchestrating this skilaboðategund úr an agent:
+When orchestrating this message type from an agent:
 
-1. **Forgangsröð auðkenna er fixed**: Subject > `systemId` > `recordSystemId` > `id` > `putawayNo` > `no`. Pick exactly one.
-2. **Capture `registeredPutawaySystemId` úr Svarið** ef you need til navigate til the history færsla afterwards — re-deriving it úr `putawayNo` eftir registration requires a `Registered Whse. Activity Hdr.` lookup keyed on `Whse. Activity No.`.
-3. **Treat `Warehouse Put-away {n} does not exist.` on a known put-away as evidence the put-away was already registered** (the activity header moved til history). Confirm með reading `Registered Whse. Activity Hdr.` áður en retrying.
-4. **Idempotency**: This skilaboðategund er **ekki** endurtekningarþolið — second tókst invocation against the sama `putawayNo` er impossible because the header er gone. nota `Registered Whse. Activity Hdr.` til check whether registration already happened.
-5. **Workflow completion**: On `Success` against the síðasta outstanding line of a Posted Whse. Receipt, the Posted Receipt Line transitions til `Completely Put Away` og the Innkomandi flow er complete. Svarið includes `postedWhseReceiptNo` og `postedWhseReceiptSystemId` fyrir downstream queries.
+1. **Every identifier sent is tried**: `subject`, `systemId`, `recordSystemId`, `id`, `putawayNo` and `no`. Two that point to different activities give `ConflictingIdentifiers`; send one.
+2. **Capture `registeredPutawaySystemId` from the response** if you need to navigate to the history record afterwards — re-deriving it from `putawayNo` after registration requires a `Registered Whse. Activity Hdr.` lookup keyed on `Whse. Activity No.`.
+3. **Treat `RecordNotFound` on a known put-away as evidence the put-away was already registered** (the activity header moved to history). Confirm by reading `Registered Whse. Activity Hdr.` before retrying.
+4. **Idempotency**: This message type is **not** idempotent — second successful invocation against the same `putawayNo` is impossible because the header is gone. Use `Registered Whse. Activity Hdr.` to check whether registration already happened.
+5. **Workflow completion**: On `Success` against the last outstanding line of a Posted Whse. Receipt, the Posted Receipt Line transitions to `Completely Put Away` and the inbound flow is complete. The response includes `postedWhseReceiptNo` and `postedWhseReceiptSystemId` for downstream queries.
 
 ## Workflow Chain
 
-1. `Sales.ReturnOrder.Release` (eða Purchase Order release)
+1. `Sales.ReturnOrder.Release` (or Purchase Order release)
 2. `Warehouse.Receipt.Create`
 3. `Warehouse.Receipt.Post`
 4. `Warehouse.Putaway.Create`
-5. **`Warehouse.Putaway.Register`** — this skilaboðategund
+5. **`Warehouse.Putaway.Register`** — this message type
 
-## Tengdar skilaboðategundir
+## Related Message Types
 
 - `Warehouse.Putaway.Create` — produces the input.
-- `Data.Records.Set` on `Warehouse Activity Line` — til adjust `Qty. to Handle` áður en registering a partial put-away.
-- `Data.Records.Get` — load hvaða Reitur on the resulting `Registered Whse. Activity Hdr.` / `Registered Whse. Activity Line` eða on the Uppruni `Posted Whse. Receipt Line`.
+- `Data.Records.Set` on `Warehouse Activity Line` — to adjust `Qty. to Handle` before registering a partial put-away.
+- `Data.Records.Get` — load any field on the resulting `Registered Whse. Activity Hdr.` / `Registered Whse. Activity Line` or on the source `Posted Whse. Receipt Line`.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

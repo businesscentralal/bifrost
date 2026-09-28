@@ -12,25 +12,25 @@ description: "Beiðni- og svarsamningur fyrir Inventory.ItemJournal.Check Bifrö
 :::
 
 
-## Yfirlit
-Validates an vöru dagbók batch áður en posting með running BC `Item Jnl.-Check Line.RunCheck` on every line og aggregating the outcome í a single verdict með separate `errors` og `warnings` arrays.
+## Overview
+Validates an item journal batch before posting by running BC `Item Jnl.-Check Line.RunCheck` on every line and aggregating the outcome into a single verdict with separate `errors` and `warnings` arrays.
 
-**Stefna**: Útgående (lesa-aðeins)  **Efnisgerð**: `text/json`
+**Direction**: Outbound (read-only)  **Content-Type**: `text/json`
 
 ## Idempotency / Safety
-Safe og endurtekningarþolið. No writes eru performed; the batch og its lines eru unchanged.
+Safe and idempotent. No writes are performed; the batch and its lines are unchanged.
 
 ## Batch Identification
 Resolved in this order:
-1. Request JSON `templateName` (+ valfrjálst `batchName`).
+1. Request JSON `templateName` (+ optional `batchName`).
 2. `subject` parsed as GUID -> batch `SystemId`.
-3. `subject` containing `|` -> split í `TEMPLATE|BATCH`.
+3. `subject` containing `|` -> split into `TEMPLATE|BATCH`.
 
-## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| templateName | Code[10] | One of the three identification paths verður að succeed | vöru dagbók Template Heiti. |
-| batchName | Code[10] | No | vöru dagbók Batch Heiti. Combined með `templateName`. |
+| templateName | Code[10] | One of the three identification paths must succeed | Item Journal Template name. |
+| batchName | Code[10] | No | Item Journal Batch name. Combined with `templateName`. |
 
 ## Request Examples
 ```json
@@ -43,7 +43,7 @@ Resolved in this order:
 }
 ```
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -61,40 +61,42 @@ Resolved in this order:
 }
 ```
 
-| Property | Lýsing |
+| Property | Description |
 |----------|-------------|
-| status | `Success` whenever validation ran. Lookup eða identification failures nota the Villa envelope. |
-| validationResult | `Ready` (no Villur, no warnings), `ReadyWithWarnings` (warnings aðeins), eða `NotReady` (hvaða Villur, eða empty batch). |
-| templateName / batchName / batchDescription | Identifying info fyrir the validated batch. |
-| lineCount | númer of vöru dagbók lines in the batch. |
+| status | `Success` whenever validation ran. Lookup or identification failures use the error envelope. |
+| validationResult | `Ready` (no errors, no warnings), `ReadyWithWarnings` (warnings only), or `NotReady` (any errors, or empty batch). |
+| templateName / batchName / batchDescription | Identifying info for the validated batch. |
+| lineCount | Number of item journal lines in the batch. |
 | totalQuantity | Sum of `Quantity` across all lines. |
 | totalAmount | Sum of `Amount` across all lines. |
-| errorCount / warningCount | Counts of færslur in `errors` / `warnings`. |
-| Villur[] | Strings describing blocking validation failures (per-line eða batch-level). |
-| warnings[] | Strings describing non-blocking issues that still allow posting. |
+| errorCount / warningCount | Counts of entries in `errors` / `warnings`. |
+| errors[] | Objects describing blocking validation failures (per-line or batch-level). |
+| warnings[] | Objects describing non-blocking issues that still allow posting. |
+
+Each `errors` entry is an object `{code, error, parameter}` and each `warnings` entry `{code, message, parameter}`. `parameter` is `line <Line No.>` (the journal line's own Line No., e.g. `line 10000`) for a problem on one line, and is left out for a batch-level problem. `code` is `InvalidLine` for a Foundation check, `BusinessCentralError` for a Business Central check, and `PreconditionFailed` for an empty or unbalanced batch.
 
 ## Validation Rules
-- Empty batch -> `validationResult = NotReady`, `errors = ["No item journal lines exist in the batch."]`.
-- Per line: `Item Jnl.-Check Line.RunCheck` er invoked. hvaða captured Villa er added til `errors`.
-- Per line: `Quantity = 0` -> Villa `Line {lineNo}: Quantity must not be zero.`.
+- Empty batch -> `validationResult = NotReady`, `errors = [{"code": "PreconditionFailed", "error": "No item journal lines exist in the batch."}]`.
+- Per line: `Item Jnl.-Check Line.RunCheck` is invoked. Any captured error is added to `errors`.
+- Per line: `Quantity = 0` -> error `Line {lineNo}: Quantity must not be zero.`.
 - Per line: `Posting Date > WorkDate()` -> warning `Line {lineNo}: Posting Date is in the future ({postingDate}).`.
 
-## Dæmi (úr einingaprófum)
+## Examples (from unit tests)
 - Postable batch -> `Ready`, `errorCount = 0`.
 - Batch containing a zero-quantity line -> `NotReady`, `errorCount > 0`, populated `errors[]`.
-- Postable batch með all lines pushed `+30D` í the future -> `ReadyWithWarnings`, `warningCount > 0`.
+- Postable batch with all lines pushed `+30D` into the future -> `ReadyWithWarnings`, `warningCount > 0`.
 - Empty batch -> `Success` + `NotReady`.
 
-## Villur
-| Villa | Orsök |
+## Errors
+| Error | Cause |
 |-------|-------|
-| `Item journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | None of the three identification paths produced a Gildi. |
-| `Item journal batch {templateName}\|{batchName} not found.` | Batch lookup returned no færsla. |
+| `Item journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | None of the three identification paths produced a value. |
+| `Item Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 
-## Tengdar skilaboðategundir
-- `Inventory.ItemJournal.SetupNewLine` - add lines.
-- `Inventory.ItemJournal.Post` - post once validation er `Ready` eða `ReadyWithWarnings`.
+## Related Message Types
+- `Inventory.ItemJournal.Create` - add lines.
+- `Inventory.ItemJournal.Post` - post once validation is `Ready` or `ReadyWithWarnings`.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

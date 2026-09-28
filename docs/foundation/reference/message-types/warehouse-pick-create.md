@@ -88,11 +88,10 @@ A restricted field aborts the request with an Error response — the pick still 
 
 | Error | Cause |
 |---|---|
-| `Warehouse Shipment Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, shipmentNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Warehouse Shipment Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, whseShipmentNo, shipmentNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
 | `Warehouse Shipment Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
 | `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
 | `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
-| `Warehouse Shipment {id} does not exist.` | Supplied SystemId or No. not found. |
 | `Warehouse Shipment {n} has no lines to pick.` | Shipment header exists but has zero lines. |
 | `sortingMethod '{x}' is not valid. Expected one of: ...` | Value not in `Whse. Activity Sorting Method.Names()`. |
 | `Field {n} is restricted for write on table {t}.` | `Bifrost Field Access` blocks `assignedUserId` or `sortingMethod`. |

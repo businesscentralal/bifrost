@@ -12,40 +12,40 @@ description: "Beiðni- og svarsamningur fyrir Finance.FAJournal.Post Bifröst sk
 :::
 
 
-## Yfirlit
+## Overview
 
-Bókar an FA dagbók Batch via BC `FA Jnl.-Post Batch` og Skilar the resulting `FA Register` plus the posting summary. Villur úr the BC posting engine eru gripnar og skilað sem `{status, code, error, hint}` í stað þess að kasta villu — the message itself does ekki fail.
+Posts an FA Journal Batch via BC `FA Jnl.-Post Batch` and returns the resulting `FA Register` plus the posting summary. Errors from the BC posting engine are caught and returned as `{status, code, error, hint}` instead of throwing — the message itself does not fail.
 
-**Stefna**: Innkomandi (skrifa — Býr til FA bók færslur)  **Efnisgerð**: `text/json`
+**Direction**: Inbound (write — creates FA Ledger Entries)  **Content-Type**: `text/json`
 
-## Athugasemdir um endurtekningar og öryggi
+## Idempotency / Safety Notes
 
-- **ekki endurtekningarþolið** — re-posting eftir a tókst post produces `No lines to post` because the batch er now empty.
+- **Not idempotent** — re-posting after a successful post produces `No lines to post` because the batch is now empty.
 - Posting clears the batch lines; the `FA Register` carries the audit trail (`fromEntryNo`..`toEntryNo`).
-- Recommended workflow: call `Finance.FAJournal.Check` fyrsta og aðeins post þegar `validationResult ∈ {Ready, ReadyWithWarnings}`.
+- Recommended workflow: call `Finance.FAJournal.Check` first and only post when `validationResult ∈ {Ready, ReadyWithWarnings}`.
 
 ## Batch Identification Order
 
-fyrsta match wins:
-1. `data.templateName` (+ valfrjálst `data.batchName`).
-2. `subject` envelope attribute er a GUID → batch SystemId.
+First match wins:
+1. `data.templateName` (+ optional `data.batchName`).
+2. `subject` envelope attribute is a GUID → batch SystemId.
 3. `subject` envelope attribute contains a `|` → `TEMPLATE|BATCH`.
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| `templateName` | strengur | Sjá above | FA dagbók template (Code[10]). |
-| `batchName` | strengur | No | FA dagbók batch (Code[10]). |
+| `templateName` | string | See above | FA journal template (Code[10]). |
+| `batchName` | string | No | FA journal batch (Code[10]). |
 
-### Dæmi um beiðni
+### Request Example
 ```json
 { "templateName": "ASSETS", "batchName": "DEFAULT" }
 ```
 
-## Uppbygging svars
+## Response Shape
 
-### Tókst
+### Success
 ```json
 {
   "status": "Success",
@@ -63,7 +63,7 @@ fyrsta match wins:
 }
 ```
 
-### Posting Mistókst (BC Villa caught)
+### Posting Failure (BC error caught)
 ```json
 {
   "status": "Error",
@@ -72,36 +72,36 @@ fyrsta match wins:
 }
 ```
 
-### Svarreitir
+### Response Fields
 
-| Reitur | Gerð | Athugasemdir |
+| Field | Type | Notes |
 |---|---|---|
-| `linesPosted` | int | Lines counted áður en posting (i.e. the batch size that was sent through `FA Jnl.-Post Batch`). |
-| `postingDate` | strengur | `FA Posting Date` of the fyrsta line (ISO 8601, culture-invariant format 9). |
-| `totalQuantity` / `totalAmount` | tugabrot | `CalcSums` across the pre-post lines. |
-| `faRegisterNo` | int | ný FA Register `No.`. |
+| `linesPosted` | int | Lines counted before posting (i.e. the batch size that was sent through `FA Jnl.-Post Batch`). |
+| `postingDate` | string | `FA Posting Date` of the first line (ISO 8601, culture-invariant format 9). |
+| `totalQuantity` / `totalAmount` | decimal | `CalcSums` across the pre-post lines. |
+| `faRegisterNo` | int | New FA Register `No.`. |
 | `faRegisterId` | GUID | FA Register `SystemId` (no braces). |
-| `fromEntryNo` / `toEntryNo` | int | FA bók færsla range posted (úr FA Register). |
+| `fromEntryNo` / `toEntryNo` | int | FA Ledger Entry range posted (from FA Register). |
 
-## Bókunarheimild
-Calling this skilaboðategund requires the `BIFROST FA Post ori` heimild set in addition til `BIFROST API ori`. án it Beiðnin Skilar: `Posting denied: missing 'BIFROST FA Post ori' permission set.`
+## Posting Gate
+Calling this message type requires the `BIFROST FA Post ori` permission set in addition to `BIFROST API ori`. Without it the request returns: `Posting denied: missing 'BIFROST FA Post ori' permission set.`
 
-## Villur
+## Errors
 
-| Villa | Orsök |
+| Error | Cause |
 |---|---|
-| `Posting denied: missing 'BIFROST FA Post ori' permission set.` | Kallandi lacks the `BIFROST FA Post ori` heimild set. |
-| `Fixed asset journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification was supplied. |
-| `Fixed asset journal batch {template}\|{batch} not found.` | Identification did ekki match an fyrirliggjandi batch. |
-| `Fixed asset journal batch {template}\|{batch} has no lines to post.` | Batch er empty. |
-| `Nothing was posted. Review journal for errors.` | `FA Jnl.-Post Batch` returned án producing an FA Register (eða the post-Line No. er 0). |
-| BC posting Villur | Skilað sem `{status, code: BusinessCentralError, error, hint}` — `error` er villutexti BC. |
+| `Posting denied: missing 'BIFROST FA Post ori' permission set.` | Caller lacks the `BIFROST FA Post ori` permission set. |
+| `Fixed asset journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
+| `FA Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
+| `Fixed asset journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
+| `Nothing was posted. Review journal for errors.` | `FA Jnl.-Post Batch` returned without producing an FA Register (or the post-Line No. is 0). |
+| BC posting errors | Returned as `{status, code: BusinessCentralError, error, hint}` — `error` is the BC error text. |
 
-## Tengdar skilaboðategundir
+## Related Message Types
 
-- `Finance.FAJournal.SetupNewLine` — create ný FA dagbók lines.
-- `Finance.FAJournal.Check` — validate áður en posting.
+- `Finance.FAJournal.Create` — create new FA journal lines.
+- `Finance.FAJournal.Check` — validate before posting.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

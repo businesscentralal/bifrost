@@ -106,8 +106,8 @@ From `Item Jnl. Prev. Post Tests` (codeunit 95436):
 
 | Error | Cause |
 |---|---|
-| `Item journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification was supplied. |
-| `Item journal batch {template}\|{batch} not found.` | Identification did not match an existing batch. |
+| `Item journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
+| `Item Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Item journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
 | `Gen. Prod. Posting Group must have a value in Item Journal Line: ...` | Standard BC validation — the line is missing posting groups. Common when the line was inserted via OData/MCP `set_records` (which does **not** run OnValidate), so derived fields like `Gen. Prod. Posting Group`, `Inventory Posting Group`, `Location Code` must be supplied explicitly. |
 | `Posting preview failed and no entries were captured. The journal cannot be posted in its current state.` | Rare catch-all — only fires when the BC subscriber completes without raising but writes no entries. Run `Inventory.ItemJournal.Check` to enumerate the underlying validation failures. |

@@ -67,8 +67,10 @@ First match wins:
 | `isBalanced` | bool | `true` when `totalAmountLCY = 0`. |
 | `requiresBalance` | bool | `true` when the journal template `Type = General`. Other template types may post without a zero total. |
 | `totalAmount` / `totalAmountLCY` | decimal | `CalcSums` of `Amount` / `Amount (LCY)` across all lines. |
-| `errors` | string[] | Per-line blocking issues from BC `Gen. Jnl.-Check Line.RunCheck`, plus the literal `Journal is not balanced: Total LCY = {amount} (should be 0.00).` when `requiresBalance` and not balanced, and the literal `"No journal lines exist in the batch."` when the batch is empty. |
-| `warnings` | string[] | Non-blocking — zero amount, future Posting Date. |
+| `errors` | object[] | Per-line blocking issues from BC `Gen. Jnl.-Check Line.RunCheck`, plus the literal `Journal is not balanced: Total LCY = {amount} (should be 0.00).` when `requiresBalance` and not balanced, and the literal `"No journal lines exist in the batch."` when the batch is empty. |
+| `warnings` | object[] | Non-blocking — zero amount, future Posting Date. |
+
+Each `errors` entry is an object `{code, error, parameter}` and each `warnings` entry `{code, message, parameter}`. `parameter` is `line <Line No.>` (the journal line's own Line No., e.g. `line 10000`) for a problem on one line, and is left out for a batch-level problem. `code` is `InvalidLine` for a Foundation check, `BusinessCentralError` for a Business Central check, and `PreconditionFailed` for an empty or unbalanced batch.
 
 ## Per-Line Warnings
 
@@ -93,12 +95,12 @@ Validation issues are returned via `errors` / `warnings` with `status: "Success"
 
 | Error | Cause |
 |---|---|
-| `Journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification was supplied. |
-| `Journal batch {template}\|{batch} not found.` | Identification did not match an existing batch. |
+| `Journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
+| `Gen. Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 
 ## Related Message Types
 
-- `Finance.GeneralJournal.SetupNewLine` — create new journal lines.
+- `Finance.GeneralJournal.Create` — create new journal lines.
 - `Finance.GeneralJournal.PreviewPost` — simulate the post without committing.
 - `Finance.GeneralJournal.Post` — post the batch after a `Ready` / `ReadyWithWarnings` result.
 

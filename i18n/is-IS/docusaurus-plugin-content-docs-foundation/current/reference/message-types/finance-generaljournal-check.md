@@ -12,32 +12,32 @@ description: "Beiðni- og svarsamningur fyrir Finance.GeneralJournal.Check Bifr�
 :::
 
 
-## Yfirlit
+## Overview
 
-Validates a Gen. dagbók Batch án posting. Runs BC `Gen. Jnl.-Check Line.RunCheck` against every line under the BC Villa Message Management framework so **all** Villur eru collected in one pass, plus computes the LCY balance og emits warnings fyrir zero amounts og future Posting Dates.
+Validates a Gen. Journal Batch without posting. Runs BC `Gen. Jnl.-Check Line.RunCheck` against every line under the BC Error Message Management framework so **all** errors are collected in one pass, plus computes the LCY balance and emits warnings for zero amounts and future Posting Dates.
 
-**Stefna**: Útgående (lesa-aðeins — no data modified)  **Efnisgerð**: `text/json`
+**Direction**: Outbound (read-only — no data modified)  **Content-Type**: `text/json`
 
 ## Batch Identification Order
 
-fyrsta match wins:
-1. `data.templateName` (+ valfrjálst `data.batchName`).
-2. `subject` envelope attribute er a GUID → batch SystemId.
+First match wins:
+1. `data.templateName` (+ optional `data.batchName`).
+2. `subject` envelope attribute is a GUID → batch SystemId.
 3. `subject` envelope attribute contains a `|` → `TEMPLATE|BATCH`.
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| `templateName` | strengur | Sjá above | Gen. dagbók template (Code[10]). |
-| `batchName` | strengur | No | Gen. dagbók batch (Code[10]). |
+| `templateName` | string | See above | Gen. journal template (Code[10]). |
+| `batchName` | string | No | Gen. journal batch (Code[10]). |
 
-### Dæmi um beiðni
+### Request Example
 ```json
 { "templateName": "GENERAL", "batchName": "DEFAULT" }
 ```
 
-## Uppbygging svars
+## Response Shape
 
 ```json
 {
@@ -58,17 +58,19 @@ fyrsta match wins:
 }
 ```
 
-### Svarreitir
+### Response Fields
 
-| Reitur | Gerð | Athugasemdir |
+| Field | Type | Notes |
 |---|---|---|
-| `validationResult` | strengur | `Ready` (no Villur, no warnings), `ReadyWithWarnings` (no Villur, ≥1 warning), eða `NotReady` (≥1 Villa, **þar á meðal the case where the batch has no lines**). |
-| `lineCount` | int | `0` þegar the batch has no lines. |
-| `isBalanced` | bool | `true` þegar `totalAmountLCY = 0`. |
-| `requiresBalance` | bool | `true` þegar the dagbók template `Type = General`. Other template types may post án a zero total. |
-| `totalAmount` / `totalAmountLCY` | tugabrot | `CalcSums` of `Amount` / `Amount (LCY)` across all lines. |
-| `errors` | strengur[] | Per-line blocking issues úr BC `Gen. Jnl.-Check Line.RunCheck`, plus the literal `Journal is not balanced: Total LCY = {amount} (should be 0.00).` þegar `requiresBalance` og ekki balanced, og the literal `"No journal lines exist in the batch."` þegar the batch er empty. |
-| `warnings` | strengur[] | Non-blocking — zero upphæð, future Posting dagsetning. |
+| `validationResult` | string | `Ready` (no errors, no warnings), `ReadyWithWarnings` (no errors, ≥1 warning), or `NotReady` (≥1 error, **including the case where the batch has no lines**). |
+| `lineCount` | int | `0` when the batch has no lines. |
+| `isBalanced` | bool | `true` when `totalAmountLCY = 0`. |
+| `requiresBalance` | bool | `true` when the journal template `Type = General`. Other template types may post without a zero total. |
+| `totalAmount` / `totalAmountLCY` | decimal | `CalcSums` of `Amount` / `Amount (LCY)` across all lines. |
+| `errors` | object[] | Per-line blocking issues from BC `Gen. Jnl.-Check Line.RunCheck`, plus the literal `Journal is not balanced: Total LCY = {amount} (should be 0.00).` when `requiresBalance` and not balanced, and the literal `"No journal lines exist in the batch."` when the batch is empty. |
+| `warnings` | object[] | Non-blocking — zero amount, future Posting Date. |
+
+Each `errors` entry is an object `{code, error, parameter}` and each `warnings` entry `{code, message, parameter}`. `parameter` is `line <Line No.>` (the journal line's own Line No., e.g. `line 10000`) for a problem on one line, and is left out for a batch-level problem. `code` is `InvalidLine` for a Foundation check, `BusinessCentralError` for a Business Central check, and `PreconditionFailed` for an empty or unbalanced batch.
 
 ## Per-Line Warnings
 
@@ -77,31 +79,31 @@ fyrsta match wins:
 | `Amount = 0` | Warning | `Line {lineNo}: Amount is zero.` |
 | `Posting Date > WorkDate()` | Warning | `Line {lineNo}: Posting Date is in the future ({date}).` |
 
-Reitur-level Villur come unaltered úr BC `Gen. Jnl.-Check Line` (vantar G/L account, posting period lokað, blocked viðskiptamanni/birgi, vantar dimensions, VAT validation, etc.).
+Field-level errors come unaltered from BC `Gen. Jnl.-Check Line` (missing G/L account, posting period closed, blocked customer/vendor, missing dimensions, VAT validation, etc.).
 
-## Dæmi (úr einingaprófum)
+## Examples (from unit tests)
 
-úr `Gen. Journal Check Tests` (codeunit 95334):
+From `Gen. Journal Check Tests` (codeunit 95334):
 - `FinanceGeneralJournalCheck_BalancedBatch_ReturnsReady` — balanced lines → `validationResult: "Ready"`, `errorCount: 0`.
-- `FinanceGeneralJournalCheck_UnbalancedBatch_ReturnsNotReady` — debits ≠ credits → `validationResult: "NotReady"`, `errorCount > 0`, balance Villa included in `errors`.
+- `FinanceGeneralJournalCheck_UnbalancedBatch_ReturnsNotReady` — debits ≠ credits → `validationResult: "NotReady"`, `errorCount > 0`, balance error included in `errors`.
 - `FinanceGeneralJournalCheck_FuturePostingDate_ReturnsReadyWithWarnings` — `Posting Date > WorkDate()` → `validationResult: "ReadyWithWarnings"`.
 - `FinanceGeneralJournalCheck_SystemIdSubject_ReturnsReady` — subject = batch `SystemId` (`Format(SystemId, 0, 4)`).
 
-## Villur
+## Errors
 
-Validation issues eru returned via `errors` / `warnings` með `status: "Success"`. The following eru returned as `status: "Error"`:
+Validation issues are returned via `errors` / `warnings` with `status: "Success"`. The following are returned as `status: "Error"`:
 
-| Villa | Orsök |
+| Error | Cause |
 |---|---|
-| `Journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification was supplied. |
-| `Journal batch {template}\|{batch} not found.` | Identification did ekki match an fyrirliggjandi batch. |
+| `Journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
+| `Gen. Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 
-## Tengdar skilaboðategundir
+## Related Message Types
 
-- `Finance.GeneralJournal.SetupNewLine` — create ný dagbók lines.
-- `Finance.GeneralJournal.PreviewPost` — simulate the post án committing.
-- `Finance.GeneralJournal.Post` — post the batch eftir a `Ready` / `ReadyWithWarnings` result.
+- `Finance.GeneralJournal.Create` — create new journal lines.
+- `Finance.GeneralJournal.PreviewPost` — simulate the post without committing.
+- `Finance.GeneralJournal.Post` — post the batch after a `Ready` / `ReadyWithWarnings` result.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

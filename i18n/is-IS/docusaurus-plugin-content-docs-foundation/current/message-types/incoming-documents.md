@@ -184,7 +184,7 @@ Bætir viðbótarviðhengi við innkomandi skjal sem þegar er til. Skjalið er 
 |-------|-------|
 | `fileName is required.` | Reiturinn `fileName` vantar eða er tómur |
 | `fileContent is required.` | Reiturinn `fileContent` vantar eða er tómur |
-| `Incoming Document X not found.` | Subject passar ekki við neitt innkomandi skjal |
+| `Incoming Document "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | Auðkennið passar ekki við neitt innkomandi skjal |
 
 ---
 
@@ -271,7 +271,7 @@ Hver hlutur í `error` fylkinu hefur eftirfarandi reiti:
 
 | Villa | Orsök |
 |-------|-------|
-| `Incoming Document X not found.` | Subject passar ekki við neitt innkomandi skjal |
+| `Incoming Document "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | Auðkennið passar ekki við neitt innkomandi skjal |
 | `Incoming Document X has already been posted.` | Tengt skjal innkomandi skjalsins hefur verið bókað |
 
 ---
@@ -394,7 +394,7 @@ Reiturinn **subject** tekur við annað hvort:
 
 | Villa | Orsök |
 |-------|-------|
-| `Incoming Document X not found.` | Subject passar ekki við neitt innkomandi skjal |
+| `Incoming Document "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | Auðkennið passar ekki við neitt innkomandi skjal |
 
 ---
 
@@ -466,4 +466,4 @@ Eða með SystemId:
 | `lineNo is required.` | Reiturinn `lineNo` vantar úr beiðninni |
 | `Attachment with lineNo X not found.` | Ekkert viðhengi með tilgreindu línunúmeri finnst á skjalinu |
 | `At least 2 attachments are required to set a default.` | Skjalið er með færri en 2 viðhengi |
-| `Incoming Document X not found.` | Subject passar ekki við neitt innkomandi skjal |
+| `Incoming Document "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | Auðkennið passar ekki við neitt innkomandi skjal |

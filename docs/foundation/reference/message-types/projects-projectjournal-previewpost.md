@@ -121,8 +121,8 @@ From `Project Jnl. Prev. Post Tests` (codeunit 95438):
 
 | Error | Cause |
 |---|---|
-| `Project journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | No identification was supplied. |
-| `Project journal batch {template}\|{batch} not found.` | Identification did not match an existing batch. |
+| `Project journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
+| `Project Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Project journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
 | `Microsoft Dynamics 365 Business Central Data Services attempted to issue a client callback to show a confirmation dialog box: Usage will not be linked to the project planning line because the Line Type field is empty. Do you want to continue? (CodeUnit 1026 Job Link Usage). Client callbacks are not supported on Microsoft Dynamics 365 Business Central Data Services.` | **Critical** — the line has `Line Type = " "` (blank). BC raises a CONFIRM dialog at post time which headless callers cannot answer. Set `Line Type` to `Budget`, `Billable`, or `Both Budget and Billable` before previewing (BC `Job Line Type` enum; blank is invalid for headless). Option captions are localized — e.g. Icelandic (LCID 1039) shows Billable as `Reikningshæft`. |
 | `Posting preview failed and no entries were captured. The journal cannot be posted in its current state.` | Rare catch-all — only fires when the BC subscriber completes without raising but writes no entries. Run `Projects.ProjectJournal.Check` to enumerate the underlying validation failures. |

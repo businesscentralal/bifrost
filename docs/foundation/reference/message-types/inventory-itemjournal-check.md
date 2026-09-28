@@ -70,11 +70,13 @@ Resolved in this order:
 | totalQuantity | Sum of `Quantity` across all lines. |
 | totalAmount | Sum of `Amount` across all lines. |
 | errorCount / warningCount | Counts of entries in `errors` / `warnings`. |
-| errors[] | Strings describing blocking validation failures (per-line or batch-level). |
-| warnings[] | Strings describing non-blocking issues that still allow posting. |
+| errors[] | Objects describing blocking validation failures (per-line or batch-level). |
+| warnings[] | Objects describing non-blocking issues that still allow posting. |
+
+Each `errors` entry is an object `{code, error, parameter}` and each `warnings` entry `{code, message, parameter}`. `parameter` is `line <Line No.>` (the journal line's own Line No., e.g. `line 10000`) for a problem on one line, and is left out for a batch-level problem. `code` is `InvalidLine` for a Foundation check, `BusinessCentralError` for a Business Central check, and `PreconditionFailed` for an empty or unbalanced batch.
 
 ## Validation Rules
-- Empty batch -> `validationResult = NotReady`, `errors = ["No item journal lines exist in the batch."]`.
+- Empty batch -> `validationResult = NotReady`, `errors = [{"code": "PreconditionFailed", "error": "No item journal lines exist in the batch."}]`.
 - Per line: `Item Jnl.-Check Line.RunCheck` is invoked. Any captured error is added to `errors`.
 - Per line: `Quantity = 0` -> error `Line {lineNo}: Quantity must not be zero.`.
 - Per line: `Posting Date > WorkDate()` -> warning `Line {lineNo}: Posting Date is in the future ({postingDate}).`.
@@ -88,11 +90,11 @@ Resolved in this order:
 ## Errors
 | Error | Cause |
 |-------|-------|
-| `Item journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` | None of the three identification paths produced a value. |
-| `Item journal batch {templateName}\|{batchName} not found.` | Batch lookup returned no record. |
+| `Item journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | None of the three identification paths produced a value. |
+| `Item Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 
 ## Related Message Types
-- `Inventory.ItemJournal.SetupNewLine` - add lines.
+- `Inventory.ItemJournal.Create` - add lines.
 - `Inventory.ItemJournal.Post` - post once validation is `Ready` or `ReadyWithWarnings`.
 
 ## Errors and warnings

@@ -12,46 +12,46 @@ description: "Beiðni- og svarsamningur fyrir Warehouse.Shipment.Create Bifröst
 :::
 
 
-## Yfirlit
+## Overview
 
-Býr til one Warehouse Shipment per Uppruni skjal supplied. Wraps BC's `Get Source Doc. Outbound` (codeunit 5752) — hver Sales Order eða Útgående Transfer Order produces its own Warehouse Shipment Header at the Uppruni's location.
+Creates one Warehouse Shipment per source document supplied. Wraps BC's `Get Source Doc. Outbound` (codeunit 5752) — each Sales Order or Outbound Transfer Order produces its own Warehouse Shipment Header at the source's location.
 
-**Stefna**: Innkomandi (state change)  **Efnisgerð**: `text/json`
+**Direction**: Inbound (state change)  **Content-Type**: `text/json`
 
 ## Location Prerequisites
 
-The Uppruni skjal's `Location Code` verður að point til a Location where `Require Shipment = true`. Otherwise BC produces the Uppruni skjöl directly úr the Sales Order / Transfer Order án going through a Warehouse Shipment.
+The source document's `Location Code` must point to a Location where `Require Shipment = true`. Otherwise BC produces the source documents directly from the Sales Order / Transfer Order without going through a Warehouse Shipment.
 
 Additional behaviour depending on the Location setup:
 
 | Location flags | Effect on Warehouse Shipment line |
 |---|---|
-| `Require Shipment = true`, `Require Pick = false` | `Qty. to Ship` er populated úr the Uppruni line. `Warehouse.Shipment.Post` getur run immediately. |
-| `Require Shipment = true`, `Require Pick = true` | `Qty. to Ship` starts at 0. Create og register a Warehouse Pick með `Warehouse.Pick.Create` then `Warehouse.Pick.Register` áður en `Warehouse.Shipment.Post` mun accept the skjal. Trying til set `Qty. to Ship` manually er blocked með BC (`Qty. to Ship must not be greater than 0 units ...`). |
-| `Directed Put-away and Pick = true` (e.g. WMS bin-mandatory location) | sama as Require Pick — nota `Warehouse.Pick.Create` then `Warehouse.Pick.Register` áður en posting. |
+| `Require Shipment = true`, `Require Pick = false` | `Qty. to Ship` is populated from the source line. `Warehouse.Shipment.Post` can run immediately. |
+| `Require Shipment = true`, `Require Pick = true` | `Qty. to Ship` starts at 0. Create and register a Warehouse Pick with `Warehouse.Pick.Create` then `Warehouse.Pick.Register` before `Warehouse.Shipment.Post` will accept the document. Trying to set `Qty. to Ship` manually is blocked by BC (`Qty. to Ship must not be greater than 0 units ...`). |
+| `Directed Put-away and Pick = true` (e.g. WMS bin-mandatory location) | Same as Require Pick — use `Warehouse.Pick.Create` then `Warehouse.Pick.Register` before posting. |
 
-### Discovery — find shipment-áskilið locations
+### Discovery — find shipment-required locations
 
-nota `Data.Records.Get` on `Location` (tafla 14) með `tableView` `WHERE(Require Shipment=CONST(true))` til enumerate the candidates. Inspect the `RequirePick` og `DirectedPutawayandPick` fields til anticipate whether posting needs a registered pick.
+Use `Data.Records.Get` on `Location` (table 14) with `tableView` `WHERE(Require Shipment=CONST(true))` to enumerate the candidates. Inspect the `RequirePick` and `DirectedPutawayandPick` fields to anticipate whether posting needs a registered pick.
 
-## Athugasemdir um endurtekningar og öryggi
+## Idempotency / Safety Notes
 
-- ekki endurtekningarþolið: hver call inserts ný Warehouse Shipment Headers úr the relevant númer series.
-- hver Uppruni skjal Býr til a separate header (BC standard behaviour).
-- Uppruni skjöl that eru already on an opið Warehouse Shipment, have no quantity til ship, eða have an virkt pick mun fail með `No Warehouse Shipment was created`.
+- Not idempotent: each call inserts new Warehouse Shipment Headers from the relevant number series.
+- Each source document creates a separate header (BC standard behaviour).
+- Source documents that are already on an open Warehouse Shipment, have no quantity to ship, or have an active pick will fail with `No Warehouse Shipment was created`.
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| `sourceDocuments` | fylki | **Yes** | ein eða fleiri `{ sourceType, documentNo }` færslur. |
-| `sourceDocuments[].sourceType` | strengur | **Yes** | `SalesOrder` eða `TransferOrder` (case-insensitive). |
-| `sourceDocuments[].documentNo` | code[20] | **Yes** | The Uppruni skjal's `No.`. |
-| `locationCode` | code[10] | No | ef supplied, validates hver Uppruni uses the sama location. Subject til skrifa-takmörkun on `Warehouse Shipment Header."Location Code"`. |
-| `assignedUserId` | code[50] | No | Applied til every created header eftir creation. |
-| `postingDate` | dagsetning | No | Format 9. Applied til every created header eftir creation. |
+| `sourceDocuments` | array | **Yes** | One or more `{ sourceType, documentNo }` entries. |
+| `sourceDocuments[].sourceType` | string | **Yes** | `SalesOrder` or `TransferOrder` (case-insensitive). |
+| `sourceDocuments[].documentNo` | code[20] | **Yes** | The source document's `No.`. |
+| `locationCode` | code[10] | No | If supplied, validates each source uses the same location. Subject to write-restriction on `Warehouse Shipment Header."Location Code"`. |
+| `assignedUserId` | code[50] | No | Applied to every created header after creation. |
+| `postingDate` | date | No | `YYYY-MM-DD`. Omitted: the header posting date is unchanged. An invalid value is an error. |
 
-### Dæmi um beiðni
+### Request Example
 ```json
 {
   "locationCode": "WHITE",
@@ -63,7 +63,7 @@ nota `Data.Records.Get` on `Location` (tafla 14) með `tableView` `WHERE(Require
 }
 ```
 
-## Uppbygging svars
+## Response Shape
 
 ```json
 {
@@ -83,31 +83,31 @@ nota `Data.Records.Get` on `Location` (tafla 14) með `tableView` `WHERE(Require
 }
 ```
 
-## Bókunarheimild
+## Posting Gate
 
-None — creation does ekki post. The companion `Warehouse.Shipment.Post` requires the `BIFROST WhsePost ori` heimild set.
+None — creation does not post. The companion `Warehouse.Shipment.Post` requires the `BIFROST WhsePost ori` permission set.
 
-## Reitur takmarkanir
+## Field Restrictions
 
-- `Warehouse Shipment Header."Location Code"` — providing `locationCode` while this Reitur er skrifa-restricted er denied.
+- `Warehouse Shipment Header."Location Code"` — providing `locationCode` while this field is write-restricted is denied.
 
-## Villur
+## Errors
 
-| Villa | Orsök |
+| Error | Cause |
 |---|---|
-| `sourceDocuments is required and must contain at least one entry.` | Request vantar the fylki eða fylki empty. |
-| `Source #{n} is missing sourceType or documentNo (both required).` | One of the færslur lacks a Gildi. |
-| `Unsupported sourceType '{value}'. Expected: SalesOrder, TransferOrder.` | Uppruni Gerð ekki recognised. |
-| `Sales Order/Transfer Order '{no}' not found.` | skjal does ekki exist. |
-| `... is not Released.` | Uppruni verður að be Released áður en warehouse shipment creation. |
-| `... uses location '{x}' which does not match the requested locationCode '{y}'.` | þegar `locationCode` filter er supplied. |
+| `sourceDocuments is required and must contain at least one entry.` | Request missing the array or array empty. |
+| `Source #{n} is missing sourceType or documentNo (both required).` | One of the entries lacks a value. |
+| `Unsupported sourceType '{value}'. Expected: SalesOrder, TransferOrder.` | Source type not recognised. |
+| `Sales Header / Transfer Header "{no}" was not found (from sourceDocuments.documentNo).` (`RecordNotFound`) | The source document does not exist. |
+| `... is not Released.` | Source must be Released before warehouse shipment creation. |
+| `... uses location '{x}' which does not match the requested locationCode '{y}'.` | When `locationCode` filter is supplied. |
 | `Location '{x}' (from ...) does not require shipment routing` | Location card has `Require Shipment = false`. |
-| `No Warehouse Shipment was created for ...` | Uppruni already on a shipment, no qty remaining, eða virkt pick. |
+| `No Warehouse Shipment was created for ...` | Source already on a shipment, no qty remaining, or active pick. |
 | `Field {n} is restricted for write on table {t}.` | `Bifrost Field Access` blocks `locationCode`. |
 
-## End-til-End Workflow
+## End-to-End Workflow
 
-Concrete sequence til go úr a viðskiptamanni til a posted shipment (values úr a CRONUS-style demo).
+Concrete sequence to go from a customer to a posted shipment (values from a CRONUS-style demo).
 
 1. **Create the Sales Order** — `Sales.Document.Create`
 ```json
@@ -115,7 +115,7 @@ Concrete sequence til go úr a viðskiptamanni til a posted shipment (values úr
 ```
 Capture `result[0].primaryKey.No_` (e.g. `"101028"`).
 
-2. **Add a Sales Line at the shipment-áskilið Location** — `Data.Records.Set` on tafla `37` (`Sales Line`).
+2. **Add a Sales Line at the shipment-required Location** — `Data.Records.Set` on table `37` (`Sales Line`).
 ```json
 {
   "tableName": "Sales Line",
@@ -137,20 +137,18 @@ Capture `result[0].primaryKey.No_` (e.g. `"101028"`).
 ```
 Capture `shipments[0].no` (e.g. `"SH000004"`).
 
-5. **ef the location requires a pick** — call `Warehouse.Pick.Create` fyrir `SH000004`, optionally adjust line-level `Qty. to Handle` via `Data.Records.Set` on `Warehouse Activity Line`, then call `Warehouse.Pick.Register`. Both message types eru documented separately.
+5. **If the location requires a pick** — call `Warehouse.Pick.Create` for `SH000004`, optionally adjust line-level `Qty. to Handle` via `Data.Records.Set` on `Warehouse Activity Line`, then call `Warehouse.Pick.Register`. Both message types are documented separately.
 
 6. **Post the shipment** — `Warehouse.Shipment.Post`
 ```json
 { "shipmentNo": "SH000004", "invoice": false }
 ```
 
-## Tengdar skilaboðategundir
+## Related Message Types
 
 - `Warehouse.Shipment.Post` — post the created Warehouse Shipment.
-- `Warehouse.Pick.Create` — create the Warehouse Pick þegar `Require Pick = true`.
-- `Warehouse.Pick.Register` — register the pick so `Qty. to Ship` er populated.
-- `Data.Records.Get` — load hvaða Reitur on the resulting `Warehouse Shipment Header` / `Warehouse Shipment Line`.
+- `Data.Records.Get` — load any field on the resulting `Warehouse Shipment Header` / `Warehouse Shipment Line`.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

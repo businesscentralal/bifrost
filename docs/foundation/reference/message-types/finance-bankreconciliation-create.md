@@ -46,7 +46,7 @@ Bank account is resolved in this order:
 
 ## Request Fields
 - `subject` (Text|Guid, optional): Bank Account No. or Bank Account SystemId.
-- `data.statementDate` (Date, optional): statement date to assign.
+- `data.statementDate` (Date, optional): `YYYY-MM-DD`. Omitted: blank (`0D`). An invalid value is an error.
 - `data.bankAccountNo` (Code[20], optional): bank account number fallback when subject is empty.
 - `data.bankAccountId` / `data.id` / `data.systemId` / `data.recordSystemId` (Guid, optional): bank account GUID fallback fields.
 
@@ -84,10 +84,11 @@ Bank account is resolved in this order:
 ```json
 {
   "status": "Error",
-  "error": "Bank account identifier must be specified..."
+  "code": "MissingParameter",
+  "error": "Bank Account identifier is missing. Pass it as the subject, or as one of: bankAccountNo, bankAccountId, id, systemId, recordSystemId."
 }
 ```
-Returned when no bank account identifier can be resolved.
+Returned when no bank account identifier is given. A bank account that is given but does not exist answers `RecordNotFound`: `Bank Account "{value}" was not found (from {subject or key}).`, with `parameter`, `received` and `nextStep`.
 
 ## AI-Oriented Usage
 - Use this operation first in bank reconciliation workflows.
