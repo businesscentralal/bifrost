@@ -40,6 +40,7 @@ export const apps: BifrostApp[] = [
 
 /** Cross-app documentation instances that are not tied to a single extension. */
 export const crossAppInstances = [
+  {id: 'start', title: 'Start here'},
   {id: 'apps', title: 'Apps'},
   {id: 'extensibility', title: 'Extensibility'},
   {id: 'skills', title: 'Skills'},

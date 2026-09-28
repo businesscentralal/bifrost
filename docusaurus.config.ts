@@ -199,6 +199,7 @@ const config: Config = {
     navbar: {
       title: 'Bifröst',
       items: [
+        {label: buildLocale === 'is-IS' ? 'Byrjaðu hér' : 'Start here', to: '/start/', position: 'left'},
         {
           type: 'dropdown',
           label: 'Apps',

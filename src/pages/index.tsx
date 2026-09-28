@@ -51,6 +51,11 @@ export default function Home(): ReactNode {
             banks, storage, documents, schedules and language models.
           </Translate>
         </p>
+        <p>
+          <Link className="button button--primary button--lg" to="/start/">
+            <Translate id="home.startHere">New here? What Bifröst is</Translate>
+          </Link>
+        </p>
       </header>
       <main className="container">
         <div className="bifrostGrid">
@@ -65,8 +70,8 @@ export default function Home(): ReactNode {
             </h3>
             <p>
               <Translate id="home.extensibility.body">
-                How to write a dependent app: extend the message type enum, implement the message
-                interface, add a help codeunit per domain, and hand your setup page to Bifröst Setup.
+                How partners make their apps headless and add message types agents can find, choose
+                and call, with the full guide in the partner reference repository.
               </Translate>
             </p>
           </Link>
