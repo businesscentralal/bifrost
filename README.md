@@ -185,21 +185,59 @@ pwsh tools/generate-message-type-docs.ps1            # all mapped apps
 pwsh tools/generate-message-type-docs.ps1 -App orchestrator
 ```
 
-The script calls the Bifröst queue API on the development container
-(`Help.MessageTypes.Get`, then `Help.Implementation.Get` per type), maps each
-type to its owning app, and writes one Markdown page per type into
-`docs/<app>/reference/message-types/`. Credentials come from the user-level
-environment variables `BC28IS_USER` and `BC28IS_PASSWORD` locally, or from the
-`BC_USER` / `BC_PASSWORD` repository secrets in CI. The API root comes from
-`BIFROST_DOCS_BASEURL` (environment variable locally, repository secret in CI); it
-is never committed. See the script header for the
-type-to-app mapping table.
+The script calls the Bifröst queue API (`Help.MessageTypes.Get`, then
+`Help.Implementation.Get` per type), maps each type to its owning app, and writes
+one Markdown page per type into `docs/<app>/reference/message-types/`. See the
+script header for the type-to-app mapping table.
+
+The API root comes from `BIFROST_DOCS_BASEURL` (environment variable locally,
+repository secret in CI); it is never committed. It is the root ending in the
+company segment, and the script appends `/tasks` itself:
+
+| Target | `BIFROST_DOCS_BASEURL` shape |
+| --- | --- |
+| Business Central online | `https://api.businesscentral.dynamics.com/v2.0/<tenant>/<environment>/api/origo/bifrost/v1.0/companies(<id>)` |
+| On-premises instance | `https://<host>/<instance>/api/origo/bifrost/v1.0/companies(<id>)` |
+
+### Authentication
+
+`-Auth Auto` (the default) picks the method from the environment and prints one
+line naming it. `-Auth OAuth` or `-Auth Basic` forces one. Credentials are read
+from environment variables only, never from the command line, and are never
+printed or written anywhere.
+
+- **OAuth2 client credentials** (Business Central online), used when all three
+  of these are set:
+
+  | Variable | Value |
+  | --- | --- |
+  | `BC_TENANT_ID` | Microsoft Entra tenant (`-EntraTenantId` overrides) |
+  | `BC_CLIENT_ID` | Application (client) id of the app registration (`-ClientId` overrides) |
+  | `BC_CLIENT_SECRET` | Client secret. Environment variable only; there is no parameter for it |
+
+  The script requests a token for the scope
+  `https://api.businesscentral.dynamics.com/.default` from the tenant's Microsoft
+  identity platform v2.0 token endpoint, keeps it in memory for the run and
+  renews it shortly before it expires. Online, the tenant is part of the URL
+  path, so no `?tenant=` query string is sent.
+
+  This needs an app registration in Microsoft Entra ID with the Dynamics 365
+  Business Central application permission `API.ReadWrite.All` or
+  `Automation.ReadWrite.All` (admin consent granted). The same app must also be
+  registered on the **Microsoft Entra Applications** page in Business Central
+  and given the Bifröst read permission set. The help message types read no
+  business data.
+
+- **Basic** (the on-premises BC28IS instance), the fallback when the OAuth
+  variables are not all set: `BC_USER` / `BC_PASSWORD`, or the user-level
+  Windows environment variables `BC28IS_USER` and `BC28IS_PASSWORD` locally. The
+  tenant is sent as `?tenant=` (`-Tenant`, `default` by default).
 
 Calls go out strictly one at a time, and the script takes a lock file
-(`-LockFile`, `%TEMP%\bifrost-mcp.lock` by default) for the length of the run.
-A burst of parallel calls has taken the shared development container's queue
-endpoint down before, so if another process holds the lock, wait rather than
-delete it.
+(`-LockFile`, `bifrost-mcp.lock` in the system temporary directory by default,
+on Windows and Linux alike) for the length of the run. A burst of parallel calls
+has taken the shared development container's queue endpoint down before, so if
+another process holds the lock, wait rather than delete it.
 
 The [`generate-docs.yml`](.github/workflows/generate-docs.yml) workflow runs it
 weekly and on demand, and opens a pull request when the output changes.
@@ -213,6 +251,13 @@ variables → Actions*):
 | `BC_USER` | Business Central user name for the documentation container |
 | `BC_PASSWORD` | That user's web service access key or password |
 | `BIFROST_DOCS_BASEURL` | Bifröst API root of the documentation container, including the company segment |
+
+For Business Central online, set `BC_TENANT_ID`, `BC_CLIENT_ID` and
+`BC_CLIENT_SECRET` instead of `BC_USER` / `BC_PASSWORD`, with
+`BIFROST_DOCS_BASEURL` pointing at the online environment (see
+[Authentication](#authentication)). `generate-docs.yml` currently passes only
+the Basic secrets to the script, so the three OAuth variables have to be added
+to its `env:` block before a run can use them.
 
 The workflow is skipped automatically when the secrets are absent.
 

@@ -22,9 +22,34 @@
     app in the mapping table below.
 
 .PARAMETER BaseUrl
-    Bifröst API root, including the company segment
-    (`https://<host>/<instance>/api/origo/bifrost/v1.0/companies(<id>)`). Defaults to the
-    BIFROST_DOCS_BASEURL environment variable (a repository secret in CI).
+    Bifröst API root, ending in the company segment. The script appends `/tasks` and
+    `/responses(<id>)/data` itself. Defaults to the BIFROST_DOCS_BASEURL environment
+    variable (a repository secret in CI). The two shapes are:
+
+      online   https://api.businesscentral.dynamics.com/v2.0/<tenant>/<environment>/api/origo/bifrost/v1.0/companies(<id>)
+      on-prem  https://<host>/<instance>/api/origo/bifrost/v1.0/companies(<id>)
+
+.PARAMETER Tenant
+    Business Central tenant for an on-premises (Basic auth) instance, sent as the
+    `?tenant=` query string. Defaults to `default`. Ignored with OAuth: online, the
+    tenant is already part of the URL path.
+
+.PARAMETER Auth
+    How to authenticate: `Auto` (default), `OAuth` or `Basic`. `Auto` uses OAuth when
+    BC_TENANT_ID, BC_CLIENT_ID and BC_CLIENT_SECRET are all set, and falls back to
+    Basic otherwise. See .NOTES.
+
+.PARAMETER EntraTenantId
+    Microsoft Entra tenant for the OAuth token request. Overrides BC_TENANT_ID.
+
+.PARAMETER ClientId
+    Application (client) id of the Entra app registration. Overrides BC_CLIENT_ID.
+    There is deliberately no parameter for the client secret: it is read from the
+    BC_CLIENT_SECRET environment variable only.
+
+.PARAMETER LockFile
+    Path of the advisory lock file. Defaults to `bifrost-mcp.lock` in the system
+    temporary directory (`[System.IO.Path]::GetTempPath()`), on Windows and Linux alike.
 
 .PARAMETER SiteRoot
     Repository root of the documentation site. Defaults to the parent of this script.
@@ -38,15 +63,45 @@
     pwsh tools/generate-message-type-docs.ps1 -App nornir
     pwsh tools/generate-message-type-docs.ps1 -ListOnly
 
+.EXAMPLE
+    # Business Central online, OAuth client credentials. Set the variables in the
+    # session (or as CI secrets) first; the values never go on the command line.
+    #   BC_TENANT_ID, BC_CLIENT_ID, BC_CLIENT_SECRET, BIFROST_DOCS_BASEURL
+    pwsh tools/generate-message-type-docs.ps1 -Auth OAuth -ListOnly
+
+.EXAMPLE
+    # Force Basic auth against the on-premises instance even when the OAuth
+    # variables happen to be set.
+    pwsh tools/generate-message-type-docs.ps1 -Auth Basic -App nornir
+
 .NOTES
     Credentials are read from environment variables and never written to disk, echoed,
-    or passed on a command line:
+    or passed on a command line. The script prints one line naming the method it
+    chose, and nothing else about the credentials.
 
-      local  BC28IS_USER / BC28IS_PASSWORD   (user-level Windows environment variables)
+    OAuth2 client credentials (Business Central online):
+
+      BC_TENANT_ID       Microsoft Entra tenant (or -EntraTenantId)
+      BC_CLIENT_ID       application (client) id (or -ClientId)
+      BC_CLIENT_SECRET   client secret (environment variable only, never a parameter)
+
+    The token comes from the Microsoft identity platform v2.0 token endpoint of that
+    tenant with scope https://api.businesscentral.dynamics.com/.default. It is held in
+    memory for the run and renewed shortly before it expires. It needs an Entra app
+    registration with the Dynamics 365 Business Central application permission
+    API.ReadWrite.All or Automation.ReadWrite.All (admin consent granted), and the same
+    app registered on the Microsoft Entra Applications page in Business Central with
+    the Bifröst read permission set. Online, the BC tenant is part of the URL path, so
+    no `?tenant=` query string is sent.
+
+    Basic (the on-premises BC28IS instance), used when the OAuth variables are not
+    all set:
+
       CI     BC_USER / BC_PASSWORD           (repository secrets)
+      local  BC28IS_USER / BC28IS_PASSWORD   (user-level Windows environment variables)
 
-    The user needs read access to the Bifröst API; the help message types read no
-    business data.
+    Either way the identity needs read access to the Bifröst API only; the help
+    message types read no business data.
 #>
 
 [CmdletBinding()]
@@ -58,9 +113,19 @@ param(
 
     [string] $Tenant = 'default',
 
+    [ValidateSet('Auto', 'OAuth', 'Basic')]
+    [string] $Auth = 'Auto',
+
+    # Identifiers only. The client secret is never a parameter: it is read from
+    # BC_CLIENT_SECRET so it cannot end up in a process listing or shell history.
+    [string] $EntraTenantId = $env:BC_TENANT_ID,
+
+    [string] $ClientId = $env:BC_CLIENT_ID,
+
     [string] $SiteRoot = (Split-Path -Parent $PSScriptRoot),
 
-    [string] $LockFile = "$env:TEMP\bifrost-mcp.lock",
+    # $env:TEMP is unset on Linux; GetTempPath() works on every platform.
+    [string] $LockFile = (Join-Path ([System.IO.Path]::GetTempPath()) 'bifrost-mcp.lock'),
 
     [switch] $ListOnly
 )
@@ -182,18 +247,143 @@ function Resolve-OwningApp {
 # Credentials
 # ---------------------------------------------------------------------------
 
-function Get-BifrostCredential {
+# Two methods, picked once per run by Resolve-BifrostAuth:
+#
+#   OAuth  OAuth2 client credentials against Microsoft Entra ID, for Business
+#          Central online. Used when BC_TENANT_ID, BC_CLIENT_ID and
+#          BC_CLIENT_SECRET are all set (or -Auth OAuth).
+#   Basic  user name and password for the on-premises BC28IS instance, from
+#          BC_USER/BC_PASSWORD or the user-level BC28IS_USER/BC28IS_PASSWORD.
+#
+# No secret or token is ever printed, logged or written anywhere. Error messages
+# name the missing variable, never a value.
+
+$TokenScope = 'https://api.businesscentral.dynamics.com/.default'
+
+# Renew the token when less than this much of its lifetime is left, so a long
+# serial run never sends a request with a token that expires in flight.
+$TokenRefreshMargin = [timespan]::FromMinutes(5)
+
+function Get-BasicCredentialOrNull {
     $user = $env:BC_USER
     $password = $env:BC_PASSWORD
 
     if (-not $user) { $user = [Environment]::GetEnvironmentVariable('BC28IS_USER', 'User') }
     if (-not $password) { $password = [Environment]::GetEnvironmentVariable('BC28IS_PASSWORD', 'User') }
 
-    if (-not $user -or -not $password) {
-        throw 'No Bifröst credentials found. Set BC_USER/BC_PASSWORD (CI) or the user-level BC28IS_USER/BC28IS_PASSWORD environment variables (local). Values are never printed or stored by this script.'
-    }
+    if (-not $user -or -not $password) { return $null }
 
     return [pscredential]::new($user, (ConvertTo-SecureString $password -AsPlainText -Force))
+}
+
+function Get-MissingOAuthVariables {
+    param([string] $TenantId, [string] $ClientId)
+
+    $missing = @()
+    if (-not $TenantId) { $missing += 'BC_TENANT_ID' }
+    if (-not $ClientId) { $missing += 'BC_CLIENT_ID' }
+    if (-not $env:BC_CLIENT_SECRET) { $missing += 'BC_CLIENT_SECRET' }
+    return , $missing
+}
+
+function Resolve-BifrostAuth {
+    param([string] $Mode, [string] $TenantId, [string] $ClientId)
+
+    $missingOAuth = Get-MissingOAuthVariables -TenantId $TenantId -ClientId $ClientId
+
+    if ($Mode -eq 'OAuth' -or ($Mode -eq 'Auto' -and $missingOAuth.Count -eq 0)) {
+        if ($missingOAuth.Count) {
+            $verb = if ($missingOAuth.Count -eq 1) { 'is' } else { 'are' }
+            throw "OAuth authentication needs $($missingOAuth -join ', '), which $verb not set. Set the environment variable(s); the client secret is never accepted as a parameter."
+        }
+        return @{
+            Method    = 'OAuth'
+            TenantId  = $TenantId
+            ClientId  = $ClientId
+            Token     = $null
+            ExpiresAt = [datetime]::MinValue
+        }
+    }
+
+    $credential = Get-BasicCredentialOrNull
+    if (-not $credential) {
+        if ($Mode -eq 'Basic') {
+            throw 'Basic authentication needs BC_USER and BC_PASSWORD (CI) or the user-level BC28IS_USER and BC28IS_PASSWORD environment variables (local), which are not set. Values are never printed or stored by this script.'
+        }
+        throw "No Bifröst credentials found. For Business Central online set BC_TENANT_ID, BC_CLIENT_ID and BC_CLIENT_SECRET (missing: $($missingOAuth -join ', ')). For the on-premises instance set BC_USER/BC_PASSWORD (CI) or the user-level BC28IS_USER/BC28IS_PASSWORD (local). Values are never printed or stored by this script."
+    }
+    return @{ Method = 'Basic'; Credential = $credential }
+}
+
+# Returns a cached access token, fetching a new one when there is none yet or the
+# cached one is inside the refresh margin. The secret is read from the environment
+# at the moment it is needed and never kept in the auth context.
+function Get-BifrostAccessToken {
+    param([Parameter(Mandatory)] [hashtable] $AuthContext)
+
+    if ($AuthContext.Token -and (Get-Date).ToUniversalTime().Add($TokenRefreshMargin) -lt $AuthContext.ExpiresAt) {
+        return $AuthContext.Token
+    }
+
+    $secret = $env:BC_CLIENT_SECRET
+    if (-not $secret) { throw 'BC_CLIENT_SECRET is not set.' }
+
+    $tokenUri = 'https://login.microsoftonline.com/{0}/oauth2/v2.0/token' -f [uri]::EscapeDataString($AuthContext.TenantId)
+    $requestedAt = (Get-Date).ToUniversalTime()
+    try {
+        $response = Invoke-RestMethod -Method Post -Uri $tokenUri `
+            -ContentType 'application/x-www-form-urlencoded' `
+            -Body @{
+                grant_type    = 'client_credentials'
+                client_id     = $AuthContext.ClientId
+                client_secret = $secret
+                scope         = $TokenScope
+            }
+    }
+    catch {
+        # Report the identity platform's error code only. The request carried the
+        # secret, so nothing from the request itself goes into the message.
+        $failure = $_
+        $detail = ''
+        if ($failure.ErrorDetails -and $failure.ErrorDetails.Message) {
+            try {
+                $err = $failure.ErrorDetails.Message | ConvertFrom-Json -ErrorAction Stop
+                if ($err.PSObject.Properties.Name -contains 'error' -and $err.error) { $detail = ", $($err.error)" }
+            }
+            catch { }
+        }
+        $statusCode = ''
+        if ($failure.Exception.PSObject.Properties.Name -contains 'Response' -and $failure.Exception.Response) {
+            $statusCode = "HTTP $([int]$failure.Exception.Response.StatusCode)"
+        }
+        $reason = "$statusCode$detail".TrimStart(', ')
+        if ($reason) { $reason = " ($reason)" }
+        throw "Could not get an OAuth access token from Microsoft Entra ID$reason. Check BC_TENANT_ID, BC_CLIENT_ID and BC_CLIENT_SECRET."
+    }
+    finally {
+        $secret = $null
+    }
+
+    if (-not $response.access_token) { throw 'The token response from Microsoft Entra ID carried no access token.' }
+
+    $lifetime = 3600
+    if ($response.PSObject.Properties.Name -contains 'expires_in' -and $response.expires_in) { $lifetime = [int]$response.expires_in }
+
+    $AuthContext.Token = $response.access_token
+    $AuthContext.ExpiresAt = $requestedAt.AddSeconds($lifetime)
+    return $AuthContext.Token
+}
+
+# Splat for Invoke-RestMethod: a Bearer header for OAuth, Basic credentials
+# otherwise. Called before every request so a long run picks up a renewed token.
+function Get-BifrostRequestAuth {
+    param([Parameter(Mandatory)] [hashtable] $AuthContext)
+
+    if ($AuthContext.Method -eq 'OAuth') {
+        $token = Get-BifrostAccessToken -AuthContext $AuthContext
+        return @{ Headers = @{ Authorization = "Bearer $token" } }
+    }
+    return @{ Credential = $AuthContext.Credential; Authentication = 'Basic' }
 }
 
 # ---------------------------------------------------------------------------
@@ -238,19 +428,23 @@ function Invoke-BifrostMessage {
         [Parameter(Mandatory)] [string] $Type,
         [hashtable] $Data = @{},
         [string] $Subject = '',
-        [pscredential] $Credential,
+        [Parameter(Mandatory)] [hashtable] $AuthContext,
         [string] $BaseUrl,
         [string] $Tenant
     )
 
     $body = New-BifrostEnvelope -Type $Type -Data $Data -Subject $Subject | ConvertTo-Json -Depth 12 -Compress
 
+    # On-premises the tenant travels as a query string. Online it is already part
+    # of the URL path (/v2.0/<tenant>/<environment>/...), so nothing is appended.
+    $query = if ($AuthContext.Method -eq 'Basic') { "?tenant=$([uri]::EscapeDataString($Tenant))" } else { '' }
+
+    $requestAuth = Get-BifrostRequestAuth -AuthContext $AuthContext
     $task = Invoke-RestMethod -Method Post `
-        -Uri "$BaseUrl/tasks?tenant=$Tenant" `
+        -Uri "$BaseUrl/tasks$query" `
         -ContentType 'application/json' `
         -Body $body `
-        -Credential $Credential `
-        -Authentication Basic
+        @requestAuth
 
     $taskId = $task.id
     if (-not $taskId) { throw "No task id returned for $Type." }
@@ -260,10 +454,10 @@ function Invoke-BifrostMessage {
         throw "$Type returned status Error: $($task.statusReason)"
     }
 
+    $requestAuth = Get-BifrostRequestAuth -AuthContext $AuthContext
     $raw = Invoke-RestMethod -Method Get `
-        -Uri "$BaseUrl/responses($taskId)/data?tenant=$Tenant" `
-        -Credential $Credential `
-        -Authentication Basic
+        -Uri "$BaseUrl/responses($taskId)/data$query" `
+        @requestAuth
 
     if ($raw -is [string]) {
         try { return $raw | ConvertFrom-Json -Depth 32 } catch { return $raw }
@@ -404,6 +598,16 @@ function Write-CategoryFile {
 # Run
 # ---------------------------------------------------------------------------
 
+# Resolve credentials first: a run without them should fail on that, before it
+# touches the lock file or needs an API root.
+$authContext = Resolve-BifrostAuth -Mode $Auth -TenantId $EntraTenantId -ClientId $ClientId
+if ($authContext.Method -eq 'OAuth') {
+    Write-Host 'Authentication: OAuth2 client credentials (Microsoft Entra ID, Business Central online).'
+}
+else {
+    Write-Host 'Authentication: Basic (on-premises instance).'
+}
+
 # The lock is advisory and process-scoped: it stops two documentation runs, or a
 # run and a test agent, from hitting the queue endpoint at the same time.
 if (Test-Path $LockFile) {
@@ -421,10 +625,8 @@ if (-not $BaseUrl) {
 New-Item -ItemType File -Path $LockFile -Force | Out-Null
 
 try {
-    $credential = Get-BifrostCredential
-
     Write-Host 'Fetching the message type catalogue...'
-    $catalogue = Invoke-BifrostMessage -Type 'Help.MessageTypes.Get' -Credential $credential -BaseUrl $BaseUrl -Tenant $Tenant
+    $catalogue = Invoke-BifrostMessage -Type 'Help.MessageTypes.Get' -AuthContext $authContext -BaseUrl $BaseUrl -Tenant $Tenant
 
     # The catalogue comes back as { status, usage, result: [ { name, isEnabled,
     # filterTableNo, description, messageDirection } ] }. The alternatives are
@@ -489,7 +691,7 @@ try {
                 # Strictly serial: one implementation call at a time, no batching.
                 $help = Invoke-BifrostMessage -Type 'Help.Implementation.Get' `
                     -Subject $item.Type `
-                    -Credential $credential -BaseUrl $BaseUrl -Tenant $Tenant
+                    -AuthContext $authContext -BaseUrl $BaseUrl -Tenant $Tenant
 
                 # The help contract comes back as raw Markdown, not a JSON object.
                 $markdown = if ($help -is [string]) { $help } else { $help.result ?? $help.markdown ?? $help.help ?? $help.content ?? $help.text }
