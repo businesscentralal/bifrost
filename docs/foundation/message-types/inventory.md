@@ -166,7 +166,7 @@ The response uses the same shape as `Data.Records.Get`: an array of records each
 | Error | Cause |
 |-------|-------|
 | Missing identification | No template/batch, SystemId, or pipe-separated subject provided |
-| Batch not found | The specified batch does not exist |
+| Batch not found | The specified batch does not exist (`RecordNotFound`) |
 
 ### Related Message Types
 
@@ -296,7 +296,7 @@ Uses BC's Error Message Management framework with codeunit "Item Jnl.-Check Line
 | Error | Cause |
 |-------|-------|
 | Missing identification | No subject or data parameters provided |
-| Batch not found | Template/batch combination does not exist |
+| Batch not found | Template/batch combination does not exist (`RecordNotFound`) |
 
 ### Notes
 
@@ -387,7 +387,7 @@ Identification follows the same three-method pattern.
 ### Error Handling
 
 **Common errors:**
-- Journal batch not found
+- Journal batch not found (`RecordNotFound`)
 - No lines to post in the batch
 - Posting validation errors (item blocked, missing dimensions, etc.)
 - Missing journal batch identification
@@ -499,8 +499,8 @@ Journal batch identification (first matched wins):
 ### Errors
 
 BC validation errors propagate verbatim to the caller. Common errors:
-- `Item journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).`
-- `Item journal batch {template}|{batch} not found.`
+- `Item journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`)
+- `Item Journal Batch "{template}|{batch}" was not found (from subject).` (`RecordNotFound`) — `parameter` is `subject`, or `templateName, batchName` when those keys were sent.
 - `Item journal batch {template}|{batch} has no lines to post.`
 - `Gen. Prod. Posting Group must have a value in Item Journal Line: ...` — line is missing posting groups. Common when inserted via `set_records` (no OnValidate).
 - `Posting preview failed and no entries were captured. The journal cannot be posted in its current state.` — rare catch-all.
@@ -984,7 +984,7 @@ Not a posting action — no posting gate. Not idempotent: every call inserts new
 - `sourceDocuments is required and must contain at least one entry.`
 - `Source #N is missing sourceType or documentNo (both required).`
 - `Unsupported sourceType '<X>'. Expected: SalesOrder, TransferOrder.`
-- `Sales Order '<no>' not found.` / `Transfer Order '<no>' not found.`
+- `Sales Header / Transfer Header "<no>" was not found (from sourceDocuments.documentNo).` (`RecordNotFound`) — the source document does not resolve.
 - `Sales Order '<no>' is not Released.` / `Transfer Order '<no>' is not Released.`
 - `Sales Order '<no>' uses location '<x>' which does not match the requested locationCode '<y>'.` / `Transfer Order '<no>' ships from '<x>' which does not match the requested locationCode '<y>'.`
 - `Location '<code>' (from Sales Order '<no>') does not require shipment routing` — set `Require Shipment` on the Location card.
@@ -1111,8 +1111,9 @@ Not a posting action — no posting gate. The companion `Warehouse.Pick.Register
 
 ### Errors
 
-- `Warehouse Shipment identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, whseShipmentNo, no).`
-- `Warehouse Shipment <id> does not exist.`
+- `Warehouse Shipment Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, whseShipmentNo, shipmentNo, no.` (`MissingParameter`)
+- `Warehouse Shipment Header "<id>" was not found (from <subject or key>).` (`RecordNotFound`) — every identifier sent is tried; `parameter` and `received` name the one that did not resolve.
+- `The identifiers in <a> and <b> point to different records.` (`ConflictingIdentifiers`)
 - `Warehouse Shipment <no> has no lines to pick.`
 - `sortingMethod '<value>' is not valid. Expected one of: ...`
 - `Field Assigned User ID is restricted for write on table Warehouse Activity Header.`
@@ -1190,8 +1191,9 @@ No other parameters are accepted. To adjust per-line `Qty. to Handle` before reg
 
 ### Errors
 
-- `Warehouse Pick identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, pickNo, no).`
-- `Warehouse Pick <id> does not exist.`
+- `Warehouse Activity Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, pickNo, no.` (`MissingParameter`)
+- `Warehouse Activity Header "<id>" was not found (from <subject or key>).` (`RecordNotFound`) — every identifier sent is tried; `parameter` and `received` name the one that did not resolve.
+- `The identifiers in <a> and <b> point to different records.` (`ConflictingIdentifiers`)
 - `Warehouse Activity <no> is not of Type Pick.`
 - `Warehouse Pick <no> has no lines.`
 - `Nothing to register.` — all lines have `Qty. to Handle = 0`.
@@ -1277,8 +1279,9 @@ Verified live (BC 27, CRONUS IS) — worksheet location `CEPUT`, PO of 5 × item
 
 ### Errors
 
-- `Posted Whse. Receipt identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, postedWhseReceiptNo, receiptNo, no).`
-- `Posted Whse. Receipt <id> does not exist.`
+- `Posted Whse. Receipt Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, postedWhseReceiptNo, receiptNo, no.` (`MissingParameter`)
+- `Posted Whse. Receipt Header "<id>" was not found (from <subject or key>).` (`RecordNotFound`) — every identifier sent is tried; `parameter` and `received` name the one that did not resolve.
+- `The identifiers in <a> and <b> point to different records.` (`ConflictingIdentifiers`)
 - `Posted Whse. Receipt <no> has no lines to put away.`
 - `sortingMethod '<value>' is not valid. Expected one of: ...`
 - `Field Assigned User ID is restricted for write on table Warehouse Activity Header.`
@@ -1360,8 +1363,9 @@ Verified live (BC 27, CRONUS IS) — registering `PU000025` (1 line, 5 × item `
 
 ### Errors
 
-- `Warehouse Put-away identifier must be specified in subject field or request JSON (systemId, recordSystemId, id, putawayNo, no).`
-- `Warehouse Put-away <id> does not exist.`
+- `Warehouse Activity Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, putawayNo, no.` (`MissingParameter`)
+- `Warehouse Activity Header "<id>" was not found (from <subject or key>).` (`RecordNotFound`) — every identifier sent is tried; `parameter` and `received` name the one that did not resolve.
+- `The identifiers in <a> and <b> point to different records.` (`ConflictingIdentifiers`)
 - `Warehouse Activity <no> is not of Type Put-away.`
 - `Warehouse Put-away <no> has no lines.`
 - `Nothing to register.` — all lines have `Qty. to Handle = 0`.
@@ -1438,7 +1442,7 @@ Not a posting action — no posting gate. Not idempotent: every call inserts new
 - `sourceDocuments is required and must contain at least one entry.`
 - `Source #N is missing sourceType or documentNo (both required).`
 - `Unsupported sourceType '<X>'. Expected: PurchaseOrder, SalesReturnOrder, TransferOrder.`
-- `Purchase Order '<no>' not found.` / `Sales Return Order '<no>' not found.` / `Transfer Order '<no>' not found.`
+- `Sales Header / Purchase Header / Transfer Header "<no>" was not found (from sourceDocuments.documentNo).` (`RecordNotFound`) — the source document does not resolve.
 - `Purchase Order '<no>' is not Released.` / `Sales Return Order '<no>' is not Released.` / `Transfer Order '<no>' is not Released.`
 - `Purchase Order '<no>' uses location '<x>' which does not match the requested locationCode '<y>'.` (and the equivalent error per source type)
 - `Location '<code>' (from Purchase Order '<no>') does not require receive routing` — set `Require Receive` on the Location card.

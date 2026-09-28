@@ -149,7 +149,7 @@ Response:
 
 The same `error` array schema is returned by `Incoming.Document.Get`, `Incoming.Document.Create`, and `Incoming.Document.Attach`.
 
-The request body is not used — only `subject` is required.
+Identify the document by `subject` (Entry No. or SystemId) or by the request keys `entryNo`, `systemId` or `id`; every identifier sent is tried. No identifier gives `MissingParameter`, two that point to different documents give `ConflictingIdentifiers`, and one that matches no document gives `RecordNotFound`: `Incoming Document "{value}" was not found (from {subject or key}).`
 
 ---
 
@@ -220,7 +220,7 @@ Response:
 - `error` contains BC error messages saved against the Incoming Document.
 - Subject accepts Entry No. (integer as text) or SystemId GUID (with or without braces).
 
-**Key errors:** `Incoming Document X not found.`
+**Key errors:** `RecordNotFound` (`Incoming Document "{value}" was not found (from {subject or key}).`)
 
 ---
 
@@ -254,4 +254,4 @@ Response includes the full Incoming Document header fields (same shape as `Incom
 - All attachments are deleted and re-inserted: specified `lineNo` becomes Line No. 10000 (`Main Attachment = true`), the rest follow at 20000, 30000, etc. in their original order.
 - BLOB content is preserved during re-ordering.
 
-**Key errors:** `lineNo is required.` · `Attachment with lineNo X not found.` · `At least 2 attachments are required to set a default.` · `Incoming Document X not found.`
+**Key errors:** `lineNo is required.` · `Attachment with lineNo X not found.` · `At least 2 attachments are required to set a default.` · `RecordNotFound` (`Incoming Document "{value}" was not found (from {subject or key}).`)
