@@ -60,6 +60,23 @@ reports it at the top level, with no `errors`:
 
 Fix them all before calling again.
 
+## Request value formats
+
+Request values are read in one format, whatever the language of the request or the company:
+
+| Type | Send | Not accepted |
+|---|---|---|
+| Date | `"2026-09-26"` (`YYYY-MM-DD`) | `26.09.2026`, `09/26/2026`, two-digit years |
+| Date-time | `"2026-09-26T14:30:00Z"` (ISO 8601 with `Z` or an offset) | a date without a time |
+| Amount | a JSON number `1234.56`, or `"1234.56"` | `"1.234,56"`, `"1,234.56"`, `"12,5"` |
+| Integer | a JSON integer `12`, or `"12"` | `"12.0"`, `"abc"` |
+| Boolean | `true` or `false` | `"true"`, `"yes"`, `1` |
+
+Any other value answers `InvalidParameterFormat`, with `parameter`, `received` and `expected`. For an
+unambiguous local form such as `26.09.2026` or `12,5`, `nextStep` gives the value to resend
+(`Resend postingDate as 2026-09-26.`); an ambiguous one such as `01/02/2026` gets the format instead.
+Every bad value of a request is reported together.
+
 ## Business Central validation errors
 
 Bifröst checks the request values first and reports every problem it finds together. Once the values

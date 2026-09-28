@@ -12,32 +12,32 @@ description: "Beiðni- og svarsamningur fyrir Inventory.AssemblyOrder.Create Bif
 :::
 
 
-## Yfirlit
-Býr til a ný Assembly Order (Assembly Header með `Document Type = Order`) fyrir a parent vöru. The header `No.` er assigned úr the Assembly Order No. Series. með Sjálfgefið the component lines eru refreshed úr the parent vöru BOM via `Item No.` re-validation.
+## Overview
+Creates a new Assembly Order (Assembly Header with `Document Type = Order`) for a parent item. The header `No.` is assigned from the Assembly Order No. Series. By default the component lines are refreshed from the parent item BOM via `Item No.` re-validation.
 
-**Stefna**: Innkomandi  **Efnisgerð**: `text/json`
+**Direction**: Inbound  **Content-Type**: `text/json`
 
 ## Idempotency / Safety
-ekki endurtekningarþolið. Every call inserts a ný Assembly Order header og consumes one númer úr the Assembly Order No. Series, og (þegar `refreshLines = true`, the Sjálfgefið) re-Býr til component lines úr the BOM.
+Not idempotent. Every call inserts a new Assembly Order header and consumes one number from the Assembly Order No. Series, and (when `refreshLines = true`, the default) re-creates component lines from the BOM.
 
-## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| itemNo | Code[20] | Yes | Parent (assembled) vöru númer. |
-| quantity | tugabrot | Yes | Quantity til assemble. verður að be `> 0`. |
-| variantCode | Code[10] | No | vöru variant. |
+| itemNo | Code[20] | Yes | Parent (assembled) item number. |
+| quantity | Decimal | Yes | JSON number, or a string with `.` and no thousands separator. Must be `> 0`. An invalid value is an error. |
+| variantCode | Code[10] | No | Item variant. |
 | locationCode | Code[10] | No | Output location. |
-| binCode | Code[20] | No | Output bin within the location. Applied eftir `Quantity`. |
-| unitOfMeasureCode | Code[10] | No | UoM of the parent vöru. |
-| Lýsing | Text[100] | No | Header Lýsing. |
-| postingDate | dagsetning | No | Posting dagsetning. Defaults til `WorkDate()` Ef það er ekki gefið upp eða `0D`. Format `0,9` (`yyyy-MM-dd`). |
-| dueDate | dagsetning | No | Due dagsetning. Format `0,9`. |
-| startingDate | dagsetning | No | Starting dagsetning. Format `0,9`. |
-| endingDate | dagsetning | No | Ending dagsetning. Format `0,9`. |
-| quantityToAssemble | tugabrot | No | Initial Gildi fyrir `Quantity to Assemble`. Applied aðeins þegar `> 0`; otherwise BC Sjálfgefið (= `Quantity`) er kept. |
-| refreshLines | sanngildi | No | þegar `true` (Sjálfgefið), re-validates `Item No.` eftir the initial validate til refresh component lines úr the BOM. Set `false` til skip the BOM refresh. |
+| binCode | Code[20] | No | Output bin within the location. Applied after `Quantity`. |
+| unitOfMeasureCode | Code[10] | No | UoM of the parent item. |
+| description | Text[100] | No | Header description. |
+| postingDate | Date | No | `YYYY-MM-DD`. Omitted: `WorkDate()`. An invalid value is an error. |
+| dueDate | Date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. |
+| startingDate | Date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. |
+| endingDate | Date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. |
+| quantityToAssemble | Decimal | No | JSON number, or a string with `.` and no thousands separator. Applied only when `> 0`; otherwise BC default (= `Quantity`) is kept. An invalid value is an error. |
+| refreshLines | Boolean | No | When `true` (default), re-validates `Item No.` after the initial validate to refresh component lines from the BOM. Set `false` to skip the BOM refresh. `true` or `false`; any other value is an error. |
 
-## Dæmi um beiðni
+## Request Example
 ```json
 {
   "type": "Inventory.AssemblyOrder.Create",
@@ -51,7 +51,7 @@ ekki endurtekningarþolið. Every call inserts a ný Assembly Order header og co
 }
 ```
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -74,31 +74,31 @@ ekki endurtekningarþolið. Every call inserts a ný Assembly Order header og co
 }
 ```
 
-| Property | Lýsing |
+| Property | Description |
 |----------|-------------|
-| status | `Success`. Validation failures nota the standard Villa envelope. |
-| documentNo | ný `Assembly Header.No.` (úr No. Series). |
-| systemId | ný header `SystemId` (Format `0,4`, no braces). |
-| itemNo / variantCode / Lýsing / locationCode / binCode / unitOfMeasureCode | Header echo eftir BC validation (may differ úr request ef defaults applied). |
-| quantity / quantityToAssemble | Header values eftir validation. |
-| postingDate / dueDate / startingDate / endingDate | Format `0,9` (`yyyy-MM-dd`). BC computes the dates ekki supplied skýrt. |
-| statusAfter | `Open` (newly created orders eru always opið). |
-| lineCount | númer of `Assembly Line` rows. `0` þegar `refreshLines = false`, otherwise the BOM line count. |
+| status | `Success`. Validation failures use the standard error envelope. |
+| documentNo | New `Assembly Header.No.` (from No. Series). |
+| systemId | New header `SystemId` (Format `0,4`, no braces). |
+| itemNo / variantCode / description / locationCode / binCode / unitOfMeasureCode | Header echo after BC validation (may differ from request if defaults applied). |
+| quantity / quantityToAssemble | Header values after validation. |
+| postingDate / dueDate / startingDate / endingDate | Format `0,9` (`yyyy-MM-dd`). BC computes the dates not supplied explicitly. |
+| statusAfter | `Open` (newly created orders are always Open). |
+| lineCount | Number of `Assembly Line` rows. `0` when `refreshLines = false`, otherwise the BOM line count. |
 
-## Villur
-| Villa | Orsök |
+## Errors
+| Error | Cause |
 |-------|-------|
-| `itemNo must be specified in the request JSON.` | `itemNo` vantar eða empty. |
-| `quantity must be specified and greater than 0 in the request JSON.` | `quantity` vantar eða `<= 0`. |
-| (BC validation Villa text) | hvaða `Validate` call surfaced an Villa (unknown vöru, ógilt location, vantar BOM, etc.). Caught og returned in `error`. |
+| `itemNo must be specified in the request JSON.` | `itemNo` missing or empty. |
+| `quantity must be specified and greater than 0 in the request JSON.` | `quantity` missing or `<= 0`. |
+| (BC validation error text) | Any `Validate` call surfaced an error (unknown item, invalid location, missing BOM, etc.). Caught and returned in `error`. |
 
-## Tengdar skilaboðategundir
-- `Inventory.AssemblyOrder.RefreshLines` - refresh BOM lines on an fyrirliggjandi order.
-- `Inventory.AssemblyOrder.Release` - release an opið order.
+## Related Message Types
+- `Inventory.AssemblyOrder.RefreshLines` - refresh BOM lines on an existing order.
+- `Inventory.AssemblyOrder.Release` - release an Open order.
 - `Inventory.AssemblyOrder.Post` - post.
 - `Inventory.AssemblyOrder.PreviewPost` - dry run.
 - `Data.Records.Set` - adjust component lines.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

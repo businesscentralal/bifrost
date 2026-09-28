@@ -60,6 +60,23 @@ eiga sameiginlegan - `lines` í Create-gerð svara `InvalidLine`. Beiðni með a
 
 Lagaðu þau öll áður en þú kallar aftur.
 
+## Snið gilda í beiðni
+
+Gildi í beiðni eru lesin á einu sniði, óháð tungumáli beiðninnar eða fyrirtækisins:
+
+| Tegund | Sendu | Ekki tekið gilt |
+|---|---|---|
+| Dagsetning | `"2026-09-26"` (`YYYY-MM-DD`) | `26.09.2026`, `09/26/2026`, tveggja stafa ár |
+| Dagsetning og tími | `"2026-09-26T14:30:00Z"` (ISO 8601 með `Z` eða hliðrun) | dagsetning án tíma |
+| Upphæð | JSON-tala `1234.56`, eða `"1234.56"` | `"1.234,56"`, `"1,234.56"`, `"12,5"` |
+| Heiltala | JSON-heiltala `12`, eða `"12"` | `"12.0"`, `"abc"` |
+| Boolean-gildi | `true` eða `false` | `"true"`, `"yes"`, `1` |
+
+Öll önnur gildi svara `InvalidParameterFormat`, með `parameter`, `received` og `expected`. Fyrir
+ótvírætt staðbundið form á borð við `26.09.2026` eða `12,5` gefur `nextStep` gildið sem á að senda
+aftur (`Resend postingDate as 2026-09-26.`); tvírætt form á borð við `01/02/2026` fær sniðið í staðinn.
+Öll röng gildi í beiðni eru gefin upp saman.
+
 ## Staðfestingarvillur úr Business Central
 
 Bifröst yfirfer gildin í beiðninni fyrst og gefur upp öll vandamál sem finnast í einu. Þegar gildin

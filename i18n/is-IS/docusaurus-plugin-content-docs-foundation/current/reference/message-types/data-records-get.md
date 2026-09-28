@@ -12,33 +12,33 @@ description: "Beiðni- og svarsamningur fyrir Data.Records.Get Bifröst skilabo�
 :::
 
 
-## Yfirlit
+## Overview
 
-Les færslur úr hvaða non-restricted BC tafla og Skilar them as JSON in the Data Shipping standard format (`{id, primaryKey, fields}`). styður Reitur projection, BC tafla view filtering, `SystemModifiedAt` dagsetning range, og `skip`/`take` pagination.
+Reads records from any non-restricted BC table and returns them as JSON in the Data Shipping standard format (`{id, primaryKey, fields}`). Supports field projection, BC table view filtering, `SystemModifiedAt` date range, and `skip`/`take` pagination.
 
-**Stefna**: Útgående  **Efnisgerð**: `text/json`
+**Direction**: Outbound  **Content-Type**: `text/json`
 
-## Forgangsröð auðkenna (tafla)
+## Identifier Resolution Order (table)
 
-The target tafla er resolved með checking these keys in order og using the fyrsta one present:
-1. `data.tableName` (strengur, e.g. `"Customer"`)
-2. `data.tableNumber` (heiltala, e.g. `18`)
-3. `data.tableNo` (alias fyrir `tableNumber`)
-4. `data.tableId` (alias fyrir `tableNumber`)
-5. `subject` envelope attribute (tafla Heiti eða númer as strengur, e.g. `"Customer"` eða `"18"`)
+The target table is resolved by checking these keys in order and using the first one present:
+1. `data.tableName` (string, e.g. `"Customer"`)
+2. `data.tableNumber` (integer, e.g. `18`)
+3. `data.tableNo` (alias for `tableNumber`)
+4. `data.tableId` (alias for `tableNumber`)
+5. `subject` envelope attribute (table name or number as string, e.g. `"Customer"` or `"18"`)
 
-## Beiðnibreytur (in data)
+## Request Parameters (in data)
 
-| Færibreyta | Gerð | Sjálfgefið | Athugasemdir |
+| Parameter | Type | Default | Notes |
 |---|---|---|---|
-| `tableName` / `tableNumber` / `tableNo` / `tableId` | strengur / int | — | One áskilið (eða `subject`). Sjá Forgangsröð úrlausnar above. |
-| `fieldNumbers` | int[] | all Normal fields | þegar set, aðeins these Reitur numbers eru returned in `fields`. FlowFields eru calculated og included **aðeins** þegar listed here. Primary-key fields eru always in `primaryKey` regardless. |
-| `tableView` | strengur | — | BC `SetView` syntax, e.g. `"WHERE(Blocked = CONST( ))"` eða `"WHERE(Location Code = CONST(BLUE))"` |
+| `tableName` / `tableNumber` / `tableNo` / `tableId` | string / int | — | One required (or `subject`). See resolution order above. |
+| `fieldNumbers` | int[] | all Normal fields | When set, only these field numbers are returned in `fields`. FlowFields are calculated and included **only** when listed here. Primary-key fields are always in `primaryKey` regardless. |
+| `tableView` | string | — | BC `SetView` syntax using **display field names** (not `jsonName`). Unknown field names or unbalanced parentheses return `status: Error` (fail closed). |
 | `startDateTime` / `endDateTime` | ISO 8601 | — | Filter on `SystemModifiedAt`. Provide both. |
-| `skip` | int | 0 | Pagination offset. |
-| `take` | int | 100 | Page size. `noOfRecords` in Svarið er the unpaginated total. |
+| `skip` | int | 0 | Pagination offset. A JSON integer or a string of digits; any other value is an error. |
+| `take` | int | 100 | Page size. `noOfRecords` in the response is the unpaginated total. A JSON integer or a string of digits; any other value is an error. |
 
-## Uppbygging svars
+## Response Shape
 
 ```json
 {
@@ -54,99 +54,106 @@ The target tafla er resolved með checking these keys in order og using the fyrs
 }
 ```
 
-### Eiginleikar hverrar færslu
+### Per-record properties
 
-| Property | Lýsing |
+| Property | Description |
 |---|---|
-| `id` | `SystemId` GUID, formatted án braces (`Format(guid, 0, 4)`). |
-| `primaryKey` | hlutur — primary key Reitur(s) aðeins. Always present. |
-| `fields` | hlutur — non-primary-key Reitur(s). Subject til `fieldNumbers` og Reitur-lesa takmarkanir. |
+| `id` | `SystemId` GUID, formatted without braces (`Format(guid, 0, 4)`). |
+| `primaryKey` | Object — primary key field(s) only. Always present. |
+| `fields` | Object — non-primary-key field(s). Subject to `fieldNumbers` and field-read restrictions. |
 
-### Stöðlun reitaheita
+### Field name normalization
 
-Keys in `primaryKey` og `fields` eru derived úr BC Reitur names með:
-1. Replacing `%`, `.`, `"`, `\`, `/`, `'` með `_`
+Keys in `primaryKey` and `fields` are derived from BC field names by:
+1. Replacing `%`, `.`, `"`, `\`, `/`, `'` with `_`
 2. Removing all other non-alphanumeric characters
 
-| BC Reitur | JSON Key |
+| BC Field | JSON Key |
 |---|---|
 | `No.` | `No_` |
 | `Sell-to Customer No.` | `SelltoCustomerNo_` |
 | `Balance (LCY)` | `BalanceLCY` |
 
-### Snið gilda
+### Value formatting
 
 - **GUID**: bare form (`Format(value, 0, 4)`).
-- **dagsetning / Time / DateTime / tugabrot / heiltala / etc.**: culture-invariant (`Format(value, 0, 9)`). Blank `0D` / `0T` / `0DT` render as empty strengur.
-- **Option / Enum**: returned as the **display caption** (ekki the innri Heiti). nota `Help.Fields.Get` til discover the option set ef you need til filter.
+- **Date / Time / DateTime / Decimal / Integer / etc.**: culture-invariant (`Format(value, 0, 9)`). Blank `0D` / `0T` / `0DT` render as empty string.
+- **Option / Enum**: returned as the **display caption** (not the internal name). Use `Help.Fields.Get` to discover the option set if you need to filter.
 - **BLOB / Media / MediaSet**: Base64-encoded.
-- **Currency / LCY fields** með a `Currency Code` relation eru auto-converted (Sjá DataRecordsGetImpl `ShouldApplyLCYConversion`).
-- **Dimension Set ID** fields eru auto-expanded til a `Dimensions` hlutur via `AddDimensionSetConversion`.
+- **Currency / LCY fields** with a `Currency Code` relation are auto-converted (see DataRecordsGetImpl `ShouldApplyLCYConversion`).
+- **Dimension Set ID** fields are auto-expanded to a `Dimensions` object via `AddDimensionSetConversion`.
 
-## Takmarkanir á aðgangi að reitum
+## Field Access Restrictions
 
-Per-user Reitur-level lesa takmarkanir eru enforced via `Bifrost Field Access` (codeunit 65350). þegar a Reitur carries takmörkun Gerð `Both` eða `Read` fyrir the current user (eða a wildcard færsla matches), the Reitur er **silently dropped** úr the `fields` hlutur — no Villa er raised. Primary-key fields eru always returned. nota `Help.Fields.Get` til discover the `readRestricted` flag per Reitur áður en relying on a Gildi being present in Svarið.
+Per-user field-level read restrictions are enforced via `Bifrost Field Access` (codeunit 65350). When a field carries restriction type `Both` or `Read` for the current user (or a wildcard entry matches), the field is **silently dropped** from the `fields` object — no error is raised. Primary-key fields are always returned. Use `Help.Fields.Get` to discover the `readRestricted` flag per field before relying on a value being present in the response.
 
-Wildcards: `Field No. = 0` covers all fields on a tafla; `Table No. = 0` covers all töflur fyrir the user. Forgangsröð úrlausnar: specific færsla → all-fields wildcard → all-töflur wildcard. fyrsta match wins; no match means unrestricted.
+Wildcards: `Field No. = 0` covers all fields on a table; `Table No. = 0` covers all tables for the user. Resolution order: specific entry → all-fields wildcard → all-tables wildcard. First match wins; no match means unrestricted.
 
-## Uppgötvunarferli
+## Discovery Workflow
 
-þegar you don't know the tafla eða Reitur numbers:
-1. `Help.Tables.Get` — list töflur og IDs.
-2. `Help.Fields.Get` (með the chosen tafla) — list fields, types, captions, og lesa/skrifa takmarkanir.
-3. `Data.Records.Get` — fetch a sample færsla (e.g. `take: 1`) til Sjá exact JSON key names.
+When you don't know the table or field numbers:
+1. `Help.Tables.Get` — list tables and IDs.
+2. `Help.Fields.Get` (with the chosen table) — list fields, types, captions, and read/write restrictions.
+3. `Data.Records.Get` — fetch a sample record (e.g. `take: 1`) to see exact JSON key names.
 
-## Dæmi (úr einingaprófum)
+## Examples (from unit tests)
 
-### All fields, all færslur
+### All fields, all records
 ```json
 { "tableName": "Customer" }
 ```
-Skilar `{status, noOfRecords, result[]}`. hver færsla has `id`, `primaryKey.No_`, og `fields.*`.
+Returns `{status, noOfRecords, result[]}`. Each record has `id`, `primaryKey.No_`, and `fields.*`.
 
 ### Project specific fields
 ```json
 { "tableName": "Customer", "fieldNumbers": [2, 5, 7] }
 ```
-viðskiptamanni Reitur 2=`Name`, 5=`Address`, 7=`City`. aðeins those appear in `fields`; Reitur 9 (`Phone No.`) er excluded.
+Customer field 2=`Name`, 5=`Address`, 7=`City`. Only those appear in `fields`; field 9 (`Phone No.`) is excluded.
 
-### Modified-at dagsetning range
+### Modified-at date range
 ```json
 { "tableName": "Customer",
   "startDateTime": "2025-01-01T00:00:00Z",
   "endDateTime":   "2027-12-31T23:59:59Z" }
 ```
 
-### BC tafla view filter
+### BC table view filter
 ```json
 { "tableName": "Customer",
   "tableView": "WHERE(Blocked = CONST( ))",
   "fieldNumbers": [1, 2, 3, 5] }
 ```
 
-### Pagination (færslur 101–200)
+### Pagination (records 101–200)
 ```json
 { "tableName": "Customer", "skip": 100, "take": 100 }
 ```
-nota `noOfRecords` in Svarið til plan further pages.
+Use `noOfRecords` in the response to plan further pages.
 
-## Villur
+## Errors
 
-| Condition | Status / message |
+Three failure shapes are **distinct from each other and from a legitimate empty result** (`status: Success`, `noOfRecords: 0`). Callers (including connector count tools that wrap this message type) must not treat a missing `noOfRecords` or a blank payload as "zero rows".
+
+| Condition | Status / shape |
 |---|---|
-| tafla ekki identified | Villa — `Table {name} not found.` |
-| tafla er innri / restricted | Villa — `Table {id} ({name}) cannot be read via Data.Records.Get. This is an internal table.` |
-| Kallandi lacks lesa heimild | Villa — populated með `CheckTableReadPermission`. |
-| lesa-restricted Reitur requested via `fieldNumbers` | Reitur silently dropped úr response (Sjá `Bifrost Field Access`). |
+| Nonexistent / unidentified table | `status: Error` — `Table {name} not found.` Generic `hint` points at Help.Implementation.Get. No `noOfRecords`. |
+| Table is internal / restricted (e.g. `User`) | `status: Error` via restricted-table response — `Table {id} ({name}) cannot be read via Data.Records.Get. This is an internal table.` When a named dedicated message type exists (Foundation built-in or feature-app hint), the error text ends with ` Use {hint}.` and the response `nextStep` carries that text (e.g. `Data.RequestLog.Get`), with code `PermissionDenied`; `hint` stays the generic Help.Implementation.Get pointer. Unmapped Foundation-internal tables keep the generic built-in sentence. Distinct from the nonexistent-table error above. |
+| Malformed `tableView` (unknown field / unbalanced parentheses) | `status: Error` — fail-closed validator message (may include did-you-mean). Distinct from both table errors above. |
+| Legitimate empty match | `status: Success`, `noOfRecords: 0`, `result: []` — never `status: Error`. |
+| Caller lacks read permission | Error — populated by `CheckTableReadPermission`. |
+| Read-restricted field requested via `fieldNumbers` | Field silently dropped from response (see `Bifrost Field Access`). |
 
-## Tengdar skilaboðategundir
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
 
-- **Data.RecordIds.Get** — IDs + `SystemModifiedAt` aðeins (lightweight incremental sync).
-- **Data.Totals.Get** — server-side `CalcSums` fyrir tugabrot SumIndexFields.
-- **CSV.Records.Get** — sama filtering, CSV output, styður 4 MB chunked continuation.
-- **Data.Records.Set** — accepts the sama `{id, primaryKey, fields}` shape on the way back.
+## Related Message Types
+
+- **Data.RecordIds.Get** — IDs + `SystemModifiedAt` only (lightweight incremental sync).
+- **Data.Totals.Get** — server-side `CalcSums` for Decimal SumIndexFields.
+- **CSV.Records.Get** — same filtering, CSV output, supports 4 MB chunked continuation.
+- **Data.Records.Set** — accepts the same `{id, primaryKey, fields}` shape on the way back.
 - **Help.Tables.Get** / **Help.Fields.Get** — schema discovery.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

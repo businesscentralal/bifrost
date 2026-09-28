@@ -31,9 +31,9 @@ The project is identified via:
 |---|---|---|---|---|
 | `projectNo` | Code[20] | Yes* | (subject) | Project number. Required in JSON or subject. |
 | `taskFilter` | Text | No | (all tasks) | Filter on Job Task No. e.g. `1000..2000` |
-| `postingDate` | Date | No | WorkDate | Posting date for the credit memo |
-| `invoiceDate` | Date | No | postingDate | Document date |
-| `createPerProject` | Boolean | No | true | When true, all eligible lines for the project are grouped into a single credit memo. When false, one credit memo is created per Job Task |
+| `postingDate` | Date | No | `YYYY-MM-DD`. Omitted: `WorkDate()`. An invalid value is an error. |
+| `invoiceDate` | Date | No | `YYYY-MM-DD`. Omitted: `postingDate`. An invalid value is an error. |
+| `createPerProject` | Boolean | No | true | When true, all eligible lines for the project are grouped into a single credit memo. When false, one credit memo is created per Job Task `true` or `false`; any other value is an error. |
 
 ## Request Example
 

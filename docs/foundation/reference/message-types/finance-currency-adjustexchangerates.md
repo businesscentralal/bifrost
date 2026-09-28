@@ -24,16 +24,16 @@ Inbound
 ## Request Parameters
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| endingDate | Date | Yes | Last posting date considered for adjustment. All open ledger entries with posting date on or before this date are evaluated. |
-| postingDate | Date | Yes | Posting date for the adjustment G/L entries. |
+| endingDate | Date | Yes | `YYYY-MM-DD`. Required. Last posting date considered for adjustment. An invalid value is an error. |
+| postingDate | Date | Yes | `YYYY-MM-DD`. Required. Posting date for the adjustment G/L entries. An invalid value is an error. |
 | documentNo | Code[20] | Yes | Document number on the adjustment G/L entries. |
-| post | Boolean | No (default false) | `true` to run and commit; `false` for preview only. |
+| post | Boolean | No (default false) | `true` to run and commit; `false` for preview only. `true` or `false`; any other value is an error. |
 | currencyCode | Text | No | BC-style filter expression (e.g. `USD` or `USD\|EUR`). Defaults to all foreign currencies set up in BC. |
-| adjustCustomers | Boolean | No (default true) | Adjust Detailed Customer Ledger Entries. |
-| adjustVendors | Boolean | No (default true) | Adjust Detailed Vendor Ledger Entries. |
-| adjustEmployees | Boolean | No (default true) | Adjust Detailed Employee Ledger Entries. |
-| adjustBankAccounts | Boolean | No (default true) | Adjust Bank Account Ledger Entries. |
-| adjustGLAccounts | Boolean | No (default true) | Adjust G/L Account currency balances. |
+| adjustCustomers | Boolean | No (default true) | Adjust Detailed Customer Ledger Entries. `true` or `false`; any other value is an error. |
+| adjustVendors | Boolean | No (default true) | Adjust Detailed Vendor Ledger Entries. `true` or `false`; any other value is an error. |
+| adjustEmployees | Boolean | No (default true) | Adjust Detailed Employee Ledger Entries. `true` or `false`; any other value is an error. |
+| adjustBankAccounts | Boolean | No (default true) | Adjust Bank Account Ledger Entries. `true` or `false`; any other value is an error. |
+| adjustGLAccounts | Boolean | No (default true) | Adjust G/L Account currency balances. `true` or `false`; any other value is an error. |
 | postingDescription | Text[100] | No | Description on the adjustment G/L lines. Default: `Exchange rate adjustment <currencyCode-filter-or-blank> <endingDate>`. |
 
 At least one of `adjustCustomers`, `adjustVendors`, `adjustEmployees`, `adjustBankAccounts`, `adjustGLAccounts` must be true; otherwise the request fails validation.

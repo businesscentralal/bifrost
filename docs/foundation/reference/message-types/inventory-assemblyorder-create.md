@@ -24,18 +24,18 @@ Not idempotent. Every call inserts a new Assembly Order header and consumes one 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | itemNo | Code[20] | Yes | Parent (assembled) item number. |
-| quantity | Decimal | Yes | Quantity to assemble. Must be `> 0`. |
+| quantity | Decimal | Yes | JSON number, or a string with `.` and no thousands separator. Must be `> 0`. An invalid value is an error. |
 | variantCode | Code[10] | No | Item variant. |
 | locationCode | Code[10] | No | Output location. |
 | binCode | Code[20] | No | Output bin within the location. Applied after `Quantity`. |
 | unitOfMeasureCode | Code[10] | No | UoM of the parent item. |
 | description | Text[100] | No | Header description. |
-| postingDate | Date | No | Posting Date. Defaults to `WorkDate()` when omitted or `0D`. Format `0,9` (`yyyy-MM-dd`). |
-| dueDate | Date | No | Due Date. Format `0,9`. |
-| startingDate | Date | No | Starting Date. Format `0,9`. |
-| endingDate | Date | No | Ending Date. Format `0,9`. |
-| quantityToAssemble | Decimal | No | Initial value for `Quantity to Assemble`. Applied only when `> 0`; otherwise BC default (= `Quantity`) is kept. |
-| refreshLines | Boolean | No | When `true` (default), re-validates `Item No.` after the initial validate to refresh component lines from the BOM. Set `false` to skip the BOM refresh. |
+| postingDate | Date | No | `YYYY-MM-DD`. Omitted: `WorkDate()`. An invalid value is an error. |
+| dueDate | Date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. |
+| startingDate | Date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. |
+| endingDate | Date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. |
+| quantityToAssemble | Decimal | No | JSON number, or a string with `.` and no thousands separator. Applied only when `> 0`; otherwise BC default (= `Quantity`) is kept. An invalid value is an error. |
+| refreshLines | Boolean | No | When `true` (default), re-validates `Item No.` after the initial validate to refresh component lines from the BOM. Set `false` to skip the BOM refresh. `true` or `false`; any other value is an error. |
 
 ## Request Example
 ```json

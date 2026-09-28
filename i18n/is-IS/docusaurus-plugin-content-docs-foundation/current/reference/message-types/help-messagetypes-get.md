@@ -12,20 +12,21 @@ description: "Beiðni- og svarsamningur fyrir Help.MessageTypes.Get Bifröst ski
 :::
 
 
-## Yfirlit
-Skilar every Gildi of the `Bifrost Message Type` enum together með its filter tafla númer, Lýsing, og Stefna. nota this til discover what message types eru available in the current deployment, þar á meðal extensions that have added their own values.
+## Overview
+Returns every value of the `Bifrost Message Type` enum together with its filter table number, description, and direction. Use this to discover what message types are available in the current deployment, including extensions that have added their own values.
 
-## Stefna
-Útgående
+## Direction
+Outbound
 
-## Response Content Gerð
+## Response Content Type
 `text/json`
 
-## Beiðnibreytur
-| Færibreyta | Location | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Parameter | Location | Type | Required | Description |
 |-----------|----------|------|----------|-------------|
-| subject | Bifrost Reitur | Text | No | þegar set, Skilar aðeins the skilaboðategund matching this Heiti. Omit til return all. |
-| onlyEnabled | data (JSON body) | sanngildi | No | þegar `true`, Skilar aðeins message types enabled fyrir the current user. Sjálfgefið: `false`. |
+| subject | Bifrost field | Text | No | When set, returns only the message type matching this name. Omit to return all. |
+| onlyEnabled | data (JSON body) | Boolean | No | When `true`, returns only message types enabled for the current user. Default: `false`. `true` or `false`; any other value is an error. |
+| includeKeywords | data (JSON body) | Boolean | No | When `true`, each row with keywords includes a `keywords` array in the caller's language. Pass `lcid` (e.g. `1039` for Icelandic, `1033` for English) to choose that language; without it the session language is used. Default: `false`, and the response is unchanged. Combines with `onlyEnabled`. `true` or `false`; any other value is an error. |
 
 ## Request Examples
 
@@ -34,17 +35,17 @@ Skilar every Gildi of the `Bifrost Message Type` enum together með its filter t
 { "type": "Help.MessageTypes.Get" }
 ```
 
-**Single skilaboðategund með Heiti:**
+**Single message type by name:**
 ```json
 { "type": "Help.MessageTypes.Get", "subject": "Data.Records.Get" }
 ```
 
-**aðeins enabled types:**
+**Only enabled types:**
 ```json
 { "type": "Help.MessageTypes.Get", "data": { "onlyEnabled": true } }
 ```
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -61,15 +62,22 @@ Skilar every Gildi of the `Bifrost Message Type` enum together með its filter t
 ```
 
 ## Result Fields
-| Reitur | Gerð | Lýsing |
+| Field | Type | Description |
 |-------|------|-------------|
-| Heiti | Text | Enum Gildi Heiti, notað as the message `type` (e.g. `Help.Tables.Get`) |
-| isEnabled | sanngildi | `true` ef the current user has heimild til nota this skilaboðategund |
-| filterTableNo | heiltala | 0 þegar generic, otherwise the BC tafla the skilaboðategund operates on |
-| Lýsing | Text | Short Lýsing úr the implementation codeunit |
-| messageDirection | Text | `Inbound` (skrifa) eða `Outbound` (lesa) |
+| name | Text | Enum value name, used as the message `type` (e.g. `Help.Tables.Get`) |
+| isEnabled | Boolean | `true` if the current user has permission to use this message type |
+| filterTableNo | Integer | 0 when generic, otherwise the BC table the message type operates on |
+| description | Text | Short description from the implementation codeunit |
+| messageDirection | Text | `Inbound` (write) or `Outbound` (read) |
+| keywords | Array of Text | Present only when `includeKeywords` is `true` and the type has keywords. Search terms in the caller's language. Never returned by `list_message_types`. |
 
-## Tengdar skilaboðategundir
+## Availability
+By default, this endpoint returns all enum values, including message types that are installed but not currently callable. Check `isEnabled` before invoking a type, or pass `onlyEnabled = true` in the request data to hide disabled types. Some Bifrost licensing and billing metadata types are production-only and intentionally return `isEnabled = false` in SaaS sandbox/dev environments.
+
+## Related Message Types
 - `Help.Implementation.Get`
 - `Help.Tables.Get`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -25,7 +25,8 @@ Outbound
 | Parameter | Location | Type | Required | Description |
 |-----------|----------|------|----------|-------------|
 | subject | Bifrost field | Text | No | When set, returns only the message type matching this name. Omit to return all. |
-| onlyEnabled | data (JSON body) | Boolean | No | When `true`, returns only message types enabled for the current user. Default: `false`. |
+| onlyEnabled | data (JSON body) | Boolean | No | When `true`, returns only message types enabled for the current user. Default: `false`. `true` or `false`; any other value is an error. |
+| includeKeywords | data (JSON body) | Boolean | No | When `true`, each row with keywords includes a `keywords` array in the caller's language. Pass `lcid` (e.g. `1039` for Icelandic, `1033` for English) to choose that language; without it the session language is used. Default: `false`, and the response is unchanged. Combines with `onlyEnabled`. `true` or `false`; any other value is an error. |
 
 ## Request Examples
 
@@ -68,6 +69,7 @@ Outbound
 | filterTableNo | Integer | 0 when generic, otherwise the BC table the message type operates on |
 | description | Text | Short description from the implementation codeunit |
 | messageDirection | Text | `Inbound` (write) or `Outbound` (read) |
+| keywords | Array of Text | Present only when `includeKeywords` is `true` and the type has keywords. Search terms in the caller's language. Never returned by `list_message_types`. |
 
 ## Availability
 By default, this endpoint returns all enum values, including message types that are installed but not currently callable. Check `isEnabled` before invoking a type, or pass `onlyEnabled = true` in the request data to hide disabled types. Some Bifrost licensing and billing metadata types are production-only and intentionally return `isEnabled = false` in SaaS sandbox/dev environments.
@@ -75,4 +77,7 @@ By default, this endpoint returns all enum values, including message types that 
 ## Related Message Types
 - `Help.Implementation.Get`
 - `Help.Tables.Get`
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

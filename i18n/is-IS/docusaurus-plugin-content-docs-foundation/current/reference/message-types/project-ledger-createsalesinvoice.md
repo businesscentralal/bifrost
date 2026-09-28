@@ -12,30 +12,30 @@ description: "Beiðni- og svarsamningur fyrir Project.Ledger.CreateSalesInvoice 
 :::
 
 
-## Yfirlit
-Býr til Sales reikningur(s) úr billable project (job) planning lines. Wraps BC's `Job Create-Invoice` engine (codeunit 1002). aðeins "Contract (Billable)" planning lines með positive `Qty. to Transfer to Invoice` eru eligible.
+## Overview
+Creates Sales Invoice(s) from billable project (job) planning lines. Wraps BC's `Job Create-Invoice` engine (codeunit 1002). Only "Contract (Billable)" planning lines with positive `Qty. to Transfer to Invoice` are eligible.
 
-**Stefna**: Innkomandi (Býr til Sales skjöl) · **Efnisgerð**: `text/json`
+**Direction**: Inbound (creates Sales documents) · **Content-Type**: `text/json`
 
 ## Idempotency
-**ekki endurtekningarþolið.** hver call Býr til ný Sales reikningur skjöl. Repeated calls með the sama parameters mun create duplicate reikningar (unless all billable lines have already been invoiced).
+**Not idempotent.** Each call creates new Sales Invoice documents. Repeated calls with the same parameters will create duplicate invoices (unless all billable lines have already been invoiced).
 
 ## Identifier Resolution
-The project er identified via:
-1. `projectNo` Reitur in request JSON (preferred)
-2. `subject` Reitur on the Bifrost envelope (fallback)
+The project is identified via:
+1. `projectNo` field in request JSON (preferred)
+2. `subject` field on the Bifrost envelope (fallback)
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Sjálfgefið | Athugasemdir |
+| Parameter | Type | Required | Default | Notes |
 |---|---|---|---|---|
-| `projectNo` | Code[20] | Yes* | (subject) | Project númer. áskilið in JSON eða subject. |
+| `projectNo` | Code[20] | Yes* | (subject) | Project number. Required in JSON or subject. |
 | `taskFilter` | Text | No | (all tasks) | Filter on Job Task No. e.g. `1000..2000` |
-| `postingDate` | dagsetning | No | WorkDate | Posting dagsetning fyrir the reikningur |
-| `invoiceDate` | dagsetning | No | postingDate | skjal dagsetning |
-| `createPerProject` | sanngildi | No | true | þegar true, all billable lines fyrir the project eru grouped í a single reikningur. þegar false, one reikningur er created per Job Task |
+| `postingDate` | Date | No | `YYYY-MM-DD`. Omitted: `WorkDate()`. An invalid value is an error. |
+| `invoiceDate` | Date | No | `YYYY-MM-DD`. Omitted: `postingDate`. An invalid value is an error. |
+| `createPerProject` | Boolean | No | true | When true, all billable lines for the project are grouped into a single invoice. When false, one invoice is created per Job Task `true` or `false`; any other value is an error. |
 
-## Dæmi um beiðni
+## Request Example
 
 ```json
 {
@@ -46,7 +46,7 @@ The project er identified via:
 }
 ```
 
-## Response Format (Tókst)
+## Response Format (Success)
 
 ```json
 {
@@ -80,9 +80,9 @@ The project er identified via:
 }
 ```
 
-`excludedLines` Sýnir lista yfir every billable planning line that matched the selection filters but was ekki transferred til an reikningur, með the reason it was skipped. Always empty on a fully tókst run.
+`excludedLines` lists every billable planning line that matched the selection filters but was not transferred to an invoice, with the reason it was skipped. Always empty on a fully successful run.
 
-## Response Format (Villa)
+## Response Format (Error)
 
 ```json
 {
@@ -92,35 +92,35 @@ The project er identified via:
 }
 ```
 
-## Bókunarheimild
-Requires the `BIFROST Job Post ori` heimild set assigned til the calling user. án it, the message Skilar a "Posting denied" Villa án processing.
+## Posting Gate
+Requires the `BIFROST Job Post ori` permission set assigned to the calling user. Without it, the message returns a "Posting denied" error without processing.
 
-## Villur
+## Errors
 
-| Condition | Villa message |
+| Condition | Error message |
 |---|---|
-| vantar heimild set | Posting denied: vantar 'BIFROST Job Post ori' heimild set. |
-| Project fannst ekki | Project &#123;no&#125; fannst ekki. |
-| No billable lines | No billable planning lines fannst fyrir project &#123;no&#125; með the specified filters. |
-| BC validation Mistókst | Villutexti BC, kóði `BusinessCentralError` |
+| Missing permission set | Posting denied: missing 'BIFROST Job Post ori' permission set. |
+| Project not found | Project &#123;no&#125; not found. |
+| No billable lines | No billable planning lines found for project &#123;no&#125; with the specified filters. |
+| BC validation failure | BC error text, code `BusinessCentralError` |
 
 ## Billable Line Selection
-aðeins Job Planning Lines where:
-- `Contract Line` = true (Line Gerð er Billable eða Both Budget og Billable)
+Only Job Planning Lines where:
+- `Contract Line` = true (Line Type is Billable or Both Budget and Billable)
 - `Qty. to Transfer to Invoice` > 0
 
-Lines already fully invoiced eru automatically excluded með BC's engine.
+Lines already fully invoiced are automatically excluded by BC's engine.
 
-Lines með `Type` = G/L Account getur ekki be placed on a sales skjal (BC limitation) og eru reported in `excludedLines` instead of being silently dropped.
+Lines with `Type` = G/L Account cannot be placed on a sales document (BC limitation) and are reported in `excludedLines` instead of being silently dropped.
 
 ## Post-Creation
-The created Sales reikningur er in draft state (ekki posted). til post it, nota `Sales.Document.Post` með the returned skjal númer.
+The created Sales Invoice is in draft state (not posted). To post it, use `Sales.Document.Post` with the returned document number.
 
-## Tengdar skilaboðategundir
-- `Project.Ledger.CreateSalesCreditMemo` — Býr til credit memos úr project planning lines
-- `Projects.ProjectJournal.Post` — Bókar project dagbók batches
-- `Sales.Document.Post` — Bókar the created reikningur
+## Related Message Types
+- `Project.Ledger.CreateSalesCreditMemo` — creates credit memos from project planning lines
+- `Projects.ProjectJournal.Post` — posts project journal batches
+- `Sales.Document.Post` — posts the created invoice
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 
