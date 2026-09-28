@@ -186,7 +186,7 @@ JSON data parameters take precedence over the subject field.
 | Error | Cause |
 |-------|-------|
 | Missing identification | No subject or data parameters provided |
-| Batch not found | Template/batch combination does not exist |
+| Batch not found | Template/batch combination does not exist (`RecordNotFound`) |
 | No lines | Batch exists but contains no journal lines |
 
 ### Notes
@@ -524,7 +524,7 @@ JSON data parameters take precedence over the subject field.
 ### Error Handling
 
 **Common errors:**
-- Journal batch not found
+- Journal batch not found (`RecordNotFound`)
 - No lines to post in the batch
 - Posting validation errors (balance check, required dimensions, etc.)
 - Missing journal batch identification
@@ -650,7 +650,7 @@ A general journal batch can contain lines in multiple currencies. The top-level 
 
 Errors are reported as `{ "status": "Error", "error": "..." }` instead of throwing. Common errors:
 - Missing journal batch identification.
-- Journal batch not found.
+- Journal batch not found (`RecordNotFound`).
 - Journal batch has no lines to preview.
 - Posting validation failed (unbalanced batch, missing G/L accounts, dimension errors, etc.) — the underlying BC error text is returned.
 
@@ -945,7 +945,7 @@ The response uses the same format as `Data.Records.Get`: a single record in the 
 | Error | Cause |
 |-------|-------|
 | Missing identification | No template/batch, SystemId, or pipe-separated subject provided |
-| Batch not found | The specified batch does not exist |
+| Batch not found | The specified batch does not exist (`RecordNotFound`) |
 
 ### Related Message Types
 
@@ -1050,7 +1050,7 @@ Uses the `Data.Records.Get` response shape.
 | Error | Cause |
 |-------|-------|
 | Missing identification | No template/batch, SystemId, or pipe-separated subject provided |
-| Batch not found | The specified batch does not exist |
+| Batch not found | The specified batch does not exist (`RecordNotFound`) |
 
 ### Related Message Types
 
@@ -1139,7 +1139,7 @@ Uses BC's "FA Jnl.-Check Line" codeunit via the Error Message Management framewo
 | Error | Cause |
 |-------|-------|
 | Missing identification | No subject or data parameters provided |
-| Batch not found | Template/batch combination does not exist |
+| Batch not found | Template/batch combination does not exist (`RecordNotFound`) |
 
 ### Notes
 
@@ -1225,7 +1225,7 @@ Identification follows the same three-method pattern.
 ### Error Handling
 
 **Common errors:**
-- Journal batch not found
+- Journal batch not found (`RecordNotFound`)
 - No lines to post
 - Posting validation errors (FA blocked, missing depreciation book, etc.)
 - Missing journal batch identification
@@ -1319,8 +1319,8 @@ Same envelope as `Inventory.ItemJournal.PreviewPost` (`rollback`, `summary`, `to
 ### Errors
 
 BC validation errors propagate verbatim. Common errors:
-- `FA journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).`
-- `FA journal batch {template}|{batch} not found.`
+- `FA journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`)
+- `FA Journal Batch "{template}|{batch}" was not found (from subject).` (`RecordNotFound`) — `parameter` is `subject`, or `templateName, batchName` when those keys were sent.
 - `FA journal batch {template}|{batch} has no lines to post.`
 - `FA Posting Type {Type} must be posted in the general journal in FA Journal Line ...` — the depreciation book's `G/L Integration - {Type}` flag is `true`. Either flip the flag or use the General Journal route.
 - `Posting preview failed and no entries were captured. The FA journal cannot be posted in its current state.` — rare catch-all.
