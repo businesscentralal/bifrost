@@ -242,7 +242,7 @@ Sami umslag og aðrar PreviewPost-gerðir (`rollback`, `summary`, `totals`, `pre
 
 ### Rekstraráminningar
 
-- **`Line Type` má ekki vera autt.** Verkefnadagbókarlínur þarfnast `Line Type` reits sem er **ekki autt** (`Schedule`, `Billable` eða `Both Schedule and Contract`). Sendið `lineType` á hverri línu `Projects.ProjectJournal.Create`; auð lína sem er stofnuð án `lines` þarf að fá það með `Data.Records.Set` áður en forskoðun er keyrð.
+- **`Line Type` má ekki vera autt.** Verkefnadagbókarlínur þarfnast `Line Type` reits sem er **ekki autt** (`Budget`, `Billable` eða `Both Budget and Billable`). Sendið `lineType` á hverri línu `Projects.ProjectJournal.Create`; auð lína sem er stofnuð án `lines` þarf að fá það með `Data.Records.Set` áður en forskoðun er keyrð.
 - **Lúðann vörulínur eyk færslur í `Item Ledger Entry`/`Value Entry` töflum.**
 - Forskoun afturkallar færslur en endurkallað ekki sniðgjöf á lyklum (t.d. lýsing runu).
 
@@ -252,7 +252,7 @@ BC sannvottunarvillur skila sér orðrétt. Algengar villur:
 - `Project journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).`
 - `Project journal batch {template}|{batch} not found.`
 - `Project journal batch {template}|{batch} has no lines to post.`
-- `Line Type must have a value in Job Journal Line: ...` — `Line Type` reitur er aut. Setjaðu `Schedule`, `Billable` eða `Both Schedule and Contract` áður en forskoun er keyrð.
+- `Line Type must have a value in Job Journal Line: ...` — `Line Type` reiturinn er auður. Setjið `Budget`, `Billable` eða `Both Budget and Billable` áður en forskoðun er keyrð.
 - `Posting preview failed and no entries were captured. The project journal cannot be posted in its current state.` — sjaldgæf heildarvilla.
 
 ### Tengdar skilaboðategundir
