@@ -56,4 +56,4 @@ needs:
 Every Bifröst app documents its own message types under its section — see
 [Orchestrator](/orchestrator/), [Attachments](/attachments/), [Language Models](/language-models/) and
 [Iceland DocEx](/iceland-docex/). Building an app of your own is covered under
-[Build on Bifröst](/extensibility/).
+[Extensibility](/extensibility/).
