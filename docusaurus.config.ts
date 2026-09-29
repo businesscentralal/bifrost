@@ -86,6 +86,13 @@ const routeIdRenames: Array<[fromPrefix: string, toPrefix: string]> = [
 ];
 
 const slugRenames: Array<{from: string; to: string}> = [
+  // Build on Bifröst: the former internal developer pages now live in the partner reference repo.
+  {from: '/extensibility/conventions', to: '/extensibility/'},
+  {from: '/extensibility/message-types', to: '/extensibility/'},
+  {from: '/extensibility/help-codeunits', to: '/extensibility/'},
+  {from: '/extensibility/testing', to: '/extensibility/'},
+  {from: '/extensibility/install-and-upgrade', to: '/extensibility/'},
+  {from: '/extensibility/ip-boundary', to: '/extensibility/'},
   {from: '/help/bragi/bragi-setup', to: '/help/language-models/language-models-setup'},
   {from: '/help/hnitbjorg/hnitbjorg-setup', to: '/help/attachments/attachments-setup'},
   {from: '/help/nornir/nornir-setup', to: '/help/orchestrator/orchestrator-setup'},

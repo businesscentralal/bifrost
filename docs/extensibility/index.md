@@ -170,5 +170,4 @@ What Foundation itself offers a dependent app, beyond the pattern above:
 - [Foundation public surface](/extensibility/public-surface): the interfaces, enums and events you may rely on
 - [Metering](/extensibility/metering): how usage of your message types is counted
 - [Setup, secrets and the request log](/extensibility/setup-and-secrets)
-- [Install and upgrade](/extensibility/install-and-upgrade): the install log and upgrade steps
 - [Language Models extension points](/language-models/extensibility): adding a language-model provider
