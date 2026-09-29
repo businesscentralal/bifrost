@@ -180,6 +180,10 @@ $PrefixMap = [ordered]@{
     'Subscription.'         = 'subscription-billing'
     'Help.Subscription'     = 'subscription-billing'
 
+    # Bifröst Inventory — item attributes. `Item.Attribute` also covers
+    # `Item.AttributeDefinition.*`; the rest of `Item.*` stays with Foundation.
+    'Item.Attribute'        = 'inventory'
+
     # Bifröst Iceland Treasury — the bank connectors. Listed before Bifröst
     # Iceland because no key is shared, but kept together for readability.
     'Landsbankinn.'         = 'iceland-treasury'
@@ -234,6 +238,7 @@ $AppRoutes = [ordered]@{
     'nornir'               = @{ Route = 'orchestrator';         Title = 'Orchestrator' }
     'clockify'             = @{ Route = 'timesheets';           Title = 'Timesheets' }
     'subscription-billing' = @{ Route = 'subscription-billing'; Title = 'Subscription Billing' }
+    'inventory'            = @{ Route = 'inventory';            Title = 'Inventory' }
 }
 
 # Owner ids whose documentation this repository generates.
