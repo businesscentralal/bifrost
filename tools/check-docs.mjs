@@ -7,6 +7,9 @@
  *
  * ipBoundary fails when new forbidden vocabulary appears under docs/, help/,
  * or the matching i18n markdown mirrors. Wired as `npm run check:ip-boundary`.
+ * It also fails on any value that looks like a personal kennitala (see
+ * findKennitalaHits) under docs/, help/, i18n/ or static/. That part has no
+ * baseline: personal data is never grandfathered.
  * Preview/deploy CI wiring is deferred until the GitHub token has the
  * `workflow` scope (`gh auth refresh -h github.com -s workflow`).
  *
@@ -49,6 +52,7 @@ const FORBIDDEN = [
 ];
 
 const SCAN_ROOTS = ['docs', 'help', 'i18n'];
+const KENNITALA_SCAN_ROOTS = ['docs', 'help', 'i18n', 'static'];
 const BASELINE_COMMIT = 'a4250f2fbb1aa401a4d1ce372299fba345de3227';
 
 async function* walkMarkdown(dir) {
@@ -79,6 +83,43 @@ function findHits(content, filePath) {
       if (pattern.test(line)) {
         hits.push({file: filePath, line: i + 1, token, source: line, excerpt: line.trim().slice(0, 160)});
       }
+    }
+  }
+  return hits;
+}
+
+// Personal kennitala: DDMMYY[-]NNNN where DDMMYY is a real calendar date and
+// digit 9 is the modulus-11 check digit (weights 3,2,7,6,5,4,3,2), as every
+// issued kennitala has. The check digit keeps DDMMYYHHMI timestamps and dummies
+// such as 1010101111 out. Company (day 41-71) and temporary IDs are not
+// personal data and are not flagged. GUID parts, longer numbers and prefixed
+// IDs are skipped by the boundaries below. Use 0000000000 or 000000-0000.
+const KENNITALA_ALLOW = new Set(['0000000000', '000000-0000']);
+const KENNITALA_PATTERN = /(?<![\w.\-])(\d{2})(\d{2})(\d{2})-?(\d{2})(\d)(\d)(?![\w]|-\w|[.,]\d)/g;
+
+function isPersonalKennitala(dd, mm, yy, digits, century) {
+  const day = Number(dd);
+  const month = Number(mm);
+  if (day < 1 || day > 31 || month < 1 || month > 12) return false;
+  const year = ({8: 1800, 9: 1900, 0: 2000}[century] ?? 1900) + Number(yy);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  if (date.getUTCMonth() !== month - 1 || date.getUTCDate() !== day) return false;
+  const weights = [3, 2, 7, 6, 5, 4, 3, 2];
+  const sum = weights.reduce((acc, w, i) => acc + w * Number(digits[i]), 0);
+  const check = (11 - (sum % 11)) % 11;
+  return check !== 10 && check === Number(digits[8]);
+}
+
+function findKennitalaHits(content, filePath) {
+  const hits = [];
+  const lines = content.split(/\r?\n/);
+  for (let i = 0; i < lines.length; i++) {
+    for (const m of lines[i].matchAll(KENNITALA_PATTERN)) {
+      if (KENNITALA_ALLOW.has(m[0])) continue;
+      const digits = m[0].replace('-', '');
+      if (!isPersonalKennitala(m[1], m[2], m[3], digits, m[6])) continue;
+      // Do not echo the value itself into CI logs.
+      hits.push({file: filePath, line: i + 1, token: 'kennitala', excerpt: `column ${m.index + 1}`});
     }
   }
   return hits;
@@ -130,9 +171,20 @@ async function ipBoundary() {
       hits.push(...removeGrandfatheredHits(currentHits, findHits(baseline, rel)));
     }
   }
+  for (const scanRoot of KENNITALA_SCAN_ROOTS) {
+    const abs = path.join(root, scanRoot);
+    const st = await stat(abs).catch(() => null);
+    if (!st || !st.isDirectory()) continue;
+    for await (const file of walkMarkdown(abs)) {
+      const rel = path.relative(root, file);
+      hits.push(...findKennitalaHits(await readFile(file, 'utf8'), rel));
+    }
+  }
 
   if (hits.length === 0) {
-    console.log('ipBoundary: OK — no new forbidden vocabulary under docs/, help/, or i18n/.');
+    console.log(
+      'ipBoundary: OK — no new forbidden vocabulary under docs/, help/, or i18n/, and no personal kennitala under those or static/.',
+    );
     return 0;
   }
 
@@ -141,7 +193,8 @@ async function ipBoundary() {
     console.error(`  ${hit.file}:${hit.line}  [${hit.token}]  ${hit.excerpt}`);
   }
   console.error(
-    '\nPublic site = public information only. See docs/extensibility/ip-boundary.md.',
+    '\nPublic site = public information only. See docs/extensibility/ip-boundary.md.' +
+      '\nFor [kennitala] hits use the placeholder 0000000000 (or 000000-0000).',
   );
   return 1;
 }

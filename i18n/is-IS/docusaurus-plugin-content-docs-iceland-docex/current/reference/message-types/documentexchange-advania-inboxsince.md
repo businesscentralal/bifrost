@@ -27,10 +27,10 @@ Paged envelope með items[]. Each item includes `datetime_stamp` — Notaðu the
 
 ## Verkflæði: Incremental Polling
 ```
-1. First call: DocumentExchange.Advania.InboxSince { "endpointId": "5801120800", "since": "0101260000" }
+1. First call: DocumentExchange.Advania.InboxSince { "endpointId": "0000000000", "since": "0101260000" }
    → Gets all documents since Jan 1 2026
    → Save the last item's datetime_stamp (e.g. "3006261742")
-2. Next poll: DocumentExchange.Advania.InboxSince { "endpointId": "5801120800", "since": "3006261742" }
+2. Next poll: DocumentExchange.Advania.InboxSince { "endpointId": "0000000000", "since": "3006261742" }
    → Gets only NEW documents since last poll
 3. Process each document:
    DocumentExchange.Advania.GetDocument { "messageId": "<uuid>", "createIncomingDocument": true }

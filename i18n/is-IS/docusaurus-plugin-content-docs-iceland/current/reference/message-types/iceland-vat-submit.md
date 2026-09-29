@@ -30,7 +30,7 @@ GetInfo → [Open] → Validate → [Validated] → **Submit** → [Submitted]
 
 ## Beiðni
 ```json
-{ "vat": { "vskNumer": "101067", "ar": 2026, "timabil": "16" } }
+{ "vat": { "vskNumer": "000000", "ar": 2026, "timabil": "16" } }
 ```
 No `lines` needed — amounts eru read frá the local table.
 
@@ -38,11 +38,11 @@ No `lines` needed — amounts eru read frá the local table.
 ```json
 {
   "period": {
-    "vskNumber": "101067", "year": 2026, "period": "16", "revisionNo": 1,
+    "vskNumber": "000000", "year": 2026, "period": "16", "revisionNo": 1,
     "status": "Skilað",
     "submissionSucceeded": true,
     "submissionAssessment": 223000, "submissionAmountToPay": 223000,
-    "ocr": "101067162026> 4112032+ 31< 000126> 025300+",
+    "ocr": "000000162026> 0000000+ 31< 000126> 025300+",
     "claimNumber": "107440"
   }
 }

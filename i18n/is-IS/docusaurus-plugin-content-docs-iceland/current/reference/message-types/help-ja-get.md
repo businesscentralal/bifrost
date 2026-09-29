@@ -62,8 +62,8 @@ Kennitala decision rule: first digit `0-3` er person, `4-9` er fyrirtæki.
 - fyrirtæki kennitala adds 40 til the day digits; subtract 40 til recover day.
 
 Dæmi:
-- `1102713369` -> person -> 11 Feb 1971.
-- `4112032630` -> fyrirtæki -> day 41-40 = 1 -> 1 Dec 2003 registration.
+- `0000000000` -> person -> birth date read from `DDMMYY` (placeholder value).
+- `0000000000` -> fyrirtæki -> day digits minus 40, then `MMYY` -> registration date (placeholder value).
 
 ## Troubleshooting failed requests
 Ef a Beiðni fails, check **Bifrost Setup -> Beiðni Log** (table `Request Log ori`, Log Gerð = Ja):

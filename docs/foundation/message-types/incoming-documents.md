@@ -193,7 +193,7 @@ Or by SystemId:
 |-------|-------|
 | `fileName is required.` | The `fileName` field is missing or empty |
 | `fileContent is required.` | The `fileContent` field is missing or empty |
-| `Incoming Document X not found.` | The subject does not match any Incoming Document |
+| `Incoming Document "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | The identifier does not match any Incoming Document |
 
 ---
 
@@ -280,7 +280,7 @@ Each object in the `error` array has the following fields:
 
 | Error | Cause |
 |-------|-------|
-| `Incoming Document X not found.` | The subject does not match any Incoming Document |
+| `Incoming Document "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | The identifier does not match any Incoming Document |
 | `Incoming Document X has already been posted.` | The Incoming Document's linked document has been posted |
 
 ---
@@ -399,7 +399,7 @@ The **subject** field accepts either:
 
 | Error | Cause |
 |-------|-------|
-| `Incoming Document X not found.` | The subject does not match any Incoming Document |
+| `Incoming Document "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | The identifier does not match any Incoming Document |
 
 ---
 
@@ -471,4 +471,4 @@ Or by SystemId:
 | `lineNo is required.` | The `lineNo` field is missing from the request |
 | `Attachment with lineNo X not found.` | No attachment with the specified Line No. exists on the document |
 | `At least 2 attachments are required to set a default.` | The document has fewer than 2 attachments |
-| `Incoming Document X not found.` | The subject does not match any Incoming Document |
+| `Incoming Document "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | The identifier does not match any Incoming Document |

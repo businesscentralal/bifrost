@@ -280,8 +280,8 @@ Sami umslag og aðrar PreviewPost-gerðir (`rollback`, `summary`, `totals`, `pre
 ### Villur
 
 BC sannvottunarvillur skila sér orðrétt. Algengar villur:
-- `Item journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).`
-- `Item journal batch {template}|{batch} not found.`
+- `Item journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`)
+- `Item Journal Batch "{template}|{batch}" was not found (from subject).` (`RecordNotFound`) — `parameter` er `subject`, eða `templateName, batchName` þegar þeir lyklar voru sendir.
 - `Item journal batch {template}|{batch} has no lines to post.`
 - `Gen. Prod. Posting Group must have a value in Item Journal Line: ...` — lína vantar postingshópa. Algengt þegar `set_records` er notað (engin OnValidate).
 - `Posting preview failed and no entries were captured. The journal cannot be posted in its current state.` — sjaldgæf heildarvilla.
@@ -624,7 +624,7 @@ Enginn bókunarmiði stjórnar þessari aðgerð (stofnun sendingar er ekki bók
 - `sourceDocuments is required and must contain at least one entry.` — engin frumskjöl tilgreind.
 - `Source #N is missing sourceType or documentNo (both required).`
 - `Unsupported sourceType '<X>'. Expected: SalesOrder, TransferOrder.` — óstutt teund frumskjals.
-- `Sales Order/Transfer Order '<no>' not found.` — frumskjal finnst ekki.
+- `Sales Header / Transfer Header "<no>" was not found (from sourceDocuments.documentNo).` (`RecordNotFound`) — frumskjal finnst ekki.
 - `Sales Order/Transfer Order '<no>' is not Released.` — frumskjal er ekki Útgefið.
 - Staðsetning krefst ekki sendingar (`Require Shipment` = false á staðsetningarkortinu).
 - `No Warehouse Shipment was created for ...` — allar línur þegar á opinni sendingu, ekkert magn eftir tíl sendingar, eða tínsla hafin.
@@ -740,8 +740,9 @@ Er ekki bókunaraðgerð — engin bókunarhlið. Félagsaðgerðin `Warehouse.P
 
 ### Villur
 
-- `Warehouse Shipment identifier must be specified ...`
-- `Warehouse Shipment <id> does not exist.`
+- `Warehouse Shipment Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, whseShipmentNo, shipmentNo, no.` (`MissingParameter`)
+- `Warehouse Shipment Header "<id>" was not found (from <subject or key>).` (`RecordNotFound`) — öll auðkenni sem send eru eru prófuð; `parameter` og `received` segja hvert þeirra fannst ekki.
+- `The identifiers in <a> and <b> point to different records.` (`ConflictingIdentifiers`)
 - `Warehouse Shipment <no> has no lines to pick.`
 - `sortingMethod '<value>' is not valid. Expected one of: ...`
 - `Field Assigned User ID is restricted for write on table Warehouse Activity Header.`
@@ -818,8 +819,9 @@ Aðrar beiðni-paramaterar eru ekki stöðuðir. Til að brísta `Qty. to Handle
 
 ### Villur
 
-- `Warehouse Pick identifier must be specified ...`
-- `Warehouse Pick <id> does not exist.`
+- `Warehouse Activity Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, pickNo, no.` (`MissingParameter`)
+- `Warehouse Activity Header "<id>" was not found (from <subject or key>).` (`RecordNotFound`) — öll auðkenni sem send eru eru prófuð; `parameter` og `received` segja hvert þeirra fannst ekki.
+- `The identifiers in <a> and <b> point to different records.` (`ConflictingIdentifiers`)
 - `Warehouse Activity <no> is not of Type Pick.`
 - `Warehouse Pick <no> has no lines.`
 - `Nothing to register.`
@@ -894,8 +896,9 @@ Staðfest í rauntíma (BC 27, CRONUS IS) — staðsetning `CEPUT` með `Use Put
 
 ### Villur
 
-- `Posted Whse. Receipt identifier must be specified ...`
-- `Posted Whse. Receipt <id> does not exist.`
+- `Posted Whse. Receipt Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, postedWhseReceiptNo, receiptNo, no.` (`MissingParameter`)
+- `Posted Whse. Receipt Header "<id>" was not found (from <subject or key>).` (`RecordNotFound`) — öll auðkenni sem send eru eru prófuð; `parameter` og `received` segja hvert þeirra fannst ekki.
+- `The identifiers in <a> and <b> point to different records.` (`ConflictingIdentifiers`)
 - `Posted Whse. Receipt <no> has no lines to put away.`
 - `sortingMethod '<value>' is not valid. Expected one of: ...`
 - `Field Assigned User ID is restricted for write on table Warehouse Activity Header.`
@@ -973,8 +976,9 @@ Staðfest í rauntíma (BC 27, CRONUS IS) — skráning `PU000025` (1 lína, 5 �
 
 ### Villur
 
-- `Warehouse Put-away identifier must be specified ...`
-- `Warehouse Put-away <id> does not exist.`
+- `Warehouse Activity Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, putawayNo, no.` (`MissingParameter`)
+- `Warehouse Activity Header "<id>" was not found (from <subject or key>).` (`RecordNotFound`) — öll auðkenni sem send eru eru prófuð; `parameter` og `received` segja hvert þeirra fannst ekki.
+- `The identifiers in <a> and <b> point to different records.` (`ConflictingIdentifiers`)
 - `Warehouse Activity <no> is not of Type Put-away.`
 - `Warehouse Put-away <no> has no lines.`
 - `Nothing to register.`
@@ -1050,7 +1054,7 @@ Ekki bókunaraðgerð — engin bókunarhlið. Ekki sjálfvirkt útilokandi: hve
 - `sourceDocuments is required and must contain at least one entry.`
 - `Source #N is missing sourceType or documentNo (both required).`
 - `Unsupported sourceType '<X>'. Expected: PurchaseOrder, SalesReturnOrder, TransferOrder.`
-- `Purchase Order '<no>' not found.` / `Sales Return Order '<no>' not found.` / `Transfer Order '<no>' not found.`
+- `Sales Header / Purchase Header / Transfer Header "<no>" was not found (from sourceDocuments.documentNo).` (`RecordNotFound`) — frumskjal finnst ekki.
 - `Purchase Order '<no>' is not Released.` / `Sales Return Order '<no>' is not Released.` / `Transfer Order '<no>' is not Released.`
 - `Purchase Order '<no>' uses location '<x>' which does not match the requested locationCode '<y>'.` (og samsvarandi villa fyrir hverja tegund)
 - `Location '<code>' (from Purchase Order '<no>') does not require receive routing` — kveikið `Require Receive` á staðsetningarkortinu.

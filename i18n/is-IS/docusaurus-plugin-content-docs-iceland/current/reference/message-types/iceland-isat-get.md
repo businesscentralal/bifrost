@@ -19,7 +19,7 @@ Sækir the ISAT table, eða ISAT codes fyrir a specific subject (kennitala).
 - Slóð: `/api/Isat or /api/Isat/{id}`
 
 ## Beiðni
-- **Subject** (valfrjálst): 10-digit kennitala.\n  - Ef provided: Skilar ISAT codes registered fyrir that person/fyrirtæki.\n  - Ef omitted: Skilar fulla ISAT classification table.\n  - Dæmi: `4112032630` (fyrirtæki)
+- **Subject** (valfrjálst): 10-digit kennitala.\n  - Ef provided: Skilar ISAT codes registered fyrir that person/fyrirtæki.\n  - Ef omitted: Skilar fulla ISAT classification table.\n  - Dæmi: `0000000000` (fyrirtæki)
 
 ## Svar
 - Tengingin wraps the Umsja Svar in a staðlaða JSON envelope með `status` og `result`.

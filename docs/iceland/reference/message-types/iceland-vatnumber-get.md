@@ -19,7 +19,7 @@ Gets VAT numbers for a company.
 - Path: `/api/VatNumber/{id}`
 
 ## Request
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a person or company.\n  - Returns VAT registration numbers and ISAT industry codes.\n  - Works for both companies and individuals who have VAT registrations.\n  - Example: `4112032630` (company) or `1202432179` (person with VAT).
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a person or company.\n  - Returns VAT registration numbers and ISAT industry codes.\n  - Works for both companies and individuals who have VAT registrations.\n  - Example: `0000000000` (company) or `0000000000` (person with VAT).
 
 ## Response
 - The connector wraps the Umsja response in a standard JSON envelope with `status` and `result`.

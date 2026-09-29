@@ -19,7 +19,7 @@ Gets family relations and company relations by ID.
 - Path: `/api/Relations/{id}`
 
 ## Request
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a **person**.\n  - Returns family relations and company relations for the person.\n  - Example: `1102713369`.
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a **person**.\n  - Returns family relations and company relations for the person.\n  - Example: `0000000000`.
 
 ## Response
 - The connector wraps the Umsja response in a standard JSON envelope with `status` and `result`.

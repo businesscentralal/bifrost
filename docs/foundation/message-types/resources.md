@@ -130,7 +130,7 @@ Uses BC's "Res. Jnl.-Check Line" codeunit via the Error Message Management frame
 | Error | Cause |
 |-------|-------|
 | Missing identification | No subject or data parameters provided |
-| Batch not found | Template/batch combination does not exist |
+| Batch not found | Template/batch combination does not exist (`RecordNotFound`) |
 
 ### Notes
 
@@ -216,7 +216,7 @@ Identification follows the same three-method pattern.
 ### Error Handling
 
 **Common errors:**
-- Journal batch not found
+- Journal batch not found (`RecordNotFound`)
 - No lines to post
 - Posting validation errors
 - Missing journal batch identification

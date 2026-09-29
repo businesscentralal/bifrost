@@ -29,7 +29,7 @@ Creates a pre-made presentation URL before a document is sent. The URL activates
 ```
 1. Before sending: create session URL for the document
    DocumentExchange.Advania.GetSessionUrl {
-     "sourceidentifier": "INV-10042", "fromean": "5801120800",
+     "sourceidentifier": "INV-10042", "fromean": "0000000000",
      "toean": "4804022940", "standardcode": "STI" }
 2. Include the URL in email to customer
 3. Submit document: DocumentExchange.Advania.SubmitDocument { ... }

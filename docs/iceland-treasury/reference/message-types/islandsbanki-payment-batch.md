@@ -27,7 +27,7 @@ Registers and executes a batch of interbank transfers (SkraGreidslubunka) and re
   "ownerKennitala": "1234567890",      // (required) withdrawal account owner
   "transfers": [                        // (required) at least one
     {
-      "creditAccount": "0310-26-000336", // (required) recipient account
+      "creditAccount": "0000-26-000003", // (required) recipient account
       "recipientKennitala": "...",       // (required)
       "amount": 1000.00,                 // (required)
       "textKey": "...",                  // (required) Textalykill

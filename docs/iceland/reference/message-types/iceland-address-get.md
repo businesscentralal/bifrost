@@ -19,7 +19,7 @@ Gets all members and companies at an address identified by social ID.
 - Path: `/api/Address/{id}`
 
 ## Request
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a person or company.\n  - Use a **person** ID to find everyone registered at that person's address.\n  - Use a **company** ID to find everyone at the company's registered address.\n  - Example: `1102713369` (person) or `4112032630` (company).
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a person or company.\n  - Use a **person** ID to find everyone registered at that person's address.\n  - Use a **company** ID to find everyone at the company's registered address.\n  - Example: `0000000000` (person) or `0000000000` (company).
 
 ## Response
 - The connector wraps the Umsja response in a standard JSON envelope with `status` and `result`.
