@@ -7,7 +7,8 @@
     catalogue, and `Help.Implementation.Get` returns one type's request and response
     contract as Markdown. This script asks a running Business Central environment for
     both and writes one Markdown page per message type into the owning app's
-    `docs/<app>/reference/message-types/` folder.
+    `docs/<route>/reference/message-types/` folder, where `<route>` is the app's docs
+    route id from `apps.ts` (see the $AppRoutes table below).
 
     The pages are therefore generated, never hand-written, and cannot drift from the
     product. Re-run the script after a release and commit the diff.
@@ -18,8 +19,10 @@
     holds it.
 
 .PARAMETER App
-    Restrict generation to one app id (for example `nornir`). Omit to generate every
-    app in the mapping table below.
+    Restrict generation to one app. Accepts the docs route id (`orchestrator`), the
+    display name (`Orchestrator`, `Bifrost Orchestrator`) or the internal codename
+    (`nornir`), case-insensitively. Omit to generate every app in the mapping table
+    below. An unknown value fails before any call is made.
 
 .PARAMETER BaseUrl
     Bifröst API root, ending in the company segment. The script appends `/tasks` and
@@ -60,7 +63,7 @@
 
 .EXAMPLE
     pwsh tools/generate-message-type-docs.ps1
-    pwsh tools/generate-message-type-docs.ps1 -App nornir
+    pwsh tools/generate-message-type-docs.ps1 -App Orchestrator
     pwsh tools/generate-message-type-docs.ps1 -ListOnly
 
 .EXAMPLE
@@ -72,7 +75,7 @@
 .EXAMPLE
     # Force Basic auth against the on-premises instance even when the OAuth
     # variables happen to be set.
-    pwsh tools/generate-message-type-docs.ps1 -Auth Basic -App nornir
+    pwsh tools/generate-message-type-docs.ps1 -Auth Basic -App Orchestrator
 
 .NOTES
     Credentials are read from environment variables and never written to disk, echoed,
@@ -205,14 +208,36 @@ $PrefixMap = [ordered]@{
     'Finance.VAT'           = 'iceland'
 }
 
-# Apps whose documentation this repository generates. Every app in the family is
-# mapped; anything the table does not claim belongs to Bifröst Foundation, which
-# owns the standard ERP catalogue (Data.*, Sales.*, Purchase.*, Finance.*,
-# Inventory.*, Projects.*, Resources.*, Help.MessageTypes.Get and the rest).
-$KnownApps = @(
-    'foundation', 'iceland', 'iceland-treasury', 'iceland-docex',
-    'bragi', 'hnitbjorg', 'nornir', 'clockify', 'subscription-billing'
-)
+# Owner id -> docs route. The owner ids above are the apps' internal codenames
+# and stay as they are. The docs route ids are the plugin instance ids in
+# `apps.ts` (and so the `docs/<route>/` folders): four of them were renamed to the
+# live app names, with client redirects, so the two no longer agree for every app:
+#
+#   bragi -> language-models   hnitbjorg -> attachments
+#   nornir -> orchestrator     clockify  -> timesheets
+#
+# Pages are always written under the route id, never the codename. `Title` is the
+# display name from `apps.ts`; -App accepts the codename, the route id, the title
+# or `Bifrost <Title>`. Keep this table in step with `apps.ts`.
+#
+# Every app in the family is mapped; anything the prefix table does not claim
+# belongs to Bifröst Foundation, which owns the standard ERP catalogue (Data.*,
+# Sales.*, Purchase.*, Finance.*, Inventory.*, Projects.*, Resources.*,
+# Help.MessageTypes.Get and the rest).
+$AppRoutes = [ordered]@{
+    'foundation'           = @{ Route = 'foundation';           Title = 'Foundation' }
+    'iceland'              = @{ Route = 'iceland';              Title = 'Iceland' }
+    'iceland-treasury'     = @{ Route = 'iceland-treasury';     Title = 'Iceland Treasury' }
+    'iceland-docex'        = @{ Route = 'iceland-docex';        Title = 'Iceland DocEx' }
+    'bragi'                = @{ Route = 'language-models';      Title = 'Language Models' }
+    'hnitbjorg'            = @{ Route = 'attachments';          Title = 'Attachments' }
+    'nornir'               = @{ Route = 'orchestrator';         Title = 'Orchestrator' }
+    'clockify'             = @{ Route = 'timesheets';           Title = 'Timesheets' }
+    'subscription-billing' = @{ Route = 'subscription-billing'; Title = 'Subscription Billing' }
+}
+
+# Owner ids whose documentation this repository generates.
+$KnownApps = @($AppRoutes.Keys)
 
 $FallbackApp = 'foundation'
 
@@ -241,6 +266,46 @@ function Resolve-OwningApp {
     # catalogue, so its keys have no single prefix to match on — it is the
     # residue, not a pattern.
     return $FallbackApp
+}
+
+# Docs route id for an owner id. An owner with no entry is a mistake in the
+# tables above, not something to guess a folder for.
+function Get-DocsRoute {
+    param([Parameter(Mandatory)] [string] $Owner)
+
+    if (-not $AppRoutes.Contains($Owner)) {
+        throw "Owner '$Owner' has no docs route in `$AppRoutes. Add it (see apps.ts)."
+    }
+    return $AppRoutes[$Owner].Route
+}
+
+# Turns the -App value into an owner id. Matches the codename, the route id, the
+# display name or `Bifrost <display name>`, case-insensitively (the `-eq`
+# default), so `hnitbjorg`, `attachments`, `Attachments` and `Bifröst
+# Attachments` all select the same app.
+function Resolve-AppFilter {
+    param([Parameter(Mandatory)] [string] $Name)
+
+    $wanted = $Name.Trim() -replace '^Bifr(ö|o)st\s+', ''
+    foreach ($owner in $AppRoutes.Keys) {
+        $entry = $AppRoutes[$owner]
+        if ($wanted -eq $owner -or $wanted -eq $entry.Route -or $wanted -eq $entry.Title) {
+            return $owner
+        }
+    }
+
+    $valid = foreach ($owner in $AppRoutes.Keys) {
+        $entry = $AppRoutes[$owner]
+        if ($owner -eq $entry.Route) { "$($entry.Route) ($($entry.Title))" }
+        else { "$($entry.Route) ($($entry.Title), formerly $owner)" }
+    }
+    throw "Unknown app '$Name'. Use one of: $($valid -join '; ')."
+}
+
+# Folder, relative to the site root, that holds one app's generated pages.
+function Get-MessageTypeFolder {
+    param([Parameter(Mandatory)] [string] $Route)
+    return "docs/$Route/reference/message-types"
 }
 
 # ---------------------------------------------------------------------------
@@ -524,7 +589,7 @@ function Write-MessageTypePage {
         [int] $Position
     )
 
-    $dir = Join-Path $SiteRoot "docs/$AppId/reference/message-types"
+    $dir = Join-Path $SiteRoot (Get-MessageTypeFolder -Route $AppId)
     if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Path $dir -Force | Out-Null }
 
     $slug = Get-Slug -Type $Type
@@ -566,7 +631,7 @@ function Write-CategoryFile {
     # An explicit `slug` is what keeps the category page at the same path as its
     # folder. Without it Docusaurus files generated indexes under
     # `<app>/category/...`, which no link in the site would guess.
-    $dir = Join-Path $SiteRoot "docs/$AppId/reference/message-types"
+    $dir = Join-Path $SiteRoot (Get-MessageTypeFolder -Route $AppId)
     $category = [ordered]@{
         label    = 'Message types'
         position = 1
@@ -598,7 +663,16 @@ function Write-CategoryFile {
 # Run
 # ---------------------------------------------------------------------------
 
-# Resolve credentials first: a run without them should fail on that, before it
+# Resolve the app filter first: a typo in -App should fail before anything else,
+# and it needs no credentials.
+$appFilter = $null
+if ($App) {
+    $appFilter = Resolve-AppFilter -Name $App
+    $filterRoute = Get-DocsRoute -Owner $appFilter
+    Write-Host "App: $App -> route '$filterRoute' ($(Get-MessageTypeFolder -Route $filterRoute)/)."
+}
+
+# Resolve credentials next: a run without them should fail on that, before it
 # touches the lock file or needs an API root.
 $authContext = Resolve-BifrostAuth -Mode $Auth -TenantId $EntraTenantId -ClientId $ClientId
 if ($authContext.Method -eq 'OAuth') {
@@ -663,10 +737,11 @@ try {
 
         $owner = Resolve-OwningApp -Type $key -Directory $directory
         if (-not $owner) { $excluded += $key; continue }
-        if ($App -and $owner -ne $App) { continue }
-        if (-not $App -and $KnownApps -notcontains $owner) { continue }
+        if ($appFilter -and $owner -ne $appFilter) { continue }
+        if (-not $appFilter -and $KnownApps -notcontains $owner) { continue }
 
-        $planned += [pscustomobject]@{ Type = $key; AppId = $owner }
+        # AppId is the docs route id: it names the folder the page goes to.
+        $planned += [pscustomobject]@{ Type = $key; AppId = (Get-DocsRoute -Owner $owner) }
     }
 
     Write-Host ("Catalogue: {0} type(s); {1} mapped to an app; {2} excluded (test-only)." -f @($types).Count, $planned.Count, $excluded.Count)
@@ -679,6 +754,13 @@ try {
             $excluded | Sort-Object | ForEach-Object { Write-Host "  $_" }
         }
         return
+    }
+
+    # Never start a new top-level docs tree: every route must already have its
+    # docs/<route>/ folder (created when the app was added to apps.ts).
+    $missingRoutes = @($planned | Select-Object -ExpandProperty AppId -Unique | Where-Object { -not (Test-Path (Join-Path $SiteRoot "docs/$_")) })
+    if ($missingRoutes.Count) {
+        throw "No docs folder for route(s) $($missingRoutes -join ', ') under $SiteRoot/docs. Add the app to apps.ts first, or fix `$AppRoutes."
     }
 
     $written = 0
