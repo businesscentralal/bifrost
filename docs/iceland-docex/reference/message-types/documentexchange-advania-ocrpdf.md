@@ -28,7 +28,7 @@ Extracted text content from the PDF pages.
 1. Get PDF attachment from a received document:
    DocumentExchange.Advania.GetAttachments { "messageId": "<uuid>" }
 2. Extract text from the PDF:
-   DocumentExchange.Advania.OcrPdf { "endpointId": "5801120800", "pdfContent": "<base64>" }
+   DocumentExchange.Advania.OcrPdf { "endpointId": "0000000000", "pdfContent": "<base64>" }
 3. Parse extracted text for invoice data (amounts, dates, references)
 ```
 

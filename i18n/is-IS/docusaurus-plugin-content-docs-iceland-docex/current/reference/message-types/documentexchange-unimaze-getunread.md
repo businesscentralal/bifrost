@@ -62,12 +62,12 @@ Svarið items map onto
 ### Step 1 — Discover authorized endpoints
 ```
 DocumentExchange.GetAuthorizedPartners
-→ Returns your endpoints (e.g. {"ean": "5801120800", "can_get_documents": "Y"})
+→ Returns your endpoints (e.g. {"ean": "0000000000", "can_get_documents": "Y"})
 ```
 
 ### Step 2 — Listi unread skjöl
 ```
-DocumentExchange.GetUnread { "endpointId": "5801120800", "skip": 0, "take": 50 }
+DocumentExchange.GetUnread { "endpointId": "0000000000", "skip": 0, "take": 50 }
 → Filter response items by from_ean to target a specific sender
 → Key fields per item: uuid, from_ean, from_name, document_id, payable_amount, currency
 ```

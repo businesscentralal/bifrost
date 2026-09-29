@@ -19,7 +19,7 @@ Sækir family relations og fyrirtæki relations by ID.
 - Slóð: `/api/Relations/{id}`
 
 ## Beiðni
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a **person**.\n  - Skilar family relations og fyrirtæki relations fyrir the person.\n  - Dæmi: `1102713369`.
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a **person**.\n  - Skilar family relations og fyrirtæki relations fyrir the person.\n  - Dæmi: `0000000000`.
 
 ## Svar
 - Tengingin wraps the Umsja Svar in a staðlaða JSON envelope með `status` og `result`.

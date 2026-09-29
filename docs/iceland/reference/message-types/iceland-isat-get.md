@@ -19,7 +19,7 @@ Gets the ISAT table, or ISAT codes for a specific subject (kennitala).
 - Path: `/api/Isat or /api/Isat/{id}`
 
 ## Request
-- **Subject** (optional): 10-digit kennitala.\n  - If provided: returns ISAT codes registered for that person/company.\n  - If omitted: returns the full ISAT classification table.\n  - Example: `4112032630` (company)
+- **Subject** (optional): 10-digit kennitala.\n  - If provided: returns ISAT codes registered for that person/company.\n  - If omitted: returns the full ISAT classification table.\n  - Example: `0000000000` (company)
 
 ## Response
 - The connector wraps the Umsja response in a standard JSON envelope with `status` and `result`.

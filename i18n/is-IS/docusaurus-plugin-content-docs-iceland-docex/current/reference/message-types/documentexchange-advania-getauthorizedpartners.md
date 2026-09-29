@@ -28,7 +28,7 @@ No parameters nauðsynlegt.
 ## Svar
 ```json
 { "items": [
-  { "ean": "4112032630", "name": "Kappi ehf", "can_get_documents": "Y", "can_submit_documents": "Y", "can_view_documents": "Y" }
+  { "ean": "0000000000", "name": "Kappi ehf", "can_get_documents": "Y", "can_submit_documents": "Y", "can_view_documents": "Y" }
 ], "count": 2 }
 ```
 

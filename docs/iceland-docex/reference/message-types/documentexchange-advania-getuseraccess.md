@@ -29,8 +29,8 @@ Lists users with access to a specific endpoint. Returns per-user permissions
 
 ## Response
 ```json
-{ "items": [{ "national_identifier": "4112032630", "name": "Kappi ehf",
-  "endpoint": "0196:4112032630", "user_accesses": [
+{ "items": [{ "national_identifier": "0000000000", "name": "Kappi ehf",
+  "endpoint": "0196:0000000000", "user_accesses": [
     { "username": "api_user", "can_send": 1, "can_get": 1, "can_view": 1, "enabled_flag": "Y" }
 ] }] }
 ```

@@ -19,7 +19,7 @@ Gets search results by search string, name, address, or postal address.
 - Path: `/api/Search/{id}`
 
 ## Request
-- **Subject**: Any search text — name, social ID, address, or postal address.\n  - Free-text search across the national registry.\n  - Example: `1102713369` or `Gunnar` or `Eyrartúni 4`.
+- **Subject**: Any search text — name, social ID, address, or postal address.\n  - Free-text search across the national registry.\n  - Example: `0000000000` or `Gunnar` or `Dæmigata 1`.
 
 ## Response
 - The connector wraps the Umsja response in a standard JSON envelope with `status` and `result`.

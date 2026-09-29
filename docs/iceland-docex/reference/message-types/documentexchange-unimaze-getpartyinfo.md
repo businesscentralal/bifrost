@@ -18,7 +18,7 @@ Use this to verify a trading partner exists in the PEPPOL network before sending
 ## Request
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| endpointId | string | **Yes** | Party identifier. Format: `{scheme}:{id}` (e.g. `0196:5801120800`) or plain kennitala (auto-prefixed with 0196:) |
+| endpointId | string | **Yes** | Party identifier. Format: `{scheme}:{id}` (e.g. `0196:0000000000`) or plain kennitala (auto-prefixed with 0196:) |
 
 ## Response
 ```json
