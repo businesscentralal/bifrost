@@ -2,39 +2,39 @@
 id: storage-attachment-createforrecord
 title: "Storage.Attachment.CreateForRecord"
 sidebar_label: "Storage.Attachment.CreateForRecord"
-sidebar_position: 3
-description: "Request and response contract for the Storage.Attachment.CreateForRecord Bifröst message type."
+sidebar_position: 9
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.Attachment.CreateForRecord."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Býr til a skjal attachment on any færsla - viðskiptavinur, vendor, fixed asset, skjal - úr base64, úr storage, eða by copying an existing attachment.
+Býr til fylgiskjalsviðhengi á hvaða færslu sem er - viðskiptamanni, lánardrottni, eign, fylgiskjali - úr base64, úr geymslu eða með því að afrita fyrirliggjandi viðhengi.
 
 ## Lýsigögn
-- **Direction:** Inn á við (write)
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.Attachment.CreateForRecord` og the parameters below as the `data` object.
-- **External File Storage operation:** `GetFile`
-- **Routing:** The færsla er addressed með `tableId`/`tableName` plus `recordSystemId` eða `no`. A `storageCode` er needed aðeins þegar the innihald source er a skrá in storage.
+- **Stefna:** Inn á við (Inbound, ritun)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.Attachment.CreateForRecord` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Aðgerð í External File Storage:** `GetFile`
+- **Beining:** Færslan er tilgreind með `tableId`/`tableName` ásamt `recordSystemId` eða `no`. `storageCode` þarf aðeins þegar innihaldsuppruninn er skrá í geymslu.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `tableId` | No | integer | Table the attachment belongs to. Supply this eða tableName. Common gildi: 18 = Customer, 23 = Vendor, 27 = Item, 156 = Resource, 270 = Bank Account, 5050 = Contact, 5200 = Employee, 5600 = Fixed Asset, 167 = Job, 15 = G/L Account. |
-| `tableName` | No | string | Table heiti instead of tableId, e.g. 'Fixed Asset', 'Customer', 'Bank Account'. Case-insensitive match against the BC object heiti. |
-| `recordSystemId` | No | string (GUID) | SystemId of the færsla to attach to. Works fyrir every table, including those með composite primary keys. Supply this eða no. |
-| `no` | No | string | Primary key gildi of the færsla (e.g. '10000' fyrir a viðskiptavinur, 'FA000010' fyrir a fixed asset). Only works fyrir tables whose primary key er a single Code eða Text field of 20 characters eða less. Notaðu færslaSystemId fyrir skjal tables og any table með a composite eða integer key. |
-| `fileName` | No | string | File heiti including extension, e.g. 'samningur.pdf'. Nauðsynlegt unless copying úr an existing attachment that already carries a heiti. |
-| `content` | No | base64 string | Content source 1: the skrá itself, base64-enkóðid inlína. The innihald er stored in the BC database. Notaðu fyrir small skrár. |
-| `storageCode` | No | string | Content source 2 (with slóð): references a skrá already in storage. The attachment er born offloaded — innihald stays in storage og er served transparently. Notaðu fyrir skrár delivered via Storage.Upload.Commit. |
-| `path` | No | string | Nauðsynlegt með storageCode. Path of the skrá within the storage tenging — typically the `path` returned by Storage.Upload.Commit. Each slóð getur aðeins be linked to one attachment. |
-| `sourceTarget` | No | string | Content source 3 (with sourceSystemId): copies innihald úr an existing BC attachment. Value er 'IncomingDocument' eða 'DocumentAttachment'. |
-| `sourceSystemId` | No | string (GUID) | SystemId of the existing attachment to copy innihald from. The innihald er duplicated server-side — nothing crosses the wire. |
+| `tableId` | Nei | integer | Taflan sem viðhengið tilheyrir. Gefðu upp þetta eða tableName. Algeng gildi: 18 = Customer, 23 = Vendor, 27 = Item, 156 = Resource, 270 = Bank Account, 5050 = Contact, 5200 = Employee, 5600 = Fixed Asset, 167 = Job, 15 = G/L Account. |
+| `tableName` | Nei | string | Heiti töflu í stað tableId, t.d. 'Fixed Asset', 'Customer', 'Bank Account'. Ekki háð há- og lágstöfum; borið saman við heiti BC-hlutarins. |
+| `recordSystemId` | Nei | string (GUID) | SystemId færslunnar sem viðhengið á að tengjast. Virkar fyrir allar töflur, líka töflur með samsettan aðallykil. Gefðu upp þetta eða no. |
+| `no` | Nei | string | Aðallyklagildi færslunnar (t.d. '10000' fyrir viðskiptamann, 'FA000010' fyrir eign). Virkar aðeins fyrir töflur þar sem aðallykillinn er einn Code- eða Text-reitur, 20 stafir eða færri. Notaðu recordSystemId fyrir fylgiskjalatöflur og allar töflur með samsettan lykil eða heiltölulykil. |
+| `fileName` | Nei | string | Skráarheiti með endingu, t.d. 'contract.pdf'. Nauðsynlegt nema afritað sé úr fyrirliggjandi viðhengi sem þegar hefur heiti. |
+| `content` | Nei | base64 string | Innihaldsuppruni 1: skráin sjálf, base64-kóðuð og innfelld. Innihaldið er geymt í BC-gagnagrunninum. Notaðu fyrir litlar skrár. |
+| `storageCode` | Nei | string | Innihaldsuppruni 2 (með path): vísar í skrá sem þegar er í geymslu. Viðhengið er vistað í geymslu frá upphafi — innihaldið er áfram í geymslu og er afgreitt á gagnsæjan hátt. Notaðu fyrir skrár sem sendar eru með Storage.Upload.Commit. |
+| `path` | Nei | string | Nauðsynlegt með storageCode. Slóð skrárinnar innan geymslutengingarinnar — yfirleitt `path` sem Storage.Upload.Commit skilar. Hver slóð getur aðeins tengst einu viðhengi. |
+| `sourceTarget` | Nei | string | Innihaldsuppruni 3 (með sourceSystemId): afritar innihald úr fyrirliggjandi BC-viðhengi. Gildið er 'IncomingDocument' eða 'DocumentAttachment'. |
+| `sourceSystemId` | Nei | string (GUID) | SystemId fyrirliggjandi viðhengis sem innihaldið er afritað úr. Innihaldið er afritað á þjóninum — ekkert fer yfir netið. |
 
 ## Dæmi um beiðni
 ```json
@@ -47,49 +47,52 @@ Tókst:
 { "status": "Success", "data": ... }
 ```
 
-`data` fields:
+Reitir í `data`:
 
-| Field | Type | Lýsing |
+| Reitur | Gerð | Lýsing |
 |---|---|---|
 | `target` | string | Alltaf `DocumentAttachment`. |
-| `tableId` | integer | The table the attachment was created on. |
-| `no` | string | The færsla key the attachment hangs on. |
-| `documentType` | string | The skjal tegund the base application derived úr the færsla. |
-| `lineNo` | integer | The lína number the base application derived úr the færsla. |
-| `attachmentId` | integer | The attachment's ID within the færsla's attachment list. |
-| `systemId` | string (GUID) | SystemId of the new attachment. Sendu to Storage.Attachment.Offload eða Restore. |
-| `fileName` | string | The final attachment skrá heiti (may be deduplicated, e.g. 'deed1.pdf'). |
-| `contentLength` | integer | The skrá size in bytes. |
-| `offloaded` | boolean | True þegar innihald stayed in storage (source 2). False fyrir inlína eða copy sources. |
-| `storageCode` | string | Present aðeins þegar offloaded. The storage tenging serving the skrá. |
-| `path` | string | Present aðeins þegar offloaded. The storage slóð of the skrá. |
+| `tableId` | integer | Taflan sem viðhengið var búið til á. |
+| `no` | string | Lykill færslunnar sem viðhengið er tengt við. |
+| `documentType` | string | Fylgiskjalsgerðin sem grunnforritið leiddi af færslunni. |
+| `lineNo` | integer | Línunúmerið sem grunnforritið leiddi af færslunni. |
+| `attachmentId` | integer | Auðkenni viðhengisins í viðhengjalista færslunnar. |
+| `systemId` | string (GUID) | SystemId nýja viðhengisins. Sendu í Storage.Attachment.Offload eða Restore. |
+| `fileName` | string | Endanlegt skráarheiti viðhengisins (gæti hafa verið breytt til að forðast tvítekningu, t.d. 'deed1.pdf'). |
+| `contentLength` | integer | Stærð skrárinnar í bætum. |
+| `offloaded` | boolean | True þegar innihaldið var áfram í geymslu (uppruni 2). False fyrir innfellt innihald eða afritun. |
+| `storageCode` | string | Aðeins til staðar þegar viðhengið er í geymslu. Geymslutengingin sem afgreiðir skrána. |
+| `path` | string | Aðeins til staðar þegar viðhengið er í geymslu. Geymsluslóð skrárinnar. |
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
 ## Algengar villur
 
 | Villa | Úrlausn |
 |---|---|
-| Supply exactly one innihald source | Send innihald, eða storageCode með slóð, eða sourceTarget með sourceSystemId — never combine two sources in the same request. |
-| No færsla was found in table | The host færsla verður exist áður en attaching. Check tableId og no/færslaSystemId. |
-| has a composite primary key | The table has more than one key field. Address the færsla með færslaSystemId instead of no. |
-| er not a kóði eða text field | The primary key er an Integer eða other non-text tegund. Notaðu færslaSystemId. |
-| gerir ekki know which field identifies a færsla | The table er not in the set BC getur key an attachment to. This connector widens that set to allir tables með a single Code key; others need a subscriber on Document Attachment Mgmt.OnAfterTableHasNumberFieldPrimaryKey. |
-| er longer than the 20 characters | The færsla identifier exceeds the 20-character limit of Document Attachment.No. |
-| er already linked to another attachment | Each storage skrá getur aðeins back one attachment. Upload a separate copy eða use a different slóð. |
+| Gefðu upp nákvæmlega einn innihaldsuppruna | Sendu content, eða storageCode með path, eða sourceTarget með sourceSystemId — sameinaðu aldrei tvo uppruna í sömu beiðni. |
+| Engin færsla fannst í töflunni | Hýsilfærslan verður að vera til áður en viðhengi er tengt. Athugaðu tableId og no/recordSystemId. |
+| hefur samsettan aðallykil | Taflan hefur fleiri en einn lykilreit. Tilgreindu færsluna með recordSystemId í stað no. |
+| er ekki Code- eða Text-reitur | Aðallykillinn er Integer eða önnur gerð sem ekki er texti. Notaðu recordSystemId. |
+| veit ekki hvaða reitur auðkennir færslu | Taflan er ekki meðal þeirra sem BC getur tengt viðhengi við. Þessi tengill víkkar það safn út í allar töflur með einum Code-lykli; aðrar þurfa áskrifanda að Document Attachment Mgmt.OnAfterTableHasNumberFieldPrimaryKey. |
+| er lengra en 20 stafir | Auðkenni færslunnar fer yfir 20 stafa hámark Document Attachment.No. |
+| er þegar tengd öðru viðhengi | Hver skrá í geymslu getur aðeins legið að baki einu viðhengi. Hladdu upp sérstöku afriti eða notaðu aðra slóð. |
 
-## Notes
-Document tegund og lína number eru derived úr the host færsla — never supply them. File heitis eru deduplicated within a færsla: two skrár heitid 'deed.pdf' become 'deed.pdf' og 'deed1.pdf'. With the storage source (source 2) the local innihald er cleared og a link er færslaed, so the skrá er served on demand — the same state as Offload produces.\\### Supported tables\\The base application natively supports: Customer (18), Vendor (23), Item (27), Employee (5200), Fixed Asset (5600), Job (167), Resource (156), og the standard Sales/Purchase skjal tables. This connector widens that set to **every table whose primary key er a single Code field of 20 characters eða less** — including G/L Account (15), Bank Account (270), Contact (5050), Location (14), og any extension table með the same shape. For tables outside this set, use færslaSystemId (always works fyrir addressing) — but note that the base application verður still be able to derive a key fyrir the Document Attachment row.
+## Athugasemdir
+Fylgiskjalsgerð og línunúmer eru leidd af hýsilfærslunni — gefðu þau aldrei upp. Komið er í veg fyrir tvítekin skráarheiti innan færslu: tvær skrár sem heita 'deed.pdf' verða 'deed.pdf' og 'deed1.pdf'. Með geymsluuppruna (uppruna 2) er staðbundna innihaldið hreinsað og tenging skráð, svo skráin er afgreidd eftir þörfum — sama staða og Offload skilar.\\### Studdar töflur\\Grunnforritið styður sjálft: Customer (18), Vendor (23), Item (27), Employee (5200), Fixed Asset (5600), Job (167), Resource (156) og hefðbundnar sölu- og innkaupafylgiskjalatöflur. Þessi tengill víkkar það safn út í **allar töflur þar sem aðallykillinn er einn Code-reitur, 20 stafir eða færri** — þar á meðal G/L Account (15), Bank Account (270), Contact (5050), Location (14) og hverja viðbótartöflu með sömu lögun. Fyrir töflur utan þessa safns skaltu nota recordSystemId (virkar alltaf til að tilgreina færslu) — en athugaðu að grunnforritið verður samt að geta leitt út lykil fyrir Document Attachment-línuna.
 
-## Next steps
-- To deliver a large skrá first → call `Storage.Upload.Begin` (then Append og Commit, og pass the committed `path` + `storageCode` here as source 2).
-- To move inlína innihald out of the database later → call `Storage.Attachment.Offload` (pass `target` = DocumentAttachment og the returned `systemId`).
-- To pull offloaded innihald back í the database → call `Storage.Attachment.Restore` (pass `target` = DocumentAttachment og the returned `systemId`).
+## Næstu skref
+- Til að senda stóra skrá fyrst → kallaðu á `Storage.Upload.Begin` (síðan Append og Commit, og sendu `path` + `storageCode` úr Commit hingað sem uppruna 2).
+- Til að flytja innfellt innihald út úr gagnagrunninum síðar → kallaðu á `Storage.Attachment.Offload` (sendu `target` = DocumentAttachment og `systemId` sem var skilað).
+- Til að sækja útflutt innihald aftur inn í gagnagrunninn → kallaðu á `Storage.Attachment.Restore` (sendu `target` = DocumentAttachment og `systemId` sem var skilað).
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

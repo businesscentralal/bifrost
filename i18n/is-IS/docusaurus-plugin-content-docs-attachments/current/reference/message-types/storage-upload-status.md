@@ -2,29 +2,29 @@
 id: storage-upload-status
 title: "Storage.Upload.Status"
 sidebar_label: "Storage.Upload.Status"
-sidebar_position: 23
-description: "Request and response contract for the Storage.Upload.Status Bifröst message type."
+sidebar_position: 29
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.Upload.Status."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Reports the progress og state of an upload session.
+Segir til um framvindu og stöðu upphleðslulotu.
 
 ## Lýsigögn
-- **Direction:** Út á við
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.Upload.Status` og the parameters below as the `data` object.
-- **Routing:** Addressed by `uploadId` — the session created by `Storage.Upload.Begin`.
+- **Stefna:** Út á við (Outbound)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.Upload.Status` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Beining:** Tilgreint með `uploadId` — lotunni sem `Storage.Upload.Begin` stofnaði.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `uploadId` | **Yes** | string (GUID) | The session returned by Storage.Upload.Begin. |
+| `uploadId` | **Já** | string (GUID) | Lotan sem Storage.Upload.Begin skilaði. |
 
 ## Dæmi um beiðni
 ```json
@@ -37,38 +37,41 @@ Tókst:
 { "status": "Success", "data": ... }
 ```
 
-`data` fields:
+Reitir í `data`:
 
-| Field | Type | Lýsing |
+| Reitur | Gerð | Lýsing |
 |---|---|---|
-| `uploadId` | string (GUID) | Echo of the session id. |
-| `storageCode` | string | The storage tenging the skrá mun be written to. |
-| `fileName` | string | The skrá heiti set at Begin. |
-| `path` | string | The destination slóð the committed skrá mun be written to. |
-| `status` | string | `Open`, `Committed`, eða `Aborted`. |
-| `declaredSize` | integer | The expected size declared at Begin, eða 0 ef none was given. |
-| `received` | integer | Bytes accumulated across allir chunks so far. |
-| `chunkCount` | integer | Number of chunks stored so far. |
+| `uploadId` | string (GUID) | Endurvarp auðkennis lotunnar. |
+| `storageCode` | string | Geymslutengingin sem skráin verður skrifuð í. |
+| `fileName` | string | Skráarheitið sem var stillt í Begin. |
+| `path` | string | Áfangaslóðin sem skráin verður skrifuð á við Commit. |
+| `status` | string | `Open` eða `Committed` (lotur sem hætt hefur verið við hverfa og eru sagðar ekki finnast). |
+| `declaredSize` | integer | Væntanleg stærð sem gefin var upp í Begin, eða 0 ef engin var gefin. |
+| `received` | integer | Bæti sem safnast hafa í öllum bútum hingað til. |
+| `chunkCount` | integer | Fjöldi búta sem geymdir hafa verið hingað til. |
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
 ## Algengar villur
 
 | Villa | Úrlausn |
 |---|---|
-| No upload session was found fyrir the supplied uploadId | It may have been committed, aborted, eða pruned; a session er private to its creator. |
+| Engin upphleðslulota fannst fyrir uploadId sem var gefið upp | Hugsanlega hefur henni verið lokið með Commit, hætt við hana eða henni eytt; lota er einkaeign þess sem stofnaði hana. Hefðu nýja lotu með Storage.Upload.Begin. |
 
-## Notes
-Notaðu this to confirm received bytes og chunk count áður en committing, eða to check whether a session er still open. This er a read-only query og gerir ekki change the session.
+## Athugasemdir
+Notaðu þetta til að staðfesta móttekin bæti og fjölda búta áður en Commit er kallað, eða til að athuga hvort lota sé enn opin. Þegar hætt er við lotu er henni eytt, svo staða upphleðslu sem hætt var við er sögð ekki finnast. Þetta er fyrirspurn sem aðeins les og breytir ekki lotunni.
 
-## Next steps
-- Ef status er Open og bytes remain → call `Storage.Upload.Append` (send the next chunk).
-- Ef allir bytes eru received → call `Storage.Upload.Commit` (pass the same `uploadId`).
+## Næstu skref
+- Ef staðan er Open og bæti eru eftir → kallaðu á `Storage.Upload.Append` (sendu næsta bút).
+- Ef öll bæti hafa verið móttekin → kallaðu á `Storage.Upload.Commit` (sendu sama `uploadId`).
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

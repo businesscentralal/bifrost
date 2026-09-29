@@ -2,33 +2,33 @@
 id: storage-attachment-offload
 title: "Storage.Attachment.Offload"
 sidebar_label: "Storage.Attachment.Offload"
-sidebar_position: 5
-description: "Request and response contract for the Storage.Attachment.Offload Bifröst message type."
+sidebar_position: 11
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.Attachment.Offload."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Offloads an attachment's skrá to a storage tenging og clears it úr the database, keeping it transparently available.
+Flytur skrá viðhengis út í geymslutengingu og hreinsar hana úr gagnagrunninum, en hún er áfram aðgengileg á gagnsæjan hátt.
 
 ## Lýsigögn
-- **Direction:** Inn á við (write)
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.Attachment.Offload` og the parameters below as the `data` object.
-- **External File Storage operation:** `CreateFile`
-- **Routing:** Beiðninnar `storageCode` velur a `Bifrost Storage Setup` row; the action runs against that row's skrá account. Discover kóðis með `Storage.Account.List`.
+- **Stefna:** Inn á við (Inbound, ritun)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.Attachment.Offload` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Aðgerð í External File Storage:** `CreateFile`
+- **Beining:** `storageCode` beiðninnar velur línu í `Bifrost Storage Setup` og aðgerðin keyrir á skráarreikningi þeirrar línu. Finndu kóðana með `Storage.Account.List`.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `target` | **Yes** | string | Which attachment table to act on: 'IncomingDocument' eða 'DocumentAttachment'. |
-| `systemId` | **Yes** | string (GUID) | The SystemId of the attachment færsla whose skrá should be offloaded. |
-| `storageCode` | **Yes** | string | Stillta storage tenging to upload to. Finndu með Storage.Account.List. |
-| `folderPath` | No | string | Valfrjálst destination mappa (one eða more submöppur, relative to the tenging base slóð) þar sem the skrá er stored; the skrá heiti er appended automatically. Sleppið til notkunar a navigable sjálfgefið: fyrir an incoming skjal, `bifrost-attachments/incoming-documents/{year}/{entry no.}/{file name}`, so the blob traces back to the skjal. |
+| `target` | **Já** | string | Hvaða viðhengjatöflu á að vinna með: 'IncomingDocument' eða 'DocumentAttachment'. |
+| `systemId` | **Já** | string (GUID) | SystemId viðhengisfærslunnar þar sem skráin á að flytjast út í geymslu. |
+| `storageCode` | **Já** | string | Uppsetta geymslutengingin sem hlaða á upp í. Finndu hana með Storage.Account.List. |
+| `folderPath` | Nei | string | Valfrjáls áfangamappa (ein eða fleiri undirmöppur, miðað við grunnslóð tengingarinnar) þar sem skráin er geymd; skráarheitinu er bætt við sjálfkrafa. Slepptu til að nota sjálfgefna slóð sem auðvelt er að rata um: fyrir innkomið fylgiskjal `bifrost-attachments/incoming-documents/{year}/{entry no.}/{file name}`, svo rekja megi blob-skrána aftur til fylgiskjalsins. |
 
 ## Dæmi um beiðni
 ```json
@@ -41,47 +41,50 @@ Tókst:
 { "status": "Success", "data": ... }
 ```
 
-`data` fields:
+Reitir í `data`:
 
-| Field | Type | Lýsing |
+| Reitur | Gerð | Lýsing |
 |---|---|---|
-| `target` | string | Echo of the target table (IncomingDocument eða DocumentAttachment). |
-| `systemId` | string (GUID) | Echo of the offloaded attachment færsla. Sendu to Storage.Attachment.Restore to bring it back. |
-| `storageCode` | string | The storage tenging that now holds the skrá. |
-| `path` | string | The full storage slóð the skrá was stored at. |
-| `contentLength` | integer | The number of bytes uploaded to storage. |
+| `target` | string | Endurvarp marktöflunnar (IncomingDocument eða DocumentAttachment). |
+| `systemId` | string (GUID) | Endurvarp útfluttu viðhengisfærslunnar. Sendu í Storage.Attachment.Restore til að sækja hana aftur. |
+| `storageCode` | string | Geymslutengingin sem nú geymir skrána. |
+| `path` | string | Öll geymsluslóðin þar sem skráin var geymd. |
+| `contentLength` | integer | Fjöldi bæta sem hlaðið var upp í geymslu. |
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
 ## Algengar villur
 
 | Villa | Úrlausn |
 |---|---|
-| The attachment er already offloaded | Restore it first með Storage.Attachment.Restore, then offload again ef needed. |
-| The attachment has no innihald to offload | The færsla holds no skrá innihald; nothing to move. |
-| No attachment færsla was found fyrir the supplied SystemId | Staðfestu the target table og the SystemId. |
+| Viðhengið er þegar flutt út í geymslu | Sæktu það fyrst aftur með Storage.Attachment.Restore og flyttu það svo aftur út ef þörf krefur. |
+| Viðhengið hefur ekkert innihald til að flytja út | Færslan inniheldur ekkert skráarinnihald; ekkert til að flytja. |
+| Engin viðhengisfærsla fannst fyrir uppgefið SystemId | Athugaðu marktöfluna og SystemId. |
 
-## Notes
-After a successful offload the skrá er removed úr the Business Central database og served on demand úr storage, so existing processes keep working. Reverse it með Storage.Attachment.Restore.
+## Athugasemdir
+Eftir vel heppnaðan útflutning er skráin fjarlægð úr gagnagrunni Business Central og afgreidd eftir þörfum úr geymslu, svo núverandi ferlar halda áfram að virka. Snúðu því við með Storage.Attachment.Restore.
 
-An attachment that er already offloaded geturnot be offloaded again. The call mun return an villa; restore it first ef you need to re-offload.
+Ekki er hægt að flytja út viðhengi sem þegar hefur verið flutt út. Kallið skilar villu; sæktu það fyrst aftur ef þú þarft að flytja það út á ný.
 
-### Finding offload geturdidagsetnings (batch workflow)
+### Að finna útflutningsmöguleika (batch vinnufærsla)
 
-Both attachment tables expose a calculated field **`Offloaded ori`** (Boolean) that er `true` þegar the færsla has a storage link og `false` þegar its innihald er still in the database. Notaðu `get_records` to discover geturdidagsetnings:
+Báðar viðhengjatöflurnar hafa reiknaða reitinn **`Offloaded ori`** (Boolean) sem er `true` þegar færslan hefur geymslutengingu og `false` þegar innihald hennar er enn í gagnagrunninum. Notaðu `get_records` til að finna færslur sem koma til greina:
 
-- **Incoming skjal attachments:** `get_records` með table `Incoming Document Attachment` (133), filter `WHERE(Offloaded ori=CONST(0))`, fields `SystemId,Name,Content_Length,Incoming_Document_Entry_No`. Stilltu target to `IncomingDocument`.
-- **Document attachments:** `get_records` með table `Document Attachment` (1173), filter `WHERE(Offloaded ori=CONST(0))`, fields `SystemId,File_Name,File_Extension,Table_ID,No`. Stilltu target to `DocumentAttachment`.
+- **Viðhengi innkominna fylgiskjala:** `get_records` með töflunni `Incoming Document Attachment` (133), síu `WHERE(Offloaded ori=CONST(0))`, reitum `SystemId,Name,Content_Length,Incoming_Document_Entry_No`. Stilltu target á `IncomingDocument`.
+- **Fylgiskjalsviðhengi:** `get_records` með töflunni `Document Attachment` (1173), síu `WHERE(Offloaded ori=CONST(0))`, reitum `SystemId,File_Name,File_Extension,Table_ID,No`. Stilltu target á `DocumentAttachment`.
 
-Loop through the niðurstöður og call this message tegund once per færsla, passing the returned `SystemId` as `systemId`. Already-offloaded færslur (if any slip through) eru rejected safely.
+Farðu í gegnum niðurstöðurnar og kallaðu á þessa skilaboðategund einu sinni fyrir hverja færslu og sendu `SystemId` sem var skilað sem `systemId`. Færslum sem þegar hafa verið fluttar út (ef einhverjar slæðast með) er hafnað á öruggan hátt.
 
-## Next steps
-- To bring the skrá back í the database → call `Storage.Attachment.Restore` (pass the same `target` og `systemId` — no storageCode needed, it er read úr the link).
+## Næstu skref
+- Til að sækja skrána aftur inn í gagnagrunninn → kallaðu á `Storage.Attachment.Restore` (sendu sama `target` og `systemId` — enginn storageCode nauðsynlegur, hann er lesinn úr tengingunni).
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

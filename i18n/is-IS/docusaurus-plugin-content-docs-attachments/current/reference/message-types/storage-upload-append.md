@@ -2,32 +2,32 @@
 id: storage-upload-append
 title: "Storage.Upload.Append"
 sidebar_label: "Storage.Upload.Append"
-sidebar_position: 19
-description: "Request and response contract for the Storage.Upload.Append Bifröst message type."
+sidebar_position: 25
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.Upload.Append."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Appends one base64 chunk to an open upload session.
+Bætir einum base64-bút við opna upphleðslulotu.
 
 ## Lýsigögn
-- **Direction:** Inn á við (write)
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.Upload.Append` og the parameters below as the `data` object.
-- **External File Storage operation:** `CreateFile`
-- **Routing:** Addressed by `uploadId` — the session created by `Storage.Upload.Begin`. No `storageCode` er needed here; the destination was fixed at Begin.
+- **Stefna:** Inn á við (Inbound, ritun)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.Upload.Append` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Aðgerð í External File Storage:** `CreateFile`
+- **Beining:** Tilgreint með `uploadId` — lotunni sem `Storage.Upload.Begin` stofnaði. Enginn `storageCode` er nauðsynlegur hér; áfangastaðurinn var ákveðinn í Begin.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `uploadId` | **Yes** | string (GUID) | The session returned by Storage.Upload.Begin. |
-| `sequence` | **Yes** | integer | 1-based position of this chunk. Sequences verður að vera contiguous (1, 2, 3, ...) með no gaps by the time you commit. Re-sending the same sequence replaces that chunk, so retries eru safe. |
-| `contentBase64` | **Yes** | base64 string | This chunk's raw bytes, base64-enkóðid on their own — no data-URI prefix, no whitespace. Keep hver chunk at eða below the chunkSizeHint raw bytes úr Begin (~48 KB). |
+| `uploadId` | **Já** | string (GUID) | Lotan sem Storage.Upload.Begin skilaði. |
+| `sequence` | **Já** | integer | Staða þessa búts, talin frá 1. Runur verða að vera samfelldar (1, 2, 3, ...) án bila þegar Commit er kallað. Ef sama runa er send aftur kemur hún í stað þess búts, svo endurtekningar eru öruggar. |
+| `contentBase64` | **Já** | base64 string | Hrá bæti þessa búts, base64-kóðuð sér — ekkert data-URI-forskeyti, engin bil. Hafðu hvern bút í mesta lagi jafnstóran og chunkSizeHint (hrá bæti) úr Begin (~48 KB). |
 
 ## Dæmi um beiðni
 ```json
@@ -40,38 +40,41 @@ Tókst:
 { "status": "Success", "data": ... }
 ```
 
-`data` fields:
+Reitir í `data`:
 
-| Field | Type | Lýsing |
+| Reitur | Gerð | Lýsing |
 |---|---|---|
-| `uploadId` | string (GUID) | Echo of the session id. |
-| `sequence` | integer | Echo of the accepted chunk sequence. |
-| `received` | integer | Total bytes accumulated across allir chunks so far. When this equals declaredSize (or the skrá size you intend), you eru done appending. |
-| `chunkCount` | integer | Number of distinct chunks stored so far. |
+| `uploadId` | string (GUID) | Endurvarp auðkennis lotunnar. |
+| `sequence` | integer | Endurvarp rununúmers bútsins sem var samþykktur. |
+| `received` | integer | Heildarfjöldi bæta sem safnast hafa í öllum bútum hingað til. Þegar þetta jafngildir declaredSize (eða stærðinni sem þú ætlaðir) er viðbótum lokið. |
+| `chunkCount` | integer | Fjöldi aðskildra búta sem geymdir hafa verið hingað til. |
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
 ## Algengar villur
 
 | Villa | Úrlausn |
 |---|---|
-| No upload session was found fyrir the supplied uploadId | Begin a session first; a session er private to its creator og may have been committed, aborted, eða pruned. |
-| The upload session er not open | It was already committed eða aborted; begin a new session. |
-| Invalid base64 innihald | Gakktu úr skugga um innihaldBase64 er valid base64 með no surrounding whitespace eða data-URI prefix. |
+| Engin upphleðslulota fannst fyrir uploadId sem var gefið upp | Hefðu lotu fyrst; lota er einkaeign þess sem stofnaði hana og gæti hafa verið lokið með Commit, hætt við hana eða henni eytt. |
+| Upphleðslulotan er ekki opin | Henni hefur þegar verið lokið með Commit eða hætt við hana; hefðu nýja lotu. |
+| Ógilt base64-innihald | Gakktu úr skugga um að contentBase64 sé gilt base64 án bila í kring eða data-URI-forskeytis. |
 
-## Notes
-Send chunks in order (sequence 1, 2, 3, ...). This call er idempotent per sequence — re-sending a sequence replaces that chunk.
+## Athugasemdir
+Sendu bútana í röð (runa 1, 2, 3, ...). Þetta kall skilar sömu niðurstöðu við endurtekningu (idempotent) fyrir hverja runu — ef runa er send aftur kemur hún í stað þess búts.
 
-## Next steps
-- While more chunks remain → call `Storage.Upload.Append` (increment `sequence` og send the next chunk).
-- When allir chunks eru sent (to external storage) → call `Storage.Upload.Commit` (pass the same `uploadId` — requires a storageCode on the session).
-- When allir chunks eru sent (to a færsla, no storage) → call `Storage.Upload.CommitToRecord` (pass the same `uploadId` + færsla address eða `target` = IncomingDocument).
-- To check accumulated progress → call `Storage.Upload.Status` (pass the same `uploadId`).
+## Næstu skref
+- Á meðan fleiri bútar eru eftir → kallaðu á `Storage.Upload.Append` (hækkaðu `sequence` og sendu næsta bút).
+- Þegar allir bútar hafa verið sendir (í ytri geymslu) → kallaðu á `Storage.Upload.Commit` (sendu sama `uploadId` — krefst storageCode á lotunni).
+- Þegar allir bútar hafa verið sendir (í færslu, án geymslu) → kallaðu á `Storage.Upload.CommitToRecord` (sendu sama `uploadId` + færsluvistfang eða `target` = IncomingDocument).
+- Til að athuga uppsafnaða framvindu → kallaðu á `Storage.Upload.Status` (sendu sama `uploadId`).
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

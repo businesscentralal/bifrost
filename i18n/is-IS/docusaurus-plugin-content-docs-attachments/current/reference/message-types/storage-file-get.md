@@ -2,31 +2,31 @@
 id: storage-file-get
 title: "Storage.File.Get"
 sidebar_label: "Storage.File.Get"
-sidebar_position: 15
-description: "Request and response contract for the Storage.File.Get Bifröst message type."
+sidebar_position: 21
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.File.Get."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Sækir a skrá úr the stillt storage tenging og returns its innihald as base64.
+Hleður niður skrá úr uppsettu geymslutengingunni og skilar innihaldi hennar sem base64.
 
 ## Lýsigögn
-- **Direction:** Út á við
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.File.Get` og the parameters below as the `data` object.
-- **External File Storage operation:** `GetFile`
-- **Routing:** Beiðninnar `storageCode` velur a `Bifrost Storage Setup` row; the action runs against that row's skrá account. Discover kóðis með `Storage.Account.List`.
+- **Stefna:** Út á við (Outbound)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.File.Get` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Aðgerð í External File Storage:** `GetFile`
+- **Beining:** `storageCode` beiðninnar velur línu í `Bifrost Storage Setup` og aðgerðin keyrir á skráarreikningi þeirrar línu. Finndu kóðana með `Storage.Account.List`.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `storageCode` | **Yes** | string | Stillta storage tenging til notkunar. Finndu með Storage.Account.List. |
-| `path` | **Yes** | string | The skrá slóð to download (relative to the tenging base slóð). |
+| `storageCode` | **Já** | string | Uppsetta geymslutengingin sem á að nota. Finndu hana með Storage.Account.List. |
+| `path` | **Já** | string | Skráarslóð sem á að hlaða niður (miðað við grunnslóð tengingarinnar). |
 
 ## Dæmi um beiðni
 ```json
@@ -38,26 +38,29 @@ Tókst:
 ```json
 { "status": "Success", "data": ... }
 ```
-`data` inniheldur `path`, `contentLength` (bytes) og `contentBase64` (the skrá innihald).
+`data` inniheldur `path`, `contentLength` (bæti) og `contentBase64` (innihald skrárinnar).
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
 ## Algengar villur
 
 | Villa | Úrlausn |
 |---|---|
-| File fannst ekki | Staðfestu the skrá er til með Storage.File.Exists eða list the mappa með Storage.File.List. |
+| Skrá fannst ekki | Staðfestu að skráin sé til með Storage.File.Exists eða listaðu möppuna með Storage.File.List. |
 
-## Notes
-The innihald er base64-enkóðid. Dekóði `contentBase64` to recover the original bytes.
+## Athugasemdir
+Innihaldið er base64-kóðað. Afkóðaðu `contentBase64` til að fá upprunalegu bætin aftur.
 
 ## Tengdar aðgerðir
-- **Upload a skrá:** `Storage.File.Create`\- **Check existence:** `Storage.File.Exists`
+- **Hlaða upp skrá:** `Storage.File.Create`\- **Athuga tilvist:** `Storage.File.Exists`
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

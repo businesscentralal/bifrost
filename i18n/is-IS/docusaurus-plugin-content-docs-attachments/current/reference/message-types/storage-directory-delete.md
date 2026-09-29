@@ -2,31 +2,31 @@
 id: storage-directory-delete
 title: "Storage.Directory.Delete"
 sidebar_label: "Storage.Directory.Delete"
-sidebar_position: 8
-description: "Request and response contract for the Storage.Directory.Delete Bifröst message type."
+sidebar_position: 14
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.Directory.Delete."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Eyðir a mappa úr the stillt storage tenging.
+Eyðir möppu úr uppsettu geymslutengingunni.
 
 ## Lýsigögn
-- **Direction:** Út á við
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.Directory.Delete` og the parameters below as the `data` object.
-- **External File Storage operation:** `DeleteDirectory`
-- **Routing:** Beiðninnar `storageCode` velur a `Bifrost Storage Setup` row; the action runs against that row's skrá account. Discover kóðis með `Storage.Account.List`.
+- **Stefna:** Út á við (Outbound)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.Directory.Delete` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Aðgerð í External File Storage:** `DeleteDirectory`
+- **Beining:** `storageCode` beiðninnar velur línu í `Bifrost Storage Setup` og aðgerðin keyrir á skráarreikningi þeirrar línu. Finndu kóðana með `Storage.Account.List`.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `storageCode` | **Yes** | string | Stillta storage tenging til notkunar. Finndu með Storage.Account.List. |
-| `path` | **Yes** | string | The mappa slóð to delete (relative to the tenging base slóð). |
+| `storageCode` | **Já** | string | Uppsetta geymslutengingin sem á að nota. Finndu hana með Storage.Account.List. |
+| `path` | **Já** | string | Slóð möppunnar sem á að eyða (miðað við grunnslóð tengingarinnar). |
 
 ## Dæmi um beiðni
 ```json
@@ -38,23 +38,30 @@ Tókst:
 ```json
 { "status": "Success", "data": ... }
 ```
-`data` inniheldur the deleted `path`.
+`data` inniheldur `path` möppunnar sem var eytt.
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
 ## Algengar villur
 
 | Villa | Úrlausn |
 |---|---|
-| Directory fannst ekki | Staðfestu the mappa er til með Storage.Directory.Exists. |
+| Mappa fannst ekki | Staðfestu að mappan sé til með Storage.Directory.Exists. |
+
+## Hliðarverkanir
+
+Eyðir möppu úr ytri geymslu þótt Direction sé Outbound. Líttu á það sem skrift þegar beðið er um staðfestingu.
 
 ## Tengdar aðgerðir
-- **Check existence first:** `Storage.Directory.Exists`
+- **Athugaðu tilvist fyrst:** `Storage.Directory.Exists`
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

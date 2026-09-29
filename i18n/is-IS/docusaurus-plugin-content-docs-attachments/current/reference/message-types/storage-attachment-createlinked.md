@@ -2,34 +2,34 @@
 id: storage-attachment-createlinked
 title: "Storage.Attachment.CreateLinked"
 sidebar_label: "Storage.Attachment.CreateLinked"
-sidebar_position: 4
-description: "Request and response contract for the Storage.Attachment.CreateLinked Bifröst message type."
+sidebar_position: 10
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.Attachment.CreateLinked."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Attaches a skrá already in storage to a new eða existing incoming skjal, served transparently úr storage.
+Tengir skrá sem þegar er í geymslu við nýtt eða fyrirliggjandi innkomið fylgiskjal; hún er afgreidd á gagnsæjan hátt úr geymslunni.
 
 ## Lýsigögn
-- **Direction:** Inn á við (write)
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.Attachment.CreateLinked` og the parameters below as the `data` object.
-- **External File Storage operation:** `GetFile`
-- **Routing:** Beiðninnar `storageCode` velur a `Bifrost Storage Setup` row; the action runs against that row's skrá account. Discover kóðis með `Storage.Account.List`.
+- **Stefna:** Inn á við (Inbound, ritun)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.Attachment.CreateLinked` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Aðgerð í External File Storage:** `GetFile`
+- **Beining:** `storageCode` beiðninnar velur línu í `Bifrost Storage Setup` og aðgerðin keyrir á skráarreikningi þeirrar línu. Finndu kóðana með `Storage.Account.List`.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `storageCode` | **Yes** | string | The storage tenging that holds the skrá (the same kóði used fyrir the upload). Finndu með Storage.Account.List. |
-| `path` | **Yes** | string | Path of the skrá within the tenging — typically the `path` returned by Storage.Upload.Commit. |
-| `fileName` | **Yes** | string | Attachment skrá heiti including extension (e.g. 'reikningur.pdf'). The extension er parsed úr it. |
-| `incomingDocumentEntryNo` | No | integer | Attach to this existing incoming skjal. Sleppið to create a new incoming skjal. |
-| `description` | No | string | Lýsing fyrir the new incoming skjal. Sjálfgefið er skráName. Ignored þegar incomingDocumentEntryNo er supplied. |
+| `storageCode` | **Já** | string | Geymslutengingin sem geymir skrána (sami kóði og notaður var við upphleðsluna). Finndu hann með Storage.Account.List. |
+| `path` | **Já** | string | Slóð skrárinnar innan tengingarinnar — yfirleitt `path` sem Storage.Upload.Commit skilar. |
+| `fileName` | **Já** | string | Skráarheiti viðhengisins með endingu (t.d. 'invoice.pdf'). Endingin er lesin úr því. |
+| `incomingDocumentEntryNo` | Nei | integer | Tengja við þetta fyrirliggjandi innkomna fylgiskjal. Slepptu til að búa til nýtt innkomið fylgiskjal. |
+| `description` | Nei | string | Lýsing nýja innkomna fylgiskjalsins. Sjálfgefið er fileName. Hunsað þegar incomingDocumentEntryNo er gefið upp. |
 
 ## Dæmi um beiðni
 ```json
@@ -42,40 +42,43 @@ Tókst:
 { "status": "Success", "data": ... }
 ```
 
-`data` fields:
+Reitir í `data`:
 
-| Field | Type | Lýsing |
+| Reitur | Gerð | Lýsing |
 |---|---|---|
 | `target` | string | Alltaf `IncomingDocument`. |
-| `incomingDocumentEntryNo` | integer | Entry No. of the incoming skjal the attachment belongs to. Notaðu it as the `subject` of Incoming.Document.Get. |
-| `lineNo` | integer | Line No. of the new attachment within the incoming skjal. |
-| `systemId` | string (GUID) | SystemId of the attachment færsla. Notaðu it as `systemId` fyrir Storage.Attachment.Restore. |
-| `storageCode` | string | The storage tenging that serves the skrá. |
-| `path` | string | The storage slóð the attachment er served from. |
-| `fileName` | string | The attachment skrá heiti. |
-| `contentLength` | integer | The skrá size in bytes. |
+| `incomingDocumentEntryNo` | integer | Færslunúmer innkomna fylgiskjalsins sem viðhengið tilheyrir. Notaðu það sem `subject` í Incoming.Document.Get. |
+| `lineNo` | integer | Línunúmer nýja viðhengisins innan innkomna fylgiskjalsins. |
+| `systemId` | string (GUID) | SystemId viðhengisfærslunnar. Notaðu það sem `systemId` í Storage.Attachment.Restore. |
+| `storageCode` | string | Geymslutengingin sem afgreiðir skrána. |
+| `path` | string | Geymsluslóðin sem viðhengið er afgreitt frá. |
+| `fileName` | string | Skráarnafn viðhengisins. |
+| `contentLength` | integer | Stærð skrárinnar í bætum. |
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
 ## Algengar villur
 
 | Villa | Úrlausn |
 |---|---|
-| No skrá was found in storage | Upload the skrá first (Storage.Upload.Begin/Append/Commit) og pass the committed slóð. |
-| No incoming skjal was found með entry no. | Sleppið incomingDocumentEntryNo to create a new skjal, eða pass a valid entry number. |
-| er already linked to another attachment | Each storage skrá getur aðeins back one attachment. Upload a separate copy eða use a different slóð. |
+| Engin skrá fannst í geymslunni | Hladdu skránni fyrst upp (Storage.Upload.Begin/Append/Commit) og sendu slóðina úr Commit. |
+| Ekkert innkomið fylgiskjal fannst með færslunúmeri | Slepptu incomingDocumentEntryNo til að búa til nýtt fylgiskjal, eða sendu gilt færslunúmer. |
+| er þegar tengd öðru viðhengi | Hver skrá í geymslu getur aðeins legið að baki einu viðhengi. Hladdu upp sérstöku afriti eða notaðu aðra slóð. |
 
-## Notes
-The attachment er created úr the stored skrá og immediately linked, með its local innihald cleared, so it er served on demand úr storage exactly like an offloaded attachment. The skrá er never copied í the database úr the caller.
+## Athugasemdir
+Viðhengið er búið til úr geymdu skránni og tengt strax, og staðbundna innihaldið er hreinsað, svo það er afgreitt eftir þörfum úr geymslunni nákvæmlega eins og útflutt viðhengi. Skráin er aldrei afrituð inn í gagnagrunninn frá kallanda.
 
-## Next steps
-- To verify the attachment og read it back → call `Incoming.Document.Get` (pass the returned `incomingDocumentEntryNo` as the `subject`).
-- To pull the skrá í the database (un-link) → call `Storage.Attachment.Restore` (pass `target` = IncomingDocument og the returned `systemId`).
+## Næstu skref
+- Til að staðfesta viðhengið og lesa það aftur → kallaðu á `Incoming.Document.Get` (sendu `incomingDocumentEntryNo` sem var skilað sem `subject`).
+- Til að sækja skrána inn í gagnagrunninn (aftengja) → kallaðu á `Storage.Attachment.Restore` (sendu `target` = IncomingDocument og `systemId` sem var skilað).
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

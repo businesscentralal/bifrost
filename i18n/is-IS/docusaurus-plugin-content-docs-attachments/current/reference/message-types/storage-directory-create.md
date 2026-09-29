@@ -2,31 +2,31 @@
 id: storage-directory-create
 title: "Storage.Directory.Create"
 sidebar_label: "Storage.Directory.Create"
-sidebar_position: 7
-description: "Request and response contract for the Storage.Directory.Create Bifröst message type."
+sidebar_position: 13
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.Directory.Create."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Býr til a mappa in the stillt storage tenging.
+Býr til möppu í uppsettu geymslutengingunni.
 
 ## Lýsigögn
-- **Direction:** Út á við
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.Directory.Create` og the parameters below as the `data` object.
-- **External File Storage operation:** `CreateDirectory`
-- **Routing:** Beiðninnar `storageCode` velur a `Bifrost Storage Setup` row; the action runs against that row's skrá account. Discover kóðis með `Storage.Account.List`.
+- **Stefna:** Út á við (Outbound)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.Directory.Create` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Aðgerð í External File Storage:** `CreateDirectory`
+- **Beining:** `storageCode` beiðninnar velur línu í `Bifrost Storage Setup` og aðgerðin keyrir á skráarreikningi þeirrar línu. Finndu kóðana með `Storage.Account.List`.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `storageCode` | **Yes** | string | Stillta storage tenging til notkunar. Finndu með Storage.Account.List. |
-| `path` | **Yes** | string | The mappa slóð to create (relative to the tenging base slóð). |
+| `storageCode` | **Já** | string | Uppsetta geymslutengingin sem á að nota. Finndu hana með Storage.Account.List. |
+| `path` | **Já** | string | Slóð möppunnar sem á að búa til (miðað við grunnslóð tengingarinnar). |
 
 ## Dæmi um beiðni
 ```json
@@ -38,20 +38,27 @@ Tókst:
 ```json
 { "status": "Success", "data": ... }
 ```
-`data` inniheldur the created `path`.
+`data` inniheldur `path` möppunnar sem var búin til.
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
-## Notes
-Some connectors (for example Azure Blob) have no real directories; a mappa may aðeins become visible once it inniheldur a skrá.
+## Hliðarverkanir
+
+Býr til möppu í ytri geymslu þótt Direction sé Outbound. Líttu á það sem skrift þegar beðið er um staðfestingu.
+
+## Athugasemdir
+Sumir tenglar (t.d. Azure Blob) hafa engar raunverulegar möppur; mappa verður hugsanlega ekki sýnileg fyrr en hún inniheldur skrá.
 
 ## Tengdar aðgerðir
-- **Delete a mappa:** `Storage.Directory.Delete`
+- **Eyða möppu:** `Storage.Directory.Delete`
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

@@ -2,160 +2,161 @@
 id: help-storage-get
 title: "Help.Storage.Get"
 sidebar_label: "Help.Storage.Get"
-sidebar_position: 1
-description: "Request and response contract for the Help.Storage.Get Bifröst message type."
+sidebar_position: 7
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Help.Storage.Get."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-This connector exposes the Business Central **External File Storage** facade as Bifrost message tegunds, giving read/write access to cloud storage (Azure Blob, Azure File Share, SharePoint, og any other registered External File Storage connector) úr Business Central og úr external callers.
+Þessi tengill birtir **External File Storage**-viðmót Business Central sem Bifrost-skilaboðategundir og veitir les- og skrifaðgang að skýjageymslu (Azure Blob, Azure File Share, SharePoint og öllum öðrum skráðum External File Storage-tenglum) úr Business Central og fyrir ytri kallendur.
 
-Skilaboð tegunds eru **outbound** (read/query) eða **inbound** (write); allir exchange JSON (`Content-Type: text/json`). Kalla any of them með the `call_message_type` tool, passing `type` = the message tegund heiti og `data` = its parameters.
+Skilaboðategundir eru **outbound** (lestur/fyrirspurn) eða **inbound** (skrift); allar skiptast á JSON (`Content-Type: text/json`). Kallaðu á hvaða þeirra sem er með `call_message_type`-tólinu og sendu `type` = heiti skilaboðategundarinnar og `data` = færibreytur hennar.
 
-## Release information
+**Direction** lýsir gögnum Business Central. Create, Delete, Copy og Move fyrir File og Directory breyta ytri geymslunni þótt þær séu Outbound; líttu á þær sem skrift þegar beðið er um staðfestingu.
 
-- **Release:** Initial release
-- **Version:** 28.0.11.0
-- **Supported locale(s):** en-US, is-IS
-- **Supported runtime:** Business Central 28 / runtime 17.0
+## Útgáfuupplýsingar
 
-## Getting started
+- **Útgáfa:** 28.0.0.36
+- **Studd tungumál:** en-US, is-IS
+- **Studd keyrsluumhverfi:** Business Central 28 / runtime 17.0
 
-Recommended order fyrir an automated caller:
+## Fyrstu skref
 
-1. Kallaðu á `Storage.Account.List` to discover the `storageCode` gildi you may use. Ekki guess a kóði.
-2. Beiðni the per-tegund help (`get_message_type_help`) fyrir the operation you intend to call to confirm its exact parameters og its **Next steps**.
-3. Kallaðu á the operation með a chosen `storageCode` og the operation's parameters.
-4. Inspect `status` first: on `Error`, read `error` og correct the request áður en retrying; on `Success`, read `data`.
+Ráðlögð röð fyrir sjálfvirkan kallanda:
 
-## Agent workflows
+1. Kallaðu á `Storage.Account.List` til að finna þau `storageCode`-gildi sem þú mátt nota. Ekki giska á kóða.
+2. Sæktu hjálp fyrir tegundina (`get_message_type_help`) fyrir aðgerðina sem þú ætlar að kalla á, til að staðfesta nákvæmar færibreytur hennar og **Næstu skref**.
+3. Kallaðu á aðgerðina með völdum `storageCode` og færibreytum aðgerðarinnar.
+4. Skoðaðu `status` fyrst: ef `Error`, lestu `error` og leiðréttu beiðnina áður en þú reynir aftur; ef `Success`, lestu `data`.
 
-Every per-tegund help skjal ends með a **Next steps** section naming the exact follow-up message tegund og the field to carry forward, so you getur chain calls án guessing. The common journeys:
+## Verkferlar fyrir gervigreindarmiðla
 
-**Upload a large skrá to external storage** (too big fyrir a single `Storage.File.Create`):
-1. `Storage.Upload.Begin` með `storageCode` + `fileName` \u2192 returns `uploadId`, `path`, `chunkSizeHint`.
-2. `Storage.Upload.Append` once per chunk \u2014 read at most `chunkSizeHint` RAW bytes, base64-enkóði that slice on its own, send með `uploadId` og `sequence` = 1, 2, 3, ...
-3. `Storage.Upload.Commit` með `uploadId` \u2192 writes the skrá og returns the final `path` og `contentLength`.
+Hvert hjálparskjal fyrir tegund endar á hlutanum **Næstu skref**, sem nefnir nákvæmlega hvaða skilaboðategund kemur næst og hvaða reit á að flytja áfram, svo þú getir keðjað köll án ágiskana. Algengustu ferlarnir:
 
-**Upload a large skrá directly to a færsla** (no external storage needed):
-1. `Storage.Upload.Begin` með just `fileName` (omit `storageCode`) \u2192 creates a buffer-only session.
-2. `Storage.Upload.Append` once per chunk (same as above).
-3. `Storage.Upload.CommitToRecord` með `uploadId` + færsla address (`tableId`/`no` eða `recordSystemId`) \u2192 assembles chunks og stores in the database.
-   - Default target er `DocumentAttachment` (any master færsla, sales skjal, posted skjal).
-   - Stilltu `target` = `IncomingDocument` to create an incoming skjal instead.
+**Hlaða stórri skrá upp í ytri geymslu** (of stór fyrir eitt `Storage.File.Create`):
+1. `Storage.Upload.Begin` með `storageCode` + `fileName` \u2192 skilar `uploadId`, `path`, `chunkSizeHint`.
+2. `Storage.Upload.Append` einu sinni fyrir hvern bút \u2014 lestu í mesta lagi `chunkSizeHint` RAW-bæti, base64-kóðaðu þann hluta einan og sér, sendu með `uploadId` og `sequence` = 1, 2, 3, ...
+3. `Storage.Upload.Commit` með `uploadId` \u2192 skrifar skrána og skilar endanlegu `path` og `contentLength`.
 
-**Attach an uploaded skrá to an incoming skjal:**
-4. `Storage.Attachment.CreateLinked` með the `storageCode` + `path` úr commit → creates (or reuses) an incoming skjal, returns `incomingDocumentEntryNo`.
-5. `Incoming.Document.Get` með that entry no as `subject` → confirms the attachment; its innihald er served transparently úr storage.
+**Hlaða stórri skrá beint upp í færslu** (engin ytri geymsla nauðsynleg):
+1. `Storage.Upload.Begin` með aðeins `fileName` (slepptu `storageCode`) \u2192 býr til lotu sem notar eingöngu biðminni.
+2. `Storage.Upload.Append` einu sinni fyrir hvern bút (eins og að ofan).
+3. `Storage.Upload.CommitToRecord` með `uploadId` + færsluvistfangi (`tableId`/`no` eða `recordSystemId`) \u2192 setur bútana saman og geymir í gagnagrunninum.
+   - Sjálfgefið markmið er `DocumentAttachment` (hvaða aðalfærsla sem er, sölufylgiskjal, bókað fylgiskjal).
+   - Stilltu `target` = `IncomingDocument` til að búa til innkomið fylgiskjal í staðinn.
 
-**Attach a skrá to any master færsla** (viðskiptavinur, vendor, fixed asset, G/L account, bank account, ...):
-- Inlína: `Storage.Attachment.CreateForRecord` með `tableId`/`tableName` + `no`/`recordSystemId` + `content` (base64) + `fileName`.
-- From storage (born offloaded): same call but pass `storageCode` + `path` instead of `content`. The skrá stays in storage og er served on demand.
-- Copy úr existing attachment: same call but pass `sourceTarget` + `sourceSystemId` instead of `content`. Server-side copy, nothing crosses the wire.
-- Each storage slóð getur aðeins be linked to one attachment; use a separate upload per attachment.
+**Tengja upphlaðna skrá við innkomið fylgiskjal:**
+4. `Storage.Attachment.CreateLinked` með `storageCode` + `path` úr Commit → býr til (eða endurnýtir) innkomið fylgiskjal, skilar `incomingDocumentEntryNo`.
+5. `Incoming.Document.Get` með því færslunúmeri sem `subject` → staðfestir viðhengið; innihald þess er afgreitt á gagnsæjan hátt úr geymslunni.
 
-**Offload an existing BC attachment** then bring it back: `Storage.Attachment.Offload` → `Storage.Attachment.Restore`. Works fyrir both `DocumentAttachment` og `IncomingDocument` targets.
+**Tengja skrá við hvaða aðalfærslu sem er** (viðskiptamann, lánardrottin, eign, fjárhagsreikning, bankareikning, ...):
+- Innfellt: `Storage.Attachment.CreateForRecord` með `tableId`/`tableName` + `no`/`recordSystemId` + `content` (base64) + `fileName`.
+- Úr geymslu (vistað í geymslu frá upphafi): sama kall en sendu `storageCode` + `path` í stað `content`. Skráin er áfram í geymslu og er afgreidd eftir þörfum.
+- Afrita úr fyrirliggjandi viðhengi: sama kall en sendu `sourceTarget` + `sourceSystemId` í stað `content`. Afritað á þjóninum, ekkert fer yfir netið.
+- Hver slóð í geymslu getur aðeins verið tengd einu viðhengi; notaðu sérstaka upphleðslu fyrir hvert viðhengi.
 
-### Chunking rules (precise)
+**Flytja fyrirliggjandi BC-viðhengi út í geymslu** og sækja það aftur: `Storage.Attachment.Offload` → `Storage.Attachment.Restore`. Virkar bæði fyrir `DocumentAttachment`- og `IncomingDocument`-markmið.
 
-- A chunk er at most `chunkSizeHint` **raw** bytes (currently 49152, about 48 KB).
-- Base64-enkóði hver chunk **independently**; never base64 the whole skrá og slice the niðurstaðaing text — the chunk boundaries would not dekóði.
-- `sequence` er 1-based og verður að vera contiguous með no gaps by commit; re-sending a sequence replaces that chunk (retries eru safe).
-- Sendu `declaredSize` (total bytes) at Begin so commit verifies nothing was lost.
-- A session er private to the caller og er pruned automatically ef never committed.
+### Reglur um búta (nákvæmar)
 
-## Routing
+- Bútur er í mesta lagi `chunkSizeHint` **hrá** bæti (nú 49152, um 48 KB).
+- Base64-kóðaðu hvern bút **sjálfstætt**; base64-kóðaðu aldrei alla skrána og skiptu textanum síðan niður — þá væri ekki hægt að afkóða bútamörkin.
+- `sequence` byrjar á 1 og verður að vera samfellt án bila þegar Commit er kallað; ef runa er send aftur kemur hún í stað þess búts (endurtekningar eru öruggar).
+- Sendu `declaredSize` (heildarfjölda bæta) í Begin svo Commit geti staðfest að ekkert hafi tapast.
+- Lota er einkaeign kallanda og er eytt sjálfkrafa ef henni er aldrei lokið með Commit.
 
-Every request carries a **`storageCode`** that velur a row in **`Bifrost Storage Setup`**. Each row binds the kóði to a registered Business Central skrá account (a connector plus an account) og an optional **`Base Path`** prefix that er prepended to every slóð. The connector apps own authentication og secrets — this connector never stores credentials.
+## Beining
 
-Discover the stillt kóðis með `Storage.Account.List`. The `path`, `sourcePath`, og `targetPath` gildi eru relative to the tenging's base slóð og use forward slashes (for example `dir/sub/file.txt`).
+Hver beiðni ber **`storageCode`** sem velur línu í **`Bifrost Storage Setup`**. Hver lína tengir kóðann við skráðan skráarreikning í Business Central (tengil og reikning) og valfrjálst **`Base Path`**-forskeyti sem er sett framan við hverja slóð. Tengilforritin sjá um auðkenningu og leyndarmál — þessi tengill geymir aldrei aðgangsupplýsingar.
 
-## Svar envelope
+Finndu uppsetta kóða með `Storage.Account.List`. Gildin `path`, `sourcePath` og `targetPath` eru miðuð við grunnslóð tengingarinnar og nota skástrik (t.d. `dir/sub/file.txt`).
 
-Every message tegund returns the same envelope:
+## Svarumslag
+
+Allar skilaboðategundir skila sama umslagi:
 
 - Tókst — `{ "status": "Success", "data": { ... } }`
-- Mistókst — `{ "status": "Error", "error": "<message>" }`
+- Villa — `{ "status": "Error", "error": "<message>" }`
 
-File innihald er carried as base64 in `contentBase64`. Existence checks return `{ "path": ..., "exists": true|false }`.
+Innihald skráar er borið sem base64 í `contentBase64`. Tilvistarkannanir skila `{ "path": ..., "exists": true|false }`.
 
-## Skilaboð tegunds
+## Skilaboðategundir
 
-### Discovery
+### Uppgötvun
 
-| Skilaboð tegund | Nauðsynlegt parameters | Lýsing |
+| Skilaboðategund | Nauðsynlegar færibreytur | Lýsing |
 |---|---|---|
-| `Help.Storage.Get` | _none_ | Skilar this Markdown overview. |
-| `Storage.Account.List` | _none_ | Lists the stillt storage tengingar (kóðis og connectors; no secrets). |
+| `Help.Storage.Get` | _engin_ | Skilar þessu yfirliti í Markdown. |
+| `Storage.Account.List` | _engin_ | Listar uppsettar geymslutengingar (kóða og tengla; engin leyndarmál). |
 
-### Files
+### Skrár
 
-| Skilaboð tegund | Nauðsynlegt parameters | Lýsing |
+| Skilaboðategund | Nauðsynlegar færibreytur | Lýsing |
 |---|---|---|
-| `Storage.File.Exists` | `storageCode`, `path` | Reports whether a skrá er til. |
-| `Storage.File.Get` | `storageCode`, `path` | Sækir a skrá as base64. |
-| `Storage.File.Create` | `storageCode`, `path`, `contentBase64` | Hleður upp a skrá (overwrites þar sem supported). |
-| `Storage.File.Delete` | `storageCode`, `path` | Eyðir a skrá. |
-| `Storage.File.Copy` | `storageCode`, `sourcePath`, `targetPath` | Afritar a skrá. |
-| `Storage.File.Move` | `storageCode`, `sourcePath`, `targetPath` | Flytur (reheitis) a skrá. |
-| `Storage.File.List` | `storageCode`, `path` | Lists the skrár in a mappa. |
+| `Storage.File.Exists` | `storageCode`, `path` | Segir til um hvort skrá sé til. |
+| `Storage.File.Get` | `storageCode`, `path` | Hleður niður skrá sem base64. |
+| `Storage.File.Create` | `storageCode`, `path`, `contentBase64` | Hleður upp skrá (skrifar yfir þar sem það er stutt). |
+| `Storage.File.Delete` | `storageCode`, `path` | Eyðir skrá. |
+| `Storage.File.Copy` | `storageCode`, `sourcePath`, `targetPath` | Afritar skrá. |
+| `Storage.File.Move` | `storageCode`, `sourcePath`, `targetPath` | Flytur (endurnefnir) skrá. |
+| `Storage.File.List` | `storageCode`, `path` | Listar skrárnar í möppu. |
 
-### Directories
+### Möppur
 
-| Skilaboð tegund | Nauðsynlegt parameters | Lýsing |
+| Skilaboðategund | Nauðsynlegar færibreytur | Lýsing |
 |---|---|---|
-| `Storage.Directory.Exists` | `storageCode`, `path` | Reports whether a mappa er til. |
-| `Storage.Directory.Create` | `storageCode`, `path` | Býr til a mappa. |
-| `Storage.Directory.Delete` | `storageCode`, `path` | Eyðir a mappa. |
-| `Storage.Directory.List` | `storageCode`, `path` | Lists the subdirectories of a mappa. |
+| `Storage.Directory.Exists` | `storageCode`, `path` | Segir til um hvort mappa sé til. |
+| `Storage.Directory.Create` | `storageCode`, `path` | Býr til möppu. |
+| `Storage.Directory.Delete` | `storageCode`, `path` | Eyðir möppu. |
+| `Storage.Directory.List` | `storageCode`, `path` | Listar undirmöppur möppu. |
 
-### Attachments
+### Viðhengi
 
-Move a Business Central attachment's skrá out to storage og back. While offloaded, the skrá er removed úr the database but stays transparently available to existing processes.
+Flyttu skrá Business Central-viðhengis út í geymslu og aftur til baka. Á meðan skráin er í geymslu er hún fjarlægð úr gagnagrunninum en er áfram aðgengileg núverandi ferlum á gagnsæjan hátt.
 
-| Skilaboð tegund | Nauðsynlegt parameters | Lýsing |
+| Skilaboðategund | Nauðsynlegar færibreytur | Lýsing |
 |---|---|---|
-| `Storage.Attachment.Offload` | `target`, `systemId`, `storageCode` | Flytur an attachment's skrá to storage og clears it úr the database. |
-| `Storage.Attachment.Restore` | `target`, `systemId` | Brings an offloaded attachment's skrá back í the database og deletes the remote copy. |
-| `Storage.Attachment.CreateLinked` | `storageCode`, `path`, `fileName` | Attaches a skrá already in storage to a new eða existing incoming skjal, served transparently úr storage. |
-| `Storage.Attachment.CreateForRecord` | `tableId`/`tableName`, `no`/`recordSystemId`, innihald source | Býr til a skjal attachment on any færsla (viðskiptavinur, vendor, fixed asset, G/L account, ...) úr inlína base64, úr storage, eða by copying an existing attachment. |
+| `Storage.Attachment.Offload` | `target`, `systemId`, `storageCode` | Flytur skrá viðhengis í geymslu og hreinsar hana úr gagnagrunninum. |
+| `Storage.Attachment.Restore` | `target`, `systemId` | Sækir skrá útflutts viðhengis aftur inn í gagnagrunninn og eyðir afritinu í geymslunni. |
+| `Storage.Attachment.CreateLinked` | `storageCode`, `path`, `fileName` | Tengir skrá sem þegar er í geymslu við nýtt eða fyrirliggjandi innkomið fylgiskjal; hún er afgreidd á gagnsæjan hátt úr geymslunni. |
+| `Storage.Attachment.CreateForRecord` | `tableId`/`tableName`, `no`/`recordSystemId`, innihaldsuppruni | Býr til fylgiskjalsviðhengi á hvaða færslu sem er (viðskiptamann, lánardrottin, eign, fjárhagsreikning, ...) úr innfelldu base64, úr geymslu eða með því að afrita fyrirliggjandi viðhengi. |
 
-`target` er `IncomingDocument` eða `DocumentAttachment`; `systemId` er the SystemId of the attachment færsla. `Storage.Attachment.Offload` also accepts an optional `folderPath` (one eða more submöppur) that chooses þar sem the skrá er stored; the skrá heiti er appended automatically. Sleppiðting it fyrir an incoming skjal yields a navigable sjálfgefið — `bifrost-attachments/incoming-documents/{year}/{entry no.}/{file name}` — so the blob traces back to its skjal.
+`target` er `IncomingDocument` eða `DocumentAttachment`; `systemId` er SystemId viðhengisfærslunnar. `Storage.Attachment.Offload` tekur einnig við valfrjálsu `folderPath` (ein eða fleiri undirmöppur) sem ræður hvar skráin er geymd; skráarheitinu er bætt við sjálfkrafa. Ef því er sleppt fyrir innkomið fylgiskjal fæst sjálfgefin slóð sem auðvelt er að rata um — `bifrost-attachments/incoming-documents/{year}/{entry no.}/{file name}` — svo rekja megi blob-skrána aftur til fylgiskjalsins.
 
-`Storage.Attachment.CreateForRecord` addresses the host færsla með `tableId`/`tableName` plus `no` eða `recordSystemId`. It accepts three innihald sources — inlína base64, a skrá in storage, eða a copy úr an existing attachment — but exactly one per call. Tables með a single Code primary key (Customer, Vendor, Fixed Asset, G/L Account, Bank Account, ...) getur be addressed by `no`; allir others use `recordSystemId`.
+`Storage.Attachment.CreateForRecord` tilgreinir hýsilfærsluna með `tableId`/`tableName` ásamt `no` eða `recordSystemId`. Hún tekur við þremur innihaldsuppruna — innfelldu base64, skrá í geymslu eða afriti af fyrirliggjandi viðhengi — en nákvæmlega einum í hverju kalli. Töflur með einum Code-aðallykli (Customer, Vendor, Fixed Asset, G/L Account, Bank Account, ...) má tilgreina með `no`; allar aðrar nota `recordSystemId`.
 
-### Chunked uploads
+### Upphleðsla í bútum
 
-Deliver a large skrá as a sequence of small chunks þegar it er too big fyrir a single `Storage.File.Create` call eða a single inlína `content` parameter. Begin a session, append the skrá in pieces (about 48 KB of raw bytes each, base64-enkóðid), then commit — either to external storage eða directly to a færsla attachment.
+Sendu stóra skrá sem röð lítilla búta þegar hún er of stór fyrir eitt `Storage.File.Create`-kall eða eina innfellda `content`-færibreytu. Hefðu lotu, bættu skránni við í bútum (um 48 KB af hráum bætum hver, base64-kóðuð) og ljúktu svo með Commit — annaðhvort í ytri geymslu eða beint sem viðhengi á færslu.
 
-| Skilaboð tegund | Nauðsynlegt parameters | Lýsing |
+| Skilaboðategund | Nauðsynlegar færibreytur | Lýsing |
 |---|---|---|
-| `Storage.Upload.Begin` | `fileName` (+ optional `storageCode`) | Opens a session og returns an `uploadId`. Sleppið `storageCode` fyrir a buffer-only session. |
-| `Storage.Upload.Append` | `uploadId`, `sequence`, `contentBase64` | Appends one chunk (re-sending a sequence replaces it). |
-| `Storage.Upload.Commit` | `uploadId` | Assembles the chunks og writes the skrá to external storage (requires `storageCode` on the session). |
-| `Storage.Upload.CommitToRecord` | `uploadId`, færsla address | Assembles the chunks og attaches directly to a færsla án external storage. |
-| `Storage.Upload.Abort` | `uploadId` | Discards the session án writing. |
-| `Storage.Upload.Status` | `uploadId` | Reports progress og state. |
+| `Storage.Upload.Begin` | `fileName` (+ valfrjálst `storageCode`) | Opnar lotu og skilar `uploadId`. Slepptu `storageCode` fyrir lotu sem notar eingöngu biðminni. |
+| `Storage.Upload.Append` | `uploadId`, `sequence`, `contentBase64` | Bætir við einum bút (ef runa er send aftur kemur hún í stað hans). |
+| `Storage.Upload.Commit` | `uploadId` | Setur bútana saman og skrifar skrána í ytri geymslu (krefst `storageCode` á lotunni). |
+| `Storage.Upload.CommitToRecord` | `uploadId`, færsluvistfang | Setur bútana saman og tengir beint við færslu án ytri geymslu. |
+| `Storage.Upload.Abort` | `uploadId` | Fleygir lotunni án þess að skrifa. |
+| `Storage.Upload.Status` | `uploadId` | Segir til um framvindu og stöðu. |
 
-Each upload session er private to the notandi that created it, so concurrent callers never see one another's in-flight chunks. Sessions left uncommitted eru pruned automatically by a retention policy.
+Hver upphleðslulota er einkaeign notandans sem stofnaði hana, svo samtímis kallendur sjá aldrei búta hvers annars sem eru í vinnslu. Lotum sem ekki er lokið með Commit er eytt sjálfkrafa samkvæmt varðveislureglu.
 
-Beiðni the per-tegund help skjal fyrir any message tegund to get its full parameter table, request og response examples, og common villur.
+Sæktu hjálparskjalið fyrir hvaða skilaboðategund sem er til að fá alla færibreytutöfluna, dæmi um beiðni og svar og algengar villur.
 
-## Connector notes
+## Athugasemdir um tengilinn
 
-- **Accounts eru registered in Business Central.** Configure connectors og accounts through the standard File Account setup; this connector references them by id og never stores credentials.
-- **Directory semantics depend on the connector.** Object stores such as Azure Blob have no native directories — some connectors emulate them með zero-byte placeholder markers, others treat a mappa as existing aðeins once it inniheldur a skrá. Notaðu `Storage.Directory.Exists` to confirm rather than assuming.
-- **Create overwrites.** `Storage.File.Create` replaces an existing skrá on connectors that support overwrite.
-- **Paths getur be case-sensitive** on cloud back ends — match the stored casing exactly.
-- **Offloaded attachments stay transparent.** After `Storage.Attachment.Offload`, processes that read the skrá through the standard accessors keep working; the innihald er fetched úr storage on demand. Ef the storage tenging er unavailable the read fails rather than returning an empty skrá.
+- **Reikningar eru skráðir í Business Central.** Settu upp tengla og reikninga í hefðbundinni uppsetningu skráarreikninga; þessi tengill vísar í þá með auðkenni og geymir aldrei aðgangsupplýsingar.
+- **Hegðun mappa fer eftir tenglinum.** Hlutageymslur á borð við Azure Blob hafa engar raunverulegar möppur — sumir tenglar líkja eftir þeim með núll-bæta staðgengilsmerkjum, aðrir telja möppu aðeins til þegar hún inniheldur skrá. Notaðu `Storage.Directory.Exists` til að staðfesta í stað þess að gefa þér það.
+- **Create skrifar yfir.** `Storage.File.Create` kemur í stað fyrirliggjandi skrár hjá tenglum sem styðja yfirskrift.
+- **Slóðir geta verið háðar há- og lágstöfum** í skýjabakendum — notaðu nákvæmlega sama rithátt og í geymslunni.
+- **Útflutt viðhengi haldast gagnsæ.** Eftir `Storage.Attachment.Offload` halda ferlar sem lesa skrána með hefðbundnum aðgangsleiðum áfram að virka; innihaldið er sótt úr geymslunni eftir þörfum. Ef geymslutengingin er ekki tiltæk mistekst lesturinn í stað þess að tómri skrá sé skilað.
 
-## Initial release boundaries
+## Afmörkun fyrstu útgáfu
 
-- Help skjöl eru authored fyrir machine-readable call guidance og deterministic request chaining.
-- The connector intentionally routes through stillt External File Storage accounts og gerir ekki manage credentials.
-- Skilaboð samningar follow the common Bifrost response envelope með `status` og either `data` eða `error`.
+- Hjálparskjölin eru samin sem véllesanlegar leiðbeiningar um köll og fyrirsjáanlega keðjun beiðna.
+- Tengillinn fer vísvitandi í gegnum uppsetta External File Storage-reikninga og sér ekki um aðgangsupplýsingar.
+- Skilaboðasamningar fylgja sameiginlegu svarumslagi Bifrost með `status` og annaðhvort `data` eða `error`.
 
