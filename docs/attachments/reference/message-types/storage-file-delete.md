@@ -2,13 +2,13 @@
 id: storage-file-delete
 title: "Storage.File.Delete"
 sidebar_label: "Storage.File.Delete"
-sidebar_position: 13
+sidebar_position: 19
 description: "Request and response contract for the Storage.File.Delete Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
-`tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+`tools/generate-message-type-docs-from-source.mjs`. Edit the help codeunit in the app, not this file.
 :::
 
 
@@ -52,9 +52,16 @@ Always branch on `status` before reading `data`.
 |---|---|
 | File not found | Verify the file exists with Storage.File.Exists. |
 
+## Side effects
+
+Deletes a file from external storage even though Direction is Outbound. Treat as a write when asking for confirmation.
+
 ## Related operations
 - **Check existence first:** `Storage.File.Exists`
 
 ---
 Connector overview and the list of configured connections: request help for `Help.Storage.Get` and call `Storage.Account.List`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -2,13 +2,13 @@
 id: storage-upload-committorecord
 title: "Storage.Upload.CommitToRecord"
 sidebar_label: "Storage.Upload.CommitToRecord"
-sidebar_position: 22
+sidebar_position: 28
 description: "Request and response contract for the Storage.Upload.CommitToRecord Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
-`tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+`tools/generate-message-type-docs-from-source.mjs`. Edit the help codeunit in the app, not this file.
 :::
 
 
@@ -81,4 +81,7 @@ The storage-free alternative to Storage.Upload.Commit. Chunks are assembled and 
 
 ---
 Connector overview and the list of configured connections: request help for `Help.Storage.Get` and call `Storage.Account.List`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

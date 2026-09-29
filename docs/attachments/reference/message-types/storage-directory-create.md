@@ -2,13 +2,13 @@
 id: storage-directory-create
 title: "Storage.Directory.Create"
 sidebar_label: "Storage.Directory.Create"
-sidebar_position: 7
+sidebar_position: 13
 description: "Request and response contract for the Storage.Directory.Create Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
-`tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+`tools/generate-message-type-docs-from-source.mjs`. Edit the help codeunit in the app, not this file.
 :::
 
 
@@ -46,6 +46,10 @@ Failure (the framework wraps any raised error):
 ```
 Always branch on `status` before reading `data`.
 
+## Side effects
+
+Creates a directory in external storage even though Direction is Outbound. Treat as a write when asking for confirmation.
+
 ## Notes
 Some connectors (for example Azure Blob) have no real directories; a directory may only become visible once it contains a file.
 
@@ -54,4 +58,7 @@ Some connectors (for example Azure Blob) have no real directories; a directory m
 
 ---
 Connector overview and the list of configured connections: request help for `Help.Storage.Get` and call `Storage.Account.List`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -2,13 +2,13 @@
 id: help-storage-get
 title: "Help.Storage.Get"
 sidebar_label: "Help.Storage.Get"
-sidebar_position: 1
+sidebar_position: 7
 description: "Request and response contract for the Help.Storage.Get Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
-`tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+`tools/generate-message-type-docs-from-source.mjs`. Edit the help codeunit in the app, not this file.
 :::
 
 
@@ -16,10 +16,11 @@ This connector exposes the Business Central **External File Storage** facade as 
 
 Message types are **outbound** (read/query) or **inbound** (write); all exchange JSON (`Content-Type: text/json`). Invoke any of them with the `call_message_type` tool, passing `type` = the message type name and `data` = its parameters.
 
+**Direction** describes Business Central data. File and Directory Create, Delete, Copy and Move change the external storage even though they are Outbound; treat them as writes when asking for confirmation.
+
 ## Release information
 
-- **Release:** Initial release
-- **Version:** 28.0.11.0
+- **Version:** 28.0.0.36
 - **Supported locale(s):** en-US, is-IS
 - **Supported runtime:** Business Central 28 / runtime 17.0
 

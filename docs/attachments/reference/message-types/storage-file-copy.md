@@ -2,13 +2,13 @@
 id: storage-file-copy
 title: "Storage.File.Copy"
 sidebar_label: "Storage.File.Copy"
-sidebar_position: 11
+sidebar_position: 17
 description: "Request and response contract for the Storage.File.Copy Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
-`tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+`tools/generate-message-type-docs-from-source.mjs`. Edit the help codeunit in the app, not this file.
 :::
 
 
@@ -53,9 +53,16 @@ Always branch on `status` before reading `data`.
 |---|---|
 | Source not found | Verify the source file exists with Storage.File.Exists. |
 
+## Side effects
+
+Creates a copy in external storage even though Direction is Outbound. Treat as a write when asking for confirmation.
+
 ## Related operations
 - **Move instead of copy:** `Storage.File.Move`
 
 ---
 Connector overview and the list of configured connections: request help for `Help.Storage.Get` and call `Storage.Account.List`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 
