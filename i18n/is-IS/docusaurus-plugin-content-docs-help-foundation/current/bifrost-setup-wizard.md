@@ -15,7 +15,7 @@ Opnaðu hana úr listanum Aðstoðuð uppsetning, með **Uppsetningarleiðsögn*
 | --- | --- |
 | **1. Velkomin í Bifröst** | Útskýrir hvað Bifröst geymir hjá Origo (einstefnutætigildi af leigjandaauðkenninu þínu, stillingar þessa fyrirtækis og skilaboðanotkun þess) og sýnir notendaleyfissamninginn. Veldu **Ég samþykki notendaleyfissamninginn** til að halda áfram. |
 | **2. Virkja HTTP-biðlarabeiðnir** | Telur upp öll uppsett Bifröst-forrit og hvort þau megi senda útleiðar HTTP-beiðnir. Sjá [HTTP-skref](#http-step). |
-| **3. Auðkenni** _(valfrjálst)_ | Telur upp auðkennin sem uppsettu forritin þurfa svo þú getir skráð gildi sem vantar. Sjá [Auðkennaskref](#credentials-step). |
+| **3. Auðkenni** _(aðeins á staðnum)_ | Telur upp auðkennin sem uppsettu forritin þurfa svo þú getir skráð gildi sem vantar. Sjá [Auðkennaskref](#credentials-step). |
 | **4. Leyfi** | Fer eftir umhverfinu - sjá [Leyfisskref](#licensing-step). |
 | **5. MCP-þjónustenging og heimild forrits** | Aðeins í skýinu. Sýnir vefslóð MCP-þjónsins sem þú bætir við gervigreindarvirkið þitt, tengilinn sem stjórnandi (alstjórnandi eða forritastjórnandi í Microsoft Entra) notar til að heimila Origo Bifrost-fyrirtækjaforritið og tengla á Bifröst-tenginguna í verslunum gervigreindarvirkja. |
 | **6. Uppsetningu lokið** | Veldu **Ljúka** til að samþykkja leyfissamninginn fyrir þetta fyrirtæki, skrá fyrirtækið hjá leyfisþjónustunni og, í framleiðsluumhverfi, virkja prufuleyfið. Aðstoðaða uppsetningin er þá merkt sem lokið. |

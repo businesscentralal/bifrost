@@ -38,9 +38,16 @@ export const apps: BifrostApp[] = [
   {id: 'inventory', title: 'Inventory', appName: 'Bifrost Inventory', wave: 1},
 ];
 
-/** Cross-app documentation instances that are not tied to a single extension. */
+/**
+ * Cross-app documentation instances that are not tied to a single extension,
+ * in the order a reader meets them: set it up, read the documentation, try it,
+ * see the cost, then the apps.
+ */
 export const crossAppInstances = [
-  {id: 'start', title: 'Start here'},
+  {id: 'setup', title: 'Set it up'},
+  {id: 'documentation', title: 'Documentation'},
+  {id: 'try-it-out', title: 'Try it out'},
+  {id: 'cost', title: 'Cost'},
   {id: 'apps', title: 'Apps'},
   {id: 'extensibility', title: 'Extensibility'},
   {id: 'skills', title: 'Skills'},

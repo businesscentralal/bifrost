@@ -59,7 +59,6 @@ function docsInstance(id: string, routeBasePath: string, path: string): [string,
       path,
       routeBasePath,
       sidebarPath: './sidebars.ts',
-      editUrl: 'https://github.com/businesscentralal/bifrost/tree/main/',
       showLastUpdateTime: true,
     } satisfies DocsOptions,
   ];
@@ -206,24 +205,44 @@ const config: Config = {
     navbar: {
       title: 'Bifröst',
       items: [
-        {label: buildLocale === 'is-IS' ? 'Byrjaðu hér' : 'Start here', to: '/start/', position: 'left'},
+        // Left to right is the reader's journey: set it up, read the documentation
+        // for your role, try it, see the cost, then the apps and their help.
+        {label: buildLocale === 'is-IS' ? 'Uppsetning' : 'Set it up', to: '/setup/', position: 'left'},
         {
           type: 'dropdown',
-          label: 'Apps',
+          label: buildLocale === 'is-IS' ? 'Skjölun' : 'Documentation',
+          to: '/documentation/',
           position: 'left',
           items: [
-            {label: buildLocale === 'is-IS' ? 'Öll forrit (skráning)' : 'All apps (registry)', to: '/apps/'},
+            {label: buildLocale === 'is-IS' ? 'Hvernig Bifröst virkar' : 'How Bifröst works', to: '/documentation/how-it-works/'},
+            {type: 'html', value: `<span class="dropdownHeading">${buildLocale === 'is-IS' ? 'Viðskiptavinir' : 'End customers'}</span>`},
+            {label: buildLocale === 'is-IS' ? 'Notendur' : 'Users', to: '/documentation/end-customers/users/'},
+            {label: buildLocale === 'is-IS' ? 'Kerfisstjórar' : 'Administrators', to: '/documentation/end-customers/administrators/'},
+            {label: buildLocale === 'is-IS' ? 'Forritarar' : 'Developers', to: '/documentation/end-customers/developers/'},
+            {type: 'html', value: `<span class="dropdownHeading">${buildLocale === 'is-IS' ? 'Samstarfsaðilar' : 'Partners and ISVs'}</span>`},
+            {label: buildLocale === 'is-IS' ? 'Yfirlit' : 'Overview', to: '/documentation/partners/'},
+            {label: buildLocale === 'is-IS' ? 'Byggðu á Bifröst' : 'Build on Bifröst', to: '/extensibility/'},
+            {label: buildLocale === 'is-IS' ? 'Færni fyrir gervigreind' : 'Skills for AI agents', to: '/skills/'},
+          ],
+        },
+        {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/', position: 'left'},
+        {label: buildLocale === 'is-IS' ? 'Verð' : 'Cost', to: '/cost/', position: 'left'},
+        {
+          type: 'dropdown',
+          label: buildLocale === 'is-IS' ? 'Forrit' : 'Apps',
+          to: '/apps/',
+          position: 'left',
+          items: [
+            {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/'},
             ...apps.map((app) => ({label: app.title, to: `/${app.id}/`})),
           ],
         },
         {
           type: 'dropdown',
-          label: 'Help',
+          label: buildLocale === 'is-IS' ? 'Hjálp' : 'Help',
           position: 'left',
           items: apps.map((app) => ({label: app.title, to: `/help/${app.id}/`})),
         },
-        {label: buildLocale === 'is-IS' ? 'Byggðu á Bifröst' : 'Build on Bifröst', to: '/extensibility/', position: 'left'},
-        {label: 'Skills', to: '/skills/', position: 'left'},
         {
           type: 'dropdown',
           label: buildLocale === 'is-IS' ? 'Íslenska' : 'English',
@@ -233,41 +252,36 @@ const config: Config = {
             {label: 'Íslenska', href: `${siteRoot}is-is/`, target: '_self'},
           ],
         },
-        {
-          href: 'https://github.com/businesscentralal/bifrost',
-          label: 'GitHub',
-          position: 'right',
-        },
       ],
     },
     footer: {
       style: 'dark',
       links: [
         {
-          title: buildLocale === 'is-IS' ? 'Byrjaðu hér' : 'Start here',
+          title: buildLocale === 'is-IS' ? 'Byrjaðu' : 'Get going',
           items: [
-            {label: buildLocale === 'is-IS' ? 'Hvað Bifröst er' : 'What Bifröst is', to: '/start/'},
-            {label: buildLocale === 'is-IS' ? 'Að nota Bifröst' : 'Using Bifröst', to: '/start/using-bifrost/'},
-            {label: buildLocale === 'is-IS' ? 'Uppsetning Bifröst' : 'Set up Bifröst', to: '/start/set-up/'},
-            {label: buildLocale === 'is-IS' ? 'Leyfismál' : 'Licensing', to: '/foundation/licensing/'},
+            {label: buildLocale === 'is-IS' ? 'Uppsetning' : 'Set it up', to: '/setup/'},
+            {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/'},
+            {label: buildLocale === 'is-IS' ? 'Verð' : 'Cost', to: '/cost/'},
+            {label: buildLocale === 'is-IS' ? 'Skjölun' : 'Documentation', to: '/documentation/'},
             {label: buildLocale === 'is-IS' ? 'Persónuvernd' : 'Privacy', to: '/foundation/privacy/'},
             {label: buildLocale === 'is-IS' ? 'Notkunarskilmálar' : 'Terms of Use', to: '/foundation/eula/'},
           ],
         },
         {
-          title: 'Apps',
-          items: apps.slice(0, 5).map((app) => ({label: app.title, to: `/${app.id}/`})),
-        },
-        {
-          title: 'More apps',
-          items: apps.slice(5).map((app) => ({label: app.title, to: `/${app.id}/`})),
-        },
-        {
-          title: 'Build on Bifröst',
+          title: buildLocale === 'is-IS' ? 'Forrit' : 'Apps',
           items: [
+            {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/'},
+            ...apps.map((app) => ({label: app.title, to: `/${app.id}/`})),
+          ],
+        },
+        {
+          title: buildLocale === 'is-IS' ? 'Byggðu á Bifröst' : 'Build on Bifröst',
+          items: [
+            {label: buildLocale === 'is-IS' ? 'Fyrir samstarfsaðila' : 'Partners and ISVs', to: '/documentation/partners/'},
             {label: buildLocale === 'is-IS' ? 'Forritaskrá' : 'App registry', to: '/apps/'},
             {label: buildLocale === 'is-IS' ? 'Byggðu á Bifröst' : 'Build on Bifröst', to: '/extensibility/'},
-            {label: 'Skills for AI agents', to: '/skills/'},
+            {label: buildLocale === 'is-IS' ? 'Færni fyrir gervigreind' : 'Skills for AI agents', to: '/skills/'},
             {label: 'llms.txt', href: `${siteRoot}llms.txt`, target: '_self'},
             {label: 'apps.json', href: `${siteRoot}apps.json`, target: '_self'},
             {label: 'GitHub', href: 'https://github.com/businesscentralal/bifrost'},

@@ -138,8 +138,7 @@ gjaldskyldum skilaboðum yfirstandandi almanaksmánaðar. Skil á notkun til ley
 ekki þeirri tölu - skilaboð sem dagleg notkunarsamstilling hefur skilað teljast áfram með þar til
 mánuðinum lýkur.
 
-**Varðveisla** breytir henni: varðveislustefna á **Bifröst-skilaboðum** sem eyðir skilaboðum
-yfirstandandi mánaðar fjarlægir þau úr talningunni. Geymdu Bifröst-skilaboð í minnst 31 dag ef þú
+Geymdu Bifröst-skilaboð í minnst 31 dag ef þú
 notar mánaðarlegu kvótana.
 
 ## Sandkassaumhverfi

@@ -251,7 +251,7 @@ enumextension 50100 "My Credit Limit Type" extends "Customer Credit Limit Type o
 |---|---|---|
 | 0 | Open | Allir reitir mega skrifaðir — sama og hegðun án verndar. Sjálfgefið. |
 | 1 | Blocked | Aðeins reitir með Change Log Modification-rakningu mega skrifaðir. Allir aðrir hafnaðir. |
-| 2 | Via force | Sama og Blocked nema hægt er að fara framhjá með `"force": true` í beiðninni **og** með `Force Access ori` heimildarsetti. |
+| 2 | Via force | Sama og Blocked nema hægt er að fara framhjá með `"force": true` í beiðninni **og** með `BIFROST Force ori` heimildarsetti. |
 
 **Nota `force` sniðgang (aðeins Via force stillingu):**
 
@@ -268,7 +268,7 @@ enumextension 50100 "My Credit Limit Type" extends "Customer Credit Limit Type o
 
 - Breyting á verndinni í `Blocked` eða `Via force` krefst þess að BC Change Log eiginleikinn sé virkur
 - Notaðu `ChangeLog.Field.Enabled` til að athuga reitarþekju áður en skrift er reynd
-- Án `Force Access ori` heimildarsetts er beiðninni hafnað jafnvel með `force: true`
+- Án `BIFROST Force ori` heimildarsetts er beiðninni hafnað jafnvel með `force: true`
 
 ---
 ### 8. Tegund útflutnings á heiti fyrirtækis {#tegund-tflutnings-heiti-fyrirtkis}
@@ -531,7 +531,7 @@ User <UserSecurityId> does not have permissions to send documents to approval vi
 
 **Úthlutun:** Úthlutið í gegnum venjulega BC **Heimildarsett** síðu eða í gegnum notendaflokk.
 
-### Force Access ori
+### BIFROST Force ori
 
 **Tilgangur:** Nauðsynlegt til að fara framhjá ChangeLog Write Guard þegar `"force": true` er notað í `Data.Records.Set` beiðnum þar sem verndin er stillt á **Via force**. Sjá [ChangeLog Write Guard](#changelog-skrifjrn) fyrir nánari upplýsingar.
 

@@ -1,19 +1,19 @@
 ---
-id: index
-title: "What Bifröst is"
-sidebar_label: "What Bifröst is"
-sidebar_position: 1
-slug: /
-description: "Ask Business Central in your own words. What Bifröst does, how it works, why it is safe, and where to go next."
+id: how-it-works
+title: "How Bifröst works"
+sidebar_label: "How Bifröst works"
+sidebar_position: 2
+description: "The ideas behind Bifröst, explained once: message types, the one gate every call goes through, and how an agent finds and calls the right operation."
 ---
 
-# What Bifröst is
+# How Bifröst works
 
 **Ask Business Central. It works out how.**
 
 Getting a new answer out of an ERP has always meant someone building it first: a report, an
 integration, a project with a budget and a queue. Bifröst removes that step. You ask in your own
-words, in Copilot, Claude or another AI assistant, and an agent does the work in Business Central.
+words, in Copilot, Claude or another AI assistant, and an **agent** does the work in Business
+Central. (On this site, *agent* means the AI, or another system, acting for you.)
 
 It can do that because Business Central's operations are published as **message types**. Each
 message type does one thing, such as checking item availability, turning a quote into an order or
@@ -25,7 +25,9 @@ what can go wrong. The agent reads those descriptions, picks the right operation
 - **Nothing is built for your question.** The operations describe themselves, so an agent can
   combine them, including for questions nobody planned for.
 - **It runs as you.** Every call runs as your own Business Central user, with your permissions, or
-  as the app identity an integration was given. It reaches only what that identity is allowed to.
+  as the app identity an integration was given. It reaches only what that identity is allowed to,
+  and every call is logged in your Business Central. You decide what each identity may do; see
+  [Administrators](/documentation/end-customers/administrators/).
 - **It grows without a release.** Any app, Origo's or a partner's, can add message types, and every
   connected agent can use them the same day.
 
@@ -36,9 +38,8 @@ import PlatformMap from '@site/src/components/PlatformMap';
 <PlatformMap />
 
 [Bifröst Foundation](/foundation/) is the one gate. It holds the catalogue of message types, hands
-out their help, checks permissions and licence, and logs every call. Everything else in the family
-is an app that adds its own message types to the same catalogue. The [app registry](/apps/) lists
-them.
+out their help, checks permissions and license, and logs every call. Everything else in the family
+is an app that adds its own message types to the same catalogue. The [app list](/apps/) shows them.
 
 ## What happens when you ask
 
@@ -50,6 +51,9 @@ them.
    question is about; the on-hand count alone would not answer it.
 3. **It reads the help** of that message type: how to name the item, what comes back.
 4. **It calls it.** Foundation checks that you may, runs it as you and logs the call.
+
+   ![A real call in Claude, with the connector under its temporary name: the assistant asks to run Item.Availability.Get for item 1896-S](/img/setup/claude-invoke-availability.png)
+
 5. **It answers** in plain words, with the figures per location.
 
 A change works the same way, with one more safeguard: the agent can look before it acts.
@@ -63,17 +67,23 @@ and whether the agent may post at all is decided by the permissions of the ident
 When something goes wrong, the answer says what to do next, for example that a number does not
 exist and how to look it up. The agent corrects itself or asks you.
 
-## Why an agent can work with it
+## Where your data goes
 
-- **It finds the operations.** The catalogue lists what exists, so the agent does not have to guess.
-- **It reads the contract.** Each message type's help says exactly what to send and what comes back.
-- **It looks before it leaps.** Posting can be previewed first, and bulk changes come as a preview
-  and an apply.
-- **It corrects itself.** Errors name the cause and the fix.
+import DataFlow from '@site/src/components/DataFlow';
 
-And underneath all of it: every call runs as the identity it acts for, under Business Central's own
-permissions, and every call is logged in your Business Central. You still decide what each identity
-may do; see [Set up Bifröst](/start/set-up/).
+<DataFlow />
+
+In more detail:
+
+- **Origo** does not store message contents or your business data, {/* OPEN-07 OPEN-08 OPEN-18 */} and they are not used to train
+  AI models. Its licensing service keeps your Bifröst configuration (company identification,
+  environment name and connection details), usage counts with times and message type names, and a
+  hashed identifier of your tenant; the apps also send it technical diagnostics (telemetry). {/* OPEN-09 */} The
+  setup wizard shows what the licensing service stores before you accept.
+- **Bifrost Messages** in your Business Central keeps each call with the data it returned, for as
+  long as you decide; see [Logs and retention](/documentation/end-customers/administrators/#logs-and-retention).
+
+The full statement: [Privacy](/foundation/privacy/).
 
 ## How far it goes
 
@@ -86,14 +96,6 @@ may do; see [Set up Bifröst](/start/set-up/).
 | **Run on a schedule** | The same chain, unattended | A reconciliation every Friday, with [Orchestrator](/orchestrator/) |
 | **Build on it** | An assistant or app other people use | A role-specific console, or your own app's message types |
 
-## Start where you are
-
-| You want to … | Go to |
-|---|---|
-| Use it in your daily work | [Using Bifröst](/start/using-bifrost/) |
-| Install and set it up | [Set up Bifröst](/start/set-up/) |
-| Know what it costs and how licensing works | [Licensing](/foundation/licensing/) |
-| Call it from another system | [API reference](/foundation/reference/api/) |
-| Build your own message types | [Build on Bifröst](/extensibility/) |
-| Drive it from an AI agent | [Skills for AI agents](/skills/) |
-| See every message type an app adds | That app's reference, from the [app list](/apps/) |
+**Next:** [Set it up](/setup/), or the page for your role:
+[Users](/documentation/end-customers/users/) · [Administrators](/documentation/end-customers/administrators/) ·
+[Developers](/documentation/end-customers/developers/) · [Partners](/documentation/partners/).

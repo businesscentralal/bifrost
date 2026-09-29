@@ -75,7 +75,6 @@ notkun), og dagleg samstilling geymir þær í skyndiminni.
 | `true` (venjulega sjálfgefið) | Kallinu er hafnað með villunni um uppurinn kvóta hér að ofan. |
 | `false` | Kallið keyrir. Það er áfram talið og svarið ber áfram kvótaviðvörunina. |
 
-- Fyrir fyrstu samstillingu, á meðan eftirstöðvarnar eru enn óþekktar, eru köll leyfð.
 
 ### Mánaðarlegir kvótar
 
@@ -85,7 +84,7 @@ Hvaða leigjandi sem er getur sett **Mánaðarlegan skilaboðakvóta fyrirtækis
 almanaksmánuði. Kvóti notanda er athugaður á undan kvóta fyrirtækis.
 
 Talið er út frá gjaldskyldum skilaboðum almanaksmánaðarins í **Bifröst-skilaboðum** fyrirtækisins;
-skil á notkun lækka ekki töluna, varðveislustefna á Bifröst-skilaboðum gerir það. Í áskrift telur
+skil á notkun lækka ekki töluna. Í áskrift telur
 kvóti fyrirtækis ekki forritsskráningarskilaboð; kvóti notanda telur öll skilaboð notandans. Sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/foundation/licensing/license-types/#how-monthly-quotas-are-counted).
 
 ## Viðvaranir {#warnings}

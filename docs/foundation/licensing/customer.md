@@ -14,7 +14,7 @@ the **Subscription** license and is invoiced by its Partner for the messages it 
    is complete - the tenant starts on Prepaid with an approved EULA and an activated trial.
 2. Give your Partner your **Microsoft Entra tenant ID** (shown as **Azure Tenant Id** on Bifröst
    Setup).
-3. When the Partner has sent the invitation, open **Bifröst Setup** and choose **Sync** - the
+3. When the Partner has sent the invitation, open **Bifrost Setup** and choose **Sync** - the
    invitation is only picked up by a Sync. Then choose **Register as Customer** on the notification
    *A Bifrost Partner has invited this tenant as a Customer*.
 4. If more than one Partner has invited you, [Pending Customer Invites](/help/foundation/pending-customer-invites/)
@@ -30,16 +30,16 @@ the Partner.
 - Your Partner invoices you for the messages you use each month. There is no purchased quota to
   run out of.
 - You can cap your own usage - and your bill - with **monthly quotas**:
-  - **Company Monthly Message Quota** on the Bifröst Setup page;
-  - **Monthly Msg Quota** per user on Bifröst User Setup.
+  - **Company Monthly Message Quota** on the Bifrost Setup page;
+  - **Monthly Msg Quota** per user on Bifrost User Setup.
 
   `0` means no limit. When a quota is reached, calls are refused until the next calendar month.
-- You can choose a higher **rate limit** with **Configure Rate Limit** on Bifröst Setup (production
+- You can choose a higher **rate limit** with **Configure Rate Limit** on Bifrost Setup (production
   only). Ask your Partner for the price first. See [Rate limits](./rate-limits.md).
 
 ## Following your usage
 
-- The **License** fact box on Bifröst Setup shows your license type and the messages not yet
+- The **License** fact box on Bifrost Setup shows your license type and the messages not yet
   reported.
 - [License Usage](/help/foundation/license-usage/) lists your usage entries by day, company and pool.
 - `Bifrost.Subscription.GetStatus` and `Bifrost.Subscription.GetUsage` return the same information
@@ -47,17 +47,17 @@ the Partner.
 
 ## Leaving your Partner
 
-Choose **Request to Leave Partner** on Bifröst Setup and, optionally, give a reason. Your Partner
+Choose **Request to Leave Partner** on Bifrost Setup and, optionally, give a reason. Your Partner
 reviews the request:
 
 - **Confirmed** - on your next Sync the relationship ends and the tenant returns to **Prepaid**. Your
   rate limit returns to Free, and calls use your purchased message quota again.
-- **Rejected** - after your next Sync, Bifröst Setup shows the Partner's reason. You stay a Customer.
+- **Rejected** - after your next Sync, Bifrost Setup shows the Partner's reason. You stay a Customer.
 
 ## When your Partner cancels
 
 Your Partner can end the relationship (**Cancel Customer**), and it also ends when the Partner's own
-Vendor cancels the Partner. On your next Sync, Bifröst Setup shows *Your Bifröst Partner relationship
+Vendor cancels the Partner. On your next Sync, Bifrost Setup shows *Your Bifröst Partner relationship
 has ended* and the tenant is back on **Prepaid**.
 
 A former Customer can be invited again - by the same or another Partner - and accepting that

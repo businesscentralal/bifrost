@@ -310,7 +310,7 @@ For detailed documentation, see the specialized reference documents:
 
 For building an application on top of Bifröst Foundation, see:
 
-- **[Extending Bifröst Setup](/extensibility/setup-and-secrets/)** - the one action a dependent app adds to the Bifröst Setup page
+- **[Extending Bifrost Setup](/extensibility/setup-and-secrets/)** - the one action a dependent app adds to the Bifrost Setup page
 - **[Secrets](/foundation/reference/secrets/)** - the unified secret store every application uses
 
 ### All Available Message Types

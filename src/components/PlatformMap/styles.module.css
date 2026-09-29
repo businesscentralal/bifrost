@@ -85,7 +85,11 @@
 .builtin:hover,
 .gate:hover,
 .app:hover,
-.yours:hover {
+.yours:hover,
+.gate:focus-visible,
+.builtin:focus-visible,
+.app:focus-visible,
+.yours:focus-visible {
   text-decoration: none;
   border-color: var(--ifm-color-primary);
 }
@@ -101,4 +105,12 @@
   color: var(--ifm-color-emphasis-700);
   text-align: center;
   margin-top: 0.25rem;
+}
+
+.gate:focus-visible,
+.builtin:focus-visible,
+.app:focus-visible,
+.yours:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
 }

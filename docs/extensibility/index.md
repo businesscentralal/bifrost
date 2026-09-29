@@ -38,15 +38,18 @@ The principle behind all of it: **headless inside, message types outside.** Insi
 business logic is a core that never talks to a person. Outside, callers use your message types,
 not your procedures. [Why message types](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/START-HERE.md#why-message-types)
 
+import HeadlessMap from '@site/src/components/HeadlessMap';
+
+<HeadlessMap />
+
 ## How an agent uses your message type
 
-An agent that has never seen your app goes through four steps:
+An agent that has never seen your app goes through four steps. At each it reads one part of your
+contract: the *selection card* (the one-line description) or the *use card* (the help).
 
-1. **It searches** the catalogue with the user's words, matched against names and one-line descriptions.
-2. **It chooses** from the short list, by name and description alone.
-3. **It reads the help** of the one it chose.
-4. **It calls it**, with no screen and no person to ask. If the call fails, the error text is its
-   only guidance.
+import AgentCards from '@site/src/components/AgentCards';
+
+<AgentCards />
 
 Almost everything that makes a good message type follows from these four steps. A name in the
 user's words gets found. A description that says what it changes and how it differs from its
@@ -123,11 +126,21 @@ Beyond the text, a good message type:
 
 ## Pick your path
 
-| You have … | Path |
-|---|---|
-| Nothing yet | **A new app.** Start from the Boilerplate: the smallest complete app that follows every rule, with its tests. |
-| An app you own, whose operations should be callable | **Make it headless, and add the message types in the same app**, shipped as an upgrade. |
-| An app also sold without Bifröst, or someone else's app you cannot change | **The exception: a separate adapter app** over a public facade. Only when the second path is not possible. |
+In short: a new app starts from the Boilerplate in the reference repository. An app you own and
+can change gets its message types in the same app. Only an app you cannot change, or one also sold
+without Bifröst, gets a separate adapter app, which calls the app through its public procedures
+(a facade).
+
+```mermaid
+flowchart TD
+    Q1{"Do you have an app yet?"}
+    Q1 -- "No" --> P1["A new app:<br/>start from the Boilerplate"]
+    Q1 -- "Yes" --> Q2{"Can you change it?"}
+    Q2 -- "No" --> P3["The exception:<br/>a separate adapter app"]
+    Q2 -- "Yes" --> Q3{"Is it also sold<br/>without Bifröst?"}
+    Q3 -- "No" --> P2["Make it headless and add the<br/>message types in the same app"]
+    Q3 -- "Yes" --> P3
+```
 
 The rule of thumb: the logic stays headless in the app that owns it, and a message type never
 copies a business rule. The reference repository maps common partner situations, such as ISV
@@ -161,7 +174,7 @@ contract, its headless audit, its help and these tests all agree.
    and run its quick start in your own sandbox.
 2. Give [START-HERE](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/START-HERE.md)
    to your coding agent and say which path you are on.
-3. When your app is live, [register it](/apps/) so customers can find it.
+3. When your app is live, [register it](/apps/register-your-app/) so customers can find it.
 
 ## Foundation reference
 

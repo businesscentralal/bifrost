@@ -7,7 +7,9 @@ slug: /
 description: "The Clockify time-tracking API exposed as Bifröst message types, with synchronisation of time entries into Business Central Job Journals and Time Sheets."
 ---
 
-Bifröst Timesheets connects Business Central to [Clockify](https://clockify.me), the time-tracking service. It builds on Bifröst Foundation and exposes the Clockify REST API as 41 message types, so an external caller, an MCP client or a Business Central process can read and write Clockify data through the same queue, task and data pattern used by the rest of Bifröst. On top of that pass-through the connector brings finished Clockify time entries into Business Central as Job Journal lines or Time Sheet detail, and drives the Time Sheet lifecycle.
+*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+
+Bifröst Timesheets connects Business Central to [Clockify](https://clockify.me), the time-tracking service. It builds on Bifröst Foundation and exposes the Clockify REST API as message types, so an external caller, an MCP client or a Business Central process can read and write Clockify data through the same queue, task and data pattern used by the rest of Bifröst. On top of that pass-through the connector brings finished Clockify time entries into Business Central as Job Journal lines or Time Sheet detail, and drives the Time Sheet lifecycle.
 
 ## What it does
 

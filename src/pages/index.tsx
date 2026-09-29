@@ -64,11 +64,11 @@ export default function Home(): ReactNode {
           </Translate>
         </p>
         <p>
-          <Link className="button button--primary button--lg" to="/start/">
-            <Translate id="home.startHere">New here? What Bifröst is</Translate>
+          <Link className="button button--primary button--lg" to="/setup/">
+            <Translate id="home.setUp">Set it up</Translate>
           </Link>{' '}
-          <Link className="button button--secondary button--lg" to="/start/set-up/">
-            <Translate id="home.setUp">Set up Bifröst</Translate>
+          <Link className="button button--secondary button--lg" to="/try-it-out/">
+            <Translate id="home.tryIt">Try it out</Translate>
           </Link>
         </p>
         <p>
@@ -80,17 +80,86 @@ export default function Home(): ReactNode {
       </header>
       <main className="container">
         <h2 style={{marginTop: '2rem'}}>
+          <Translate id="home.how.title">How it works</Translate>
+        </h2>
+        <div className="bifrostSteps">
+          <div className="bifrostStep">
+            <h3><Translate id="home.how.ask.title">You ask</Translate></h3>
+            <p>
+              <Translate id="home.how.ask.body">
+                In Copilot, ChatGPT, Claude or another assistant, in your own words, or from
+                another system.
+              </Translate>
+            </p>
+          </div>
+          <div className="bifrostStep">
+            <h3><Translate id="home.how.gate.title">Bifröst works out how</Translate></h3>
+            <p>
+              <Translate id="home.how.gate.body">
+                The assistant finds the right operations, reads how to call them, and calls them
+                as you. Bifröst checks your permissions and logs every call.
+              </Translate>
+            </p>
+          </div>
+          <div className="bifrostStep">
+            <h3><Translate id="home.how.bc.title">Business Central does the work</Translate></h3>
+            <p>
+              <Translate id="home.how.bc.body">
+                With its own rules, checks and entries, in your own environment, and the answer
+                comes back in plain words.
+              </Translate>
+            </p>
+          </div>
+        </div>
+        <p>
+          <Link to="/documentation/how-it-works/">
+            <Translate id="home.how.more">More on how Bifröst works</Translate> <span aria-hidden="true">→</span>
+          </Link>
+        </p>
+        <h2>
+          <Translate id="home.roles.title">Find your way</Translate>
+        </h2>
+        <div className="bifrostLinks" style={{marginBottom: '2.5rem'}}>
+          <Link className="bifrostPath" to="/documentation/end-customers/users/">
+            <h3><Translate id="home.roles.users.title">I use Business Central</Translate></h3>
+            <p>
+              <Translate id="home.roles.users.body">
+                What you can ask, what it will not do, and what to do when it says no.
+              </Translate>
+            </p>
+            <span className="bifrostPathCta"><Translate id="home.roles.users.cta">For users</Translate> <span aria-hidden="true">→</span></span>
+          </Link>
+          <Link className="bifrostPath" to="/documentation/end-customers/administrators/">
+            <h3><Translate id="home.roles.admins.title">I run Business Central</Translate></h3>
+            <p>
+              <Translate id="home.roles.admins.body">
+                Permissions, what agents may see, logs and usage, and what you are responsible for.
+              </Translate>
+            </p>
+            <span className="bifrostPathCta"><Translate id="home.roles.admins.cta">For administrators</Translate> <span aria-hidden="true">→</span></span>
+          </Link>
+          <Link className="bifrostPath" to="/documentation/end-customers/developers/">
+            <h3><Translate id="home.roles.devs.title">I connect other systems</Translate></h3>
+            <p>
+              <Translate id="home.roles.devs.body">
+                One API for every operation: send a message, read the answer, get told when it is done.
+              </Translate>
+            </p>
+            <span className="bifrostPathCta"><Translate id="home.roles.devs.cta">For developers</Translate> <span aria-hidden="true">→</span></span>
+          </Link>
+        </div>
+        <h2 style={{marginTop: '2rem'}}>
           <Translate id="home.examples.title">What it looks like</Translate>
         </h2>
         <div className="bifrostGrid" style={{marginBottom: '2.5rem'}}>
-          <div className="bifrostCard">
+          <Link className="bifrostCard" to="/documentation/how-it-works/#what-happens-when-you-ask">
             <p><em><Translate id="home.examples.ask1">"How many of item 1896-S can we still promise this week, and where are they?"</Translate></em></p>
             <p><Translate id="home.examples.do1">The assistant finds the right operation, reads live availability per location and answers with the figures.</Translate></p>
-          </div>
-          <div className="bifrostCard">
-            <p><em><Translate id="home.examples.ask2">"Turn quote SQ-1042 into an order and show me what posting would do."</Translate></em></p>
+          </Link>
+          <Link className="bifrostCard" to="/documentation/how-it-works/#what-happens-when-you-ask">
+            <p><em><Translate id="home.examples.ask2">"Turn quote SQ-1042 into an order and show me what posting it would do."</Translate></em></p>
             <p><Translate id="home.examples.do2">It creates the order and previews the posting, without posting anything, so you see the result first.</Translate></p>
-          </div>
+          </Link>
           <Link className="bifrostCard" to="/orchestrator/">
             <p><em><Translate id="home.examples.ask3">"Every Friday, reconcile the bank statements and tell me what didn't match."</Translate></em></p>
             <p><Translate id="home.examples.do3">A playbook in Orchestrator runs it on schedule and logs every step.</Translate></p>
@@ -99,6 +168,11 @@ export default function Home(): ReactNode {
         <h2>
           <Translate id="home.apps.title">The apps</Translate>
         </h2>
+        <p>
+          <Link to="/apps/">
+            <Translate id="home.apps.more">All apps, and how app pages differ from help</Translate> <span aria-hidden="true">→</span>
+          </Link>
+        </p>
         <div className="bifrostGrid">
           {apps.map((app) => (
             <AppCard key={app.id} id={app.id} title={app.title} appName={app.appName} wave={app.wave} />
@@ -108,15 +182,29 @@ export default function Home(): ReactNode {
       <section className="bifrostBand">
         <div className="container">
           <h2>
-            <Translate id="home.build.title">For developers and partners</Translate>
+            <Translate id="home.build.title">For partners and ISVs</Translate>
           </h2>
           <p className="bifrostBandLead">
             <Translate id="home.build.lead">
-              Add your own app to the platform, connect another system, or give an AI agent what it
-              needs to work with Business Central.
+              Set Bifröst up for your customers, add your own app to the platform, or give an AI
+              agent what it needs to work with Business Central.
             </Translate>
           </p>
           <div className="bifrostLinks">
+            <Link className="bifrostPath" to="/documentation/partners/">
+              <h3>
+                <Translate id="home.partners.title">Set it up for customers</Translate>
+              </h3>
+              <p>
+                <Translate id="home.partners.body">
+                  What to think about when you set up, support or resell Bifröst for the companies
+                  you work with.
+                </Translate>
+              </p>
+              <span className="bifrostPathCta">
+                <Translate id="home.partners.cta">For partners</Translate> <span aria-hidden="true">→</span>
+              </span>
+            </Link>
             <Link className="bifrostPath" to="/extensibility/">
               <h3>
                 <Translate id="home.extensibility.title">Build on Bifröst</Translate>
@@ -128,21 +216,7 @@ export default function Home(): ReactNode {
                 </Translate>
               </p>
               <span className="bifrostPathCta">
-                <Translate id="home.extensibility.cta">Start building →</Translate>
-              </span>
-            </Link>
-            <Link className="bifrostPath" to="/foundation/reference/api/">
-              <h3>
-                <Translate id="home.api.title">Connect another system</Translate>
-              </h3>
-              <p>
-                <Translate id="home.api.body">
-                  One API for every operation: send a message, read the answer, get told when it is
-                  done.
-                </Translate>
-              </p>
-              <span className="bifrostPathCta">
-                <Translate id="home.api.cta">API reference →</Translate>
+                <Translate id="home.extensibility.cta">Start building</Translate> <span aria-hidden="true">→</span>
               </span>
             </Link>
             <Link className="bifrostPath" to="/skills/">
@@ -156,7 +230,7 @@ export default function Home(): ReactNode {
                 </Translate>
               </p>
               <span className="bifrostPathCta">
-                <Translate id="home.skills.cta">Skills →</Translate>
+                <Translate id="home.skills.cta">Skills</Translate> <span aria-hidden="true">→</span>
               </span>
             </Link>
           </div>

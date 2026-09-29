@@ -226,7 +226,7 @@ end;
 
 ## The administrator's view
 
-**Bifröst Setup → Setup → Secrets** opens `App Secrets ori` for every installed application. The
+**Bifrost Setup → Setup → Secrets** opens `App Secrets ori` for every installed application. The
 list shows the application, the secret code, its description, its scope, whether a value is stored
 (`Is Set`, green when set, red when missing), when it was entered and by whom. It never shows the
 value.
@@ -269,5 +269,5 @@ public API.
 
 ## Related
 
-- **[Extending Bifröst Setup](/extensibility/setup-and-secrets/)** - the Apps extension point
-- **[Setup Reference](/foundation/reference/setup/)** - the Bifröst Setup table
+- **[Extending Bifrost Setup](/extensibility/setup-and-secrets/)** - the Apps extension point
+- **[Setup Reference](/foundation/reference/setup/)** - the Bifrost Setup table

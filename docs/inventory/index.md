@@ -7,6 +7,8 @@ slug: /
 description: "Item Attribute message types on Bifröst Foundation: get, create, update and define attributes without multi-table Data.Records joins."
 ---
 
+*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+
 Bifröst Inventory is a feature app on top of Bifröst Foundation. It publishes first-class **Item Attribute** message types so an external caller, an MCP client or a Business Central process can read and write item attributes through the same queue, task and data pattern used by the rest of Bifröst — without stitching multi-table `Data.Records.Get` joins.
 
 ## What it does

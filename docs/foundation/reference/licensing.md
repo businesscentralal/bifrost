@@ -72,16 +72,14 @@ usage) and cached by the daily sync.
 | `true` (the usual default) | The call is refused with the quota-exhausted error above. |
 | `false` | The call runs. It is still counted, and the response still carries the quota warning. |
 
-- Before the first sync, when the remaining quota is not known yet, calls are allowed.
-
 ### Monthly quotas
 
-Any tenant can set a **Company Monthly Message Quota** (Bifröst Setup) and a **Monthly Msg Quota**
-per user (Bifröst User Setup) - on Subscription they are the only limit. `0` means no limit. A reached quota refuses calls until
+Any tenant can set a **Company Monthly Message Quota** (Bifrost Setup) and a **Monthly Msg Quota**
+per user (Bifrost User Setup) - on Subscription they are the only limit. `0` means no limit. A reached quota refuses calls until
 the next calendar month. The user quota is checked before the company quota.
 
 The count is taken from the chargeable messages of the calendar month in the company's **Bifrost
-Messages**; reporting usage does not lower it, a retention policy on Bifrost Messages does. On
+Messages**; reporting usage does not lower it. On
 Subscription the company quota does not count App Registration messages; the user quota counts all
 of the user's messages. See [How the monthly quotas are counted](/foundation/licensing/license-types/#how-monthly-quotas-are-counted).
 
@@ -106,13 +104,13 @@ A successful JSON response carries a `warnings` array when a quota that applies 
 }
 ```
 
-The Bifröst Setup page also shows a notification when either Prepaid pool drops below 1,000.
+The Bifrost Setup page also shows a notification when either Prepaid pool drops below 200.
 
 ## Daily usage sync
 
 Usage is reported to the licensing service once per day **per company**. The first chargeable
 message of the day schedules a background task that reports each completed day's chargeable messages
-per pool and refreshes the cached remaining quota. **Sync** on the Bifröst Setup page does the same
+per charge type and refreshes the cached remaining quota. **Sync** on the Bifrost Setup page does the same
 immediately, including today's messages, and also applies invitations and cancellations - see
 [Leaving and cancelling](/foundation/licensing/leaving-and-cancelling/). Usage is reported per
 **hashed company** under the **hashed tenant**.
@@ -122,7 +120,7 @@ immediately, including today's messages, and also applies invitations and cancel
 - `Help.Bifrost.Get` returns the current licence status as `licenseStatus`.
 - [`Bifrost.Subscription.GetStatus`](/foundation/reference/message-types/bifrost-subscription-getstatus/)
   returns the tenant's configuration, licence status and current-month usage.
-- The **License** fact box on the Bifröst Setup page shows the same information plus the number of
+- The **License** fact box on the Bifrost Setup page shows the same information plus the number of
   unreported messages and the last sync date.
 
 ```json

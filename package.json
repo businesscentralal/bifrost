@@ -15,7 +15,8 @@
     "validate:apps": "node tools/validate-apps.mjs",
     "typecheck": "tsc",
     "check:ip-boundary": "node tools/check-docs.mjs ipBoundary",
-    "check:docs": "node tools/check-docs.mjs"
+    "check:docs": "node tools/check-docs.mjs",
+    "open-items": "node tools/open-items.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",
@@ -61,6 +62,6 @@
     "@swc/core@1.16.2": true,
     "core-js@3.50.0": true
   },
-  "description": "Documentation site for the Bifr\u00f6st family of Business Central extensions",
+  "description": "Documentation site for the Bifröst family of Business Central extensions",
   "license": "MIT"
 }
