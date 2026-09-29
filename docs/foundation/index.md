@@ -7,6 +7,8 @@ slug: /
 description: "The message-based API surface for Business Central: a queue, a task and a response endpoint, self-describing message types, and the platform every other Bifröst app is built on."
 ---
 
+*New to Bifröst? Start with [What Bifröst is](/start/). This page is the technical overview of Foundation.*
+
 Bifröst Foundation turns Business Central business logic into a callable, self-describing API. An external system posts a CloudEvents envelope to the queue API (`origo/bifrost/v1.0`), Business Central runs the matching **message type** — `Customer.CreditLimit.Get`, `Sales.Document.Post`, `Data.Records.Set` — and the result comes back through the response API, synchronously or from a background session.
 
 Everything else in the Bifröst family is a dependent app that adds its own message types to this catalogue. Foundation owns the transport, the queue, the licensing, the secret store, the request log, the language switching and the discovery; the dependent app writes business logic and a help document.
@@ -31,6 +33,9 @@ Everything else in the Bifröst family is a dependent app that adds its own mess
 
 ## Where to go next
 
+- [Set up Bifröst](/start/set-up/) — the administrator's route from install to first call
+- [Licensing](./licensing/) — how usage is counted and licensed
+- [Privacy](./privacy/) and [Terms of Use](./eula/)
 - [Message type guides](./message-types/) — what each business area of the standard catalogue can do
 - [API reference](./reference/api/) — endpoints, the envelope, authentication and response shapes
 - [Setup reference](./reference/setup/) — the Bifröst Setup page and the implementation strategies behind it

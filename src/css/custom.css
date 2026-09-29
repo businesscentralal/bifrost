@@ -125,7 +125,59 @@
 
 .bifrostLinks {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: 1.25rem;
-  padding-bottom: 4rem;
+}
+
+/* Developer band: set apart from the app grid so the paths do not read as apps. */
+.bifrostBand {
+  margin-top: 1rem;
+  padding: 3rem 0 4rem;
+  border-top: 1px solid var(--bifrost-border);
+  background: var(--ifm-color-emphasis-100);
+}
+
+.bifrostBand h2 {
+  margin-bottom: 0.5rem;
+}
+
+.bifrostBandLead {
+  max-width: 46rem;
+  margin-bottom: 1.75rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.bifrostPath {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.25rem 1.25rem 1.1rem;
+  border-left: 4px solid var(--ifm-color-primary);
+  border-radius: 0 12px 12px 0;
+  background: var(--ifm-background-color);
+  color: inherit;
+  transition: transform 120ms ease;
+}
+
+.bifrostPath:hover {
+  text-decoration: none;
+  color: inherit;
+  transform: translateX(3px);
+}
+
+.bifrostPath h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.bifrostPath p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.bifrostPathCta {
+  margin-top: auto;
+  font-weight: 600;
+  color: var(--ifm-color-primary);
 }

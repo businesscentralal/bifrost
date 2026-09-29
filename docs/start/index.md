@@ -16,7 +16,7 @@ integration, a project with a budget and a queue. Bifröst removes that step. Yo
 words, in Copilot, Claude or another AI assistant, and an agent does the work in Business Central.
 
 It can do that because Business Central's operations are published as **message types**. Each
-message type does one thing, such as checking a customer's credit, turning a quote into an order or
+message type does one thing, such as checking item availability, turning a quote into an order or
 posting a document, and each one describes itself: what it does, what it needs, what it returns and
 what can go wrong. The agent reads those descriptions, picks the right operations and calls them.
 
@@ -25,34 +25,15 @@ what can go wrong. The agent reads those descriptions, picks the right operation
 - **Nothing is built for your question.** The operations describe themselves, so an agent can
   combine them, including for questions nobody planned for.
 - **It runs as you.** Every call runs as your own Business Central user, with your permissions, or
-  as the app identity an integration was given. It can never reach further than that identity can.
+  as the app identity an integration was given. It reaches only what that identity is allowed to.
 - **It grows without a release.** Any app, Origo's or a partner's, can add message types, and every
   connected agent can use them the same day.
 
 ## How it fits together
 
-```mermaid
-flowchart TB
-  subgraph ask["Who asks"]
-    direction LR
-    A["AI assistants<br/>Copilot, Claude, MCP"]
-    I["Other systems<br/>REST API"]
-    L["Other extensions<br/>AL code"]
-  end
-  F["Bifröst Foundation<br/>catalogue · help · permissions · licence · log"]
-  subgraph add["Who adds message types"]
-    direction LR
-    B["Built into Foundation<br/>sales, purchase, finance,<br/>inventory, projects, data …"]
-    O["Origo's apps<br/>Iceland, Orchestrator,<br/>Attachments, Language Models …"]
-    P["Your app"]
-  end
-  A --> F
-  I --> F
-  L --> F
-  B --> F
-  O --> F
-  P --> F
-```
+import PlatformMap from '@site/src/components/PlatformMap';
+
+<PlatformMap />
 
 [Bifröst Foundation](/foundation/) is the one gate. It holds the catalogue of message types, hands
 out their help, checks permissions and licence, and logs every call. Everything else in the family
@@ -61,14 +42,15 @@ them.
 
 ## What happens when you ask
 
-> "Which customers are close to their credit limit?"
+> "How many of item 1896-S can we still promise this week, and where are they?"
 
 1. **The agent searches** the catalogue in your words and gets a short list of candidates.
-2. **It chooses** by their one-line descriptions. `Customer.CreditLimit.Get` returns balance,
-   outstanding amounts and credit limit status, which is what the question is about.
-3. **It reads the help** of that message type: how to name the customer, what comes back.
+2. **It chooses** by their one-line descriptions. `Item.Availability.Get` returns calculated
+   availability per location, including reservations and expected receipts, which is what the
+   question is about; the on-hand count alone would not answer it.
+3. **It reads the help** of that message type: how to name the item, what comes back.
 4. **It calls it.** Foundation checks that you may, runs it as you and logs the call.
-5. **It answers** in plain words, with the customers and the figures behind them.
+5. **It answers** in plain words, with the figures per location.
 
 A change works the same way, with one more safeguard: the agent can look before it acts.
 
@@ -81,22 +63,23 @@ and whether the agent may post at all is decided by the permissions of the ident
 When something goes wrong, the answer says what to do next, for example that a number does not
 exist and how to look it up. The agent corrects itself or asks you.
 
-## Why it is safe to hand to an agent
+## Why an agent can work with it
 
-- **It finds the operations.** The catalogue lists what exists; nothing is guessed.
+- **It finds the operations.** The catalogue lists what exists, so the agent does not have to guess.
 - **It reads the contract.** Each message type's help says exactly what to send and what comes back.
 - **It looks before it leaps.** Posting can be previewed first, and bulk changes come as a preview
   and an apply.
 - **It corrects itself.** Errors name the cause and the fix.
 
-And underneath all of it: every call runs as the Business Central user it acts for, under Business
-Central's own permissions, and every call is logged.
+And underneath all of it: every call runs as the identity it acts for, under Business Central's own
+permissions, and every call is logged in your Business Central. You still decide what each identity
+may do; see [Set up Bifröst](/start/set-up/).
 
 ## How far it goes
 
 | | What | Example |
 |---|---|---|
-| **Answer** | A question answered from live data | "What is our exposure to this customer?" |
+| **Answer** | A question answered from live data | "What is still open on this project?" |
 | **Act** | One operation, on request | "Release this sales order." |
 | **Chain** | Several operations toward one outcome | Quotes to orders, previewed, reported back |
 | **Keep** | A result you open again | A credit-exposure view you check each morning |
@@ -107,9 +90,9 @@ Central's own permissions, and every call is logged.
 
 | You want to … | Go to |
 |---|---|
+| Use it in your daily work | [Using Bifröst](/start/using-bifrost/) |
+| Install and set it up | [Set up Bifröst](/start/set-up/) |
 | Know what it costs and how licensing works | [Licensing](/foundation/licensing/) |
-| Install and set it up | [Bifröst Setup wizard](/help/foundation/bifrost-setup-wizard/) |
-| Know where the data goes | [Privacy](/foundation/privacy/) |
 | Call it from another system | [API reference](/foundation/reference/api/) |
 | Build your own message types | [Build on Bifröst](/extensibility/) |
 | Drive it from an AI agent | [Skills for AI agents](/skills/) |

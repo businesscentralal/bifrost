@@ -2,38 +2,43 @@
 id: set-up
 title: "Set up Bifröst"
 sidebar_label: "Set up Bifröst"
-sidebar_position: 2
-description: "The administrator's route from install to first call: who needs to be involved, the setup wizard, permissions, who may connect, what is kept, and what you are responsible for."
+sidebar_position: 3
+description: "The administrator's route in four stages: set up Business Central, connect your AI assistant, understand usage and licensing, then make the first call and roll it out."
 ---
 
 # Set up Bifröst
 
-This page is the administrator's route from install to a first working call. It says what to
-do, in what order, who needs to be involved, and what you should be aware of along the way.
-Every field and action has its own help page in Business Central, linked from each step, so the
-details are kept in one place.
+Getting Bifröst running takes four stages. This page walks through them in order, says what you
+decide at each step and who needs to be involved, and links to the page with the details.
+
+1. **[Set up Business Central](#stage-1-set-up-business-central)**: install, the setup wizard,
+   permissions, and what agents may reach.
+2. **[Connect your AI assistant](#stage-2-connect-your-ai-assistant)**: Copilot, ChatGPT, Claude or
+   another tool.
+3. **[Understand usage and licensing](#stage-3-understand-usage-and-licensing)**: what is counted
+   and where you see it.
+4. **[Make the first call and roll it out](#stage-4-make-the-first-call-and-roll-it-out)**.
 
 ## Who needs to be involved
-
-Setup touches three areas that different people usually own. Agree who does what first, so nobody
-gets stuck halfway.
 
 | Task | Who can do it |
 |---|---|
 | Install the apps | A Business Central user with **D365 EXTENSION MGT** or SUPER |
 | Accept the licence agreement | Someone entitled to accept terms for the company |
 | Allow outbound HTTP for the apps | A user with SUPER, or write permission on the *NAV App Setting* table |
-| Consent to the Bifröst MCP server | A **Global Administrator** or **Application Administrator** in Microsoft Entra ID. Only needed if AI assistants connect through the Bifröst MCP server |
+| Consent to the Bifröst MCP server | A **Global Administrator** or **Application Administrator** in Microsoft Entra ID |
 | Assign permissions | A Business Central user with **SECURITY** or SUPER |
-| Decide what agents may see and keep | Whoever is responsible for data protection in the company, together with the administrator (see [step 6](#6-decide-what-agents-can-reach-and-what-is-kept)) |
+| Decide what agents may see and what is kept | The administrator, together with whoever owns the data in the company |
 
-## 1. Install
+## Stage 1: Set up Business Central
+
+### 1. Install
 
 Install **Bifrost Foundation** first, then the Bifröst apps you use. Each app depends on
 Foundation, so AppSource installs them in the right order. The [app list](/apps/) shows what is
 available.
 
-## 2. Run the setup wizard
+### 2. Run the setup wizard
 
 Open **Bifrost Setup** (search for it with *Tell me*). The notification at the top leads to the
 **setup wizard**. It is the only place any Bifröst app asks for setup; the other apps never show
@@ -43,17 +48,19 @@ The wizard takes you through the licence agreement, outbound HTTP for every inst
 app, credentials the apps need, licensing, and, online, the MCP server connection. **Every company
 runs it once: until it is finished, Bifröst refuses calls for that company.**
 
-Step by step: [Setup wizard](/help/foundation/bifrost-setup-wizard/). What licensing means for you:
-[Licensing](/foundation/licensing/).
+What the licensing step does depends on the environment. In production, finishing the wizard
+activates the trial; in a sandbox no trial is needed; on-premises, the connection to the licensing
+service has to be verified first.
+
+Step by step: [Setup wizard](/help/foundation/bifrost-setup-wizard/).
 
 :::note Be aware
 Accepting the licence agreement in the wizard accepts the [Terms of Use](/foundation/eula/) for the
-company, including Origo's terms on processing personal data. The first step of the wizard says what
-Bifröst stores with Origo. Read it before you accept, and see [Privacy](/foundation/privacy/) for
-who is controller and who is processor.
+company. The first step of the wizard says what Bifröst stores with Origo. Read both before you
+accept.
 :::
 
-## 3. Give people and apps permission
+### 3. Give people and apps permission
 
 Two kinds of identity call Bifröst: **named users** (for example someone using an AI assistant) and
 **Microsoft Entra applications** (an integration or agent with its own identity). Both get their
@@ -80,7 +87,7 @@ responsibility. Give each level of trust its own identity: a user or app that ma
 cannot post, however it is asked.
 :::
 
-## 4. Decide who may connect for a user
+### 4. Decide which tools may act for a user
 
 When an AI assistant or another tool calls Bifröst as a named user, Bifröst records where the call
 comes from, and the user may have to approve that source before it can act for them. The approval
@@ -89,17 +96,28 @@ type is set per user in **Bifrost User Setup**.
 See [Approve session source](/help/foundation/session-source-approval/) and
 [Bifrost User Setup](/help/foundation/bifrost-user-setup-editor/).
 
-:::note Be aware
-The AI assistant or system that connects is your company's choice, and the data it receives is
-handled under your own agreement with that provider. Choose the assistant, and the identity it runs
-as, to match the data that identity can reach.
+### 5. Decide which fields agents should not get
+
+On **Bifrost Setup**, choose **Field Access**. For each user or Entra application, add the table
+and field you want to restrict, and choose the restriction:
+
+- **Both**: the field is left out of answers and cannot be changed;
+- **Read**: the field is left out of answers;
+- **Write**: the field can be read but not changed.
+
+Restrictions apply to Bifröst's record operations, immediately, and not to the Business Central
+client. Fields without a restriction behave as normal. Details:
+[Bifrost Field Accesses](/help/foundation/bifrost-field-accesses/).
+
+:::caution Be aware
+The fourth type, **Bypass**, does not restrict anything: it lets writes to that field through
+without a change-log trail. Use it only when you mean to.
 :::
 
-## 5. Check the setup page
+### 6. Check the setup page
 
-Go through **Bifrost Setup** once. Most companies change only a few fields. Every field is
-described in [Bifrost Setup](/help/foundation/bifrost-setup/). Two of them deserve a deliberate
-decision:
+Go through **Bifrost Setup** once; every field is described in
+[Bifrost Setup](/help/foundation/bifrost-setup/). Two fields deserve a deliberate decision:
 
 - **ChangeLog Write Guard** decides whether writes through Bifröst must leave a change-log trail.
   If you use Bifröst with bookkeeping, decide it with that in mind: your bookkeeping obligations
@@ -107,47 +125,86 @@ decision:
 - **Request Debug Mode** stores full, unmasked request and response bodies in the request log. Turn
   it on only while troubleshooting, and off again afterwards.
 
-The same page links to everything you may need later: user setup, field access, the change-log
-guard, secrets, retention policies, and the logs.
+### 7. Decide what is kept, and for how long
 
-## 6. Decide what agents can reach, and what is kept
-
-Before you let people connect AI assistants, decide which data each identity should reach:
-
-- **Hide what an identity has no reason to see.** [Field access](/help/foundation/bifrost-field-accesses/)
-  restricts individual fields for a user or an Entra application, on top of Business Central's
-  permissions. It applies to calls through Bifröst, not to the Business Central client. Check that
-  the restriction does what you expect for the operations your agents use.
-- **Be careful with exceptions.** A *Bypass* entry on field access, or an entry on ChangeLog Guard
-  Exceptions, lets writes to that field through without a change-log trail.
-
-Then decide what is kept, and for how long. These logs live in your own Business Central:
+These logs live in your own Business Central:
 
 - **[Bifrost Messages](/help/foundation/bifrost-messages/)** keeps every call Bifröst receives,
-  with the request and the response. Responses can contain personal data, such as names and
-  addresses of customers or employees.
+  with the request and the response, so it holds whatever data those calls returned.
 - **[Request log](/help/foundation/bifrost-request-log/)** keeps the calls Bifröst apps make to
   other systems, masked unless debug mode is on.
 - **[Delete log](/help/foundation/bifrost-delete-log/)** can keep a copy of records deleted
   through Bifröst, if you turn that on.
-- **Memory and user setup** hold free text that agents and users write, which can include personal
-  data.
+- **Memory and user setup** hold free text that agents and users write.
 
 :::caution Be aware
 You decide how long these logs are kept, with **Retention Policies** on Bifrost Setup, and who may
-open them, with permissions. Keep at least 31 days of Bifrost Messages if you use monthly message
-quotas, because the quotas are counted from them. When someone asks what data you hold about them,
-or asks you to erase it, remember these logs as well as the records themselves.
+open them, with permissions. **Bifrost Messages has no retention period until you set one**, so
+messages are kept until you do. Anyone with the `BIFROST Read ori` or `BIFROST Full ori` permission
+set can open every message on the Bifrost Messages page, so give those sets only to the people who
+need them. Keep at least 31 days of Bifrost Messages if you use monthly message quotas, because the
+quotas are counted from them. These logs are part of the data your company
+holds, so include them wherever your own policies on data apply.
 :::
 
-## 7. Check that it works
+## Stage 2: Connect your AI assistant
 
-1. **Bifrost Setup** opens without a notification at the top.
-2. Every caller has the Bifröst API permission set, the Business Central permissions for its data,
-   and only the posting gates it needs.
-3. Make a first call: ask an AI assistant connected to Bifröst "who am I in Business Central?", or
-   have an integrator send `Help.WhoAmI.Get`. The call appears in **Bifrost Messages**, and the
-   caller shown is the user or app you expected.
+Online, the last step of the setup wizard gives you what you need to connect an assistant:
+
+- **The Bifröst MCP server address** to add to your assistant.
+- **The consent link** for the *Origo Bifrost* enterprise application. A Global Administrator or
+  Application Administrator in Microsoft Entra ID opens it once for your organisation, so the MCP
+  server can sign users in.
+- **Links to the Bifröst connector** in the assistants' stores.
+
+Then, depending on the assistant:
+
+| Assistant | How it connects |
+|---|---|
+| **Microsoft Copilot** | Add the Bifröst connector from its store. **Bifrost Setup** also has a **Microsoft Copilot** action under *Connectors* that opens it. |
+| **ChatGPT** | Add the Bifröst connector from its store. **Bifrost Setup** has an **OpenAI ChatGPT** action under *Connectors*. |
+| **Other assistants that support MCP servers** | Add the Bifröst MCP server address as a remote MCP server or custom connector in the assistant's settings, and sign in with your Business Central user. |
+
+Each user signs in as themselves, so the assistant works with exactly that user's permissions. The
+first time a new assistant acts for a user, the user may be asked to approve it (step 4).
+
+**Bifrost Setup** also has a **Connection Prompt** you can paste into an assistant, so it knows which
+environment and company to work in.
+
+Building your own integration instead of using an assistant? See the
+[API reference](/foundation/reference/api/). Building agents or tools? See
+[Skills for AI agents](/skills/).
+
+## Stage 3: Understand usage and licensing
+
+Bifröst counts **messages**: one for each successful call that does work. Looking up what exists
+and reading help is not counted.
+
+- **Two pools.** Calls made by a person and calls made by an app identity are counted separately,
+  so each can be sized on its own.
+- **A trial** is activated in production when the setup wizard is finished. A sandbox does not use
+  one.
+- **Limits you can set.** A monthly message quota per company on Bifrost Setup, and per user on
+  Bifrost User Setup, stop usage at a level you choose.
+- **See what is used** on **License Usage** from Bifrost Setup, per company, day and type.
+- **Where licences come from.** Directly from Origo, or through your Bifröst partner.
+
+The whole model, and what happens when a quota runs out: [Licensing](/foundation/licensing/).
+
+## Stage 4: Make the first call and roll it out
+
+1. **Check the setup.** Bifrost Setup opens without a notification at the top, and every caller
+   has the Bifröst API permission set, the Business Central permissions for its data and only the
+   posting gates it needs.
+2. **Make a first call.** Ask a connected assistant *"Who am I in Business Central?"*. The call
+   appears in **Bifrost Messages**, and the caller shown is the user you expected.
+3. **Try something real, in a sandbox first.** A question, then a change with a preview, such as
+   the examples on [What Bifröst is](/start/).
+4. **Tell your users what to expect.** [Using Bifröst](/start/using-bifrost/) is written for them:
+   what they can ask, what it will not do, and what to do when it says no.
+5. **Keep an eye on it.** Look at Bifrost Messages and License Usage now and then, keep permissions
+   narrow, and when you install another Bifröst app, run the setup wizard again so it covers the
+   new app.
 
 ## What you are responsible for
 
@@ -157,13 +214,11 @@ In short, and as set out in the [Terms of Use](/foundation/eula/):
 - **The assistants and systems you connect**, and your agreements with their providers.
 - **What agents do** under your identities: review and supervise their actions, and require
   confirmation where an action matters.
-- **What is kept**: retention and access for the logs in your Business Central, and requests from
-  the people the data is about.
+- **What is kept**: retention and access for the logs in your Business Central.
 - **Bookkeeping**: traceability and retention under bookkeeping law remain yours.
 
 ## Next
 
-- [Connect an AI assistant or integration](/foundation/reference/api/): the API and its endpoints
-- [Privacy](/foundation/privacy/): who is controller and processor, and what goes to Origo
 - [Every page in Bifrost Foundation](/help/foundation/): the in-product help
+- [Licensing](/foundation/licensing/): the full licence model
 - [What Bifröst is](/start/): the overview, if you are explaining it to someone

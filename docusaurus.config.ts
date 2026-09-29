@@ -215,7 +215,7 @@ const config: Config = {
           position: 'left',
           items: apps.map((app) => ({label: app.title, to: `/help/${app.id}/`})),
         },
-        {label: 'Extensibility', to: '/extensibility/', position: 'left'},
+        {label: buildLocale === 'is-IS' ? 'Byggðu á Bifröst' : 'Build on Bifröst', to: '/extensibility/', position: 'left'},
         {label: 'Skills', to: '/skills/', position: 'left'},
         {
           type: 'dropdown',
@@ -237,6 +237,17 @@ const config: Config = {
       style: 'dark',
       links: [
         {
+          title: buildLocale === 'is-IS' ? 'Byrjaðu hér' : 'Start here',
+          items: [
+            {label: buildLocale === 'is-IS' ? 'Hvað Bifröst er' : 'What Bifröst is', to: '/start/'},
+            {label: buildLocale === 'is-IS' ? 'Að nota Bifröst' : 'Using Bifröst', to: '/start/using-bifrost/'},
+            {label: buildLocale === 'is-IS' ? 'Uppsetning Bifröst' : 'Set up Bifröst', to: '/start/set-up/'},
+            {label: buildLocale === 'is-IS' ? 'Leyfismál' : 'Licensing', to: '/foundation/licensing/'},
+            {label: buildLocale === 'is-IS' ? 'Persónuvernd' : 'Privacy', to: '/foundation/privacy/'},
+            {label: buildLocale === 'is-IS' ? 'Notkunarskilmálar' : 'Terms of Use', to: '/foundation/eula/'},
+          ],
+        },
+        {
           title: 'Apps',
           items: apps.slice(0, 5).map((app) => ({label: app.title, to: `/${app.id}/`})),
         },
@@ -248,7 +259,7 @@ const config: Config = {
           title: 'Build on Bifröst',
           items: [
             {label: buildLocale === 'is-IS' ? 'Forritaskrá' : 'App registry', to: '/apps/'},
-            {label: 'Extensibility', to: '/extensibility/'},
+            {label: buildLocale === 'is-IS' ? 'Byggðu á Bifröst' : 'Build on Bifröst', to: '/extensibility/'},
             {label: 'Skills for AI agents', to: '/skills/'},
             {label: 'llms.txt', href: `${siteRoot}llms.txt`, target: '_self'},
             {label: 'apps.json', href: `${siteRoot}apps.json`, target: '_self'},
@@ -259,12 +270,12 @@ const config: Config = {
           title: 'Origo',
           items: [
             {label: 'origo.is', href: 'https://www.origo.is/'},
-            {label: 'Privacy', href: 'https://www.origo.is/um-origo/stefnur/personuverndarstefna'},
-            {label: 'Terms', href: 'https://www.origo.is/skilmalar-og-oryggismal'},
+            {label: buildLocale === 'is-IS' ? 'Persónuverndarstefna Origo' : 'Origo privacy policy', href: 'https://www.origo.is/um-origo/stefnur/personuverndarstefna'},
+            {label: buildLocale === 'is-IS' ? 'Skilmálar og öryggismál' : 'Origo terms and security', href: 'https://www.origo.is/skilmalar-og-oryggismal'},
           ],
         },
       ],
-      copyright: `© ${new Date().getFullYear()} Origo ehf. Bifröst is a family of Business Central extensions published on Microsoft AppSource.`,
+      copyright: `© ${new Date().getFullYear()} Origo ehf. Bifröst is a family of Business Central extensions by Origo.`,
     },
     prism: {
       theme: prismThemes.github,
