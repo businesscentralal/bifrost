@@ -110,8 +110,8 @@ Notaðu fyrir reikningur-til-reikningur transfer. nauðsynlegt fields in practic
 ```json
 {
   "kind": "Transfer",
-  "recipientAccount": "031026009009",
-  "recipientAccountOwnerId": "1102713369",
+  "recipientAccount": "000026000001",
+  "recipientAccountOwnerId": "0000000000",
   "recipientReference": "TEST-200",
   "amount": 200,
   "description": "Transfer test 200 ISK",
@@ -130,14 +130,14 @@ Notaðu fyrir claim/slip greiðslur. JSON fields map til bank Claim XML as follo
 ```json
 {
   "kind": "PaymentSlip",
-  "recipientAccount": "000166320770",
+  "recipientAccount": "000066000002",
   "recipientAccountOwnerId": "6811023020",
-  "personId": "4112032630",
+  "personId": "0000000000",
   "dueDate": "2026-06-15",
   "isDeposit": false,
   "amount": 432640,
   "description": "Stadgreidsluskattur",
-  "bookingId": "320770"
+  "bookingId": "000002"
 }
 ```
 
@@ -146,27 +146,27 @@ Notaðu fyrir claim/slip greiðslur. JSON fields map til bank Claim XML as follo
 {
   "batches": [
     {
-      "outAccount": "031026000336",
-      "outAccountOwnerId": "4112032630",
+      "outAccount": "000026000003",
+      "outAccountOwnerId": "0000000000",
       "nameOfBatch": "*TEST Mixed Batch",
       "isOneToMany": true,
       "rollbackOnError": false,
       "lines": [
         {
           "kind": "PaymentSlip",
-          "recipientAccount": "000166320770",
+          "recipientAccount": "000066000002",
           "recipientAccountOwnerId": "6811023020",
-          "personId": "4112032630",
+          "personId": "0000000000",
           "dueDate": "2026-06-15",
           "isDeposit": false,
           "amount": 432640,
           "description": "Stadgreidsluskattur",
-          "bookingId": "320770"
+          "bookingId": "000002"
         },
         {
           "kind": "Transfer",
-          "recipientAccount": "031026009009",
-          "recipientAccountOwnerId": "1102713369",
+          "recipientAccount": "000026000001",
+          "recipientAccountOwnerId": "0000000000",
           "recipientReference": "TEST-200",
           "amount": 200,
           "description": "Transfer test 200 ISK",

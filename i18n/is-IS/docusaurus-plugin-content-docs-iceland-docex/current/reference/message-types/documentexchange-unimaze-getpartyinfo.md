@@ -18,7 +18,7 @@ Notaðu this til verify a trading partner exists in the PEPPOL network áður en
 ## Beiðni
 | Reitur | Gerð | nauðsynlegt | Lýsing |
 |-------|------|----------|-------------|
-| endpointId | string | **Yes** | Party identifier. Format: `{scheme}:{id}` (e.g. `0196:5801120800`) eða plain kennitala (auto-prefixed með 0196:) |
+| endpointId | string | **Yes** | Party identifier. Format: `{scheme}:{id}` (e.g. `0196:0000000000`) eða plain kennitala (auto-prefixed með 0196:) |
 
 ## Svar
 ```json

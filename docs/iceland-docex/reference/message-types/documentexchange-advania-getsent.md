@@ -29,7 +29,7 @@ Paged envelope: `{ skip, take, count, hasMore, items[] }`. Same item structure a
 ## Workflow: Outbox Audit
 ```
 1. DocumentExchange.Advania.GetAuthorizedPartners → get your endpointId
-2. DocumentExchange.Advania.GetSent { "endpointId": "5801120800", "year": "2026", "month": "7" }
+2. DocumentExchange.Advania.GetSent { "endpointId": "0000000000", "year": "2026", "month": "7" }
    → Returns all documents you sent in July 2026
 3. For any item with status_id != 3 (not delivered):
    DocumentExchange.Advania.GetDocumentInfo { "messageId": "<uuid>" }

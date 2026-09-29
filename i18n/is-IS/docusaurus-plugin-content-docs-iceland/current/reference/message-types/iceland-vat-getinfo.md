@@ -126,7 +126,7 @@ Ef you need til correct a submitted return:
 ```json
 {
   "vat": {
-    "vskNumer": "101067",
+    "vskNumer": "000000",
     "ar": 2026,
     "timabil": "08"
   }
@@ -139,8 +139,8 @@ Ef you need til correct a submitted return:
 ```json
 {
   "period": {
-    "vskNumber": "101067", "year": 2026, "period": "08", "revisionNo": 1,
-    "kennitala": "4112032630", "name": "Kappi ehf.",
+    "vskNumber": "000000", "year": 2026, "period": "08", "revisionNo": 1,
+    "kennitala": "0000000000", "name": "Kappi ehf.",
     "dueDate": "2026-04-07", "startDate": "2026-01-01", "endDate": "2026-02-28",
     "status": "Open"
   },
