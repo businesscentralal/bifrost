@@ -7,6 +7,8 @@ slug: /
 description: "Icelandic bank integrations as Bifröst message types: Landsbankinn, Arion, Íslandsbanki, Kvika and Sparisjóðir on a shared IOBS SOAP signer framework."
 ---
 
+*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+
 Bifröst Iceland Treasury connects Business Central to the Icelandic banks. It builds on Bifröst Foundation and exposes claims, payments, statements, accounts, cards, currency rates and electronic documents as message types, so an external caller, an MCP client or a Business Central process reaches every bank through the same queue, task and data pattern used by the rest of Bifröst.
 
 Underneath sits **Draupnir**, the IOBS (Icelandic Online Banking Standard, *Sambankaskema*) signer framework. Every bank module builds its WS-Security signed SOAP envelopes through the same interface, so a new bank connector inherits the transport rather than re-implementing it.
@@ -18,9 +20,9 @@ Underneath sits **Draupnir**, the IOBS (Icelandic Online Banking Standard, *Samb
 | **Draupnir** | The IOBS SOAP signer framework — five signing profiles behind one interface. Not a bank connector itself. |
 | **Landsbankinn** | Claims and claim batches, claim templates, cards and card ledger keys, accounts, portfolios and assets, currency and interest rates, electronic documents, acquiring settlement, domestic and foreign payments, and bank statement import and reconciliation. |
 | **Arion** | Account, statement, bill and credit-card queries, claims and claim batches (*innheimtukröfur*), domestic and foreign payments, foreign statements, currency rates, electronic document upload and bank statement reconciliation. |
-| **Íslandsbanki** | 23 message types over the B2B SOAP services: account statement, currency rates, account verification, unpaid invoices, payment batches, debit-card transfer, claims, *milliinnheimta*, foreign payments, presentment-file upload and securities transaction history. |
-| **Kvika banki** | 11 message types over the Kvika netbanki IOBS services: claim query and the asynchronous batch operations, account statement, currency rates, payment batch and payment result batch. |
-| **Sparisjóðir** | 24 message types over the Sparisjóður Sambankaskema 2013 services: statements, claims and asynchronous claim batches, payments, currency rates, accounts, bills, credit cards and the request-log reader, plus statement import into Bank Acc. Reconciliation through a Data Exchange definition. |
+| **Íslandsbanki** | Message types over the B2B SOAP services: account statement, currency rates, account verification, unpaid invoices, payment batches, debit-card transfer, claims, *milliinnheimta*, foreign payments, presentment-file upload and securities transaction history. |
+| **Kvika banki** | Message types over the Kvika netbanki IOBS services: claim query and the asynchronous batch operations, account statement, currency rates, payment batch and payment result batch. |
+| **Sparisjóðir** | Message types over the Sparisjóður Sambankaskema 2013 services: statements, claims and asynchronous claim batches, payments, currency rates, accounts, bills, credit cards and the request-log reader, plus statement import into Bank Acc. Reconciliation through a Data Exchange definition. |
 
 Each module has its own domain help codeunits, so `Help.Implementation.Get` answers for every message type with its exact request and response contract.
 

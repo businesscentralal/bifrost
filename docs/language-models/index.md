@@ -7,6 +7,8 @@ slug: /
 description: "AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type."
 ---
 
+*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+
 Bifröst Language Models is the chat module of the Bifröst platform. It builds on Bifröst Foundation and adds a conversational assistant to Business Central: a chat FactBox on standard pages, language models that hold the provider configuration, an MCP tool server that lets the assistant read and act on Business Central data under the signed-in user's own permissions, and the `LLM.Prompt.Complete` message type for one-shot completions in playbooks and scheduled tasks.
 
 ## What it does

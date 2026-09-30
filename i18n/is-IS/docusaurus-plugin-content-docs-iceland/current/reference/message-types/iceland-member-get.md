@@ -19,7 +19,7 @@ Sækir a specific member eða fyrirtæki frá the registry.
 - Slóð: `/api/Member/{id}`
 
 ## Beiðni
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a person eða fyrirtæki.\n  - Notaðu a **person** ID fyrir fulla personal details (birth date, marital status, family, legal address).\n  - Notaðu a **fyrirtæki** ID fyrir fyrirtæki registry details (ISAT, agents, stakeholders).\n  - Dæmi: `1102713369` (person) eða `4112032630` (fyrirtæki).
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a person eða fyrirtæki.\n  - Notaðu a **person** ID fyrir fulla personal details (birth date, marital status, family, legal address).\n  - Notaðu a **fyrirtæki** ID fyrir fyrirtæki registry details (ISAT, agents, stakeholders).\n  - Dæmi: `0000000000` (person) eða `0000000000` (fyrirtæki).
 
 ## Svar
 - Tengingin wraps the Umsja Svar in a staðlaða JSON envelope með `status` og `result`.

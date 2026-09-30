@@ -2,15 +2,12 @@
 id: rate-limits
 title: "Álagsþak"
 sidebar_position: 3
-description: "Þrep álagsþaks í Bifröst, hvar þeim er framfylgt og hver getur valið hærra þrep."
+description: "Þrep álagsþaks í Bifröst, hver getur valið hærra þrep."
 ---
 
 Álagsþak takmarkar hve mörg API-köll leigjandi getur gert á dag í gegnum Bifröst MCP-þjóninn. Það
 er aðskilið frá skilaboðakvóta: kvótinn ræður því hvað leigjandi greiðir fyrir, en álagsþakið
 verndar þjónustuna.
-
-Álagsþakinu er **framfylgt af MCP-þjóninum**. Business Central geymir þrepið sem leigjandinn hefur
-valið; um köll sem fara beint í Bifröst API í Business Central gildir eingöngu leyfiskvótinn.
 
 ## Þrep
 

@@ -31,7 +31,7 @@ GetInfo → [Open] → **Validate** → [Validated] → Submit → [Submitted]
 
 ## Request
 ```json
-{ "vat": { "vskNumer": "101067", "ar": 2026, "timabil": "16" } }
+{ "vat": { "vskNumer": "000000", "ar": 2026, "timabil": "16" } }
 ```
 No `lines` needed — amounts are read from Iceland VAT Period Entry ori table.
 
@@ -39,7 +39,7 @@ No `lines` needed — amounts are read from Iceland VAT Period Entry ori table.
 ```json
 {
   "period": {
-    "vskNumber": "101067", "year": 2026, "period": "16", "revisionNo": 1,
+    "vskNumber": "000000", "year": 2026, "period": "16", "revisionNo": 1,
     "status": "Villupróf keyrð",
     "assessmentAmount": 223000, "penaltyAmount": 0, "amountToPay": 223000
   },

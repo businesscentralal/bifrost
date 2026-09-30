@@ -8,14 +8,16 @@
     "start:is": "cross-env DOCUSAURUS_LOCALE=is-IS docusaurus start --locale is-IS",
     "build:en": "cross-env DOCUSAURUS_LOCALE=en-US docusaurus build --locale en-US --out-dir build/en-us",
     "build:is": "cross-env DOCUSAURUS_LOCALE=is-IS docusaurus build --locale is-IS --out-dir build/is-is",
-    "build": "node tools/copy-apps-json.mjs && npm run build:en && npm run build:is && node tools/build-root.mjs",
+    "build": "node tools/copy-apps-json.mjs && npm run build:en && node tools/build-root.mjs",
+    "build:all": "node tools/copy-apps-json.mjs && npm run build:en && npm run build:is && node tools/build-root.mjs",
     "serve": "docusaurus serve --dir build --port 3000",
     "clear": "docusaurus clear",
     "write-translations": "docusaurus write-translations --locale is-IS",
     "validate:apps": "node tools/validate-apps.mjs",
     "typecheck": "tsc",
     "check:ip-boundary": "node tools/check-docs.mjs ipBoundary",
-    "check:docs": "node tools/check-docs.mjs"
+    "check:docs": "node tools/check-docs.mjs",
+    "open-items": "node tools/open-items.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",
@@ -61,6 +63,6 @@
     "@swc/core@1.16.2": true,
     "core-js@3.50.0": true
   },
-  "description": "Documentation site for the Bifr\u00f6st family of Business Central extensions",
+  "description": "Documentation site for the Bifröst family of Business Central extensions",
   "license": "MIT"
 }

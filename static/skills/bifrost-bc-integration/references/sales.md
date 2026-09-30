@@ -390,13 +390,13 @@ the binary PDF file — exactly the same pattern as `Data.Records.Get`:
 
 ```json
 {
-  "id": "7df25b48-ec25-498f-b8cf-566044ae020d",
+  "id": "00000000-0000-0000-0000-000000000001",
   "specversion": "1.0",
   "type": "Sales.SalesInvoice.Pdf",
   "source": "MyApp",
   "subject": "INV-001",
   "datacontenttype": "application/pdf",
-  "data": "https://api.businesscentral.dynamics.com/v2.0/{tenantGuid}/UAT/api/origo/bifrost/v1.0/companies({companyId})/responses(7df25b48-...)/data"
+  "data": "https://api.businesscentral.dynamics.com/v2.0/{tenantGuid}/{environment}/api/origo/bifrost/v1.0/companies({companyId})/responses(00000000-...)/data"
 }
 ```
 

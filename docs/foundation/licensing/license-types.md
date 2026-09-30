@@ -49,7 +49,7 @@ rule that matches wins:
 
 | Charge type | The user is |
 |---|---|
-| **Support** | a Partner's user working in your tenant through a delegated partner plan (any of them, such as Delegated Admin or Delegated Helpdesk) |
+| **Support** | a Partner's user working in your tenant through a delegated partner plan (Delegated Admin, Delegated Helpdesk, Dynamics 365 Admin Partner or Delegated BC Admin) |
 | **App Registration** | a Microsoft Entra application (service principal) |
 | **Internal** | a person in a tenant that its own Partner invited as a Customer - the Partner using Bifröst itself |
 | **Demo** | a person in a tenant the Partner marked as a **demo environment** when it invited it |
@@ -61,7 +61,7 @@ Registration are used.
 
 The charge type is set when a user starts using Bifröst in a company, and re-evaluated for every
 user of the company by the **daily usage sync** (started by the first chargeable call of the day)
-and by **Sync** on Bifröst Setup. After a license or partner change - a new Partner relationship, a
+and by **Sync** on Bifrost Setup. After a license or partner change - a new Partner relationship, a
 cancelled one, a user given or removed a delegated plan - the new charge types apply from the next
 daily sync; choose **Sync** to apply them at once.
 
@@ -71,7 +71,7 @@ Every company must approve the **End-User License Agreement (EULA)** in the
 [Setup Wizard](/help/foundation/bifrost-setup-wizard/) before Bifröst processes any call for it.
 Until then every call - including `Help.*` - is answered with an `EULA_REQUIRED` error that points
 to the wizard. An administrator can withdraw the approval with **Revoke EULA Approval** on the
-Bifröst Setup page; calls are then refused again until the wizard is completed.
+Bifrost Setup page; calls are then refused again until the wizard is completed.
 
 Outbound HTTP must also be allowed for Bifröst Foundation (the wizard does this): the licence
 checks talk to the licensing service.
@@ -82,11 +82,11 @@ Prepaid is the license type of every new installation and of every tenant that i
 of a Partner.
 
 - **Trial.** A trial of **1,000 User + 1,000 App Registration messages** is activated once per
-  Microsoft Entra tenant, when the Setup Wizard finishes in a SaaS production environment (or from
-  the *Activate your trial* notification). Until it is activated, chargeable calls are answered with
+  Microsoft Entra tenant, when the Setup Wizard finishes in a SaaS production environment, or on the
+  next **Sync** on Bifrost Setup. Until it is activated, chargeable calls are answered with
   a *trial has not been started* error.
-- **Purchased quota.** After the trial you buy more messages per pool from Origo. Bifröst Setup
-  shows a notification when either pool drops below 1,000 messages.
+- **Purchased quota.** After the trial you buy more messages per pool from Origo. Bifrost Setup
+  shows a notification when either pool drops below 200 messages.
 - **Grace.** When a pool reaches zero, a grace of **100 messages** still runs; the responses carry a
   warning. When the grace is used up, the pool is exhausted.
 - **Blocking.** An exhausted pool refuses calls with the quota-exhausted error - unless the
@@ -115,10 +115,10 @@ and its rate limit returns to the Free tier. See [Leaving and cancelling](./leav
 
 Both license types can cap their own monthly usage:
 
-- **Company Monthly Message Quota** on the Bifröst Setup page - the chargeable messages of the company
+- **Company Monthly Message Quota** on the Bifrost Setup page - the chargeable messages of the company
   in the calendar month. On Subscription it counts every charge type except **App Registration**, so
   service-to-service calls never stop your users; on Prepaid it counts both pools;
-- **Monthly Msg Quota** on each user's Bifröst User Setup - that user's chargeable messages in the
+- **Monthly Msg Quota** on each user's Bifrost User Setup - that user's chargeable messages in the
   calendar month, whatever their charge type.
 
 `0` (the default) means no limit. When a quota is reached, calls are refused with a
@@ -133,9 +133,7 @@ Business Central counts the monthly quotas itself, from the **Bifrost Messages**
 chargeable messages of the current calendar month. Reporting usage to the licensing service does not
 change that count - a message reported by the daily usage sync still counts until the month ends.
 
-**Retention** does: a retention policy on **Bifrost Messages** that deletes messages from the current
-month removes them from the count. Keep at least 31 days of Bifrost Messages if you use the monthly
-quotas.
+Keep at least 31 days of Bifrost Messages if you use the monthly quotas.
 
 ## Sandbox environments
 
@@ -156,7 +154,7 @@ described under [Prepaid](#prepaid).
 
 ## Checking the licence
 
-- The **License** fact box on the Bifröst Setup page shows the license type, the remaining quota and
+- The **License** fact box on the Bifrost Setup page shows the license type, the remaining quota and
   validity of each pool, the messages not yet reported, and the date of the last sync. See
   [License fact box](/help/foundation/license-fact-box/).
 - `Help.Bifrost.Get` returns the same status as `licenseStatus`, and

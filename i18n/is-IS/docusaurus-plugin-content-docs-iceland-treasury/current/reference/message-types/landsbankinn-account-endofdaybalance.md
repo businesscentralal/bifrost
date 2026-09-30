@@ -32,7 +32,7 @@ Sækir end-of-day balance, accrued deposit interest, og local-currency equivalen
 | Parameter | Gerð | nauðsynlegt | Lýsing |
 |---|---|---|---|
 | `date` | string (date) | yes | The date fyrir which til Sækja end-of-day financials. |
-| `ownerNationalId` | string | no | The kennitala of the reikningur owner. Icelandic national identifier — accepted input: 10-11 digits, með eða without hyphen (e.g. `2205801569` eða `220580-1569`). Defaults til fyrirtæki Information "Registration No." Þegar omitted. |
+| `ownerNationalId` | string | no | The kennitala of the reikningur owner. Icelandic national identifier — accepted input: 10-11 digits, með eða without hyphen (e.g. `0000000000` eða `000000-0000`). Defaults til fyrirtæki Information "Registration No." Þegar omitted. |
 | `bankAccountNo` | string | no | BC bankareikningur "No." — Tengingin reads the bankareikningur number frá the card og normalizes it til 12-digit BBAN. Filters til a stakan reikningur. |
 | `bban` | string | no | Icelandic domestic basic bankareikningur number (BBAN). Accepted input: 12 digits without formatting (e.g. `010905012345`) eða hyphen-separated: 3-4 digit bank code, 1-2 digit ledger code, 1-6 digit reikningur number (e.g. `0109-05-012345` eða `109-5-12345`). Normalized til 12 digits með leading zeros. Filters til a stakan reikningur. |
 | `skip` | integer | no | Number of færslur til skip (default 0). |

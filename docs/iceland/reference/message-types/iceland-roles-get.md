@@ -19,7 +19,7 @@ Gets company roles held by a person.
 - Path: `/api/Roles`
 
 ## Request
-- **Request Body (JSON)**:\n  - `SocialID` (required): 10-digit kennitala of a **person**.\n  - `TypesOfRoles` (optional): Array of role type IDs to filter.\n    Values: `1` Stjórn, `2` Endurskoðandi, `3` Eigandi, `4` Framkvæmdastjórn, `5` Prókúruhafi, `6` Stofnandi, `7` Útibússtjóri, `8` Umboðsaðili, `9` Varastjórn.\n  - Example: `{"SocialID": "1102713369", "TypesOfRoles": ["1", "4"]}`
+- **Request Body (JSON)**:\n  - `SocialID` (required): 10-digit kennitala of a **person**.\n  - `TypesOfRoles` (optional): Array of role type IDs to filter.\n    Values: `1` Stjórn, `2` Endurskoðandi, `3` Eigandi, `4` Framkvæmdastjórn, `5` Prókúruhafi, `6` Stofnandi, `7` Útibússtjóri, `8` Umboðsaðili, `9` Varastjórn.\n  - Example: `{"SocialID": "0000000000", "TypesOfRoles": ["1", "4"]}`
 
 ## Response
 - The connector wraps the Umsja response in a standard JSON envelope with `status` and `result`.

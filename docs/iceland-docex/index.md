@@ -7,6 +7,8 @@ slug: /
 description: "Electronic document exchange for Business Central through Advania, Unimaze and InExchange, with Peppol BIS 3.0 data and UBL rendering."
 ---
 
+*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+
 Bifröst Iceland DocEx sends and receives electronic business documents through four services — Advania, Unimaze, InExchange and the public Peppol BIS Billing 3.0 reference-data service — and exposes each operation as a message type. It builds on Bifröst Foundation: a caller posts one message such as `DocumentExchange.Advania.GetUnread`, the extension performs the HTTP call, writes the exchange to the Bifrost Request Log with the secrets masked, and returns a JSON response.
 
 ## What it does
@@ -32,7 +34,7 @@ Bifröst Iceland DocEx sends and receives electronic business documents through 
 
 ## Message types
 
-The extension adds 76 message types on top of Bifröst Foundation. Each one is self-documenting: submit `Help.DocumentExchange.Get` with the message type name as the subject to receive its request and response contract in Markdown.
+The extension adds its own message types on top of Bifröst Foundation. Each one is self-documenting: submit `Help.DocumentExchange.Get` with the message type name as the subject to receive its request and response contract in Markdown.
 
 | Category | Types | What it covers |
 | --- | --- | --- |
@@ -56,7 +58,6 @@ The full list, one row per message type, is in the [in-product help](/help/icela
 
 - [In-product help](/help/iceland-docex/)
 - [Message type reference](./reference/message-types/) — the request and response contract for every type, generated from the app itself
-- [Object ID map](./reference/object-id-map)
 - [AppSource user scenarios](./user-scenarios)
 - [Partner Center listing](./listing)
 - [Build on Bifröst](/extensibility/)
