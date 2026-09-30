@@ -16,54 +16,38 @@ Skilaboðategundir fyrir verkefni bjóða upp á virkni til að vinna með verke
 
 | Skilaboðategund | Stefna | Tilgangur |
 |----------------|--------|-----------|
-| [Projects.ProjectJournal.SetupNewLine](#projectsprojectjournalsetupnewline) | Innlæg | Stofnar nýja verkefnadagbókarlínu með sjálfgefnum gildum |
+| [Projects.ProjectJournal.Create](#projectsprojectjournalcreate) | Innlæg | Bætir línum í fyrirliggjandi runu, með gildum eða auðar |
 | [Projects.ProjectJournal.Check](#projectsprojectjournalcheck) | Útlæg | Sannvirðir verkefnadagbókarrunu |
 | [Projects.ProjectJournal.Post](#projectsprojectjournalpost) | Innlæg | Bókar verkefnadagbókarrunu |
 | [Projects.ProjectJournal.PreviewPost](#projectsprojectjournalpreviewpost) | Innlæg | Hermir bókun á verkefnadagbókarrunu og skilar spáðum færslum (afturkallað) |
 
 ---
 
-## Projects.ProjectJournal.SetupNewLine
+## Projects.ProjectJournal.Create
 
 **Stefna**: Innlæg
 
-**Tilgangur**: Stofnar og setur inn nýja verkefnadagbókarlínu með sjálfgefnum gildum úr BC `SetUpNewLine` ferli. Sjálfgefin gildi (verkefnisnúmer, bókunardagsetning, sviðsgildi) erfast frá sniðmáti og runu. Skjalanúmer er fyllt út úr númeraröð runu ef stillt er.
-
-### Snið beiðni
+Bætir línum í fyrirliggjandi verkefnadagbókarrunu í einu kalli. Með `lines` er hver lína yfirfarin áður en nokkuð er skráð og öll vandamál koma í einu svari, svo ekkert er stofnað ef ein lína er röng (mest 200 línur). Án `lines` eru `noOfLines` auðar línur settar inn með sjálfgefnum gildum BC. `clearExistingLines` eyðir fyrst línum runnunnar og er óafturkræft. Kallið stofnar aldrei runu.
 
 ```json
 {
-  "specversion": "1.0",
-  "type": "Projects.ProjectJournal.SetupNewLine",
-  "source": "MyIntegrationApp v1.0",
+  "type": "Projects.ProjectJournal.Create",
   "subject": "PROJECT|DEFAULT",
-  "data": {}
+  "data": {
+    "lines": [
+      { "jobNo": "JOB00010", "jobTaskNo": "1000", "type": "Resource", "no": "LINDA", "quantity": 2 }
+    ]
+  }
 }
 ```
 
-#### Auðkenning verkefnadagbókarrunu
+### Dæmigert verkflæði
 
-1. **Rör-aðskilið í subject**: `"subject": "TEMPLATE|BATCH"`
-2. **SystemId í subject**: `"subject": "guid-without-braces"`
-3. **JSON-gagnafæribreytur**: `templateName` + `batchName` (forgangur)
+1. `Projects.ProjectJournal.Create` með `lines`.
+2. `Projects.ProjectJournal.Check` til að yfirfara rununa.
+3. `Projects.ProjectJournal.Post` til að bóka.
 
-#### Valkvæðar færibreytur
-
-| Færibreyta | Tegund | Sjálfgefið | Lýsing |
-|-----------|--------|-----------|--------|
-| `fieldNumbers` | int[] | öll svið | Svið sem á að taka með í svari |
-| `noOfLines` | integer | 1 | Fjöldi lína sem á að stofna (1–100) |
-| `clearExistingLines` | boolean | false | Þegar `true`, eyðir öllum línum í runu fyrst |
-
-### Snið svars
-
-Notar sama snið og `Data.Records.Get`. `primaryKey` inniheldur `JournalTemplateName`, `JournalBatchName`, `LineNo_`.
-
-### Tengdar skilaboðategundir
-
-- [Projects.ProjectJournal.Check](#projectsprojectjournalcheck)
-- [Projects.ProjectJournal.Post](#projectsprojectjournalpost)
-- [Data.Records.Set](/foundation/message-types/data/#datarecordsset)
+Færibreytur, reitir línanna (skyldu- og valkvæðir), röð prófana og villur eru á tilvísunarsíðunni: [Projects.ProjectJournal.Create](/foundation/reference/message-types/projects-projectjournal-create/).
 
 ---
 
@@ -125,7 +109,7 @@ Notar sama snið og `Data.Records.Get`. `primaryKey` inniheldur `JournalTemplate
 
 ### Tengdar skilaboðategundir
 
-- [Projects.ProjectJournal.SetupNewLine](#projectsprojectjournalsetupnewline)
+- [Projects.ProjectJournal.Create](#projectsprojectjournalcreate)
 - [Projects.ProjectJournal.Post](#projectsprojectjournalpost)
 
 ---
@@ -184,7 +168,7 @@ Notar sama snið og `Data.Records.Get`. `primaryKey` inniheldur `JournalTemplate
 
 ### Tengdar skilaboðategundir
 
-- [Projects.ProjectJournal.SetupNewLine](#projectsprojectjournalsetupnewline)
+- [Projects.ProjectJournal.Create](#projectsprojectjournalcreate)
 - [Projects.ProjectJournal.Check](#projectsprojectjournalcheck)
 
 ---
@@ -258,7 +242,7 @@ Sami umslag og aðrar PreviewPost-gerðir (`rollback`, `summary`, `totals`, `pre
 
 ### Rekstraráminningar
 
-- **`Line Type` má ekki vera autt.** Verkefnadagbókarlínur þarfnast `Line Type` reits sem er **ekki autt** (`Schedule`, `Billable` eða `Both Schedule and Contract`). Þýtt lína stofnuð með `SetupNewLine` byrjar með autu `Line Type`; setja það áður en forskoun er keyrð.
+- **`Line Type` má ekki vera autt.** Verkefnadagbókarlínur þarfnast `Line Type` reits sem er **ekki autt** (`Budget`, `Billable` eða `Both Budget and Billable`). Sendið `lineType` á hverri línu `Projects.ProjectJournal.Create`; auð lína sem er stofnuð án `lines` þarf að fá það með `Data.Records.Set` áður en forskoðun er keyrð.
 - **Lúðann vörulínur eyk færslur í `Item Ledger Entry`/`Value Entry` töflum.**
 - Forskoun afturkallar færslur en endurkallað ekki sniðgjöf á lyklum (t.d. lýsing runu).
 
@@ -268,7 +252,7 @@ BC sannvottunarvillur skila sér orðrétt. Algengar villur:
 - `Project journal batch must be identified via subject (TEMPLATE|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`)
 - `Project Journal Batch "{template}|{batch}" was not found (from subject).` (`RecordNotFound`) — `parameter` er `subject`, eða `templateName, batchName` þegar þeir lyklar voru sendir.
 - `Project journal batch {template}|{batch} has no lines to post.`
-- `Line Type must have a value in Job Journal Line: ...` — `Line Type` reitur er aut. Setjaðu `Schedule`, `Billable` eða `Both Schedule and Contract` áður en forskoun er keyrð.
+- `Line Type must have a value in Job Journal Line: ...` — `Line Type` reiturinn er auður. Setjið `Budget`, `Billable` eða `Both Budget and Billable` áður en forskoðun er keyrð.
 - `Posting preview failed and no entries were captured. The project journal cannot be posted in its current state.` — sjaldgæf heildarvilla.
 
 ### Tengdar skilaboðategundir
@@ -285,7 +269,7 @@ BC sannvottunarvillur skila sér orðrétt. Algengar villur:
 
 | Tegund hlutar | Auðkenni | Heiti |
 |---------------|----------|-------|
-| Enum-gildi | 10078091 | Projects.ProjectJournal.SetupNewLine |
+| Enum-gildi | 10078091 | Projects.ProjectJournal.Create |
 | Implementation Codeunit | 10078178 | Proj. Jnl. SetupLine Impl ori |
 | Help Codeunit | 10078017 | Proj. Jnl. SetupLine Help ori |
 | Enum-gildi | 10078092 | Projects.ProjectJournal.Check |

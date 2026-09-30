@@ -2,7 +2,7 @@
 id: bifrost-clockify
 title: "Clockify message types"
 sidebar_label: "Clockify message types"
-sidebar_position: 10
+sidebar_position: 9
 description: "Message types added to the Bifröst API by Bifrost Timesheets. The Clockify time-tracking API exposed as Bifröst message types, with synchronisation of time entries into Business Central Job Journals and Time Sheets. Load alongside bifrost-bc-integration, which carries the API…"
 ---
 

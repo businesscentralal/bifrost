@@ -2,7 +2,7 @@
 id: bifrost-subscription-billing
 title: "Subscription Billing message types"
 sidebar_label: "Subscription Billing message types"
-sidebar_position: 11
+sidebar_position: 7
 description: "Message types added to the Bifröst API by Bifrost Subscription Billing. Microsoft's Subscription Billing app made callable — 22 Bifröst message types for contracts, the billing pipeline, usage data, deferrals and migration. Load alongside bifrost-bc-integration, which carries…"
 ---
 

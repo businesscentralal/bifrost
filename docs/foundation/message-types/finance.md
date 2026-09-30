@@ -21,8 +21,8 @@ Finance message types provide functionality for working with general journals, i
 | [Finance.GeneralJournal.PreviewPost](#financegeneraljournalpreviewpost) | Inbound | Simulates posting a general journal batch and returns the resulting ledger entries without committing changes |
 | [Finance.GeneralJournal.ReverseRegister](#financegeneraljournalreverseregister) | Inbound | Reverses all entries in a G/L Register |
 | [Finance.GeneralJournal.ReverseTransaction](#financegeneraljournalreversetransaction) | Inbound | Reverses all entries in a G/L transaction |
-| [Finance.GeneralJournal.SetupNewLine](#financegeneraljournalsetupnewline) | Inbound | Creates a new journal line with defaults — the default way to prepare a journal line |
-| [Finance.FAJournal.SetupNewLine](#financefajournalsetupnewline) | Inbound | Creates a new fixed asset journal line with defaults |
+| [Finance.GeneralJournal.Create](#financegeneraljournalcreate) | Inbound | Adds lines to an existing batch, with values or blank |
+| [Finance.FAJournal.Create](#financefajournalcreate) | Inbound | Adds lines to an existing batch, with values or blank |
 | [Finance.FAJournal.Check](#financefajournalcheck) | Outbound | Validates a fixed asset journal batch and returns readiness status |
 | [Finance.FAJournal.Post](#financefajournalpost) | Inbound | Posts a fixed asset journal batch and returns posting statistics |
 | [Finance.FAJournal.PreviewPost](#financefajournalpreviewpost) | Inbound | Simulates posting a fixed asset journal batch and returns predicted ledger entries (rolled back) |
@@ -197,7 +197,7 @@ JSON data parameters take precedence over the subject field.
 
 ### Related Message Types
 
-- [Finance.GeneralJournal.SetupNewLine](#financegeneraljournalsetupnewline) - Create a new journal line with defaults
+- [Finance.GeneralJournal.Create](#financegeneraljournalcreate) - Add lines to a batch
 - [Finance.GeneralJournal.Post](#financegeneraljournalpost) - Post validated journal batch
 - [Data.Records.Get](/foundation/message-types/data/#datarecordsget) - Retrieve journal lines
 - [Data.Records.Set](/foundation/message-types/data/#datarecordsset) - Create or update journal lines
@@ -559,7 +559,7 @@ JSON data parameters take precedence over the subject field.
 
 ### Related Message Types
 
-- [Finance.GeneralJournal.SetupNewLine](#financegeneraljournalsetupnewline) - Create a new journal line with defaults
+- [Finance.GeneralJournal.Create](#financegeneraljournalcreate) - Add lines to a batch
 - [Finance.GeneralJournal.Check](#financegeneraljournalcheck) - Validate before posting
 - [Data.Records.Get](/foundation/message-types/data/#datarecordsget) - Retrieve journal lines before posting
 - [Data.Records.Set](/foundation/message-types/data/#datarecordsset) - Create or update journal lines
@@ -822,242 +822,60 @@ The subject identifies the transaction to reverse:
 
 ---
 
-## Finance.GeneralJournal.SetupNewLine
+## Finance.GeneralJournal.Create
 
-**Direction**: Inbound (creates a new journal line)
+**Direction**: Inbound
 
-**Purpose**: Creates and inserts a new general journal line in the specified batch, pre-populated with defaults from BC's `SetUpNewLine` procedure. This is the default way to prepare a general journal line before populating business fields via `Data.Records.Set`.
+Adds lines to an existing general journal batch in one call. With `lines`, every line is checked before anything is inserted and every problem is reported in one answer, so nothing is created when one line is wrong (at most 200 lines). Without `lines`, `noOfLines` blank lines are inserted with the BC defaults. `clearExistingLines` deletes the batch's lines first and is destructive. The call never creates a batch.
 
-Default values inherited from the template and batch include Bal. Account Type, Bal. Account No., Document Type, and Posting Date. If a No. Series is configured on the journal batch, the Document No. is automatically populated from the next number in the series.
-
-The line is assigned the next available Line No. (last line + 10000, or 10000 if the batch is empty).
-
-### Request Format
-
-Bifrost parameters:
 ```json
 {
-  "specversion": "1.0",
-  "type": "Finance.GeneralJournal.SetupNewLine",
-  "source": "MyIntegrationApp v1.0",
+  "type": "Finance.GeneralJournal.Create",
   "subject": "GENERAL|DEFAULT",
-  "id": "c3d4e5f6-7890-12cd-ef34-567890abcdef",
-  "time": "2026-04-15T10:00:00Z",
-  "datacontenttype": "application/json",
-  "data": {}
-}
-```
-
-#### Journal Batch Identification
-
-The journal batch can be identified in three ways:
-
-1. **Pipe-separated in subject**: `"subject": "TEMPLATE|BATCH"`
-2. **SystemId in subject**: `"subject": "guid-without-braces"`
-3. **JSON data parameters**:
-```json
-{
   "data": {
-    "templateName": "GENERAL",
-    "batchName": "DEFAULT"
+    "lines": [
+      { "accountType": "G/L Account", "accountNo": "8410", "amount": 100 },
+      { "accountType": "G/L Account", "accountNo": "2910", "amount": -100 }
+    ]
   }
 }
 ```
-
-JSON data parameters take precedence over the subject field.
-
-#### Optional Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `fieldNumbers` | int[] | all fields | Field numbers to include in response. When omitted, all fields are returned. |
-
-```json
-{
-  "data": {
-    "templateName": "GENERAL",
-    "batchName": "DEFAULT",
-    "fieldNumbers": [1, 2, 3, 5, 8]
-  }
-}
-```
-
-### Response Format
-
-The response uses the same format as `Data.Records.Get`: a single record in the `result` array with `id`, `primaryKey`, and `fields`.
-
-```json
-{
-  "status": "Success",
-  "noOfRecords": 1,
-  "result": [
-    {
-      "id": "A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
-      "primaryKey": {
-        "JournalTemplateName": "GENERAL",
-        "JournalBatchName": "DEFAULT",
-        "LineNo_": 10000
-      },
-      "fields": {
-        "PostingDate": "2026-04-15",
-        "DocumentNo_": "GJ-00001",
-        "DocumentType": " ",
-        "AccountType": "G/L Account",
-        "BalAccountType": "G/L Account",
-        "BalAccountNo_": "29900",
-        "..."
-      }
-    }
-  ]
-}
-```
-
-### Response Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `status` | string | "Success" or "Error" |
-| `noOfRecords` | integer | Always 1 on success |
-| `result` | array | Single-element array containing the new journal line |
-| `result[].id` | string | SystemId of the newly inserted journal line (GUID) |
-| `result[].primaryKey` | object | Primary key fields: JournalTemplateName, JournalBatchName, LineNo_ |
-| `result[].fields` | object | All non-PK fields (or only those in `fieldNumbers` if specified) |
-
-### Behaviour
-
-1. The batch is identified using one of the three methods above.
-2. The last existing line in the batch is found (if any).
-3. A new line is initialised with Template Name, Batch Name, and next Line No.
-4. BC's `SetUpNewLine` is called, passing the last line as reference (or an empty line if the batch has no lines). This applies default values from the template and batch: Bal. Account Type, Bal. Account No., Document Type, Posting Date, etc. If a No. Series is configured on the batch, the Document No. is populated from the next number in the series.
-5. The line is inserted with triggers.
-6. The response returns the record in `Data.Records.Get` format.
 
 ### Typical Workflow
 
-1. Call `Finance.GeneralJournal.SetupNewLine` to create a line with defaults.
-2. Use the returned `id` (SystemId) with `Data.Records.Set` to populate Account No., Amount, etc.
-3. Repeat steps 1–2 for each journal line.
-4. Call `Finance.GeneralJournal.Check` to validate the batch.
-5. Call `Finance.GeneralJournal.Post` to post.
+1. `Finance.GeneralJournal.Create` with `lines`.
+2. `Finance.GeneralJournal.Check` to validate the batch.
+3. `Finance.GeneralJournal.Post` to post.
 
-### Error Handling
-
-| Error | Cause |
-|-------|-------|
-| Missing identification | No template/batch, SystemId, or pipe-separated subject provided |
-| Batch not found | The specified batch does not exist (`RecordNotFound`) |
-
-### Related Message Types
-
-- [Finance.GeneralJournal.Check](#financegeneraljournalcheck) — Validate journal batch before posting
-- [Finance.GeneralJournal.Post](#financegeneraljournalpost) — Post a validated journal batch
-- [Data.Records.Set](/foundation/message-types/data/#datarecordsset) — Update fields on the newly created line
-- [Data.Records.Get](/foundation/message-types/data/#datarecordsget) — Read journal lines (same response format)
+The request parameters, the line fields (required and optional), the validation order and the errors are on the reference page: [Finance.GeneralJournal.Create](/foundation/reference/message-types/finance-generaljournal-create/).
 
 ---
 
-## Finance.FAJournal.SetupNewLine
+## Finance.FAJournal.Create
 
-**Direction**: Inbound (creates a new journal line)
+**Direction**: Inbound
 
-**Purpose**: Creates and inserts a new fixed asset journal line in the specified batch, pre-populated with defaults from BC's `SetUpNewLine` procedure. This is the default way to prepare a fixed asset journal line before populating business fields via `Data.Records.Set`.
-
-Default values inherited from the template and batch include FA Posting Type, Posting Date, Depreciation Book Code, and Document No. (when a No. Series is configured). The line is assigned the next available Line No. (last line + 10000, or 10000 if the batch is empty).
-
-### Request Format
+Adds lines to an existing fixed asset journal batch in one call. With `lines`, every line is checked before anything is inserted and every problem is reported in one answer, so nothing is created when one line is wrong (at most 200 lines). Without `lines`, `noOfLines` blank lines are inserted with the BC defaults. `clearExistingLines` deletes the batch's lines first and is destructive. The call never creates a batch.
 
 ```json
 {
-  "specversion": "1.0",
-  "type": "Finance.FAJournal.SetupNewLine",
-  "source": "MyIntegrationApp v1.0",
+  "type": "Finance.FAJournal.Create",
   "subject": "ASSETS|DEFAULT",
-  "data": {}
-}
-```
-
-#### Journal Batch Identification
-
-1. **Pipe-separated in subject**: `"subject": "TEMPLATE|BATCH"`
-2. **SystemId in subject**: `"subject": "guid-without-braces"`
-3. **JSON data parameters**:
-```json
-{
   "data": {
-    "templateName": "ASSETS",
-    "batchName": "DEFAULT"
+    "lines": [
+      { "faNo": "FA000010", "faPostingType": "Acquisition Cost", "amount": 1000 }
+    ]
   }
 }
 ```
 
-JSON data parameters take precedence over the subject field.
-
-#### Optional Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `fieldNumbers` | int[] | all fields | Field numbers to include in response |
-| `noOfLines` | integer | 1 | Number of lines to create (1–100) |
-| `clearExistingLines` | boolean | false | When true, deletes all existing lines in the batch first |
-
-### Response Format
-
-Uses the `Data.Records.Get` response shape.
-
-```json
-{
-  "status": "Success",
-  "noOfRecords": 1,
-  "result": [
-    {
-      "id": "A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
-      "primaryKey": {
-        "JournalTemplateName": "ASSETS",
-        "JournalBatchName": "DEFAULT",
-        "LineNo_": 10000
-      },
-      "fields": {
-        "PostingDate": "2026-04-15",
-        "DocumentNo_": "FA-00001",
-        "FAPostingType": "Acquisition Cost",
-        "DepreciationBookCode": "COMPANY",
-        "..."
-      }
-    }
-  ]
-}
-```
-
-### Response Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `status` | string | "Success" or "Error" |
-| `noOfRecords` | integer | Number of lines created |
-| `result[].id` | string | SystemId of the new journal line |
-| `result[].primaryKey` | object | `JournalTemplateName`, `JournalBatchName`, `LineNo_` |
-| `result[].fields` | object | All non-PK fields (or only those in `fieldNumbers`) |
-
 ### Typical Workflow
 
-1. Call `Finance.FAJournal.SetupNewLine` to create lines with defaults.
-2. Use the returned `id` with `Data.Records.Set` to populate FA No., Amount, etc.
-3. Call `Finance.FAJournal.Check` to validate.
-4. Call `Finance.FAJournal.Post` to post.
+1. `Finance.FAJournal.Create` with `lines`.
+2. `Finance.FAJournal.Check` to validate the batch.
+3. `Finance.FAJournal.Post` to post.
 
-### Error Handling
-
-| Error | Cause |
-|-------|-------|
-| Missing identification | No template/batch, SystemId, or pipe-separated subject provided |
-| Batch not found | The specified batch does not exist (`RecordNotFound`) |
-
-### Related Message Types
-
-- [Finance.FAJournal.Check](#financefajournalcheck)
-- [Finance.FAJournal.Post](#financefajournalpost)
-- [Data.Records.Set](/foundation/message-types/data/#datarecordsset)
-- [Data.Records.Get](/foundation/message-types/data/#datarecordsget)
+The request parameters, the line fields (required and optional), the validation order and the errors are on the reference page: [Finance.FAJournal.Create](/foundation/reference/message-types/finance-fajournal-create/).
 
 ---
 
@@ -1148,7 +966,7 @@ Uses BC's "FA Jnl.-Check Line" codeunit via the Error Message Management framewo
 
 ### Related Message Types
 
-- [Finance.FAJournal.SetupNewLine](#financefajournalsetupnewline)
+- [Finance.FAJournal.Create](#financefajournalcreate)
 - [Finance.FAJournal.Post](#financefajournalpost)
 - [Help.Tables.Get](/foundation/message-types/metadata/#helptablesget)
 
@@ -1240,7 +1058,7 @@ Identification follows the same three-method pattern.
 
 ### Related Message Types
 
-- [Finance.FAJournal.SetupNewLine](#financefajournalsetupnewline)
+- [Finance.FAJournal.Create](#financefajournalcreate)
 - [Finance.FAJournal.Check](#financefajournalcheck)
 - [Data.Records.Get](/foundation/message-types/data/#datarecordsget)
 - [Data.Records.Set](/foundation/message-types/data/#datarecordsset)
@@ -1345,7 +1163,7 @@ BC validation errors propagate verbatim. Common errors:
 | Enum Value | 10077936 | Finance.GeneralJournal.Post |
 | Implementation Codeunit | 10078106 | Gen. Journal Post Impl ori |
 | Help Codeunit | 10077956 | Gen. Journal Post Help ori |
-| Enum Value | 10077937 | Finance.GeneralJournal.SetupNewLine |
+| Enum Value | 10077937 | Finance.GeneralJournal.Create |
 | Implementation Codeunit | 10078104 | Gen. Jnl. SetupLine Impl ori |
 | Help Codeunit | 10077954 | Gen. Jnl. SetupLine Help ori |
 | Enum Value | 10077938 | Finance.GeneralJournal.ReverseRegister |
@@ -1355,7 +1173,7 @@ BC validation errors propagate verbatim. Common errors:
 | Implementation Codeunit | 10078108 | Gen. Jnl. Reverse Trx Impl ori |
 | Help Codeunit | 10077953 | Gen. Jnl. Reverse Trx Help ori |
 | Helper Codeunit | 10078103 | Gen. Jnl. Reverse Process ori |
-| Enum Value | 10078088 | Finance.FAJournal.SetupNewLine |
+| Enum Value | 10078088 | Finance.FAJournal.Create |
 | Implementation Codeunit | 10078099 | FA Jnl. SetupLine Impl ori |
 | Help Codeunit | 10077948 | FA Jnl. SetupLine Help ori |
 | Enum Value | 10078089 | Finance.FAJournal.Check |

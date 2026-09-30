@@ -21,8 +21,8 @@ Skilaboðategundir fyrir fjármál bjóða upp á virkni til að vinna með alme
 | [Finance.GeneralJournal.PreviewPost](#financegeneraljournalpreviewpost) | Innlæg | Líkir eftir bókun á bókhaldsrunu og skilar fyrirhuguðum fjárhagsfærslum án þess að vista breytingar |
 | [Finance.GeneralJournal.ReverseRegister](#financegeneraljournalreverseregister) | Innlæg | Bakfærir allar fjárhagsfærslur í tilgreindri fjárhagsskráningu |
 | [Finance.GeneralJournal.ReverseTransaction](#financegeneraljournalreversetransaction) | Innlæg | Bakfærir allar fjárhagsfærslur eftir færslunúmeri |
-| [Finance.GeneralJournal.SetupNewLine](#financegeneraljournalsetupnewline) | Innlæg | Stofnar nýja dagbókarlínu með sjálfgefnum gildum |
-| [Finance.FAJournal.SetupNewLine](#financefajournalsetupnewline) | Innlæg | Stofnar nýja fastafjármunadagbókarlínu með sjálfgefnum gildum |
+| [Finance.GeneralJournal.Create](#financegeneraljournalcreate) | Innlæg | Bætir línum í fyrirliggjandi runu, með gildum eða auðar |
+| [Finance.FAJournal.Create](#financefajournalcreate) | Innlæg | Bætir línum í fyrirliggjandi runu, með gildum eða auðar |
 | [Finance.FAJournal.Check](#financefajournalcheck) | Útlæg | Sannvirðir fastafjármunadagbókarrunu |
 | [Finance.FAJournal.Post](#financefajournalpost) | Innlæg | Bókar fastafjármunadagbókarrunu |
 | [Finance.FAJournal.PreviewPost](#financefajournalpreviewpost) | Innlæg | Hermir bókun á fastafjármunadagbókarrunu og skilar spáðum færslum (afturkallað) |
@@ -557,7 +557,7 @@ JSON-gagnafæribreytur hafa forgang yfir subject-reitinn.
 
 ### Tengdar skilaboðategundir
 
-- [Finance.GeneralJournal.SetupNewLine](#financegeneraljournalsetupnewline) - Stofna nýja dagbókarlínu með sjálfgefnum gildum
+- [Finance.GeneralJournal.Create](#financegeneraljournalcreate) - Bæta línum í runu
 - [Finance.GeneralJournal.Check](#financegeneraljournalcheck) - Sannvirkja áður en bókað er
 - [Data.Records.Get](/foundation/message-types/data/#datarecordsget) - Sækja dagbókarlínur áður en bókað er
 - [Data.Records.Set](/foundation/message-types/data/#datarecordsset) - Búa til eða uppfæra dagbókarlínur
@@ -814,181 +814,60 @@ Subject-reiturinn auðkennir færsluna sem á að bakfæra:
 
 ---
 
-## Finance.GeneralJournal.SetupNewLine
-
-**Stefna**: Innlæg (stofnar nýja dagbókarlínu)
-
-**Tilgangur**: Stofnar og setur inn nýja almenna dagbókarlínu í tilgreindri runu, forútfyllta með sjálfgefnum gildum frá BC `SetUpNewLine` aðferðinni. Þetta er sjálfgefna leiðin til að undirbúa almenna dagbókarlínu áður en viðskiptareitir eru fylltir út með `Data.Records.Set`.
-
-Sjálfgefin gildi sem erfast frá sniðmáti og runu innihalda Tegund mótlykils, Nr. mótlykils, Tegund skjals og Bókunardagsetning. Ef númeraröð er skilgreind á bókhaldsrununni er Skjalanúmer sjálfkrafa fyllt út frá næsta númeri í röðinni.
-
-Línan fær næsta laust Línunr. (síðasta lína + 10000, eða 10000 ef runan er tóm).
-
-### Snið beiðni
-
-Bifröst færibreytur:
-```json
-{
-  "specversion": "1.0",
-  "type": "Finance.GeneralJournal.SetupNewLine",
-  "source": "MyIntegrationApp v1.0",
-  "subject": "GENERAL|DEFAULT",
-  "id": "c3d4e5f6-7890-12cd-ef34-567890abcdef",
-  "time": "2026-04-15T10:00:00Z",
-  "datacontenttype": "application/json",
-  "data": {}
-}
-```
-
-#### Auðkenning bókhaldsrunu
-
-Hægt er að auðkenna bókhaldsrunu á þrjá vegu:
-
-1. **Rör-aðskilið í subject**: `"subject": "TEMPLATE|BATCH"`
-2. **SystemId í subject**: `"subject": "guid-without-braces"`
-3. **JSON-gagnafæribreytur**:
-```json
-{
-  "data": {
-    "templateName": "GENERAL",
-    "batchName": "DEFAULT"
-  }
-}
-```
-
-JSON-gagnafæribreytur hafa forgang yfir subject-reitinn.
-
-#### Valfrjálsar færibreytur
-
-| Færibreyta | Tegund | Sjálfgefið | Lýsing |
-|------------|--------|------------|--------|
-| `fieldNumbers` | int[] | allir reitir | Reitanúmer sem á að skila í svari. Ef sleppt eru allir reitir skilaðir. |
-
-```json
-{
-  "data": {
-    "templateName": "GENERAL",
-    "batchName": "DEFAULT",
-    "fieldNumbers": [1, 2, 3, 5, 8]
-  }
-}
-```
-
-### Snið svars
-
-Svarið notar sama snið og `Data.Records.Get`: ein færsla í `result` fylkinu með `id`, `primaryKey` og `fields`.
-
-```json
-{
-  "status": "Success",
-  "noOfRecords": 1,
-  "result": [
-    {
-      "id": "A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
-      "primaryKey": {
-        "JournalTemplateName": "GENERAL",
-        "JournalBatchName": "DEFAULT",
-        "LineNo_": 10000
-      },
-      "fields": {
-        "PostingDate": "2026-04-15",
-        "DocumentNo_": "GJ-00001",
-        "DocumentType": " ",
-        "AccountType": "G/L Account",
-        "BalAccountType": "G/L Account",
-        "BalAccountNo_": "29900",
-        "..."
-      }
-    }
-  ]
-}
-```
-
-### Reitir í svari
-
-| Reitur | Tegund | Lýsing |
-|--------|--------|--------|
-| `status` | string | "Success" eða "Error" |
-| `noOfRecords` | integer | Alltaf 1 við velgengni |
-| `result` | array | Eins-staks fylki sem inniheldur nýju dagbókarlínuna |
-| `result[].id` | string | SystemId nýju dagbókarlínunnar (GUID) |
-| `result[].primaryKey` | object | Aðallykillsreitir: JournalTemplateName, JournalBatchName, LineNo_ |
-| `result[].fields` | object | Allir reitir utan aðallykils (eða eingöngu þeir í `fieldNumbers` ef tilgreint) |
-
-### Hegðun
-
-1. Runan er auðkennd með einni af þremur aðferðum hér að ofan.
-2. Síðasta línan í rununni er fundin (ef einhver er).
-3. Ný lína er ræst með sniðmátsheiti, runuheiti og næsta línunúmeri.
-4. BC `SetUpNewLine` er kallað, með síðustu línuna sem tilvísun (eða tóma línu ef runan er tóm). Þetta setur sjálfgefin gildi frá sniðmáti og runu: Tegund mótlykils, Nr. mótlykils, Tegund skjals, Bókunardagsetning, o.fl. Ef númeraröð er skilgreind á rununni er Skjalanúmer fyllt út frá næsta númeri í röðinni.
-5. Línan er sett inn með kveikjum.
-6. Svarið skilar færslunni á `Data.Records.Get` sniði.
-
-### Dæmigert verkflæði
-
-1. Kalla `Finance.GeneralJournal.SetupNewLine` til að stofna línu með sjálfgefnum gildum.
-2. Nota skilaða `id` (SystemId) með `Data.Records.Set` til að fylla út Reikningsnr., Upphæð, o.fl.
-3. Endurtaka skref 1-2 fyrir hverja dagbókarlínu.
-4. Kalla `Finance.GeneralJournal.Check` til að sannvirkja rununa.
-5. Kalla `Finance.GeneralJournal.Post` til að bóka.
-
-### Villumeðferð
-
-| Villa | Ástæða |
-|-------|--------|
-| Vantar auðkenningu | Ekkert sniðmát/runa, SystemId, eða rör-aðskilið subject gefið |
-| Runa finnst ekki | Tilgreind runa er ekki til (`RecordNotFound`) |
-
-### Tengdar skilaboðategundir
-
-- [Finance.GeneralJournal.Check](#financegeneraljournalcheck) — Sannvirkja bókhaldsrunu áður en bókað er
-- [Finance.GeneralJournal.Post](#financegeneraljournalpost) — Bóka sannvirta bókhaldsrunu
-- [Data.Records.Set](/foundation/message-types/data/#datarecordsset) — Uppfæra reiti á nýstofnuðu línunni
-- [Data.Records.Get](/foundation/message-types/data/#datarecordsget) — Lesa dagbókarlínur (sama svarssnið)
-
----
-
-## Finance.FAJournal.SetupNewLine
+## Finance.GeneralJournal.Create
 
 **Stefna**: Innlæg
 
-**Tilgangur**: Stofnar og setur inn nýja fastafjármunadagbókarlínu (FA Journal Line) með sjálfgefnum gildum úr BC `SetUpNewLine` ferli. Sjálfgefin gildi (FA bókunartegund, bókunardagsetning, sviðsgildi) erfast frá sniðmáti og runu. Skjalanúmer er fyllt út úr númeraröð runu ef stillt er.
-
-### Snið beiðni
+Bætir línum í fyrirliggjandi almennrar færslubókarrunu í einu kalli. Með `lines` er hver lína yfirfarin áður en nokkuð er skráð og öll vandamál koma í einu svari, svo ekkert er stofnað ef ein lína er röng (mest 200 línur). Án `lines` eru `noOfLines` auðar línur settar inn með sjálfgefnum gildum BC. `clearExistingLines` eyðir fyrst línum runnunnar og er óafturkræft. Kallið stofnar aldrei runu.
 
 ```json
 {
-  "specversion": "1.0",
-  "type": "Finance.FAJournal.SetupNewLine",
-  "source": "MyIntegrationApp v1.0",
-  "subject": "FA|DEFAULT",
-  "data": {}
+  "type": "Finance.GeneralJournal.Create",
+  "subject": "GENERAL|DEFAULT",
+  "data": {
+    "lines": [
+      { "accountType": "G/L Account", "accountNo": "8410", "amount": 100 },
+      { "accountType": "G/L Account", "accountNo": "2910", "amount": -100 }
+    ]
+  }
 }
 ```
 
-#### Auðkenning fastafjármunadagbókarrunu
+### Dæmigert verkflæði
 
-1. **Rör-aðskilið í subject**: `"subject": "TEMPLATE|BATCH"`
-2. **SystemId í subject**: `"subject": "guid-without-braces"`
-3. **JSON-gagnafæribreytur**: `templateName` + `batchName` (forgangur)
+1. `Finance.GeneralJournal.Create` með `lines`.
+2. `Finance.GeneralJournal.Check` til að yfirfara rununa.
+3. `Finance.GeneralJournal.Post` til að bóka.
 
-#### Valkvæðar færibreytur
+Færibreytur, reitir línanna (skyldu- og valkvæðir), röð prófana og villur eru á tilvísunarsíðunni: [Finance.GeneralJournal.Create](/foundation/reference/message-types/finance-generaljournal-create/).
 
-| Færibreyta | Tegund | Sjálfgefið | Lýsing |
-|-----------|--------|-----------|--------|
-| `fieldNumbers` | int[] | öll svið | Svið sem á að taka með í svari |
-| `noOfLines` | integer | 1 | Fjöldi lína sem á að stofna (1–100) |
-| `clearExistingLines` | boolean | false | Þegar `true`, eyðir öllum línum í runu fyrst |
+---
 
-### Snið svars
+## Finance.FAJournal.Create
 
-Notar sama snið og `Data.Records.Get`. `primaryKey` inniheldur `JournalTemplateName`, `JournalBatchName`, `LineNo_`.
+**Stefna**: Innlæg
 
-### Tengdar skilaboðategundir
+Bætir línum í fyrirliggjandi fastafjármunadagbókarrunu í einu kalli. Með `lines` er hver lína yfirfarin áður en nokkuð er skráð og öll vandamál koma í einu svari, svo ekkert er stofnað ef ein lína er röng (mest 200 línur). Án `lines` eru `noOfLines` auðar línur settar inn með sjálfgefnum gildum BC. `clearExistingLines` eyðir fyrst línum runnunnar og er óafturkræft. Kallið stofnar aldrei runu.
 
-- [Finance.FAJournal.Check](#financefajournalcheck)
-- [Finance.FAJournal.Post](#financefajournalpost)
-- [Data.Records.Set](/foundation/message-types/data/#datarecordsset)
+```json
+{
+  "type": "Finance.FAJournal.Create",
+  "subject": "ASSETS|DEFAULT",
+  "data": {
+    "lines": [
+      { "faNo": "FA000010", "faPostingType": "Acquisition Cost", "amount": 1000 }
+    ]
+  }
+}
+```
+
+### Dæmigert verkflæði
+
+1. `Finance.FAJournal.Create` með `lines`.
+2. `Finance.FAJournal.Check` til að yfirfara rununa.
+3. `Finance.FAJournal.Post` til að bóka.
+
+Færibreytur, reitir línanna (skyldu- og valkvæðir), röð prófana og villur eru á tilvísunarsíðunni: [Finance.FAJournal.Create](/foundation/reference/message-types/finance-fajournal-create/).
 
 ---
 
@@ -1049,7 +928,7 @@ Notar sama snið og `Data.Records.Get`. `primaryKey` inniheldur `JournalTemplate
 
 ### Tengdar skilaboðategundir
 
-- [Finance.FAJournal.SetupNewLine](#financefajournalsetupnewline)
+- [Finance.FAJournal.Create](#financefajournalcreate)
 - [Finance.FAJournal.Post](#financefajournalpost)
 
 ---
@@ -1109,7 +988,7 @@ Notar sama snið og `Data.Records.Get`. `primaryKey` inniheldur `JournalTemplate
 
 ### Tengdar skilaboðategundir
 
-- [Finance.FAJournal.SetupNewLine](#financefajournalsetupnewline)
+- [Finance.FAJournal.Create](#financefajournalcreate)
 - [Finance.FAJournal.Check](#financefajournalcheck)
 
 ---
@@ -1211,7 +1090,7 @@ BC sannvottunarvillur skila sér orðrétt. Algengar villur:
 | Enum-gildi | 10077936 | Finance.GeneralJournal.Post |
 | Útfærslukóðaeining | 10078106 | Gen. Journal Post Impl ori |
 | Hjálparkóðaeining | 10077956 | Gen. Journal Post Help ori |
-| Enum-gildi | 10077937 | Finance.GeneralJournal.SetupNewLine |
+| Enum-gildi | 10077937 | Finance.GeneralJournal.Create |
 | Útfærslukóðaeining | 10078104 | Gen. Jnl. SetupLine Impl ori |
 | Hjálparkóðaeining | 10077954 | Gen. Jnl. SetupLine Help ori |
 | Enum-gildi | 10077938 | Finance.GeneralJournal.ReverseRegister |
@@ -1221,7 +1100,7 @@ BC sannvottunarvillur skila sér orðrétt. Algengar villur:
 | Útfærslukóðaeining | 10078108 | Gen. Jnl. Reverse Trx Impl ori |
 | Hjálparkóðaeining | 10077953 | Gen. Jnl. Reverse Trx Help ori |
 | Hjálparkóðaeining | 10078103 | Gen. Jnl. Reverse Process ori |
-| Enum-gildi | 10078088 | Finance.FAJournal.SetupNewLine |
+| Enum-gildi | 10078088 | Finance.FAJournal.Create |
 | Útfærslukóðaeining | 10078099 | FA Jnl. SetupLine Impl ori |
 | Hjálparkóðaeining | 10077948 | FA Jnl. SetupLine Help ori |
 | Enum-gildi | 10078089 | Finance.FAJournal.Check |
@@ -1241,14 +1120,14 @@ app/src/Message Type/
   Implementations/Finance/
     GenJournalCheckImpl.Codeunit.al
     GenJournalPostImpl.Codeunit.al
-    GenJournalSetupNewLineImpl.Codeunit.al
+    GenJnlCreateImpl.Codeunit.al
     GenJnlReverseRegisterImpl.Codeunit.al
     GenJnlReverseTransImpl.Codeunit.al
     GenJnlReverseProcess.Codeunit.al
   Help/Finance/
     GenJournalCheckHelp.Codeunit.al
     GenJournalPostHelp.Codeunit.al
-    GenJournalSetupNewLineHelp.Codeunit.al
+    GenJnlCreateHelp.Codeunit.al
     GenJnlReverseRegisterHelp.Codeunit.al
     GenJnlReverseTransHelp.Codeunit.al
   Implementations/FixedAssets/
@@ -1269,7 +1148,7 @@ app/src/Message Type/
 |--------------------|-----------|--------|
 | Gen. Journal Check Tests | 95334 | Prófanir á sannvottun dagbókar |
 | Gen. Journal Post Tests | 95335 | Prófanir á bókun dagbókar |
-| Gen. Journal Finance Tests | 95379 | Prófanir á SetupNewLine, ReverseRegister, ReverseTransaction |
+| Gen. Journal Finance Tests | 95379 | Prófanir á Create, ReverseRegister, ReverseTransaction |
 
 ### Sjá einnig
 

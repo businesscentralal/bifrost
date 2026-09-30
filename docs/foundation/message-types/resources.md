@@ -16,116 +16,37 @@ Resources message types provide functionality for working with resource journals
 
 | Message Type | Direction | Purpose |
 |--------------|-----------|---------|
-| [Resources.ResourceJournal.SetupNewLine](#resourcesresourcejournalsetupnewline) | Inbound | Creates a new resource journal line with defaults |
+| [Resources.ResourceJournal.Create](#resourcesresourcejournalcreate) | Inbound | Adds lines to an existing batch, with values or blank |
 | [Resources.ResourceJournal.Check](#resourcesresourcejournalcheck) | Outbound | Validates a resource journal batch and returns readiness status |
 | [Resources.ResourceJournal.Post](#resourcesresourcejournalpost) | Inbound | Posts a resource journal batch and returns posting statistics |
 
 ---
 
-## Resources.ResourceJournal.SetupNewLine
+## Resources.ResourceJournal.Create
 
-**Direction**: Inbound (creates a new journal line)
+**Direction**: Inbound
 
-**Purpose**: Creates and inserts a new resource journal line in the specified batch, pre-populated with defaults from BC's `SetUpNewLine` procedure. This is the default way to prepare a resource journal line before populating business fields via `Data.Records.Set`.
-
-Default values inherited from the template and batch include Entry Type, Posting Date, and template-driven fields. If a No. Series is configured on the batch, Document No. is populated from the next number in the series. The line is assigned the next available Line No. (last line + 10000, or 10000 if the batch is empty).
-
-### Request Format
+Adds lines to an existing resource journal batch in one call. With `lines`, every line is checked before anything is inserted and every problem is reported in one answer, so nothing is created when one line is wrong (at most 200 lines). Without `lines`, `noOfLines` blank lines are inserted with the BC defaults. `clearExistingLines` deletes the batch's lines first and is destructive. The call never creates a batch.
 
 ```json
 {
-  "specversion": "1.0",
-  "type": "Resources.ResourceJournal.SetupNewLine",
-  "source": "MyIntegrationApp v1.0",
-  "subject": "RES|DEFAULT",
-  "id": "c3d4e5f6-7890-12cd-ef34-567890abcdef",
-  "time": "2026-04-15T10:00:00Z",
-  "datacontenttype": "application/json",
-  "data": {}
-}
-```
-
-#### Journal Batch Identification
-
-1. **Pipe-separated in subject**: `"subject": "TEMPLATE|BATCH"`
-2. **SystemId in subject**: `"subject": "guid-without-braces"`
-3. **JSON data parameters**:
-```json
-{
+  "type": "Resources.ResourceJournal.Create",
+  "subject": "RESOURCE|DEFAULT",
   "data": {
-    "templateName": "RESOURCE",
-    "batchName": "DEFAULT"
+    "lines": [
+      { "resourceNo": "LINDA", "quantity": 2 }
+    ]
   }
 }
 ```
 
-JSON data parameters take precedence over the subject field.
-
-#### Optional Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `fieldNumbers` | int[] | all fields | Field numbers to include in response |
-| `noOfLines` | integer | 1 | Number of lines to create (1–100) |
-| `clearExistingLines` | boolean | false | When true, deletes all existing lines in the batch first |
-
-### Response Format
-
-Uses the `Data.Records.Get` response shape.
-
-```json
-{
-  "status": "Success",
-  "noOfRecords": 1,
-  "result": [
-    {
-      "id": "A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
-      "primaryKey": {
-        "JournalTemplateName": "RESOURCE",
-        "JournalBatchName": "DEFAULT",
-        "LineNo_": 10000
-      },
-      "fields": {
-        "PostingDate": "2026-04-15",
-        "DocumentNo_": "RJ-00001",
-        "EntryType": "Usage",
-        "..."
-      }
-    }
-  ]
-}
-```
-
-### Response Fields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `status` | string | "Success" or "Error" |
-| `noOfRecords` | integer | Number of lines created |
-| `result[].id` | string | SystemId of the new journal line |
-| `result[].primaryKey` | object | `JournalTemplateName`, `JournalBatchName`, `LineNo_` |
-| `result[].fields` | object | All non-PK fields (or only those in `fieldNumbers`) |
-
 ### Typical Workflow
 
-1. Call `Resources.ResourceJournal.SetupNewLine` to create lines with defaults.
-2. Use the returned `id` with `Data.Records.Set` to populate Resource No., Quantity, Unit Cost, etc.
-3. Call `Resources.ResourceJournal.Check` to validate.
-4. Call `Resources.ResourceJournal.Post` to post.
+1. `Resources.ResourceJournal.Create` with `lines`.
+2. `Resources.ResourceJournal.Check` to validate the batch.
+3. `Resources.ResourceJournal.Post` to post.
 
-### Error Handling
-
-| Error | Cause |
-|-------|-------|
-| Missing identification | No template/batch, SystemId, or pipe-separated subject provided |
-| Batch not found | The specified batch does not exist (`RecordNotFound`) |
-
-### Related Message Types
-
-- [Resources.ResourceJournal.Check](#resourcesresourcejournalcheck)
-- [Resources.ResourceJournal.Post](#resourcesresourcejournalpost)
-- [Data.Records.Set](/foundation/message-types/data/#datarecordsset)
-- [Data.Records.Get](/foundation/message-types/data/#datarecordsget)
+The request parameters, the line fields (required and optional), the validation order and the errors are on the reference page: [Resources.ResourceJournal.Create](/foundation/reference/message-types/resources-resourcejournal-create/).
 
 ---
 
@@ -218,7 +139,7 @@ Uses BC's "Res. Jnl.-Check Line" codeunit via the Error Message Management frame
 
 ### Related Message Types
 
-- [Resources.ResourceJournal.SetupNewLine](#resourcesresourcejournalsetupnewline)
+- [Resources.ResourceJournal.Create](#resourcesresourcejournalcreate)
 - [Resources.ResourceJournal.Post](#resourcesresourcejournalpost)
 - [Help.Tables.Get](/foundation/message-types/metadata/#helptablesget)
 
@@ -310,7 +231,7 @@ Identification follows the same three-method pattern.
 
 ### Related Message Types
 
-- [Resources.ResourceJournal.SetupNewLine](#resourcesresourcejournalsetupnewline)
+- [Resources.ResourceJournal.Create](#resourcesresourcejournalcreate)
 - [Resources.ResourceJournal.Check](#resourcesresourcejournalcheck)
 - [Data.Records.Get](/foundation/message-types/data/#datarecordsget)
 - [Data.Records.Set](/foundation/message-types/data/#datarecordsset)
@@ -323,7 +244,7 @@ Identification follows the same three-method pattern.
 
 | Object Type | Object ID | Object Name |
 |-------------|-----------|-------------|
-| Enum Value | 10078094 | Resources.ResourceJournal.SetupNewLine |
+| Enum Value | 10078094 | Resources.ResourceJournal.Create |
 | Implementation Codeunit | 10078197 | Res. Jnl. SetupLine Impl ori |
 | Help Codeunit | 10078032 | Res. Jnl. SetupLine Help ori |
 | Enum Value | 10078095 | Resources.ResourceJournal.Check |

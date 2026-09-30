@@ -24,45 +24,11 @@ Posts a purchase document via Microsoft codeunit `Purch.-Post` and returns the l
 
 **Direction**: Inbound  **Content-Type**: text/json
 
-> ⚠️ **Receive/Invoice flags are NOT set automatically via the API.**
-> Unlike the BC UI, the API reads `Receive` and `Invoice` (for Orders) and `Ship` and `Invoice` (for Return Orders) exactly as stored on the header.
-> Orders created via API have all flags `false` by default. You **must** set them with `Data.Records.Set` before calling this message type.
-> See **Posting Mode Flags** below for the required two-step pattern.
 
 ## Idempotency / Safety
 **Not idempotent and not retry-safe.** A successful post is irreversible; the source document is gone or its `Status` has advanced. Retrying may post the document again (if it is still present) or surface a not-found error.
 
 Discovery of newly created posted documents uses a snapshot-then-compare pattern: `Last Posting No.`, `Last Receiving No.` and `Last Return Shipment No.` are captured before posting and the corresponding posted-document tables are looked up afterward by the **new** values. If `Last *No.` did not change, no entry is emitted in `postedDocuments` for that channel.
-
-## Posting Mode Flags
-For Orders and Return Orders, BC requires at least one of `Receive`/`Invoice` (orders) or `Ship`/`Invoice` (return orders) to be `true` on the header. This impl does **not** set these flags automatically — set them via `Data.Records.Set` before calling, or BC will return `Enter Yes in Receive and/or Invoice and/or Ship.`.
-
-**Required two-step pattern (sequential — do not parallelize):**
-
-**Step 1 — Set flags on the header**
-```json
-{
-  "type": "Data.Records.Set",
-  "tableName": "Purchase Header",
-  "primaryKey": { "DocumentType": 1, "No_": "PO-001" },
-  "fields": { "Receive": true, "Invoice": true }
-}
-```
-
-**Step 2 — Post**
-```json
-{ "type": "Purchase.Document.Post", "subject": "PO-001" }
-```
-
-| Flag | Field No. | Order | Return Order |
-|---|---|---|---|
-| `Receive` | 77 | Create a Posted Receipt | — |
-| `Ship` | 78 | — | Create a Posted Return Shipment |
-| `Invoice` | 79 | Create a Posted Invoice | Create a Posted Credit Memo |
-
-Other BC-side prerequisites that must be satisfied before calling:
-- Invoice / Order → Invoice: `Vendor Invoice No.` must be filled.
-- Credit Memo / Return Order → Credit Memo: `Vendor Cr. Memo No.` must be filled and unique per vendor.
 
 ## Identifier Resolution Order
 Resolved by `Argument.FindPurchaseHeader`:
@@ -71,7 +37,16 @@ Resolved by `Argument.FindPurchaseHeader`:
 3. Request JSON keys (every key supplied is tried; identifiers that point to different records are refused): `systemId`, `recordSystemId`, `id` (all GUID); `orderNo`, `quoteNo`, `invoiceNo`, `creditMemoNo`, `blanketOrderNo`, `returnOrderNo`.
 
 ## Request Parameters
-Request body is optional. No additional fields are read.
+| Parameter | Type | Required | Notes |
+|---|---|---|---|
+| `receive` | bool | No | Orders: post the receipt (`Receive`). |
+| `ship` | bool | No | Return orders: post the return shipment (`Ship`). |
+| `invoice` | bool | No | Orders and return orders: post the invoice or credit memo (`Invoice`). |
+
+## Receive and Invoice
+
+An order posts what `receive` and `invoice` say (a return order: `ship` and `invoice`). When the request sends neither and the header has neither flag set, both are `true`, which is the "Receive and Invoice" choice of the Post dialog in Business Central. Send `"invoice": false` to receive only. Both `false` is `InvalidParameter`: nothing would be posted. Invoices and credit memos need no flags.
+
 
 ## Request Example
 ```json
@@ -126,7 +101,7 @@ Calling this message type requires the `BIFROST GL Post ori` permission set in a
 | `Purchase Header "{value}" matches more than one document. Pass it as one of: {keys}.` (`AmbiguousRecord`) | A plain subject matches several document types; send it in the key of the type you mean. |
 | `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
 | `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
-| Underlying BC error text | Any error raised by `Purch.-Post` (missing `Vendor Invoice No.`, duplicate `Vendor Cr. Memo No.`, both posting flags false, missing posting setup, blocked items, dimension errors, etc.). |
+| Underlying BC error text | Any error raised by `Purch.-Post` (missing `Vendor Invoice No.`, duplicate `Vendor Cr. Memo No.`, missing posting setup, blocked items, dimension errors, etc.). |
 
 ## Related Message Types
 - `Purchase.Document.PreviewPost` — Simulate the post and inspect the would-be ledger entries.

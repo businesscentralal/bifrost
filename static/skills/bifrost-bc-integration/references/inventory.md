@@ -10,15 +10,25 @@ The item journal and the physical document flow around it: transfer orders, asse
 
 **Identification:** Same three modes as general journals (pipe-form, SystemId, JSON `{templateName, batchName}` with JSON precedence).
 
-**Workflow:** `Inventory.ItemJournal.SetupNewLine` → `Data.Records.Set` → `Inventory.ItemJournal.Check` → `Inventory.ItemJournal.Post` (or `Inventory.ItemJournal.PreviewPost` for a dry run).
+**Workflow:** `Inventory.ItemJournal.Create` (with `lines`) → `Inventory.ItemJournal.Check` → `Inventory.ItemJournal.Post` (or `Inventory.ItemJournal.PreviewPost` for a dry run).
 
-#### `Inventory.ItemJournal.SetupNewLine`
+#### `Inventory.ItemJournal.Create` — add lines to a batch
+
+Direction: **Inbound** (creates records). `subject` = `TEMPLATE|BATCH` or the batch SystemId, or `templateName`/`batchName` in `data`. The batch must exist; it is never created.
+
+Send the lines with their values in `lines` (at most 200). Every line is checked before anything is inserted and every problem is reported in one answer (`code: InvalidLine`, one `errors[]` entry per problem with `parameter` `lines[n].<field>`), so nothing is created when one line is wrong. Required on each line: entryType, itemNo, quantity. A field you leave out keeps its BC default.
 
 ```json
-{ "specversion": "1.0", "type": "Inventory.ItemJournal.SetupNewLine", "source": "MyApp", "subject": "ITEM|DEFAULT" }
+{ "specversion": "1.0", "type": "Inventory.ItemJournal.Create", "source": "MyApp", "subject": "ITEM|DEFAULT",
+  "data": { "lines": [
+    { "entryType": "Positive Adjmt.", "itemNo": "1896-S", "quantity": 2 }
+  ] } }
 ```
 
-Returns the new Item Journal Line with `primaryKey { JournalTemplateName, JournalBatchName, LineNo_ }`. Optional: `fieldNumbers`, `noOfLines`, `clearExistingLines`.
+Without `lines`, `noOfLines` (1-100, default 1) inserts blank lines with the BC defaults. `clearExistingLines: true` deletes every line in the batch first and is destructive. The response lists the inserted lines in the `Data.Records.Get` shape.
+
+Full contract: [Inventory.ItemJournal.Create](https://businesscentralal.github.io/bifrost/en-us/foundation/reference/message-types/inventory-itemjournal-create/).
+
 
 #### `Inventory.ItemJournal.Check`
 

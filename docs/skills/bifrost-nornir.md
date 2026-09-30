@@ -2,8 +2,8 @@
 id: bifrost-nornir
 title: "Nornir message types"
 sidebar_label: "Nornir message types"
-sidebar_position: 9
-description: "Message types added to the Bifröst API by Bifrost Orchestrator. Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the index…"
+sidebar_position: 11
+description: "Message types added to the Bifröst API by Bifrost Orchestrator. Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types. Load alongside bifrost-bc-integration, which carries the API itself; this skill is the…"
 ---
 
 Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types.

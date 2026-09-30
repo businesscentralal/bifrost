@@ -108,7 +108,7 @@ Calling this message type requires the `BIFROST ItemPost ori` permission set in 
 Lines created by the BC "Calculate Inventory" function have `Phys_Inventory = true`. These lines are **locked** — any attempt to modify them via `Data.Records.Set` fails with "Raunbirgðir must be equal to 'Nei'" (Physical Inventory must equal 'No'). Only lines with `Phys_Inventory = false` can be modified via `Data.Records.Set`.
 
 For regular adjustment lines (where `Phys_Inventory = false`) in a Physical Inventory template, setting `EntryType` to a value other than what the template allows may trigger the reverse error ("Raunbirgðir must be equal to 'Já'"). The safe approach is:
-1. Leave `EntryType` at its default (`SetUpNewLine` initialises it from the last line or template; for a fresh empty batch it defaults to `Purchase`).
+1. Leave `EntryType` at its default (`Inventory.ItemJournal.Create` takes it from the previous line or the template; for a fresh empty batch it defaults to `Purchase`).
 2. Set `ItemNo_`, `Quantity` (positive for additions), `InventoryPostingGroup`, `Gen_Bus_PostingGroup`, `Gen_Prod_PostingGroup`, `UnitCost`, `DocumentNo_`.
 3. Run `Inventory.ItemJournal.Check` to confirm `validationResult = "Ready"` before posting.
 
