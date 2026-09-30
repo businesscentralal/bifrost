@@ -115,6 +115,7 @@ misunderstand you: say *"show me first"*, and read what it proposes before you s
 | The assistant says | What it means | Who to ask |
 | --- | --- | --- |
 | The operation is not available | It is switched off in your company, or the app that provides it is not installed. | Your administrator |
+| It cannot do that yet | There is no operation for that task in the apps you have. It is not a fault; see [What it covers](/documentation/how-it-works/#what-it-covers-and-how-it-grows). | Your administrator or partner |
 | You do not have permission | You do not have that permission in Business Central, and the assistant has exactly your rights. | Your administrator |
 | Part of the answer is missing | Those fields are restricted for you. | Your administrator, if you need them |
 | The tool must be approved first, with a link | Your company requires new assistants to be approved once. Open the link, or send it to your administrator. | You, or your administrator |

@@ -57,8 +57,11 @@ Where partners escalate to Origo.
 
 ## Building your own app
 
-Your app can add its own message types, so every connected agent can use your app's operations
-alongside Business Central's.
+Bifröst reaches what has message types, and not every task in Business Central has one yet; see
+[What it covers](/documentation/how-it-works/#what-it-covers-and-how-it-grows). Each missing
+operation is something your app can add. Your app's message types join the same catalogue, every
+connected agent can use them the day your app is installed, and their use is counted, so it can be
+sold like any other part of your app.
 
 - [Build on Bifröst](/extensibility/): the concepts, and what makes an app callable by agents
 - The [partner reference repository](https://github.com/businesscentralal/bc-bifrost-reference):

@@ -250,7 +250,7 @@ const config: Config = {
             {
               type: 'dropdown' as const,
               label: 'Íslenska',
-              position: 'right',
+              position: 'right' as const,
               items: [
                 {label: 'English', href: `${siteRoot}en-us/`, target: '_self'},
                 {label: 'Íslenska', href: `${siteRoot}is-is/`, target: '_self'},

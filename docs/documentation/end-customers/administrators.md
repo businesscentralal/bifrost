@@ -67,6 +67,8 @@ Two fields on [Bifrost Setup](/help/foundation/bifrost-setup/) deserve a deliber
 - **ChangeLog Write Guard** decides whether record writes through Bifröst must leave a change-log
   trail. It is **Blocked** by default: only fields the change log covers can be written, so turn on
   the change log for the fields you want agents to change.
+  It also keeps the general field write narrow when there is no proper operation for a task.
+  {/* OPEN-19 */}
   If you use Bifröst with bookkeeping, decide it with that in mind: your bookkeeping obligations
   stay yours, and Bifröst's logs do not replace your own records.
 - **Request Debug Mode** stores full, unmasked request and response bodies in the request log. Turn

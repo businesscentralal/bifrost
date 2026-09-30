@@ -15,7 +15,7 @@ integration, a project with a budget and a queue. Bifröst removes that step. Yo
 words, in Copilot, Claude or another AI assistant, and an **agent** does the work in Business
 Central. (On this site, *agent* means the AI, or another system, acting for you.)
 
-It can do that because Business Central's operations are published as **message types**. Each
+It can do that because the operations Bifröst offers are published as **message types**. Each
 message type does one thing, such as checking item availability, turning a quote into an order or
 posting a document, and each one describes itself: what it does, what it needs, what it returns and
 what can go wrong. The agent reads those descriptions, picks the right operations and calls them.
@@ -95,6 +95,48 @@ The full statement: [Privacy](/foundation/privacy/).
 | **Keep** | A result you open again | A credit-exposure view you check each morning |
 | **Run on a schedule** | The same chain, unattended | A reconciliation every Friday, with [Orchestrator](/orchestrator/) |
 | **Build on it** | An assistant or app other people use | A role-specific console, or your own app's message types |
+
+## What it covers, and how it grows
+
+Installing Bifröst Foundation does not open all of Business Central to an assistant. It opens what
+has been built for it, and that is a lot:
+
+| | How far it reaches | How |
+|---|---|---|
+| **Read** | Most of your data | A general read reaches any table that is not restricted, within your permissions and [Field Access](/documentation/end-customers/administrators/#field-access). Most questions can be answered. |
+| **Do** | What has a message type | Creating, converting, releasing and posting each need their own message type. Foundation brings them for sales, purchasing, finance, inventory, warehouse and projects, among others; the [catalogue](/foundation/reference/message-types/) lists them. Not every task in Business Central has one yet. |
+| **Change a field** | A narrow, guarded path | A general write can change fields in a record, by default only the fields the change log covers ([ChangeLog Write Guard](/documentation/end-customers/administrators/#the-setup-page)). It does not replace an operation with Business Central's own logic. |
+
+When there is no message type for a task, the assistant cannot do it through Bifröst, and it should
+say so. {/* OPEN-19 */} That is the edge of what is installed, not a fault.
+
+### Every app moves the edge
+
+Message types come from apps, and anyone can build one. Each new message type joins the same
+catalogue, behind the same gate: the same permissions, the same log, the same help an agent reads
+before it calls. Every connected agent can use it the day the app is installed.
+
+```mermaid
+flowchart LR
+  O["Origo's apps<br/>banks, documents, storage, schedules, language models"] --> C
+  P["Partner and ISV apps<br/>their own products and industries"] --> C
+  Y["Your own app<br/>your company's processes"] --> C
+  C["One catalogue in Bifröst Foundation<br/>one gate: permissions, log, help"] --> A["Assistants, integrations<br/>and Orchestrator playbooks"]
+```
+
+*In words: Origo's apps, partners' and ISVs' apps and your own apps all add message types to one
+catalogue in Bifröst Foundation, and assistants, integrations and Orchestrator playbooks use them
+all the same way.*
+
+- **Origo's apps** add areas such as Icelandic banks, document exchange, storage and schedules;
+  see the [app list](/apps/).
+- **Partners and ISVs** add the operations of their own apps and industries, and list them in the
+  [app registry](/apps/register-your-app/). See [Build on Bifröst](/extensibility/).
+- **Your own developers** can add message types for your company's own processes, the same way.
+- **[Orchestrator](/orchestrator/)** chains message types from any app into routines, with no code.
+
+Missing something? Ask your partner or Origo: it may already exist in an app, or be something they
+can build.
 
 **Next:** [Set it up](/setup/), or the page for your role:
 [Users](/documentation/end-customers/users/) · [Administrators](/documentation/end-customers/administrators/) ·

@@ -112,6 +112,15 @@ export default function Home(): ReactNode {
           </div>
         </div>
         <p>
+          <Translate id="home.how.reach">
+            It can read most of your Business Central, and do what it has message types for. Every
+            app built on Bifröst adds more.
+          </Translate>{' '}
+          <Link to="/documentation/how-it-works/#what-it-covers-and-how-it-grows">
+            <Translate id="home.how.reach.link">What it covers</Translate>
+          </Link>
+        </p>
+        <p>
           <Link to="/documentation/how-it-works/">
             <Translate id="home.how.more">More on how Bifröst works</Translate> <span aria-hidden="true">→</span>
           </Link>

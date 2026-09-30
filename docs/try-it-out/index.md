@@ -67,6 +67,9 @@ Then try your own questions: the ones you would normally need a report for.
   and the answer. It is the quickest way to see how the assistant worked out your question.
 - **The record itself.** Ask for a link to it and open it in Business Central; see
   [Check it yourself](/documentation/end-customers/users/#what-a-conversation-looks-like).
+- **Where it stops.** Some tasks have no message type yet, and the assistant should say so. That
+  is the edge of what is installed; [What it covers](/documentation/how-it-works/#what-it-covers-and-how-it-grows)
+  explains it, and how apps add more.
 - **When it says no**, the answer says why. [Using Bifröst](/documentation/end-customers/users/#when-it-says-no)
   explains the common answers.
 
