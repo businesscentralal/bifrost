@@ -9,9 +9,6 @@ description: "Þrep álagsþaks í Bifröst, hvar þeim er framfylgt og hver get
 er aðskilið frá skilaboðakvóta: kvótinn ræður því hvað leigjandi greiðir fyrir, en álagsþakið
 verndar þjónustuna.
 
-Álagsþakinu er **framfylgt af MCP-þjóninum**. Business Central geymir þrepið sem leigjandinn hefur
-valið; um köll sem fara beint í Bifröst API í Business Central gildir eingöngu leyfiskvótinn.
-
 ## Þrep
 
 | Þrep | API-köll á dag |

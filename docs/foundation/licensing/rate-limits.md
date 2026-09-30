@@ -9,9 +9,6 @@ A rate limit caps how many API calls a tenant can make through the Bifröst MCP 
 is separate from message quota: quota decides what a tenant pays for, the rate limit protects the
 service.
 
-The rate limit is **enforced by the MCP server**. Business Central stores the tenant's chosen tier;
-calls made directly to the Bifröst API in Business Central are governed by the licence quota only.
-
 ## Tiers
 
 | Tier | API calls per day |

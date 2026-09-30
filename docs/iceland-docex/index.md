@@ -56,7 +56,6 @@ The full list, one row per message type, is in the [in-product help](/help/icela
 
 - [In-product help](/help/iceland-docex/)
 - [Message type reference](./reference/message-types/) — the request and response contract for every type, generated from the app itself
-- [Object ID map](./reference/object-id-map)
 - [AppSource user scenarios](./user-scenarios)
 - [Partner Center listing](./listing)
 - [Build on Bifröst](/extensibility/)

@@ -43,9 +43,9 @@ Authorization: Bearer {token}
 Response:
 ```json
 {
-  "id": "7df25b48-ec25-498f-b8cf-566044ae020d",
+  "id": "00000000-0000-0000-0000-000000000001",
   "type": "Data.Records.Get",
-  "data": "https://api.businesscentral.dynamics.com/v2.0/{tenantGuid}/UAT/api/origo/bifrost/v1.0/companies({companyId})/responses(7df25b48-ec25-498f-b8cf-566044ae020d)/data"
+  "data": "https://api.businesscentral.dynamics.com/v2.0/{tenantGuid}/{environment}/api/origo/bifrost/v1.0/companies({companyId})/responses(00000000-0000-0000-0000-000000000001)/data"
 }
 ```
 
@@ -88,7 +88,7 @@ Authorization: Bearer {token}
 
 The URL in `task.data` / `queue.data` is always this same pattern with the internal tenant GUID. You can also construct it yourself from a known message ID (e.g. from webhooks or your own storage).
 
-> **Tenant GUID note:** The `data` URL returned by BC uses the internal tenant GUID (e.g. `9069b642-…`), not the named tenant domain (e.g. `contoso.onmicrosoft.com`). If you construct the URL yourself use the named tenant form like the example above — both work.
+> **Tenant GUID note:** The `data` URL returned by BC uses the internal tenant GUID (e.g. `xxxxxxxx-…`), not the named tenant domain (e.g. `contoso.onmicrosoft.com`). If you construct the URL yourself use the named tenant form like the example above — both work.
 
 ### 3.4 `/requests({id})/data` — Read the Original Request Payload
 
@@ -109,7 +109,7 @@ Authorization: Bearer {token}
 Response:
 ```json
 {
-  "id": "8440906f-113b-4c21-90a0-3a016a4ea043",
+  "id": "00000000-0000-0000-0000-000000000002",
   "data": "{\"tableName\":\"G/L Entry\",\"startDateTime\":\"2020-01-01T00:00:00Z\"}"
 }
 ```
@@ -156,7 +156,7 @@ already ensures you never see another application's data.
   "value": [
     {
       "@odata.etag": "W/\"...\"",
-      "id": "fb304e23-2aac-43fa-a16d-5bc837a52830",
+      "id": "00000000-0000-0000-0000-000000000003",
       "specversion": "1.0",
       "type": "Data.Records.Get",
       "source": "MyApp v1.0",
@@ -164,7 +164,7 @@ already ensures you never see another application's data.
       "subject": "",
       "lcid": 0,
       "datacontenttype": "text/json",
-      "data": "https://api.businesscentral.dynamics.com/v2.0/{tenantGuid}/UAT/api/origo/bifrost/v1.0/companies({companyId})/responses(fb304e23-2aac-43fa-a16d-5bc837a52830)/data"
+      "data": "https://api.businesscentral.dynamics.com/v2.0/{tenantGuid}/{environment}/api/origo/bifrost/v1.0/companies({companyId})/responses(00000000-0000-0000-0000-000000000003)/data"
     }
   ]
 }
