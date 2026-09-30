@@ -12,42 +12,41 @@ description: "Beiðni- og svarsamningur fyrir Customer.Application.Reverse Bifr�
 :::
 
 
-## Yfirlit
+## Overview
 
-Reverses (un-applies) a posted viðskiptamanni bók færsla jöfnun með unapplying a specific `Detailed Cust. Ledg. Entry` row of Gerð `Application`. Runs inside isolated process codeunit 65561 (`Cust. Apply Reverse Process`).
+Reverses (un-applies) a posted customer ledger entry application by unapplying a specific `Detailed Cust. Ledg. Entry` row of type `Application`. Runs inside isolated process codeunit 65561 (`Cust. Apply Reverse Process`).
 
-**Stefna**: Innkomandi (state change)  **Efnisgerð**: `text/json`
+**Direction**: Inbound (state change)  **Content-Type**: `text/json`
 
-## Athugasemdir um endurtekningar og öryggi
+## Idempotency / Safety Notes
 
-- ekki endurtekningarþolið: hver call performs another reversal posting. Re-running eftir a tókst unapply on the sama `detailedEntryNo` mun fail because the row no longer exists.
-- þegar `detailedEntryNo` er omitted, the **síðasta** jöfnun detailed færsla fyrir the viðskiptamanni bók færsla (`CustEntryApply.FindLastApplEntry`) er selected. Supply `detailedEntryNo` skýrt þegar reversing a specific older jöfnun.
+- Not idempotent: each call performs another reversal posting. Re-running after a successful unapply on the same `detailedEntryNo` will fail because the row no longer exists.
+- When `detailedEntryNo` is omitted, the **last** application detailed entry for the customer ledger entry (`CustEntryApply.FindLastApplEntry`) is selected. Supply `detailedEntryNo` explicitly when reversing a specific older application.
 
-## viðskiptamanni bók færsla Forgangsröð auðkenna
+## Customer Ledger Entry Identifier Resolution Order
 
-Via `FindCustLedgerEntry` (sama as `Customer.Application.Post`).
+Via `FindCustLedgerEntry` (same as `Customer.Application.Post`).
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| Cust. bók færsla keys | — | Yes (Subject eða JSON) | Sjá Forgangsröð úrlausnar. |
-| `detailedEntryNo` | heiltala | No | `Detailed Cust. Ledg. Entry."Entry No."` of the jöfnun row til reverse. Sjálfgefið: latest jöfnun færsla. |
-| `postingDate` | dagsetning | **Recommended** | Format 9. Reversal posting dagsetning. Gefðu alltaf upp skýrt — Ef það er ekki gefið upp BC defaults til `WorkDate()`. verður að be ≥ the viðskiptamanni bók færsla's `Posting Date`. |
-| `documentNo` | strengur | No | Reversal skjal númer. |
+| Cust. ledger entry keys | — | Yes (Subject or JSON) | See resolution order. |
+| `detailedEntryNo` | integer | No | `Detailed Cust. Ledg. Entry."Entry No."` of the application row to reverse. Default: latest application entry. |
+| `postingDate` | date | No | `YYYY-MM-DD`. Omitted: the `Posting Date` of the application being reversed, which is usually what you want; send it only to reverse on another date. An invalid value is an error. Must be ≥ the customer ledger entry's `Posting Date`. |
+| `documentNo` | string | No | Reversal document number. |
 
-### Dæmi um beiðni
+### Request Example
 ```json
 {
   "entryNo": 5001,
-  "detailedEntryNo": 9123,
-  "postingDate": "2026-02-01"
+  "detailedEntryNo": 9123
 }
 ```
 
-## Uppbygging svars
+## Response Shape
 
-### Tókst
+### Success
 ```json
 {
   "status": "Success",
@@ -63,54 +62,57 @@ Via `FindCustLedgerEntry` (sama as `Customer.Application.Post`).
 }
 ```
 
-### Mistókst
+### Failure
 ```json
 { "status": "Error", "code": "BusinessCentralError", "error": "...", "hint": "..." }
 ```
 
-### Svarreitir
+### Response Fields
 
-| Reitur | Uppruni |
+| Field | Source |
 |---|---|
-| `reversedDetailedEntryNo` | The actual `Detailed Cust. Ledg. Entry` row that was unapplied (resolved Gildi þegar `detailedEntryNo` was omitted). |
-| `reversedAmount` | `Detailed Cust. Ledg. Entry."Amount"` of the reversed row. |
-| `remainingAmount` / `open` | Re-lesa úr the viðskiptamanni bók færsla eftir the reversal. |
+| `reversedDetailedEntryNo` | The actual `Detailed Cust. Ledg. Entry` row that was unapplied (resolved value when `detailedEntryNo` was omitted). |
+| `reversedAmount` | `Detailed Cust. Ledg. Entry."Amount"` of the reversed row. A JSON number. |
+| `remainingAmount` / `open` | Re-read from the customer ledger entry after the reversal; `remainingAmount` is a JSON number. |
 
-## Posting dagsetning Guidance
+## Posting Date Guidance
 
-**Gefðu alltaf upp `postingDate` skýrt.** Ef það er ekki gefið upp, BC defaults til `WorkDate()` which may be different úr the original jöfnun dagsetning. The reversal dagsetning verður að be ≥ the viðskiptamanni bók færsla's `Posting Date` og ≥ the BC work dagsetning.
+**`postingDate` is optional.** When omitted, the reversal is posted on the `Posting Date` of the application being reversed (not the work date). A date you send must be on or after the customer ledger entry's `Posting Date` and inside the allowed posting period.
 
 ## detailedEntryNo Guidance
 
-þegar `detailedEntryNo` er omitted, the implementation reverses the **síðasta** `Detailed Cust. Ledg. Entry` of Gerð `Application` on the færsla. This er convenient fyrir reversing the most recent jöfnun, but supply `detailedEntryNo` skýrt þegar:
-- Reversing a specific older jöfnun (ekki the síðasta one)
-- Retrying eftir a mistókst reversal til avoid accidentally reversing a different jöfnun
+When `detailedEntryNo` is omitted, the implementation reverses the **last** `Detailed Cust. Ledg. Entry` of type `Application` on the entry. This is convenient for reversing the most recent application, but supply `detailedEntryNo` explicitly when:
+- Reversing a specific older application (not the last one)
+- Retrying after a failed reversal to avoid accidentally reversing a different application
 
-til find the `detailedEntryNo`, call `Data.Records.Get` on `Detailed Cust. Ledg. Entry` með a filter like `WHERE(Cust. Ledger Entry No.=CONST(5001),Entry Type=CONST(Application))`.
+To find the `detailedEntryNo`, call `Data.Records.Get` on `Detailed Cust. Ledg. Entry` with a filter like `WHERE(Cust. Ledger Entry No.=CONST(5001),Entry Type=CONST(Application))`.
 
-## Dæmi (úr einingaprófum)
+## Examples (from unit tests)
 
-úr `Cust. Application Tests` (`test/test/Sales/CustApplicationTests.Codeunit.al`) — covers reversal með og án `detailedEntryNo`, the no-jöfnun-fannst Villa, the wrong-detailed-færsla-Gerð Villa, og the no-jöfnun-fannst Villa.
+From `Cust. Application Tests` (`test/test/Sales/CustApplicationTests.Codeunit.al`) — covers reversal with and without `detailedEntryNo`, the no-application-found error, the wrong-detailed-entry-type error, and the no-application-found error.
 
-## Bókunarheimild
-Calling this skilaboðategund requires the `BIFROST GL Post ori` heimild set in addition til `BIFROST API ori`. án it Beiðnin Skilar: `Posting denied: missing 'BIFROST GL Post ori' permission set.`
+## Posting Gate
+Calling this message type requires the `BIFROST GL Post ori` permission set in addition to `BIFROST API ori`. Without it the request returns: `Posting denied: missing 'BIFROST GL Post ori' permission set.`
 
-## Villur
+## Errors
 
-| Villa | Orsök |
+| Error | Cause |
 |---|---|
-| `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Kallandi lacks the `BIFROST GL Post ori` heimild set. |
-| `Cust. Ledger Entry identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, entryNo, entryNumber.` (`MissingParameter`); gefið en fannst ekki: `Cust. Ledger Entry "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | viðskiptamanni bók færsla could ekki be resolved. |
-| `No posted application found on customer ledger entry {entryNo} to reverse.` | `detailedEntryNo` omitted og `FindLastApplEntry` returned nothing. |
-| `Detailed customer ledger entry {detailedEntryNo} not found.` | Supplied `detailedEntryNo` did ekki exist. |
-| `Detailed customer ledger entry {detailedEntryNo} is not an application entry.` | The row exists but its `Entry Type` er ekki `Application`. |
-| BC unapply Villur | Bubble up úr `CustEntryApplyPostedEntries.PostUnApplyCustomer`. |
+| `Posting denied: missing 'BIFROST GL Post ori' permission set.` | Caller lacks the `BIFROST GL Post ori` permission set. |
+| `Cust. Ledger Entry identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, entryNo, entryNumber.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Cust. Ledger Entry "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
+| `No posted application found on customer ledger entry {entryNo} to reverse.` | `detailedEntryNo` omitted and `FindLastApplEntry` returned nothing. |
+| `Detailed customer ledger entry {detailedEntryNo} not found.` | Supplied `detailedEntryNo` did not exist. |
+| `Detailed customer ledger entry {detailedEntryNo} is not an application entry.` | The row exists but its `Entry Type` is not `Application`. |
+| BC unapply errors | Bubble up from `CustEntryApplyPostedEntries.PostUnApplyCustomer`. |
 
-## Tengdar skilaboðategundir
+## Related Message Types
 
 - `Customer.Application.Post` — the operation this reverses.
-- `Customer.CreditLimit.Get` — Sjá exposure eftir the reversal.
+- `Customer.CreditLimit.Get` — see exposure after the reversal.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 
