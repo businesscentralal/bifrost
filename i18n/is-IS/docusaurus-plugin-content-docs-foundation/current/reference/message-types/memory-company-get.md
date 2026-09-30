@@ -12,28 +12,28 @@ description: "Beiðni- og svarsamningur fyrir Memory.Company.Get Bifröst skilab
 :::
 
 
-## Yfirlit
-Skilar company-scoped memory færslur úr `Bifrost Memory` (filtered til the current company). Includes the `memory` text blob.
+## Overview
+Returns company-scoped memory records from `Bifrost Memory` (filtered to the current company). Includes the `memory` text blob.
 
-## Stefna
-Útgående
+## Direction
+Outbound
 
-## Response Content Gerð
+## Response Content Type
 `text/json`
 
-## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| skip | heiltala | No | númer of færslur til skip (paging) |
-| take | heiltala | No | Page size (0 = no limit) |
+| skip | Integer | No | Number of records to skip (paging) |
+| take | Integer | No | Page size (default 100, hard maximum 1000) |
 | tableView | Text | No | BC `SetView` filter expression |
 
-## Dæmi um beiðni
+## Request Example
 ```json
 { "type": "Memory.Company.Get", "data": { "skip": 0, "take": 50 } }
 ```
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -46,20 +46,30 @@ Skilar company-scoped memory færslur úr `Bifrost Memory` (filtered til the cur
 ```
 
 ## Result Fields
-| Reitur | Gerð | Lýsing |
+| Field | Type | Description |
 |-------|------|-------------|
-| id | GUID | Memory færsla primary key |
-| Lýsing | Text | Short Lýsing |
+| id | GUID | Memory record primary key |
+| description | Text | Short description |
 | memory | Text | Full memory blob (UTF-8) |
 
-## áskilið heimildir
-lesa access er granted með `BIFROST API ori` (the base API heimild set) plus the inherent heimild on the implementation codeunit. No additional heimild set er áskilið til lesa company memory.
+## Required Permissions
+Read access is granted by `BIFROST API ori` (the base API permission set) plus the inherent permission on the implementation codeunit. No additional permission set is required to read company memory.
 
-## Tengdar skilaboðategundir
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
+## Errors
+
+| Code | Error | Cause |
+|---|---|---|
+| `InvalidFilterField` | `Invalid tableView: field "{token}" does not exist in table 10077893. Did you mean "{field}"? Valid field names: ...` | `tableView` names a field that does not exist. `parameter` is `tableView`, `received` the field token, `nextStep` the suggestion. Nothing is returned. |
+| `InvalidFilterField` | `Invalid tableView: unbalanced parentheses.` | The parentheses in `tableView` do not balance. Nothing is returned. |
+
+## Related Message Types
 - `Memory.Company.List`
 - `Memory.Company.Set`
 - `Memory.User.Get`
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -31,8 +31,8 @@ Items are resolved via `FindItemRange` (same precedence as `Item.Availability.Ge
 | `itemNo` / `itemId` / `tableView` | string / GUID / string | See above | Item selection. |
 | `customerNo` / `customerId` / `customerRecordId` / `customerSystemId` | string / GUID | No | When supplied, evaluates customer-specific best price. |
 | `variantCode` | string | No | Filters returned lines to a single variant. |
-| `requestedDeliveryDate` | date | No | Format 9. Default: `WorkDate`. Used as the price-list line date filter. |
-| `quantity` | decimal | No | Quantity for tier evaluation. Default: `1` (a `0` value is treated as `1`). |
+| `requestedDeliveryDate` | date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. Used as the price-list line date filter. |
+| `quantity` | decimal | No | JSON number, or a string with `.` and no thousands separator. Omitted: `0`, treated as `1`. An invalid value is an error. |
 
 ### Request Example
 ```json
@@ -90,6 +90,7 @@ From `Item Price Calculation Tests` (`test/test/Sales/ItemPriceCalculationTests.
 
 | Error | Cause |
 |---|---|
+| `Invalid tableView: field "{token}" does not exist in table 27. Did you mean "{field}"? Valid field names: ...` (`InvalidFilterField`, `parameter: tableView`, `received` is the token) | `tableView` names a field that does not exist, or its parentheses do not balance. No item is returned; the call does not fall back to all unblocked items. |
 | `No items found matching the specified criteria.` | `FindItemRange` produced an empty set. |
 | `VAT Bus. Posting Gr. (Price) must have a value in Sales & Receivables Setup.` | `Sales & Receivables Setup."VAT Bus. Posting Gr. (Price)"` is blank — pricing cannot be evaluated. |
 | `Customer not found or invalid. Please provide a valid customerNo, customerId, customerRecordId, or customerSystemId in the request.` | Customer key was supplied but did not match a `Customer` record. |

@@ -12,23 +12,23 @@ description: "Beiðni- og svarsamningur fyrir Memory.User.List Bifröst skilabo�
 :::
 
 
-## Yfirlit
-Sýnir lista yfir user-scoped memory færslur með `userName`, `id`, og `description` aðeins. The `memory` blob er omitted. nota áður en `Memory.User.Get` til choose which vöru til load.
+## Overview
+Lists user-scoped memory records with `userName`, `id`, and `description` only. The `memory` blob is omitted. Use before `Memory.User.Get` to choose which item to load.
 
-## Stefna
-Útgående
+## Direction
+Outbound
 
-## Response Content Gerð
+## Response Content Type
 `text/json`
 
-## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| skip | heiltala | No | númer of færslur til skip |
-| take | heiltala | No | Page size (0 = no limit) |
+| skip | Integer | No | Number of records to skip |
+| take | Integer | No | Page size (default 100, hard maximum 1000) |
 | tableView | Text | No | BC `SetView` filter expression |
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success",
@@ -39,11 +39,21 @@ Sýnir lista yfir user-scoped memory færslur með `userName`, `id`, og `descrip
 }
 ```
 
-## Tengdar skilaboðategundir
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
+## Errors
+
+| Code | Error | Cause |
+|---|---|---|
+| `InvalidFilterField` | `Invalid tableView: field "{token}" does not exist in table 10077894. Did you mean "{field}"? Valid field names: ...` | `tableView` names a field that does not exist. `parameter` is `tableView`, `received` the field token, `nextStep` the suggestion. Nothing is returned. |
+| `InvalidFilterField` | `Invalid tableView: unbalanced parentheses.` | The parentheses in `tableView` do not balance. Nothing is returned. |
+
+## Related Message Types
 - `Memory.User.Get`
 - `Memory.User.Set`
 - `Memory.Company.List`
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

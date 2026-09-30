@@ -12,32 +12,29 @@ description: "Beiðni- og svarsamningur fyrir Data.RequestLog.Get Bifröst skila
 :::
 
 
-Skilar request log færslur that belong til the calling user.
-styður skip/take paging og an valfrjálst AL tafla-view pre-filter.
+## Overview
 
-**Stefna:** Útgående  
-**Efnisgerð:** text/json  
-**Chargeable:** Yes
+Returns the request log entries (outbound HTTP calls made by Bifröst apps) that belong to the calling user, with skip/take paging and an optional table view.
 
-## nota þegar
-- You want til inspect which HTTP calls your user session has made.
-- You need til diagnose a service Villa (HTTP status, Villa text, eða raw bodies).
-- You want til page through a large request history.
+**Direction:** Outbound  **Content-Type:** text/json
 
-## Security
-This skilaboðategund **always** filters með `SystemCreatedBy = UserSecurityId()` og
-Skilar aðeins the calling user's own færslur. There er no override.
+Use it to see which HTTP calls your session made, to diagnose a service error (HTTP status, error text, raw bodies) or to page through a long request history.
 
-## Request
+**Security:** the call always filters on `SystemCreatedBy = UserSecurityId()` and returns only your own entries. A `tableView` cannot widen that filter.
+
+## Request Parameters
+
+| Parameter | Type | Default | Notes |
+|---|---|---|---|
+| `skip` | int | 0 | Entries to skip. `>= 0`. A JSON integer or a string of digits. |
+| `take` | int | 20 | Entries to return, `1` to `100`. A JSON integer or a string of digits. |
+| `tableView` | text | — | A BC table view on the request log, for example `SORTING(Sent At) ORDER(Descending) WHERE(Success=CONST(0))`. Field names are the display names (`Sent At`, `Service Name`, `HTTP Status`, `Success`, `Log Type`). An unknown field or unbalanced parentheses is an error and nothing is returned. |
+
 ```json
-{
-  "skip":      0,                    // (optional) records to skip, default 0
-  "take":      20,                   // (optional) records to return, 1-100, default 20
-  "tableView": "SORTING(Sent At)"   // (optional) AL table view string
-}
+{ "skip": 0, "take": 20, "tableView": "SORTING(Sent At)" }
 ```
 
-## Response
+## Response Shape
 ```json
 {
   "skip":       0,
@@ -66,9 +63,9 @@ Skilar aðeins the calling user's own færslur. There er no override.
 }
 ```
 
-## Paging example
+## Examples
 
-Get the 10 most-recent mistókst calls:
+The 10 most recent failed calls:
 ```json
 {
   "take":      10,
@@ -76,13 +73,27 @@ Get the 10 most-recent mistókst calls:
 }
 ```
 
-## Filter með service
+Calls to one service:
 ```json
 {
   "tableView": "WHERE(Service Name=CONST(Arion))"
 }
 ```
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors
+
+| Code | Error | Cause |
+|---|---|---|
+| `InvalidFilterField` | `Invalid tableView: field "{token}" does not exist in table 10078258. Did you mean "{field}"? Valid field names: ...` | `tableView` names a field the request log does not have. `parameter` is `tableView`, `received` the field token, `nextStep` the suggestion. |
+| `InvalidFilterField` | `Invalid tableView: unbalanced parentheses.` | The parentheses in `tableView` do not balance. |
+| `InvalidFilterField` | `tableView is not a valid AL table view string.` | BC could not apply the view. |
+| `InvalidParameter` | `skip must be >= 0 and take must be between 1 and 100.` | `skip` or `take` is out of range; `parameter` names which. |
+| `InvalidParameterFormat` | `Parameter "{name}" has value "{value}", which is not a valid Integer. Expected ...` | `skip` or `take` is not a whole number. Both are reported together. |
+
+## Related Message Types
+
+- `Help.Fields.Get`: the field names of the request log (table 10078258) for `tableView`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

@@ -12,31 +12,35 @@ description: "Beiðni- og svarsamningur fyrir Item.Availability.Get Bifröst ski
 :::
 
 
-## Yfirlit
+## Overview
 
-Skilar calculated vöru availability per location: inventory, reservations, gross requirement, scheduled receipts, planned receipts, og `availableQuantity = inventory - qtyReserved + scheduledReceipt + plannedOrderReceipt - grossRequirement`. The virkt implementation er resolved úr `Bifrost Setup.Item Availability Implementation`; Sjálfgefið er `Calculated Quantity Impl` (codeunit 65333).
+Returns calculated item availability per location: inventory, reservations, gross requirement, scheduled receipts, planned receipts, and `availableQuantity = inventory - qtyReserved + scheduledReceipt + plannedOrderReceipt - grossRequirement`.
 
-**Stefna**: Útgående (lesa-aðeins)  **Efnisgerð**: `text/json`
+**Direction**: Outbound (read-only)  **Content-Type**: `text/json`
 
-## Forgangsröð auðkenna
+## Changes
 
-Items eru resolved as a *range* (the call iterates the resulting set). fyrsta non-empty wins:
+This message type always returns the calculated-quantity result. Physical on-hand inventory is available separately via `Item.Inventory.Get`. Tenants that previously left the removed Bifrost Setup field `Item Calc. Availability Type` at its default (Physical Inventory) now receive the calculated answer under this name.
+
+## Identifier Resolution Order
+
+Items are resolved as a *range* (the call iterates the resulting set). First non-empty wins:
 1. `subject` envelope attribute — GUID = `Item.SystemId`, otherwise `Item.No.`.
 2. `data.itemNo`.
 3. `data.itemId` / `data.id` / `data.systemId` / `data.recordSystemId` — `Item.SystemId`.
-4. `data.tableView` — raw `Item.SetView` strengur.
+4. `data.tableView` — raw `Item.SetView` string.
 5. Fallback: `Item.Blocked = false`.
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| `itemNo` / `itemId` / `tableView` | strengur / GUID / strengur | Sjá above | vöru selection. |
-| `requestedDeliveryDate` | dagsetning | No | Format 9. Sjálfgefið: `WorkDate`. notað as the dagsetning cutoff fyrir requirements/receipts. |
-| `locationFilter` | strengur | No | BC filter expression applied til `Location.Code`. Sjálfgefið: per-vöru `Item."Location Filter"`. |
-| `variantCode` | strengur | No | Restricts færslur til a single variant. |
+| `itemNo` / `itemId` / `tableView` | string / GUID / string | See above | Item selection. |
+| `requestedDeliveryDate` | date | No | `YYYY-MM-DD`. Omitted: `WorkDate()`. An invalid value is an error. Used as the date cutoff for requirements/receipts. |
+| `locationFilter` | string | No | BC filter expression applied to `Location.Code`. Default: per-item `Item."Location Filter"`. |
+| `variantCode` | string | No | Restricts entries to a single variant. |
 
-### Dæmi um beiðni
+### Request Example
 ```json
 {
   "itemNo": "1896-S",
@@ -45,9 +49,9 @@ Items eru resolved as a *range* (the call iterates the resulting set). fyrsta no
 }
 ```
 
-## Uppbygging svars
+## Response Shape
 
-### Tókst
+### Success
 ```json
 {
   "status": "Success",
@@ -73,38 +77,32 @@ Items eru resolved as a *range* (the call iterates the resulting set). fyrsta no
 }
 ```
 
-### Svarreitir
+### Response Fields
 
-| Reitur | Uppruni |
+| Field | Source |
 |---|---|
-| `inventory` | `Item Ledger Entry.CalcSums(Quantity)` fyrir the vöru/variant/location. |
-| `qtyReserved` | `Reservation Entry.CalcSums(Quantity)` negated. |
-| `grossRequirement` | Sum of demand: Sales Lines + Job Planning + Assembly Lines (+ Service Lines og Prod Order Components þegar the Premium Experience er enabled). |
-| `scheduledReceipt` | Sum of supply: Purchase Lines + Assembly Header + Innkomandi Transfer Lines (+ Prod Order Lines þegar Premium er enabled). |
-| `plannedOrderReceipt` | Planning worksheet receipts. |
+| `inventory` | Item ledger quantity for the item/variant/location. |
+| `qtyReserved` | Reserved quantity (negated reservation sum). |
+| `grossRequirement` | Sum of demand: sales lines, job planning, assembly lines (plus service lines and production components when Premium Experience is enabled). |
+| `scheduledReceipt` | Sum of supply: purchase lines, assembly headers, inbound transfer lines (plus production order lines when Premium is enabled). |
+| `plannedOrderReceipt` | Planning worksheet and planned production receipts. |
 | `availableQuantity` | `inventory - qtyReserved + scheduledReceipt + plannedOrderReceipt - grossRequirement`. |
 
-Locations marked `Use As In-Transit` eru excluded. Locations með zero activity fyrir the vöru eru omitted úr Svarið. þegar no `locationFilter` er supplied an additional færsla fyrir the blank location code er appended.
+Locations marked as in-transit are excluded. Locations with zero activity for the item are omitted from the response. When no `locationFilter` is supplied an additional entry for the blank location code is appended.
 
-## Configuration
+## Errors
 
-Alternative implementation: `Physical Inventory Impl` (codeunit 65332) Skilar aðeins physical inventory og reservations. Switch via `Bifrost Setup.Item Availability Implementation`.
-
-## Dæmi (úr einingaprófum)
-
-úr `Item Availability Tests` (`test/test/Sales/ItemAvailabilityTests.Codeunit.al`) — exercises vöru-með-No., vöru-með-SystemId, `locationFilter`, `variantCode`, requested delivery dagsetning, og the inventory/reservation/requirement aggregation paths.
-
-## Villur
-
-| Villa | Orsök |
+| Error | Cause |
 |---|---|
-| `No items found matching the specified criteria.` | `FindItemRange` produced an empty set. |
+| `Invalid tableView: field "{token}" does not exist in table 27. Did you mean "{field}"? Valid field names: ...` (`InvalidFilterField`, `parameter: tableView`, `received` is the token) | `tableView` names a field that does not exist, or its parentheses do not balance. No item is returned; the call does not fall back to all unblocked items. |
+| `No items found matching the specified criteria.` | Item selection produced an empty set. |
 
-## Tengdar skilaboðategundir
+## Related Message Types
 
-- `Item.Price.Get` — pricing fyrir the sama vöru/viðskiptamanni.
-- `Data.Records.Get` — raw `Item` færsla.
+- `Item.Inventory.Get` — physical on-hand inventory only for the same item set.
+- `Item.Price.Get` — pricing for the same item/customer.
+- `Data.Records.Get` — raw `Item` record.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

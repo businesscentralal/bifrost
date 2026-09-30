@@ -12,26 +12,26 @@ description: "Beiðni- og svarsamningur fyrir Document.Approval.Get Bifröst ski
 :::
 
 
-## Yfirlit
-Skilar Bifrost Approval Log færslur — the audit trail fyrir every approval action processed með Bifrost (Send, Approve, Reject, Delegate, Cancel). hver færsla includes the original request payload, the linked opið Approval færsla rows, og hvaða Posted Approval færsla rows that resulted.
+## Overview
+Returns Bifrost Approval Log entries — the audit trail for every approval action processed by Bifrost (Send, Approve, Reject, Delegate, Cancel). Each entry includes the original request payload, the linked open Approval Entry rows, and any Posted Approval Entry rows that resulted.
 
-## Stefna
-Útgående
+## Direction
+Outbound
 
-## Response Content Gerð
+## Response Content Type
 `text/json`
 
-## Beiðnibreytur
-| Reitur | Gerð | áskilið | Lýsing |
+## Request Parameters
+| Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| skip | heiltala | No | Pagination offset (Sjálfgefið 0) |
-| take | heiltala | No | Page size (Sjálfgefið 50, max 1000) |
+| skip | Integer | No | Pagination offset (default 0) |
+| take | Integer | No | Page size (default 100, hard maximum 1000) |
 | tableView | Text | No | BC-style filter against `Bifrost Approval Log` (e.g. `WHERE(Field1=FILTER(Value))`) |
 
-## heimild Filtering
-hver row er filtered against Kallandinn's lesa heimild fyrir the underlying færsla (resolved via tableId + recordSystemId). þegar Kallandinn lacks heimild, `tableId`, `tableName` og `tableCaption` eru omitted úr that row.
+## Permission Filtering
+Each row is filtered against the caller's read permission for the underlying record (resolved via tableId + recordSystemId). When the caller lacks permission, `tableId`, `tableName` and `tableCaption` are omitted from that row.
 
-## Dæmi um beiðni
+## Request Example
 ```json
 {
   "type": "Document.Approval.Get",
@@ -39,7 +39,7 @@ hver row er filtered against Kallandinn's lesa heimild fyrir the underlying fær
 }
 ```
 
-## Uppbygging svars
+## Response Shape
 ```json
 {
   "status": "Success", "noOfRecords": 1,
@@ -68,19 +68,29 @@ hver row er filtered against Kallandinn's lesa heimild fyrir the underlying fær
 ```
 
 ## Result Fields
-| Reitur | Gerð | Lýsing |
+| Field | Type | Description |
 |-------|------|-------------|
 | id | GUID | Approval log SystemId |
 | lastModified | DateTime | Approval log SystemModifiedAt |
 | approvalType | Text | One of Send, Approve, Reject, Delegate, Cancel |
-| tableId / tableName / tableCaption | Int / Text / Text | skjal tafla (omitted ef no heimild) |
-| recordSystemId | GUID | skjal SystemId |
+| tableId / tableName / tableCaption | Int / Text / Text | Document table (omitted if no permission) |
+| recordSystemId | GUID | Document SystemId |
 | approvalCode | Code | Bifrost sequential code (e.g. `CE00000000001`) |
-| request | hlutur | Original Bifrost JSON |
-| linkedApprovalEntries | fylki | opið Approval færsla rows fyrir the skjal |
-| linkedPostedApprovalEntries | fylki | Posted Approval færsla rows fyrir the skjal |
+| request | Object | Original Bifrost JSON |
+| linkedApprovalEntries | Array | Open Approval Entry rows for the document |
+| linkedPostedApprovalEntries | Array | Posted Approval Entry rows for the document |
 
-## Tengdar skilaboðategundir
+## Pagination Limits
+`skip` defaults to 0 and rejects negative values. `take` defaults to 100 when omitted or zero, rejects negative values, and is clamped to the hard maximum of 1000.
+
+## Errors
+
+| Code | Error | Cause |
+|---|---|---|
+| `InvalidFilterField` | `Invalid tableView: field "{token}" does not exist in table 10077885. Did you mean "{field}"? Valid field names: ...` | `tableView` names a field that does not exist. `parameter` is `tableView`, `received` the field token, `nextStep` the suggestion. Nothing is returned. |
+| `InvalidFilterField` | `Invalid tableView: unbalanced parentheses.` | The parentheses in `tableView` do not balance. Nothing is returned. |
+
+## Related Message Types
 - `Document.Approval.Send`
 - `Document.Approval.Approve`
 - `Document.Approval.Reject`
@@ -88,6 +98,6 @@ hver row er filtered against Kallandinn's lesa heimild fyrir the underlying fær
 - `Document.Approval.Cancel`
 - `Document.Approval.Me`
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

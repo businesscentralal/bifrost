@@ -27,8 +27,9 @@ Returns `{id, deletedAt}` pairs from the Bifrost Delete Log — the deletion equ
 | Parameter | Type | Default | Notes |
 |---|---|---|---|
 | Table key (see above) | — | — | Required. |
-| `startDateTime` / `endDateTime` | ISO 8601 UTC | — | Filter by deletion timestamp. |
+| `startDateTime` / `endDateTime` | ISO 8601 with Z or an offset | — | Filter by deletion timestamp. Omitted: no range filter. A value without Z or an offset is read as UTC. A date only (`2026-09-26`) is rejected. |
 | `skip` / `take` | int / int | 0 / 100 | Pagination. Keep `take` ≤ 1000 for safety. |
+| `tableView` | text | — | A BC table view on the Delete Log: `Entry No.`, `Record System Id`, `Deleted At`, `User ID`, for example `WHERE(User ID=CONST(ADMIN))`. The table key always wins over a `Table Id` in the view. An unknown field or unbalanced parentheses is an error (`InvalidFilterField`); nothing is returned. |
 
 ## Response Shape
 
@@ -70,6 +71,7 @@ Returns `{id, deletedAt}` pairs from the Bifrost Delete Log — the deletion equ
 | Condition | Message |
 |---|---|
 | Read permission denied | populated by `CheckTableReadPermission` |
+| `tableView` names a field that does not exist, or its parentheses do not balance | `Invalid tableView: field "{token}" does not exist in table 10077886. Did you mean ...` (`InvalidFilterField`, `parameter: tableView`, `received` is the field token) |
 | Invalid table | `Table {name} not found.` |
 
 ## Pagination Limits

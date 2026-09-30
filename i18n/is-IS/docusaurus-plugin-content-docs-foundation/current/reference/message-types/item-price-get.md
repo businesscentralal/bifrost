@@ -12,29 +12,29 @@ description: "Beiðni- og svarsamningur fyrir Item.Price.Get Bifröst skilaboða
 :::
 
 
-## Yfirlit
+## Overview
 
-Skilar the best-applicable price list lines fyrir ein eða fleiri items, optionally evaluated against a specific viðskiptamanni (með the viðskiptamanni's VAT/Gen/viðskiptamanni posting groups). The virkt implementation er resolved úr `Bifrost Setup.Item Price Implementation`; Sjálfgefið er `Default Price Impl` (codeunit 65334).
+Returns the best-applicable price list lines for one or more items, optionally evaluated against a specific customer (with the customer's VAT/Gen/Customer posting groups). The active implementation is resolved from `Bifrost Setup.Item Price Implementation`; default is `Default Price Impl` (codeunit 65334).
 
-**Stefna**: Útgående (lesa-aðeins)  **Efnisgerð**: `text/json`
+**Direction**: Outbound (read-only)  **Content-Type**: `text/json`
 
-## Forgangsröð auðkenna
+## Identifier Resolution Order
 
-Items eru resolved via `FindItemRange` (sama precedence as `Item.Availability.Get`). viðskiptamanni er valfrjálst og resolved úr JSON aðeins:
-- `customerNo` (viðskiptamanni `No.`)
-- `customerId` / `customerRecordId` / `customerSystemId` (viðskiptamanni `SystemId`)
+Items are resolved via `FindItemRange` (same precedence as `Item.Availability.Get`). Customer is optional and resolved from JSON only:
+- `customerNo` (Customer `No.`)
+- `customerId` / `customerRecordId` / `customerSystemId` (Customer `SystemId`)
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| `itemNo` / `itemId` / `tableView` | strengur / GUID / strengur | Sjá above | vöru selection. |
-| `customerNo` / `customerId` / `customerRecordId` / `customerSystemId` | strengur / GUID | No | þegar supplied, evaluates viðskiptamanni-specific best price. |
-| `variantCode` | strengur | No | Filters returned lines til a single variant. |
-| `requestedDeliveryDate` | dagsetning | No | Format 9. Sjálfgefið: `WorkDate`. notað as the price-list line dagsetning filter. |
-| `quantity` | tugabrot | No | Quantity fyrir tier evaluation. Sjálfgefið: `1` (a `0` Gildi er treated as `1`). |
+| `itemNo` / `itemId` / `tableView` | string / GUID / string | See above | Item selection. |
+| `customerNo` / `customerId` / `customerRecordId` / `customerSystemId` | string / GUID | No | When supplied, evaluates customer-specific best price. |
+| `variantCode` | string | No | Filters returned lines to a single variant. |
+| `requestedDeliveryDate` | date | No | `YYYY-MM-DD`. Omitted: blank. An invalid value is an error. Used as the price-list line date filter. |
+| `quantity` | decimal | No | JSON number, or a string with `.` and no thousands separator. Omitted: `0`, treated as `1`. An invalid value is an error. |
 
-### Dæmi um beiðni
+### Request Example
 ```json
 {
   "itemNo": "1896-S",
@@ -44,9 +44,9 @@ Items eru resolved via `FindItemRange` (sama precedence as `Item.Availability.Ge
 }
 ```
 
-## Uppbygging svars
+## Response Shape
 
-### Tókst
+### Success
 ```json
 {
   "status": "Success",
@@ -71,37 +71,38 @@ Items eru resolved via `FindItemRange` (sama precedence as `Item.Availability.Ge
 }
 ```
 
-### Svarreitir
+### Response Fields
 
-| Reitur | Uppruni |
+| Field | Source |
 |---|---|
 | `unitPrice` | Raw price-list `Unit Price`. |
-| `unitPriceExclVAT` / `unitPriceInclVAT` | Derived via `Price Calculation`: excludes/includes VAT according til the price-list line. |
-| `vatPct` | úr `VAT Posting Setup` fyrir the resolved VAT Bus./Prod. groups. |
-| `startingDate` / `endingDate` | Emitted aðeins þegar the price-list line specifies validity dates. |
+| `unitPriceExclVAT` / `unitPriceInclVAT` | Derived via `Price Calculation`: excludes/includes VAT according to the price-list line. |
+| `vatPct` | From `VAT Posting Setup` for the resolved VAT Bus./Prod. groups. |
+| `startingDate` / `endingDate` | Emitted only when the price-list line specifies validity dates. |
 
-þegar a viðskiptamanni er supplied, the lines come úr `Sales Price Buffer.AddBestPriceForCustomer`. án a viðskiptamanni, lines come úr `PopulateFromQuery` (extended price calc enabled) eða `AddItemCardPrice` (legacy).
+When a customer is supplied, the lines come from `Sales Price Buffer.AddBestPriceForCustomer`. Without a customer, lines come from `PopulateFromQuery` (extended price calc enabled) or `AddItemCardPrice` (legacy).
 
-## Dæmi (úr einingaprófum)
+## Examples (from unit tests)
 
-úr `Item Price Calculation Tests` (`test/test/Sales/ItemPriceCalculationTests.Codeunit.al`) — covers single vöru, multi-vöru via `tableView`, með/án viðskiptamanni, quantity tiers, variants, og the VAT/posting-group validation Villur below.
+From `Item Price Calculation Tests` (`test/test/Sales/ItemPriceCalculationTests.Codeunit.al`) — covers single item, multi-item via `tableView`, with/without customer, quantity tiers, variants, and the VAT/posting-group validation errors below.
 
-## Villur
+## Errors
 
-| Villa | Orsök |
+| Error | Cause |
 |---|---|
+| `Invalid tableView: field "{token}" does not exist in table 27. Did you mean "{field}"? Valid field names: ...` (`InvalidFilterField`, `parameter: tableView`, `received` is the token) | `tableView` names a field that does not exist, or its parentheses do not balance. No item is returned; the call does not fall back to all unblocked items. |
 | `No items found matching the specified criteria.` | `FindItemRange` produced an empty set. |
-| `VAT Bus. Posting Gr. (Price) must have a value in Sales & Receivables Setup.` | `Sales & Receivables Setup."VAT Bus. Posting Gr. (Price)"` er blank — pricing getur ekki be evaluated. |
-| `Customer not found or invalid. Please provide a valid customerNo, customerId, customerRecordId, or customerSystemId in the request.` | viðskiptamanni key was supplied but did ekki match a `Customer` færsla. |
-| `Customer {no} must have a VAT Bus. Posting Group.` | Resolved viðskiptamanni er vantar `VAT Bus. Posting Group`. |
-| `Customer {no} must have a Gen. Bus. Posting Group.` | Resolved viðskiptamanni er vantar `Gen. Bus. Posting Group`. |
-| `Customer {no} must have a Customer Posting Group.` | Resolved viðskiptamanni er vantar `Customer Posting Group`. |
+| `VAT Bus. Posting Gr. (Price) must have a value in Sales & Receivables Setup.` | `Sales & Receivables Setup."VAT Bus. Posting Gr. (Price)"` is blank — pricing cannot be evaluated. |
+| `Customer not found or invalid. Please provide a valid customerNo, customerId, customerRecordId, or customerSystemId in the request.` | Customer key was supplied but did not match a `Customer` record. |
+| `Customer {no} must have a VAT Bus. Posting Group.` | Resolved customer is missing `VAT Bus. Posting Group`. |
+| `Customer {no} must have a Gen. Bus. Posting Group.` | Resolved customer is missing `Gen. Bus. Posting Group`. |
+| `Customer {no} must have a Customer Posting Group.` | Resolved customer is missing `Customer Posting Group`. |
 
-## Tengdar skilaboðategundir
+## Related Message Types
 
-- `Item.Availability.Get` — availability of the sama vöru set.
-- `Customer.SalesHistory.Get` — items recently sold til a viðskiptamanni.
+- `Item.Availability.Get` — availability of the same item set.
+- `Customer.SalesHistory.Get` — items recently sold to a customer.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 
