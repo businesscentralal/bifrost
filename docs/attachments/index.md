@@ -7,6 +7,8 @@ slug: /
 description: "Azure Blob Storage, Azure File Share and SharePoint exposed as Bifröst message types for Business Central file operations."
 ---
 
+*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+
 Bifröst Attachments connects Business Central to cloud storage. It builds on Bifröst Foundation and exposes the standard Business Central External File Storage connectors — Azure Blob Storage, Azure File Share and SharePoint — as message types, so an external caller, an MCP client or a Business Central process can read and write files through the same queue, task and data pattern used by the rest of Bifröst.
 
 ## What it does

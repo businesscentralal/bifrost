@@ -7,6 +7,22 @@ slug: /
 description: "Skilaboðadrifið API fyrir Business Central: biðröð, verk og svar, sjálflýsandi skilaboðagerðir og grunnurinn sem öll önnur Bifrastar-forrit byggja á."
 ---
 
+**Bifröst Foundation er forritið sem alltaf er sett upp.** Það gerir gervigreindarþjónum og öðrum
+kerfum kleift að vinna raunveruleg verk í Business Central: svara spurningum úr lifandi gögnum,
+framkvæma verk og keyra ferla, sem þú og innan þinna heimilda. Það nær nú þegar yfir hefðbundin svið
+Business Central; hin Bifröst-forritin bæta hvert við sínu.
+
+| Þú vilt … | Farðu í |
+|---|---|
+| Skilja hvað það gerir | [Hvernig Bifröst virkar](/documentation/how-it-works/) (á ensku í bili) |
+| Setja það upp | [Uppsetning](/setup/) (á ensku í bili) |
+| Prófa það fyrst | [Prófaðu](/try-it-out/) (á ensku í bili) |
+| Vita til hvers síða í Business Central er | [Hjálp Foundation](/help/foundation/) |
+
+## Tæknilegt yfirlit
+
+*Það sem eftir er af síðunni er fyrir forritara og samstarfsaðila.*
+
 Bifröst Foundation breytir viðskiptarökum Business Central í API sem hægt er að kalla á og lýsir sér sjálft. Ytra kerfi sendir CloudEvents-umslag á biðraðar-API-ið (`origo/bifrost/v1.0`), Business Central keyrir viðeigandi **skilaboðagerð** — `Customer.CreditLimit.Get`, `Sales.Document.Post`, `Data.Records.Set` — og niðurstaðan kemur til baka í gegnum svar-API-ið, ýmist samstillt eða úr bakgrunnskeyrslu.
 
 Allt annað í Bifrastar-fjölskyldunni er forrit sem byggir ofan á þessu og bætir sínum eigin skilaboðagerðum í safnið. Foundation sér um flutninginn, biðröðina, leyfin, leyndarmálageymsluna, beiðnaskrána, tungumálaskiptin og uppgötvunina; forritið ofan á skrifar viðskiptarökin og hjálparskjalið.

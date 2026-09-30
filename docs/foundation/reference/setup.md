@@ -533,9 +533,9 @@ enumextension 50100 "My Statement Type" extends "Customer Statement Type ori"
 
 | Value | Caption | Behaviour |
 |-------|---------|-----------|
-| 0 | Open | All fields may be written — same as pre-guard behaviour. Default. |
-| 1 | Blocked | Only fields covered by Change Log Modification tracking may be written. All others are rejected. |
-| 2 | Via force | Same as Blocked but the restriction can be bypassed by including `"force": true` in the request **and** holding the `Force Access ori` permission set. |
+| 0 | Open | All fields may be written — same as pre-guard behaviour. |
+| 1 | Blocked | Only fields covered by Change Log Modification tracking may be written. All others are rejected. Default. |
+| 2 | Via force | Same as Blocked but the restriction can be bypassed by including `"force": true` in the request **and** holding the `BIFROST Force ori` permission set. |
 
 **Validation:**
 
@@ -562,7 +562,7 @@ end;
 }
 ```
 
-The `force` key is a top-level boolean inside the `data` JSON (alongside the `data` array). Without the `Force Access ori` permission set the request is rejected even with `force: true`.
+The `force` key is a top-level boolean inside the `data` JSON (alongside the `data` array). Without the `BIFROST Force ori` permission set the request is rejected even with `force: true`.
 
 **Checking field coverage:**
 
@@ -1261,7 +1261,7 @@ User <UserSecurityId> does not have permissions to send documents to approval vi
 
 **Assignment:** Assign via the standard BC **Permission Sets** page or via user group.
 
-### Force Access ori
+### BIFROST Force ori
 
 **Purpose:** Required to bypass the ChangeLog Write Guard when using `"force": true` in `Data.Records.Set` requests with the guard set to **Via force**. See [ChangeLog Write Guard](#changelog-write-guard) for details.
 

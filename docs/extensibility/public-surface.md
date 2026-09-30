@@ -1,231 +1,94 @@
 ---
 id: public-surface
 title: "Foundation public surface"
+sidebar_label: "Foundation public surface"
 sidebar_position: 9
-description: "The public extension points of Bifröst Foundation that a dependent app may rely on, and what is internal."
+description: "A map of the Bifröst Foundation objects a dependent app may rely on: interfaces, the message type enum, the dispatcher, secrets, app registration, setup, the request log and public events."
 ---
 
-This document lists the **public extension points** of Bifröst Foundation that downstream Business Central extensions may rely on.
+# Foundation public surface
 
-Anything not listed here is **internal** and may change between releases without notice. The package marks internal codeunits with `Access = Internal` and locks down the rest via the publisher's standard release policy.
+This page is a map of what a dependent app may rely on in Bifrost Foundation. It names the
+objects and says what each one is for. The exact signatures, with notes on how Foundation uses
+each member, are in the partner guide's
+[Foundation API cheat sheet (§5.7)](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/START-HERE.md#57-foundation-api-cheat-sheet).
 
----
+**Anything not named here is internal.** Treat it as something that can change or disappear in
+any release, even when it shows up in the symbols.
 
-## How to depend on Bifröst Foundation
+## Depending on Foundation
 
-Add the dependency to your extension's `app.json`:
+Your app depends on **Bifrost Foundation** (publisher Origo, app id
+`7505e808-6e52-4b96-a328-82573391297a`), at minimum version `28.0.0.0`. All objects are in the
+namespace `Origo.Bifrost`. The complete `app.json` block, and the rules for choosing versions and
+id ranges, are in [START-HERE §5.0](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/START-HERE.md#50-appjson).
 
-```json
-"dependencies": [
-    {
-        "id": "54db7020-675c-4760-aca6-f4061f924ed2",
-        "name": "Bifröst Foundation",
-        "publisher": "Origo",
-        "version": "27.0.0.0"
-    }
-]
-```
+## Message types
 
-All objects in this guide live in the namespace `Origo.Bifrost`.
-
----
-
-## Extensibility surface at a glance
-
-| Category | Items | Stability |
-|---|---|---|
-| Interfaces | 8 | Stable contract — additive changes only |
-| Extensible enums | 13 | Add new `value(...)` entries from your extension |
-| Integration events | 6 + 2 facade codeunits | Stable signature; additive parameters via overloads |
-| Control add-ins | `Text Editor ori` | Stable procedure/event signatures |
-| Public tables | `User Setup ori` | Extend with `tableextension` |
-
----
-
-## Interfaces
-
-Implementations are registered through the matching extensible enum (column "Selector enum"). Add your `value(...)` to the enum with an `Implementation = "<Interface>" = "<Your Impl>"` clause.
-
-| Interface | Selector enum | Purpose |
-|---|---|---|
-| `Msg Interface ori` | `Message Type ori` | Contract for every message type. Implements `GetFilterTableNo`, `GetDescription`, `GetMessageDirection`, `GetMessageHelpAsMarkdownDocument`, `ExecuteBifrostTask`. |
-| `Msg Metering ori` | `Message Type ori` | Metering hook, one procedure: `OnMessageCompleted(var Argument)`. Called after every successful call except the exempt `Help.*`, `Memory.*`, `Session.*`, `Webhook.*` and `ChangeLog.*` types of Origo's applications. Every value falls back to `Default Metering ori`, whose body does nothing; a billing solution overrides it on the types it prices. |
-| `Customer Credit Limit ori` | `Customer Credit Limit Type ori` | Replace the default credit-limit check used by `Customer.CreditLimit.Get`. |
-| `Customer Statement` | `Customer Statement Type` | Provide an alternative customer-statement PDF for `Customer.Statement.Pdf`. |
-| `Item Calc. Availability ori` | `Item Calc. Avail.Type ori` | Replace the default item-availability calculation. |
-| `Item Price Calculation ori` | `Item Price Calc. Type ori` | Plug in a custom price-calculation strategy. |
-| `Company Name ori` | `Company Name Type ori` | Decide whether outbound payloads carry the technical Company Name or the Display Name. |
-| `ChangeLog Write Guard` | `ChangeLog Write Guard Type` | Decide whether a `Data.Records.Set` write is allowed based on Change Log coverage. |
-
-### Example — adding a new message type
-
-```al
-namespace Acme.Sales;
-
-using Origo.Bifrost;
-
-enumextension 50100 "Acme Bifrost Msg Type" extends "Message Type ori"
-{
-    value(50100; "Sales.Quote.SendForApproval")
-    {
-        Caption = 'Send sales quote for approval';
-        Implementation = "Msg Interface ori" = "Acme Quote Approval Impl";
-    }
-}
-
-codeunit 50100 "Acme Quote Approval Impl" implements "Msg Interface ori"
-{
-    procedure GetFilterTableNo(): Integer
-    begin
-        exit(Database::"Sales Header");
-    end;
-
-    procedure GetDescription(): Text[250]
-    begin
-        exit('Sends a sales quote into the approval workflow.');
-    end;
-
-    procedure GetMessageDirection(): Enum "Msg Direction ori"
-    begin
-        exit("Msg Direction ori"::Inbound);
-    end;
-
-    procedure GetMessageHelpAsMarkdownDocument(var Argument: Record "Message Argument ori")
-    begin
-        // delegate to a help codeunit and call Argument.SetResponseText(...)
-    end;
-
-    procedure ExecuteBifrostTask(var Argument: Record "Message Argument ori")
-    begin
-        // your implementation
-    end;
-}
-```
-
----
-
-## Extensible enums
-
-Add new `value(...)` entries from your extension via `enumextension`. The base app does not own ordinals above its allocated range.
-
-| Enum | Used by | Notes |
-|---|---|---|
-| `Message Type ori` | Message dispatcher | Largest extension point — add one value per new message type, wired to your implementation via the interface. |
-| `Message Version ori` | Message dispatcher | Add a new version when your implementation breaks request/response shape. |
-| `Msg Direction ori` | Message metadata | Inbound / Outbound / Both. |
-| `Company Name Type ori` | Outbound payloads | Switch between technical / display names; extensions may add custom strategies. |
-| `Approval Type ori` | Approval message types | Strategy enum for `Document.Approval.*`. |
-| `Customer Credit Limit Type ori` | `Customer.CreditLimit.Get` | Strategy enum bound to the `Customer Credit Limit ori` interface. |
-| `ChangeLog Write Guard Type` | `Data.Records.Set` | Built-in Open / Blocked / Via Force modes; add a custom guard if needed. |
-| `Customer Statement Type` | `Customer.Statement.Pdf` | Bound to the `Customer Statement` interface. |
-| `Item Price Calc. Type ori` | Price calculations | Bound to the `Item Price Calculation ori` interface. |
-| `Telemetry Event Type ori` | Telemetry | Add custom telemetry events your extension emits. |
-| `Posting Type ori` | Posting gate | G/L, Item, FA, Job, Resource, Warehouse — add a domain only if you also introduce a new posting gate placeholder table + permission set. |
-| `Item Calc. Avail.Type ori` | Availability calculations | Bound to the `Item Calc. Availability ori` interface. |
-| `Restriction Type ori` | Field restrictions | Strategy for field-level read / write restrictions. |
-
----
-
-## Integration events
-
-All listed events have stable signatures. Subscribe with the standard `[EventSubscriber(...)]` attribute on a codeunit in your extension.
-
-### `Webhook Inbound Events ori` (codeunit 10078230)
-
-Fire when an inbound webhook payload is received via the Bifrost website.
-
-| Event | Parameters | When |
-|---|---|---|
-| `OnWebhookReceived` | `EventSource: Text`, `EventType: Text`, `HeadersJson: Text`, `BodyJson: Text`, `var Handled: Boolean` | Synchronously during bifrost task processing. Set `Handled := true` to signal that your subscriber consumed the payload — the value flows back to the caller in the `handled` response field. |
-
-Subscriber pattern:
-
-```al
-[EventSubscriber(ObjectType::Codeunit, Codeunit::"Webhook Inbound Events",
-    'OnWebhookReceived', '', false, false)]
-local procedure HandleScaleWebhook(EventSource: Text; EventType: Text;
-    HeadersJson: Text; BodyJson: Text; var Handled: Boolean)
-begin
-    if not EventSource.StartsWith('scale/') then exit;
-    // parse BodyJson, route by EventType
-    Handled := true;
-end;
-```
-
-### `Preview Events ori` (codeunit 10078238)
-
-Fire while building posting-preview responses (used by `Finance.GeneralJournal.PreviewPost`, `Finance.VATStatement.Preview`, etc.).
-
-| Event | Parameters | When |
-|---|---|---|
-| `OnGetPreviewFieldNames` | `var FieldNames: List of [Text]` | After the default field list is built. Append additional field names; names not present on a captured preview table are silently skipped. |
-| `OnPrecalculateFlowFields` | `TableId: Integer`, `var TempRecRef: RecordRef`, `var PostingPreviewEventHandler: Codeunit "Posting Preview Event Handler"` | Once per captured preview table that lacks a built-in FlowField precalculator. Write computed values directly onto the temp rows — `CalcField` will not work because the rows are rolled-back temp records. |
-
-### `Data Records Set Events ori` (codeunit 10078081)
-
-Fire during `Data.Records.Set` processing.
-
-| Event | Parameters | When |
-|---|---|---|
-| `OnAfterAddRecRefStateIfNeeded` | `var RecRef: RecordRef` | After the helper has added the record's state JSON. Inspect or augment the RecRef before serialization continues. |
-| `OnAfterVerifyChangeAllowed` | `xRecRef: RecordRef`, `RecRef: RecordRef` | After the change has been verified as allowed. Run additional validation or trigger side effects. |
-
-### `Message Argument ori` table (10077896)
-
-| Event | Parameters | When |
-|---|---|---|
-| `OnAfterIsTableReadRestrictedForDataRecords` | `TableNo: Integer`, `var IsRestricted: Boolean` | After the built-in read-restriction check. Set `IsRestricted := true` to block additional tables or `false` to permit a table that would otherwise be blocked. |
-| `OnAfterIsTableWriteRestrictedForDataRecords` | `TableNo: Integer`, `var IsRestricted: Boolean` | After the built-in write-restriction check. Same override semantics as the read variant. |
-
----
-
-## Public codeunits (facade)
-
-These are the only `Access = Public` codeunits intended as entry points from dependent extensions.
-
-| Codeunit | Purpose |
+| Object | What it is for |
 |---|---|
-| `Webhook Inbound Events ori` (10078230) | Event publisher — see Integration events above. |
-| `Preview Events ori` (10078238) | Event publisher — see Integration events above. |
-| `Data Records Set Events ori` (10078081) | Event publisher — see Integration events above. |
+| `Message Type ori` (extensible enum) | One value per message type. You add your values with an enum extension and bind each to your implementation. |
+| `Msg Interface ori` (interface) | The contract every message type implements: whether it is enabled, its description, direction, filter table, help, and the execution itself. `IsEnabled` only decides whether the type is listed; a direct call is still decided by permissions. |
+| `Msg Metering ori` (interface) | Optional hook after a successful call, for your own usage bookkeeping. See [Metering](/extensibility/metering). |
+| `Msg Discovery ori` (interface) | Optional search keywords and a selection text that help callers find and choose your type. |
+| `Msg Direction ori`, `Message Version ori` (enums) | The direction of a type and the request version. |
+| `Message Argument ori` (table) | The one parameter every implementation receives. Its public helpers read the request body and subject, set the response (JSON, Markdown, text or PDF), answer with an error, check the version and licence, and redact a request that carried a secret. |
 
-The `Message Argument ori` table (10077896) is public and is the standard parameter passed to every interface implementation. Use its helper methods (`GetRequestJson`, `SetResponseJson`, `EvaluateTableId`, `BifrostMessageSubjectIsGuid`, etc.) rather than touching fields directly — see the API reference for the full list.
+A successful call is one whose response has no `status`, or `status = "Success"`. An error
+answer never contains a call stack.
 
----
+## Calling message types from AL
 
-## Public tables
+`Dispatcher ori` runs a message type from AL code. `Execute` and `EnqueueAndProcess` both write
+a message row and run the full Foundation pipeline, the same as a call over the API. Use it from
+tests and from AL code that calls another app's type. The round trip, the transaction behaviour
+and the language rules are in
+[START-HERE §5.7](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/START-HERE.md#the-dispatcher-round-trip-exactly).
 
-| Table | Extending |
+## Setup, registration and secrets
+
+| Object | What it is for |
 |---|---|
-| `User Setup ori` (10077909) | Per-user setup. Extend with a `tableextension` to add provider-specific fields (e.g., `Anthropic Model`). |
+| `App Registry ori` (codeunit) and `Registered App ori` (table) | Register your app so Foundation includes it in the setup wizard, the setup notifications and App Secrets. |
+| `Setup ori` (table and page) | Bifrost Setup. The table is public and its public procedures may be called; for example, `AddChangeLogGuardException` lets your install code exempt a table or field from the change-log write guard. The page takes exactly one action from your app. |
+| `User Setup ori` (table) | Per-user Bifröst settings. |
+| `Secret Store ori` (codeunit), `Secret Scope ori` (enum) | Store and read your app's credentials. An app reaches only its own secrets. |
 
-The base app's standard upgrade rules apply — do not depend on internal field numbers; extend via your own ID range.
+How to use these is on [Setup, secrets and the request log](/extensibility/setup-and-secrets).
+What an app does at install and upgrade is in [Platform integration in START-HERE](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/START-HERE.md#55-platform-integration).
 
----
+## The request log
 
-## Control add-ins
+| Object | What it is for |
+|---|---|
+| `Request Logger ori` (codeunit) | Write an entry for one of your outbound HTTP calls. |
+| `Request Log Reader ori` (codeunit) | Read an entry back. |
+| `Request Log Type ori` (extensible enum) | Classify your traffic; each value picks the masker. |
+| `Request Log Masker ori` (interface) | Decide what of the bodies, error text and URL is stored. |
 
-### `Text Editor ori`
+## Events
 
-Markdown / multi-line text editor with bundled JS and CSS. Public — dependent extensions can host the control via `usercontrol(MyControl; "Text Editor ori")`.
+| Codeunit | What you can do |
+|---|---|
+| `Message Events ori` | React when a message completes or fails (also available as business events for external subscribers), and add to Foundation's overview and line-to-header table mapping. |
+| `Preview Events ori` | Add fields and calculated values to posting-preview responses. |
+| `Webhook Inbound Events ori` | Handle an inbound webhook payload and mark it as handled. |
+| `Data Records Set Events ori` | Inspect a record, or add your own validation, while `Data.Records.Set` writes it. |
 
-| Member | Kind | Purpose |
+## Pluggable behaviour
+
+Each of these is an interface with a selector enum. You add a value to the enum, bind your
+implementation, and an administrator chooses it in Bifrost Setup.
+
+| Interface | Selector enum | What you replace |
 |---|---|---|
-| `SetContent(Content: Text)` | Procedure | Replace the editor's text content. |
-| `SetPlaceholder(Placeholder: Text)` | Procedure | Set the placeholder text shown when the editor is empty. |
-| `SetReadOnly(ReadOnly: Boolean)` | Procedure | Toggle read-only mode. |
-| `ControlReady()` | Event | Fired once the DOM is ready. Host page should respond by calling `SetContent`. |
-| `ContentChanged(Content: Text)` | Event | Fired (debounced) when the user changes the text. |
+| `Customer Credit Limit ori` | `Customer Credit Limit Type ori` | The credit-limit check. |
+| `Customer Statement ori` | `Customer Statement Type ori` | The customer statement PDF. |
+| `Item Price Calculation ori` | `Item Price Calc. Type ori` | The item price calculation. |
+| `Company Name ori` | `Company Name Type ori` | Which company name outbound payloads carry. |
+| `ChangeLog Write Guard ori` | `ChangeLog Write Guard Type ori` | Whether a record write is allowed, based on change-log coverage. |
 
-Layout defaults are `RequestedHeight/Width = 600` with min 300 / max 1200. Host the control inside a part or group if you need different dimensions.
+## Stability
 
----
-
-## Stability commitments
-
-- **Interfaces, extensible enums and listed integration events**: additive changes only. Removals and renames go through one release with the obsolete-pending marker before the breaking change.
-- **Public facade codeunits and tables**: new procedures and fields may be added; existing signatures are preserved across minor versions.
-- **Control add-in**: procedure and event signatures listed above are part of the surface.
-- **Internal codeunits, internal procedures, message-type implementation codeunits**: not extensible. Do not subscribe to their events or call them across an `internalsVisibleTo` boundary.
-
-If you need an extensibility hook that is not listed here, open an issue in the Bifröst Foundation repository describing the use case rather than depending on internal members.
+Treat the objects above as the contract. Build against the minimum version you need, do not
+depend on internal field numbers, and extend with your own objects in your own id range.

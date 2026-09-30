@@ -21,6 +21,19 @@ innbyggðir listar geti lesið hana beint.
 Leitaðu eftir nafni eða lýsingu, eða síaðu eftir sviði, til að finna forritið
 sem þú þarft.
 
+## Forrit og hjálp: hver er munurinn
+
+Hvert forrit hefur tvenns konar síður á þessum vef:
+
+| | Kafli forritsins (til dæmis [Foundation](/foundation/)) | Hjálp forritsins (til dæmis [hjálp Foundation](/help/foundation/)) |
+|---|---|---|
+| **Hvað þar stendur** | Hvað forritið bætir við og skilaboðagerðirnar sem því fylgja | Til hvers ein síða í Business Central er, reitir hennar og aðgerðir |
+| **Hver les** | Þau sem velja forrit, kerfisstjórar, forritarar og gervigreindarþjónar sem fletta upp skilaboðagerð | Notandi á síðunni, sem opnar hjálpina úr Business Central með hjálparhnappnum |
+| **Hvar það finnst** | Valmyndin **Forrit** | Valmyndin **Hjálp**, eða úr Business Central |
+
+Gervigreindarþjónn þarf hvorugt: hann spyr Bifröst hvaða skilaboðagerðir eru til og les hjálp þeirra
+beint.
+
 <AppRegistry />
 
 ## Ertu að byggja þitt eigið forrit?

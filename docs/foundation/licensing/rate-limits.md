@@ -2,7 +2,7 @@
 id: rate-limits
 title: "Rate limits"
 sidebar_position: 3
-description: "The Bifröst rate-limit tiers, where they are enforced, and who can choose a higher tier."
+description: "The Bifröst rate-limit tiers, and who can choose a higher tier."
 ---
 
 A rate limit caps how many API calls a tenant can make through the Bifröst MCP server per day. It
@@ -30,7 +30,7 @@ service.
 ## Choosing a tier
 
 A Customer on the Subscription license chooses its tier from **Configure Rate Limit** on the
-Bifröst Setup page (production environments only - see
+Bifrost Setup page (production environments only - see
 [Configure Rate Limit](/help/foundation/rate-limit-configuration/)). Check the price with your
 Partner before you choose a tier above Free. Choosing **Free** removes the custom tier.
 

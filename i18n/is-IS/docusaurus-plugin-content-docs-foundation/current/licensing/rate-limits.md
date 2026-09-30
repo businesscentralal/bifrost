@@ -2,7 +2,7 @@
 id: rate-limits
 title: "Álagsþak"
 sidebar_position: 3
-description: "Þrep álagsþaks í Bifröst, hvar þeim er framfylgt og hver getur valið hærra þrep."
+description: "Þrep álagsþaks í Bifröst, hver getur valið hærra þrep."
 ---
 
 Álagsþak takmarkar hve mörg API-köll leigjandi getur gert á dag í gegnum Bifröst MCP-þjóninn. Það
