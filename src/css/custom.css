@@ -203,6 +203,29 @@ a.bifrostCard:focus-visible {
   opacity: 0.6;
 }
 
+/* The product segment of the navbar (Foundation, Add-on apps, Help): one green band. */
+@media (min-width: 997px) {
+  .navbar__item.navApps,
+  .navbar__link.navApps {
+    background: rgba(47, 212, 193, 0.12);
+    border-radius: 0;
+    margin: 0;
+  }
+  .navbar__link.navApps--first,
+  .navbar__item.navApps--first { border-radius: 8px 0 0 8px; margin-left: 0.75rem; }
+  .navbar__link.navApps--last,
+  .navbar__item.navApps--last { border-radius: 0 8px 8px 0; margin-right: 0.5rem; }
+  .navbar__item.navApps > .navbar__link { background: transparent; }
+}
+
+/* Foundation in the Help menu: the base the other apps build on. */
+.dropdown__link.dropdownBase {
+  font-weight: 700;
+  border-left: 3px solid var(--ifm-color-primary);
+  background: var(--ifm-color-emphasis-100);
+  margin: 0.1rem 0 0.35rem;
+}
+
 /* Home: the request path in three steps, and the chapter doors. */
 .bifrostSteps {
   display: grid;
