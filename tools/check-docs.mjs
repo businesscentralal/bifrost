@@ -193,7 +193,7 @@ async function ipBoundary() {
     console.error(`  ${hit.file}:${hit.line}  [${hit.token}]  ${hit.excerpt}`);
   }
   console.error(
-    '\nPublic site = public information only. See docs/extensibility/ip-boundary.md.' +
+    '\nPublic site = public information only. See CONTRIBUTING.md.' +
       '\nFor [kennitala] hits use the placeholder 0000000000 (or 000000-0000).',
   );
   return 1;

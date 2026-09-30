@@ -7,7 +7,9 @@ slug: /
 description: "Icelandic government services and SMS gateways as Bifröst message types: Þjóðskrá through Umsjá, Skatturinn, Seðlabanki, Skilagrein, island.is and Já Gagnatorg."
 ---
 
-Bifröst Iceland adds 75 Iceland-specific message types to Bifröst Foundation. An external system posts a request to the queue API (`origo/bifrost/v1.0`), Business Central runs the matching message type, and the result comes back through the response API — the same pattern as every other Bifröst message type, now reaching Þjóðskrá, Skatturinn, Seðlabanki Íslands, Skilagrein, island.is, Já Gagnatorg and the Icelandic SMS gateways.
+*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+
+Bifröst Iceland adds Iceland-specific message types to Bifröst Foundation. An external system posts a request to the queue API (`origo/bifrost/v1.0`), Business Central runs the matching message type, and the result comes back through the response API — the same pattern as every other Bifröst message type, now reaching Þjóðskrá, Skatturinn, Seðlabanki Íslands, Skilagrein, island.is, Já Gagnatorg and the Icelandic SMS gateways.
 
 ## What it does
 

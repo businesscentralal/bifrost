@@ -124,12 +124,6 @@ From the deployed site the same paths resolve against this file’s own URL.
 | --- | --- |
 | `Help.DocumentExchange.Get` | `message-types/help-documentexchange-get/` |
 
-### Other reference pages
-
-| Page | Path |
-| --- | --- |
-| Object ID map — Cloud Events DocEx to Bifröst | `object-id-map/` |
-
 ---
 
 ## Related skills

@@ -15,7 +15,7 @@ Open it from the Assisted Setup list, from **Setup Wizard** on Bifrost Setup, or
 | --- | --- |
 | **1. Welcome** | Explains what Bifröst stores with Origo (a one-way hash of your tenant ID, the configuration of this company and its message usage) and shows the End-User License Agreement. Select **I accept the End-User License Agreement** to continue. |
 | **2. HTTP** | Lists every installed Bifröst application and whether it may make outbound HTTP requests. See [HTTP step](#http-step). |
-| **3. Credentials** _(optional)_ | Lists the credentials the installed applications need, so you can enter missing values. See [Credentials step](#credentials-step). |
+| **3. Credentials** _(on-premises only)_ | Lists the credentials the installed applications need, so you can enter missing values. See [Credentials step](#credentials-step). |
 | **4. Licensing** | Depends on the environment - see [Licensing step](#licensing-step). |
 | **5. MCP server connection** | Online only. Shows the MCP server URL to add to your AI agent, the link an administrator (Global Administrator or Application Administrator in Microsoft Entra) uses to authorise the Origo Bifrost enterprise application, and links to the Bifröst connector in the AI agent stores. |
 | **6. Finish** | Choose **Finish** to approve the licence agreement for this company, register the company with the licensing service and, in a production environment, activate the trial. The assisted setup is then marked as complete. |

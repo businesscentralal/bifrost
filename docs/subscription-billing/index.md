@@ -7,7 +7,9 @@ slug: /
 description: "Microsoft's Subscription Billing app made callable — 22 Bifröst message types for contracts, the billing pipeline, usage data, deferrals and migration."
 ---
 
-Bifröst Subscription Billing makes Microsoft's **Subscription Billing** app callable from outside Business Central. It builds on Bifröst Foundation and adds 22 message types covering the operations that live behind a page action — applying a subscription package, attaching lines to a contract, running a billing proposal, releasing deferrals — so an integration, an automation job or an MCP client can drive recurring billing end to end without a person clicking through the client.
+*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+
+Bifröst Subscription Billing makes Microsoft's **Subscription Billing** app callable from outside Business Central. It builds on Bifröst Foundation and adds message types covering the operations that live behind a page action — applying a subscription package, attaching lines to a contract, running a billing proposal, releasing deferrals — so an integration, an automation job or an MCP client can drive recurring billing end to end without a person clicking through the client.
 
 Subscription Billing models recurring revenue well, but a generic record API reads and writes subscription records and then stops at the first button. This extension publishes one message type per operation that genuinely needs more than a record write: a Microsoft codeunit, record context at insert time, a stored view filter, or a preview-and-rollback run. Anything a plain read or a plain insert already covers is deliberately left to Foundation's `Data.Records.Get` and `Data.Records.Set`.
 
