@@ -2,23 +2,23 @@
 id: storage-account-list
 title: "Storage.Account.List"
 sidebar_label: "Storage.Account.List"
-sidebar_position: 2
-description: "Request and response contract for the Storage.Account.List Bifröst message type."
+sidebar_position: 8
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.Account.List."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Lists the stillt storage tengingar (kóðis, descriptions, connectors og enabled state). No secrets eru exposed.
+Listar uppsettar geymslutengingar (kóða, lýsingar, tengla og hvort þær eru virkar). Engin leyndarmál eru birt.
 
 ## Lýsigögn
-- **Direction:** Út á við
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.Account.List` og the parameters below as the `data` object.
-- **Routing:** No routing parameters. Lists every stillt tenging so you getur pick a `storageCode` fyrir the other tegunds. This er the discovery entry point — call it first.
+- **Stefna:** Út á við (Outbound)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.Account.List` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Beining:** Engar beiningarfæribreytur. Listar allar uppsettar tengingar svo þú getir valið `storageCode` fyrir hinar tegundirnar. Þetta er upphafspunktur könnunar — kallaðu á hana fyrst.
 
 ## Dæmi um beiðni
 ```json
@@ -31,28 +31,31 @@ Tókst:
 { "status": "Success", "data": ... }
 ```
 
-`data` fields:
+Reitir í `data`:
 
-| Field | Type | Lýsing |
+| Reitur | Gerð | Lýsing |
 |---|---|---|
-| `accounts` | array | One object per tenging: `{ code, description, connector, basePath, enabled }`. No secrets eru returned. |
+| `accounts` | array | Einn hlutur fyrir hverja tengingu: `{ code, description, connector, basePath, enabled }`. Engum leyndarmálum er skilað. |
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
-## Notes
-Notaðu a returned `code` as the `storageCode` on every other storage message tegund. Disabled tengingar eru listed but rejected at call time, so prefer ones með `enabled = true`.
+## Athugasemdir
+Notaðu `code` sem var skilað sem `storageCode` í öllum öðrum geymsluskilaboðategundum. Óvirkar tengingar eru listaðar en þeim er hafnað þegar kallað er, svo veldu frekar tengingar með `enabled = true`.
 
-## Next steps
-- Once you have a storageCode → call `Storage.File.Create` (pass the `code` as `storageCode` (or use any other Storage.* tegund)).
-- To upload a large skrá → call `Storage.Upload.Begin` (pass the `code` as `storageCode`).
+## Næstu skref
+- Þegar þú hefur storageCode → kallaðu á `Storage.File.Create` (sendu `code` sem `storageCode` (eða notaðu hvaða aðra Storage.*-tegund sem er)).
+- Til að hlaða upp stórri skrá → kallaðu á `Storage.Upload.Begin` (sendu `code` sem `storageCode`).
 
 ## Tengdar aðgerðir
-- **Connector overview:** `Help.Storage.Get`
+- **Yfirlit yfir tengla:** `Help.Storage.Get`
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

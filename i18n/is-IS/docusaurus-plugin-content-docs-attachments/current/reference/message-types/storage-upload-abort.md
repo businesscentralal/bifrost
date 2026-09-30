@@ -2,29 +2,29 @@
 id: storage-upload-abort
 title: "Storage.Upload.Abort"
 sidebar_label: "Storage.Upload.Abort"
-sidebar_position: 18
-description: "Request and response contract for the Storage.Upload.Abort Bifröst message type."
+sidebar_position: 24
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.Upload.Abort."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Discards an open upload session og allir its chunks án writing to storage.
+Fleygir opinni upphleðslulotu og öllum bútum hennar án þess að skrifa í geymslu.
 
 ## Lýsigögn
-- **Direction:** Inn á við (write)
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.Upload.Abort` og the parameters below as the `data` object.
-- **Routing:** Addressed by `uploadId` — the session created by `Storage.Upload.Begin`. Touches no storage.
+- **Stefna:** Inn á við (Inbound, ritun)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.Upload.Abort` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Beining:** Tilgreint með `uploadId` — lotunni sem `Storage.Upload.Begin` stofnaði. Snertir ekki geymslu.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `uploadId` | **Yes** | string (GUID) | The session returned by Storage.Upload.Begin. |
+| `uploadId` | **Já** | string (GUID) | Lotan sem Storage.Upload.Begin skilaði. |
 
 ## Dæmi um beiðni
 ```json
@@ -37,32 +37,35 @@ Tókst:
 { "status": "Success", "data": ... }
 ```
 
-`data` fields:
+Reitir í `data`:
 
-| Field | Type | Lýsing |
+| Reitur | Gerð | Lýsing |
 |---|---|---|
-| `uploadId` | string (GUID) | Echo of the discarded session id. |
-| `status` | string | Alltaf `Aborted` on success. |
+| `uploadId` | string (GUID) | Endurvarp auðkennis lotunnar sem var fleygt. |
+| `status` | string | Alltaf `Aborted` ef aðgerðin tekst. |
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
 ## Algengar villur
 
 | Villa | Úrlausn |
 |---|---|
-| No upload session was found fyrir the supplied uploadId | It may have already been committed, aborted, eða pruned; a session er private to its creator. |
-| The upload session er not open | Only an open session getur be aborted; a committed upload er already stored. |
+| Engin upphleðslulota fannst fyrir uploadId sem var gefið upp | Hugsanlega hefur þegar verið lokið við hana með Commit, hætt við hana eða henni eytt; lota er einkaeign þess sem stofnaði hana. |
+| Upphleðslulotan er ekki opin | Aðeins er hægt að hætta við opna lotu; upphleðsla sem lokið hefur verið með Commit er þegar geymd. |
 
-## Notes
-Aborting deletes the session og its chunks úr the database. It gerir ekki touch storage, because nothing has been written there yet. Uncommitted sessions eru also pruned automatically by a retention policy, so aborting er optional.
+## Athugasemdir
+Þegar hætt er við er lotunni og bútum hennar eytt úr gagnagrunninum. Eftir það skilar `Storage.Upload.Status` fyrir sama `uploadId` villunni "No upload session was found for the supplied uploadId." Geymslan er ekki snert, því ekkert hefur enn verið skrifað þangað. Lotum sem ekki er lokið með Commit er einnig eytt sjálfkrafa samkvæmt varðveislureglu, svo ekki er nauðsynlegt að hætta við.
 
-## Next steps
-- To start a fresh upload → call `Storage.Upload.Begin`.
+## Næstu skref
+- Til að byrja nýja upphleðslu → kallaðu á `Storage.Upload.Begin`.
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

@@ -2,30 +2,30 @@
 id: storage-upload-commit
 title: "Storage.Upload.Commit"
 sidebar_label: "Storage.Upload.Commit"
-sidebar_position: 21
-description: "Request and response contract for the Storage.Upload.Commit Bifröst message type."
+sidebar_position: 27
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.Upload.Commit."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Assembles an upload session's chunks og writes the skrá to the storage tenging.
+Setur búta upphleðslulotu saman og skrifar skrána í geymslutenginguna.
 
 ## Lýsigögn
-- **Direction:** Inn á við (write)
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.Upload.Commit` og the parameters below as the `data` object.
-- **External File Storage operation:** `CreateFile`
-- **Routing:** Addressed by `uploadId` — the session created by `Storage.Upload.Begin`. The destination slóð og storage tenging were fixed at Begin.
+- **Stefna:** Inn á við (Inbound, ritun)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.Upload.Commit` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Aðgerð í External File Storage:** `CreateFile`
+- **Beining:** Tilgreint með `uploadId` — lotunni sem `Storage.Upload.Begin` stofnaði. Áfangaslóðin og geymslutengingin voru ákveðnar í Begin.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `uploadId` | **Yes** | string (GUID) | The session returned by Storage.Upload.Begin, eftir allir chunks have been appended. |
+| `uploadId` | **Já** | string (GUID) | Lotan sem Storage.Upload.Begin skilaði, eftir að öllum bútum hefur verið bætt við. |
 
 ## Dæmi um beiðni
 ```json
@@ -38,39 +38,42 @@ Tókst:
 { "status": "Success", "data": ... }
 ```
 
-`data` fields:
+Reitir í `data`:
 
-| Field | Type | Lýsing |
+| Reitur | Gerð | Lýsing |
 |---|---|---|
-| `uploadId` | string (GUID) | Echo of the committed session id. |
-| `storageCode` | string | The storage tenging the skrá was written to. Carry it í Storage.Attachment.CreateLinked eða Storage.File.* calls. |
-| `path` | string | The full slóð the skrá was written to. Carry it í Storage.Attachment.CreateLinked, Storage.File.Get, etc. |
-| `contentLength` | integer | The assembled skrá size in bytes. |
+| `uploadId` | string (GUID) | Endurvarp auðkennis lotunnar sem var lokið. |
+| `storageCode` | string | Geymslutengingin sem skráin var skrifuð í. Notaðu hana áfram í Storage.Attachment.CreateLinked eða Storage.File.*-köllum. |
+| `path` | string | Öll slóðin sem skráin var skrifuð á. Notaðu hana áfram í Storage.Attachment.CreateLinked, Storage.File.Get o.s.frv. |
+| `contentLength` | integer | Stærð samsettu skrárinnar í bætum. |
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
 ## Algengar villur
 
 | Villa | Úrlausn |
 |---|---|
-| The upload session has no chunks to commit | Append at least one chunk með Storage.Upload.Append áður en committing. |
-| The upload session er missing one eða more chunks | Sequence numbers eru not contiguous; re-append the missing sequence(s) áður en committing. |
-| The received size gerir ekki match the declared size | A chunk er missing eða truncated; re-append it, eða begin again án declaredSize. |
-| The upload session er not open | It was already committed eða aborted; begin a new session. |
-| This upload session has no storage tenging | The session was begun án a storageCode. Notaðu Storage.Upload.CommitToRecord to attach it to a færsla án external storage, eða begin a new session með a storageCode. |
+| Upphleðslulotan hefur enga búta til að ljúka | Bættu við að minnsta kosti einum bút með Storage.Upload.Append áður en þú kallar á Commit. |
+| Það vantar einn eða fleiri búta í upphleðslulotuna | Rununúmerin eru ekki samfelld; bættu týndu rununni (eða runum) við aftur áður en þú kallar á Commit. |
+| Móttekin stærð passar ekki við uppgefna stærð | Bút vantar eða hann er styttur; bættu honum við aftur eða hefðu nýja lotu án declaredSize. |
+| Upphleðslulotan er ekki opin | Henni hefur þegar verið lokið með Commit eða hætt við hana; hefðu nýja lotu. |
+| Þessi upphleðslulota hefur enga geymslutengingu | Lotan var hafin án storageCode. Notaðu Storage.Upload.CommitToRecord til að tengja hana við færslu án ytri geymslu, eða hefðu nýja lotu með storageCode. |
 
-## Notes
-Commit assembles the chunks in ascending sequence order, writes the skrá last (after the database work, so a failure rolls back cleanly), og removes the chunks. Writing to an existing slóð overwrites it on connectors such as Azure Blob. This message tegund requires a storageCode on the session — use Storage.Upload.CommitToRecord instead ef you want to attach the skrá directly to a færsla án external storage.
+## Athugasemdir
+Commit setur bútana saman í hækkandi runuröð, skrifar skrána síðast (á eftir gagnagrunnsvinnslunni, svo villa afturkallast hreint) og eyðir bútunum. Ef skrifað er á slóð sem þegar er til er skrifað yfir hana hjá tenglum á borð við Azure Blob. Þessi skilaboðategund krefst storageCode á lotunni — notaðu Storage.Upload.CommitToRecord í staðinn ef þú vilt tengja skrána beint við færslu án ytri geymslu.
 
-## Next steps
-- To attach the skrá to a new eða existing incoming skjal → call `Storage.Attachment.CreateLinked` (pass the returned `storageCode` og `path`).
-- To attach the skrá to any master færsla (born offloaded) → call `Storage.Attachment.CreateForRecord` (pass the returned `storageCode` og `path` as innihald source 2).
-- To download eða confirm the stored skrá → call `Storage.File.Get` (pass the returned `storageCode` og `path`).
+## Næstu skref
+- Til að tengja skrána við nýtt eða fyrirliggjandi innkomið fylgiskjal → kallaðu á `Storage.Attachment.CreateLinked` (sendu `storageCode` og `path` sem var skilað).
+- Til að tengja skrána við hvaða aðalfærslu sem er (vistuð í geymslu frá upphafi) → kallaðu á `Storage.Attachment.CreateForRecord` (sendu `storageCode` og `path` sem var skilað sem innihaldsuppruna 2).
+- Til að hlaða niður eða staðfesta geymdu skrána → kallaðu á `Storage.File.Get` (sendu `storageCode` og `path` sem var skilað).
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

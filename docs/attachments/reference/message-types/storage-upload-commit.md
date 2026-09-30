@@ -2,13 +2,13 @@
 id: storage-upload-commit
 title: "Storage.Upload.Commit"
 sidebar_label: "Storage.Upload.Commit"
-sidebar_position: 21
+sidebar_position: 27
 description: "Request and response contract for the Storage.Upload.Commit Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
-`tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+`tools/generate-message-type-docs-from-source.mjs`. Edit the help codeunit in the app, not this file.
 :::
 
 
@@ -73,4 +73,7 @@ Commit assembles the chunks in ascending sequence order, writes the file last (a
 
 ---
 Connector overview and the list of configured connections: request help for `Help.Storage.Get` and call `Storage.Account.List`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

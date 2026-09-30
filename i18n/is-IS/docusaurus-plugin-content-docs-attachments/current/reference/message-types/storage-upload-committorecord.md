@@ -2,37 +2,37 @@
 id: storage-upload-committorecord
 title: "Storage.Upload.CommitToRecord"
 sidebar_label: "Storage.Upload.CommitToRecord"
-sidebar_position: 22
-description: "Request and response contract for the Storage.Upload.CommitToRecord Bifröst message type."
+sidebar_position: 28
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.Upload.CommitToRecord."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Assembles uploaded chunks og attaches the skrá directly to a færsla án external storage.
+Setur upphlaðna búta saman og tengir skrána beint við færslu án ytri geymslu.
 
 ## Lýsigögn
-- **Direction:** Inn á við (write)
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.Upload.CommitToRecord` og the parameters below as the `data` object.
-- **Routing:** Addressed by `uploadId` úr a prior `Storage.Upload.Begin`. Stilltu `target` to choose the attachment tegund. For DocumentAttachment (sjálfgefið), address the færsla með `tableId`/`tableName` plus `recordSystemId` eða `no`. For IncomingDocument, optionally supply `incomingDocumentEntryNo`. No `storageCode` er needed.
+- **Stefna:** Inn á við (Inbound, ritun)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.Upload.CommitToRecord` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Beining:** Tilgreint með `uploadId` úr fyrra `Storage.Upload.Begin`. Stilltu `target` til að velja gerð viðhengis. Fyrir DocumentAttachment (sjálfgefið) er færslan tilgreind með `tableId`/`tableName` ásamt `recordSystemId` eða `no`. Fyrir IncomingDocument má gefa upp `incomingDocumentEntryNo`. Enginn `storageCode` er nauðsynlegur.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `uploadId` | **Yes** | string (GUID) | The session returned by Storage.Upload.Begin. |
-| `target` | No | string | 'DocumentAttachment' (sjálfgefið) eða 'IncomingDocument'. Controls which attachment table the skrá er written to. |
-| `tableId` | No | integer | DocumentAttachment: table the attachment belongs to. 18 = Customer, 23 = Vendor, 36 = Sales Header (use færslaSystemId), 112 = Sales Invoice Header, 5600 = Fixed Asset, etc. |
-| `tableName` | No | string | DocumentAttachment: table heiti instead of tableId. |
-| `recordSystemId` | No | string (GUID) | DocumentAttachment: SystemId of the færsla. Nauðsynlegt fyrir tables með composite keys (sales/purchase skjöl). |
-| `no` | No | string | DocumentAttachment: primary key of the færsla. Only fyrir single Code key tables. |
-| `incomingDocumentEntryNo` | No | integer | IncomingDocument: attach to this existing incoming skjal. Sleppið to create a new one. |
-| `description` | No | string | IncomingDocument: description fyrir a new incoming skjal. Sjálfgefið er skráName. |
-| `fileName` | No | string | Overrides the skrá heiti úr Begin. Ef omitted, the session's original skráName er used. |
+| `uploadId` | **Já** | string (GUID) | Lotan sem Storage.Upload.Begin skilaði. |
+| `target` | Nei | string | 'DocumentAttachment' (sjálfgefið) eða 'IncomingDocument'. Stýrir því í hvaða viðhengjatöflu skráin er skrifuð. |
+| `tableId` | Nei | integer | DocumentAttachment: taflan sem viðhengið tilheyrir. 18 = Customer, 23 = Vendor, 36 = Sales Header (notaðu recordSystemId), 112 = Sales Invoice Header, 5600 = Fixed Asset, o.s.frv. |
+| `tableName` | Nei | string | DocumentAttachment: heiti töflunnar í stað tableId. |
+| `recordSystemId` | Nei | string (GUID) | DocumentAttachment: SystemId færslunnar. Nauðsynlegt fyrir töflur með samsettan lykil (sölu-/innkaupafylgiskjöl). |
+| `no` | Nei | string | DocumentAttachment: aðallykill færslunnar. Aðeins fyrir töflur með einn Code-lykil. |
+| `incomingDocumentEntryNo` | Nei | integer | IncomingDocument: tengja við þetta fyrirliggjandi innkomna fylgiskjal. Slepptu til að búa til nýtt. |
+| `description` | Nei | string | IncomingDocument: lýsing fyrir nýtt innkomið fylgiskjal. Sjálfgefið er fileName. |
+| `fileName` | Nei | string | Kemur í stað skráarheitisins úr Begin. Ef því er sleppt er upprunalegt fileName lotunnar notað. |
 
 ## Dæmi um beiðni
 ```json
@@ -45,40 +45,43 @@ Tókst:
 { "status": "Success", "data": ... }
 ```
 
-`data` fields:
+Reitir í `data`:
 
-| Field | Type | Lýsing |
+| Reitur | Gerð | Lýsing |
 |---|---|---|
 | `target` | string | `DocumentAttachment` eða `IncomingDocument`. |
-| `tableId` | integer | DocumentAttachment: the table the attachment was created on. |
-| `no` | string | DocumentAttachment: the færsla key. |
-| `incomingDocumentEntryNo` | integer | IncomingDocument: entry no. of the incoming skjal. |
-| `systemId` | string (GUID) | SystemId of the new attachment. |
-| `fileName` | string | The final attachment skrá heiti. |
-| `contentLength` | integer | The skrá size in bytes. |
-| `offloaded` | boolean | Alltaf false — innihald er stored in the database. |
+| `tableId` | integer | DocumentAttachment: taflan sem viðhengið var búið til á. |
+| `no` | string | DocumentAttachment: lykill færslunnar. |
+| `incomingDocumentEntryNo` | integer | IncomingDocument: færslunúmer innkomna fylgiskjalsins. |
+| `systemId` | string (GUID) | SystemId nýja viðhengisins. |
+| `fileName` | string | Endanlegt skráarheiti viðhengisins. |
+| `contentLength` | integer | Stærð skrárinnar í bætum. |
+| `offloaded` | boolean | Alltaf false — innihaldið er geymt í gagnagrunninum. |
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
 ## Algengar villur
 
 | Villa | Úrlausn |
 |---|---|
-| No upload session was found | Begin a session first með Storage.Upload.Begin. |
-| The upload session er not open | It was already committed eða aborted; begin a new session. |
-| No færsla was found in table | DocumentAttachment: the host færsla verður exist. |
-| Unknown target | Notaðu 'DocumentAttachment' eða 'IncomingDocument'. |
+| Engin upphleðslulota fannst | Byrjaðu lotu fyrst með Storage.Upload.Begin. |
+| Upphleðslulotan er ekki opin | Henni hefur þegar verið lokið með Commit eða hætt við hana; hefðu nýja lotu. |
+| Engin færsla fannst í töflunni | DocumentAttachment: hýsilfærslan verður að vera til. |
+| Óþekkt markmið | Notaðu 'DocumentAttachment' eða 'IncomingDocument'. |
 
-## Notes
-The storage-free alternative to Storage.Upload.Commit. Chunks eru assembled og written directly í the database — no external storage tenging er needed. Begin the session með eða án a `storageCode`; omitting it creates a buffer-only session.\\### Workflow\1. `Storage.Upload.Begin` með `fileName` (storageCode er optional).\2. `Storage.Upload.Append` once per chunk.\3. `Storage.Upload.CommitToRecord` með `uploadId` + target + færsla address.\\### Target differences\- **DocumentAttachment** (sjálfgefið): requires `tableId`/`tableName` + `no`/`recordSystemId`. Works fyrir master færslur (Customer, Vendor, FA) og skjöl (Sales Header via færslaSystemId, Posted Sales Invoice via no).\- **IncomingDocument**: creates eða reuses an incoming skjal. Valfrjálstly pass `incomingDocumentEntryNo` to attach to an existing one.
+## Athugasemdir
+Valkosturinn án geymslu í stað Storage.Upload.Commit. Bútar eru settir saman og skrifaðir beint í gagnagrunninn — engin ytri geymslutenging er nauðsynleg. Hefðu lotuna með eða án `storageCode`; ef honum er sleppt verður til lota sem notar eingöngu biðminni.\\### Vinnuferli\1. `Storage.Upload.Begin` með `fileName` (storageCode er valfrjálst).\2. `Storage.Upload.Append` einu sinni fyrir hvern bút.\3. `Storage.Upload.CommitToRecord` með `uploadId` + target + færsluvistfangi.\\### Munur á markmiðum\- **DocumentAttachment** (sjálfgefið): krefst `tableId`/`tableName` + `no`/`recordSystemId`. Virkar fyrir aðalfærslur (Customer, Vendor, FA) og fylgiskjöl (Sales Header með recordSystemId, Posted Sales Invoice með no).\- **IncomingDocument**: býr til eða endurnýtir innkomið fylgiskjal. Sendu `incomingDocumentEntryNo` ef tengja á við fyrirliggjandi fylgiskjal.
 
-## Next steps
-- To offload the attachment to storage later → call `Storage.Attachment.Offload` (pass the returned `target` og `systemId`).
+## Næstu skref
+- Til að flytja viðhengið út í geymslu síðar → kallaðu á `Storage.Attachment.Offload` (sendu skilaða `target` og `systemId`).
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 

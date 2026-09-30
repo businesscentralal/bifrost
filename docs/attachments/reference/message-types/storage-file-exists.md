@@ -2,13 +2,13 @@
 id: storage-file-exists
 title: "Storage.File.Exists"
 sidebar_label: "Storage.File.Exists"
-sidebar_position: 14
+sidebar_position: 20
 description: "Request and response contract for the Storage.File.Exists Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
-`tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+`tools/generate-message-type-docs-from-source.mjs`. Edit the help codeunit in the app, not this file.
 :::
 
 
@@ -51,4 +51,7 @@ Always branch on `status` before reading `data`.
 
 ---
 Connector overview and the list of configured connections: request help for `Help.Storage.Get` and call `Storage.Account.List`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

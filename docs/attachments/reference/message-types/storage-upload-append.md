@@ -2,13 +2,13 @@
 id: storage-upload-append
 title: "Storage.Upload.Append"
 sidebar_label: "Storage.Upload.Append"
-sidebar_position: 19
+sidebar_position: 25
 description: "Request and response contract for the Storage.Upload.Append Bifröst message type."
 ---
 
 :::info Generated page
 This page is generated from the message type's own help codeunit by
-`tools/generate-message-type-docs.ps1`. Edit the help codeunit in the app, not this file.
+`tools/generate-message-type-docs-from-source.mjs`. Edit the help codeunit in the app, not this file.
 :::
 
 
@@ -74,4 +74,7 @@ Send chunks in order (sequence 1, 2, 3, ...). This call is idempotent per sequen
 
 ---
 Connector overview and the list of configured connections: request help for `Help.Storage.Get` and call `Storage.Account.List`.
+
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

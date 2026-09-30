@@ -2,32 +2,32 @@
 id: storage-file-create
 title: "Storage.File.Create"
 sidebar_label: "Storage.File.Create"
-sidebar_position: 12
-description: "Request and response contract for the Storage.File.Create Bifröst message type."
+sidebar_position: 18
+description: "Beiðni- og svarsamningur fyrir Bifröst-skilaboðategundina Storage.File.Create."
 ---
 
 :::info Mynduð síða
-Þessi síða er mynduð úr eigin hjálparkóðaeiningu skilaboðategundarinnar með
-`tools/generate-message-type-docs.ps1`. Breyttu hjálparkóðaeiningunni í forritinu, ekki þessari skrá.
+Þessi síða er mynduð úr eigin hjálparkóða skilaboðategundarinnar með
+`tools/generate-message-type-docs-from-source.mjs`. Breyttu hjálparkóðanum í forritinu, ekki þessari skrá.
 :::
 
 
-Hleður upp one small base64 skrá to a slóð. For larger skrár, use Storage.Upload.Begin/Append/Commit.
+Hleður einni lítilli base64-skrá upp á slóð. Fyrir stærri skrár skaltu nota Storage.Upload.Begin/Append/Commit.
 
 ## Lýsigögn
-- **Direction:** Út á við
-- **Gagnategund:** text/json
-- **Kalla:** call the `call_message_type` tool með `type` = `Storage.File.Create` og the parameters below as the `data` object.
-- **External File Storage operation:** `CreateFile`
-- **Routing:** Beiðninnar `storageCode` velur a `Bifrost Storage Setup` row; the action runs against that row's skrá account. Discover kóðis með `Storage.Account.List`.
+- **Stefna:** Út á við (Outbound)
+- **Efnisgerð (Content-Type):** text/json
+- **Köllun:** kallaðu á tólið `call_message_type` með `type` = `Storage.File.Create` og færibreyturnar hér að neðan sem `data`-hlutinn.
+- **Aðgerð í External File Storage:** `CreateFile`
+- **Beining:** `storageCode` beiðninnar velur línu í `Bifrost Storage Setup` og aðgerðin keyrir á skráarreikningi þeirrar línu. Finndu kóðana með `Storage.Account.List`.
 
 ## Færibreytur
 
-| Parameter | Nauðsynlegt | Type | Lýsing |
+| Færibreyta | Nauðsynleg | Gerð | Lýsing |
 |---|---|---|---|
-| `storageCode` | **Yes** | string | Stillta storage tenging til notkunar. Finndu með Storage.Account.List. |
-| `path` | **Yes** | string | The destination skrá slóð (relative to the tenging base slóð). |
-| `contentBase64` | **Yes** | base64 string | The complete skrá innihald, base64-enkóðid. Keep single-call uploads small; use Storage.Upload.Begin fyrir larger skrár. |
+| `storageCode` | **Já** | string | Uppsetta geymslutengingin sem á að nota. Finndu hana með Storage.Account.List. |
+| `path` | **Já** | string | Áfangaslóð skrárinnar (miðað við grunnslóð tengingarinnar). |
+| `contentBase64` | **Já** | base64 string | Allt innihald skrárinnar, base64-kóðað. Hafðu upphleðslur í einu kalli litlar; notaðu Storage.Upload.Begin fyrir stærri skrár. |
 
 ## Dæmi um beiðni
 ```json
@@ -39,27 +39,34 @@ Tókst:
 ```json
 { "status": "Success", "data": ... }
 ```
-`data` inniheldur `path` og `contentLength` (the number of bytes stored).
+`data` inniheldur `path` og `contentLength` (fjölda geymdra bæta).
 
-Mistókst (the framework wraps any raised villa):
+Mistókst (umgjörðin pakkar sjálfkrafa inn öllum villum sem koma upp):
 ```json
 { "status": "Error", "error": "<message>" }
 ```
-Alltaf branch on `status` áður en reading `data`.
+Athugaðu alltaf `status` áður en þú lest `data`.
 
 ## Algengar villur
 
 | Villa | Úrlausn |
 |---|---|
-| Invalid base64 innihald | Gakktu úr skugga um innihaldBase64 er valid base64 með no surrounding whitespace eða data-URI prefix. |
-| Path fannst ekki | Create the parent mappa first með Storage.Directory.Create þar sem the connector requires it. |
+| Ógilt base64-innihald | Gakktu úr skugga um að contentBase64 sé gilt base64 án bila í kring eða data-URI-forskeytis. |
+| Slóð fannst ekki | Búðu fyrst til yfirmöppuna með Storage.Directory.Create ef tengillinn krefst þess. |
 
-## Notes
-Notaðu this message tegund fyrir small skrár that fit comfortably in one Bifrost request. For predictable large-skrá uploads, use `Storage.Upload.Begin`, append chunks of at most 49152 RAW bytes hver (about 64 KB base64), then call `Storage.Upload.Commit`. Creating a skrá at an existing slóð overwrites it on connectors that support overwrite (for example Azure Blob).
+## Hliðarverkanir
+
+Skrifar (og getur skrifað yfir) skrá í ytri geymslu þótt Direction sé Outbound. Líttu á það sem skrift þegar beðið er um staðfestingu.
+
+## Athugasemdir
+Notaðu þessa skilaboðategund fyrir litlar skrár sem rúmast vel í einni Bifrost-beiðni. Fyrir fyrirsjáanlegar upphleðslur stórra skráa skaltu nota `Storage.Upload.Begin`, bæta við bútum sem eru í mesta lagi 49152 RAW-bæti hver (um 64 KB í base64) og kalla svo á `Storage.Upload.Commit`. Ef skrá er búin til á slóð sem þegar er til er skrifað yfir hana hjá tenglum sem styðja yfirskrift (t.d. Azure Blob).
 
 ## Tengdar aðgerðir
-- **Upload a larger skrá in parts:** `Storage.Upload.Begin`\- **Download the skrá:** `Storage.File.Get`\- **Delete the skrá:** `Storage.File.Delete`
+- **Hlaða upp stærri skrá í hlutum:** `Storage.Upload.Begin`\- **Sækja skrána:** `Storage.File.Get`\- **Eyða skránni:** `Storage.File.Delete`
 
 ---
-Connector overview og the list of stillt tengingar: request help fyrir `Help.Storage.Get` og call `Storage.Account.List`.
+Yfirlit yfir tengilinn og lista yfir stilltar tengingar: sæktu hjálpina fyrir `Help.Storage.Get` og kallaðu á `Storage.Account.List`.
+
+## Villur og viðvaranir
+Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
 
