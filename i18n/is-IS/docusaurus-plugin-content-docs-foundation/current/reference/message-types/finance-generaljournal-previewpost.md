@@ -85,7 +85,7 @@ First match wins:
 | `postingDate` | string | `Posting Date` of the first line. |
 | `lcyCode` | string | `GLSetup."LCY Code"`. |
 | `predictedDocumentNos` | string[] | Distinct `Document No.` values across the previewed G/L entries. The actual document numbers BC would assign — useful when a No. Series is configured. |
-| `totals.balanced` | bool | `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. |
+| `totals.balanced` | bool | Present only when G/L entries were captured (`glEntryCount > 0`): `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Omitted when the posting creates no G/L entry. |
 | `totals.totalDebitLCY` / `totalCreditLCY` | decimal | Aggregated from the previewed G/L entries. |
 | `preview[]` | array | One element per populated ledger / journal table that BC would write to (G/L Entry, VAT Entry, Cust. Ledger Entry, Vendor Ledger Entry, Bank Account Ledger Entry, FA Ledger Entry, Employee Ledger Entry, etc.). |
 | `preview[].tableId` / `tableName` | int / string | BC table identification. |
@@ -99,10 +99,20 @@ From `Gen. Jnl. Prev. Post Tests` (codeunit 95389):
 - `PreviewPost_BalancedBatch_DoesNotCreateGLRegister` — verifies no `G/L Register` row is created (the preview is in-memory only).
 - `PreviewPost_BalancedBatch_ReturnsBatchContextAndPreviewArray` — verifies the batch context fields (`templateName`, `batchName`, `linesToPost`) and that `preview[]` contains a populated `G/L Entry` element.
 
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: Run `Finance.GeneralJournal.Check` to see which lines are incomplete.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+- **Empty lines** (lines posting would skip): `linesInBatch` and `skippedLines` are always present. When `skippedLines > 0` the answer stays `Success` and adds a `LinesSkipped` warning ("2 of 3 lines are empty and would be skipped by posting."), a `nextStep` naming `Finance.GeneralJournal.Check`, and the same sentence in `summary`. When every line is empty, nothing would be posted (above).
+
 ## Errors
 
 | Error | Cause |
 |---|---|
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: Run `Finance.GeneralJournal.Check` to see which lines are incomplete. |
 | `Journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
 | `Gen. Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |

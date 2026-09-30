@@ -12,58 +12,58 @@ description: "Beiðni- og svarsamningur fyrir Warehouse.Receipt.Post.Preview Bif
 :::
 
 
-## Yfirlit
+## Overview
 
-Simulates posting a Warehouse Receipt og Skilar the captured bók færslur (vöru bók og Gildi færsla — Sjá Captured töflur below) án committing. The post er driven through `Whse.-Post Receipt (Yes/No)` (codeunit 5761) bound með `EventSubscriberInstance = Manual`, whose `OnRunPreview` subscriber Stillir preview mode on `Whse.-Post Receipt` (5760). The transaction er rolled back eftir capture via BC's Posting Preview Event Handler.
+Simulates posting a Warehouse Receipt and returns the captured ledger entries (Item Ledger and Value Entry — see Captured Tables below) without committing. The post is driven through `Whse.-Post Receipt (Yes/No)` (codeunit 5761) bound with `EventSubscriberInstance = Manual`, whose `OnRunPreview` subscriber sets preview mode on `Whse.-Post Receipt` (5760). The transaction is rolled back after capture via BC's Posting Preview Event Handler.
 
-nota this til verify what `Warehouse.Receipt.Post` would produce — predicted posted skjal numbers, bók impact, balanced/unbalanced — áður en committing.
+Use this to verify what `Warehouse.Receipt.Post` would produce — predicted posted document numbers, ledger impact, balanced/unbalanced — before committing.
 
-**Stefna**: Innkomandi (no state change — rolled back)  **Efnisgerð**: `text/json`
+**Direction**: Inbound (no state change — rolled back)  **Content-Type**: `text/json`
 
-## Captured töflur
+## Captured Tables
 
-BC's Posting Preview aðeins captures inserts í a fixed whitelist of töflur. fyrir a Warehouse Receipt post the captured set er:
+BC's Posting Preview only captures inserts into a fixed whitelist of tables. For a Warehouse Receipt post the captured set is:
 
-| tafla ID | tafla | Always present? |
+| Table ID | Table | Always present? |
 |---|---|---|
-| 32 | vöru bók færsla | Yes — one færsla per receipt line. |
-| 5802 | Gildi færsla | Yes — one Direct Cost færsla per receipt line. |
-| 17 | G/L færsla | aðeins ef cost adjustment runs inline. Receipts normally produce **none**. |
+| 32 | Item Ledger Entry | Yes — one entry per receipt line. |
+| 5802 | Value Entry | Yes — one Direct Cost entry per receipt line. |
+| 17 | G/L Entry | Only if cost adjustment runs inline. Receipts normally produce **none**. |
 
-`Posted Whse. Receipt Header` (tafla 7320) er **ekki** in BC's preview whitelist — so the impl never observes its insert during preview. As a result `predictedNumbers.postedWhseReceiptNo` er always emitted but er **always empty** in Svarið. (Confirmed via live MCP test.)
+`Posted Whse. Receipt Header` (table 7320) is **NOT** in BC's preview whitelist — so the impl never observes its insert during preview. As a result `predictedNumbers.postedWhseReceiptNo` is always emitted but is **always empty** in the response. (Confirmed via live MCP test.)
 
 ## Preconditions
 
-sama as `Warehouse.Receipt.Post`: the Warehouse Receipt Header verður að exist, contain at least one line með `Qty. to Receive > 0`, og hvaða directed put-away bin requirements verður að already be satisfied.
+Same as `Warehouse.Receipt.Post`: the Warehouse Receipt Header must exist, contain at least one line with `Qty. to Receive > 0`, and any directed put-away bin requirements must already be satisfied.
 
-## Forgangsröð auðkenna
+## Identifier Resolution Order
 
-1. `subject` Reitur (GUID → `SystemId`, text → `No.`).
+1. `subject` field (GUID → `SystemId`, text → `No.`).
 2. Request JSON `systemId` / `recordSystemId` / `id` (GUID).
 3. Request JSON `receiptNo` / `no` (text).
 
-## Athugasemdir um endurtekningar og öryggi
+## Idempotency / Safety Notes
 
-- **lesa-aðeins**: BC's Gen. Jnl.-Post Preview always rolls back the transaction eftir capturing færslur. No data er persisted.
-- No Bókunarheimild áskilið (no state change).
-- númer series advance og then roll back — the predicted posted skjal numbers eru the numbers BC would have assigned but eru released back til the series.
+- **Read-only**: BC's Gen. Jnl.-Post Preview always rolls back the transaction after capturing entries. No data is persisted.
+- No Posting Gate required (no state change).
+- Number series advance and then roll back — the predicted posted document numbers are the numbers BC would have assigned but are released back to the series.
 
-## Beiðnibreytur
+## Request Parameters
 
-| Færibreyta | Gerð | áskilið | Athugasemdir |
+| Parameter | Type | Required | Notes |
 |---|---|---|---|
-| `subject` | text/guid | One identifier áskilið | Bifrost subject. |
+| `subject` | text/guid | One identifier required | Bifrost subject. |
 | `systemId` / `recordSystemId` / `id` | guid | (alternative) | In request JSON. |
 | `receiptNo` / `no` | code[20] | (alternative) | In request JSON. |
 
-### Dæmi um beiðni
+### Request Example
 ```json
 { "receiptNo": "WR001001" }
 ```
 
-## Uppbygging svars
+## Response Shape
 
-Verified live (Purchase Order receipt at GULUR, 5 × vöru 1896-S):
+Verified live (Purchase Order receipt at GULUR, 5 × item 1896-S):
 
 ```json
 {
@@ -92,51 +92,63 @@ Verified live (Purchase Order receipt at GULUR, 5 × vöru 1896-S):
 }
 ```
 
-### númer Redaction (`***`)
+### Number Redaction (`***`)
 
-BC's Posting Preview redacts assigned skjal numbers til `***` til signal they were rolled back rather than persisted. Affects:
+BC's Posting Preview redacts assigned document numbers to `***` to signal they were rolled back rather than persisted. Affects:
 
-- `predictedNumbers.postedPurchaseReceiptNo` / `postedReturnReceiptNo` / `postedTransferReceiptNo` — always `***` fyrir Posting Preview.
-- `preview[].entries[].fields.DocumentNo_` on vöru bók færsla / Gildi færsla rows — einnig `***`.
+- `predictedNumbers.postedPurchaseReceiptNo` / `postedReturnReceiptNo` / `postedTransferReceiptNo` — always `***` for Posting Preview.
+- `preview[].entries[].fields.DocumentNo_` on Item Ledger Entry / Value Entry rows — also `***`.
 
-Treat `***` as "the system would have assigned a númer úr the corresponding No. Series". nota `Warehouse.Receipt.Post` til obtain the actual númer.
+Treat `***` as "the system would have assigned a number from the corresponding No. Series". Use `Warehouse.Receipt.Post` to obtain the actual number.
 
 ### Predicted Numbers — which key appears
 
-| Uppruni on the receipt | Key in `predictedNumbers` | Gildi in preview |
+| Source on the receipt | Key in `predictedNumbers` | Value in preview |
 |---|---|---|
-| Purchase Order | `postedPurchaseReceiptNo` | `***` (redacted með BC) |
-| Sales Return Order | `postedReturnReceiptNo` | `***` (redacted með BC) |
-| Innkomandi Transfer Order | `postedTransferReceiptNo` | `***` (redacted með BC) |
+| Purchase Order | `postedPurchaseReceiptNo` | `***` (redacted by BC) |
+| Sales Return Order | `postedReturnReceiptNo` | `***` (redacted by BC) |
+| Inbound Transfer Order | `postedTransferReceiptNo` | `***` (redacted by BC) |
 
-`postedWhseReceiptNo` er always emitted but er **always empty** in preview because BC's Posting Preview does ekki capture inserts í `Posted Whse. Receipt Header` (tafla 7320). til obtain the real númer, run `Warehouse.Receipt.Post`.
+`postedWhseReceiptNo` is always emitted but is **always empty** in preview because BC's Posting Preview does not capture inserts into `Posted Whse. Receipt Header` (table 7320). To obtain the real number, run `Warehouse.Receipt.Post`.
 
 ### Totals — balanced flag
 
-Warehouse Receipts typically have **no direct G/L impact** (inventory recognised at cost, ekki at booking) — `balanced = true` með `totalDebitLCY = totalCreditLCY = 0`. ef the receipt triggers an automatic cost adjustment, the captured G/L færslur mun appear in `preview` og the totals mun reflect them.
+Warehouse receipts often have **no direct G/L impact** (inventory recognised at cost, not at booking): then `glEntryCount` is 0, `totals.balanced` is omitted and `totalDebitLCY = totalCreditLCY = 0`. If the receipt triggers an automatic cost adjustment, the captured G/L entries appear in `preview`, and `totals.balanced` says whether they balance.
 
-## Bókunarheimild
+## Posting Gate
 
-None — preview does ekki commit.
+None — preview does not commit.
 
-## Reitur takmarkanir
+## Field Restrictions
 
 None.
 
-## Villur
+## Preview Outcome
 
-| Villa | Orsök |
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: No receipt line has Qty. to Receive. Set quantities on the receipt lines.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+
+## Errors
+
+| Error | Cause |
 |---|---|
-| `Warehouse Receipt Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, receiptNo, no.` (`MissingParameter`); gefið en fannst ekki: `Warehouse Receipt Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | None of subject, systemId, recordSystemId, id, no, receiptNo resolved a header. (Exact wording — verified live.) |
-| `Warehouse Receipt {No} has no lines to post.` | No lines eða all Qty. til Receive = 0. |
-| `Posting preview failed and no entries were captured ...` | Underlying `Whse.-Post Receipt` raised an Villa áður en capturing færslur (e.g. vantar Bin Code, blocked vöru). The original BC Villa text er bubbled through. |
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: No receipt line has Qty. to Receive. Set quantities on the receipt lines. |
+| `Warehouse Receipt Header identifier is missing. Pass it as the subject, or as one of: systemId, recordSystemId, id, receiptNo, no.` (`MissingParameter`) | No identifier in `subject` or the request JSON. |
+| `Warehouse Receipt Header "{value}" was not found (from {subject or key}).` (`RecordNotFound`) | An identifier was given but matches no record; `parameter` and `received` name it. Every identifier supplied is tried. |
+| `The identifiers in {a} and {b} point to different records.` (`ConflictingIdentifiers`) | Two identifiers were given that resolve to different records. |
+| `"{value}" is not a valid GUID` / `integer` `(from {key}).` (`InvalidParameterFormat`) | A SystemId or entry number that cannot be read. |
+| `Warehouse Receipt {No} has no lines to post.` | No lines or all Qty. to Receive = 0. |
+| `Posting preview failed and no entries were captured ...` | Underlying `Whse.-Post Receipt` raised an error before capturing entries (e.g. missing Bin Code, blocked item). The original BC error text is bubbled through. |
 
-## Tengdar skilaboðategundir
+## Related Message Types
 
-- `Warehouse.Receipt.Post` — commit the actual posting eftir preview looks correct.
-- `Warehouse.Receipt.Create` — create the receipt áður en previewing it.
-- `Inventory.TransferOrder.PreviewPost` — analogous preview fyrir transfer orders.
+- `Warehouse.Receipt.Post` — commit the actual posting after preview looks correct.
+- `Warehouse.Receipt.Create` — create the receipt before previewing it.
+- `Inventory.TransferOrder.PreviewPost` — analogous preview for transfer orders.
 
-## Villur og viðvaranir
-Villur og viðvaranir fylgja sameiginlega sniðinu - sjá [Villur og viðvaranir](/foundation/reference/errors/).
+## Errors and warnings
+Errors and warnings follow the shared shape - see [Errors and warnings](/foundation/reference/errors/).
 

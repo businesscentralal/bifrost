@@ -47,7 +47,7 @@ First match wins:
 {
   "status": "Success",
   "rollback": true,
-  "summary": "Preview-posting item journal batch ITEM|DEFAULT (2 lines) would create 4 ledger entries across 2 tables. G/L impact is balanced.",
+  "summary": "Preview-posting item journal batch ITEM|DEFAULT (2 lines) would create 4 ledger entries across 2 tables. Transaction is balanced.",
   "templateName": "ITEM",
   "batchName": "DEFAULT",
   "batchDescription": "Default Journal Batch",
@@ -85,7 +85,7 @@ First match wins:
 | `lcyCode` | string | `GLSetup."LCY Code"`. |
 | `batchDescription` | string | The batch's `Description` field. May be empty when the batch has no description. |
 | `predictedDocumentNos` | string[] | Distinct `Document No.` values across the previewed G/L entries. May contain the literal `"***"` when BC's preview engine masks an unassigned number-series value. Empty when the journal does not produce G/L impact. |
-| `totals.balanced` | bool | `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Always true when no G/L entries are produced. |
+| `totals.balanced` | bool | Present only when G/L entries were captured (`glEntryCount > 0`): `true` when `Round(totalDebitLCY - totalCreditLCY, 0.01) = 0`. Omitted when the posting creates no G/L entry. |
 | `totals.totalDebitLCY` / `totalCreditLCY` | decimal | Aggregated from the previewed G/L entries (zero when none). |
 | `preview[]` | array | One element per populated ledger / journal table that BC would write to (`Item Ledger Entry`, `Value Entry`, `G/L Entry`, `VAT Entry`, etc.). |
 | `preview[].tableId` / `tableName` | int / string | BC table identification. |
@@ -100,12 +100,22 @@ From `Item Jnl. Prev. Post Tests` (codeunit 95436):
 - `PreviewPost_PostableBatch_DoesNotCreateItemLedgerEntry` — verifies that no `Item Ledger Entry` row is actually persisted (the preview is in-memory only).
 - `PreviewPost_PostableBatch_ReturnsBatchContextAndPreviewArray` — verifies the batch context fields (`templateName`, `batchName`, `linesToPost`) and that `preview[]` contains at least one populated table.
 
+## Preview Outcome
+
+The preview answers `Success` only when it captured at least one entry. Every answer carries `entryCount` (all captured entries) and `glEntryCount` (the G/L entries among them).
+
+- **Nothing would be posted** (no entry captured, or BC reports that there is nothing to post): `status: Error`, `code: NothingToPreview`, `error: "The preview produced no entries. Nothing would be posted."` and a `nextStep`: Run `Inventory.ItemJournal.Check` to see which lines are incomplete.
+- **No G/L entries** (for example item or value entries with Automatic Cost Posting off): `Success` with `glEntryCount: 0` and **no** `totals.balanced`; the summary says "No G/L entries would be posted."
+- **G/L entries**: `totals.balanced` as described above.
+- **Empty lines** (lines posting would skip): `linesInBatch` and `skippedLines` are always present. When `skippedLines > 0` the answer stays `Success` and adds a `LinesSkipped` warning ("2 of 3 lines are empty and would be skipped by posting."), a `nextStep` naming `Inventory.ItemJournal.Check`, and the same sentence in `summary`. When every line is empty, nothing would be posted (above).
+
 ## Errors
 
 **BC validation errors propagate verbatim** to the caller — most failures surface with the underlying BC message (e.g. missing posting groups, invalid item, blocked location). The catch-all below is only used when the preview subscriber runs cleanly but produces zero captured entries.
 
 | Error | Cause |
 |---|---|
+| `The preview produced no entries. Nothing would be posted.` (`NothingToPreview`) | Nothing would be posted. `nextStep`: Run `Inventory.ItemJournal.Check` to see which lines are incomplete. |
 | `Item journal batch must be identified via subject (TEMPLATE\|BATCH or SystemId) or data parameters (templateName, batchName).` (`MissingParameter`) | No identification was supplied. |
 | `Item Journal Batch "{template}\|{batch}" was not found (from subject).` (`RecordNotFound`) | The batch does not exist. `parameter` is `subject`, or `templateName, batchName` when those keys were sent; `received` is the value. |
 | `Item journal batch {template}\|{batch} has no lines to post.` | Batch is empty. |
