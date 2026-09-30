@@ -243,15 +243,21 @@ const config: Config = {
           position: 'left',
           items: apps.map((app) => ({label: app.title, to: `/help/${app.id}/`})),
         },
-        {
-          type: 'dropdown',
-          label: buildLocale === 'is-IS' ? 'Íslenska' : 'English',
-          position: 'right',
-          items: [
-            {label: 'English', href: `${siteRoot}en-us/`, target: '_self'},
-            {label: 'Íslenska', href: `${siteRoot}is-is/`, target: '_self'},
-          ],
-        },
+        // The Icelandic site is not offered from the English one until the new chapters are
+        // translated; the Icelandic build keeps the switcher so its readers can reach English.
+        ...(buildLocale === 'is-IS'
+          ? [
+            {
+              type: 'dropdown' as const,
+              label: 'Íslenska',
+              position: 'right',
+              items: [
+                {label: 'English', href: `${siteRoot}en-us/`, target: '_self'},
+                {label: 'Íslenska', href: `${siteRoot}is-is/`, target: '_self'},
+              ],
+            },
+          ]
+          : []),
       ],
     },
     footer: {

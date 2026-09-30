@@ -9,8 +9,6 @@ description: "Þrep álagsþaks í Bifröst, hver getur valið hærra þrep."
 er aðskilið frá skilaboðakvóta: kvótinn ræður því hvað leigjandi greiðir fyrir, en álagsþakið
 verndar þjónustuna.
 
-Business Central geymir þrepið sem leigjandinn hefur valið.
-
 ## Þrep
 
 | Þrep | API-köll á dag |
