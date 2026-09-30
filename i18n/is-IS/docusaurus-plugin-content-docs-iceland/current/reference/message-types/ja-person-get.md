@@ -22,7 +22,7 @@ Notaðu this fyrir person registry data frá Þjóðskrá through Já Skrá v1.
 
 ## Beiðni — stakan lookup
 ```json
-{ "kennitala": "0102034579" }   // 10 digits, no hyphen
+{ "kennitala": "0000000000" }   // 10 digits, no hyphen
 ```
 
 ## Beiðni — search (at least one parameter)
@@ -40,7 +40,7 @@ Notaðu this fyrir person registry data frá Þjóðskrá through Já Skrá v1.
 
 ## Svar — stakan lookup
 ```json
-{ "status": "Success", "person": { "kennitala": "0102034579", "full_name": "Jón Jónsson",
+{ "status": "Success", "person": { "kennitala": "0000000000", "full_name": "Jón Jónsson",
   "legal_address": { "street": { "nominative": "Álfheimar 74" }, "postal_code": 104, "town": { "nominative": "Reykjavík" } } } }
 ```
 

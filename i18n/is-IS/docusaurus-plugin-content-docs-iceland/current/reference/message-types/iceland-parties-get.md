@@ -19,7 +19,7 @@ Sækir fyrirtæki parties (board members, auditors, founders, etc.).
 - Slóð: `/api/Parties`
 
 ## Beiðni
-- **Beiðni Body (JSON)**:\n  - `CompanyID` (nauðsynlegt): 10-digit kennitala of a **fyrirtæki**.\n  - `TypesOfRoles` (valfrjálst): Array of role Gerð IDs til filter.\n    Values: `1` Stjórn, `2` Endurskoðandi, `3` Eigandi, `4` Framkvæmdastjórn, `5` Prókúruhafi, `6` Stofnandi, `7` Útibússtjóri, `8` Umboðsaðili, `9` Varastjórn.\n  - Dæmi: `{"CompanyID": "4112032630", "TypesOfRoles": ["1", "5"]}`
+- **Beiðni Body (JSON)**:\n  - `CompanyID` (nauðsynlegt): 10-digit kennitala of a **fyrirtæki**.\n  - `TypesOfRoles` (valfrjálst): Array of role Gerð IDs til filter.\n    Values: `1` Stjórn, `2` Endurskoðandi, `3` Eigandi, `4` Framkvæmdastjórn, `5` Prókúruhafi, `6` Stofnandi, `7` Útibússtjóri, `8` Umboðsaðili, `9` Varastjórn.\n  - Dæmi: `{"CompanyID": "0000000000", "TypesOfRoles": ["1", "5"]}`
 
 ## Svar
 - Tengingin wraps the Umsja Svar in a staðlaða JSON envelope með `status` og `result`.

@@ -26,7 +26,7 @@ Pure local computation — no external API Kallaðu á eða authentication nauð
 ## Beiðni
 
 - **Subject** (nauðsynlegt): A kennitala til validate.
-  - Accepts: `0811536049`, `081153-6049`, `081153 6049`
+  - Accepts: `0000000000`, `000000-0000`, `000000 0000`
   - Spaces og dashes eru stripped sjálfkrafa.
 - **Body**: Not used. Leave empty eða pass `{}`.
 
@@ -64,7 +64,7 @@ Capability boundary: pure local checksum/date computation; no external Kallaðu 
 
 ## Dæmi
 
-- `1102713369` — person born 1971-02-11 → `valid: true, type: person, birthDate: 1971-02-11`
+- `0000000000` — person (placeholder value) → `valid: true, type: person, birthDate: YYYY-MM-DD`
 - `7102693869` — fyrirtæki (Þór hf.) → `valid: true, type: company` (no birthDate — digits 1-2 encode day 31 which er invalid fyrir Feb)
 - `6306251060` — fyrirtæki → `valid: true, type: company`
 

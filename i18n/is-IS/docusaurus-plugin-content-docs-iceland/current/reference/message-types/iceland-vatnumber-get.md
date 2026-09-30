@@ -19,7 +19,7 @@ Sækir VAT numbers fyrir a fyrirtæki.
 - Slóð: `/api/VatNumber/{id}`
 
 ## Beiðni
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a person eða fyrirtæki.\n  - Skilar VAT registration numbers og ISAT industry codes.\n  - Works fyrir both companies og individuals who have VAT registrations.\n  - Dæmi: `4112032630` (fyrirtæki) eða `1202432179` (person með VAT).
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a person eða fyrirtæki.\n  - Skilar VAT registration numbers og ISAT industry codes.\n  - Works fyrir both companies og individuals who have VAT registrations.\n  - Dæmi: `0000000000` (fyrirtæki) eða `0000000000` (person með VAT).
 
 ## Svar
 - Tengingin wraps the Umsja Svar in a staðlaða JSON envelope með `status` og `result`.

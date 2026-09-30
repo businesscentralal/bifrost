@@ -19,7 +19,7 @@ Sækir search results by social ID.
 - Slóð: `/api/SearchBySocialID/{id}`
 
 ## Beiðni
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a person eða fyrirtæki.\n  - Searches the registry fyrir entries matching this social ID.\n  - May return multiple results (e.g., current + historical færslur).\n  - Dæmi: `1102713369` (person) eða `4112032630` (fyrirtæki).
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a person eða fyrirtæki.\n  - Searches the registry fyrir entries matching this social ID.\n  - May return multiple results (e.g., current + historical færslur).\n  - Dæmi: `0000000000` (person) eða `0000000000` (fyrirtæki).
 
 ## Svar
 - Tengingin wraps the Umsja Svar in a staðlaða JSON envelope með `status` og `result`.

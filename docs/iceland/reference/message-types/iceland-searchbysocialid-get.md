@@ -19,7 +19,7 @@ Gets search results by social ID.
 - Path: `/api/SearchBySocialID/{id}`
 
 ## Request
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a person or company.\n  - Searches the registry for entries matching this social ID.\n  - May return multiple results (e.g., current + historical records).\n  - Example: `1102713369` (person) or `4112032630` (company).
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a person or company.\n  - Searches the registry for entries matching this social ID.\n  - May return multiple results (e.g., current + historical records).\n  - Example: `0000000000` (person) or `0000000000` (company).
 
 ## Response
 - The connector wraps the Umsja response in a standard JSON envelope with `status` and `result`.

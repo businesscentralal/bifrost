@@ -20,7 +20,7 @@ the period is still included for the Subscription usage it had before the cancel
 
 Every company reports its chargeable messages to the licensing service once a day, per day and
 charge type, in a background task started by the first chargeable call of the day. **Sync** on
-Bifröst Setup reports all pending messages immediately (except those of the last five minutes).
+Bifrost Setup reports all pending messages immediately (except those of the last five minutes).
 Until a message is reported, it is counted as *unreported* in the License fact box. Usage from
 sandbox environments is reported separately and is not billed.
 
@@ -37,7 +37,7 @@ messages were used) and the **reporting date** (the day the entry was reported).
 | Who | Page | Message type |
 |---|---|---|
 | Every tenant | [License Usage](/help/foundation/license-usage/) - usage entries of your own companies | [`Bifrost.Subscription.GetUsage`](/foundation/reference/message-types/bifrost-subscription-getusage/) (scopes `CurrentCompany`, `CurrentTenant`) |
-| Every tenant | [License fact box](/help/foundation/license-fact-box/) on Bifröst Setup | [`Bifrost.Subscription.GetStatus`](/foundation/reference/message-types/bifrost-subscription-getstatus/) |
+| Every tenant | [License fact box](/help/foundation/license-fact-box/) on Bifrost Setup | [`Bifrost.Subscription.GetStatus`](/foundation/reference/message-types/bifrost-subscription-getstatus/) |
 | Partner | [Customer Management](/help/foundation/customer-management/) - month-to-date messages and tier per customer; **View Usage** for the entries | [`Bifrost.Partner.GetBillingSummary`](/foundation/reference/message-types/bifrost-partner-getbillingsummary/), [`Bifrost.Partner.GetCustomers`](/foundation/reference/message-types/bifrost-partner-getcustomers/), `Bifrost.Subscription.GetUsage` (scope `Partner` for yourself, `CustomerTenant`) |
 | Vendor | [Partner Management](/help/foundation/partner-management/) and Customer Management | [`Bifrost.Vendor.GetBillingSummary`](/foundation/reference/message-types/bifrost-vendor-getbillingsummary/), [`Bifrost.Vendor.GetPartners`](/foundation/reference/message-types/bifrost-vendor-getpartners/), [`Bifrost.Vendor.GetCustomers`](/foundation/reference/message-types/bifrost-vendor-getcustomers/), `Bifrost.Subscription.GetUsage` (scopes `Vendor`, `Partner`, `CustomerTenant`) |
 

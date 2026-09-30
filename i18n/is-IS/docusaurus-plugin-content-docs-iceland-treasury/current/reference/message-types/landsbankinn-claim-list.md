@@ -21,7 +21,7 @@ Replaces the SOAP `Landsbankinn.Claim.Query`.
   "dueDateFrom": "2026-01-01",         // REQUIRED
   "dueDateTo": "2026-12-31",           // optional
   "claimantNationalId": "6306251060",  // optional (defaults to caller)
-  "payorNationalId": "1102713369",     // optional
+  "payorNationalId": "0000000000",     // optional
   "status": "unpaid",                  // optional: unpaid, paid, cancelled
   "skip": 0,                           // optional
   "take": 100                          // optional (max 1000)

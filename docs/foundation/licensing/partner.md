@@ -17,13 +17,13 @@ A tenant becomes a Partner when a Vendor invites it.
 1. Install Bifröst Foundation and complete the [Setup Wizard](/help/foundation/bifrost-setup-wizard/)
    - the Vendor cannot invite a tenant that has not approved the EULA.
 2. Give the Vendor your **Microsoft Entra tenant ID**.
-3. After the Vendor has sent the invitation, open **Bifröst Setup** and choose **Sync** - the
+3. After the Vendor has sent the invitation, open **Bifrost Setup** and choose **Sync** - the
    invitation is only picked up by a Sync. Choose **Register as Partner** on the notification *A
    Bifrost Vendor has introduced this tenant as a Partner*.
 
 The registration uses the **Company Information** of the current company, which is what the Vendor
 and your customers see. **Customer Management**, **Pending Customer Leave Requests** and **Request
-to Leave Vendor** then appear on Bifröst Setup. The Partner role belongs to the company that
+to Leave Vendor** then appear on Bifrost Setup. The Partner role belongs to the company that
 registered; other companies of the tenant do not get the Partner functions.
 
 ## Inviting customers
@@ -32,7 +32,7 @@ On [Customer Management](/help/foundation/customer-management/), choose **Invite
 enter the customer's **Microsoft Entra tenant ID** (or its 64-character tenant hash) and, optionally,
 a friendly name. Select **Demo environment** when the tenant is one you use for demonstrations:
 its usage is then reported to you and your Vendor as **Demo**, separately from regular customer
-usage. The customer sees the invitation on its Bifröst Setup page and accepts it there - see
+usage. The customer sees the invitation on its Bifrost Setup page and accepts it there - see
 [Being a Customer](./customer.md). From that moment:
 
 - the customer is on **Subscription**, in every company of its tenant;
@@ -74,7 +74,7 @@ Customer Management, but its usage up to the cancellation stays in your billing 
 
 ## When a customer asks to leave
 
-A customer can send you a leave request (**Request to Leave Partner**). Bifröst Setup then shows
+A customer can send you a leave request (**Request to Leave Partner**). Bifrost Setup then shows
 *Pending customer leave request(s) are waiting for review*. Open
 [Pending Customer Leave Requests](/help/foundation/pending-customer-leave-requests/) and:
 
@@ -83,11 +83,11 @@ A customer can send you a leave request (**Request to Leave Partner**). Bifröst
 
 ## Leaving your Vendor
 
-**Request to Leave Vendor** on Bifröst Setup asks the Vendor to end your Partner registration. If the
+**Request to Leave Vendor** on Bifrost Setup asks the Vendor to end your Partner registration. If the
 Vendor confirms, your registration is closed and **every one of your customers returns to Prepaid**.
-If the Vendor rejects the request, you see the reason on Bifröst Setup after your next Sync.
+If the Vendor rejects the request, you see the reason on Bifrost Setup after your next Sync.
 
-The same happens without a request when the Vendor cancels you: Bifröst Setup then shows *A Bifrost
+The same happens without a request when the Vendor cancels you: Bifrost Setup then shows *A Bifrost
 Vendor has cancelled this Partner*, and your customers receive their cancellations.
 
 ## Related

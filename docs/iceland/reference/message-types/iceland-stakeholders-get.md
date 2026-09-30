@@ -19,7 +19,7 @@ Gets stakeholders for a company.
 - Path: `/api/Stakeholders/{id}`
 
 ## Request
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a **company**.\n  - Returns stakeholders (board members, agents) for the company.\n  - Do NOT use a person ID — use `Iceland.Relations.Get` for person-to-company lookups.\n  - Example: `4112032630` (company).
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a **company**.\n  - Returns stakeholders (board members, agents) for the company.\n  - Do NOT use a person ID — use `Iceland.Relations.Get` for person-to-company lookups.\n  - Example: `0000000000` (company).
 
 ## Response
 - The connector wraps the Umsja response in a standard JSON envelope with `status` and `result`.

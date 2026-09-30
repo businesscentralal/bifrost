@@ -1,8 +1,8 @@
 /**
  * Assembles the deployable site from the two locale builds.
  *
- * `build/en-us` and `build/is-is` are produced by two separate Docusaurus
- * builds. This script adds the two files that live above them:
+ * `build/en-us` (and, when Icelandic is published, `build/is-is`) are produced
+ * by separate Docusaurus builds. This script adds the files that live above them:
  *
  *   build/index.html   picks a locale from the browser's language list
  *   build/404.html     catches everything else, including unknown locale
@@ -11,12 +11,17 @@
  *                      per-locale /en-us/apps.json and /is-is/apps.json that
  *                      tools/copy-apps-json.mjs publishes via static/
  *
+ * While Icelandic is not published (`npm run build` builds English only), it
+ * also writes `build/is-is/<path>/index.html` for every English page: a small
+ * page that forwards to the same path under /en-us/. Business Central's help
+ * button and old bookmarks use /is-is/... links, and they keep working.
+ *
  * Both HTML pages are plain HTML with a <noscript> fallback, so a reader with
  * scripting disabled still gets a working link rather than a blank page.
  *
  *   node tools/build-root.mjs
  */
-import {writeFile, access, readFile, readdir} from 'node:fs/promises';
+import {writeFile, access, readFile, readdir, mkdir} from 'node:fs/promises';
 import {constants} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -46,19 +51,30 @@ const page = (title, script) => `<!doctype html>
   <h1>Bifröst</h1>
   <p>
     <a href="${BASE_URL}en-us/">English documentation</a>
-    &nbsp;·&nbsp;
-    <a href="${BASE_URL}is-is/">Íslensk skjölun</a>
   </p>
 </main>
 </body>
 </html>
 `;
 
+const exists = (p) => access(p, constants.F_OK).then(() => true).catch(() => false);
+
 /**
- * Chooses is-is only when Icelandic is the reader's stated preference;
- * everything else, including an empty language list, gets English.
+ * Icelandic is published when `build/is-is` was built (`npm run build:all`).
+ * `npm run build` builds English only until the new chapters are translated;
+ * the Icelandic source files stay in i18n/is-IS and are kept up to date.
  */
-const chooseLocale = `
+const FORWARD_MARK = '<meta name="bifrost-forward" content="en-us">';
+const isIndex = path.join(buildDir, 'is-is', 'index.html');
+// The forwarding pages below also write build/is-is/index.html; they carry a
+// mark so that running this script twice does not mistake them for a build.
+const OFFER_ICELANDIC = (await exists(isIndex)) && !(await readFile(isIndex, 'utf8')).includes(FORWARD_MARK);
+
+/**
+ * Chooses is-is only when Icelandic is offered and is the reader's stated
+ * preference; everything else, including an empty language list, gets English.
+ */
+const chooseLocale = OFFER_ICELANDIC ? `
   var base = ${JSON.stringify(BASE_URL)};
   var langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en']);
   var wantsIcelandic = false;
@@ -68,6 +84,8 @@ const chooseLocale = `
     if (tag === 'en' || tag.indexOf('en-') === 0) { break; }
   }
   location.replace(base + (wantsIcelandic ? 'is-is/' : 'en-us/'));
+` : `
+  location.replace(${JSON.stringify(BASE_URL)} + 'en-us/');
 `;
 
 /**
@@ -85,22 +103,21 @@ const chooseLocale = `
  */
 const rescueLocale = `
   var base = ${JSON.stringify(BASE_URL)};
+  var offerIcelandic = ${OFFER_ICELANDIC};
   var rest = location.pathname.slice(base.length);
   var match = rest.match(/^([a-z]{2}(?:-[a-z]{2})?)\\/(.*)$/i);
   if (match) {
     // Compared case-sensitively on purpose: GitHub Pages paths are
     // case-sensitive, so /en-US/ is a miss that must be rewritten to /en-us/.
-    if (match[1] !== 'en-us' && match[1] !== 'is-is') {
+    if (match[1] !== 'en-us' && (match[1] !== 'is-is' || !offerIcelandic)) {
       var locale = match[1].toLowerCase();
-      var target = locale === 'is' || locale.indexOf('is-') === 0 ? 'is-is/' : 'en-us/';
+      var target = offerIcelandic && (locale === 'is' || locale.indexOf('is-') === 0) ? 'is-is/' : 'en-us/';
       location.replace(base + target + match[2] + location.search + location.hash);
     }
   }
 `;
 
-const exists = (p) => access(p, constants.F_OK).then(() => true).catch(() => false);
-
-for (const locale of ['en-us', 'is-is']) {
+for (const locale of OFFER_ICELANDIC ? ['en-us', 'is-is'] : ['en-us']) {
   if (!(await exists(path.join(buildDir, locale, 'index.html')))) {
     throw new Error(
       `build/${locale}/index.html is missing — run the ${locale} Docusaurus build before tools/build-root.mjs`,
@@ -110,6 +127,44 @@ for (const locale of ['en-us', 'is-is']) {
 
 await writeFile(path.join(buildDir, 'index.html'), page('Bifröst', chooseLocale), 'utf8');
 await writeFile(path.join(buildDir, '404.html'), page('Bifröst — page not found', rescueLocale), 'utf8');
+
+/** Every folder under build/en-us that holds an index.html, as a path relative to it. */
+async function pagePaths(dir, rel = '') {
+  const found = [];
+  for (const entry of await readdir(path.join(dir, rel), {withFileTypes: true})) {
+    if (!entry.isDirectory()) continue;
+    const sub = rel ? `${rel}/${entry.name}` : entry.name;
+    if (await exists(path.join(dir, sub, 'index.html'))) found.push(sub);
+    found.push(...(await pagePaths(dir, sub)));
+  }
+  return found;
+}
+
+const forwardPage = (target) => `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+${FORWARD_MARK}
+<link rel="canonical" href="${target}">
+<meta http-equiv="refresh" content="0; url=${target}">
+<title>Bifröst</title>
+<script>location.replace(${JSON.stringify(target)} + location.search + location.hash);</script>
+</head>
+<body><p><a href="${target}">Bifröst documentation (English)</a></p></body>
+</html>
+`;
+
+let forwarded = 0;
+if (!OFFER_ICELANDIC) {
+  const enDir = path.join(buildDir, 'en-us');
+  for (const rel of ['', ...(await pagePaths(enDir))]) {
+    const target = `${BASE_URL}en-us/${rel ? `${rel}/` : ''}`;
+    await mkdir(path.join(buildDir, 'is-is', rel), {recursive: true});
+    await writeFile(path.join(buildDir, 'is-is', rel, 'index.html'), forwardPage(target), 'utf8');
+    forwarded++;
+  }
+}
 
 /**
  * llms.txt — the entry point for an agent handed nothing but the site address.
@@ -177,8 +232,10 @@ const llms = [
   '> routed by its `type` field. Bifröst Foundation is the kernel; the other apps add',
   '> message types for banks, storage, documents, schedules and language models.',
   '',
-  'This site holds all public documentation for those apps in English (`/en-us/`) and',
-  'Icelandic (`/is-is/`). The paths below are the English ones.',
+  ...(OFFER_ICELANDIC
+    ? ['This site holds all public documentation for those apps in English (`/en-us/`) and',
+       'Icelandic (`/is-is/`). The paths below are the English ones.']
+    : ['This site holds all public documentation for those apps, in English (`/en-us/`).']),
   '',
   '## Skills',
   '',
@@ -198,9 +255,19 @@ const llms = [
   '',
   ...(core?.references ?? []).map((file) => `- ${en}skills/${core.id}/references/${file}`),
   '',
+  '## Setting it up and using it',
+  '',
+  'For helping a person rather than calling the API yourself.',
+  '',
+  `- [Set it up](${en}setup/): the setup steps in order, and who is needed for each one.`,
+  `- [How Bifröst works](${en}documentation/how-it-works/): the concepts, once.`,
+  `- [Documentation](${en}documentation/): pages for users, administrators, developers and partners.`,
+  `- [Try it out](${en}try-it-out/): trying it in a sandbox, with first questions to ask.`,
+  '',
   '## Building on Bifröst',
   '',
-  `- [Extensibility guide](${en}extensibility/): how to write a Business Central app that depends on Bifröst Foundation — message types, help codeunits, setup and secrets, install and upgrade, testing, naming conventions.`,
+  `- [Build on Bifröst](${en}extensibility/): what makes a Business Central app callable by agents, and where the partner reference repository takes over.`,
+  `- [Partner reference repository](https://github.com/businesscentralal/bc-bifrost-reference): the source of truth for building on Bifröst. Its [START-HERE guide](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/START-HERE.md) is written for a coding agent to build from; [INTEGRATING.md](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/INTEGRATING.md) covers calling Bifröst from another system.`,
   '',
   '## Apps',
   '',
@@ -221,10 +288,11 @@ const llms = [
 // Written at the site root and inside each locale, so that both
 // `<site>/llms.txt` and `<site>/en-us/llms.txt` resolve — an agent guesses one
 // or the other and should not have to guess right.
-for (const dir of [buildDir, path.join(buildDir, 'en-us'), path.join(buildDir, 'is-is')]) {
+for (const dir of [buildDir, path.join(buildDir, 'en-us'), ...(OFFER_ICELANDIC ? [path.join(buildDir, 'is-is')] : [])]) {
   await writeFile(path.join(dir, 'llms.txt'), llms, 'utf8');
 }
 
 await writeFile(path.join(buildDir, 'apps.json'), await readFile(path.join(root, 'data', 'apps.json')));
 
-console.log(`build-root: wrote index.html, 404.html, llms.txt and apps.json for ${site}`);
+console.log(`build-root: wrote index.html, 404.html, llms.txt and apps.json for ${site}` +
+  (OFFER_ICELANDIC ? '' : `; Icelandic not published, ${forwarded} /is-is/ pages forward to English`));

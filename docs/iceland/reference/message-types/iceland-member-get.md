@@ -19,7 +19,7 @@ Gets a specific member or company from the registry.
 - Path: `/api/Member/{id}`
 
 ## Request
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a person or company.\n  - Use a **person** ID for full personal details (birth date, marital status, family, legal address).\n  - Use a **company** ID for company registry details (ISAT, agents, stakeholders).\n  - Example: `1102713369` (person) or `4112032630` (company).
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a person or company.\n  - Use a **person** ID for full personal details (birth date, marital status, family, legal address).\n  - Use a **company** ID for company registry details (ISAT, agents, stakeholders).\n  - Example: `0000000000` (person) or `0000000000` (company).
 
 ## Response
 - The connector wraps the Umsja response in a standard JSON envelope with `status` and `result`.

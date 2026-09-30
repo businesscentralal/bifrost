@@ -7,6 +7,8 @@ slug: /
 description: "Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types."
 ---
 
+*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+
 Bifröst Orchestrator manages scheduled work in Business Central. It monitors, restarts and supervises Job Queue entries, and it runs **playbooks** — declarative, multi-step sequences of message types where the response of one step feeds the request of the next. It builds on Bifröst Foundation, so everything the app does is also reachable as a message type over the Bifröst queue API, and an external system or an AI agent can drive a playbook the same way a scheduled Job Queue entry does.
 
 ## What it does

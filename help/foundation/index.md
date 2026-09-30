@@ -6,9 +6,14 @@ sidebar_position: 1
 slug: /
 ---
 
-**Bifröst Foundation** is a Business Central extension by Origo that provides a bifrost messaging framework. External systems can send structured messages to Business Central through a REST API, and the extension processes them either synchronously (immediate response) or asynchronously (queued for background processing).
+This is the help for the **Bifröst Foundation** pages in Business Central: one page for each, with
+what it is for, its fields and its actions. The help button on a Bifröst page in Business Central
+opens its page here.
 
-The extension supports a wide range of built-in message types for retrieving customer credit information, checking item availability and prices, working with sales documents, synchronising data, and discovering API metadata. It is fully extensible – partners can add new message types and implementation strategies without modifying the base code.
+**Bifröst Foundation** is the Bifröst app every other Bifröst app needs. It lets AI assistants and
+other systems work in Business Central, as you and within your permissions. New to it? See
+[How Bifröst works](/documentation/how-it-works/), [Set it up](/setup/) or
+[Using Bifröst](/documentation/end-customers/users/).
 
 ## Pages
 

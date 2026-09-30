@@ -324,7 +324,7 @@ Same envelope as `Inventory.ItemJournal.PreviewPost` (`rollback`, `summary`, `to
 
 ### Operational Notes
 
-- **`Line Type` must be set.** A blank `Line Type` triggers a BC CONFIRM dialog from `Job Link Usage` (codeunit 1026) that headless callers cannot answer. Always set `Line Type ∈ {Schedule, Budget, Billable, Both Budget and Billable}` before previewing.
+- **`Line Type` must be set.** A blank `Line Type` triggers a BC CONFIRM dialog from `Job Link Usage` (codeunit 1026) that headless callers cannot answer. Always set `Line Type ∈ {Budget, Billable, Both Budget and Billable}` before previewing.
 - **Resource Usage alone produces no G/L impact** — you will see only `Job Ledger Entry` and `Res. Ledger Entry`. To see G/L Entries in the preview, set `Line Type = Billable` (or `Both Budget and Billable`).
 - The underlying BC tables remain `Job Journal Batch`, `Job Journal Line`, `Job Register`, and `Job Ledger Entry` even though the message namespace is `Projects`.
 - The preview rolls back, but does not undo metadata changes made before the call.

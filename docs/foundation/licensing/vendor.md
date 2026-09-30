@@ -10,11 +10,11 @@ directly: it invites Partners, each Partner invites and invoices its own custome
 **invoices its Partners** for the Subscription usage of those customers.
 
 Vendors are approved by Origo; Bifröst does not offer Vendor sign-up. An approved tenant is offered
-Vendor onboarding on its **Bifröst Setup** page after a **Sync**.
+Vendor onboarding on its **Bifrost Setup** page after a **Sync**.
 
 ## Onboarding
 
-1. Open **Bifröst Setup** and choose **Sync** (under **Licensing**; licence administrators only).
+1. Open **Bifrost Setup** and choose **Sync** (under **Licensing**; licence administrators only).
    Onboarding is never offered before a Sync. An approved tenant then sees the notification *This
    tenant is eligible to register as a Bifrost Vendor*, and the **Onboard as Vendor** action appears.
 2. Choose **Register as Vendor** on the notification, or **Onboard as Vendor**. Both open the
@@ -22,7 +22,7 @@ Vendor onboarding on its **Bifröst Setup** page after a **Sync**.
    the **Company Information** of the current company, which is what Partners and Origo see for the
    Vendor. Correct Company Information first if needed. The wizard cannot be opened any other way.
 3. Choose **Finish**. The tenant is registered as a Vendor, and **Partner Management**,
-   **Pending Partner Leave Requests** and **Deregister as Vendor** appear on Bifröst Setup.
+   **Pending Partner Leave Requests** and **Deregister as Vendor** appear on Bifrost Setup.
 
 The Vendor role belongs to the company that registered it. Other companies in the same tenant do not
 get the Vendor functions.
@@ -40,11 +40,11 @@ optionally, a friendly name to show until the Partner registers.
 - The Partner must already have installed Bifröst and approved the EULA - otherwise the invitation
   is refused with *The target tenant has not installed Bifrost yet*.
 - The Partner sees the invitation as the **Register as Partner** notification after it chooses
-  **Sync** on its Bifröst Setup page. When the Partner accepts it, the Partner's row changes from **Unregistered** to
+  **Sync** on its Bifrost Setup page. When the Partner accepts it, the Partner's row changes from **Unregistered** to
   **Open** and shows the Partner's registered company details.
 - **Serving customers yourself.** Enter your own tenant ID to register the Vendor as its own
-  Partner. Then choose **Sync** on your own Bifröst Setup page and accept the *Register as Partner*
-  notification; the row is marked **Is Self**. From then on **Customer Management** appears and you
+  Partner. Then choose **Sync** on your own Bifrost Setup page and accept the *Register as Partner*
+  notification; the row is marked **Vendor-as-Partner**. From then on **Customer Management** appears and you
   invite customers like any other Partner.
 
 ## Following Partners and their customers
@@ -52,7 +52,7 @@ optionally, a friendly name to show until the Partner registers.
 | Where | What you see |
 |---|---|
 | [Partner Management](/help/foundation/partner-management/) | Every Partner you invited, its state, registered company details and when it was last updated. **View Customers** opens the Partner's customers, **View Usage** its customers' usage entries. |
-| **View Customers** on Partner Management | The customers of the selected Partner, read-only: company, environment, when the relationship was approved, rate-limit tier and month-to-date User and App Registration messages. Invite and cancel are not offered. |
+| **View Customers** on Partner Management | The customers of the selected Partner, read-only: company, environment, when the relationship was approved, rate-limit tier and month-to-date messages per charge type. Invite and cancel are not offered. |
 | [License Usage](/help/foundation/license-usage/) | The individual usage entries, filterable by company, pool and date. |
 | Billing message types | `Bifrost.Vendor.GetBillingSummary`, `Bifrost.Vendor.GetPartners` and `Bifrost.Vendor.GetCustomers` return the invoicing figures - see [Usage and billing](./usage-and-billing.md). |
 
@@ -65,7 +65,7 @@ Subscription usage up to that point remains in your billing figures for the peri
 
 ## When a Partner asks to leave
 
-A Partner can send you a leave request (**Request to Leave Vendor** on its Bifröst Setup). Bifröst
+A Partner can send you a leave request (**Request to Leave Vendor** on its Bifrost Setup). Bifröst
 Setup then shows *Pending partner leave request(s) are waiting for review*. Open
 [Pending Partner Leave Requests](/help/foundation/pending-partner-leave-requests/) and:
 
@@ -74,7 +74,7 @@ Setup then shows *Pending partner leave request(s) are waiting for review*. Open
 
 ## Deregistering as a Vendor
 
-**Deregister as Vendor** on Bifröst Setup closes the Vendor registration and cancels **every**
+**Deregister as Vendor** on Bifrost Setup closes the Vendor registration and cancels **every**
 Partner of the Vendor; each of their customers returns to Prepaid. This cannot be undone from the
 app.
 

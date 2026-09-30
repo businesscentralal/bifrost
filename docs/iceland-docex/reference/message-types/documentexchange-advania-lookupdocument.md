@@ -70,7 +70,7 @@ Returns the raw MAPI message list (may contain multiple results if documentNo ma
 ```json
 { "count": 1, "hasMore": false, "items": [
   { "uuid": "abc-123", "document_id": "103006", "document_type": "Invoice",
-    "issue_date": "2026-06-30", "customer_id": "5801120800", "customer_name": "Gestsson ehf." }
+    "issue_date": "2026-06-30", "customer_id": "0000000000", "customer_name": "Dæmi ehf." }
 ] }
 ```
 

@@ -49,9 +49,9 @@ The roles are not offered for sign-up: Vendors are approved by Origo, Partners a
 Vendor, and Customers are invited by a Partner. A Vendor can also register as its own Partner and
 serve customers directly.
 
-Each role is held by **one company per Microsoft Entra tenant** - the company that registered
-first. The license type, on the other hand, applies to the **whole tenant**: when a tenant accepts
-an invitation, all of its companies move to Subscription, including companies created later.
+The Vendor and Partner roles are each held by **one company per Microsoft Entra tenant** - the
+company that registered first. Being a Customer, and with it the license type, applies to the
+**whole tenant**: when a tenant accepts an invitation, all of its companies move to Subscription, including companies created later.
 
 ## How a tenant moves between license types
 
@@ -69,7 +69,8 @@ Every change that one tenant makes for another - an invitation, a cancellation, 
 reaches the other tenant only when a licence administrator there chooses **Sync** on the Bifröst
 Setup page. **Sync is the only thing that starts onboarding** - as a Vendor, a Partner or a
 Customer - and the only thing that applies a cancellation or a leave-request outcome. The daily
-background task reports usage and nothing else. See [Leaving and cancelling](./leaving-and-cancelling.md).
+background task reports usage and refreshes the charge types; it never starts onboarding or applies
+a cancellation or leave-request outcome. See [Leaving and cancelling](./leaving-and-cancelling.md).
 
 ## In this section
 

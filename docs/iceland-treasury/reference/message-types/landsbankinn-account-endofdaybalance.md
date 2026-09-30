@@ -32,7 +32,7 @@ Retrieves end-of-day balance, accrued deposit interest, and local-currency equiv
 | Parameter | Type | Required | Description |
 |---|---|---|---|
 | `date` | string (date) | yes | The date for which to get end-of-day financials. |
-| `ownerNationalId` | string | no | The kennitala of the account owner. Icelandic national identifier — accepted input: 10-11 digits, with or without hyphen (e.g. `2205801569` or `220580-1569`). Defaults to Company Information "Registration No." when omitted. |
+| `ownerNationalId` | string | no | The kennitala of the account owner. Icelandic national identifier — accepted input: 10-11 digits, with or without hyphen (e.g. `0000000000` or `000000-0000`). Defaults to Company Information "Registration No." when omitted. |
 | `bankAccountNo` | string | no | BC Bank Account "No." — the connector reads the bank account number from the card and normalizes it to 12-digit BBAN. Filters to a single account. |
 | `bban` | string | no | Icelandic domestic basic bank account number (BBAN). Accepted input: 12 digits without formatting (e.g. `010905012345`) or hyphen-separated: 3-4 digit bank code, 1-2 digit ledger code, 1-6 digit account number (e.g. `0109-05-012345` or `109-5-12345`). Normalized to 12 digits with leading zeros. Filters to a single account. |
 | `skip` | integer | no | Number of records to skip (default 0). |

@@ -19,7 +19,7 @@ Sækir stakeholders fyrir a fyrirtæki.
 - Slóð: `/api/Stakeholders/{id}`
 
 ## Beiðni
-- **Subject**: 10-digit Icelandic social ID (kennitala) of a **fyrirtæki**.\n  - Skilar stakeholders (board members, agents) fyrir the fyrirtæki.\n  - Do NOT Notaðu a person ID — Notaðu `Iceland.Relations.Get` fyrir person-til-fyrirtæki lookups.\n  - Dæmi: `4112032630` (fyrirtæki).
+- **Subject**: 10-digit Icelandic social ID (kennitala) of a **fyrirtæki**.\n  - Skilar stakeholders (board members, agents) fyrir the fyrirtæki.\n  - Do NOT Notaðu a person ID — Notaðu `Iceland.Relations.Get` fyrir person-til-fyrirtæki lookups.\n  - Dæmi: `0000000000` (fyrirtæki).
 
 ## Svar
 - Tengingin wraps the Umsja Svar in a staðlaða JSON envelope með `status` og `result`.

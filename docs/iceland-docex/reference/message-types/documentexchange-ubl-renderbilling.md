@@ -124,8 +124,8 @@ SubmitDespatchAdvice, SubmitCatalogue, SubmitOrderResponse.
 
 ### VAT CompanyID format (Peppol BR-CO-09):
 The supplier`s PartyTaxScheme/CompanyID MUST have a country prefix:
-- Correct: `IS5801120800` (country code + kennitala)
-- Wrong: `5801120800` (no prefix → validation error 422)
+- Correct: `IS0000000000` (country code + kennitala)
+- Wrong: `0000000000` (no prefix → validation error 422)
 Set `taxCompanyId: "IS" + registrationNo` when building documentData.
 
 ## Where to Get Data from BC
