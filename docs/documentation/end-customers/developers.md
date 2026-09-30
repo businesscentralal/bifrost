@@ -50,6 +50,8 @@ sequenceDiagram
   the token scope and the company segment
 - [Errors](/foundation/reference/errors/): what an error answer contains
 - [Events and webhooks](/foundation/reference/events-and-webhooks/): being told instead of polling
+- [INTEGRATING guide](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/INTEGRATING.md)
+  in the partner reference repository: calling Bifröst from another system, worked end to end
 
 ## Drive it from an AI agent
 

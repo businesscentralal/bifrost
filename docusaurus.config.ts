@@ -290,7 +290,8 @@ const config: Config = {
             {label: buildLocale === 'is-IS' ? 'Færni fyrir gervigreind' : 'Skills for AI agents', to: '/skills/'},
             {label: 'llms.txt', href: `${siteRoot}llms.txt`, target: '_self'},
             {label: 'apps.json', href: `${siteRoot}apps.json`, target: '_self'},
-            {label: 'GitHub', href: 'https://github.com/businesscentralal/bifrost'},
+            {label: buildLocale === 'is-IS' ? 'Tilvísunarkóði (GitHub)' : 'Partner reference repository', href: 'https://github.com/businesscentralal/bc-bifrost-reference'},
+            {label: buildLocale === 'is-IS' ? 'Kóði þessarar síðu (GitHub)' : 'Site source (GitHub)', href: 'https://github.com/businesscentralal/bifrost'},
           ],
         },
         {

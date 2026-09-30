@@ -267,6 +267,7 @@ const llms = [
   '## Building on Bifröst',
   '',
   `- [Build on Bifröst](${en}extensibility/): what makes a Business Central app callable by agents, and where the partner reference repository takes over.`,
+  `- [Partner reference repository](https://github.com/businesscentralal/bc-bifrost-reference): the source of truth for building on Bifröst. Its [START-HERE guide](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/START-HERE.md) is written for a coding agent to build from; [INTEGRATING.md](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/INTEGRATING.md) covers calling Bifröst from another system.`,
   '',
   '## Apps',
   '',
