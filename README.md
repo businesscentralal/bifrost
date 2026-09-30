@@ -178,7 +178,49 @@ files.
 ## Generated message-type reference
 
 Message-type reference pages are generated from the apps' own help codeunits
-rather than written by hand, so they cannot drift from the product:
+rather than written by hand, so they cannot drift from the product. There are two
+generators that write the same pages; the source-based one needs nothing but a
+checkout of the app.
+
+### From AL source (offline, no credentials)
+
+```bash
+node tools/generate-message-type-docs-from-source.mjs --app attachments \
+     --source ../bc-origo-bifrost-attachments --version 28.0.0.36
+node tools/generate-message-type-docs-from-source.mjs --app orchestrator \
+     --source ../bc-origo-bifrost-orchestrator --list-only
+node tools/generate-message-type-docs-from-source.mjs --app attachments \
+     --source ../bc-origo-bifrost-attachments --version 28.0.0.36 --check
+```
+
+It reads the app's `app.json`, the values its enum extension adds to
+`Message Type ori` (each bound to the codeunit that implements `Msg Interface ori`),
+and evaluates that codeunit's `GetMessageHelpAsMarkdownDocument` with a small,
+side-effect-free AL interpreter (`tools/lib/al-source.mjs`). The pages it writes into
+`docs/<route>/reference/message-types/` are byte-for-byte what the API generator
+writes for the same source: same front matter, MDX escaping, sidebar order,
+`_category_.json` files and the shared *Errors and warnings* link that
+`Help.Implementation.Get` adds to every non-`Help.*` type. `--app` takes the route
+id, the title or the old codename; the type-to-app table is shared in
+`tools/lib/app-routes.mjs`. Pass `--version` with the released build, because AL-Go
+stamps the build number at build time and `app.json` only says `x.y.0.0`. Types whose
+help depends on runtime state (database rows, the installed-app catalogue, the
+caller's module) are reported with the file and line and the run exits non-zero;
+known help-text defects (literal `\u2192` escapes, `\` used as a line break, MCP
+tool names in help) are listed as warnings and left as they are. See
+[`tools/generate-message-type-docs-from-source.md`](tools/generate-message-type-docs-from-source.md)
+for what can and cannot be derived from source.
+
+The generator writes English only. Update the matching pages under
+`i18n/is-IS/docusaurus-plugin-content-docs-<route>/current/reference/message-types/`
+for new and changed types.
+
+`tools/check-context-help.mjs --app <route> --source <repo>` checks the same app's
+context-sensitive help from source: `contextSensitiveHelpUrl` in `app.json`, and
+every page's `ContextSensitiveHelpPage` against the pages under `help/<route>/`
+(and their is-IS translations). It exits non-zero when a link is missing or broken.
+
+### From a running environment (API)
 
 ```powershell
 pwsh tools/generate-message-type-docs.ps1            # all mapped apps
