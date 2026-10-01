@@ -7,53 +7,74 @@ slug: /
 description: "Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types."
 ---
 
-*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+# Bifröst Orchestrator
 
-Bifröst Orchestrator manages scheduled work in Business Central. It monitors, restarts and supervises Job Queue entries, and it runs **playbooks** — declarative, multi-step sequences of message types where the response of one step feeds the request of the next. It builds on Bifröst Foundation, so everything the app does is also reachable as a message type over the Bifröst queue API, and an external system or an AI agent can drive a playbook the same way a scheduled Job Queue entry does.
+**Routines that run themselves, and a job queue that looks after itself.** Chain Bifröst's
+operations into a playbook, run it on a schedule, and hear about it when something fails.
 
-## What it does
+{/* OPEN-21 */}
 
-- **Job Queue scheduling and supervision** — monitors, restarts and manages Job Queue entries, with configurable retry policies, recurring templates, scheduling and automatic restart on failure.
-- **Telegram and email notifications** — alerts when a job fails or restarts; Telegram messages go to the user's configured chat ID, email uses the built-in Business Central email system.
-- **Message playbooks** — declarative, multi-step workflows that chain Bifröst message types, with data flowing through a shared workspace using `@path` references.
-- **Step control** — forEach iteration over arrays produced by earlier steps, separate next steps on success and failure, skip-if-failed, per-step start conditions, and paged execution through large datasets.
-- **Scheduled playbooks** — run a playbook on a recurring schedule through the Job Queue, or enqueue it once with custom parameters.
-- **Reports on demand** — list, inspect, render (PDF, Excel, Word, XML) and run processing-only reports, with reusable request presets.
-- **Execution log** — every playbook run is recorded as an instance with a per-step log holding the request, the response and a workspace snapshot.
-- **Setup wizard** — guided setup for HTTP client requests, Job Queue configuration and the Telegram bot token.
+*An add-on to [Bifröst Foundation](/foundation/). New to Bifröst? Start with
+[How Bifröst works](/documentation/how-it-works/).*
 
-## How it works
+## What you can do
 
-1. Register Job Queue entries as **scheduled entries**; Nornir monitors and restarts them automatically.
-2. Configure the **notification type** (None, Email, Telegram) per entry to get alerts on failure.
-3. Build **playbooks** by creating steps that call Bifröst message types in sequence, with request templates using `@` workspace references to pass data between steps.
-4. Run playbooks manually, on a schedule, or enqueue them for deferred execution.
+- **Turn a routine into a playbook.** A playbook is a list of steps, each one a message type, where
+  one step's answer feeds the next: list the orders past their date, then release them, then tell
+  the right person. No code.
+- **Run it when it should run.** By hand, on a schedule through the Job Queue, or when an assistant
+  or another system asks for it.
+- **Stop babysitting the Job Queue.** Orchestrator watches Job Queue entries, restarts them when
+  they fail and retries by the rules you set.
+- **Be told when it matters.** An email or a Telegram message when a job fails or restarts.
+- **See what happened.** Every playbook run is kept, step by step, with what each step was sent and
+  what it answered.
+- **Run reports on demand.** List, run and save reports as PDF, Excel or Word, with saved request
+  presets.
 
-## Message types
+Playbooks can use message types from any Bifröst app, so every app you add gives your routines more
+to work with. An assistant can also build playbooks for you by conversation; see
+[Skills for AI agents](/skills/).
 
-| Category | Types |
+## Get it
+
+Install **Bifrost Orchestrator** next to Bifröst Foundation, from AppSource or through your
+partner. It needs Business Central 28.0 or later, Essentials or Premium.
+
+## Set it up
+
+| Step | What | Who |
+|---|---|---|
+| 1 | On **Bifrost Setup**, run the Orchestrator **setup wizard**: allow HTTP requests for the app and start its management job queue. | Business Central administrator |
+| 2 | For Telegram alerts, add a bot token (from Telegram's `@BotFather`) in the wizard, and each person's chat ID on **Bifrost User Setup**. For email alerts, set up a Business Central email account. | Business Central administrator |
+| 3 | Register the Job Queue entries Orchestrator should watch, and choose how each one notifies. | Business Central administrator |
+| 4 | Build or import playbooks, try them, then schedule the ones that should run by themselves. | Whoever owns the routine |
+
+The step-by-step guides are in the in-product help: [Orchestrator setup](/help/orchestrator/orchestrator-setup/)
+and [Playbooks](/help/orchestrator/playbooks/).
+
+## Good to know
+
+- **A playbook runs with the permissions of whoever starts it**; a scheduled one, with those of the
+  Job Queue. {/* OPEN-22 */} Every step is logged on **Bifrost Messages** as well as in the
+  playbook run.
+- **Try a playbook before you schedule it**, in a sandbox, with a case where there is work to do,
+  one where there is none, and one with a bad input.
+- **The Telegram bot token** is stored encrypted in Business Central.
+
+## Reference
+
+| Area | Message types |
 | --- | --- |
+| Playbooks | `Orchestrator.Playbook.Run`, `Orchestrator.Playbook.Schedule`, `Orchestrator.Playbook.Enqueue`, `Orchestrator.Workspace.Preview` |
 | Scheduled entries | `Orchestrator.Entry.Register`, `Orchestrator.Entry.Run`, `Orchestrator.Entry.Restart`, `Orchestrator.Entry.Schedule` |
 | Status | `Orchestrator.Status.Get`, `Orchestrator.Status.Restart`, `Orchestrator.Status.RestartIfNeeded` |
 | Job Queue | `Orchestrator.JobQueueEntry.Restart`, `Orchestrator.JobQueueEntry.RestartIfNeeded` |
-| Playbook | `Orchestrator.Playbook.Run`, `Orchestrator.Playbook.Schedule`, `Orchestrator.Playbook.Enqueue`, `Orchestrator.Workspace.Preview` |
 | Reports | `Orchestrator.Report.List`, `Orchestrator.Report.Get`, `Orchestrator.Report.Run`, `Orchestrator.Report.SaveAs` |
 | Delivery | `Orchestrator.Email.Send`, `Orchestrator.Telegram.Message` |
-| Help | `Help.Orchestrator.Get` |
+| Help | `Help.Orchestrator.Get`, the directory of every type above |
 
-`Help.Orchestrator.Get` is the API directory: it returns the Markdown contract of every type above.
-
-## Requirements
-
-- Microsoft Dynamics 365 Business Central 28.0 or later, Essentials or Premium.
-- Bifröst Foundation, available separately on AppSource.
-- For Telegram notifications: a Telegram bot token created through `@BotFather`, and a Telegram chat ID per user on Bifrost User Setup.
-- For email notifications: a Business Central email account configured with an email scenario.
-
-## Where to go next
-
+- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [In-product help](/help/orchestrator/)
-- [Message type reference](./reference/message-types/) — the request and response contract for every type, generated from the app itself
-- [AppSource user scenarios](./user-scenarios)
-- [Partner Center listing](./listing)
-- [Build on Bifröst](/extensibility/)
+- [AppSource user scenarios](./user-scenarios) · [Partner Center listing](./listing)
+- [What makes a good playbook step](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/Bifrost%20Reference%20Playbooks/README.md), in the partner reference repository
