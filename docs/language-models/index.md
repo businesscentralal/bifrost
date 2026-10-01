@@ -61,17 +61,12 @@ The step-by-step guide is in the in-product help:
 - **Your conversations go to the provider you choose**, under your agreement with that provider.
   See [Where your data goes](/documentation/how-it-works/#where-your-data-goes).
 
-## Reference
+## Capabilities and reference
 
-Capability: **`LLM`**.
-
-| Message type | Direction | Purpose |
-| --- | --- | --- |
-| `LLM.Prompt.Complete` | Outbound | One answer from a language model: send a system prompt and a user prompt, get text back. |
+Capability: **`LLM`**. What each message type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
-- [Chat message types](./message-types)
-- [Adding a chat provider](./extensibility)
+- [Chat message types](./message-types) and [Adding a chat provider](./extensibility)
 - [In-product help](/help/language-models/)
 - Permission sets: `BIFROST LLM ori` or `BIFROST LLM Rd ori` for the app, `BIFROST Chat ori` for
   chat, `BIFROST ChatSvc ori` for setting a shared key.

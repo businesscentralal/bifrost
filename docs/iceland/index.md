@@ -7,59 +7,95 @@ slug: /
 description: "Icelandic government services and SMS gateways as Bifröst message types: Þjóðskrá through Umsjá, Skatturinn, Seðlabanki, Skilagrein, island.is and Já Gagnatorg."
 ---
 
-*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+# Bifröst Iceland
 
-Bifröst Iceland adds Iceland-specific message types to Bifröst Foundation. An external system posts a request to the queue API (`origo/bifrost/v1.0`), Business Central runs the matching message type, and the result comes back through the response API — the same pattern as every other Bifröst message type, now reaching Þjóðskrá, Skatturinn, Seðlabanki Íslands, Skilagrein, island.is, Já Gagnatorg and the Icelandic SMS gateways.
+**Business Central talks to the Icelandic services you already use.** File VAT and payroll tax,
+look up people and companies, and fetch exchange rates without typing anything in twice.
 
-## What it does
+Bifröst Iceland connects Business Central to Þjóðskrá through Umsjá, Skatturinn, Seðlabanki
+Íslands, Skilagrein, island.is, Já Gagnatorg and the Síminn and Nova SMS gateways. A person, a
+scheduled routine or an assistant can use them the same way as the rest of Bifröst.
 
-- **National registry (Þjóðskrá through Umsjá)** — full and monthly-delta loads into a local cache, plus person, company, address, relation, role, stakeholder, VAT-number and ÍSAT lookups.
-- **Tax filing with Skatturinn** — virðisaukaskattur (VAT), staðgreiðsla (payroll withholding) and fjármagnstekjuskattur (capital income tax): fetch a period, validate, submit, correct, reopen and pull the PDF receipt.
-- **Central bank data** — exchange rates, policy and facility rates, IKON, REIBID/REIBOR, loan-term yields, statutory penalty interest, the consumer price index, exchange-rate indices and the SDDS macroeconomic dataset. Exchange rates can be written straight into the Business Central Currency Exchange Rate table.
-- **Skilagrein** — collectors, pension funds, unions, rehabilitation funds and pension supplements as master data, plus contribution returns and confirmation of extra charges.
-- **island.is** — kennitala validation, vehicle lookup by plate or VIN, and the customs tariff: categories, input units, country-to-currency mapping and duty calculation.
-- **Já Gagnatorg** — free-text directory search (Símaskrá) and registry lookups against Þjóðskrá and Fyrirtækjaskrá.
-- **SMS** — Síminn magnSMS (REST or SOAP) and Nova, with delivery status.
-- **Icelandic reference data** — public holidays, the Byggðastofnun postal-code registry, ISO currency and language lists.
+*An add-on to [Bifröst Foundation](/foundation/) for companies in Iceland. New to Bifröst? Start
+with [How Bifröst works](/documentation/how-it-works/).*
 
-Two message types run entirely inside Business Central with no external service: `Finance.VATStatement.Preview` calculates VAT statement lines per box number ready for RSK mapping, and `Finance.VAT.CalcAndPostSettlement` runs Calculate and Post VAT Settlement.
+## What you can do
 
-## How it works
+- **Look up a person or a company.** Search the national register (Þjóðskrá through Umsjá) by
+  kennitala, name or address, see relations, roles and stakeholders, or search the Já directory.
+  The register can also be kept as a local copy, refreshed monthly.
+- **File tax returns to Skatturinn.** Fetch, validate, submit and correct VAT, payroll withholding
+  (staðgreiðsla) and capital income tax (fjármagnstekjuskattur) returns, and get the receipt as a
+  PDF. Try it against Skatturinn's test service first.
+- **Prepare and close VAT in Business Central.** Preview the VAT statement per box ready for
+  Skatturinn, and calculate and post the VAT settlement.
+- **Get rates from Seðlabanki.** Exchange rates straight into the Business Central exchange rate
+  table, plus interest rates, penalty interest, the consumer price index and other indicators.
+- **Send pension and union contributions.** Keep Skilagrein master data up to date, send
+  contribution returns to collectors and confirm extra charges.
+- **Check details and send messages.** Validate a kennitala, look up a vehicle or customs tariff
+  on island.is, check public holidays and postal codes, and send SMS through Síminn or Nova.
 
-1. Install Bifröst Foundation, then Bifröst Iceland. The **Set up Bifrost Iceland** assisted setup opens on first install.
-2. Allow outgoing HTTP client requests for the extension — nothing reaches an external service until that is on.
-3. Enter the credentials each service needs, on the **Bifrost Iceland Setup** card — reached from the **Apps** group of the Bifröst **Setup** page — or through the wizard. Every credential goes to the Bifröst Foundation secret store; nothing is written to a table and passwords are masked before any request reaches the Bifröst request log.
-4. Set the company kennitala in **Company Information → Registration No.** Skatturinn authentication reads it from there.
-5. Callers send Bifröst messages naming an `Iceland.*`, `Ja.*` or `Finance.VAT*` message type.
+Run any of these on a schedule, for example a daily exchange rate update, as a playbook in
+[Bifröst Orchestrator](/orchestrator/). For bank connections, see
+[Bifröst Iceland Treasury](/iceland-treasury/).
 
-Each connector has a **client type** — the live service, a test service, or none — so a company can exercise the whole flow against Skatturinn's test endpoint before going live.
+## Get it
 
-## Message types
+Install **Bifrost Iceland** next to Bifröst Foundation, from AppSource or through your partner. It
+needs Business Central 28.0 or later, Essentials or Premium, with Microsoft's Icelandic
+localisation (IS Core).
 
-| Topic | Count | Message types |
-| --- | --- | --- |
-| Directory | 1 | `Help.Iceland.Get` |
-| Umsjá — Þjóðskrá | 15 | `Iceland.NationalRegistry.Sync`, `Iceland.NationalRegistryCheck.Get`, `Iceland.DeltaMonthly.Sync`, `Iceland.Member.Get`, `Iceland.Search.Get`, `Iceland.SearchByName.Get`, `Iceland.SearchBySocialID.Get`, `Iceland.Address.Get`, `Iceland.AddressInfo.Get`, `Iceland.Relations.Get`, `Iceland.Roles.Get`, `Iceland.Parties.Get`, `Iceland.Stakeholders.Get`, `Iceland.VatNumber.Get`, `Iceland.Isat.Get` |
-| Skatturinn — VAT | 9 | `Iceland.VAT.GetPeriodEntries`, `Iceland.VAT.Validate`, `Iceland.VAT.Submit`, `Iceland.VAT.Correct`, `Iceland.VAT.GetNumbers`, `Iceland.VAT.GetInfo`, `Iceland.VAT.GetRSKDeclaration`, `Iceland.VAT.Receipt`, `Iceland.VAT.DeleteInTest` |
-| Skatturinn — payroll | 6 | `Iceland.Payroll.GetPeriodPrereqs`, `Iceland.Payroll.GetAllPeriods`, `Iceland.Payroll.Validate`, `Iceland.Payroll.Send`, `Iceland.Payroll.Receipt`, `Iceland.Payroll.Reopen` |
-| Skatturinn — capital tax | 8 | `Iceland.CapitalTax.Submit`, `Iceland.CapitalTax.GetStatus`, `Iceland.CapitalTax.GetOverview`, `Iceland.CapitalTax.GetTypes`, `Iceland.CapitalTax.GetPeriods`, `Iceland.CapitalTax.GetSubmittablePeriods`, `Iceland.CapitalTax.GetExemptions`, `Iceland.CapitalTax.Reopen` |
-| Business Central VAT | 2 | `Finance.VATStatement.Preview`, `Finance.VAT.CalcAndPostSettlement` |
-| Seðlabanki Íslands | 11 | `Iceland.CurrencyRates.Get`, `Iceland.Currency.Sync`, `Iceland.InterestRates.Get`, `Iceland.IkonRates.Get`, `Iceland.InterbankRates.Get`, `Iceland.LoanTermRates.Get`, `Iceland.PenaltyInterest.Get`, `Iceland.ConsumerPriceIndex.Get`, `Iceland.ExchangeRateIndex.Get`, `Iceland.EconomicData.Get`, `Iceland.Language.Get` |
-| Skilagrein | 7 | `Iceland.Collector.Get`, `Iceland.PensionFund.Get`, `Iceland.Union.Get`, `Iceland.RehabFund.Get`, `Iceland.PensionSupplement.Get`, `Iceland.CollectorPayment.Send`, `Iceland.CollectorExtraAmount.Confirm` |
-| island.is | 6 | `Iceland.Kennitala.Validate`, `Iceland.Vehicle.Get`, `Iceland.Customs.Categories`, `Iceland.Customs.Calculate`, `Iceland.Customs.Units`, `Iceland.Customs.CountryCurrencies` |
-| SMS | 2 | `Iceland.SMS.Send`, `Iceland.SMS.Status` |
-| Reference data | 4 | `Iceland.Holidays.Get`, `Iceland.Holidays.IsHoliday`, `Iceland.PostCode.Get`, `Iceland.Currency.Get` |
-| Já Gagnatorg | 4 | `Help.Ja.Get`, `Ja.Search.Query`, `Ja.Person.Get`, `Ja.Company.Get` |
+## Set it up
 
-## Permission sets
+| Step | What | Who |
+|---|---|---|
+| 1 | Run Bifröst Foundation's **Bifrost Setup Wizard**: allow outgoing HTTP requests for the app and enter the credentials for the services you use. Nothing reaches an external service until HTTP is on. | Business Central administrator |
+| 2 | Run **Set up Bifrost Iceland connectors** from Assisted Setup, or open **Bifrost Iceland Setup**, and choose the live or test service for each connector. | Business Central administrator |
+| 3 | Enter the company kennitala in **Company Information → Registration No.** Skatturinn reads it from there. | Business Central administrator |
+| 4 | For Skilagrein, set each collector's password on the **Skilagrein Collectors** page. | Business Central administrator |
+| 5 | Assign permissions: `BIFROST Full ori` for full access, or the set for one service only (see the table below). | Business Central administrator |
 
-`BIFROST ISFull ori` is a permission set extension: it adds every Iceland object to Bifröst Foundation's `BIFROST Full ori`, so that is the set to assign for full access. The rest gate one service each and are assigned on their own where a caller should reach only part of the app.
+The step-by-step guides are in the in-product help:
+[Bifrost Iceland Setup](/help/iceland/iceland-setup/),
+[National Registry Entries](/help/iceland/iceland-umsja-registry/) and
+[Skilagrein Master Data](/help/iceland/iceland-skilagrein/).
+
+## Good to know
+
+- **Each service has its own permission set**, so a user can be allowed to file VAT without being
+  able to send SMS or sync the register. Every call is logged on **Bifrost Messages**.
+- **Credentials** are needed for Umsjá, Skatturinn, Skilagrein, SMS and Já Gagnatorg. They are
+  kept in the Bifröst Foundation secret store, never shown again, and masked in the request log.
+  Seðlabanki, island.is, holidays and postal codes need none.
+- **Credentials do not carry over** from Origo Cloud Events Iceland. Enter them once after
+  installing.
+- **The national register copy is personal data.** Keep the permission sets narrow, and clear the
+  copy when the company no longer has a lawful basis for holding it.
+
+## Capabilities and reference
+
+Capabilities: **`Iceland`** and **`Ja`**. The app also adds the `Finance.VAT*` message types to
+Foundation's **`Finance`** capability. Its directories of types are `Help.Iceland.Get` and
+`Help.Ja.Get`.
+
+What each message type does, in plain words: [Capabilities](./capabilities).
+
+- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
+- [In-product help](/help/iceland/)
+- [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
+
+### Permission sets
+
+`BIFROST ISFull ori` is a permission set extension: it adds every Iceland object to Bifröst
+Foundation's `BIFROST Full ori`, so that is the set to assign for full access. The rest gate one
+service each and are assigned on their own where a caller should reach only part of the app.
 
 | Permission set | Assignable | Covers |
 | --- | --- | --- |
 | `BIFROST ISFull ori` | Extension of `BIFROST Full ori` | Every Iceland object |
-| `BIFROST Umsja ori` | No — included in `BIFROST ISFull ori` | Umsjá lookups and the registry cache |
-| `BIFROST NatReg ori` | Yes | National registry synchronization |
+| `BIFROST Umsja ori` | No, included in `BIFROST ISFull ori` | Umsjá lookups and the registry cache |
+| `BIFROST NatReg ori` | Yes | National registry synchronisation |
 | `BIFROST VAT ori` | Yes | VAT submissions |
 | `BIFROST Payroll ori` | Yes | Payroll tax submissions |
 | `BIFROST CapTax ori` | Yes | Capital income tax submissions |
@@ -67,18 +103,3 @@ Each connector has a **client type** — the live service, a test service, or no
 | `BIFROST SMS ori` | Yes | SMS to Icelandic numbers |
 | `BIFROST SMS Fgn ori` | Yes | SMS to foreign numbers |
 | `BIFROST Ja ori` | Yes | Já Gagnatorg search, person and company lookups |
-
-## Requirements
-
-- Microsoft Dynamics 365 Business Central 28.0 or later, Essentials or Premium.
-- Bifröst Foundation, available separately on AppSource.
-- Outgoing HTTP client requests enabled for the extension.
-- Credentials for each service the company uses: an Umsjá licence with user name and password, Skatturinn passwords for VAT, payroll and capital tax, a Skilagrein password per collector, an SMS account with Síminn or Nova, and Já Gagnatorg search and registry API keys. The public data services — Seðlabanki, island.is, holidays, postal codes — need no credentials.
-
-## Where to go next
-
-- [In-product help](/help/iceland/)
-- [Message type reference](./reference/message-types/) — the request and response contract for every type, generated from the app itself
-- [AppSource user scenarios](./user-scenarios)
-- [Partner Center listing](./listing)
-- [Build on Bifröst](/extensibility/)

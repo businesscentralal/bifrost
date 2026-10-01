@@ -62,21 +62,12 @@ and [Playbooks](/help/orchestrator/playbooks/).
   one where there is none, and one with a bad input.
 - **The Telegram bot token** is stored encrypted in Business Central.
 
-## Reference
+## Capabilities and reference
 
-Capability: **`Orchestrator`**. Its directory of types is `Help.Orchestrator.Get`.
-
-| Group | Message types |
-| --- | --- |
-| Playbooks | `Orchestrator.Playbook.Run`, `Orchestrator.Playbook.Schedule`, `Orchestrator.Playbook.Enqueue`, `Orchestrator.Workspace.Preview` |
-| Scheduled entries | `Orchestrator.Entry.Register`, `Orchestrator.Entry.Run`, `Orchestrator.Entry.Restart`, `Orchestrator.Entry.Schedule` |
-| Status | `Orchestrator.Status.Get`, `Orchestrator.Status.Restart`, `Orchestrator.Status.RestartIfNeeded` |
-| Job Queue | `Orchestrator.JobQueueEntry.Restart`, `Orchestrator.JobQueueEntry.RestartIfNeeded` |
-| Reports | `Orchestrator.Report.List`, `Orchestrator.Report.Get`, `Orchestrator.Report.Run`, `Orchestrator.Report.SaveAs` |
-| Delivery | `Orchestrator.Email.Send`, `Orchestrator.Telegram.Message` |
-| Help | `Help.Orchestrator.Get`, the directory of every type above |
+Capability: **`Orchestrator`**. Its directory of types is `Help.Orchestrator.Get`. What each message
+type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [In-product help](/help/orchestrator/)
-- [AppSource user scenarios](./user-scenarios) · [Partner Center listing](./listing)
+- [AppSource listing text](./listing) · [AppSource validation scenarios](./user-scenarios)
 - [What makes a good playbook step](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/Bifrost%20Reference%20Playbooks/README.md), in the partner reference repository
