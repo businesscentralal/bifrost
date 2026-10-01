@@ -27,16 +27,14 @@ When you do the steps for a customer, three things stay theirs:
 
 ## Selling and licensing
 
-A partner can license Bifröst to its customers and follow their usage.
+A partner can license Bifröst to its customers and follow their usage. To become a Bifröst
+partner, contact [The App Channel](https://www.theappchannel.com/).
 
 - [Licensing and partner program](/foundation/licensing/): the roles, and who invoices whom
 - [Working as a Partner](/foundation/licensing/partner/): registering, inviting customers,
   following their usage
 - [Working as a Vendor](/foundation/licensing/vendor/): for a vendor with its own partners
 
-:::note Being written (OPEN-10)
-How to become a Bifröst partner or reseller.
-:::
 
 ## Supporting a customer
 
