@@ -2,8 +2,8 @@
 id: eula
 slug: /eula
 title: "Notkunarskilmálar"
-sidebar_label: "Notkunarskilmálar"
-sidebar_position: 90
+sidebar_label: "Terms of Use"
+sidebar_position: 20
 description: "Notkunarskilmálar fyrir Origo BC Bifröst og tengdan Origo BC Agentic Platform."
 ---
 

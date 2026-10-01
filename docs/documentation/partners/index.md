@@ -13,6 +13,22 @@ Bifröst (as a Bifröst **partner**, which customers may call their reseller), o
 on it. This page lists what to think about, and where each topic
 is covered.
 
+## What partners use it for
+
+- **For customers:** AI services you build, package and resell, such as reports and dashboards
+  that customers change by asking, or assistants for one role.
+- **In your own team:** demo data, troubleshooting, help with configuration, and exploring a
+  customer's data when the customer has agreed to it.
+- **In projects:** help moving data from older NAV or Business Central versions and other ERP
+  systems, checked in Business Central before you go live.
+- **In testing:** automated tests for new and changed features and before each release, run
+  through the same message types a user's assistant would call.
+- **Routines:** [Orchestrator](/orchestrator/) playbooks that chain message types from any app,
+  built and looked after for a customer.
+
+Demos and your own use are counted apart from customers' use, as the **Demo** and **Internal**
+[charge types](/licensing/license-types/#charge-types).
+
 ## Setting it up for a customer
 
 [Set it up](/setup/) is written so a customer can follow it, and says who is needed for each step.
@@ -23,17 +39,17 @@ When you do the steps for a customer, three things stay theirs:
   owns the data. [Administrators](/documentation/end-customers/administrators/) explains what they
   are deciding.
 - **Accepting your invitation**, if the customer licenses Bifröst through you: see
-  [Being a Customer](/foundation/licensing/customer/).
+  [Being a Customer](/licensing/customer/).
 
 ## Selling and licensing
 
 A partner can license Bifröst to its customers and follow their usage. To become a Bifröst
 partner, contact [The App Channel](https://www.theappchannel.com/).
 
-- [Licensing and partner program](/foundation/licensing/): the roles, and who invoices whom
-- [Working as a Partner](/foundation/licensing/partner/): registering, inviting customers,
+- [Licensing and partner program](/licensing/): the roles, and who invoices whom
+- [Working as a Partner](/licensing/partner/): registering, inviting customers,
   following their usage
-- [Working as a Vendor](/foundation/licensing/vendor/): for a vendor with its own partners
+- [Working as a Vendor](/licensing/vendor/): for a vendor with its own partners
 
 
 ## Supporting a customer
@@ -45,11 +61,13 @@ partner, contact [The App Channel](https://www.theappchannel.com/).
   the customer, because it shows every message. Open the call in question and download the
   response to read the error.
 - **Your own calls count too.** Work in a customer's tenant through a delegated partner plan counts in
-  its own **Support** charge type; see [License types](/foundation/licensing/license-types/).
+  its own **Support** charge type; see [License types](/licensing/license-types/).
 - [Using Bifröst](/documentation/end-customers/users/#when-it-says-no) lists what users see when
   Bifröst says no, and what it means.
 
-:::note Being written (OPEN-11)
+{/* OPEN-11 */}
+
+:::note Being written
 Where partners escalate to Origo.
 :::
 
@@ -57,8 +75,8 @@ Where partners escalate to Origo.
 
 Bifröst reaches what has message types, and not every task in Business Central has one yet; see
 [What it covers](/documentation/how-it-works/#what-it-covers-and-how-it-grows). Each missing
-operation is something your app can add. Your app's message types join the same catalogue, every
-connected agent can use them the day your app is installed, and their use is counted, so it can be
+operation is something your app can add, as a message type in a capability of its own. Your app's message types join the same catalogue, every
+connected agent can use them as soon as your app is installed and set up, and their use is counted, so it can be
 sold like any other part of your app.
 
 - [Build on Bifröst](/extensibility/): the concepts, and what makes an app callable by agents

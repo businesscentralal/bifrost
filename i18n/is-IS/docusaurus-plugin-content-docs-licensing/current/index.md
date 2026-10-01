@@ -3,7 +3,7 @@ id: index
 title: "Leyfi og samstarfsáætlun"
 sidebar_label: "Yfirlit"
 sidebar_position: 1
-slug: /licensing
+slug: /
 description: "Hvernig leyfismálum Bifröst er háttað: fyrirframgreitt leyfi og áskriftarleyfi, hlutverk söluaðila, samstarfsaðila og viðskiptavinar, hver rukkar hvern og hvernig leigjandi færist á milli tegunda leyfa."
 ---
 

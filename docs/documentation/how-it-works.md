@@ -20,7 +20,64 @@ message type does one thing, such as checking item availability, turning a quote
 posting a document, and each one describes itself: what it does, what it needs, what it returns and
 what can go wrong. The agent reads those descriptions, picks the right operations and calls them.
 
-## Three things that make it different
+## Capabilities and message types
+
+Message types are grouped into **capabilities**. The first part of a message type's name says which
+capability it belongs to:
+
+| Message type | Capability | What it does |
+|---|---|---|
+| `Customer.CreditLimit.Get` | **Customer** | Checks a customer's credit: balance, overdue amount, open orders and what is left |
+| `Sales.Document.Post` | **Sales** | Posts a sales document |
+| `Item.Availability.Get` | **Item** | Works out how much of an item you can promise |
+
+- **A message type** is one operation, and it is what an agent calls. Each one describes itself;
+  see [What a message type says about itself](#what-a-message-type-says-about-itself) below.
+- **A capability** is a group of message types about the same thing, such as customers or sales
+  documents. An agent looks at the capabilities first, then picks a message type inside the right
+  one.
+- **An app** is what you install. It adds one or more capabilities, or more message types to one
+  that exists: Foundation brings the standard Business Central ones, and each other app adds its own.
+
+```mermaid
+flowchart LR
+  F["App: Foundation"] --> C1["Capability: Customer"]
+  F --> C2["Capability: Sales"]
+  F --> C3["Capability: Finance"]
+  T["App: Iceland Treasury"] --> C4["Capability: Landsbankinn"]
+  C1 --> M1["Customer.CreditLimit.Get"]
+  C1 --> M2["Customer.Statement.Pdf"]
+  C2 --> M3["Sales.Document.Post"]
+  C3 --> M4["Finance.BankReconciliation.Match"]
+  C4 --> M5["Landsbankinn.Account.Transactions"]
+```
+
+*In words: an app adds capabilities, and each capability holds message types. Foundation adds
+Customer, Sales and Finance, among others; Iceland Treasury adds one capability per bank, such as
+Landsbankinn. `Customer.CreditLimit.Get` and `Customer.Statement.Pdf` both belong to Customer.*
+
+In the assistant's own tool list, capabilities are called *domains*. They have nothing to do with
+Microsoft's **Copilot & AI Capabilities** page in Business Central, which turns Copilot features on
+and off.
+
+### What a message type says about itself
+
+Every message type carries its own description, in three layers. The agent reads them in this order
+before it calls anything:
+
+| Layer | What it says | For `Customer.CreditLimit.Get` |
+|---|---|---|
+| **The name** | The capability, the thing and what is done to it | Customer · credit limit · get (reads, changes nothing) |
+| **One line** | What it does, so the agent can choose between similar ones | Checks a customer's credit: balance, overdue amount, open orders and what is left |
+| **The help** | What it needs, what it returns and what can go wrong | Which customer and how to name it; the figures that come back; the answer when the customer does not exist |
+
+The help is written by the people who build the app, and it is the same text you can read on this
+site: the [message type reference](/foundation/reference/message-types/), for example
+[`Customer.CreditLimit.Get`](/foundation/reference/message-types/customer-creditlimit-get/). So a new
+message type is usable as soon as its app is installed, set up and permitted: nothing has to be taught to the assistant first.
+
+
+## Four things that make it different
 
 - **Nothing is built for your question.** The operations describe themselves, so an agent can
   combine them, including for questions nobody planned for.
@@ -28,8 +85,10 @@ what can go wrong. The agent reads those descriptions, picks the right operation
   as the app identity an integration was given. It reaches only what that identity is allowed to,
   and every call is logged in your Business Central. You decide what each identity may do; see
   [Administrators](/documentation/end-customers/administrators/).
-- **It grows without a release.** Any app, Origo's or a partner's, can add message types, and every
+- **It grows without a release.** Any app, Origo's or a partner's, can add capabilities, and every
   connected agent can use them the same day.
+- **You choose the AI.** Copilot, ChatGPT, Claude or any other assistant that supports MCP works
+  the same way, so you are not tied to one provider, and you can use more than one.
 
 ## How it fits together
 
@@ -39,7 +98,7 @@ import PlatformMap from '@site/src/components/PlatformMap';
 
 [Bifröst Foundation](/foundation/) is the one gate. It holds the catalogue of message types, hands
 out their help, checks permissions and license, and logs every call. Everything else in the family
-is an app that adds its own message types to the same catalogue. The [app list](/apps/) shows them.
+is an app that adds its own capabilities to the same catalogue. The [app list](/apps/) shows them.
 
 ## What happens when you ask
 
@@ -83,7 +142,7 @@ In more detail:
 - **Bifrost Messages** in your Business Central keeps each call with the data it returned, for as
   long as you decide; see [Logs and retention](/documentation/end-customers/administrators/#logs-and-retention).
 
-The full statement: [Privacy](/foundation/privacy/).
+The full statement: [Privacy](/licensing/privacy/).
 
 ## How far it goes
 
@@ -104,7 +163,7 @@ has been built for it, and that is a lot:
 | | How far it reaches | How |
 |---|---|---|
 | **Read** | Most of your data | A general read reaches any table that is not restricted, within your permissions and [Field Access](/documentation/end-customers/administrators/#field-access). Most questions can be answered. |
-| **Do** | What has a message type | Creating, converting, releasing and posting each need their own message type. Foundation brings them for sales, purchasing, finance, inventory, warehouse and projects, among others; the [catalogue](/foundation/reference/message-types/) lists them. Not every task in Business Central has one yet. |
+| **Do** | What has a message type | Creating, converting, releasing and posting each need their own message type. Foundation's [capabilities](/foundation/capabilities/) cover sales, purchasing, finance, inventory and projects, among others. Not every task in Business Central has one yet. |
 | **Change a field** | A narrow, guarded path | A general write can change fields in a record, by default only the fields the change log covers ([ChangeLog Write Guard](/documentation/end-customers/administrators/#the-setup-page)). It does not replace an operation with Business Central's own logic. |
 
 When there is no message type for a task, the assistant cannot do it through Bifröst, and it should
@@ -112,31 +171,34 @@ say so. {/* OPEN-19 */} That is the edge of what is installed, not a fault.
 
 ### Every app moves the edge
 
-Message types come from apps, and anyone can build one. Each new message type joins the same
+Capabilities come from apps, and anyone can build one. Each app's capabilities join the same
 catalogue, behind the same gate: the same permissions, the same log, the same help an agent reads
-before it calls. Every connected agent can use it the day the app is installed.
+before it calls. Every connected agent can use it as soon as the app is installed, set up and permitted.
 
-```mermaid
-flowchart LR
-  O["Origo's apps<br/>banks, documents, storage, schedules, language models"] --> C
-  P["Partner and ISV apps<br/>their own products and industries"] --> C
-  Y["Your own app<br/>your company's processes"] --> C
-  C["One catalogue in Bifröst Foundation<br/>one gate: permissions, log, help"] --> A["Assistants, integrations<br/>and Orchestrator playbooks"]
-```
-
-*In words: Origo's apps, partners' and ISVs' apps and your own apps all add message types to one
-catalogue in Bifröst Foundation, and assistants, integrations and Orchestrator playbooks use them
-all the same way.*
-
-- **Origo's apps** add areas such as Icelandic banks, document exchange, storage and schedules;
+- **Origo's apps** add capabilities such as Icelandic banks, document exchange, storage and schedules;
   see the [app list](/apps/).
-- **Partners and ISVs** add the operations of their own apps and industries, and list them in the
+- **Partners and ISVs** add capabilities for their own apps and industries, and list them in the
   [app registry](/apps/register-your-app/). See [Build on Bifröst](/extensibility/).
-- **Your own developers** can add message types for your company's own processes, the same way.
+- **Your own developers** can add a capability for your company's own processes, the same way.
 - **[Orchestrator](/orchestrator/)** chains message types from any app into routines, with no code.
 
-Missing something? Ask your partner or Origo: it may already exist in an app, or be something they
-can build.
+**An example: bank reconciliation.** Each app you add lets you ask for more:
+
+| With | You can ask | Capabilities used |
+|---|---|---|
+| Foundation | *"Reconcile the main bank account against this statement and show me what does not match."* | `Finance` |
+| + [Iceland Treasury](/iceland-treasury/) | *"Fetch yesterday's statement from Landsbankinn and reconcile it."* {/* OPEN-30 */} | `Landsbankinn`, `Finance` |
+| + [Orchestrator](/orchestrator/) | *"Do this every morning and tell me what did not match."* | `Orchestrator`, `Landsbankinn`, `Finance` |
+
+The assistant combines capabilities from different apps as if they were one product.
+
+**Missing something?**
+
+1. Ask the assistant: *"Which capabilities can you use here?"* It lists what your installation has.
+2. Look in the [app list](/apps/): it may be in an app you have not installed yet.
+3. If not, ask your Business Central partner or [Origo](https://www.origo.is/). It can be built,
+   either as a new app or as more message types in an app that exists; see
+   [Build on Bifröst](/extensibility/).
 
 **Next:** [Set it up](/setup/), or the page for your role:
 [Users](/documentation/end-customers/users/) · [Administrators](/documentation/end-customers/administrators/) ·

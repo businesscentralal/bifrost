@@ -43,7 +43,7 @@ partner. It needs Business Central 28.0 or later.
 |---|---|---|
 | 1 | Choose a provider. For **Copilot**, turn it on under **Copilot & AI Capabilities**; for another provider, have its API key ready. | Business Central administrator |
 | 2 | On **Bifrost Setup**, open **Bifrost Language Models Setup** and run its **Setup Wizard**, or create a language model by hand, then choose **Import Defaults** for the skill text. Mark one model as **Default**. | Business Central administrator |
-| 3 | Give each person who may chat the **`BIFROST Chat ori`** permission set, next to the Language Models set. Chat is never included in other permission sets. | Business Central administrator |
+| 3 | Give each person who may chat the **`BIFROST Chat ori`** permission set, next to `BIFROST LLM ori` (or `BIFROST LLM Rd ori`). Chat is never included in other permission sets. | Business Central administrator |
 | 4 | Open a customer, item or sales order: the chat appears on the right. | Each user |
 
 The step-by-step guide is in the in-product help:
@@ -63,6 +63,8 @@ The step-by-step guide is in the in-product help:
 
 ## Reference
 
+Capability: **`LLM`**.
+
 | Message type | Direction | Purpose |
 | --- | --- | --- |
 | `LLM.Prompt.Complete` | Outbound | One answer from a language model: send a system prompt and a user prompt, get text back. |
@@ -71,5 +73,5 @@ The step-by-step guide is in the in-product help:
 - [Chat message types](./message-types)
 - [Adding a chat provider](./extensibility)
 - [In-product help](/help/language-models/)
-- Permission sets: `BIFROST Bragi ori` or `BIFROST Bragi Rd ori` for the app, `BIFROST Chat ori` for
+- Permission sets: `BIFROST LLM ori` or `BIFROST LLM Rd ori` for the app, `BIFROST Chat ori` for
   chat, `BIFROST ChatSvc ori` for setting a shared key.

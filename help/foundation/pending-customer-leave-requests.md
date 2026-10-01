@@ -23,4 +23,4 @@ administration permission.
 | **Confirm** | Accepts the request. The customer is cancelled and returns to the Prepaid license on its next Sync. |
 | **Reject** | Declines the request with a [reason](/help/foundation/cancel-reason/). The customer sees it after its next Sync and stays your customer. |
 
-See [Leaving and cancelling](/foundation/licensing/leaving-and-cancelling/).
+See [Leaving and cancelling](/licensing/leaving-and-cancelling/).

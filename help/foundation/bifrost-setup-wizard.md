@@ -44,10 +44,10 @@ Missing credentials are never an error here or on Bifrost Setup — a credential
 | **Sandbox** | **Sandbox Licensing**: no trial is needed and Bifröst itself does not limit messages; the public MCP server allows 1,000 messages per 24 hours per Microsoft Entra tenant. For unlimited sandbox testing, use the Local MCP server from [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp). |
 | **On-premises** | How to set up the Local MCP server next to your installation, and **Verify Connection** for the licensing-service connection Origo supplied with your on-premises licence. You cannot continue until the connection is verified. |
 
-See [Licensing and partner program](/foundation/licensing) for the licence model.
+See [Licensing and partner program](/licensing/) for the licence model.
 
 ## Tips
 
--   A new installation always starts on the **Prepaid** license. The **Subscription** license begins later, when the tenant accepts an invitation from a Bifröst Partner - see [Being a Customer](/foundation/licensing/customer/).
+-   A new installation always starts on the **Prepaid** license. The **Subscription** license begins later, when the tenant accepts an invitation from a Bifröst Partner - see [Being a Customer](/licensing/customer/).
 -   Nothing you do in the wizard is destructive: **Back** and **Next** never discard values you have already entered, and you can run the wizard again at any time.
 -   **Revoke EULA Approval** on Bifrost Setup withdraws the approval for the company; run the wizard again to restore it.

@@ -17,4 +17,4 @@ samstarfsaðili hefur boðið leigjandanum þínum. Veldu samstarfsaðilann sem 
 Veldu línu og síðan **Samþykkja**. Leigjandinn þinn fer þá á **áskriftarleyfi** og samstarfsaðilinn
 rukkar fyrir notkun þína. Aðeins leyfisstjóri getur samþykkt boð.
 
-Sjá [Að vera viðskiptavinur](/foundation/licensing/customer/).
+Sjá [Að vera viðskiptavinur](/licensing/customer/).

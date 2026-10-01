@@ -17,4 +17,4 @@ Veldu **Í lagi** og staðfestu. Leigjandinn þarf þegar að hafa sett upp Bifr
 notendaleyfissamninginn. Samstarfsaðilinn sér boðið sem tilkynninguna
 *Skrá sem samstarfsaðili* eftir að hann velur **Samstilla** á síðunni Uppsetning Bifröst.
 
-Sjá [Að starfa sem söluaðili](/foundation/licensing/vendor/#inviting-partners).
+Sjá [Að starfa sem söluaðili](/licensing/vendor/#inviting-partners).

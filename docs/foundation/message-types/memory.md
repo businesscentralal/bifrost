@@ -597,9 +597,9 @@ Each record object:
 
 ## Permission Sets
 
-| Permission Set | ID | Description |
-|---|---|---|
-| Bifrost Company Memory | 10077891 | Grants RIMD access to the Bifrost Memory and Translation ori tables. Assign to users who need full memory management capabilities. |
+| Permission Set | Description |
+|---|---|
+| Bifrost Company Memory | Grants RIMD access to the Bifrost Memory and Translation ori tables. Assign to users who need full memory management capabilities. |
 
 ---
 

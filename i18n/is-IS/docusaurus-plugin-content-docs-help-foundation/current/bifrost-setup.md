@@ -17,12 +17,12 @@ Allar uppsetningartilkynningar Bifröst-fjölskyldunnar birtast hér og aldrei �
 | _Notendaleyfissamningur Bifröst hefur ekki verið samþykktur fyrir þetta fyrirtæki_ | **Hefja uppsetningarleiðsögn**. Þar til samningurinn hefur verið samþykktur er öllum köllum fyrirtækisins hafnað. |
 | _Skilaboðakvóti Bifröst er að klárast_ | Birtist þegar færri en 1.000 skilaboð eru eftir í potti fyrirframgreidds leyfis. |
 | _Villuleitarstilling beiðna er VIRK_ | Áminning um að slökkva á **Villuleitarstilling beiðna** að villuleit lokinni. |
-| _Þessi leigjandi má skrá sig sem söluaðili í Bifröst_ | **Skrá sem söluaðili** - sjá [Að starfa sem söluaðili](/foundation/licensing/vendor/). |
-| _Bifröst söluaðili hefur boðið þessum leigjanda sem samstarfsaðila_ | **Skrá sem samstarfsaðili** - sjá [Að starfa sem samstarfsaðili](/foundation/licensing/partner/). |
-| _Bifröst samstarfsaðili hefur boðið þessum leigjanda sem viðskiptavin_ | **Skrá sem viðskiptavinur** - færir leigjandann á áskriftarleyfi. Sjá [Að vera viðskiptavinur](/foundation/licensing/customer/). |
+| _Þessi leigjandi má skrá sig sem söluaðili í Bifröst_ | **Skrá sem söluaðili** - sjá [Að starfa sem söluaðili](/licensing/vendor/). |
+| _Bifröst söluaðili hefur boðið þessum leigjanda sem samstarfsaðila_ | **Skrá sem samstarfsaðili** - sjá [Að starfa sem samstarfsaðili](/licensing/partner/). |
+| _Bifröst samstarfsaðili hefur boðið þessum leigjanda sem viðskiptavin_ | **Skrá sem viðskiptavinur** - færir leigjandann á áskriftarleyfi. Sjá [Að vera viðskiptavinur](/licensing/customer/). |
 | _Óafgreiddar uppsagnarbeiðnir viðskiptavina / samstarfsaðila bíða yfirferðar_ | Opnaðu **Óafgreiddar uppsagnarbeiðnir viðskiptavina** eða **Óafgreiddar uppsagnarbeiðnir samstarfsaðila**. |
 | _Samstarfsaðili / Söluaðili … hafnaði uppsagnarbeiðni_ | Sýnir ástæðuna sem samstarfsaðilinn eða söluaðilinn gaf. |
-| _Samstarfi þessa leigjanda við Bifröst samstarfsaðila er lokið_ / _Bifröst söluaðili hefur sagt upp þessum samstarfsaðila_ | Uppsögn var virkjuð við samstillingu - sjá [Úrsögn og uppsögn](/foundation/licensing/leaving-and-cancelling/). |
+| _Samstarfi þessa leigjanda við Bifröst samstarfsaðila er lokið_ / _Bifröst söluaðili hefur sagt upp þessum samstarfsaðila_ | Uppsögn var virkjuð við samstillingu - sjá [Úrsögn og uppsögn](/licensing/leaving-and-cancelling/). |
 
 Tilkynningar samstarfsaðilakerfisins birtast aðeins notendum með leyfisstjórnunarheimild (heimildasamstæðan `BIFROST LicAdm ori`). Engin tilkynning er um vantandi auðkenni: auðkenni sem hefur ekki verið skráð gerir óvirkar þær skilaboðategundir sem þurfa á því að halda. Skráðu auðkenni með **Leyndarmál** eða í leiðsögninni.
 
@@ -39,7 +39,7 @@ Tilkynningar samstarfsaðilakerfisins birtast aðeins notendum með leyfisstjór
 | **Tegund heitis fyrirtækis í útflutningi** | Hvaða heiti fyrirtækis `CSV.Records.Get` og `CSV.DeletedRecords.Get` skrifa í dálkinn `$Company`: **Heiti fyrirtækis** (sjálfgefið, stöðugt) eða **Birtingarheiti fyrirtækis** (notar Heiti fyrirtækis ef birtingarheitið er autt). |
 | **Sjálfgefin sviðsmynd tölvupósts** | Sviðsmynd tölvupósts sem ræður hvaða sendingarreikningur er valinn þegar beiðni tilgreinir engan. |
 | **Villuleitarstilling beiðna** | Vistar óhulið innihald beiðna og svara í heild sinni í [Annál beiðna](/help/foundation/bifrost-request-log/). Notaðu aðeins við villuleit. Krefst heimildasamstæðunnar `BIFROST ReqLgAdm ori`. |
-| **Mánaðarlegur skilaboðakvóti fyrirtækis** | Hámarksfjöldi gjaldskyldra skilaboða sem fyrirtækið má nota í almanaksmánuði, á hvorri leyfistegundinni sem er. `0` þýðir engin takmörk. Þegar kvótanum er náð er köllum hafnað til næsta mánaðar. Ekki framfylgt í sandkassa. Í áskrift telur hann ekki forritsskráningarskilaboð. Talið út frá Bifröst-skilaboðum mánaðarins, svo geymdu Bifröst-skilaboð í minnst 31 dag í varðveislustefnunni. Sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/foundation/licensing/license-types/#how-monthly-quotas-are-counted). |
+| **Mánaðarlegur skilaboðakvóti fyrirtækis** | Hámarksfjöldi gjaldskyldra skilaboða sem fyrirtækið má nota í almanaksmánuði, á hvorri leyfistegundinni sem er. `0` þýðir engin takmörk. Þegar kvótanum er náð er köllum hafnað til næsta mánaðar. Ekki framfylgt í sandkassa. Í áskrift telur hann ekki forritsskráningarskilaboð. Talið út frá Bifröst-skilaboðum mánaðarins, svo geymdu Bifröst-skilaboð í minnst 31 dag í varðveislustefnunni. Sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/licensing/license-types/#how-monthly-quotas-are-counted). |
 
 Flipinn **Umhverfi** (aðeins í skýinu) sýnir **Heiti umhverfis**, **Kenni fyrirtækis**, **Azure leigjandakenni**, **Vefslóð verkefna-API** og **Vefslóð biðraðar-API** þessa fyrirtækis ásamt **Biðja um Tengingu**, texta sem þú getur límt inn í gervigreindaraðstoðarmann til að tengja hann við þetta umhverfi.
 
@@ -62,10 +62,10 @@ Síðan sýnir einnig **Tiltækar skilaboðategundir** og, fyrir leyfisstjóra u
 | | **Leyfisnotkun** | Notkunarfærslur leigjandans - sjá [Notkunarfærslur Bifröst](/help/foundation/license-usage/). |
 | | **Stilla álagsþak** | Leigjendur á áskriftarleyfi, aðeins í framleiðsluumhverfi - sjá [Stilla álagsþak](/help/foundation/rate-limit-configuration/). |
 | | **Skrá söluaðila** | Eftir samstillingu, fyrir leigjanda sem hefur verið samþykktur sem söluaðili og er ekki enn skráður - sjá [Bifröst söluaðilaskráning](/help/foundation/vendor-onboarding-wizard/). |
-| | **Umsjón samstarfsaðila**, **Óafgreiddar uppsagnarbeiðnir samstarfsaðila**, **Afskrá sem söluaðili** | Söluaðilar - sjá [Að starfa sem söluaðili](/foundation/licensing/vendor/). |
+| | **Umsjón samstarfsaðila**, **Óafgreiddar uppsagnarbeiðnir samstarfsaðila**, **Afskrá sem söluaðili** | Söluaðilar - sjá [Að starfa sem söluaðili](/licensing/vendor/). |
 | | **Umsjón viðskiptavina** | Aðeins samstarfsaðilar - sjá [Umsjón viðskiptavina](/help/foundation/customer-management/). |
-| | **Óafgreiddar uppsagnarbeiðnir viðskiptavina**, **Óska eftir uppsögn hjá söluaðila** | Samstarfsaðilar - sjá [Að starfa sem samstarfsaðili](/foundation/licensing/partner/). |
-| | **Óska eftir uppsögn hjá samstarfsaðila** | Viðskiptavinir - sjá [Að vera viðskiptavinur](/foundation/licensing/customer/). |
+| | **Óafgreiddar uppsagnarbeiðnir viðskiptavina**, **Óska eftir uppsögn hjá söluaðila** | Samstarfsaðilar - sjá [Að starfa sem samstarfsaðili](/licensing/partner/). |
+| | **Óska eftir uppsögn hjá samstarfsaðila** | Viðskiptavinir - sjá [Að vera viðskiptavinur](/licensing/customer/). |
 | Tengingar | **Microsoft Copilot**, **OpenAI ChatGPT** | Opna Bifröst-tenginguna í verslun hvors gervigreindarvirkis. |
 | Minni | **Minni**, **Notandaminni** | Minnisfærslur fyrir fyrirtækið og fyrir notandann. |
 | | **Þýðingar Bifröst**, **Samþætting Bifröst** | Þýðingar og samþættingarskráin. |

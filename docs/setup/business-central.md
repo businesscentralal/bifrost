@@ -39,8 +39,8 @@ finish the wizard first and send the link to your Entra administrator.
 Step by step: [Setup wizard](/help/foundation/bifrost-setup-wizard/).
 
 :::note Be aware
-Accepting the license agreement accepts the [Terms of Use](/foundation/eula/) for the company. The
-first step of the wizard says what Bifröst stores with Origo; see also [Privacy](/foundation/privacy/).
+Accepting the license agreement accepts the [Terms of Use](/licensing/eula/) for the company. The
+first step of the wizard says what Bifröst stores with Origo; see also [Privacy](/licensing/privacy/).
 Read both before you accept.
 :::
 
@@ -54,7 +54,8 @@ Both get their permissions in Business Central, on **Users** or **Microsoft Entr
 - the ordinary Business Central permissions for the data they work with;
 - a **posting gate** for each ledger they may post to. A posting gate is a separate permission set,
   not part of the general Bifröst ones: `BIFROST GL Post ori`, `BIFROST ItemPost ori`,
-  `BIFROST FA Post ori`, `BIFROST Job Post ori`, `BIFROST Res Post ori` and `BIFROST WhsePost ori`.
+  `BIFROST FA Post ori`, `BIFROST Job Post ori` and `BIFROST Res Post ori`. Warehouse posting comes
+  with the Bifrost Warehouse app.
   Which posting each one allows: [Posting gates](/foundation/reference/setup/#posting-gates-bifrost-gl--item--fa--job--resource--warehouse-posting).
 
 A typical setup:

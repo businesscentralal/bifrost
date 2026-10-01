@@ -12,8 +12,8 @@ const registrySummaries: Record<string, string> = Object.fromEntries(
 );
 
 const fallbackSummaries: Record<string, string> = {
-  foundation: 'The kernel: message types, queue, setup, secret store and the REST API every other app plugs into.',
-  iceland: 'Icelandic ERP message types — national register, VAT, and local business rules.',
+  foundation: 'The base app every other app needs: the standard Business Central capabilities, permissions, the log and the API.',
+  iceland: 'Icelandic capabilities: the national register, VAT, and local business rules.',
   'iceland-treasury': 'Bank connectors and payment services for Icelandic banks.',
   'iceland-docex': 'Electronic document exchange: Peppol/BIS 3.0, incoming and outgoing documents.',
   'language-models': 'Chat and language models — Copilot, OpenAI, Azure OpenAI, Anthropic, Gemini and xAI.',
@@ -21,7 +21,7 @@ const fallbackSummaries: Record<string, string> = {
   orchestrator: 'Scheduling and orchestration — job queue supervision and declarative playbooks.',
   timesheets: 'Time tracking synchronised with Business Central resources and jobs.',
   'subscription-billing': 'Recurring billing and subscription management.',
-  inventory: 'Item attributes — get, create, update and define via message types.',
+  inventory: 'Item attributes: get, create, update and define them.',
 };
 
 function AppCard({id, title, appName, wave}: {id: string; title: string; appName: string; wave: 1 | 2}): ReactNode {
@@ -58,9 +58,9 @@ export default function Home(): ReactNode {
         </h1>
         <p>
           <Translate id="home.tagline">
-            Bifröst lets AI assistants and other systems do real work in Business Central: answer
-            questions from live data, carry out tasks and run whole routines. They do it as you,
-            within your permissions.
+            Bifröst lets AI assistants and other systems do real work in Business Central, not just
+            answer questions about it. They answer from live data, carry out tasks and run whole
+            routines, as you and within your permissions.
           </Translate>
         </p>
         <p>
@@ -73,8 +73,9 @@ export default function Home(): ReactNode {
         </p>
         <p>
           <Translate id="home.onePlatform">
-            One platform, with apps for Icelandic banks, document exchange, storage, schedules and
-            more, and room for yours.
+            One platform. Origo's apps add Icelandic banks, document exchange, storage and schedules,
+            partners add their own, and your developers can add more. The assistant uses them all
+            together.
           </Translate>
         </p>
       </header>
@@ -113,8 +114,8 @@ export default function Home(): ReactNode {
         </div>
         <p>
           <Translate id="home.how.reach">
-            It can read most of your Business Central, and do what it has message types for. Every
-            app built on Bifröst adds more.
+            It can read most of your Business Central, and carry out the tasks in its capabilities:
+            sales, purchasing, finance, inventory and more. Every app built on Bifröst adds new ones.
           </Translate>{' '}
           <Link to="/documentation/how-it-works/#what-it-covers-and-how-it-grows">
             <Translate id="home.how.reach.link">What it covers</Translate>
@@ -220,8 +221,9 @@ export default function Home(): ReactNode {
               </h3>
               <p>
                 <Translate id="home.extensibility.body">
-                  Make your app headless and add message types that agents can find, choose and
-                  call. The full guide lives in the partner reference repository.
+                  Give your app its own capabilities, and every assistant, integration and playbook
+                  can use them, behind Bifröst's permissions and log. The full guide lives in the
+                  partner reference repository.
                 </Translate>
               </p>
               <span className="bifrostPathCta">

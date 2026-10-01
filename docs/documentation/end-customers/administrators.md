@@ -14,8 +14,9 @@ choices, and what to keep an eye on afterwards. Every page in Foundation is desc
 
 ## Permissions
 
-An AI agent can do everything the identity it runs as can do in Business Central, no more and no
-less. Bifröst never gives a caller more than Business Central already allows.
+An AI agent can do at most what the identity it runs as can do in Business Central, and often less.
+Bifröst never gives a caller more than Business Central already allows, and Field Access, the
+ChangeLog Write Guard and the posting permission sets below can narrow it further.
 
 import PermissionLayers from '@site/src/components/PermissionLayers';
 
@@ -106,8 +107,8 @@ and change-log message types of Origo's apps are not counted.
   Bifrost User Setup, stop usage at a level you choose.
 - **See what is used** on **License Usage** from Bifrost Setup, per company, day and type.
 
-How licensing works, and what happens when a quota runs out: [Licensing](/foundation/licensing/).
-Prices: [Cost](/cost/).
+How licensing works, and what happens when a quota runs out: [Licensing](/licensing/).
+Prices: [Price](/price/).
 
 ## Keep an eye on it
 
@@ -119,14 +120,14 @@ Prices: [Cost](/cost/).
 
 ## What you are responsible for
 
-In short, and as set out in the [Terms of Use](/foundation/eula/):
+In short, and as set out in the [Terms of Use](/licensing/eula/):
 
 - **Permissions**: who can call, and what each identity can reach and post.
 - **The assistants and systems you connect**, and your agreements with their providers.
 - **What agents do** under your identities: review and supervise their actions, and require
   confirmation where an action matters.
 - **What is kept**: retention and access for the logs in your Business Central. What Bifröst
-  stores with Origo is in [Privacy](/foundation/privacy/).
+  stores with Origo is in [Privacy](/licensing/privacy/).
 - **Bookkeeping**: traceability and retention under bookkeeping law remain yours.
 
-**Next:** [Licensing](/foundation/licensing/) for how usage is licensed, or [Try it out](/try-it-out/) to test a change in a sandbox first.
+**Next:** [Licensing](/licensing/) for how usage is licensed, or [Try it out](/try-it-out/) to test a change in a sandbox first.

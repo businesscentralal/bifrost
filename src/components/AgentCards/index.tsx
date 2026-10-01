@@ -7,7 +7,7 @@ import styles from './styles.module.css';
  * one-line description) or the use card (the help).
  */
 const steps = [
-  {title: 'Searches', text: "The catalogue, in the user's words", card: 'Selection card: name and description'},
+  {title: 'Searches', text: "The capabilities first, then the message types in the user's words", card: 'Selection card: name and description'},
   {title: 'Chooses', text: 'From a short list, by name and description alone', card: 'Selection card'},
   {title: 'Reads the help', text: 'Of the one it chose', card: 'Use card'},
   {title: 'Calls it', text: 'No screen, no one to ask. An error is its only guide', card: 'Use card and error texts'},

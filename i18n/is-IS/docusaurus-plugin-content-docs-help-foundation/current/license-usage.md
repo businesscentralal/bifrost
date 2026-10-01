@@ -28,7 +28,7 @@ Síðan krefst leyfisstjórnunarheimildar.
 | --- | --- |
 | **Heiti fyrirtækis** | Fyrirtækið sem notkunin tilheyrir. |
 | **Dagsetning** | Dagurinn sem skilaboðin voru unnin. |
-| **Tegund leyfis** | Gjaldfærslutegundin. Sjá [Gjaldfærslutegundir í áskrift](/foundation/licensing/license-types/#charge-types). |
+| **Tegund leyfis** | Gjaldfærslutegundin. Sjá [Gjaldfærslutegundir í áskrift](/licensing/license-types/#charge-types). |
 | **Magn** | Fjöldi gjaldskyldra skilaboða. |
 | **Skráð þann** | Hvenær færslan var tilkynnt til leyfisþjónustunnar. |
 
@@ -40,4 +40,4 @@ Síðan krefst leyfisstjórnunarheimildar.
 | **Fyrri** / **Næsta** | Flettir á milli síðna. |
 
 Notkun er tilkynnt einu sinni á dag; veldu **Samstilla** á Uppsetning Bifröst til að tilkynna skilaboð
-dagsins strax. Sjá [Notkun og reikningagerð](/foundation/licensing/usage-and-billing/).
+dagsins strax. Sjá [Notkun og reikningagerð](/licensing/usage-and-billing/).

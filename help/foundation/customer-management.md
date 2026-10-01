@@ -41,4 +41,4 @@ The **View** field at the top shows whose customers are listed.
 | **Cancel Customer** | Partners only, on their own customers. Ends the relationship with the selected customer, with an optional [reason](/help/foundation/cancel-reason/). On the customer's next Sync it returns to the Prepaid license; its usage up to then stays in your billing figures. |
 
 Only active customers are listed; a cancelled customer disappears from the page but remains in the
-billing message types for the period. See [Working as a Partner](/foundation/licensing/partner/).
+billing message types for the period. See [Working as a Partner](/licensing/partner/).

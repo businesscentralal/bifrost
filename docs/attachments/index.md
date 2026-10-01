@@ -32,7 +32,7 @@ Bifröst Attachments connects Business Central to cloud storage. It builds on Bi
 
 ## Message types
 
-| Domain | Message types |
+| Topic | Message types |
 | --- | --- |
 | Discovery | `Help.Storage.Get`, `Storage.Account.List` |
 | Files | `Storage.File.List`, `Storage.File.Get`, `Storage.File.Create`, `Storage.File.Delete`, `Storage.File.Copy`, `Storage.File.Move`, `Storage.File.Exists` |

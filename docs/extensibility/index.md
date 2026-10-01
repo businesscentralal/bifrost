@@ -24,6 +24,11 @@ that does the work. Once it exists, every kind of caller can use it the same way
 MCP hosts, integrations over the API, other AL code, and workflows in
 [Bifrost Orchestrator](/orchestrator/).
 
+Give your app's message types a **capability** of their own, usually one: the first part of their names, such as
+`Calibration` in `Calibration.Certificate.Get`. An agent looks at the capabilities first, so pick one
+that is yours alone, never one another app already uses (`Sales`, `Data`, `Help` …).
+[What a capability is](/documentation/how-it-works/#capabilities-and-message-types)
+
 A plain AL procedure reaches only code that compiles against your app. A message type also gives
 you, from the platform:
 

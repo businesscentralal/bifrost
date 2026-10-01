@@ -13,7 +13,7 @@ description: "Where to find Bifröst, which apps to install, and who can install
 ## Which apps
 
 - **Bifröst Foundation** is always needed. It is the gate every call goes through, and it already
-  covers the standard Business Central areas.
+  brings the standard Business Central capabilities.
 - **The other Bifröst apps** each add their own area, for example Icelandic banks or document
   exchange. Install only the ones you need; the [app list](/apps/) says what each one adds.
 
@@ -24,12 +24,14 @@ Each app depends on Foundation, so Business Central installs Foundation first.
 Bifröst is installed from Microsoft AppSource, from the **Extension Marketplace** in Business
 Central.
 
-:::note Being written (OPEN-01)
+{/* OPEN-01 */}
+
+:::note Being written
 Direct links to each app's AppSource listing will be added here and on the [app list](/apps/).
 :::
 
 ## The license
 
-For production, see [Cost](/cost/).
+For production, see [Price](/price/).
 
 **Next:** [Step 2: Set up Business Central](/setup/business-central/)

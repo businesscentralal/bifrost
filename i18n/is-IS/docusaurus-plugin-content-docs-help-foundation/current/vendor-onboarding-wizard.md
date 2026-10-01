@@ -23,4 +23,4 @@ samstarfsaðila** og **Afskrá sem söluaðili** birtast þá á Uppsetning Bifr
 viðskiptavina** er hlutverk samstarfsaðila: söluaðili sér viðskiptavini samstarfsaðila sinna aðeins
 til lestrar með **Skoða viðskiptavini** á Umsjón samstarfsaðila.
 
-Sjá [Að starfa sem söluaðili](/foundation/licensing/vendor/).
+Sjá [Að starfa sem söluaðili](/licensing/vendor/).

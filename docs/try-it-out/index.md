@@ -55,7 +55,7 @@ Once the first answer works, let it do more. Each level builds on the one before
 | Level | Try asking | What you should see |
 |---|---|---|
 | **Answer** | *"Which customers have the highest balance due?"* | Figures from live data |
-| **Find out** | *"What can you do with sales quotes?"* | The operations it found in the catalogue |
+| **Find out** | *"Which capabilities can you use here?"*, then *"What can you do with sales quotes?"* | The capabilities you have, then the message types in one of them |
 | **Act, safely** | *"Release the newest open sales order and show me what posting it would do."* | A released order, and a posting preview. Nothing posted |
 | **Chain** | *"Which sales orders are past their shipment date? Group them by customer, with the amount outstanding."* | Several operations, one answer |
 
@@ -69,10 +69,10 @@ Then try your own questions: the ones you would normally need a report for.
   [Check it yourself](/documentation/end-customers/users/#what-a-conversation-looks-like).
 - **Where it stops.** Some tasks have no message type yet, and the assistant should say so. That
   is the edge of what is installed; [What it covers](/documentation/how-it-works/#what-it-covers-and-how-it-grows)
-  explains it, and how apps add more.
+  explains it, how apps add more, and who to ask.
 - **When it says no**, the answer says why. [Using Bifröst](/documentation/end-customers/users/#when-it-says-no)
   explains the common answers.
 
 ## When you are ready
 
-Set it up in production with [Set it up](/setup/), and see [Cost](/cost/) for the license.
+Set it up in production with [Set it up](/setup/), and see [Price](/price/) for the license.

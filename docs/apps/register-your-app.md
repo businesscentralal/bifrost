@@ -8,6 +8,12 @@ description: "How to list a Business Central extension on the Apps built on Bifr
 
 # Register your app
 
+:::note Two different registrations
+This page is about the **list on this site**. It is not the registration your app does inside
+Business Central when it is installed (with `App Registry ori`, see the partner reference
+repository); your app needs both.
+:::
+
 The [app registry](/apps/) is a single JSON file,
 [`data/apps.json`](https://github.com/businesscentralal/bifrost/blob/main/data/apps.json),
 validated against
@@ -64,7 +70,7 @@ Add one object to the `apps` array in `data/apps.json`, following
 }
 ```
 
-`domains` is a fixed list — pick every domain that applies:
+`domains` is a fixed list of categories for this list (not capabilities) — pick every one that applies:
 `finance`, `sales`, `purchasing`, `inventory`, `projects`, `hr-payroll`,
 `banking`, `e-documents`, `integration`, `ai`, `documents`, `scheduling`,
 `time-tracking`, `billing`, `iceland`, `other`.

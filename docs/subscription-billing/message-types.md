@@ -6,7 +6,7 @@ sidebar_position: 2
 description: "The request and response contract shared by all 22 Subscription Billing message types, what each one does, and the limitations worth knowing before you call one."
 ---
 
-Every message type in this app is named `Subscription.<Domain>.<Action>`, for example `Subscription.Billing.CreateProposal`, across ten domains: Commitments, Customer Contracts, Vendor Contracts, Billing Pipeline, Price Updates, Renewal, Usage, Deferrals, Analysis and Import.
+Every message type in this app is named `Subscription.<Entity>.<Action>`, for example `Subscription.Billing.CreateProposal`, across ten domains: Commitments, Customer Contracts, Vendor Contracts, Billing Pipeline, Price Updates, Renewal, Usage, Deferrals, Analysis and Import.
 
 This page covers the contract they all share and the behaviour that is worth reading before you call one. The per-type detail — every parameter, a worked example, the response shape and the exact error messages — is served by the app itself: call `Help.MessageTypes.Get` to list the registered types, and `Help.Implementation.Get` with a type name as the subject to fetch that type's own Markdown help document.
 

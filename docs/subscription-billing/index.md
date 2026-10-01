@@ -29,12 +29,12 @@ Subscription Billing models recurring revenue well, but a generic record API rea
 1. Install Microsoft's **Subscription Billing** app and run its assisted setup, so Subscription Contract Setup, number series and at least one Billing Template exist.
 2. Install **Bifröst Foundation** and activate it.
 3. Install **Bifröst Subscription Billing** and assign the permission set **Bifrost Sub. Billing** (`BIFROST SubBil ori`) alongside the caller's Foundation permissions.
-4. External systems send Bifröst messages named `Subscription.<Domain>.<Action>` through the same queue, task and data pattern used by the rest of Bifröst.
+4. External systems send Bifröst messages named `Subscription.<Entity>.<Action>` through the same queue, task and data pattern used by the rest of Bifröst.
 5. Every write runs inside a shared isolated-transaction wrapper, so a failure partway through rolls back cleanly and returns a structured error rather than leaving half-written records — with the documented exceptions noted in the [message type guide](./message-types).
 
 ## Message types
 
-| Domain | Message types |
+| Topic | Message types |
 | --- | --- |
 | Subscription lines | `Subscription.Line.Create` |
 | Customer contracts | `Subscription.Contract.GetLines`, `Subscription.Contract.CreateInvoice`, `Subscription.Contract.PreviewInvoice`, `Subscription.Contract.UpdateLineDates`, `Subscription.Contract.UpdateExchangeRates` |

@@ -35,7 +35,7 @@ Bifröst Timesheets connects Business Central to [Clockify](https://clockify.me)
 
 ## Message types
 
-| Domain | Message types |
+| Topic | Message types |
 | --- | --- |
 | Directory | `Help.Clockify.Get` |
 | Workspace | `Clockify.Workspace.List`, `Clockify.User.GetCurrent`, `Clockify.User.List`, `Clockify.UserGroup.List`, `Clockify.Currency.List`, `Clockify.CustomField.List` |

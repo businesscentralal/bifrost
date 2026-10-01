@@ -33,6 +33,9 @@ jobs:
       - name: Type-check
         run: npm run typecheck
 
+      - name: Links between pages
+        run: npm run check:links
+
       - name: Build both locales
         run: npm run build
 

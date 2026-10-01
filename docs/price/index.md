@@ -1,14 +1,14 @@
 ---
 id: index
-title: "Cost"
-sidebar_label: "Cost"
+title: "Price"
+sidebar_label: "Price"
 sidebar_position: 1
 slug: /
 displayed_sidebar: null
-description: "What Bifröst costs: who to contact for prices, as a customer or as a partner."
+description: "Bifröst prices: who to contact, as a customer or as a partner."
 ---
 
-# Cost
+# Price
 
 - **For prices**, contact [Origo](https://www.origo.is/).
 - **If you are a partner**, contact [The App Channel](https://www.theappchannel.com/).

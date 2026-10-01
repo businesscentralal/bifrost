@@ -56,7 +56,7 @@ and [Playbooks](/help/orchestrator/playbooks/).
 ## Good to know
 
 - **A playbook runs with the permissions of whoever starts it**; a scheduled one, with those of the
-  Job Queue. {/* OPEN-22 */} Every step is logged on **Bifrost Messages** as well as in the
+  user its Job Queue entry runs as. {/* OPEN-22 */} Every step is logged on **Bifrost Messages** as well as in the
   playbook run.
 - **Try a playbook before you schedule it**, in a sandbox, with a case where there is work to do,
   one where there is none, and one with a bad input.
@@ -64,7 +64,9 @@ and [Playbooks](/help/orchestrator/playbooks/).
 
 ## Reference
 
-| Area | Message types |
+Capability: **`Orchestrator`**. Its directory of types is `Help.Orchestrator.Get`.
+
+| Group | Message types |
 | --- | --- |
 | Playbooks | `Orchestrator.Playbook.Run`, `Orchestrator.Playbook.Schedule`, `Orchestrator.Playbook.Enqueue`, `Orchestrator.Workspace.Preview` |
 | Scheduled entries | `Orchestrator.Entry.Register`, `Orchestrator.Entry.Run`, `Orchestrator.Entry.Restart`, `Orchestrator.Entry.Schedule` |

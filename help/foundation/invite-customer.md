@@ -18,4 +18,4 @@ Choose **OK** and confirm. The customer sees the invitation after it chooses **S
 Bifröst Setup page. When the
 customer accepts it, the customer moves to the **Subscription** license and you invoice its usage.
 
-See [Working as a Partner](/foundation/licensing/partner/#inviting-customers).
+See [Working as a Partner](/licensing/partner/#inviting-customers).

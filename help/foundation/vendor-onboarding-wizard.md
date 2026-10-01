@@ -22,4 +22,4 @@ Choose **Finish** to register. **Partner Management**, **Pending Partner Leave R
 **Deregister as Vendor** then appear on Bifröst Setup. **Customer Management** is a Partner function:
 a Vendor sees its Partners' customers read-only through **View Customers** on Partner Management.
 
-See [Working as a Vendor](/foundation/licensing/vendor/).
+See [Working as a Vendor](/licensing/vendor/).

@@ -28,7 +28,7 @@ requires licence administration permission.
 | --- | --- |
 | **Company Name** | The company the usage belongs to. |
 | **Date** | The day the messages were processed. |
-| **License Type** | The charge type. See [Charge types on Subscription](/foundation/licensing/license-types/#charge-types). |
+| **License Type** | The charge type. See [Charge types on Subscription](/licensing/license-types/#charge-types). |
 | **Quantity** | The number of chargeable messages. |
 | **Reported At** | When the entry was reported to the licensing service. |
 
@@ -40,4 +40,4 @@ requires licence administration permission.
 | **Previous** / **Next** | Moves between pages. |
 
 Usage is reported once a day; choose **Sync** on Bifröst Setup to report today's messages now. See
-[Usage and billing](/foundation/licensing/usage-and-billing/).
+[Usage and billing](/licensing/usage-and-billing/).

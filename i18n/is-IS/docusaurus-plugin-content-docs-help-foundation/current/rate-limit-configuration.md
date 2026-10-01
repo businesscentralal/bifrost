@@ -19,4 +19,4 @@ Veldu **Í lagi** til að vista. Samstarfsaðilinn getur rukkað fyrir þrep ofa
 hjá samstarfsaðilanum fyrst. Ef þú velur **Frítt** er sérsniðna þrepið fjarlægt.
 
 Þrepið fer sjálfkrafa aftur í Frítt ef samstarfinu við samstarfsaðilann lýkur. Sandkassaumhverfi nota
-alltaf þrepið Frítt. Sjá [Álagsþök](/foundation/licensing/rate-limits/).
+alltaf þrepið Frítt. Sjá [Álagsþök](/licensing/rate-limits/).

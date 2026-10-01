@@ -28,7 +28,7 @@ Bifröst Inventory is a feature app on top of Bifröst Foundation. It publishes 
 
 ## Message types
 
-| Domain | Message types |
+| Topic | Message types |
 | --- | --- |
 | Item attributes | `Item.Attribute.Get`, `Item.Attribute.Create`, `Item.Attribute.Update` |
 | Attribute definitions | `Item.AttributeDefinition.Create` |

@@ -36,7 +36,7 @@ Each connector has a **client type** — the live service, a test service, or no
 
 ## Message types
 
-| Domain | Count | Message types |
+| Topic | Count | Message types |
 | --- | --- | --- |
 | Directory | 1 | `Help.Iceland.Get` |
 | Umsjá — Þjóðskrá | 15 | `Iceland.NationalRegistry.Sync`, `Iceland.NationalRegistryCheck.Get`, `Iceland.DeltaMonthly.Sync`, `Iceland.Member.Get`, `Iceland.Search.Get`, `Iceland.SearchByName.Get`, `Iceland.SearchBySocialID.Get`, `Iceland.Address.Get`, `Iceland.AddressInfo.Get`, `Iceland.Relations.Get`, `Iceland.Roles.Get`, `Iceland.Parties.Get`, `Iceland.Stakeholders.Get`, `Iceland.VatNumber.Get`, `Iceland.Isat.Get` |

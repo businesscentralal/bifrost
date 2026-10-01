@@ -20,4 +20,4 @@ Choose **OK** to save. Tiers above Free can be charged by your Partner - check t
 Partner first. Choosing **Free** removes the custom tier.
 
 The tier returns to Free automatically if the Partner relationship ends. Sandbox environments always
-use the Free tier. See [Rate limits](/foundation/licensing/rate-limits/).
+use the Free tier. See [Rate limits](/licensing/rate-limits/).

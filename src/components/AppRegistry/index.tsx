@@ -77,8 +77,8 @@ const STRINGS = {
   en: {
     searchPlaceholder: 'Search apps by name or summary…',
     searchLabel: 'Search',
-    domainLabel: 'Domain',
-    allDomains: 'All domains',
+    domainLabel: 'Category',
+    allDomains: 'All categories',
     appSource: 'AppSource',
     docs: 'Docs',
     repository: 'Repository',
@@ -92,8 +92,8 @@ const STRINGS = {
   is: {
     searchPlaceholder: 'Leitaðu að forriti eftir nafni eða lýsingu…',
     searchLabel: 'Leit',
-    domainLabel: 'Svið',
-    allDomains: 'Öll svið',
+    domainLabel: 'Flokkur',
+    allDomains: 'Allir flokkar',
     appSource: 'AppSource',
     docs: 'Skjölun',
     repository: 'Hugbúnaðarsafn',
