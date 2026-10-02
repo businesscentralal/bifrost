@@ -48,7 +48,7 @@ each saying who is needed.
 - **Your data:** [Where your data goes](/documentation/how-it-works/#where-your-data-goes) and
   [Privacy](/licensing/privacy/).
 - **Price and licensing:** [Price](/price/) and [Licensing](/licensing/).
-- **A page in Business Central:** each Foundation page has its own [help page](/help/foundation/).
+- **A page in Business Central:** each Foundation page has its own help page.
 
 ## For developers and partners
 

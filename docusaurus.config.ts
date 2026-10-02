@@ -1,6 +1,7 @@
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import type {Options as DocsOptions} from '@docusaurus/plugin-content-docs';
+import {existsSync, readdirSync} from 'node:fs';
 import {themes as prismThemes} from 'prism-react-renderer';
 import {apps, crossAppInstances} from './apps';
 
@@ -134,9 +135,16 @@ function withTrailingSlash(path: string): string {
   return path.endsWith('/') ? path : `${path}/`;
 }
 
+/**
+ * Context-sensitive help is reached from Business Central, never browsed: a help instance has no
+ * index page, and an app gets one only when it has help pages (pages with ContextSensitiveHelpPage).
+ */
+const helpApps = apps.filter((app) =>
+  existsSync(`help/${app.id}`) && readdirSync(`help/${app.id}`).some((file) => /.mdx?$/.test(file)));
+
 const docsPlugins = [
   ...apps.map((app) => docsInstance(app.id, app.id, `docs/${app.id}`, true)),
-  ...apps.map((app) => docsInstance(`help-${app.id}`, `help/${app.id}`, `help/${app.id}`)),
+  ...helpApps.map((app) => docsInstance(`help-${app.id}`, `help/${app.id}`, `help/${app.id}`)),
   ...crossAppInstances.map((section) => docsInstance(section.id, section.id, `docs/${section.id}`)),
 ];
 
@@ -155,22 +163,6 @@ function appItems(group: 'base' | 'addon' | 'iceland', to: (app: (typeof apps)[n
     to: to(app),
     ...(group === 'base' ? {className: 'dropdownBase'} : {}),
   }));
-}
-
-/**
- * The Help menu: Foundation first, marked as the base every other app needs,
- * then the additional apps, then the apps for Iceland, each under a heading.
- */
-function groupedAppItems(to: (app: (typeof apps)[number]) => string) {
-  const heading = menuHeading;
-  return [
-    heading('The base, always installed', 'Grunnurinn, alltaf settur upp'),
-    ...appItems('base', to),
-    heading('Additional apps', 'Viðbætur'),
-    ...appItems('addon', to),
-    heading('For Iceland', 'Fyrir Ísland'),
-    ...appItems('iceland', to),
-  ];
 }
 
 const config: Config = {
@@ -226,7 +218,7 @@ const config: Config = {
         indexPages: true,
         docsRouteBasePath: [
           ...apps.map((app) => app.id),
-          ...apps.map((app) => `help/${app.id}`),
+          ...helpApps.map((app) => `help/${app.id}`),
           ...crossAppInstances.map((section) => section.id),
         ],
         language: ['en'],
@@ -290,12 +282,6 @@ const config: Config = {
         },
         {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Leyfi' : 'Licensing', to: '/licensing/', position: 'left'},
-        {
-          type: 'dropdown',
-          label: buildLocale === 'is-IS' ? 'Hjálp' : 'Help',
-          position: 'left',
-          items: groupedAppItems((app) => `/help/${app.id}/`),
-        },
         // On the right, set apart: the apps. Foundation, the base every other app needs, then the
         // additional apps. The label and the two items share one framed group (.navApps).
         {type: 'html', position: 'right', value: `<span class="navAppsLabel">${buildLocale === 'is-IS' ? 'Forrit' : 'Apps'}</span>`, className: 'navApps'},

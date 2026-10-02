@@ -50,7 +50,6 @@ Bifröst Orchestrator manages scheduled work in Business Central. It monitors, r
 
 ## Where to go next
 
-- [In-product help](/help/orchestrator/)
 - [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, generated úr the app itself
 - [AppSource notandi scenarios](./user-scenarios)
 - [Partner Center listing](./listing)

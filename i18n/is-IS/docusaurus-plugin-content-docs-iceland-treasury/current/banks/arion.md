@@ -204,5 +204,4 @@ The legacy fulla-access og read-claims sets eru not re-pointed, because both wer
 - [Iceland Treasury Yfirlit](/iceland-treasury/)
 - [Draupnir signers](../reference/draupnir-signers.md) — how the IOBS envelopes eru signed
 - [Message Gerð reference](/iceland-treasury/reference/message-types/)
-- [In-product help](/help/iceland-treasury/)
 

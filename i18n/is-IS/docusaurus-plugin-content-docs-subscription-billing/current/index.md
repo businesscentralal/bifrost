@@ -58,7 +58,6 @@ Four of these — `Subscription.Contract.UpdateLineDates`, `Subscription.Contrac
 
 - [Skilaboð tegund guide](./message-types) — the shared request og response samningur, what hver tegund does, og the limitations worth knowing áður en you call one
 - [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, generated úr the app itself
-- [In-product help](/help/subscription-billing/)
 - [AppSource notandi scenarios](./user-scenarios)
 - [Partner Center listing](./listing)
 - [Build on Bifröst](/extensibility/)

@@ -74,6 +74,5 @@ Capability: **`DocumentExchange`**.
 What each message type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
-- [In-product help](/help/iceland-docex/)
 - [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
 - Permission sets: extends `BIFROST Full ori` (`DocEx Full ori`) and the standard D365 sets.

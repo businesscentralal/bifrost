@@ -10,7 +10,7 @@ description: "For Business Central administrators: permissions, what agents may 
 
 [Set it up](/setup/) walks through the first setup. This page is what to weigh when you make those
 choices, and what to keep an eye on afterwards. Every page in Foundation is described in the
-[in-product help](/help/foundation/).
+in-product help.
 
 ## Permissions
 

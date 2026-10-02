@@ -81,7 +81,6 @@ For developers: every operation goes through the standard Business Central Exter
 connectors, and file content travels as base64, in chunks for large files.
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
-- [In-product help](/help/attachments/)
 - [AppSource listing text](./listing)
 - [AppSource validation scenarios](./user-scenarios)
 - [Build on Bifröst](/extensibility/)

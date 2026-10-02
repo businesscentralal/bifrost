@@ -83,7 +83,6 @@ Capabilities: **`Iceland`** and **`Ja`**. It also adds VAT return message types
 What each message type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
-- [In-product help](/help/iceland/)
 - [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
 
 ### Permission sets

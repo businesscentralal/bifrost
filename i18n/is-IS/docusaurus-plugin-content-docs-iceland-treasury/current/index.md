@@ -54,6 +54,5 @@ Geymdar aðgangsupplýsingar flytjast **ekki** yfir — Isolated Storage er bund
 
 ## Hvert næst
 
-- [Hjálp í kerfinu](/help/iceland-treasury/)
 - [Uppflettirit skilaboðagerða](./reference/message-types/) — beiðni- og svarsamningur hverrar gerðar, myndaður úr forritinu sjálfu
 - [Byggja ofan á Bifröst](/extensibility/)

@@ -80,4 +80,3 @@ Enumið er extensible, þannig að banki sem krefst sniðs sem ekkert af fimm sn
 - [Yfirlit Iceland Treasury](/iceland-treasury/)
 - [Arion banki](../banks/arion.md)
 - [Tilvísun í skilaboðategundir](/iceland-treasury/reference/message-types/)
-- [Hjálp í forriti](/help/iceland-treasury/)

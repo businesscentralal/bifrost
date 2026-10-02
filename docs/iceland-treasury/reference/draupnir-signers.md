@@ -80,4 +80,3 @@ Because the profile is resolved through the enum, a connector only stores which 
 - [Iceland Treasury overview](/iceland-treasury/)
 - [Arion banki](../banks/arion.md)
 - [Message type reference](/iceland-treasury/reference/message-types/)
-- [In-product help](/help/iceland-treasury/)

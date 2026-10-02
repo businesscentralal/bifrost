@@ -53,7 +53,7 @@ partner. It needs Business Central 28.0 or later, Essentials or Premium, and Mic
 | 4 | Give each user or service that calls it the **Bifrost Sub. Billing** (`BIFROST SubBil ori`) permission set, next to their Foundation permissions. | Business Central administrator |
 
 The app has no pages of its own. The in-product help explains where its results appear:
-[Bifröst Subscription Billing help](/help/subscription-billing/).
+Bifröst Subscription Billing help.
 
 ## Good to know
 
@@ -79,6 +79,5 @@ What each message type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [Message type guide](./message-types): the shared request and response contract, and the limitations in full
-- [In-product help](/help/subscription-billing/)
 - [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
 - Permission set: **Bifrost Sub. Billing** (`BIFROST SubBil ori`), on top of the caller's Foundation permissions.

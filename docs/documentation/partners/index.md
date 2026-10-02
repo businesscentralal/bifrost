@@ -54,7 +54,7 @@ partner, contact [The App Channel](https://www.theappchannel.com/).
 
 ## Supporting a customer
 
-- The [in-product help](/help/foundation/) has a page for every Bifröst page in Business Central.
+- The in-product help has a page for every Bifröst page in Business Central.
 - **[Bifrost Messages](/help/foundation/bifrost-messages/)** shows every call, with the request and
   the answer, so you can see what an agent asked for and what it got back. A consultant with the
   `BIFROST Read ori` permission set in the customer's Business Central can open it; agree that with

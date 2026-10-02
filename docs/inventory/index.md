@@ -43,7 +43,7 @@ later.
 | 2 | Make sure the people and services that call it have **`BIFROST Read ori`** or **`BIFROST Full ori`**. Inventory adds its permissions to those sets. | Business Central administrator |
 | 3 | Send item attribute requests, then check the attributes on the item in Business Central. | Whoever builds the integration |
 
-The in-product help is at [Bifröst Inventory help](/help/inventory/). Platform settings are on
+The in-product help is at Bifröst Inventory help. Platform settings are on
 [Bifrost Setup](/help/foundation/bifrost-setup/) in Bifröst Foundation.
 
 ## Good to know
@@ -64,7 +64,6 @@ Bifröst Foundation already has.
 What each message type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, from the app's help codeunits
-- [In-product help](/help/inventory/)
 - [AppSource listing text](./listing)
 - [Build on Bifröst](/extensibility/)
 - Permission sets: `BIFROST Read ori` or `BIFROST Full ori`, from Bifröst Foundation, extended by this app.

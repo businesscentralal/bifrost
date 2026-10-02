@@ -49,4 +49,4 @@ Hreinsaðu prófunarfærslur og fjarlægðu prófunarskilríki.
 ## Tengd skjöl
 
 - [Skráning](../listing)
-- [Hjálp í kerfinu](/help/iceland-treasury/)
+- Hjálp í kerfinu

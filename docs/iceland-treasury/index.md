@@ -88,7 +88,6 @@ What each message type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [Draupnir signers](./reference/draupnir-signers): how requests to the banks are signed
-- [In-product help](/help/iceland-treasury/)
 - [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
 - Permission sets: one per area that reads or moves money at each bank, listed on each bank page.
   A full set per bank extends Foundation's `BIFROST Full ori`, for example `BIFROST LBFull ori`

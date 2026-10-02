@@ -68,6 +68,5 @@ Capability: **`Orchestrator`**. What each message
 type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
-- [In-product help](/help/orchestrator/)
 - [AppSource listing text](./listing) · [AppSource validation scenarios](./user-scenarios)
 - [What makes a good playbook step](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/Bifrost%20Reference%20Playbooks/README.md), in the partner reference repository

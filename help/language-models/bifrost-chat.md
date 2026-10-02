@@ -109,4 +109,4 @@ When a tool is running, the chat shows which tool it is calling. Tool results ar
 
 -   [Bifrost Language Models](/help/language-models/bifrost-lang-model-list/) – List of all defined language models
 -   [Bifrost Language Model Card](/help/language-models/bifrost-lang-model-card/) – Provider, model settings and skill
--   [Bifrost Language Models Help](/help/language-models/) – Overview of the extension
+-   Bifrost Language Models Help – Overview of the extension

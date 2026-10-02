@@ -44,7 +44,6 @@ Bifröst Language Models er the chat module of the Bifröst platform. It builds 
 
 ## Where to go next
 
-- [In-product help](/help/language-models/)
 - [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, generated úr the app itself
 - [Chat message tegunds](./message-types)
 - [Extending Bragi með a chat provider](./extensibility)

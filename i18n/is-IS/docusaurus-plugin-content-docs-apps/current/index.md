@@ -25,7 +25,7 @@ sem þú þarft.
 
 Hvert forrit hefur tvenns konar síður á þessum vef:
 
-| | Kafli forritsins (til dæmis [Foundation](/foundation/)) | Hjálp forritsins (til dæmis [hjálp Foundation](/help/foundation/)) |
+| | Kafli forritsins (til dæmis [Foundation](/foundation/)) | Hjálp forritsins (til dæmis hjálp Foundation) |
 |---|---|---|
 | **Hvað þar stendur** | Hvað forritið bætir við og skilaboðagerðirnar sem því fylgja | Til hvers ein síða í Business Central er, reitir hennar og aðgerðir |
 | **Hver les** | Þau sem velja forrit, kerfisstjórar, forritarar og gervigreindarþjónar sem fletta upp skilaboðagerð | Notandi á síðunni, sem opnar hjálpina úr Business Central með hjálparhnappnum |

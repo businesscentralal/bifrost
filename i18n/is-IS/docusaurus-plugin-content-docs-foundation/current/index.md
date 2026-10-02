@@ -17,7 +17,7 @@ Business Central; hin Bifröst-forritin bæta hvert við sínu.
 | Skilja hvað það gerir | [Hvernig Bifröst virkar](/documentation/how-it-works/) (á ensku í bili) |
 | Setja það upp | [Uppsetning](/setup/) (á ensku í bili) |
 | Prófa það fyrst | [Prófaðu](/try-it-out/) (á ensku í bili) |
-| Vita til hvers síða í Business Central er | [Hjálp Foundation](/help/foundation/) |
+| Vita til hvers síða í Business Central er | Hjálp Foundation |
 
 ## Tæknilegt yfirlit
 
@@ -51,7 +51,7 @@ Allt annað í Bifrastar-fjölskyldunni er forrit sem byggir ofan á þessu og b
 - [API-viðmiðun](./reference/api/) — endapunktar, umslagið, auðkenning og form svara
 - [Uppsetningarviðmiðun](./reference/setup/) — Bifröst uppsetningarsíðan og útfærsluaðferðirnar að baki henni
 - [Viðmiðun skilaboðagerða](./reference/message-types/) — beiðni- og svarsamningur hverrar gerðar, myndaður úr forritinu sjálfu
-- [Hjálp í kerfinu](/help/foundation/) — ein síða fyrir hverja Business Central síðu í forritinu
+- Hjálp í kerfinu — ein síða fyrir hverja Business Central síðu í forritinu
 - [Byggðu á Bifröst](/extensibility/) — hvernig forrit ofan á er skrifað
 - [Kunnátta fyrir gervigreindarumboð](/skills/) — hvernig umboð á að keyra API-ið
 

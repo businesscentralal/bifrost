@@ -31,7 +31,7 @@ an assistant works with.)
 
 Each app has two kinds of pages on this site:
 
-| | The app's section (for example [Foundation](/foundation/)) | The app's help (for example [Foundation help](/help/foundation/)) |
+| | The app's section (for example [Foundation](/foundation/)) | The app's help (for example Foundation help) |
 |---|---|---|
 | **What it says** | What the app adds, and the message types it brings | What one page in Business Central is for, its fields and actions |
 | **Who reads it** | Anyone choosing apps, administrators, developers, and agents looking up a message type | A user on that page, who opens it from Business Central with the help button |

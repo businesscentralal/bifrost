@@ -43,7 +43,7 @@ Viðbótin bætir 76 skilaboðategundum ofan á Bifröst Foundation. Hver þeirr
 | UBL-myndun | 4 | `DocumentExchange.UBL.RenderBilling`, `RenderOrder`, `RenderDespatchAdvice`, `RenderStatement`. |
 | Hjálp | 1 | `Help.DocumentExchange.Get` — lýsing á öllum tegundunum hér að ofan. |
 
-Heildarlistann, eina línu á hverja skilaboðategund, er að finna í [hjálpinni í kerfinu](/help/iceland-docex/).
+Heildarlistann, eina línu á hverja skilaboðategund, er að finna í hjálpinni í kerfinu.
 
 ## Kröfur
 
@@ -54,7 +54,6 @@ Heildarlistann, eina línu á hverja skilaboðategund, er að finna í [hjálpin
 
 ## Hvert skal halda næst
 
-- [Hjálp í kerfinu](/help/iceland-docex/)
 - [Uppflettirit skilaboðategunda](./reference/message-types/) — beiðni og svar fyrir hverja tegund, búið til beint úr forritinu
 - [Notendasviðsmyndir fyrir AppSource](./user-scenarios)
 - [Skráning í Partner Center](./listing)

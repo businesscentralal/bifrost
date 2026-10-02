@@ -75,7 +75,6 @@ Hver tenging hefur **tegund biðlara** — raunþjónustu, prófunarþjónustu e
 
 ## Hvert næst
 
-- [Hjálp í kerfinu](/help/iceland/)
 - [Uppflettirit skilaboðagerða](./reference/message-types/) — beiðni- og svarsamningur hverrar gerðar, myndaður úr forritinu sjálfu
 - [Notkunartilvik fyrir AppSource](./user-scenarios)
 - [Skráning í Partner Center](./listing)

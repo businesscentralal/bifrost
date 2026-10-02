@@ -109,4 +109,4 @@ Bifrost Language Models inniheldur innbyggðan MCP verkfæraþjón. Hann birtir 
 
 -   [Bifröst mállíkön](/help/language-models/bifrost-lang-model-list/) – Listi yfir öll skilgreind mállíkön
 -   [Mállíkansspjald](/help/language-models/bifrost-lang-model-card/) – Veitandi, líkanstillingar og hæfni
--   [Hjálp fyrir Bifrost Language Models](/help/language-models/) – Yfirlit yfir viðbótina
+-   Hjálp fyrir Bifrost Language Models – Yfirlit yfir viðbótina

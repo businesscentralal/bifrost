@@ -46,7 +46,6 @@ Bifröst Inventory er a feature app on top of Bifröst Foundation. It publishes 
 
 ## Where to go next
 
-- [In-product help](/help/inventory/)
 - [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, úr the app's help kóðiunits
 - [Partner Center listing](./listing)
 - [Build on Bifröst](/extensibility/)

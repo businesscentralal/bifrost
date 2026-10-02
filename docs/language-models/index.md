@@ -67,6 +67,5 @@ Capability: **`LLM`**. What each message type does, in plain words: [Capabilitie
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [Chat message types](./message-types) and [Adding a chat provider](./extensibility)
-- [In-product help](/help/language-models/)
 - Permission sets: `BIFROST LLM ori` or `BIFROST LLM Rd ori` for the app, `BIFROST Chat ori` for
   chat, `BIFROST ChatSvc ori` for setting a shared key.

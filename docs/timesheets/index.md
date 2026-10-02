@@ -79,6 +79,5 @@ Capability: **`Clockify`**.
 What each message type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
-- [In-product help](/help/timesheets/)
 - [Build on Bifröst](/extensibility/)
 - Permission set: `BIFROST Timeshts ori`.

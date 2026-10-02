@@ -59,6 +59,5 @@ An in-progress Clockify entry — one that has been started but not stopped — 
 
 ## Where to go next
 
-- [In-product help](/help/timesheets/)
 - [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, generated úr the app itself
 - [Build on Bifröst](/extensibility/)
