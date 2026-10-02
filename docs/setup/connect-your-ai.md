@@ -19,7 +19,7 @@ systems. Bifröst runs an MCP server for this; you do not install anything.
 Online, step 5 of the setup wizard gives you:
 
 - **the Bifröst MCP server address**, which assistants connect to;
-- **the consent link** (*Open Authorization Page*) for the *Origo Bifrost* enterprise application. {/* OPEN-06 */} An Entra administrator
+- **the consent link** (*Open Authorization Page*) for the *Origo Bifrost* enterprise application. An Entra administrator
   opens it once, so the MCP server can sign your users in;
 - **links to the Bifröst connector** in the assistants' stores. Until the connector is published in
   a store, the link opens that store's public catalogue.
@@ -42,34 +42,22 @@ themselves, so the assistant works with exactly that user's permissions.
 Add the Bifröst connector from its store. On **Bifrost Setup**, the **Microsoft Copilot** action
 under *Connectors* opens it.
 
-{/* OPEN-02 */}
-
-:::note Being written
-Step by step, with screenshots.
-:::
-
 ### ChatGPT
 
 Add the Bifröst connector from its store. On **Bifrost Setup**, the **OpenAI ChatGPT** action under
 *Connectors* opens it.
 
-{/* OPEN-03 */}
-
-:::note Being written
-Step by step, with screenshots.
-:::
-
 ### Claude
 
 :::caution Temporary name
-{/* OPEN-04 */}
+
 The connector is called **Staging Bifröst** in the pictures below. That is its name before it is
 published; it will change.
 :::
 
 1. **Add the connector.** In Claude, open **Customize** and then **Connectors**. Until Bifröst is in
    Claude's connector directory, add it as a **custom connector** with the MCP server address from
-   wizard step 5. In a Claude Team or Enterprise organisation, an owner adds it once for everyone. {/* OPEN-05 */}
+   wizard step 5. In a Claude Team or Enterprise organisation, an owner adds it once for everyone.
    Once it is listed, the **Anthropic Claude** action under *Connectors* on **Bifrost Setup** opens it.
 2. **Sign in** with your work account, the one you use for Business Central, when Claude asks. The connector then shows as
    connected.
@@ -82,8 +70,6 @@ published; it will change.
 
 4. **Approve its tools.** The first time Claude wants to use a Bifröst tool, it asks. **Allow once**
    lets you check each call; **Always allow** stops asking for that tool.
-
-   ![Claude asks before it uses a Bifröst tool](/img/setup/claude-allow-tool.png)
 
 5. **Ask the first question**, as in [step 5](/setup/first-call/).
 
