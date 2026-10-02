@@ -112,6 +112,39 @@ const docsPlugins = [
   ...crossAppInstances.map((section) => docsInstance(section.id, section.id, `docs/${section.id}`)),
 ];
 
+/** A group heading inside a navbar dropdown. */
+function menuHeading(en: string, is: string) {
+  return {
+    type: 'html' as const,
+    value: `<span class="dropdownHeading">${buildLocale === 'is-IS' ? is : en}</span>`,
+  };
+}
+
+/** The apps of one group from apps.ts, as menu items. */
+function appItems(group: 'base' | 'addon' | 'iceland', to: (app: (typeof apps)[number]) => string) {
+  return apps.filter((app) => (app.group ?? 'addon') === group).map((app) => ({
+    label: app.title,
+    to: to(app),
+    ...(group === 'base' ? {className: 'dropdownBase'} : {}),
+  }));
+}
+
+/**
+ * The Help menu: Foundation first, marked as the base every other app needs,
+ * then the add-on apps, then the apps for Iceland, each under a heading.
+ */
+function groupedAppItems(to: (app: (typeof apps)[number]) => string) {
+  const heading = menuHeading;
+  return [
+    heading('The base, always installed', 'Grunnurinn, alltaf settur upp'),
+    ...appItems('base', to),
+    heading('Add-on apps', 'Viðbætur'),
+    ...appItems('addon', to),
+    heading('For Iceland', 'Fyrir Ísland'),
+    ...appItems('iceland', to),
+  ];
+}
+
 const config: Config = {
   title: 'Bifröst',
   tagline: 'Business Central, connected',
@@ -205,16 +238,19 @@ const config: Config = {
     navbar: {
       title: 'Bifröst',
       items: [
-        // Left to right is the reader's journey: set it up, read the documentation
-        // for your role, try it, see the cost, then the apps and their help.
+        // Two segments. On the left, the reader's journey: how it works, set it up,
+        // try it, the guide for your role, the cost. On the right, marked as one
+        // group (.navApps), the product: Foundation, the add-on apps and their help.
+        {label: buildLocale === 'is-IS' ? 'Hvernig það virkar' : 'How it works', to: '/documentation/how-it-works/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Uppsetning' : 'Set it up', to: '/setup/', position: 'left'},
+        {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/', position: 'left'},
         {
           type: 'dropdown',
-          label: buildLocale === 'is-IS' ? 'Skjölun' : 'Documentation',
+          label: buildLocale === 'is-IS' ? 'Leiðbeiningar' : 'Guides',
           to: '/documentation/',
           position: 'left',
           items: [
-            {label: buildLocale === 'is-IS' ? 'Hvernig Bifröst virkar' : 'How Bifröst works', to: '/documentation/how-it-works/'},
+            {label: buildLocale === 'is-IS' ? 'Allar leiðbeiningar' : 'All guides', to: '/documentation/'},
             {type: 'html', value: `<span class="dropdownHeading">${buildLocale === 'is-IS' ? 'Viðskiptavinir' : 'End customers'}</span>`},
             {label: buildLocale === 'is-IS' ? 'Notendur' : 'Users', to: '/documentation/end-customers/users/'},
             {label: buildLocale === 'is-IS' ? 'Kerfisstjórar' : 'Administrators', to: '/documentation/end-customers/administrators/'},
@@ -225,23 +261,29 @@ const config: Config = {
             {label: buildLocale === 'is-IS' ? 'Færni fyrir gervigreind' : 'Skills for AI agents', to: '/skills/'},
           ],
         },
-        {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Verð' : 'Cost', to: '/cost/', position: 'left'},
+        // Foundation is its own chapter: the app every other app needs.
+        {label: 'Foundation', to: '/foundation/', position: 'right', activeBasePath: '/foundation/', className: 'navApps navApps--first'},
         {
           type: 'dropdown',
-          label: buildLocale === 'is-IS' ? 'Forrit' : 'Apps',
+          label: buildLocale === 'is-IS' ? 'Viðbætur' : 'Add-on apps',
           to: '/apps/',
-          position: 'left',
+          position: 'right',
+          className: 'navApps',
           items: [
             {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/'},
-            ...apps.map((app) => ({label: app.title, to: `/${app.id}/`})),
+            menuHeading('Work anywhere', 'Virka alls staðar'),
+            ...appItems('addon', (app) => `/${app.id}/`),
+            menuHeading('For Iceland', 'Fyrir Ísland'),
+            ...appItems('iceland', (app) => `/${app.id}/`),
           ],
         },
         {
           type: 'dropdown',
           label: buildLocale === 'is-IS' ? 'Hjálp' : 'Help',
-          position: 'left',
-          items: apps.map((app) => ({label: app.title, to: `/help/${app.id}/`})),
+          position: 'right',
+          className: 'navApps navApps--last',
+          items: groupedAppItems((app) => `/help/${app.id}/`),
         },
         // The Icelandic site is not offered from the English one until the new chapters are
         // translated; the Icelandic build keeps the switcher so its readers can reach English.

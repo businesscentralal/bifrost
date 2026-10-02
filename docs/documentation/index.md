@@ -1,13 +1,13 @@
 ---
 id: index
-title: "Documentation"
+title: "Guides"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Find the documentation written for you: users, administrators and developers at a Business Central customer, and partners and ISVs."
+description: "Find the guide written for you: users, administrators and developers at a Business Central customer, and partners and ISVs."
 ---
 
-# Documentation
+# Guides
 
 Setting Bifröst up is in [Set it up](/setup/). This part is for what comes after: using it, running
 it, connecting to it and building on it. Start with the page for your role.
