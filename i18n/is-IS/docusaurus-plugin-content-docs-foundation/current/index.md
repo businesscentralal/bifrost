@@ -53,7 +53,6 @@ Allt annað í Bifrastar-fjölskyldunni er forrit sem byggir ofan á þessu og b
 - [Viðmiðun skilaboðagerða](./reference/message-types/) — beiðni- og svarsamningur hverrar gerðar, myndaður úr forritinu sjálfu
 - Hjálp í kerfinu — ein síða fyrir hverja Business Central síðu í forritinu
 - [Byggðu á Bifröst](/extensibility/) — hvernig forrit ofan á er skrifað
-- [Kunnátta fyrir gervigreindarumboð](/skills/) — hvernig umboð á að keyra API-ið
 
 ## Kröfur
 

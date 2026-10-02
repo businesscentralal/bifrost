@@ -46,8 +46,6 @@ sequenceDiagram
 ```
 
 - [API reference](/foundation/reference/api/): endpoints, the message envelope and response shapes
-- [Authentication](/skills/bifrost-bc-integration/references/authentication/): the base address,
-  the token scope and the company segment
 - [Errors](/foundation/reference/errors/): what an error answer contains
 - [Events and webhooks](/foundation/reference/events-and-webhooks/): being told instead of polling
 - [INTEGRATING guide](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/INTEGRATING.md)
@@ -55,8 +53,8 @@ sequenceDiagram
 
 ## Drive it from an AI agent
 
-[Skills for AI agents](/skills/) are what an agent loads before it works with Business Central
-through Bifröst: the envelope, the rules and the mistakes to avoid.
+Connect an AI assistant through the Origo BC MCP server: see [Connect your AI](/setup/connect-your-ai/).
+The assistant reads the installed message types and their contracts from Business Central itself.
 
 ## Find what a message type does
 

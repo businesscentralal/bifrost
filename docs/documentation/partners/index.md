@@ -83,6 +83,5 @@ sold like any other part of your app.
 - The [partner reference repository](https://github.com/businesscentralal/bc-bifrost-reference):
   a working example app and the full guide
 - [Register your app](/apps/register-your-app/): list it among the apps built on Bifröst
-- [Skills for AI agents](/skills/): what agents load to work with Bifröst
 
 **Next:** [Set it up](/setup/), the steps you will take with each customer.

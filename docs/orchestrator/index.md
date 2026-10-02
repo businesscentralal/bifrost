@@ -33,8 +33,7 @@ operations into a playbook, run it on a schedule, and hear about it when somethi
   presets.
 
 Playbooks can use message types from any Bifröst app, so every app you add gives your routines more
-to work with. An assistant can also build playbooks for you by conversation; see
-[Skills for AI agents](/skills/).
+to work with. An assistant can also build playbooks for you by conversation.
 
 ## Get it
 

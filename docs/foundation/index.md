@@ -59,4 +59,4 @@ each saying who is needed.
 - [Message type guides](./message-types/): each Foundation capability in depth
 - [Message type reference](./reference/message-types/): the full contract of every message type,
   generated from the app itself
-- [Build on Bifröst](/extensibility/) and [Skills for AI agents](/skills/)
+- [Build on Bifröst](/extensibility/)

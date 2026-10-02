@@ -4,9 +4,8 @@ The public documentation site for the **Bifröst** family of Microsoft Dynamics 
 Business Central extensions by Origo — <https://docs.bifrost.origo.is>.
 
 All public-facing material for every Bifröst app lives here and nowhere else:
-product documentation, in-product (context-sensitive) help, extensibility
-guidance for partners building dependent apps, and skills for AI agents driving
-Bifröst through the MCP server. The app repositories keep only `README.md`,
+product documentation, in-product (context-sensitive) help and extensibility
+guidance for partners building dependent apps. The app repositories keep only `README.md`,
 `CHANGELOG.md` and code.
 
 Built with [Docusaurus 3](https://docusaurus.io/) and deployed to GitHub Pages.
@@ -20,7 +19,6 @@ Built with [Docusaurus 3](https://docusaurus.io/) and deployed to GitHub Pages.
 | `/{locale}/<app>/` | one docs instance per app | Product documentation: overview, setup, AppSource scenarios, listing copy |
 | `/{locale}/help/<app>/` | one help instance per app | Context-sensitive help — one page per Business Central page |
 | `/{locale}/extensibility/` | `extensibility` | How to build a dependent app on Bifröst Foundation |
-| `/{locale}/skills/` | `skills` | Skills for AI agents using Bifröst through the Origo BC MCP server |
 
 The app list is declared once in [`apps.ts`](apps.ts); adding an entry there
 creates both instances and both navbar entries.
@@ -47,11 +45,9 @@ On disk:
 ```
 docs/<app>/                 English product documentation
 docs/extensibility/         English extensibility guide
-docs/skills/                English agent skills
 help/<app>/                 English help pages
 i18n/is-IS/docusaurus-plugin-content-docs-<instance>/current/
                             Icelandic translation of that instance
-static/skills/              Skill files served verbatim to AI agents
 tools/                      Scaffolding and generator scripts
 ```
 
@@ -142,40 +138,6 @@ root `index.html` (redirects by browser language, defaulting to English), a
 `llms.txt` — the machine-readable index for AI agents, written at the site root
 and inside each locale. `llms.txt` is generated, not committed: it carries
 absolute URLs and is only correct once `SITE_URL` and `BASE_URL` are known.
-
-## Agent skills
-
-A skill is what an AI agent loads before it writes code against Bifröst. They
-follow the standard Agent Skills layout, so an agent reads a short file and then
-fetches only the part it needs:
-
-```
-static/skills/bifrost-bc-integration/SKILL.md          the model, the rules, an index
-static/skills/bifrost-bc-integration/references/*.md   one file per area
-static/skills/bifrost-<app>/SKILL.md                   what that app adds, as an index
-```
-
-Those files are the authoritative copy. Three scripts keep everything else in
-step with them:
-
-```bash
-node tools/generate-app-skills.mjs   # rebuild the per-app skills from apps.ts + docs/
-node tools/render-skills.mjs         # rebuild docs/skills/** from static/skills/**
-node tools/check-skill-split.mjs     # prove the 2026 split of the core skill lost nothing
-```
-
-`render-skills.mjs` writes one page per skill file under `docs/skills/`, so the
-pages cannot drift from the files; edit the skill, then rerun it. Everything it
-writes is deleted and rewritten on each run.
-
-`check-skill-split.mjs` exists because the core skill used to be a single 286 kB
-file. It reads that file out of git history and proves that every heading,
-fenced code block and table row in it still appears exactly once across
-`SKILL.md` and `references/`. Run it after moving content between reference
-files.
-
-`generate-app-skills.mjs` reads the message-type pages under
-`docs/<app>/reference/message-types/`, so run it after regenerating those.
 
 ## Message types
 
