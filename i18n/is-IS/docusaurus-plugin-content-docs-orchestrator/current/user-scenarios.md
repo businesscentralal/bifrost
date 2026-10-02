@@ -6,247 +6,248 @@ sidebar_position: 8
 description: "The scenarios Microsoft's validation team executes to certify this extension for AppSource."
 ---
 
-**Publisher:** Origo
-**Version:** 28.0.0.0
-**Submission Date:** 2026-09-05
-**Test Environment:** Requires a stillt Telegram Bot Token fyrir notification scenarios. See "Test Credentials" section below.
+**Útgefandi:** Origo
+**Útgáfa:** 28.0.0.0
+**Skiladagur:** 2026-09-05
+**Prófunarumhverfi:** Krefst uppsetts Telegram-vélmennislykils fyrir tilkynningasviðsmyndirnar, og gervigreindaraðstoðar sem er tengd við Bifröst. Sjá „Prófunarauðkenni“ og „Gervigreindaraðstoð“ hér fyrir neðan.
 
 ---
 
-## Test Credentials
+## Prófunarauðkenni
 
-This extension uses the Telegram Bot API fyrir notification delivery.
+Þessi viðbót notar Telegram Bot API til að senda tilkynningar.
 
-**Provide:** A Telegram Bot Token (from @BotFather) og a Telegram Chat ID fyrir a test notandi.
-The Bot Token er stored in the "Job Queue Orchestrator Stilltuup" page via Isolated Storage (encrypted at rest).
-The Chat ID er stored per notandi in "Bifrost Notaður Stilltuup" (Bifrost Foundation).
+**Útvegið:** Telegram-vélmennislykil (frá @BotFather) og spjallauðkenni í Telegram fyrir prófunarnotanda.
+Vélmennislykillinn er sleginn inn á síðunni „Job Queue Orchestrator Setup“ og geymdur dulkóðaður í Business Central.
+Spjallauðkennið er geymt fyrir hvern notanda í „Bifrost User Setup“ (Bifrost Foundation).
 
-For email notification scenarios, a BC email account verður að vera stillt.
-
----
-
-## Scenario 1: Extension Installation og Stilltuup Wizard
-
-**Area:** Installation & Activation
-
-### Stilltuup
-1. Start með a clean BC sandbox (Cronus company)
-2. Install the "Bifrost Foundation" extension (dependency)
-3. Install the "Bifrost Orchestrator" extension
-
-### Steps
-1. Open the "Bifrost Stilltuup" page úr the BC search bar
-2. Observe the notification banner, fyrir example "HTTP client requests eru not enabled fyrir this extension. Run the setup wizard to enable."
-3. Click "Run Stilltuup Wizard" on the notification
-4. Staðfestu Step 1 (Welcome to Bifrost Orchestrator) displays, click "Next"
-5. Staðfestu Step 2 (Enable HTTP Client Beiðnis) shows the current status
-6. Ef not enabled, click "Enable HTTP Client Beiðnis" og then "Staðfestu"
-7. Click "Next" to Step 3 (Job Queue Orchestrator), which shows the job queue status
-8. Click "Start Job Queue" to start the management job queue
-9. Click "Next" to Step 4 (Stilltuup Complete), click "Finish"
-10. Re-open "Bifrost Stilltuup" — the notification should no longer appear
-
-### Expected Results
-- The "Bifrost Orchestrator Stilltuup" wizard opens og guides through 4 steps
-- HTTP client requests getur be enabled úr within the wizard
-- The management job queue starts successfully
-- After completing the wizard, the notification gerir ekki appear again
+Fyrir tölvupósttilkynningar þarf að setja upp tölvupóstreikning í BC.
 
 ---
 
-## Scenario 2: Register og Run a Scheduled Entry
+## Gervigreindaraðstoð
 
-**Area:** Core Functionality — Entry Management
-
-### Stilltuup
-1. Complete Scenario 1 (setup wizard finished)
-2. Gakktu úr skugga um at least one Job Queue Entry er til (for example the app's own management entry)
-
-### Steps
-1. Open the "Job Queue Orchestrator Stilltuup" page
-2. Observe the "Orchestrator Entries" subpage
-3. Navigate to "Job Queue Entries" via the action menu
-4. Note the ID of any Job Queue Entry
-5. Kalla the `Orchestrator.Entry.Register` message tegund via the Bifrost API:
-   - `type`: `Orchestrator.Entry.Register`
-   - `data`: `{"jobQueueEntryId": "<ID from step 4>"}`
-6. Kalla `Orchestrator.Entry.Run` með the returned SystemId:
-   - `type`: `Orchestrator.Entry.Run`
-   - `subject`: `<id from step 5 response>`
-
-### Expected Results
-- Step 5: Skilar `{"status": "Success", "id": "<guid>", "blocked": false, "message": "..."}`
-- Step 6: The entry executes successfully og returns a success response
-- The scheduled entry appears in the "Orchestrator Entries" subpage of the setup page
+Sumar sviðsmyndir eru keyrðar í gegnum gervigreindaraðstoð (til dæmis Copilot, ChatGPT eða
+Claude) sem er tengd við sandkassann í gegnum MCP-þjón Bifrastar, eins og lýst er í
+[Tengdu gervigreindaraðstoðina](/setup/connect-your-ai/). Hver beiðni aðstoðarinnar er skráð á
+síðunni **Bifrost Messages** í Business Central, þar sem prófandinn getur skoðað stöðu hennar og
+niðurstöðu.
 
 ---
 
-## Scenario 3: Telegram Notification on a Scheduled Entry
+## Sviðsmynd 1: Uppsetning viðbótar og leiðsagnarforrit
 
-**Area:** Notifications — Telegram
+**Svið:** Uppsetning og virkjun
 
-### Stilltuup
-1. Complete Scenario 1
-2. Open "Job Queue Orchestrator Stilltuup" og enter a Telegram Bot Token
-3. Open "Bifrost Notaður Stilltuup" og enter a Telegram Chat ID fyrir the current notandi
-4. Create eða use an existing scheduled entry
+### Undirbúningur
+1. Byrjið með hreinan BC-sandkassa (sýnifyrirtæki)
+2. Setjið upp viðbótina „Bifrost Foundation“ (forsenda)
+3. Setjið upp viðbótina „Bifrost Orchestrator“
 
-### Steps
-1. Open the "Job Queue Orchestrator Entry Card" fyrir the entry
-2. Stilltu "Notification Type" to "Telegram"
-3. Stilltu "Notification Recipient" to the test Telegram Chat ID
-4. Click the "Send Test Notification" action
-5. Check the Telegram chat fyrir the received message
+### Skref
+1. Opnið síðuna „Bifrost Setup“ úr leitarstiku BC
+2. Ef síðan sýnir tilkynninguna um HTTP-biðlarabeiðnir, smellið á „Hefja uppsetningarleiðsögn“ í henni og ljúkið leiðsögninni
+3. Opnið síðuna „Aðstoðuð uppsetning“ úr leitarstiku BC og ræsið „Bifrost Orchestrator Setup“
+4. Staðfestið að skref 1 (Velkomin í Bifrost Orchestrator) birtist og smellið á „Áfram“
+5. Staðfestið að skref 2 (Virkja HTTP-biðlarabeiðnir) sýni núverandi stöðu
+6. Ef það er ekki virkt, smellið á „Virkja HTTP-biðlarabeiðnir“ og síðan „Staðfesta“
+7. Smellið á „Áfram“ í skref 3 (Job Queue Orchestrator), sem sýnir stöðu vinnsluraðarinnar
+8. Smellið á „Ræsa vinnsluröð“ til að ræsa stjórnunarvinnsluröðina
+9. Smellið á „Áfram“ í skref 4 (Uppsetningu lokið) og smellið á „Ljúka“
+10. Opnið „Bifrost Setup“ aftur
 
-### Expected Results
-- Step 4: No villa — the test notification er sent
-- Step 5: A message appears in the Telegram chat með the entry description
-- Ef HTTP client requests eru not enabled, a clear villa message er shown
-
----
-
-## Scenario 4: Send Telegram Skilaboð via Skilaboð Type
-
-**Area:** Delivery — Telegram Skilaboð Type
-
-### Stilltuup
-1. Complete Scenario 3 setup (Bot Token stillt, Chat ID on Bifrost Notaður Stilltuup)
-
-### Steps
-1. Kalla the `Orchestrator.Telegram.Message` message tegund:
-   - `type`: `Orchestrator.Telegram.Message`
-   - `data`: `{"message": "Hello from Business Central!"}`
-2. Check the Telegram chat fyrir the received message
-
-### Expected Results
-- Step 1: Skilar `{"status": "Success", "chatId": "<chat-id>"}`
-- Step 2: The message "Hello úr Business Central!" appears in the notandi's Telegram chat
-- The chat ID er resolved automatically úr the calling notandi's Bifrost Notaður Stilltuup
-
-### Villa Cases
-- Ef no Bot Token: villa "Telegram Bot Token er not stillt in Orchestrator Stilltuup."
-- Ef no Chat ID on notandi: villa "No Telegram Chat ID stillt fyrir the current notandi. Stilltu it in Bifrost Notaður Stilltuup."
-- Ef `message` er missing úr the request: villa "\"message\" er required in the request data."
-- Ef HTTP er not enabled: villa "HTTP client requests eru not enabled fyrir this extension. …"
+### Væntar niðurstöður
+- Uppsetningarleiðsögn Bifrastar kveikir á HTTP-biðlarabeiðnum fyrir uppsett Bifröst-forrit
+- Leiðsagnaruppsetningin „Bifrost Orchestrator Setup“ opnast og leiðir í gegnum 4 skref; skref 2 sýnir að HTTP-biðlarabeiðnir séu virkar, eða gerir kleift að virkja þær
+- Stjórnunarvinnsluröðin ræsist
+- Skref 10: „Bifrost Setup“ sýnir ekki lengur HTTP-tilkynninguna
 
 ---
 
-## Scenario 5: Create og Run a Playbook
+## Sviðsmynd 2: Skrá og keyra tímasetta færslu
 
-**Area:** Core Functionality — Playbook Engine
+**Svið:** Kjarnavirkni — stjórnun færslna
 
-### Stilltuup
-1. Complete Scenario 1
+### Undirbúningur
+1. Ljúkið sviðsmynd 1 (leiðsagnarforritinu lokið)
+2. Gangið úr skugga um að að minnsta kosti ein vinnsluraðarfærsla sé til (til dæmis eigin stjórnunarfærsla appsins)
 
-### Steps
-1. Open the "Bifrost Playbooks" list page
-2. Create a new playbook með Code = "TEST-SCENARIO" og Lýsing = "AppSource Test Playbook"
-3. Add Step 10: Skilaboð Type = "Orchestrator.Status.Get", Next Step No. (Tókst) = 20
-4. Add Step 20: Skilaboð Type = "Orchestrator.Telegram.Skilaboð" (if Telegram er stillt) eða leave empty
-5. Stilltu Step 20's request template to `{"message": "Orchestrator status check complete"}` (the Beiðni Template FactBox eða the "Playbook Template Editor" page)
-6. Kalla the `Orchestrator.Playbook.Run` message tegund:
-   - `type`: `Orchestrator.Playbook.Run`
-   - `subject`: `TEST-SCENARIO`
+### Skref
+1. Opnið síðuna „Job Queue Orchestrator Setup“
+2. Skoðið undirsíðuna „Orchestrator Entries“
+3. Farið í „Vinnsluraðarfærslur“ úr aðgerðavalmyndinni og skrifið hjá ykkur lýsingu einhverrar vinnsluraðarfærslu
+4. Biðjið aðstoðina: „Settu vinnsluraðarfærsluna <lýsing úr skrefi 3> undir eftirlit Orchestrator.“
+5. Biðjið aðstoðina: „Keyrðu þessa Orchestrator-færslu núna.“
 
-### Expected Results
-- Step 6: Skilar `{"status": "Success", "instanceId": "<guid>", "playbookCode": "TEST-SCENARIO", "playbookStatus": "Completed", "stepsExecuted": 2, "stepsFailed": 0, "itemsProcessed": 0}`
-- The playbook executes both steps sequentially
-- An execution instance færsla er created og visible on the "Playbook Execution Log" page
+### Væntar niðurstöður
+- Skref 4: Aðstoðin staðfestir að færslan hafi verið skráð og sé ekki lokuð
+- Skref 5: Færslan keyrir; keyrslan birtist í **virkniskrá** færslunnar
+- Tímasetta færslan birtist á undirsíðunni „Orchestrator Entries“ á uppsetningarsíðunni
 
 ---
 
-## Scenario 6: Schedule a Playbook
+## Sviðsmynd 3: Telegram-tilkynning um tímasetta færslu
 
-**Area:** Core Functionality — Playbook Scheduling
+**Svið:** Tilkynningar — Telegram
 
-### Stilltuup
-1. Complete Scenario 5 (playbook "TEST-SCENARIO" er til)
+### Undirbúningur
+1. Ljúkið sviðsmynd 1
+2. Opnið „Job Queue Orchestrator Setup“ og sláið inn Telegram-vélmennislykil
+3. Opnið „Bifrost User Setup“ og sláið inn spjallauðkenni í Telegram fyrir núverandi notanda
+4. Búið til tímasetta færslu eða notið færslu sem er til
 
-### Steps
-1. Open the "Bifrost Playbook" card fyrir "TEST-SCENARIO"
-2. Click the "Schedule" action — the "Schedule Playbook" page opens
-3. Stilltu a recurring template eða a "No. of Minutes between Keyrir" gildi, choose a Notification Type, og confirm með OK
-4. Staðfestu "Scheduled" on the playbook card er now Yes
-5. Click the "Orchestrator Entry" action to open the scheduled entry that was created
-6. Delete the scheduled entry og verify "Scheduled" on the playbook card returns to No
+### Skref
+1. Opnið „Job Queue Orchestrator Entry Card“ fyrir færsluna
+2. Setjið „Tegund tilkynningar“ á „Telegram“
+3. Setjið „Viðtakanda tilkynningar“ á spjallauðkenni prófunarinnar í Telegram
+4. Smellið á aðgerðina „Senda prufutilkynningu“
+5. Athugið hvort skilaboðin hafi borist í Telegram-spjallið
 
-### Expected Results
-- Step 3: The playbook er scheduled through a scheduled entry með a recurring Job Queue Entry
-- Step 5: The "Job Queue Orchestrator Entry Card" opens on the entry created fyrir the playbook
-- Step 6: Removing the entry clears the schedule
-
----
-
-## Scenario 7: Playbook með ForEach Iteration
-
-**Area:** Core Functionality — Playbook Engine (Advanced)
-
-### Stilltuup
-1. Complete Scenario 1
-2. Gakktu úr skugga um the Customer table has at least 2 færslur
-
-### Steps
-1. Create a playbook "TEST-FOREACH" with:
-   - Step 10: `Data.Records.Get` — query Customers (template: `{"tableName":"Customer","fieldNumbers":[1,2],"take":5}`)
-   - Step 20: `Orchestrator.Status.Get` — forEach over Step 10's niðurstaða array (Iterate Array Path = "niðurstaða", Iterate Source Step No. = 10)
-   - Step 30: `Orchestrator.Telegram.Message` — send completion message
-2. Run the playbook via `Orchestrator.Playbook.Run` með subject = "TEST-FOREACH"
-
-### Expected Results
-- Step 20 executes once per viðskiptavinur færsla returned by Step 10
-- Step 30 sends a Telegram message eftir allir iterations complete
-- The playbook completes með `stepsExecuted` > 2 og `itemsProcessed` matching the viðskiptavinur count
+### Væntar niðurstöður
+- Skref 4: Engin villa — prufutilkynningin er send
+- Skref 5: Skilaboð með lýsingu færslunnar birtast í Telegram-spjallinu
+- Ef HTTP-biðlarabeiðnir eru ekki virkar birtast skýr villuboð
 
 ---
 
-## Scenario 8: Orchestrator Status og Health Check
+## Sviðsmynd 4: Senda Telegram-skilaboð úr aðstoðinni
 
-**Area:** Status & Monitoring
+**Svið:** Afhending — Telegram
 
-### Stilltuup
-1. Complete Scenario 1
+### Undirbúningur
+1. Ljúkið undirbúningi sviðsmyndar 3 (vélmennislykill uppsettur, spjallauðkenni í Bifrost User Setup)
 
-### Steps
-1. Kalla `Orchestrator.Status.Get`:
-   - `type`: `Orchestrator.Status.Get`
-2. Kalla `Orchestrator.Status.RestartIfNeeded`:
-   - `type`: `Orchestrator.Status.RestartIfNeeded`
-3. Kalla `Orchestrator.Status.Get` again
+### Skref
+1. Biðjið aðstoðina: „Sendu mér Telegram-skilaboð sem segja: Hello from Business Central!“
+2. Athugið hvort skilaboðin hafi borist í Telegram-spjallið
 
-### Expected Results
-- Step 1: Skilar `orchestratorStatus`, `jobQueueCategoryCode`, `logJobQueueActivity` og an `entries` object með `total`, `blocked` og `active` counts
-- Step 2: Skilar `{"status": "Success", "message": "...", "restarted": true|false}`
-- Step 3: Shows updagsetningd status reflecting any restart
+### Væntar niðurstöður
+- Skref 1: Aðstoðin staðfestir að skilaboðin hafi verið send
+- Skref 2: Skilaboðin „Hello from Business Central!“ birtast í Telegram-spjalli notandans
+- Spjallauðkennið er sótt sjálfkrafa úr Bifrost User Setup notandans sem kallar
 
----
-
-## Scenario 9: Run a Report through a Skilaboð Type
-
-**Area:** Reporting
-
-### Stilltuup
-1. Complete Scenario 1
-
-### Steps
-1. Kalla `Orchestrator.Report.List` to list the available reports með their metadata
-2. Kalla `Orchestrator.Report.Get` með the ID of one report úr step 1
-3. Kalla `Orchestrator.Report.SaveAs` fyrir that report, með a saved request preset eða inlína parameters
-
-### Expected Results
-- Step 1: Skilar the available reports með metadata, excluding obsolete reports
-- Step 2: Skilar the report metadata, its available layouts og the saved request page preset
-- Step 3: Skilar the report output (PDF, Excel, Word eða XML). When a playbook step calls it, binary output er base64-enkóðid in a JSON envelope með `contentType`, `size` og `base64`
+### Villutilvik
+- Ef enginn vélmennislykill er til: villan „Telegram Bot Token is not configured in Orchestrator Setup.“
+- Ef notandinn hefur ekkert spjallauðkenni: villan „No Telegram Chat ID configured for the current user. Set it in Bifrost User Setup.“
+- Ef HTTP er ekki virkt: villan „HTTP client requests are not enabled for this extension. …“
 
 ---
 
-## Permission Stilltus
+## Sviðsmynd 5: Búa til og keyra keðju
 
-The scenarios above require one eða more of the following assignable permission sets, in addition to the Bifrost Foundation sets:
+**Svið:** Kjarnavirkni — keðjuvél
 
-| Permission set | Grants |
+### Undirbúningur
+1. Ljúkið sviðsmynd 1
+
+### Skref
+1. Opnið listasíðuna „Bifrost Playbooks“
+2. Búið til nýja keðju með Kóða = „TEST-SCENARIO“ og Lýsingu = „AppSource Test Playbook“
+3. Bætið við skrefi 10: í „Skilaboðategund“ veljið aðgerðina sem les stöðu Orchestrator; setjið Næsta skref nr. (árangur) = 20
+4. Bætið við skrefi 20: í „Skilaboðategund“ veljið aðgerðina sem sendir Telegram-skilaboð (ef Telegram er uppsett), eða skiljið reitinn eftir auðan
+5. Í beiðnasniðmáti skrefs 20 (upplýsingareiturinn Request Template eða síðan „Playbook Template Editor“) sláið inn textann „Orchestrator status check complete“ sem skilaboðin
+6. Veljið „Keyra núna“ á keðjuspjaldinu
+
+### Væntar niðurstöður
+- Skref 6: Keyrslunni lýkur og skilaboð segja frá niðurstöðunni
+- Keðjan keyrir bæði skrefin í röð
+- „Playbook Execution Log“ sýnir keyrsluna með stöðuna Lokið, 2 skref keyrð og 0 skref sem mistókust
+
+### Athugasemdir
+- Aðgerðirnar sem skref getur notað, og hvað hver þeirra tekur við, eru taldar upp á síðunni **Bifrost Message Types**
+
+---
+
+## Sviðsmynd 6: Tímasetja keðju
+
+**Svið:** Kjarnavirkni — tímasetning keðja
+
+### Undirbúningur
+1. Ljúkið sviðsmynd 5 (keðjan „TEST-SCENARIO“ er til)
+
+### Skref
+1. Opnið spjaldið „Bifrost Playbook“ fyrir „TEST-SCENARIO“
+2. Smellið á aðgerðina „Tímasetja“ — síðan „Schedule Playbook“ opnast
+3. Setjið endurtekningarsniðmát eða gildi í „Fjöldi mínútna milli keyrslna“, veljið tegund tilkynningar og staðfestið með Í lagi
+4. Staðfestið að „Tímasett“ á keðjuspjaldinu sé nú Já
+5. Smellið á aðgerðina „Orchestrator-færsla“ til að opna tímasettu færsluna sem varð til
+6. Eyðið tímasettu færslunni og staðfestið að „Tímasett“ á keðjuspjaldinu verði aftur Nei
+
+### Væntar niðurstöður
+- Skref 3: Keðjan er tímasett með tímasettri færslu og endurtekinni vinnsluraðarfærslu
+- Skref 5: „Job Queue Orchestrator Entry Card“ opnast á færslunni sem varð til fyrir keðjuna
+- Skref 6: Þegar færslan er fjarlægð hverfur tímasetningin
+
+---
+
+## Sviðsmynd 7: Keðja með ítrun
+
+**Svið:** Kjarnavirkni — keðjuvél (ítarlegri)
+
+### Undirbúningur
+1. Ljúkið sviðsmynd 1
+2. Gangið úr skugga um að að minnsta kosti 2 viðskiptamenn séu til
+
+### Skref
+1. Búið til keðjuna „TEST-FOREACH“ með:
+   - Skrefi 10: aðgerðinni sem les færslur, með beiðnasniðmáti sem biður um allt að 5 viðskiptamenn
+   - Skrefi 20: aðgerðinni sem les stöðu Orchestrator, með ítrun yfir niðurstöðu skrefs 10 (Iterate Array Path = „result“, Iterate Source Step No. = 10)
+   - Skrefi 30: aðgerðinni sem sendir Telegram-skilaboð — skilaboð um að keyrslu sé lokið
+2. Veljið „Keyra núna“ á keðjuspjaldinu, eða biðjið aðstoðina: „Keyrðu keðjuna TEST-FOREACH.“
+
+### Væntar niðurstöður
+- Skref 20 keyrir einu sinni fyrir hvern viðskiptamann sem skref 10 skilar
+- Skref 30 sendir Telegram-skilaboð eftir að allri ítrun er lokið
+- „Playbook Execution Detail“ sýnir fleiri en 2 keyrð skref og fjölda unninna atriða sem passar við fjölda viðskiptamanna
+
+---
+
+## Sviðsmynd 8: Staða Orchestrator og heilbrigðisathugun
+
+**Svið:** Staða og vöktun
+
+### Undirbúningur
+1. Ljúkið sviðsmynd 1
+
+### Skref
+1. Spyrjið aðstoðina: „Hver er staða Orchestrator?“
+2. Biðjið aðstoðina: „Endurræstu Orchestrator ef þess þarf.“
+3. Spyrjið aðstoðina aftur um stöðuna og opnið „Job Queue Orchestrator Setup“
+
+### Væntar niðurstöður
+- Skref 1: Svarið gefur stöðu Orchestrator, vinnsluraðarflokkinn og hve margar færslur eru alls, lokaðar og virkar
+- Skref 2: Aðstoðin segir hvort endurræsingar hafi verið þörf og hvort hún hafi verið gerð
+- Skref 3: Staðan endurspeglar endurræsinguna og passar við **stöðu vinnsluraðara** á uppsetningarsíðunni
+
+---
+
+## Sviðsmynd 9: Keyra skýrslu eftir þörfum
+
+**Svið:** Skýrslugerð
+
+### Undirbúningur
+1. Ljúkið sviðsmynd 1
+
+### Skref
+1. Spyrjið aðstoðina: „Hvaða skýrslur getur þú keyrt?“
+2. Biðjið aðstoðina að lýsa einni skýrslu úr skrefi 1, ásamt útlitum hennar
+3. Biðjið aðstoðina að vista þá skýrslu sem PDF, með vistaðri forstillingu beiðni eða með síum sem gefnar eru í spjallinu
+
+### Væntar niðurstöður
+- Skref 1: Svarið telur upp tiltækar skýrslur, án úreltra skýrslna
+- Skref 2: Svarið gefur upplýsingar um skýrsluna, tiltæk útlit hennar og vistuðu forstillinguna
+- Skref 3: Aðstoðin skilar niðurstöðu skýrslunnar, sem opnast sem PDF með væntu innihaldi
+
+---
+
+## Heimildasöfn
+
+Sviðsmyndirnar hér að ofan krefjast eins eða fleiri af eftirfarandi úthlutanlegu heimildasöfnum, auk heimildasafna Bifrost Foundation:
+
+| Heimildasafn | Veitir |
 | --- | --- |
-| `BIFROST Nornir ori` | Lestu access to scheduled entries, scheduler setup, recurring templates og client credentials |
-| `BIFROST NrnSetup ori` | Stilltuup access — scheduler setup, recurring templates, client credentials |
-| `BIFROST NrnMgt ori` | Management access — maintain scheduled entries |
-| `BIFROST PlaybAdm ori` | Full administration of playbooks, steps, conditions, instances og report presets |
-| `BIFROST PlaybVw ori` | Lestu-only access to playbooks og execution logs |
+| `BIFROST Orchestr ori` | Lesaðgang að tímasettum færslum, uppsetningu tímasetningar, endurtekningarsniðmátum og auðkennum biðlara |
+| `BIFROST OrchSet ori` | Uppsetningaraðgang — uppsetning tímasetningar, endurtekningarsniðmát, auðkenni biðlara |
+| `BIFROST OrchMgt ori` | Stjórnunaraðgang — viðhald tímasettra færslna |
+| `BIFROST PlaybAdm ori` | Fulla stjórnun keðja, skrefa, skilyrða, keyrslna og forstillinga skýrslna |
+| `BIFROST PlaybVw ori` | Lesaðgang að keðjum og keyrsluskrám |
