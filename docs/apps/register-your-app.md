@@ -72,8 +72,7 @@ Add one object to the `apps` array in `data/apps.json`, following
 
 `domains` is a fixed list of categories for this list (not capabilities) — pick every one that applies:
 `finance`, `sales`, `purchasing`, `inventory`, `projects`, `hr-payroll`,
-`banking`, `e-documents`, `integration`, `ai`, `documents`, `scheduling`,
-`time-tracking`, `billing`, `iceland`, `other`.
+`integration`, `ai`, `documents`, `other`.
 
 An optional `summary_is` field gives an Icelandic translation of `summary`
 for the `is-IS` build of this page; omit it and the English summary is

@@ -70,8 +70,7 @@ Bættu einum hlut við `apps` fylkið í `data/apps.json`, samkvæmt
 
 `domains` er fastur listi — veldu hvert svið sem á við:
 `finance`, `sales`, `purchasing`, `inventory`, `projects`, `hr-payroll`,
-`banking`, `e-documents`, `integration`, `ai`, `documents`, `scheduling`,
-`time-tracking`, `billing`, `iceland`, `other`.
+`integration`, `ai`, `documents`, `other`.
 
 Valfrjálst `summary_is` reit gefur íslenska þýðingu á `summary` fyrir
 `is-IS` útgáfu þessarar síðu; sé því sleppt er enska lýsingin notuð í staðinn.
