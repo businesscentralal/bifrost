@@ -19,9 +19,9 @@ Trying it first? [Try it out](/try-it-out/) is the quick path in a sandbox.
 
 ## Before you start
 
-- **A supported Business Central**: see [Requirements](/foundation/#requirements).
+- **A supported Business Central**: see [Requirements](/foundation/#get-it-and-set-it-up).
 - **A sandbox is a good first place.** Try everything there first; see [Try it out](/try-it-out/).
-- **A license for production.** See [Cost](/cost/).
+- **A license for production.** See [Price](/price/).
 
 ## The steps
 

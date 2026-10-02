@@ -11,7 +11,7 @@ leyfis núverandi leigjanda og fyrirtækis. Hann birtist notendum með leyfisstj
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Tegund leyfis** | **Fyrirframgreitt** eða **Áskrift**. Leigjandi er á áskriftarleyfi á meðan hann er viðskiptavinur Bifröst samstarfsaðila. Sjá [Leyfistegundir](/foundation/licensing/license-types/). |
+| **Tegund leyfis** | **Fyrirframgreitt** eða **Áskrift**. Leigjandi er á áskriftarleyfi á meðan hann er viðskiptavinur Bifröst samstarfsaðila. Sjá [Leyfistegundir](/licensing/license-types/). |
 | **Tætigildi leigjandakennis** | Einstefnutætigildi Microsoft Entra leigjandaauðkennisins þíns sem auðkennir leigjandann gagnvart leyfisþjónustunni. |
 | **Notendaleyfi** | Skilaboðin sem eru eftir í notendapottinum og hvort köll notenda séu leyfð núna (**Gilt**). |
 | **Forritsskráningarleyfi** | Skilaboðin sem eru eftir í forritsskráningarpottinum og hvort köll frá Microsoft Entra forritum séu leyfð núna. |

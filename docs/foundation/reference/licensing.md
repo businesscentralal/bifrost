@@ -7,7 +7,7 @@ sidebar_position: 7
 This page is the contract a caller sees: which calls count, the errors a call can be refused with,
 the warnings a successful response can carry, and the licence status payload. For the licence
 model itself - Prepaid and Subscription, the trial, the Vendor, Partner and Customer roles and who
-invoices whom - see [Licensing and partner program](/foundation/licensing).
+invoices whom - see [Licensing and partner program](/licensing/).
 
 ## What counts
 
@@ -81,7 +81,7 @@ the next calendar month. The user quota is checked before the company quota.
 The count is taken from the chargeable messages of the calendar month in the company's **Bifrost
 Messages**; reporting usage does not lower it. On
 Subscription the company quota does not count App Registration messages; the user quota counts all
-of the user's messages. See [How the monthly quotas are counted](/foundation/licensing/license-types/#how-monthly-quotas-are-counted).
+of the user's messages. See [How the monthly quotas are counted](/licensing/license-types/#how-monthly-quotas-are-counted).
 
 ## Warnings
 
@@ -112,7 +112,7 @@ Usage is reported to the licensing service once per day **per company**. The fir
 message of the day schedules a background task that reports each completed day's chargeable messages
 per charge type and refreshes the cached remaining quota. **Sync** on the Bifrost Setup page does the same
 immediately, including today's messages, and also applies invitations and cancellations - see
-[Leaving and cancelling](/foundation/licensing/leaving-and-cancelling/). Usage is reported per
+[Leaving and cancelling](/licensing/leaving-and-cancelling/). Usage is reported per
 **hashed company** under the **hashed tenant**.
 
 ## Checking status

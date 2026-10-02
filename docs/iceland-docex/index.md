@@ -7,57 +7,73 @@ slug: /
 description: "Electronic document exchange for Business Central through Advania, Unimaze and InExchange, with Peppol BIS 3.0 data and UBL rendering."
 ---
 
-*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+# Bifröst Iceland DocEx
 
-Bifröst Iceland DocEx sends and receives electronic business documents through four services — Advania, Unimaze, InExchange and the public Peppol BIS Billing 3.0 reference-data service — and exposes each operation as a message type. It builds on Bifröst Foundation: a caller posts one message such as `DocumentExchange.Advania.GetUnread`, the extension performs the HTTP call, writes the exchange to the Bifrost Request Log with the secrets masked, and returns a JSON response.
+**Send and receive electronic invoices from Business Central.** Bifröst Iceland DocEx connects
+Business Central to the Advania, Unimaze and InExchange document exchange networks, in the Peppol
+BIS 3.0 format.
 
-## What it does
+Received invoices arrive as incoming documents in Business Central, ready to become purchase
+documents. You use the same setup and the same steps whichever network you are on.
 
-- **Advania** — receive and send documents, read metadata, lines, attachments and history, synchronise statuses, query the inbox and sent lists, look up trading partners, retrieve PDFs, and run OCR and XML conversion.
-- **Unimaze** — receive and send documents, submit transactions and raw XML, add attachments, read validation results, retry failed messages, register payments and rejections, and list pending actions.
-- **InExchange** — fetch incoming documents, send outbound documents, track outbound delivery status, mark documents handled, and look up buyers and sellers.
-- **Peppol BIS 3.0 reference data** — country codes, currencies, document type codes, electronic address schemes, participant schemes, MIME codes, unit codes and VAT codes, without external credentials.
-- **UBL rendering** — produce UBL 2.1 XML for invoices, credit notes, orders, despatch advices and statements directly from Business Central documents, without a mapping project.
-- **Incoming documents** — an inbound payload can become a Business Central Incoming Document, deduplicated on the provider's document id, and from there either a purchase document or general journal lines depending on the vendor's posting mode.
-- **Per-vendor posting rules** — a vendor can be configured to post incoming lines to fixed G/L accounts per VAT percentage.
-- **Audited traffic** — every provider call is written to the Bifrost Request Log through a provider-specific masker, so a failed exchange can be reconstructed without exposing credentials.
-- **One API for four networks** — the caller changes the message type, not the integration code.
+*An additional app on [Bifröst Foundation](/foundation/), for companies in Iceland. New to Bifröst? Start
+with [How Bifröst works](/documentation/how-it-works/).*
 
-## How it works
+## What you can do
 
-1. An administrator opens **Bifröst Setup → Document Exchange**, picks the environment (Live or Test) per provider, and enters the provider credentials. Credentials go to Isolated Storage; the page shows only a **Credentials Stored** flag.
-2. A caller — an external system, an MCP client or a Business Central process — posts a message with a `DocumentExchange.*` type and a JSON payload to the Bifrost queue API.
-3. Bifröst Foundation resolves the message type to its handler codeunit.
-4. The handler reads the provider environment from Setup, resolves the matching provider client, and performs the HTTP call. Request and response are written to the Bifrost Request Log with the credentials masked.
-5. The handler writes a JSON response back to the message, and the caller downloads it from the Bifrost data API.
-6. For inbound documents requested with `createIncomingDocument: true`, the extension also creates a Business Central Incoming Document and, depending on the vendor's posting mode, a purchase document or general journal lines.
+- **Receive invoices as incoming documents.** A received document becomes a Business Central
+  incoming document, which you can then process with Foundation's **Incoming** capability. Each
+  document is created
+  only once, and then becomes a purchase document or general journal lines, as set for the vendor.
+- **Send invoices and other documents.** Send invoices, credit notes, orders, despatch advices and
+  statements from Business Central documents, as UBL 2.1 XML in the Peppol BIS 3.0 format.
+- **Follow each document.** Check the inbox and sent lists, read a document's status and history,
+  and get its PDF. With Unimaze you can also register a payment or a rejection.
+- **Find your trading partners.** Look up buyers, sellers and trading partners on the network
+  before you send.
+- **Post incoming lines to the right accounts.** Map a vendor's lines to fixed G/L accounts per VAT
+  percentage, and translate Peppol codes into the codes your company uses.
 
-## Message types
+## Get it
 
-The extension adds its own message types on top of Bifröst Foundation. Each one is self-documenting: submit `Help.DocumentExchange.Get` with the message type name as the subject to receive its request and response contract in Markdown.
+Install **Bifrost Iceland DocEx** next to Bifröst Foundation, from AppSource or through your
+partner. It needs Business Central 28.0 or later, Essentials or Premium.
 
-| Category | Types | What it covers |
-| --- | --- | --- |
-| BIS 3.0 reference data | 10 | Peppol BIS 3.0 code lists — countries, currencies, document types, address and participant schemes, MIME codes, unit codes, VAT codes. |
-| Advania | 30 | Receiving, sending, status management, mailbox queries, partner lookup, document retrieval, OCR and XML conversion, user and web UI access. |
-| Unimaze | 23 | Receiving, sending, status management, queries, attachments and validation, payment and rejection workflow. |
-| InExchange | 8 | Incoming documents, outbound sending and status, buyer and seller lookup. |
-| UBL rendering | 4 | `DocumentExchange.UBL.RenderBilling`, `RenderOrder`, `RenderDespatchAdvice`, `RenderStatement`. |
-| Help | 1 | `Help.DocumentExchange.Get` — the contract of every type above. |
+## Set it up
 
-The full list, one row per message type, is in the [in-product help](/help/iceland-docex/).
+| Step | What | Who |
+|---|---|---|
+| 1 | Get credentials from at least one network: Advania, Unimaze or InExchange. The Peppol reference data needs none. | Finance, with the network provider |
+| 2 | Allow HTTP requests for the extension in Foundation's **Bifrost Setup Wizard** (also reachable from **Setup Wizard** on Document Exchange Setup). | Business Central administrator |
+| 3 | On **Bifrost Setup**, open **Document Exchange Setup**. Choose Live or Test for each network you use, enter its credentials and test the connection. | Business Central administrator |
+| 4 | If you receive invoices, choose **Update BII Data Exchange Definitions**, then fill in the BIS30 Code Map and the VAT G/L Account Map. | Business Central administrator or partner |
+| 5 | Give each user or service that sends or receives documents `BIFROST Full ori`; the app adds its objects to it and to the standard D365 permission sets. | Business Central administrator |
 
-## Requirements
+The step-by-step guides are in the in-product help:
+[DocEx Setup](/help/iceland-docex/docex-setup/),
+[BIS30 Code Map](/help/iceland-docex/bis30-code-map/) and
+[Vendor VAT G/L Account Map](/help/iceland-docex/vend-vat-gl-map/).
 
-- Microsoft Dynamics 365 Business Central 28.0 or later, Essentials or Premium.
-- Bifröst Foundation, available separately on AppSource.
-- Provider credentials from at least one supported exchange network — Advania, Unimaze or InExchange.
-- BIS 3.0 reference data and UBL rendering need no external credentials.
+## Good to know
 
-## Where to go next
+- **It acts as you.** A call can do only what your own permissions allow.
+- **Credentials are stored per network and per environment** in the Bifröst Foundation secret
+  store, so a Test key is never used for a Live call. The setup page shows only whether a value
+  is stored.
+- **Every call to a network is logged** on the Bifrost Request Log, with the credentials masked, so
+  a failed exchange can be traced.
+- **Sending a document is real.** On a Live environment it goes to the recipient. Try sending in
+  the Test environment first.
+- **Moving from Origo Cloud Events DocEx?** Install this app beside it. Code maps and VAT G/L
+  account maps are copied, but credentials do not carry over. Enter them again.
 
+## Capabilities and reference
+
+Capability: **`DocumentExchange`**.
+
+What each message type does, in plain words: [Capabilities](./capabilities).
+
+- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [In-product help](/help/iceland-docex/)
-- [Message type reference](./reference/message-types/) — the request and response contract for every type, generated from the app itself
-- [AppSource user scenarios](./user-scenarios)
-- [Partner Center listing](./listing)
-- [Build on Bifröst](/extensibility/)
+- [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
+- Permission sets: extends `BIFROST Full ori` (`DocEx Full ori`) and the standard D365 sets.

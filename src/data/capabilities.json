@@ -1,0 +1,2994 @@
+{
+  "foundation": {
+    "Bifrost": [
+      {
+        "type": "Bifrost.Partner.GetBillingSummary",
+        "action": "Returns one-row billing totals for the calling Partner across every Subscription customer.",
+        "href": "/foundation/reference/message-types/bifrost-partner-getbillingsummary/"
+      },
+      {
+        "type": "Bifrost.Partner.GetCustomers",
+        "action": "Returns per-Customer billing rows for the calling Partner.",
+        "href": "/foundation/reference/message-types/bifrost-partner-getcustomers/"
+      },
+      {
+        "type": "Bifrost.Subscription.GetStatus",
+        "action": "Returns the current customer configuration, account, license status, balance, and current-month usage from the licensing service.",
+        "href": "/foundation/reference/message-types/bifrost-subscription-getstatus/"
+      },
+      {
+        "type": "Bifrost.Subscription.GetUsage",
+        "action": "Returns paged usage entries reported to the licensing service.",
+        "href": "/foundation/reference/message-types/bifrost-subscription-getusage/"
+      },
+      {
+        "type": "Bifrost.Vendor.GetBillingSummary",
+        "action": "Returns one-row billing totals for the calling Vendor across every Subscription customer of every Partner.",
+        "href": "/foundation/reference/message-types/bifrost-vendor-getbillingsummary/"
+      },
+      {
+        "type": "Bifrost.Vendor.GetCustomers",
+        "action": "Returns per-Customer billing rows for the calling Vendor.",
+        "href": "/foundation/reference/message-types/bifrost-vendor-getcustomers/"
+      },
+      {
+        "type": "Bifrost.Vendor.GetPartners",
+        "action": "Returns per-Partner rollup rows for the calling Vendor.",
+        "href": "/foundation/reference/message-types/bifrost-vendor-getpartners/"
+      }
+    ],
+    "ChangeLog": [
+      {
+        "type": "ChangeLog.Field.Enabled",
+        "action": "Reports whether a specific table field is covered by the BC Change Log Setup, and whether the Bifrost change-log write guard would allow restoring it.",
+        "href": "/foundation/reference/message-types/changelog-field-enabled/"
+      },
+      {
+        "type": "ChangeLog.Field.History",
+        "action": "Returns the current value of a field plus its full change history from BC Change Log Entry (table 405).",
+        "href": "/foundation/reference/message-types/changelog-field-history/"
+      },
+      {
+        "type": "ChangeLog.Field.Restore",
+        "action": "Restores a single field value from BC Change Log Entry by writing the entry's Old Value back via FieldRef.Validate.",
+        "href": "/foundation/reference/message-types/changelog-field-restore/"
+      },
+      {
+        "type": "ChangeLog.Records.Delta",
+        "action": "Returns the distinct SystemIds of records that were inserted or modified in a given table within a datetime range.",
+        "href": "/foundation/reference/message-types/changelog-records-delta/"
+      }
+    ],
+    "CSV": [
+      {
+        "type": "CSV.DeletedRecords.Get",
+        "action": "Exports deleted record audit data from the Bifrost Delete Log as a UTF-8 CSV file.",
+        "href": "/foundation/reference/message-types/csv-deletedrecords-get/"
+      },
+      {
+        "type": "CSV.Records.Get",
+        "action": "Exports all matching records from a specified Business Central table as a CSV file in Open Mirroring format.",
+        "href": "/foundation/reference/message-types/csv-records-get/"
+      }
+    ],
+    "Customer": [
+      {
+        "type": "Customer.Application.Post",
+        "action": "Posts a customer ledger entry application — pairs an applying entry (a Payment, Refund or Credit Memo, typically) against one or more target invoices/charges.",
+        "href": "/foundation/reference/message-types/customer-application-post/"
+      },
+      {
+        "type": "Customer.Application.Reverse",
+        "action": "Reverses (un-applies) a posted customer ledger entry application by unapplying a specific Detailed Cust. Ledg. Entry row of type Application.",
+        "href": "/foundation/reference/message-types/customer-application-reverse/"
+      },
+      {
+        "type": "Customer.CreditLimit.Get",
+        "action": "Returns a customer credit exposure snapshot — posted balance, outstanding overdue balance, outstanding sales orders, remaining credit, tolerance, and an isCreditLimitExceeded…",
+        "href": "/foundation/reference/message-types/customer-creditlimit-get/"
+      },
+      {
+        "type": "Customer.SalesHistory.Get",
+        "action": "Returns the items a customer has ordered in a given date range, aggregated per item/variant/UoM via the Customer Sales History query.",
+        "href": "/foundation/reference/message-types/customer-saleshistory-get/"
+      },
+      {
+        "type": "Customer.Statement.Pdf",
+        "action": "Renders a Customer Statement as PDF via the BC standard Standard Statement report (saved with last-used request page parameters).",
+        "href": "/foundation/reference/message-types/customer-statement-pdf/"
+      }
+    ],
+    "Data": [
+      {
+        "type": "Data.Entries.Find",
+        "action": "Finds all related entries for a document number using Business Central's standard Navigate (Find Entries) mechanism.",
+        "href": "/foundation/reference/message-types/data-entries-find/"
+      },
+      {
+        "type": "Data.Notes.Get",
+        "action": "Returns user-entered Notes (entries in the BC Record Link table where Type = Note) for records in a given table.",
+        "href": "/foundation/reference/message-types/data-notes-get/"
+      },
+      {
+        "type": "Data.Notes.Set",
+        "action": "Adds, edits, or deletes Notes (rows in the BC Record Link table where Type = Note) on a single target record.",
+        "href": "/foundation/reference/message-types/data-notes-set/"
+      },
+      {
+        "type": "Data.RecordIds.Get",
+        "action": "Returns {id, modifiedAt} pairs for records in a BC table — a lightweight version of Data.Records.Get for incremental sync (drives a follow-up Data.Records.Get with tableView for…",
+        "href": "/foundation/reference/message-types/data-recordids-get/"
+      },
+      {
+        "type": "Data.Records.Get",
+        "action": "Reads records from any non-restricted BC table and returns them as JSON in the Data Shipping standard format ({id, primaryKey, fields}).",
+        "href": "/foundation/reference/message-types/data-records-get/"
+      },
+      {
+        "type": "Data.Records.Set",
+        "action": "Inserts or updates one or more BC records using the Data Shipping standard JSON shape ({id, primaryKey, fields}).",
+        "href": "/foundation/reference/message-types/data-records-set/"
+      },
+      {
+        "type": "Data.RequestLog.Get",
+        "action": "Returns the request log entries (outbound HTTP calls made by Bifröst apps) that belong to the calling user, with skip/take paging and an optional table view.",
+        "href": "/foundation/reference/message-types/data-requestlog-get/"
+      },
+      {
+        "type": "Data.Totals.Get",
+        "action": "Aggregates one or more Decimal fields across all matching records in a specified Business Central table using CalcSums.",
+        "href": "/foundation/reference/message-types/data-totals-get/"
+      }
+    ],
+    "Deleted": [
+      {
+        "type": "Deleted.RecordIds.Get",
+        "action": "Returns {id, deletedAt} pairs from the Bifrost Delete Log — the deletion equivalent of Data.RecordIds.Get, intended to drive incremental delete-sync without payload cost.",
+        "href": "/foundation/reference/message-types/deleted-recordids-get/"
+      },
+      {
+        "type": "Deleted.Records.Get",
+        "action": "Returns full record snapshots for records previously deleted from a BC table.",
+        "href": "/foundation/reference/message-types/deleted-records-get/"
+      }
+    ],
+    "Document": [
+      {
+        "type": "Document.Approval.Approve",
+        "action": "Approves one or more open Approval Entry records using BC standard Approvals Mgmt. Cascades automatically: when the last required entry is approved, BC releases the underlying…",
+        "href": "/foundation/reference/message-types/document-approval-approve/"
+      },
+      {
+        "type": "Document.Approval.Cancel",
+        "action": "Cancels all open approval entries for a document by routing through BC standard Approvals Mgmt.OnCancelDocumentApprovalRequest.",
+        "href": "/foundation/reference/message-types/document-approval-cancel/"
+      },
+      {
+        "type": "Document.Approval.Delegate",
+        "action": "Delegates one or more open Approval Entry records to another approver.",
+        "href": "/foundation/reference/message-types/document-approval-delegate/"
+      },
+      {
+        "type": "Document.Approval.Get",
+        "action": "Returns Bifrost Approval Log entries — the audit trail for every approval action processed by Bifrost (Send, Approve, Reject, Delegate, Cancel).",
+        "href": "/foundation/reference/message-types/document-approval-get/"
+      },
+      {
+        "type": "Document.Approval.Me",
+        "action": "Returns the calling user's open Approval Entry records.",
+        "href": "/foundation/reference/message-types/document-approval-me/"
+      },
+      {
+        "type": "Document.Approval.Reject",
+        "action": "Rejects one or more open Approval Entry records using BC standard Approvals Mgmt. When a required entry is rejected, BC removes the remaining open entries and reopens the…",
+        "href": "/foundation/reference/message-types/document-approval-reject/"
+      },
+      {
+        "type": "Document.Approval.Send",
+        "action": "Sends a document to approval by creating Approval Entry rows directly (bypassing BC standard approval workflow definitions).",
+        "href": "/foundation/reference/message-types/document-approval-send/"
+      }
+    ],
+    "Email": [
+      {
+        "type": "Email.Draft.Set",
+        "action": "Creates an email draft in the Business Central Email Outbox.",
+        "href": "/foundation/reference/message-types/email-draft-set/"
+      }
+    ],
+    "Field": [
+      {
+        "type": "Field.Translation.Get",
+        "action": "Returns the stored BC system translation for a single field on a single record in a specific language.",
+        "href": "/foundation/reference/message-types/field-translation-get/"
+      },
+      {
+        "type": "Field.Translation.Set",
+        "action": "Writes or deletes a BC system translation for a single field on a single record in a specific language.",
+        "href": "/foundation/reference/message-types/field-translation-set/"
+      },
+      {
+        "type": "Field.Translations.Get",
+        "action": "Returns all stored BC system translations for a record.",
+        "href": "/foundation/reference/message-types/field-translations-get/"
+      }
+    ],
+    "Finance": [
+      {
+        "type": "Finance.BankReconciliation.Create",
+        "action": "Creates a bank reconciliation for statement type Bank Reconciliation, or reuses an existing empty reconciliation for the same bank account.",
+        "href": "/foundation/reference/message-types/finance-bankreconciliation-create/"
+      },
+      {
+        "type": "Finance.BankReconciliation.Match",
+        "action": "Classifies a match mode from the two arrays and applies the match using standard BC routines for Statement Type = Bank Reconciliation.",
+        "href": "/foundation/reference/message-types/finance-bankreconciliation-match/"
+      },
+      {
+        "type": "Finance.BankReconciliation.Post",
+        "action": "Posts the specified bank reconciliation using standard Business Central posting flow.",
+        "href": "/foundation/reference/message-types/finance-bankreconciliation-post/"
+      },
+      {
+        "type": "Finance.BankReconciliation.Reset",
+        "action": "Clears every match on every line of the reconciliation by invoking the standard BC helper Match Bank Rec. Lines.RemoveMatchesFromRecLines.",
+        "href": "/foundation/reference/message-types/finance-bankreconciliation-reset/"
+      },
+      {
+        "type": "Finance.Currency.AdjustExchangeRates",
+        "action": "Runs BC 'Exch. Rate Adjmt. Process' (codeunit 699) for foreign-currency revaluation.",
+        "href": "/foundation/reference/message-types/finance-currency-adjustexchangerates/"
+      },
+      {
+        "type": "Finance.FAJournal.Check",
+        "action": "Validates an FA Journal Batch without posting.",
+        "href": "/foundation/reference/message-types/finance-fajournal-check/"
+      },
+      {
+        "type": "Finance.FAJournal.Create",
+        "action": "Adds lines to an existing fixed asset journal batch.",
+        "href": "/foundation/reference/message-types/finance-fajournal-create/"
+      },
+      {
+        "type": "Finance.FAJournal.Post",
+        "action": "Posts an FA Journal Batch via BC FA Jnl.-Post Batch and returns the resulting FA Register plus the posting summary.",
+        "href": "/foundation/reference/message-types/finance-fajournal-post/"
+      },
+      {
+        "type": "Finance.FAJournal.PreviewPost",
+        "action": "Simulates posting an FA Journal Batch and returns the ledger entries that would be produced — without writing anything to the database.",
+        "href": "/foundation/reference/message-types/finance-fajournal-previewpost/"
+      },
+      {
+        "type": "Finance.FinancialReport.Calculate",
+        "action": "Executes a Financial Report definition (row group × column group) and returns the full calculated matrix as JSON.",
+        "href": "/foundation/reference/message-types/finance-financialreport-calculate/"
+      },
+      {
+        "type": "Finance.GeneralJournal.Check",
+        "action": "Validates a Gen. Journal Batch without posting.",
+        "href": "/foundation/reference/message-types/finance-generaljournal-check/"
+      },
+      {
+        "type": "Finance.GeneralJournal.Create",
+        "action": "Adds lines to an existing general journal batch.",
+        "href": "/foundation/reference/message-types/finance-generaljournal-create/"
+      },
+      {
+        "type": "Finance.GeneralJournal.Post",
+        "action": "Posts a Gen. Journal Batch via BC Gen. Jnl.-Post Batch and returns the resulting G/L Register plus the posting summary.",
+        "href": "/foundation/reference/message-types/finance-generaljournal-post/"
+      },
+      {
+        "type": "Finance.GeneralJournal.PreviewPost",
+        "action": "Simulates posting a Gen. Journal Batch and returns the ledger entries that would be produced — without writing anything to the database.",
+        "href": "/foundation/reference/message-types/finance-generaljournal-previewpost/"
+      },
+      {
+        "type": "Finance.GeneralJournal.ReverseRegister",
+        "action": "Reverses every entry in a posted G/L Register in a single operation.",
+        "href": "/foundation/reference/message-types/finance-generaljournal-reverseregister/"
+      },
+      {
+        "type": "Finance.GeneralJournal.ReverseTransaction",
+        "action": "Reverses every G/L Entry sharing a given Transaction No. (a logical group within a register — typically one journal line and its balancing partner).",
+        "href": "/foundation/reference/message-types/finance-generaljournal-reversetransaction/"
+      }
+    ],
+    "Help": [
+      {
+        "type": "Help.Bifrost.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/foundation/reference/message-types/help-bifrost-get/"
+      },
+      {
+        "type": "Help.Fields.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/foundation/reference/message-types/help-fields-get/"
+      },
+      {
+        "type": "Help.Implementation.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/foundation/reference/message-types/help-implementation-get/"
+      },
+      {
+        "type": "Help.MessageTypes.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/foundation/reference/message-types/help-messagetypes-get/"
+      },
+      {
+        "type": "Help.Namespaces.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/foundation/reference/message-types/help-namespaces-get/"
+      },
+      {
+        "type": "Help.NextLineNo.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/foundation/reference/message-types/help-nextlineno-get/"
+      },
+      {
+        "type": "Help.PageUrl.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/foundation/reference/message-types/help-pageurl-get/"
+      },
+      {
+        "type": "Help.Permissions.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/foundation/reference/message-types/help-permissions-get/"
+      },
+      {
+        "type": "Help.TableRelations.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/foundation/reference/message-types/help-tablerelations-get/"
+      },
+      {
+        "type": "Help.Tables.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/foundation/reference/message-types/help-tables-get/"
+      },
+      {
+        "type": "Help.WhoAmI.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/foundation/reference/message-types/help-whoami-get/"
+      }
+    ],
+    "Incoming": [
+      {
+        "type": "Incoming.Document.Attach",
+        "action": "Adds a supplemental file attachment to an existing Incoming Document.",
+        "href": "/foundation/reference/message-types/incoming-document-attach/"
+      },
+      {
+        "type": "Incoming.Document.Create",
+        "action": "Creates a new Incoming Document from a file.",
+        "href": "/foundation/reference/message-types/incoming-document-create/"
+      },
+      {
+        "type": "Incoming.Document.Get",
+        "action": "Returns header fields for an Incoming Document together with its main attachment (if any) and any additional attachments.",
+        "href": "/foundation/reference/message-types/incoming-document-get/"
+      },
+      {
+        "type": "Incoming.Document.Process",
+        "action": "Processes an Incoming Document by invoking its standard BC processing — creating a linked purchase invoice, credit memo, or journal line according to the document's Data…",
+        "href": "/foundation/reference/message-types/incoming-document-process/"
+      },
+      {
+        "type": "Incoming.Document.SetDefault",
+        "action": "Promotes an existing attachment on an Incoming Document to become the main (default) attachment.",
+        "href": "/foundation/reference/message-types/incoming-document-setdefault/"
+      }
+    ],
+    "Inventory": [
+      {
+        "type": "Inventory.AssemblyOrder.Create",
+        "action": "Creates a new Assembly Order (Assembly Header with Document Type = Order) for a parent item.",
+        "href": "/foundation/reference/message-types/inventory-assemblyorder-create/"
+      },
+      {
+        "type": "Inventory.AssemblyOrder.Post",
+        "action": "Posts an Assembly Order by calling BC Assembly-Post.Run.",
+        "href": "/foundation/reference/message-types/inventory-assemblyorder-post/"
+      },
+      {
+        "type": "Inventory.AssemblyOrder.PreviewPost",
+        "action": "Simulates posting an Assembly Order and returns the captured ledger entries (Item Ledger, Value Entry, G/L Entry where applicable) without committing.",
+        "href": "/foundation/reference/message-types/inventory-assemblyorder-previewpost/"
+      },
+      {
+        "type": "Inventory.AssemblyOrder.RefreshLines",
+        "action": "Refreshes the component lines of an Open Assembly Order by re-validating the header Item No..",
+        "href": "/foundation/reference/message-types/inventory-assemblyorder-refreshlines/"
+      },
+      {
+        "type": "Inventory.AssemblyOrder.Release",
+        "action": "Releases an Open Assembly Order so it can be posted.",
+        "href": "/foundation/reference/message-types/inventory-assemblyorder-release/"
+      },
+      {
+        "type": "Inventory.AssemblyOrder.Reopen",
+        "action": "Reopens a Released Assembly Order so it can be edited again.",
+        "href": "/foundation/reference/message-types/inventory-assemblyorder-reopen/"
+      },
+      {
+        "type": "Inventory.AssemblyOrder.Statistics",
+        "action": "Returns header / line / cost statistics for an Assembly Order. Mirrors what BC Page 904 \"Assembly Order Statistics\" displays - including expected vs actual costs broken down by…",
+        "href": "/foundation/reference/message-types/inventory-assemblyorder-statistics/"
+      },
+      {
+        "type": "Inventory.ItemJournal.Check",
+        "action": "Validates an item journal batch before posting by running BC Item Jnl.-Check Line.RunCheck on every line and aggregating the outcome into a single verdict with separate errors…",
+        "href": "/foundation/reference/message-types/inventory-itemjournal-check/"
+      },
+      {
+        "type": "Inventory.ItemJournal.Create",
+        "action": "Adds lines to an existing item journal batch.",
+        "href": "/foundation/reference/message-types/inventory-itemjournal-create/"
+      },
+      {
+        "type": "Inventory.ItemJournal.Post",
+        "action": "Posts every line in the specified item journal batch by invoking BC Item Jnl.-Post Batch.Run.",
+        "href": "/foundation/reference/message-types/inventory-itemjournal-post/"
+      },
+      {
+        "type": "Inventory.ItemJournal.PreviewPost",
+        "action": "Simulates posting an Item Journal Batch and returns the ledger entries that would be produced — without writing anything to the database.",
+        "href": "/foundation/reference/message-types/inventory-itemjournal-previewpost/"
+      },
+      {
+        "type": "Inventory.TransferOrder.Create",
+        "action": "Creates a transfer order: the header with its from, to and in-transit locations and, when lines is sent, its lines in the same call.",
+        "href": "/foundation/reference/message-types/inventory-transferorder-create/"
+      },
+      {
+        "type": "Inventory.TransferOrder.Post",
+        "action": "Posts a Transfer Order via BC codeunit 5706 TransferOrder-Post (Yes/No).",
+        "href": "/foundation/reference/message-types/inventory-transferorder-post/"
+      },
+      {
+        "type": "Inventory.TransferOrder.PreviewPost",
+        "action": "Simulates posting a Transfer Order and returns the captured ledger entries (Item Ledger, Value Entry, G/L Entry where applicable) without committing.",
+        "href": "/foundation/reference/message-types/inventory-transferorder-previewpost/"
+      },
+      {
+        "type": "Inventory.TransferOrder.Release",
+        "action": "Releases an Open Transfer Order so it can be posted.",
+        "href": "/foundation/reference/message-types/inventory-transferorder-release/"
+      },
+      {
+        "type": "Inventory.TransferOrder.Reopen",
+        "action": "Reopens a Released Transfer Order so it can be edited.",
+        "href": "/foundation/reference/message-types/inventory-transferorder-reopen/"
+      },
+      {
+        "type": "Inventory.TransferOrder.Statistics",
+        "action": "Returns Transfer Order line totals - matching what BC Page 5755 \"Transfer Statistics\" displays.",
+        "href": "/foundation/reference/message-types/inventory-transferorder-statistics/"
+      }
+    ],
+    "Item": [
+      {
+        "type": "Item.Availability.Get",
+        "action": "Returns calculated item availability per location: inventory, reservations, gross requirement, scheduled receipts, planned receipts, and availableQuantity = inventory -…",
+        "href": "/foundation/reference/message-types/item-availability-get/"
+      },
+      {
+        "type": "Item.Inventory.Get",
+        "action": "Returns physical on-hand inventory quantities per location for one or more items.",
+        "href": "/foundation/reference/message-types/item-inventory-get/"
+      },
+      {
+        "type": "Item.Price.Get",
+        "action": "Returns the best-applicable price list lines for one or more items, optionally evaluated against a specific customer (with the customer's VAT/Gen/Customer posting groups).",
+        "href": "/foundation/reference/message-types/item-price-get/"
+      }
+    ],
+    "Memory": [
+      {
+        "type": "Memory.Company.Get",
+        "action": "Returns company-scoped memory records from Bifrost Memory (filtered to the current company).",
+        "href": "/foundation/reference/message-types/memory-company-get/"
+      },
+      {
+        "type": "Memory.Company.List",
+        "action": "Lists company-scoped memory records with id and description only — the memory blob is omitted.",
+        "href": "/foundation/reference/message-types/memory-company-list/"
+      },
+      {
+        "type": "Memory.Company.Set",
+        "action": "Inserts or updates company-scoped memory records in Bifrost Memory.",
+        "href": "/foundation/reference/message-types/memory-company-set/"
+      },
+      {
+        "type": "Memory.User.Get",
+        "action": "Returns user-scoped memory records from Bifrost User Memory, filtered to the current user.",
+        "href": "/foundation/reference/message-types/memory-user-get/"
+      },
+      {
+        "type": "Memory.User.List",
+        "action": "Lists user-scoped memory records with userName, id, and description only.",
+        "href": "/foundation/reference/message-types/memory-user-list/"
+      },
+      {
+        "type": "Memory.User.Set",
+        "action": "Inserts or updates user-scoped memory records in Bifrost User Memory.",
+        "href": "/foundation/reference/message-types/memory-user-set/"
+      }
+    ],
+    "Project": [
+      {
+        "type": "Project.Ledger.CreateSalesCreditMemo",
+        "action": "Creates Sales Credit Memo(s) from project (job) planning lines.",
+        "href": "/foundation/reference/message-types/project-ledger-createsalescreditmemo/"
+      },
+      {
+        "type": "Project.Ledger.CreateSalesInvoice",
+        "action": "Creates Sales Invoice(s) from billable project (job) planning lines.",
+        "href": "/foundation/reference/message-types/project-ledger-createsalesinvoice/"
+      }
+    ],
+    "Projects": [
+      {
+        "type": "Projects.ProjectJournal.Check",
+        "action": "Validates a project (job) journal batch and returns an aggregated readiness report.",
+        "href": "/foundation/reference/message-types/projects-projectjournal-check/"
+      },
+      {
+        "type": "Projects.ProjectJournal.Create",
+        "action": "Adds lines to an existing project journal batch.",
+        "href": "/foundation/reference/message-types/projects-projectjournal-create/"
+      },
+      {
+        "type": "Projects.ProjectJournal.Post",
+        "action": "Posts a project (job) journal batch via BC Job Jnl.-Post Batch and returns the resulting Job Register plus aggregate posting statistics.",
+        "href": "/foundation/reference/message-types/projects-projectjournal-post/"
+      },
+      {
+        "type": "Projects.ProjectJournal.PreviewPost",
+        "action": "Simulates posting a project (job) journal batch and returns the ledger entries that would be produced — without writing anything to the database.",
+        "href": "/foundation/reference/message-types/projects-projectjournal-previewpost/"
+      }
+    ],
+    "Purchase": [
+      {
+        "type": "Purchase.BlanketOrder.MakeOrder",
+        "action": "Converts a Purchase Blanket Order into a Purchase Order using BC codeunit 97 \"Blanket Purch. Order to Order\".",
+        "href": "/foundation/reference/message-types/purchase-blanketorder-makeorder/"
+      },
+      {
+        "type": "Purchase.Document.Create",
+        "action": "Creates a purchase document for one vendor: the header and, when lines is sent, its lines in the same call.",
+        "href": "/foundation/reference/message-types/purchase-document-create/"
+      },
+      {
+        "type": "Purchase.Document.Post",
+        "action": "Posts a purchase document via Microsoft codeunit Purch.-Post and returns the list of posted documents that were created.",
+        "href": "/foundation/reference/message-types/purchase-document-post/"
+      },
+      {
+        "type": "Purchase.Document.PreviewPost",
+        "action": "Simulates posting a purchase document via the BC Gen. Jnl.-Post Preview framework driving Purch.-Post (Yes/No) in preview mode, captures every ledger row that would be written…",
+        "href": "/foundation/reference/message-types/purchase-document-previewpost/"
+      },
+      {
+        "type": "Purchase.Document.Release",
+        "action": "Releases an open purchase document by running Microsoft codeunit Release Purchase Document.",
+        "href": "/foundation/reference/message-types/purchase-document-release/"
+      },
+      {
+        "type": "Purchase.Document.Reopen",
+        "action": "Reopens a purchase document by running Microsoft codeunit Purchase Manual Reopen, moving the status from Released to Open. As a no-approval-entries escape hatch, a document in…",
+        "href": "/foundation/reference/message-types/purchase-document-reopen/"
+      },
+      {
+        "type": "Purchase.Document.Statistics",
+        "action": "Returns header totals (amounts, VAT breakdown, total quantity / weight / volume) for a single purchase document.",
+        "href": "/foundation/reference/message-types/purchase-document-statistics/"
+      },
+      {
+        "type": "Purchase.PurchaseInvoice.Cancel",
+        "action": "Cancels a posted purchase invoice by posting a cancelling purchase credit memo that auto-applies to the original invoice.",
+        "href": "/foundation/reference/message-types/purchase-purchaseinvoice-cancel/"
+      },
+      {
+        "type": "Purchase.PurchaseInvoice.Correct",
+        "action": "Cancels a posted purchase invoice and creates a new editable purchase invoice draft pre-populated with the same lines.",
+        "href": "/foundation/reference/message-types/purchase-purchaseinvoice-correct/"
+      },
+      {
+        "type": "Purchase.Quote.MakeOrder",
+        "action": "Converts a Purchase Quote into a Purchase Order using BC codeunit 96 \"Purch.-Quote to Order\".",
+        "href": "/foundation/reference/message-types/purchase-quote-makeorder/"
+      }
+    ],
+    "Resources": [
+      {
+        "type": "Resources.ResourceJournal.Check",
+        "action": "Validates a resource journal batch and returns an aggregated readiness report.",
+        "href": "/foundation/reference/message-types/resources-resourcejournal-check/"
+      },
+      {
+        "type": "Resources.ResourceJournal.Create",
+        "action": "Adds lines to an existing resource journal batch.",
+        "href": "/foundation/reference/message-types/resources-resourcejournal-create/"
+      },
+      {
+        "type": "Resources.ResourceJournal.Post",
+        "action": "Posts a resource journal batch via BC Res. Jnl.-Post Batch and returns aggregate posting statistics.",
+        "href": "/foundation/reference/message-types/resources-resourcejournal-post/"
+      }
+    ],
+    "Sales": [
+      {
+        "type": "Sales.BlanketOrder.MakeOrder",
+        "action": "Converts a Sales Blanket Order into a Sales Order using BC codeunit 87 \"Blanket Sales Order to Order\".",
+        "href": "/foundation/reference/message-types/sales-blanketorder-makeorder/"
+      },
+      {
+        "type": "Sales.Document.Create",
+        "action": "Creates a sales document for one customer: the header and, when lines is sent, its lines in the same call.",
+        "href": "/foundation/reference/message-types/sales-document-create/"
+      },
+      {
+        "type": "Sales.Document.Post",
+        "action": "Posts a Sales Header by running BC codeunit Sales-Post with SetHideValidationDialog(true).",
+        "href": "/foundation/reference/message-types/sales-document-post/"
+      },
+      {
+        "type": "Sales.Document.PreviewPost",
+        "action": "Predicts the entries a Sales.Document.Post call would create — without committing any changes.",
+        "href": "/foundation/reference/message-types/sales-document-previewpost/"
+      },
+      {
+        "type": "Sales.Document.Release",
+        "action": "Releases an open Sales Header by running BC codeunit Release Sales Document with SetHideValidationDialog(true).",
+        "href": "/foundation/reference/message-types/sales-document-release/"
+      },
+      {
+        "type": "Sales.Document.Reopen",
+        "action": "Reopens a released (or pending-approval) Sales Header so it can be edited again.",
+        "href": "/foundation/reference/message-types/sales-document-reopen/"
+      },
+      {
+        "type": "Sales.Document.Statistics",
+        "action": "Computes header totals and VAT breakdown for an unposted Sales Header — the same numbers shown in the BC Statistics page.",
+        "href": "/foundation/reference/message-types/sales-document-statistics/"
+      },
+      {
+        "type": "Sales.Quote.MakeOrder",
+        "action": "Converts a Sales Quote into a Sales Order using BC codeunit 86 \"Sales-Quote to Order\".",
+        "href": "/foundation/reference/message-types/sales-quote-makeorder/"
+      },
+      {
+        "type": "Sales.ReturnReceipt.Pdf",
+        "action": "Renders a posted Return Receipt as PDF using the customer-specific BC Report Selection (S.Ret.Rcpt.",
+        "href": "/foundation/reference/message-types/sales-returnreceipt-pdf/"
+      },
+      {
+        "type": "Sales.SalesCreditMemo.Pdf",
+        "action": "Renders a posted Sales Credit Memo as PDF using the customer-specific BC Report Selection (S.Cr.Memo usage).",
+        "href": "/foundation/reference/message-types/sales-salescreditmemo-pdf/"
+      },
+      {
+        "type": "Sales.SalesCreditMemo.Send",
+        "action": "Triggers the BC standard \"Send\" action on a posted sales credit memo.",
+        "href": "/foundation/reference/message-types/sales-salescreditmemo-send/"
+      },
+      {
+        "type": "Sales.SalesInvoice.Cancel",
+        "action": "Cancels a posted sales invoice by posting a cancelling sales credit memo that auto-applies to the original invoice.",
+        "href": "/foundation/reference/message-types/sales-salesinvoice-cancel/"
+      },
+      {
+        "type": "Sales.SalesInvoice.Correct",
+        "action": "Cancels a posted sales invoice and creates a new editable sales invoice draft pre-populated with the same lines.",
+        "href": "/foundation/reference/message-types/sales-salesinvoice-correct/"
+      },
+      {
+        "type": "Sales.SalesInvoice.Pdf",
+        "action": "Renders a posted Sales Invoice as PDF using the customer-specific BC Report Selection (S.Invoice usage).",
+        "href": "/foundation/reference/message-types/sales-salesinvoice-pdf/"
+      },
+      {
+        "type": "Sales.SalesInvoice.Send",
+        "action": "Triggers the BC standard \"Send\" action on a posted sales invoice.",
+        "href": "/foundation/reference/message-types/sales-salesinvoice-send/"
+      },
+      {
+        "type": "Sales.SalesShipment.Pdf",
+        "action": "Renders a posted Sales Shipment as PDF using the customer-specific BC Report Selection (S.Shipment usage).",
+        "href": "/foundation/reference/message-types/sales-salesshipment-pdf/"
+      }
+    ],
+    "User": [
+      {
+        "type": "User.Notification.Count",
+        "action": "Returns total, unread, and read counts of notification notes addressed to the current UserId() recipient.",
+        "href": "/foundation/reference/message-types/user-notification-count/"
+      },
+      {
+        "type": "User.Notification.Get",
+        "action": "Returns notification notes from Bifrost Note where the current UserId() is the recipient.",
+        "href": "/foundation/reference/message-types/user-notification-get/"
+      },
+      {
+        "type": "User.Notification.Read",
+        "action": "Marks one or more notification notes as read or unread.",
+        "href": "/foundation/reference/message-types/user-notification-read/"
+      },
+      {
+        "type": "User.Notification.Send",
+        "action": "Creates a new notification note in Bifrost Note. The sender is always set to the current UserId().",
+        "href": "/foundation/reference/message-types/user-notification-send/"
+      },
+      {
+        "type": "User.Notification.Thread",
+        "action": "Retrieves all notification notes that belong to a specific thread.",
+        "href": "/foundation/reference/message-types/user-notification-thread/"
+      }
+    ],
+    "Vendor": [
+      {
+        "type": "Vendor.Application.Post",
+        "action": "Applies an open Vendor Ledger Entry (the applying entry, identified via subject/request JSON) against one or more open vendor ledger entries (the applies-to entries) using…",
+        "href": "/foundation/reference/message-types/vendor-application-post/"
+      },
+      {
+        "type": "Vendor.Application.Reverse",
+        "action": "Unapplies a previously posted vendor ledger application using Microsoft codeunit VendEntry-Apply Posted Entries.PostUnApplyVendor.",
+        "href": "/foundation/reference/message-types/vendor-application-reverse/"
+      }
+    ],
+    "Warehouse": [
+      {
+        "type": "Warehouse.Pick.Create",
+        "action": "Creates a Warehouse Pick from an existing Warehouse Shipment.",
+        "href": "/foundation/reference/message-types/warehouse-pick-create/"
+      },
+      {
+        "type": "Warehouse.Pick.Register",
+        "action": "Registers a Warehouse Pick. Wraps BC codeunit 7307 Whse.-Activity-Register.",
+        "href": "/foundation/reference/message-types/warehouse-pick-register/"
+      },
+      {
+        "type": "Warehouse.Putaway.Create",
+        "action": "Ensures a Warehouse Put-away exists for an existing Posted Whse. Receipt and returns it.",
+        "href": "/foundation/reference/message-types/warehouse-putaway-create/"
+      },
+      {
+        "type": "Warehouse.Putaway.Register",
+        "action": "Registers a Warehouse Put-away.",
+        "href": "/foundation/reference/message-types/warehouse-putaway-register/"
+      },
+      {
+        "type": "Warehouse.Receipt.Create",
+        "action": "Creates one Warehouse Receipt per source document supplied.",
+        "href": "/foundation/reference/message-types/warehouse-receipt-create/"
+      },
+      {
+        "type": "Warehouse.Receipt.Post.Preview",
+        "action": "Simulates posting a Warehouse Receipt and returns the captured ledger entries (Item Ledger and Value Entry — see Captured Tables below) without committing.",
+        "href": "/foundation/reference/message-types/warehouse-receipt-post-preview/"
+      },
+      {
+        "type": "Warehouse.Receipt.Post",
+        "action": "Posts an existing Warehouse Receipt by running BC's Whse.-Post Receipt (codeunit 5760).",
+        "href": "/foundation/reference/message-types/warehouse-receipt-post/"
+      },
+      {
+        "type": "Warehouse.Shipment.Create",
+        "action": "Creates one Warehouse Shipment per source document supplied.",
+        "href": "/foundation/reference/message-types/warehouse-shipment-create/"
+      },
+      {
+        "type": "Warehouse.Shipment.Post",
+        "action": "Posts a Warehouse Shipment (ship, optionally invoice).",
+        "href": "/foundation/reference/message-types/warehouse-shipment-post/"
+      },
+      {
+        "type": "Warehouse.Shipment.PreviewPost",
+        "action": "Simulates posting a Warehouse Shipment and returns the ledger entries that would be produced — without writing anything to the database.",
+        "href": "/foundation/reference/message-types/warehouse-shipment-previewpost/"
+      }
+    ],
+    "Webhook": [
+      {
+        "type": "Webhook.Inbound.Receive",
+        "action": "Receives a webhook envelope from an external system and dispatches an integration event so AL subscribers can react.",
+        "href": "/foundation/reference/message-types/webhook-inbound-receive/"
+      }
+    ]
+  },
+  "iceland": {
+    "Finance": [
+      {
+        "type": "Finance.VAT.CalcAndPostSettlement",
+        "action": "Runs Report 20 \"Calc. and Post VAT Settlement\" to close open VAT entries for a period.",
+        "href": "/iceland/reference/message-types/finance-vat-calcandpostsettlement/"
+      },
+      {
+        "type": "Finance.VATStatement.Preview",
+        "action": "Calculates a VAT Statement and returns amounts per line with boxNo for RSK category mapping.",
+        "href": "/iceland/reference/message-types/finance-vatstatement-preview/"
+      }
+    ],
+    "Help": [
+      {
+        "type": "Help.Iceland.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/iceland/reference/message-types/help-iceland-get/"
+      },
+      {
+        "type": "Help.Ja.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/iceland/reference/message-types/help-ja-get/"
+      }
+    ],
+    "Iceland": [
+      {
+        "type": "Iceland.Address.Get",
+        "action": "Gets all members and companies at an address identified by social ID.",
+        "href": "/iceland/reference/message-types/iceland-address-get/"
+      },
+      {
+        "type": "Iceland.AddressInfo.Get",
+        "action": "Gets address information for a social ID.",
+        "href": "/iceland/reference/message-types/iceland-addressinfo-get/"
+      },
+      {
+        "type": "Iceland.CapitalTax.GetExemptions",
+        "action": "Retrieves capital income tax exemptions using TskFaUndanthagur.",
+        "href": "/iceland/reference/message-types/iceland-capitaltax-getexemptions/"
+      },
+      {
+        "type": "Iceland.CapitalTax.GetOverview",
+        "action": "Retrieves a yearly overview of all capital tax submissions using FaYfirlit.",
+        "href": "/iceland/reference/message-types/iceland-capitaltax-getoverview/"
+      },
+      {
+        "type": "Iceland.CapitalTax.GetPeriods",
+        "action": "Retrieves all valid periods for capital income tax using FaTimabil.",
+        "href": "/iceland/reference/message-types/iceland-capitaltax-getperiods/"
+      },
+      {
+        "type": "Iceland.CapitalTax.GetStatus",
+        "action": "Checks the processing status of a submitted capital tax return using FaStodu.",
+        "href": "/iceland/reference/message-types/iceland-capitaltax-getstatus/"
+      },
+      {
+        "type": "Iceland.CapitalTax.GetSubmittablePeriods",
+        "action": "Retrieves periods currently open for submission using FaSkilanlegTimabil.",
+        "href": "/iceland/reference/message-types/iceland-capitaltax-getsubmittableperiods/"
+      },
+      {
+        "type": "Iceland.CapitalTax.GetTypes",
+        "action": "Retrieves valid income types for capital income tax using FaTegundir.",
+        "href": "/iceland/reference/message-types/iceland-capitaltax-gettypes/"
+      },
+      {
+        "type": "Iceland.CapitalTax.Reopen",
+        "action": "Reopens a Submitted capital tax period back to Open for correction.",
+        "href": "/iceland/reference/message-types/iceland-capitaltax-reopen/"
+      },
+      {
+        "type": "Iceland.CapitalTax.Submit",
+        "action": "Submits a capital income tax return to Skatturinn using SendaSkilagrein.",
+        "href": "/iceland/reference/message-types/iceland-capitaltax-submit/"
+      },
+      {
+        "type": "Iceland.Collector.Get",
+        "action": "Downloads all Skilagrein collectors (innheimtuaðilar) from skilagrein.is.",
+        "href": "/iceland/reference/message-types/iceland-collector-get/"
+      },
+      {
+        "type": "Iceland.CollectorExtraAmount.Confirm",
+        "action": "Confirms or rejects extra charges (aukagreiðslur) flagged by a previous submission.",
+        "href": "/iceland/reference/message-types/iceland-collectorextraamount-confirm/"
+      },
+      {
+        "type": "Iceland.CollectorPayment.Send",
+        "action": "Submits a fund contribution return (SendPaymentInfo) to a skilagrein.is collector.",
+        "href": "/iceland/reference/message-types/iceland-collectorpayment-send/"
+      },
+      {
+        "type": "Iceland.ConsumerPriceIndex.Get",
+        "action": "Retrieves the Icelandic consumer price index (Seðlabanki Íslands feed group \"Vísitala neysluverðs\") from the public XML data feed.",
+        "href": "/iceland/reference/message-types/iceland-consumerpriceindex-get/"
+      },
+      {
+        "type": "Iceland.Currency.Get",
+        "action": "Downloads the published ISO 4217 currency list and returns it as JSON.",
+        "href": "/iceland/reference/message-types/iceland-currency-get/"
+      },
+      {
+        "type": "Iceland.Currency.Sync",
+        "action": "Synchronizes BC currency master/rate data from Seðlabanki feeds.",
+        "href": "/iceland/reference/message-types/iceland-currency-sync/"
+      },
+      {
+        "type": "Iceland.CurrencyRates.Get",
+        "action": "Retrieves Seðlabanki Íslands (Central Bank of Iceland) currency rates from the public XML data feed for a date or date span.",
+        "href": "/iceland/reference/message-types/iceland-currencyrates-get/"
+      },
+      {
+        "type": "Iceland.Customs.Calculate",
+        "action": "Calculates Icelandic customs duty and charges for importing goods.",
+        "href": "/iceland/reference/message-types/iceland-customs-calculate/"
+      },
+      {
+        "type": "Iceland.Customs.Categories",
+        "action": "Returns the full Icelandic customs tariff product category tree from island.is.",
+        "href": "/iceland/reference/message-types/iceland-customs-categories/"
+      },
+      {
+        "type": "Iceland.Customs.CountryCurrencies",
+        "action": "Returns the country-to-currency mapping used by Icelandic customs (Tollstjóri) via the island.is public GraphQL API.",
+        "href": "/iceland/reference/message-types/iceland-customs-countrycurrencies/"
+      },
+      {
+        "type": "Iceland.Customs.Units",
+        "action": "Returns the list of required input units for a given customs tariff number.",
+        "href": "/iceland/reference/message-types/iceland-customs-units/"
+      },
+      {
+        "type": "Iceland.DeltaMonthly.Sync",
+        "action": "Syncs the monthly delta feed into Bifrost Umsja Registry Entry (upsert by Social ID).",
+        "href": "/iceland/reference/message-types/iceland-deltamonthly-sync/"
+      },
+      {
+        "type": "Iceland.EconomicData.Get",
+        "action": "Retrieves the Icelandic macroeconomic and financial dataset from the public XML data feed (Seðlabanki Íslands feed group \"Efnahags- og fjárhagsgögn\").",
+        "href": "/iceland/reference/message-types/iceland-economicdata-get/"
+      },
+      {
+        "type": "Iceland.ExchangeRateIndex.Get",
+        "action": "Retrieves Central Bank of Iceland (Seðlabanki Íslands) exchange-rate indices from the public XML data feed (group \"Gengisvísitölur SÍ\").",
+        "href": "/iceland/reference/message-types/iceland-exchangerateindex-get/"
+      },
+      {
+        "type": "Iceland.Holidays.Get",
+        "action": "Returns all Icelandic public holidays and special days for a given year or month.",
+        "href": "/iceland/reference/message-types/iceland-holidays-get/"
+      },
+      {
+        "type": "Iceland.Holidays.IsHoliday",
+        "action": "Checks whether a single date is an Icelandic public holiday or special day.",
+        "href": "/iceland/reference/message-types/iceland-holidays-isholiday/"
+      },
+      {
+        "type": "Iceland.IkonRates.Get",
+        "action": "Retrieves the IKON reference interest rates from the public XML data feed (Seðlabanki Íslands feed group \"IKON\").",
+        "href": "/iceland/reference/message-types/iceland-ikonrates-get/"
+      },
+      {
+        "type": "Iceland.InterbankRates.Get",
+        "action": "Retrieves the Icelandic interbank money-market interest rates from the public XML data feed (Seðlabanki Íslands feed group \"Vextir á millibankamarkaði með krónur\").",
+        "href": "/iceland/reference/message-types/iceland-interbankrates-get/"
+      },
+      {
+        "type": "Iceland.InterestRates.Get",
+        "action": "Retrieves Central Bank of Iceland (Seðlabanki Íslands) interest rates from the public XML data feed (group \"Vextir Seðlabankans\").",
+        "href": "/iceland/reference/message-types/iceland-interestrates-get/"
+      },
+      {
+        "type": "Iceland.Isat.Get",
+        "action": "Gets the ISAT table, or ISAT codes for a specific subject (kennitala).",
+        "href": "/iceland/reference/message-types/iceland-isat-get/"
+      },
+      {
+        "type": "Iceland.Kennitala.Validate",
+        "action": "Validates an Icelandic kennitala (national ID number) using checksum and date rules.",
+        "href": "/iceland/reference/message-types/iceland-kennitala-validate/"
+      },
+      {
+        "type": "Iceland.Language.Get",
+        "action": "Searches or lists ISO 639-1 world languages from the haliaeetus/iso-639 GitHub dataset.",
+        "href": "/iceland/reference/message-types/iceland-language-get/"
+      },
+      {
+        "type": "Iceland.LoanTermRates.Get",
+        "action": "Retrieves Icelandic fixed loan-term interest rates from the public XML data feed (Seðlabanki Íslands feed group \"Fastir lánstímavextir\").",
+        "href": "/iceland/reference/message-types/iceland-loantermrates-get/"
+      },
+      {
+        "type": "Iceland.Member.Get",
+        "action": "Gets a specific member or company from the registry.",
+        "href": "/iceland/reference/message-types/iceland-member-get/"
+      },
+      {
+        "type": "Iceland.NationalRegistry.Sync",
+        "action": "Syncs the full national registry into Bifrost Umsja Registry Entry (full replace).",
+        "href": "/iceland/reference/message-types/iceland-nationalregistry-sync/"
+      },
+      {
+        "type": "Iceland.NationalRegistryCheck.Get",
+        "action": "Checks whether the full national registry file exists and contains data.",
+        "href": "/iceland/reference/message-types/iceland-nationalregistrycheck-get/"
+      },
+      {
+        "type": "Iceland.Parties.Get",
+        "action": "Gets company parties (board members, auditors, founders, etc.).",
+        "href": "/iceland/reference/message-types/iceland-parties-get/"
+      },
+      {
+        "type": "Iceland.Payroll.GetAllPeriods",
+        "action": "Retrieves all payroll tax periods and prerequisite values from Skatturinn using NaITimabilOgForsendur.",
+        "href": "/iceland/reference/message-types/iceland-payroll-getallperiods/"
+      },
+      {
+        "type": "Iceland.Payroll.GetPeriodPrereqs",
+        "action": "Retrieves payroll prerequisites for one year/month from Skatturinn using NaIForsendurTimabils.",
+        "href": "/iceland/reference/message-types/iceland-payroll-getperiodprereqs/"
+      },
+      {
+        "type": "Iceland.Payroll.Receipt",
+        "action": "Returns the stored PDF receipt from a submitted payroll period.",
+        "href": "/iceland/reference/message-types/iceland-payroll-receipt/"
+      },
+      {
+        "type": "Iceland.Payroll.Reopen",
+        "action": "Reopens a Validated or Submitted payroll period back to Open for correction.",
+        "href": "/iceland/reference/message-types/iceland-payroll-reopen/"
+      },
+      {
+        "type": "Iceland.Payroll.Send",
+        "action": "Submits a validated payroll tax return to Skatturinn using SendaSkilagrein.",
+        "href": "/iceland/reference/message-types/iceland-payroll-send/"
+      },
+      {
+        "type": "Iceland.Payroll.Validate",
+        "action": "Validates a payroll tax return with Skatturinn using VilluprofaSkilagrein.",
+        "href": "/iceland/reference/message-types/iceland-payroll-validate/"
+      },
+      {
+        "type": "Iceland.PenaltyInterest.Get",
+        "action": "Retrieves the statutory Icelandic penalty / default interest rate from the public XML data feed (Seðlabanki Íslands feed group \"Dráttarvextir\").",
+        "href": "/iceland/reference/message-types/iceland-penaltyinterest-get/"
+      },
+      {
+        "type": "Iceland.PensionFund.Get",
+        "action": "Downloads Icelandic pension funds (lífeyrissjóðir) from skilagrein.is.",
+        "href": "/iceland/reference/message-types/iceland-pensionfund-get/"
+      },
+      {
+        "type": "Iceland.PensionSupplement.Get",
+        "action": "Downloads Icelandic pension supplement funds (lífeyrisaukar/safnsjóðir) from skilagrein.is.",
+        "href": "/iceland/reference/message-types/iceland-pensionsupplement-get/"
+      },
+      {
+        "type": "Iceland.PostCode.Get",
+        "action": "Downloads the official Icelandic postal code registry (postnúmeraskrá) from Byggðastofnun and returns all entries as a JSON array.",
+        "href": "/iceland/reference/message-types/iceland-postcode-get/"
+      },
+      {
+        "type": "Iceland.RehabFund.Get",
+        "action": "Downloads Icelandic rehabilitation/education funds (endurhæfingarsjóðir) from skilagrein.is.",
+        "href": "/iceland/reference/message-types/iceland-rehabfund-get/"
+      },
+      {
+        "type": "Iceland.Relations.Get",
+        "action": "Gets family relations and company relations by ID.",
+        "href": "/iceland/reference/message-types/iceland-relations-get/"
+      },
+      {
+        "type": "Iceland.Roles.Get",
+        "action": "Gets company roles held by a person.",
+        "href": "/iceland/reference/message-types/iceland-roles-get/"
+      },
+      {
+        "type": "Iceland.Search.Get",
+        "action": "Gets search results by search string, name, address, or postal address.",
+        "href": "/iceland/reference/message-types/iceland-search-get/"
+      },
+      {
+        "type": "Iceland.SearchByName.Get",
+        "action": "Gets search results by name.",
+        "href": "/iceland/reference/message-types/iceland-searchbyname-get/"
+      },
+      {
+        "type": "Iceland.SearchBySocialID.Get",
+        "action": "Gets search results by social ID.",
+        "href": "/iceland/reference/message-types/iceland-searchbysocialid-get/"
+      },
+      {
+        "type": "Iceland.SMS.Send",
+        "action": "Sends SMS via the Síminn magnSMS API to Icelandic mobile numbers.",
+        "href": "/iceland/reference/message-types/iceland-sms-send/"
+      },
+      {
+        "type": "Iceland.SMS.Status",
+        "action": "Queries delivery status for a previously sent SMS.",
+        "href": "/iceland/reference/message-types/iceland-sms-status/"
+      },
+      {
+        "type": "Iceland.Stakeholders.Get",
+        "action": "Gets stakeholders for a company.",
+        "href": "/iceland/reference/message-types/iceland-stakeholders-get/"
+      },
+      {
+        "type": "Iceland.Union.Get",
+        "action": "Downloads Icelandic unions (stéttarfélög) from skilagrein.is.",
+        "href": "/iceland/reference/message-types/iceland-union-get/"
+      },
+      {
+        "type": "Iceland.VAT.Correct",
+        "action": "Creates a new revision of a submitted VAT period for correction.",
+        "href": "/iceland/reference/message-types/iceland-vat-correct/"
+      },
+      {
+        "type": "Iceland.VAT.DeleteInTest",
+        "action": "Deletes a submitted VAT statement in the Skatturinn test environment only.",
+        "href": "/iceland/reference/message-types/iceland-vat-deleteintest/"
+      },
+      {
+        "type": "Iceland.VAT.GetInfo",
+        "action": "Imports a VAT period from Skatturinn (RSK).",
+        "href": "/iceland/reference/message-types/iceland-vat-getinfo/"
+      },
+      {
+        "type": "Iceland.VAT.GetNumbers",
+        "action": "Retrieves all VAT numbers registered for the configured kennitala from Skatturinn.",
+        "href": "/iceland/reference/message-types/iceland-vat-getnumbers/"
+      },
+      {
+        "type": "Iceland.VAT.GetPeriodEntries",
+        "action": "Retrieves VAT period entries directly from Skatturinn.",
+        "href": "/iceland/reference/message-types/iceland-vat-getperiodentries/"
+      },
+      {
+        "type": "Iceland.VAT.GetRSKDeclaration",
+        "action": "Retrieves RSK declarations (PDF documents) for the configured kennitala.",
+        "href": "/iceland/reference/message-types/iceland-vat-getrskdeclaration/"
+      },
+      {
+        "type": "Iceland.VAT.Receipt",
+        "action": "Returns the PDF receipt from a submitted VAT period.",
+        "href": "/iceland/reference/message-types/iceland-vat-receipt/"
+      },
+      {
+        "type": "Iceland.VAT.Submit",
+        "action": "Submits a validated VAT return to Skatturinn.",
+        "href": "/iceland/reference/message-types/iceland-vat-submit/"
+      },
+      {
+        "type": "Iceland.VAT.Validate",
+        "action": "Validates VAT period entries with Skatturinn (RSK).",
+        "href": "/iceland/reference/message-types/iceland-vat-validate/"
+      },
+      {
+        "type": "Iceland.VatNumber.Get",
+        "action": "Gets VAT numbers for a company.",
+        "href": "/iceland/reference/message-types/iceland-vatnumber-get/"
+      },
+      {
+        "type": "Iceland.Vehicle.Get",
+        "action": "Searches the Icelandic vehicle registry (Samgöngustofa) via the island.is public GraphQL API.",
+        "href": "/iceland/reference/message-types/iceland-vehicle-get/"
+      }
+    ],
+    "Ja": [
+      {
+        "type": "Ja.Company.Get",
+        "action": "Use this for business registry data from Fyrirtækjaskrá through Já Skrá v1.",
+        "href": "/iceland/reference/message-types/ja-company-get/"
+      },
+      {
+        "type": "Ja.Person.Get",
+        "action": "Use this for person registry data from Þjóðskrá through Já Skrá v1.",
+        "href": "/iceland/reference/message-types/ja-person-get/"
+      },
+      {
+        "type": "Ja.Search.Query",
+        "action": "Use this for free-text discovery across people, businesses, addresses, and places in Já Símaskrá Search v6.",
+        "href": "/iceland/reference/message-types/ja-search-query/"
+      }
+    ]
+  },
+  "iceland-treasury": {
+    "Arionbanki": [
+      {
+        "type": "Arionbanki.Account.Get",
+        "action": "Retrieves all Arion banki accounts for the authenticated service user.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-account-get/"
+      },
+      {
+        "type": "Arionbanki.Account.GetByOwner",
+        "action": "Retrieves all Arion banki accounts owned by a specific person, identified by kennitala.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-account-getbyowner/"
+      },
+      {
+        "type": "Arionbanki.Account.GetOne",
+        "action": "Retrieves a single Arion banki account by bank/ledger/accountNumber, including full account details.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-account-getone/"
+      },
+      {
+        "type": "Arionbanki.Account.Verify",
+        "action": "Verifies that a specific person (kennitala) owns a given Arion banki account.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-account-verify/"
+      },
+      {
+        "type": "Arionbanki.Bill.Get",
+        "action": "Retrieves all outstanding bills (kröfur) for the authenticated Arion banki user.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-bill-get/"
+      },
+      {
+        "type": "Arionbanki.Bill.GetDetails",
+        "action": "Retrieves full details for a single Arion banki bill (krafa) using the bill key: bank/ledger/number/dueDate.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-bill-getdetails/"
+      },
+      {
+        "type": "Arionbanki.Claim.AlterBatch",
+        "action": "Submits a batch of existing Arion banki claims for async alteration.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-claim-alterbatch/"
+      },
+      {
+        "type": "Arionbanki.Claim.CancelBatch",
+        "action": "Submits a batch of Arion banki claim keys for async cancellation.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-claim-cancelbatch/"
+      },
+      {
+        "type": "Arionbanki.Claim.CreateBatch",
+        "action": "Submits a batch of Arion banki claims for async creation.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-claim-createbatch/"
+      },
+      {
+        "type": "Arionbanki.Claim.GetOperationResult",
+        "action": "Polls the result of a previous async batch ClaimService operation.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-claim-getoperationresult/"
+      },
+      {
+        "type": "Arionbanki.Claim.Query",
+        "action": "Returns a paged list of Arion banki claims matching the supplied filters.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-claim-query/"
+      },
+      {
+        "type": "Arionbanki.Claim.QueryOne",
+        "action": "Retrieves the current state of a single Arion banki claim.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-claim-queryone/"
+      },
+      {
+        "type": "Arionbanki.Claim.QueryPayments",
+        "action": "Returns a paged list of payments received against Arion banki claims.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-claim-querypayments/"
+      },
+      {
+        "type": "Arionbanki.Claim.QueryTransactions",
+        "action": "Returns all lifecycle transactions for a single Arion banki claim.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-claim-querytransactions/"
+      },
+      {
+        "type": "Arionbanki.CreditCard.Get",
+        "action": "Retrieves all Arion banki credit cards for the authenticated user (overview).",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-creditcard-get/"
+      },
+      {
+        "type": "Arionbanki.CreditCard.GetOne",
+        "action": "Retrieves full details (limits, payment dates, interest, charge account, prepaid/collection flags) for a single Arion banki credit card.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-creditcard-getone/"
+      },
+      {
+        "type": "Arionbanki.CreditCard.Transactions",
+        "action": "Retrieves transactions on a credit card, paged.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-creditcard-transactions/"
+      },
+      {
+        "type": "Arionbanki.CurrencyRates.Get",
+        "action": "Retrieves Arion banki currency exchange rates for a given date.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-currencyrates-get/"
+      },
+      {
+        "type": "Arionbanki.Document.GetResult",
+        "action": "Polls the processing result of a previously uploaded document.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-document-getresult/"
+      },
+      {
+        "type": "Arionbanki.Document.GetResults",
+        "action": "Queries processing results for all documents uploaded in a date range.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-document-getresults/"
+      },
+      {
+        "type": "Arionbanki.Document.Upload",
+        "action": "Uploads an electronic document (PDF or XML) to Arion banki for distribution through all Icelandic netbanks via RB.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-document-upload/"
+      },
+      {
+        "type": "Arionbanki.ForeignPayment.EnterBatch",
+        "action": "Enters multiple foreign payments in one call.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-foreignpayment-enterbatch/"
+      },
+      {
+        "type": "Arionbanki.ForeignPayment.GetBatches",
+        "action": "",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-foreignpayment-getbatches/"
+      },
+      {
+        "type": "Arionbanki.ForeignPayment.GetPaymentsByBatchId",
+        "action": "",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-foreignpayment-getpaymentsbybatchid/"
+      },
+      {
+        "type": "Arionbanki.ForeignPayment.GetReceipt",
+        "action": "",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-foreignpayment-getreceipt/"
+      },
+      {
+        "type": "Arionbanki.ForeignPayment.GetReceiptByBatchId",
+        "action": "",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-foreignpayment-getreceiptbybatchid/"
+      },
+      {
+        "type": "Arionbanki.ForeignPayment.GetReceipts",
+        "action": "Gets receipts for foreign payments in a date range.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-foreignpayment-getreceipts/"
+      },
+      {
+        "type": "Arionbanki.ForeignStatement.Accounts.Get",
+        "action": "",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-foreignstatement-accounts-get/"
+      },
+      {
+        "type": "Arionbanki.ForeignStatement.Statements.Get",
+        "action": "",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-foreignstatement-statements-get/"
+      },
+      {
+        "type": "Arionbanki.ForeignStatement.Transactions.Get",
+        "action": "",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-foreignstatement-transactions-get/"
+      },
+      {
+        "type": "Arionbanki.Payment.Batch",
+        "action": "Submits one or more payment batches to Arion banki asynchronously via the B2B DoPayments call.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-payment-batch/"
+      },
+      {
+        "type": "Arionbanki.Payment.ResultBatch",
+        "action": "Queries the result of a previously submitted Arionbanki.Payment.Batch call for one or all batches under a paymentsId, with optional line-level filtering.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-payment-resultbatch/"
+      },
+      {
+        "type": "Arionbanki.Statement.Get",
+        "action": "Retrieves a bank statement for an Arion account over a date span.",
+        "href": "/iceland-treasury/reference/message-types/arionbanki-statement-get/"
+      }
+    ],
+    "Help": [
+      {
+        "type": "Help.Arionbanki.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/iceland-treasury/reference/message-types/help-arionbanki-get/"
+      },
+      {
+        "type": "Help.Landsbankinn.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/iceland-treasury/reference/message-types/help-landsbankinn-get/"
+      },
+      {
+        "type": "Help.Sparisjodir.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/iceland-treasury/reference/message-types/help-sparisjodir-get/"
+      }
+    ],
+    "Islandsbanki": [
+      {
+        "type": "Islandsbanki.Account.Verify",
+        "action": "Checks whether an Islandsbanki account exists (ErReikningurTil), optionally validating it against a kennitala.",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-account-verify/"
+      },
+      {
+        "type": "Islandsbanki.Claim.Cancel",
+        "action": "Cancels a collection claim (FellaKrofu).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-claim-cancel/"
+      },
+      {
+        "type": "Islandsbanki.Claim.Create",
+        "action": "Creates a single collection claim (StofnaKrofu).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-claim-create/"
+      },
+      {
+        "type": "Islandsbanki.Claim.Get",
+        "action": "Fetches a single claim by identity, with current balances (SaekjaKrofu → uppreiknuð krafa).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-claim-get/"
+      },
+      {
+        "type": "Islandsbanki.Claim.Query",
+        "action": "Lists claims for a claimant over a due-date span and state (SaekjaKrofur).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-claim-query/"
+      },
+      {
+        "type": "Islandsbanki.Claim.QueryPayments",
+        "action": "Lists the payments received against one claim (SaekjaGreidsluKrofu).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-claim-querypayments/"
+      },
+      {
+        "type": "Islandsbanki.CurrencyRates.Get",
+        "action": "Retrieves Islandsbanki currency exchange rates (SaekjaGengi) for a given date.",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-currencyrates-get/"
+      },
+      {
+        "type": "Islandsbanki.DebitCard.Transfer",
+        "action": "Transfers an amount onto a debit card (MillifaeraInnADebetkort).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-debitcard-transfer/"
+      },
+      {
+        "type": "Islandsbanki.File.Send",
+        "action": "Uploads a Base64-encoded file into the Islandsbanki presentment system (SendaSkra).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-file-send/"
+      },
+      {
+        "type": "Islandsbanki.ForeignPayment.Confirm",
+        "action": "Confirms (executes) a registered foreign-payment batch (StadfestaErlendarGreidslur).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-foreignpayment-confirm/"
+      },
+      {
+        "type": "Islandsbanki.ForeignPayment.Rates",
+        "action": "Fetches the rates/quote (and service charges) for a registered foreign-payment batch (SaekjaGengiFyrirBunka).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-foreignpayment-rates/"
+      },
+      {
+        "type": "Islandsbanki.ForeignPayment.Register",
+        "action": "Registers a batch of foreign (cross-border) payments (SkraErlendarGreidslur) and returns the bank batch number.",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-foreignpayment-register/"
+      },
+      {
+        "type": "Islandsbanki.ForeignPayment.Result",
+        "action": "Fetches the result/status of a foreign-payment batch (SaekjaSvarFyrirErlendarGreidslur).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-foreignpayment-result/"
+      },
+      {
+        "type": "Islandsbanki.Milliinnheimta.Claim.Query",
+        "action": "Lists intermediary-collection claims for a claimant over a date span (SaekjaKrofur on milliinnheimta.asmx).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-milliinnheimta-claim-query/"
+      },
+      {
+        "type": "Islandsbanki.Milliinnheimta.Claim.Return",
+        "action": "Returns a claim from intermediary collection (SkilaKrofu on milliinnheimta.asmx).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-milliinnheimta-claim-return/"
+      },
+      {
+        "type": "Islandsbanki.Milliinnheimta.Payment.Query",
+        "action": "Lists intermediary-collection payments for a claimant over a date span (SaekjaGreidslur on milliinnheimta.asmx).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-milliinnheimta-payment-query/"
+      },
+      {
+        "type": "Islandsbanki.Payment.Batch",
+        "action": "Registers and executes a batch of interbank transfers (SkraGreidslubunka) and returns the bank batch number.",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-payment-batch/"
+      },
+      {
+        "type": "Islandsbanki.Payment.Execute",
+        "action": "Executes a previously registered payment batch by number (StofnaGreidslubunka).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-payment-execute/"
+      },
+      {
+        "type": "Islandsbanki.Payment.Result",
+        "action": "Fetches the status/result of a payment batch by number (SaekjaGreidslubunkasvar).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-payment-result/"
+      },
+      {
+        "type": "Islandsbanki.Payment.Validate",
+        "action": "Validates (error-checks) a payment batch by number without executing it (VilluprofaGreidslubunka).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-payment-validate/"
+      },
+      {
+        "type": "Islandsbanki.Securities.TransactionHistory",
+        "action": "Returns the securities transaction history for an id number over a date span (GetTransactionHistory).",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-securities-transactionhistory/"
+      },
+      {
+        "type": "Islandsbanki.Statement.Get",
+        "action": "Retrieves an Islandsbanki account statement (SaekjaReikningsyfirlit) for an account and date span.",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-statement-get/"
+      },
+      {
+        "type": "Islandsbanki.UnpaidInvoice.Query",
+        "action": "Lists the unpaid items owed by a kennitala at Islandsbanki (SaekjaOgreiddaReikninga): claims, giro slips, promissory notes and bills of exchange.",
+        "href": "/iceland-treasury/reference/message-types/islandsbanki-unpaidinvoice-query/"
+      }
+    ],
+    "Kvikabanki": [
+      {
+        "type": "Kvikabanki.Claim.AlterBatch",
+        "action": "Alters a batch of existing Kvika banki claims.",
+        "href": "/iceland-treasury/reference/message-types/kvikabanki-claim-alterbatch/"
+      },
+      {
+        "type": "Kvikabanki.Claim.CancelBatch",
+        "action": "Cancels a batch of existing Kvika banki claims by key.",
+        "href": "/iceland-treasury/reference/message-types/kvikabanki-claim-cancelbatch/"
+      },
+      {
+        "type": "Kvikabanki.Claim.CreateBatch",
+        "action": "Creates a batch of Kvika banki claims.",
+        "href": "/iceland-treasury/reference/message-types/kvikabanki-claim-createbatch/"
+      },
+      {
+        "type": "Kvikabanki.Claim.GetOperationResult",
+        "action": "Polls the result of an asynchronous claim batch (CreateBatch / AlterBatch / CancelBatch).",
+        "href": "/iceland-treasury/reference/message-types/kvikabanki-claim-getoperationresult/"
+      },
+      {
+        "type": "Kvikabanki.Claim.Query",
+        "action": "Returns a paged list of Kvika banki (IOBS) claims matching the supplied filters.",
+        "href": "/iceland-treasury/reference/message-types/kvikabanki-claim-query/"
+      },
+      {
+        "type": "Kvikabanki.Claim.QueryOne",
+        "action": "Returns a single Kvika banki claim identified by its full key.",
+        "href": "/iceland-treasury/reference/message-types/kvikabanki-claim-queryone/"
+      },
+      {
+        "type": "Kvikabanki.Claim.QueryPayments",
+        "action": "Returns a paged list of payments registered against Kvika banki claims within a transaction-date span.",
+        "href": "/iceland-treasury/reference/message-types/kvikabanki-claim-querypayments/"
+      },
+      {
+        "type": "Kvikabanki.CurrencyRates.Get",
+        "action": "Reads Kvika banki currency rates of a given type for a date.",
+        "href": "/iceland-treasury/reference/message-types/kvikabanki-currencyrates-get/"
+      },
+      {
+        "type": "Kvikabanki.Payment.Batch",
+        "action": "Submits one or more Kvika banki payment batches.",
+        "href": "/iceland-treasury/reference/message-types/kvikabanki-payment-batch/"
+      },
+      {
+        "type": "Kvikabanki.Payment.ResultBatch",
+        "action": "Polls the result of an asynchronous Kvika banki payments submission.",
+        "href": "/iceland-treasury/reference/message-types/kvikabanki-payment-resultbatch/"
+      },
+      {
+        "type": "Kvikabanki.Statement.Get",
+        "action": "Retrieves a Kvika banki account statement (the IOBS bank import/export format) for an account over a date span.",
+        "href": "/iceland-treasury/reference/message-types/kvikabanki-statement-get/"
+      }
+    ],
+    "Landsbankinn": [
+      {
+        "type": "Landsbankinn.Account.EndOfDayBalance",
+        "action": "Information about the financials of an account at the end of a given (banking) day.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-account-endofdaybalance/"
+      },
+      {
+        "type": "Landsbankinn.Account.Get",
+        "action": "Retrieves details for a single bank account at Landsbankinn by BBAN.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-account-get/"
+      },
+      {
+        "type": "Landsbankinn.Account.List",
+        "action": "Lists all bank accounts accessible via the system access at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-account-list/"
+      },
+      {
+        "type": "Landsbankinn.Account.Transactions",
+        "action": "Retrieves transactions for a specific bank account at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-account-transactions/"
+      },
+      {
+        "type": "Landsbankinn.Account.Verify",
+        "action": "Checks whether an account exists at Landsbankinn via the Landsbankaskema LI_Fyrirspurn_er_reikningur_til operation.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-account-verify/"
+      },
+      {
+        "type": "Landsbankinn.Acquiring.Settlements",
+        "action": "Lists acquiring settlement batches.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-acquiring-settlements/"
+      },
+      {
+        "type": "Landsbankinn.Acquiring.Transactions",
+        "action": "Lists acquiring transactions.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-acquiring-transactions/"
+      },
+      {
+        "type": "Landsbankinn.Card.Attachment",
+        "action": "Downloads a transaction attachment (receipt) by its ID.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-attachment/"
+      },
+      {
+        "type": "Landsbankinn.Card.LedgerKeyCreate",
+        "action": "Creates a new ledger key in the Landsbankinn Cards portal.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-ledgerkeycreate/"
+      },
+      {
+        "type": "Landsbankinn.Card.LedgerKeyDelete",
+        "action": "Deletes a ledger key from the Landsbankinn Cards portal.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-ledgerkeydelete/"
+      },
+      {
+        "type": "Landsbankinn.Card.LedgerKeyGroupCreate",
+        "action": "Creates a new ledger key group in the Landsbankinn Cards portal.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-ledgerkeygroupcreate/"
+      },
+      {
+        "type": "Landsbankinn.Card.LedgerKeyGroupDelete",
+        "action": "Deletes a ledger key group from the Landsbankinn Cards portal.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-ledgerkeygroupdelete/"
+      },
+      {
+        "type": "Landsbankinn.Card.LedgerKeyGroups",
+        "action": "Lists ledger key groups from the Landsbankinn Cards portal.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-ledgerkeygroups/"
+      },
+      {
+        "type": "Landsbankinn.Card.LedgerKeys",
+        "action": "Lists ledger key mappings configured in the Landsbankinn Cards portal.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-ledgerkeys/"
+      },
+      {
+        "type": "Landsbankinn.Card.LedgerKeySubGroupCreate",
+        "action": "Creates a new ledger key sub-group in the Landsbankinn Cards portal.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-ledgerkeysubgroupcreate/"
+      },
+      {
+        "type": "Landsbankinn.Card.LedgerKeySubGroupDelete",
+        "action": "Deletes a ledger key sub-group from the Landsbankinn Cards portal.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-ledgerkeysubgroupdelete/"
+      },
+      {
+        "type": "Landsbankinn.Card.LedgerKeySubGroups",
+        "action": "Lists ledger key sub-groups from the Landsbankinn Cards portal.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-ledgerkeysubgroups/"
+      },
+      {
+        "type": "Landsbankinn.Card.List",
+        "action": "Lists all corporate cards registered for the company at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-list/"
+      },
+      {
+        "type": "Landsbankinn.Card.Query",
+        "action": "Queries card details/status from Landsbankinn via Landsbankaskema LI_Fyrirspurn_kort.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-query/"
+      },
+      {
+        "type": "Landsbankinn.Card.TransactionGet",
+        "action": "Retrieves a single card transaction with full detail including ledger key assignment, comment, and attachment metadata.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-transactionget/"
+      },
+      {
+        "type": "Landsbankinn.Card.Transactions",
+        "action": "Retrieves card transactions for a specific card over a date range.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-transactions/"
+      },
+      {
+        "type": "Landsbankinn.Card.TransactionUpdate",
+        "action": "Updates a card transaction with a ledger key assignment and/or comment.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-card-transactionupdate/"
+      },
+      {
+        "type": "Landsbankinn.Claim.Create",
+        "action": "Creates a single claim via the Claims REST API (POST /Claims).",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claim-create/"
+      },
+      {
+        "type": "Landsbankinn.Claim.Delete",
+        "action": "Cancels a claim via DELETE /Claims/&#123;id&#125;.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claim-delete/"
+      },
+      {
+        "type": "Landsbankinn.Claim.Get",
+        "action": "Retrieves a single claim by ID via GET /Claims/&#123;id&#125;.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claim-get/"
+      },
+      {
+        "type": "Landsbankinn.Claim.List",
+        "action": "Lists claims from the Landsbankinn Claims REST API.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claim-list/"
+      },
+      {
+        "type": "Landsbankinn.Claim.Update",
+        "action": "Updates a claim via PUT /Claims/&#123;id&#125;.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claim-update/"
+      },
+      {
+        "type": "Landsbankinn.ClaimBatch.Actions",
+        "action": "Retrieves per-claim action results for a batch operation.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimbatch-actions/"
+      },
+      {
+        "type": "Landsbankinn.ClaimBatch.Create",
+        "action": "Submits a batch of claim actions (create, update, or cancel) to Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimbatch-create/"
+      },
+      {
+        "type": "Landsbankinn.ClaimBatch.Get",
+        "action": "Retrieves the status of a single batch operation.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimbatch-get/"
+      },
+      {
+        "type": "Landsbankinn.ClaimBatch.List",
+        "action": "Returns a paged list of claim batch operations submitted to Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimbatch-list/"
+      },
+      {
+        "type": "Landsbankinn.ClaimPayment.Get",
+        "action": "Returns payments for a single claim via the REST API.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimpayment-get/"
+      },
+      {
+        "type": "Landsbankinn.ClaimPayment.List",
+        "action": "Returns a paged list of all claim payments via the REST API.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimpayment-list/"
+      },
+      {
+        "type": "Landsbankinn.ClaimTemplate.ClaimantAccesses",
+        "action": "Lists which claimants (kröfuhafar) the system access can act on behalf of.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimtemplate-claimantaccesses/"
+      },
+      {
+        "type": "Landsbankinn.ClaimTemplate.Create",
+        "action": "Creates a new claim template (kröfusniðmát) at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimtemplate-create/"
+      },
+      {
+        "type": "Landsbankinn.ClaimTemplate.Delete",
+        "action": "Deletes (soft-deletes) a claim template at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimtemplate-delete/"
+      },
+      {
+        "type": "Landsbankinn.ClaimTemplate.Get",
+        "action": "Retrieves a single claim template by its ID.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimtemplate-get/"
+      },
+      {
+        "type": "Landsbankinn.ClaimTemplate.List",
+        "action": "Lists claim templates (kröfusniðmát) at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimtemplate-list/"
+      },
+      {
+        "type": "Landsbankinn.ClaimTemplate.UnfulfilledPrerequisites",
+        "action": "Lists unfulfilled prerequisites that prevent a claimant from creating claim templates.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimtemplate-unfulfilledprerequisites/"
+      },
+      {
+        "type": "Landsbankinn.ClaimTemplate.Update",
+        "action": "Updates an existing claim template (kröfusniðmát) at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-claimtemplate-update/"
+      },
+      {
+        "type": "Landsbankinn.Currency.Rates",
+        "action": "Retrieves exchange rates from the Landsbankinn REST Currencies API.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-currency-rates/"
+      },
+      {
+        "type": "Landsbankinn.EDoc.BatchUpload",
+        "action": "Uploads a batch of electronic documents via POST /DocumentCreationBatches.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-edoc-batchupload/"
+      },
+      {
+        "type": "Landsbankinn.EDoc.CrossReferenceCreate",
+        "action": "Manage electronic documents (rafræn skjöl) at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-edoc-crossreferencecreate/"
+      },
+      {
+        "type": "Landsbankinn.EDoc.CrossReferenceDelete",
+        "action": "Manage electronic documents (rafræn skjöl) at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-edoc-crossreferencedelete/"
+      },
+      {
+        "type": "Landsbankinn.EDoc.CrossReferenceGet",
+        "action": "Manage electronic documents (rafræn skjöl) at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-edoc-crossreferenceget/"
+      },
+      {
+        "type": "Landsbankinn.EDoc.CrossReferences",
+        "action": "Manage electronic documents (rafræn skjöl) at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-edoc-crossreferences/"
+      },
+      {
+        "type": "Landsbankinn.EDoc.DocumentContent",
+        "action": "Downloads the content of a received electronic document.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-edoc-documentcontent/"
+      },
+      {
+        "type": "Landsbankinn.EDoc.DocumentGet",
+        "action": "Gets metadata for a single received electronic document.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-edoc-documentget/"
+      },
+      {
+        "type": "Landsbankinn.EDoc.Documents",
+        "action": "Lists electronic documents received by the company (inbox).",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-edoc-documents/"
+      },
+      {
+        "type": "Landsbankinn.EDoc.DocumentTypes",
+        "action": "Manage electronic documents (rafræn skjöl) at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-edoc-documenttypes/"
+      },
+      {
+        "type": "Landsbankinn.EDoc.Upload",
+        "action": "Uploads a single electronic document via POST /Documents (multipart/form-data).",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-edoc-upload/"
+      },
+      {
+        "type": "Landsbankinn.Fees.List",
+        "action": "Retrieves current bank fees and prices from the Landsbankinn REST API.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-fees-list/"
+      },
+      {
+        "type": "Landsbankinn.ForeignPayment.Create",
+        "action": "Submits a batch of foreign payments to Landsbankinn synchronously via Landsbankaskema LI_Stofna_erlendar_greidslur.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-foreignpayment-create/"
+      },
+      {
+        "type": "Landsbankinn.ForeignPayment.Query",
+        "action": "Queries the status of foreign payments at Landsbankinn via Landsbankaskema LI_Fyrirspurn_erlendar_greidslur.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-foreignpayment-query/"
+      },
+      {
+        "type": "Landsbankinn.Funds.List",
+        "action": "Retrieves market data for Landsbréf funds from the REST API.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-funds-list/"
+      },
+      {
+        "type": "Landsbankinn.InterestRates.List",
+        "action": "Retrieves current interest rates for deposits and loans.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-interestrates-list/"
+      },
+      {
+        "type": "Landsbankinn.Payment.Batch",
+        "action": "Submits one or more payment batches to Landsbankinn asynchronously via the B2B DoPayments call.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-payment-batch/"
+      },
+      {
+        "type": "Landsbankinn.Payment.ResultBatch",
+        "action": "Queries the result of a previously submitted Landsbankinn.Payment.Batch call for one or all batches under a paymentsId, with optional line-level filtering.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-payment-resultbatch/"
+      },
+      {
+        "type": "Landsbankinn.PaymentSlip.Query",
+        "action": "Queries payment slips from Landsbankinn via Landsbankaskema LI_Fyrirspurn_greidslusedill.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-paymentslip-query/"
+      },
+      {
+        "type": "Landsbankinn.Portfolio.HoldingReturns",
+        "action": "Retrieves gain/loss returns per holding in a portfolio.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-portfolio-holdingreturns/"
+      },
+      {
+        "type": "Landsbankinn.Portfolio.Holdings",
+        "action": "Lists current holdings (stocks, bonds, funds, deposits) in a portfolio.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-portfolio-holdings/"
+      },
+      {
+        "type": "Landsbankinn.Portfolio.List",
+        "action": "Lists portfolios (verðbréfasöfn) at Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-portfolio-list/"
+      },
+      {
+        "type": "Landsbankinn.Portfolio.Transactions",
+        "action": "Retrieves portfolio transactions (buys, sells, dividends, fees) for a portfolio.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-portfolio-transactions/"
+      },
+      {
+        "type": "Landsbankinn.UnpaidInvoice.Get",
+        "action": "Retrieves a single unpaid bill by its ID from Landsbankinn.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-unpaidinvoice-get/"
+      },
+      {
+        "type": "Landsbankinn.UnpaidInvoice.Query",
+        "action": "Queries unpaid invoices from Landsbankinn via Landsbankaskema LI_Fyrirspurn_ogreiddir_reikningar.",
+        "href": "/iceland-treasury/reference/message-types/landsbankinn-unpaidinvoice-query/"
+      }
+    ],
+    "Sparisjodir": [
+      {
+        "type": "Sparisjodir.Account.Get",
+        "action": "Retrieves all Sparisjóður accounts for the authenticated service user.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-account-get/"
+      },
+      {
+        "type": "Sparisjodir.Account.GetByOwner",
+        "action": "Retrieves all Sparisjóður accounts owned by a specific person, identified by kennitala.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-account-getbyowner/"
+      },
+      {
+        "type": "Sparisjodir.Account.GetOne",
+        "action": "Retrieves a single Sparisjóður account by bank/ledger/accountNumber, including full account details.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-account-getone/"
+      },
+      {
+        "type": "Sparisjodir.Account.Verify",
+        "action": "Verifies that a specific person (kennitala) owns a given Sparisjóður account.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-account-verify/"
+      },
+      {
+        "type": "Sparisjodir.Bill.Get",
+        "action": "Retrieves all outstanding bills (kröfur) for the authenticated Sparisjóður user.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-bill-get/"
+      },
+      {
+        "type": "Sparisjodir.Bill.GetDetails",
+        "action": "Retrieves full details for a single Sparisjóður bill (krafa) using the bill key: bank/ledger/number/dueDate.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-bill-getdetails/"
+      },
+      {
+        "type": "Sparisjodir.Claim.AlterBatch",
+        "action": "Submits a batch of existing Sparisjóður claims for async alteration.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-claim-alterbatch/"
+      },
+      {
+        "type": "Sparisjodir.Claim.CancelBatch",
+        "action": "Submits a batch of Sparisjóður claim keys for async cancellation.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-claim-cancelbatch/"
+      },
+      {
+        "type": "Sparisjodir.Claim.CreateBatch",
+        "action": "Submits a batch of Sparisjóður claims for async creation.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-claim-createbatch/"
+      },
+      {
+        "type": "Sparisjodir.Claim.GetOperationResult",
+        "action": "Polls the result of a previous async batch ClaimService operation.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-claim-getoperationresult/"
+      },
+      {
+        "type": "Sparisjodir.Claim.MarkBatchForSecCollection",
+        "action": "Submits a batch of Sparisjóður claim keys for async secondary collection marking.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-claim-markbatchforseccollection/"
+      },
+      {
+        "type": "Sparisjodir.Claim.Query",
+        "action": "Returns a paged list of Sparisjóður claims matching the supplied filters.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-claim-query/"
+      },
+      {
+        "type": "Sparisjodir.Claim.QueryOne",
+        "action": "Retrieves the current state of a single Sparisjóður claim.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-claim-queryone/"
+      },
+      {
+        "type": "Sparisjodir.Claim.QueryPayments",
+        "action": "Returns a paged list of payments received against Sparisjóður claims.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-claim-querypayments/"
+      },
+      {
+        "type": "Sparisjodir.Claim.QueryTransactions",
+        "action": "Returns all lifecycle transactions for a single Sparisjóður claim.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-claim-querytransactions/"
+      },
+      {
+        "type": "Sparisjodir.Claim.ReCreateBatch",
+        "action": "Submits a batch of previously cancelled or expired Sparisjóður claims for async recreation.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-claim-recreatebatch/"
+      },
+      {
+        "type": "Sparisjodir.CreditCard.Get",
+        "action": "Retrieves all Sparisjóður credit cards for the authenticated user (overview).",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-creditcard-get/"
+      },
+      {
+        "type": "Sparisjodir.CreditCard.GetOne",
+        "action": "Retrieves full details (limits, payment dates, interest, charge account, prepaid/collection flags) for a single Sparisjóður credit card.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-creditcard-getone/"
+      },
+      {
+        "type": "Sparisjodir.CreditCard.Transactions",
+        "action": "Retrieves transactions on a credit card, paged.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-creditcard-transactions/"
+      },
+      {
+        "type": "Sparisjodir.CurrencyRates.Get",
+        "action": "Retrieves Sparisjóður currency exchange rates for a given date.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-currencyrates-get/"
+      },
+      {
+        "type": "Sparisjodir.Payment.Batch",
+        "action": "Submits one or more payment batches to Sparisjóður asynchronously via the B2B DoPayments call.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-payment-batch/"
+      },
+      {
+        "type": "Sparisjodir.Payment.ResultBatch",
+        "action": "Queries the result of a previously submitted Sparisjodir.Payment.Batch call for one or all batches under a paymentsId, with optional line-level filtering.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-payment-resultbatch/"
+      },
+      {
+        "type": "Sparisjodir.Statement.Get",
+        "action": "Retrieves a bank statement for an Spar account over a date span.",
+        "href": "/iceland-treasury/reference/message-types/sparisjodir-statement-get/"
+      }
+    ]
+  },
+  "iceland-docex": {
+    "DocumentExchange": [
+      {
+        "type": "DocumentExchange.Advania.CheckUniversalService",
+        "action": "Checks if the authenticated user is enrolled in the Advania universal distribution service.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-checkuniversalservice/"
+      },
+      {
+        "type": "DocumentExchange.Advania.CompressPdf",
+        "action": "Compresses a PDF document using the Advania service.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-compresspdf/"
+      },
+      {
+        "type": "DocumentExchange.Advania.ConvertXml",
+        "action": "Converts raw UBL XML to a rendered PDF or HTML without storing the document.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-convertxml/"
+      },
+      {
+        "type": "DocumentExchange.Advania.CreateInvoice",
+        "action": "Creates an electronic invoice from structured buffer data.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-createinvoice/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetAttachments",
+        "action": "Lists all attachments in a document (external links and BASE64 embedded).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getattachments/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetAuthorizedPartners",
+        "action": "Lists the endpoint IDs (kennitala/EAN) that the authenticated user can manage.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getauthorizedpartners/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetDocument",
+        "action": "Retrieves a document by message ID.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getdocument/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetDocumentHistory",
+        "action": "Returns the activity log (dagbók) for a document.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getdocumenthistory/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetDocumentInfo",
+        "action": "Returns all metadata about a document: sender/receiver, dates, amounts, status, and Peppol profile info.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getdocumentinfo/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetDocumentLight",
+        "action": "Retrieves document XML WITHOUT embedded base64 attachments.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getdocumentlight/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetDocumentLines",
+        "action": "Returns all parsed invoice lines for a document.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getdocumentlines/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetDocumentPdf",
+        "action": "Gets a styled PDF rendering of a document using a specific stylesheet.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getdocumentpdf/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetDocumentSupport",
+        "action": "Checks which document types a specific trading partner can receive.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getdocumentsupport/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetDocumentTypes",
+        "action": "Lists all document types supported by the exchange, including Peppol profiles, Icelandic standards, and legacy formats.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getdocumenttypes/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetInbox",
+        "action": "Lists all received documents for a receiver endpoint.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getinbox/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetPresentation",
+        "action": "Returns a URL to a rendered PDF or HTML view of a document on the exchange.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getpresentation/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetSent",
+        "action": "Lists all sent documents for an endpoint by year and optional month.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getsent/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetSessionUrl",
+        "action": "Creates a pre-made presentation URL before a document is sent.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getsessionurl/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetStatuses",
+        "action": "Lists all available document exchange statuses.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getstatuses/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetTradingPartners",
+        "action": "Lists all registered trading partners on the document exchange — the full public directory.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-gettradingpartners/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetUnread",
+        "action": "Lists all unread documents for all receiver endpoints the authenticated user has access to.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getunread/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetUnreadRemittance",
+        "action": "Lists unread remittance advice documents.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getunreadremittance/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetUserAccess",
+        "action": "Lists users with access to a specific endpoint.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getuseraccess/"
+      },
+      {
+        "type": "DocumentExchange.Advania.GetWebUIUrl",
+        "action": "Generates a single sign-on URL into the document exchange partner web portal.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-getwebuiurl/"
+      },
+      {
+        "type": "DocumentExchange.Advania.InboxSince",
+        "action": "Lists received documents since a timestamp.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-inboxsince/"
+      },
+      {
+        "type": "DocumentExchange.Advania.LookupDocument",
+        "action": "Searches for sent documents on the exchange.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-lookupdocument/"
+      },
+      {
+        "type": "DocumentExchange.Advania.OcrPdf",
+        "action": "Extracts text from a PDF using Advania OCR service.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-ocrpdf/"
+      },
+      {
+        "type": "DocumentExchange.Advania.StatusSync",
+        "action": "Syncs delivery status from the document exchange for sent invoices/credit memos.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-statussync/"
+      },
+      {
+        "type": "DocumentExchange.Advania.SubmitDocument",
+        "action": "Submits a previously created electronic invoice to the document exchange network.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-submitdocument/"
+      },
+      {
+        "type": "DocumentExchange.Advania.UpdateStatus",
+        "action": "Changes the delivery status of a received document.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-advania-updatestatus/"
+      },
+      {
+        "type": "DocumentExchange.BIS30.CountryCodes",
+        "action": "",
+        "href": "/iceland-docex/reference/message-types/documentexchange-bis30-countrycodes/"
+      },
+      {
+        "type": "DocumentExchange.BIS30.Currencies",
+        "action": "",
+        "href": "/iceland-docex/reference/message-types/documentexchange-bis30-currencies/"
+      },
+      {
+        "type": "DocumentExchange.BIS30.DocumentTypeCodes",
+        "action": "",
+        "href": "/iceland-docex/reference/message-types/documentexchange-bis30-documenttypecodes/"
+      },
+      {
+        "type": "DocumentExchange.BIS30.DocumentTypes",
+        "action": "",
+        "href": "/iceland-docex/reference/message-types/documentexchange-bis30-documenttypes/"
+      },
+      {
+        "type": "DocumentExchange.BIS30.ElectronicAddressSchemes",
+        "action": "",
+        "href": "/iceland-docex/reference/message-types/documentexchange-bis30-electronicaddressschemes/"
+      },
+      {
+        "type": "DocumentExchange.BIS30.InvoicedObjectIdentifiers",
+        "action": "",
+        "href": "/iceland-docex/reference/message-types/documentexchange-bis30-invoicedobjectidentifiers/"
+      },
+      {
+        "type": "DocumentExchange.BIS30.MimeCodes",
+        "action": "",
+        "href": "/iceland-docex/reference/message-types/documentexchange-bis30-mimecodes/"
+      },
+      {
+        "type": "DocumentExchange.BIS30.ParticipantSchemes",
+        "action": "",
+        "href": "/iceland-docex/reference/message-types/documentexchange-bis30-participantschemes/"
+      },
+      {
+        "type": "DocumentExchange.BIS30.UnitCodes",
+        "action": "",
+        "href": "/iceland-docex/reference/message-types/documentexchange-bis30-unitcodes/"
+      },
+      {
+        "type": "DocumentExchange.BIS30.VatCodes",
+        "action": "",
+        "href": "/iceland-docex/reference/message-types/documentexchange-bis30-vatcodes/"
+      },
+      {
+        "type": "DocumentExchange.InExchange.BuyerLookup",
+        "action": "Searches the InExchange network for a buyer party.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-inexchange-buyerlookup/"
+      },
+      {
+        "type": "DocumentExchange.InExchange.GetDocument",
+        "action": "Downloads a document by ID from InExchange (binary content).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-inexchange-getdocument/"
+      },
+      {
+        "type": "DocumentExchange.InExchange.GetDocumentInfo",
+        "action": "Retrieves metadata/info for a document by ID from InExchange.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-inexchange-getdocumentinfo/"
+      },
+      {
+        "type": "DocumentExchange.InExchange.GetIncoming",
+        "action": "Lists incoming (unhandled) documents from InExchange.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-inexchange-getincoming/"
+      },
+      {
+        "type": "DocumentExchange.InExchange.GetOutboundStatus",
+        "action": "Checks delivery status of an outbound document in InExchange.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-inexchange-getoutboundstatus/"
+      },
+      {
+        "type": "DocumentExchange.InExchange.MarkHandled",
+        "action": "Marks one or more InExchange documents as handled/delivered.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-inexchange-markhandled/"
+      },
+      {
+        "type": "DocumentExchange.InExchange.SellerLookup",
+        "action": "Searches the InExchange network for a seller party.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-inexchange-sellerlookup/"
+      },
+      {
+        "type": "DocumentExchange.InExchange.SendDocument",
+        "action": "Sends a document outbound via InExchange.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-inexchange-senddocument/"
+      },
+      {
+        "type": "DocumentExchange.UBL.RenderBilling",
+        "action": "Renders a legal UBL Invoice or CreditNote XML document from structured buffer data.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-ubl-renderbilling/"
+      },
+      {
+        "type": "DocumentExchange.UBL.RenderDespatchAdvice",
+        "action": "Renders a UBL DespatchAdvice XML for shipment notifications (Peppol BIS 3.0).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-ubl-renderdespatchadvice/"
+      },
+      {
+        "type": "DocumentExchange.UBL.RenderOrder",
+        "action": "Renders a UBL Order or OrderResponse XML.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-ubl-renderorder/"
+      },
+      {
+        "type": "DocumentExchange.UBL.RenderStatement",
+        "action": "Renders a UBL Statement XML summarizing open customer entries.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-ubl-renderstatement/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.AddAttachment",
+        "action": "Adds a document/attachment to an existing message on the exchange (Unimaze only).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-addattachment/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.CreateGenericMessage",
+        "action": "Creates a generic (non-structured) message for sending EDI, PDF, or other document types that do not fit the standard transaction types (Unimaze only).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-creategenericmessage/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.CreateInvoice",
+        "action": "Creates an electronic invoice from structured buffer data.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-createinvoice/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetDocument",
+        "action": "Retrieves a document by message ID.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getdocument/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetDocumentHistory",
+        "action": "Returns the activity log (dagbók) for a document.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getdocumenthistory/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetDocumentInfo",
+        "action": "Returns all metadata about a document: sender/receiver, dates, amounts, status, and Peppol profile info.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getdocumentinfo/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetDocumentOriginal",
+        "action": "Downloads the original (as-submitted) document content (Unimaze only).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getdocumentoriginal/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetDocumentSupport",
+        "action": "Checks which document types a specific trading partner can receive.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getdocumentsupport/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetDocumentTransformed",
+        "action": "Downloads the transformed (target-format) document content (Unimaze only).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getdocumenttransformed/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetInbox",
+        "action": "Lists all received documents for a receiver endpoint.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getinbox/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetPartyInfo",
+        "action": "Returns company name and identifier for a registered electronic address (Unimaze only).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getpartyinfo/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetPendingActions",
+        "action": "Returns a summary of pending actions for a party (Unimaze only).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getpendingactions/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetPresentation",
+        "action": "Returns a URL to a rendered PDF or HTML view of a document on the exchange.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getpresentation/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetUnread",
+        "action": "Lists all unread documents for all receiver endpoints the authenticated user has access to.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getunread/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.GetValidations",
+        "action": "Returns validation results for a submitted message (Unimaze only).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-getvalidations/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.LookupDocument",
+        "action": "Searches for sent documents on the exchange.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-lookupdocument/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.RegisterPayment",
+        "action": "Registers a payment against a received invoice (compliance/Croatia workflow, Unimaze only).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-registerpayment/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.RegisterRejection",
+        "action": "Registers a rejection of a received invoice (Unimaze only).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-registerrejection/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.RetryMessage",
+        "action": "Retries a failed message (Unimaze only).",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-retrymessage/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.StatusSync",
+        "action": "Syncs delivery status from the document exchange for sent invoices/credit memos.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-statussync/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.SubmitTransaction",
+        "action": "Generic transaction submission for ALL Unimaze MAPI transaction types.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-submittransaction/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.SubmitXml",
+        "action": "Submit a pre-rendered XML document (UBL invoice, credit note, order, etc.) directly to the Unimaze access point.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-submitxml/"
+      },
+      {
+        "type": "DocumentExchange.Unimaze.UpdateStatus",
+        "action": "Changes the delivery status of a received document.",
+        "href": "/iceland-docex/reference/message-types/documentexchange-unimaze-updatestatus/"
+      }
+    ],
+    "Help": [
+      {
+        "type": "Help.DocumentExchange.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/iceland-docex/reference/message-types/help-documentexchange-get/"
+      }
+    ]
+  },
+  "language-models": {
+    "LLM": [
+      {
+        "type": "LLM.Prompt.Complete",
+        "action": "One-shot LLM completion.",
+        "href": "/language-models/reference/message-types/llm-prompt-complete/"
+      }
+    ]
+  },
+  "attachments": {
+    "DataExchange": [
+      {
+        "type": "DataExchange.Definition.Get",
+        "action": "Returns one Data Exchange definition, including line definitions, column definitions and field mappings, ordered by their keys.",
+        "href": "/attachments/reference/message-types/dataexchange-definition-get/"
+      },
+      {
+        "type": "DataExchange.Definition.List",
+        "action": "Lists Data Exchange definitions and the Data Exchange Type codes that reference each one.",
+        "href": "/attachments/reference/message-types/dataexchange-definition-list/"
+      },
+      {
+        "type": "DataExchange.Entry.Get",
+        "action": "Returns one Data Exch. entry.",
+        "href": "/attachments/reference/message-types/dataexchange-entry-get/"
+      },
+      {
+        "type": "DataExchange.Entry.List",
+        "action": "Lists processed Data Exch. entries.",
+        "href": "/attachments/reference/message-types/dataexchange-entry-list/"
+      },
+      {
+        "type": "DataExchange.Type.List",
+        "action": "Lists Data Exchange Type rows.",
+        "href": "/attachments/reference/message-types/dataexchange-type-list/"
+      }
+    ],
+    "Help": [
+      {
+        "type": "Help.DataExchange.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/attachments/reference/message-types/help-dataexchange-get/"
+      },
+      {
+        "type": "Help.Storage.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/attachments/reference/message-types/help-storage-get/"
+      }
+    ],
+    "Storage": [
+      {
+        "type": "Storage.Account.List",
+        "action": "Lists the configured storage connections (codes, descriptions, connectors and enabled state).",
+        "href": "/attachments/reference/message-types/storage-account-list/"
+      },
+      {
+        "type": "Storage.Attachment.CreateForRecord",
+        "action": "Creates a document attachment on any record - customer, vendor, fixed asset, document - from base64, from storage, or by copying an existing attachment.",
+        "href": "/attachments/reference/message-types/storage-attachment-createforrecord/"
+      },
+      {
+        "type": "Storage.Attachment.CreateLinked",
+        "action": "Attaches a file already in storage to a new or existing incoming document, served transparently from storage.",
+        "href": "/attachments/reference/message-types/storage-attachment-createlinked/"
+      },
+      {
+        "type": "Storage.Attachment.Offload",
+        "action": "Offloads an attachment's file to a storage connection and clears it from the database, keeping it transparently available.",
+        "href": "/attachments/reference/message-types/storage-attachment-offload/"
+      },
+      {
+        "type": "Storage.Attachment.Restore",
+        "action": "Restores an offloaded attachment's file from storage back into the database and deletes the remote copy.",
+        "href": "/attachments/reference/message-types/storage-attachment-restore/"
+      },
+      {
+        "type": "Storage.Directory.Create",
+        "action": "Creates a directory in the configured storage connection.",
+        "href": "/attachments/reference/message-types/storage-directory-create/"
+      },
+      {
+        "type": "Storage.Directory.Delete",
+        "action": "Deletes a directory from the configured storage connection.",
+        "href": "/attachments/reference/message-types/storage-directory-delete/"
+      },
+      {
+        "type": "Storage.Directory.Exists",
+        "action": "Reports whether a directory exists in the configured storage connection.",
+        "href": "/attachments/reference/message-types/storage-directory-exists/"
+      },
+      {
+        "type": "Storage.Directory.List",
+        "action": "Lists the subdirectories of a directory in the configured storage connection.",
+        "href": "/attachments/reference/message-types/storage-directory-list/"
+      },
+      {
+        "type": "Storage.File.Copy",
+        "action": "Copies a file within the configured storage connection.",
+        "href": "/attachments/reference/message-types/storage-file-copy/"
+      },
+      {
+        "type": "Storage.File.Create",
+        "action": "Uploads one small base64 file to a path.",
+        "href": "/attachments/reference/message-types/storage-file-create/"
+      },
+      {
+        "type": "Storage.File.Delete",
+        "action": "Deletes a file from the configured storage connection.",
+        "href": "/attachments/reference/message-types/storage-file-delete/"
+      },
+      {
+        "type": "Storage.File.Exists",
+        "action": "Reports whether a file exists in the configured storage connection.",
+        "href": "/attachments/reference/message-types/storage-file-exists/"
+      },
+      {
+        "type": "Storage.File.Get",
+        "action": "Downloads a file from the configured storage connection and returns its content as base64.",
+        "href": "/attachments/reference/message-types/storage-file-get/"
+      },
+      {
+        "type": "Storage.File.List",
+        "action": "Lists the files in a directory of the configured storage connection.",
+        "href": "/attachments/reference/message-types/storage-file-list/"
+      },
+      {
+        "type": "Storage.File.Move",
+        "action": "Moves a file within the configured storage connection.",
+        "href": "/attachments/reference/message-types/storage-file-move/"
+      },
+      {
+        "type": "Storage.Upload.Abort",
+        "action": "Discards an open upload session and all its chunks without writing to storage.",
+        "href": "/attachments/reference/message-types/storage-upload-abort/"
+      },
+      {
+        "type": "Storage.Upload.Append",
+        "action": "Appends one base64 chunk to an open upload session.",
+        "href": "/attachments/reference/message-types/storage-upload-append/"
+      },
+      {
+        "type": "Storage.Upload.Begin",
+        "action": "Opens a chunked upload session for delivering a large file as a sequence of small chunks.",
+        "href": "/attachments/reference/message-types/storage-upload-begin/"
+      },
+      {
+        "type": "Storage.Upload.Commit",
+        "action": "Assembles an upload session's chunks and writes the file to the storage connection.",
+        "href": "/attachments/reference/message-types/storage-upload-commit/"
+      },
+      {
+        "type": "Storage.Upload.CommitToRecord",
+        "action": "Assembles uploaded chunks and attaches the file directly to a record without external storage.",
+        "href": "/attachments/reference/message-types/storage-upload-committorecord/"
+      },
+      {
+        "type": "Storage.Upload.Status",
+        "action": "Reports the progress and state of an upload session.",
+        "href": "/attachments/reference/message-types/storage-upload-status/"
+      }
+    ]
+  },
+  "orchestrator": {
+    "Help": [
+      {
+        "type": "Help.Orchestrator.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/orchestrator/reference/message-types/help-orchestrator-get/"
+      }
+    ],
+    "Orchestrator": [
+      {
+        "type": "Orchestrator.Email.Send",
+        "action": "Sends an email draft created by Email.Draft.Set.",
+        "href": "/orchestrator/reference/message-types/orchestrator-email-send/"
+      },
+      {
+        "type": "Orchestrator.Entry.Register",
+        "action": "Registers an existing Job Queue Entry as an orchestrator entry.",
+        "href": "/orchestrator/reference/message-types/orchestrator-entry-register/"
+      },
+      {
+        "type": "Orchestrator.Entry.Restart",
+        "action": "Restarts a failed or held orchestrator entry by re-enqueuing it.",
+        "href": "/orchestrator/reference/message-types/orchestrator-entry-restart/"
+      },
+      {
+        "type": "Orchestrator.Entry.Run",
+        "action": "Executes an orchestrator entry immediately as a one-time foreground run.",
+        "href": "/orchestrator/reference/message-types/orchestrator-entry-run/"
+      },
+      {
+        "type": "Orchestrator.Entry.Schedule",
+        "action": "Deletes and immediately recreates the Job Queue Entry for the orchestrator entry.",
+        "href": "/orchestrator/reference/message-types/orchestrator-entry-schedule/"
+      },
+      {
+        "type": "Orchestrator.JobQueueEntry.Restart",
+        "action": "Restarts a Job Queue Entry by setting its status to Ready, regardless of current state.",
+        "href": "/orchestrator/reference/message-types/orchestrator-jobqueueentry-restart/"
+      },
+      {
+        "type": "Orchestrator.JobQueueEntry.RestartIfNeeded",
+        "action": "Restarts a Job Queue Entry only if it is in Error, On Hold, or On Hold with Inactivity Timeout.",
+        "href": "/orchestrator/reference/message-types/orchestrator-jobqueueentry-restartifneeded/"
+      },
+      {
+        "type": "Orchestrator.Playbook.Enqueue",
+        "action": "Enqueues a playbook for one-time execution via the Job Queue with custom request data.",
+        "href": "/orchestrator/reference/message-types/orchestrator-playbook-enqueue/"
+      },
+      {
+        "type": "Orchestrator.Playbook.Run",
+        "action": "Executes a Bifrost Playbook immediately and returns the execution result.",
+        "href": "/orchestrator/reference/message-types/orchestrator-playbook-run/"
+      },
+      {
+        "type": "Orchestrator.Playbook.Schedule",
+        "action": "Creates an Orchestrator Entry for the playbook using a recurring template.",
+        "href": "/orchestrator/reference/message-types/orchestrator-playbook-schedule/"
+      },
+      {
+        "type": "Orchestrator.Report.Get",
+        "action": "Returns full report metadata including layouts and saved request page preset XML.",
+        "href": "/orchestrator/reference/message-types/orchestrator-report-get/"
+      },
+      {
+        "type": "Orchestrator.Report.List",
+        "action": "Lists available reports from Report Metadata, excluding obsolete reports.",
+        "href": "/orchestrator/reference/message-types/orchestrator-report-list/"
+      },
+      {
+        "type": "Orchestrator.Report.Run",
+        "action": "Runs a processing-only report — a batch job such as Adjust Cost, Post Inventory Cost to G/L, or Update Currency Exchange Rates. These reports produce no document; they change data.",
+        "href": "/orchestrator/reference/message-types/orchestrator-report-run/"
+      },
+      {
+        "type": "Orchestrator.Report.SaveAs",
+        "action": "Generates report output (PDF, Excel, Word, XML).",
+        "href": "/orchestrator/reference/message-types/orchestrator-report-saveas/"
+      },
+      {
+        "type": "Orchestrator.Status.Get",
+        "action": "Returns the current health status of the Job Queue Orchestrator, including whether the management entry is running and counts of orchestrator entries by state.",
+        "href": "/orchestrator/reference/message-types/orchestrator-status-get/"
+      },
+      {
+        "type": "Orchestrator.Status.Restart",
+        "action": "Unconditionally restarts the orchestrator management Job Queue Entry. Cancels the current entry and creates a new one.",
+        "href": "/orchestrator/reference/message-types/orchestrator-status-restart/"
+      },
+      {
+        "type": "Orchestrator.Status.RestartIfNeeded",
+        "action": "Restarts the orchestrator only if it is not already running.",
+        "href": "/orchestrator/reference/message-types/orchestrator-status-restartifneeded/"
+      },
+      {
+        "type": "Orchestrator.Telegram.Message",
+        "action": "Sends a Telegram message to the current user.",
+        "href": "/orchestrator/reference/message-types/orchestrator-telegram-message/"
+      },
+      {
+        "type": "Orchestrator.Workspace.Preview",
+        "action": "Returns the seeded workspace that every playbook sees at start — before any steps execute.",
+        "href": "/orchestrator/reference/message-types/orchestrator-workspace-preview/"
+      }
+    ]
+  },
+  "timesheets": {
+    "Clockify": [
+      {
+        "type": "Clockify.Client.Create",
+        "action": "Creates a client in a Clockify workspace from the request body.",
+        "href": "/timesheets/reference/message-types/clockify-client-create/"
+      },
+      {
+        "type": "Clockify.Client.Delete",
+        "action": "Deletes a Clockify client by ID.",
+        "href": "/timesheets/reference/message-types/clockify-client-delete/"
+      },
+      {
+        "type": "Clockify.Client.Get",
+        "action": "Retrieves a single Clockify client by ID.",
+        "href": "/timesheets/reference/message-types/clockify-client-get/"
+      },
+      {
+        "type": "Clockify.Client.List",
+        "action": "Lists the clients in a Clockify workspace.",
+        "href": "/timesheets/reference/message-types/clockify-client-list/"
+      },
+      {
+        "type": "Clockify.Client.Update",
+        "action": "Updates an existing Clockify client from the request body.",
+        "href": "/timesheets/reference/message-types/clockify-client-update/"
+      },
+      {
+        "type": "Clockify.Currency.List",
+        "action": "Lists the currencies defined in a Clockify workspace.",
+        "href": "/timesheets/reference/message-types/clockify-currency-list/"
+      },
+      {
+        "type": "Clockify.CustomField.List",
+        "action": "Lists the workspace-level custom field definitions in a Clockify workspace.",
+        "href": "/timesheets/reference/message-types/clockify-customfield-list/"
+      },
+      {
+        "type": "Clockify.Project.Create",
+        "action": "Creates a project in a Clockify workspace from the request body.",
+        "href": "/timesheets/reference/message-types/clockify-project-create/"
+      },
+      {
+        "type": "Clockify.Project.Delete",
+        "action": "Deletes a Clockify project by ID.",
+        "href": "/timesheets/reference/message-types/clockify-project-delete/"
+      },
+      {
+        "type": "Clockify.Project.Get",
+        "action": "Retrieves a single Clockify project by ID.",
+        "href": "/timesheets/reference/message-types/clockify-project-get/"
+      },
+      {
+        "type": "Clockify.Project.List",
+        "action": "Lists the projects in a Clockify workspace.",
+        "href": "/timesheets/reference/message-types/clockify-project-list/"
+      },
+      {
+        "type": "Clockify.Project.Update",
+        "action": "Updates an existing Clockify project from the request body.",
+        "href": "/timesheets/reference/message-types/clockify-project-update/"
+      },
+      {
+        "type": "Clockify.Tag.Create",
+        "action": "Creates a tag in a Clockify workspace from the request body.",
+        "href": "/timesheets/reference/message-types/clockify-tag-create/"
+      },
+      {
+        "type": "Clockify.Tag.Delete",
+        "action": "Deletes a Clockify tag by ID.",
+        "href": "/timesheets/reference/message-types/clockify-tag-delete/"
+      },
+      {
+        "type": "Clockify.Tag.List",
+        "action": "Lists the tags in a Clockify workspace.",
+        "href": "/timesheets/reference/message-types/clockify-tag-list/"
+      },
+      {
+        "type": "Clockify.Tag.Update",
+        "action": "Updates an existing Clockify tag from the request body.",
+        "href": "/timesheets/reference/message-types/clockify-tag-update/"
+      },
+      {
+        "type": "Clockify.Task.Create",
+        "action": "Creates a task in a Clockify project from the request body.",
+        "href": "/timesheets/reference/message-types/clockify-task-create/"
+      },
+      {
+        "type": "Clockify.Task.Delete",
+        "action": "Deletes a Clockify task by ID.",
+        "href": "/timesheets/reference/message-types/clockify-task-delete/"
+      },
+      {
+        "type": "Clockify.Task.List",
+        "action": "Lists the tasks of a Clockify project.",
+        "href": "/timesheets/reference/message-types/clockify-task-list/"
+      },
+      {
+        "type": "Clockify.Task.Update",
+        "action": "Updates an existing Clockify task from the request body.",
+        "href": "/timesheets/reference/message-types/clockify-task-update/"
+      },
+      {
+        "type": "Clockify.TimeEntry.Create",
+        "action": "Creates a time entry for a user in a Clockify workspace from the request body.",
+        "href": "/timesheets/reference/message-types/clockify-timeentry-create/"
+      },
+      {
+        "type": "Clockify.TimeEntry.Delete",
+        "action": "Deletes a Clockify time entry by ID.",
+        "href": "/timesheets/reference/message-types/clockify-timeentry-delete/"
+      },
+      {
+        "type": "Clockify.TimeEntry.Get",
+        "action": "Retrieves a single Clockify time entry by ID.",
+        "href": "/timesheets/reference/message-types/clockify-timeentry-get/"
+      },
+      {
+        "type": "Clockify.TimeEntry.List",
+        "action": "Lists a user's time entries in a Clockify workspace, with optional date/project filters via the query object.",
+        "href": "/timesheets/reference/message-types/clockify-timeentry-list/"
+      },
+      {
+        "type": "Clockify.TimeEntry.Sync",
+        "action": "Syncs a Clockify time entry to a BC Job Journal Line with deduplication, update detection, and correction posting.",
+        "href": "/timesheets/reference/message-types/clockify-timeentry-sync/"
+      },
+      {
+        "type": "Clockify.TimeEntry.SyncAllUsers",
+        "action": "Syncs finished Clockify time entries in a date range for every mapped user, to time sheets (default) or the Job Journal.",
+        "href": "/timesheets/reference/message-types/clockify-timeentry-syncallusers/"
+      },
+      {
+        "type": "Clockify.TimeEntry.SyncRange",
+        "action": "Syncs all of a user's finished Clockify time entries in a date range to BC Job Journal Lines in a single call.",
+        "href": "/timesheets/reference/message-types/clockify-timeentry-syncrange/"
+      },
+      {
+        "type": "Clockify.TimeEntry.SyncRangeToTimeSheet",
+        "action": "Syncs all of a user's finished Clockify time entries in a date range to their open BC Time Sheets in one call.",
+        "href": "/timesheets/reference/message-types/clockify-timeentry-syncrangetotimesheet/"
+      },
+      {
+        "type": "Clockify.TimeEntry.SyncToTimeSheet",
+        "action": "Syncs a Clockify time entry to the resource's open BC Time Sheet (line + detail) with deduplication and update detection.",
+        "href": "/timesheets/reference/message-types/clockify-timeentry-synctotimesheet/"
+      },
+      {
+        "type": "Clockify.TimeEntry.Update",
+        "action": "Updates an existing Clockify time entry from the request body.",
+        "href": "/timesheets/reference/message-types/clockify-timeentry-update/"
+      },
+      {
+        "type": "Clockify.TimeSheet.Approve",
+        "action": "Submits and approves open time-sheet lines whose sheet ends on or before a cut-off date.",
+        "href": "/timesheets/reference/message-types/clockify-timesheet-approve/"
+      },
+      {
+        "type": "Clockify.TimeSheet.Archive",
+        "action": "Archives fully posted time sheets and removes empty posted sheets ending before the work date.",
+        "href": "/timesheets/reference/message-types/clockify-timesheet-archive/"
+      },
+      {
+        "type": "Clockify.TimeSheet.Create",
+        "action": "Creates upcoming weekly time sheets for every time-sheet resource (No. Series + owner + period handled).",
+        "href": "/timesheets/reference/message-types/clockify-timesheet-create/"
+      },
+      {
+        "type": "Clockify.TimeSheet.Post",
+        "action": "Transfers approved, unposted time-sheet detail into a Job Journal batch and posts the lines.",
+        "href": "/timesheets/reference/message-types/clockify-timesheet-post/"
+      },
+      {
+        "type": "Clockify.TimeSheet.Reject",
+        "action": "Rejects submitted time-sheet lines whose sheet ends on or before a cut-off date.",
+        "href": "/timesheets/reference/message-types/clockify-timesheet-reject/"
+      },
+      {
+        "type": "Clockify.TimeSheet.Reopen",
+        "action": "Reopens submitted or approved time-sheet lines back to Open, up to a cut-off date.",
+        "href": "/timesheets/reference/message-types/clockify-timesheet-reopen/"
+      },
+      {
+        "type": "Clockify.User.GetCurrent",
+        "action": "Returns the currently authenticated Clockify user.",
+        "href": "/timesheets/reference/message-types/clockify-user-getcurrent/"
+      },
+      {
+        "type": "Clockify.User.List",
+        "action": "Lists the users in a Clockify workspace.",
+        "href": "/timesheets/reference/message-types/clockify-user-list/"
+      },
+      {
+        "type": "Clockify.UserGroup.List",
+        "action": "Lists the user groups defined in a Clockify workspace.",
+        "href": "/timesheets/reference/message-types/clockify-usergroup-list/"
+      },
+      {
+        "type": "Clockify.Workspace.List",
+        "action": "Lists the Clockify workspaces the configured API key can access.",
+        "href": "/timesheets/reference/message-types/clockify-workspace-list/"
+      }
+    ],
+    "Help": [
+      {
+        "type": "Help.Clockify.Get",
+        "action": "Describes this app's message types, for AI agents.",
+        "href": "/timesheets/reference/message-types/help-clockify-get/"
+      }
+    ]
+  },
+  "subscription-billing": {
+    "Subscription": [
+      {
+        "type": "Subscription.Analysis.Recalculate",
+        "action": "Runs Microsoft's \"Create Contract Analysis\" report, which adds Sub. Contr. Analysis Entry rows (table 8019) for every Subscription Line that belongs to a Subscription Contract.",
+        "href": "/subscription-billing/reference/message-types/subscription-analysis-recalculate/"
+      },
+      {
+        "type": "Subscription.Billing.CreateDocuments",
+        "action": "Processes every unbilled Billing Line (Document Type = None) standing under a Billing Template and turns them into sales or purchase documents, grouped per contract by default.",
+        "href": "/subscription-billing/reference/message-types/subscription-billing-createdocuments/"
+      },
+      {
+        "type": "Subscription.Billing.CreateProposal",
+        "action": "Generates billing proposal lines (Billing Line, table 8061) for a Billing Template.",
+        "href": "/subscription-billing/reference/message-types/subscription-billing-createproposal/"
+      },
+      {
+        "type": "Subscription.Billing.PreviewDocuments",
+        "action": "Shows what Subscription.Billing.CreateDocuments would produce for a Billing Template's unbilled proposal lines (Document Type = None), by reading those Billing Line rows and…",
+        "href": "/subscription-billing/reference/message-types/subscription-billing-previewdocuments/"
+      },
+      {
+        "type": "Subscription.Contract.CreateInvoice",
+        "action": "Bills one customer Subscription Contract to an unposted sales invoice (or credit memo, when a line calls for one).",
+        "href": "/subscription-billing/reference/message-types/subscription-contract-createinvoice/"
+      },
+      {
+        "type": "Subscription.Contract.GetLines",
+        "action": "Attaches Subscription Lines that are not yet on any contract to a customer Subscription Contract.",
+        "href": "/subscription-billing/reference/message-types/subscription-contract-getlines/"
+      },
+      {
+        "type": "Subscription.Contract.PreviewInvoice",
+        "action": "Shows what Subscription.Contract.CreateInvoice would bill for one customer Subscription Contract, without keeping anything and without ever creating a document.",
+        "href": "/subscription-billing/reference/message-types/subscription-contract-previewinvoice/"
+      },
+      {
+        "type": "Subscription.Contract.UpdateExchangeRates",
+        "action": "This message type is blocked.",
+        "href": "/subscription-billing/reference/message-types/subscription-contract-updateexchangerates/"
+      },
+      {
+        "type": "Subscription.Contract.UpdateLineDates",
+        "action": "This message type is blocked.",
+        "href": "/subscription-billing/reference/message-types/subscription-contract-updatelinedates/"
+      },
+      {
+        "type": "Subscription.Deferral.Release",
+        "action": "Runs Microsoft's \"Contract Deferrals Release\" report, which releases every eligible deferred revenue and cost entry - customer (table 8066) and vendor (table 8072) - and posts…",
+        "href": "/subscription-billing/reference/message-types/subscription-deferral-release/"
+      },
+      {
+        "type": "Subscription.Import.CreateContracts",
+        "action": "Turns staged import rows - Imported Subscription Header (table 8008), Imported Cust. Sub. Contract (table 8010) and Imported Subscription Line (table 8009) - into real…",
+        "href": "/subscription-billing/reference/message-types/subscription-import-createcontracts/"
+      },
+      {
+        "type": "Subscription.Line.Create",
+        "action": "Creates Subscription Lines (table 8059) on an existing Subscription Header by applying a Subscription Package.",
+        "href": "/subscription-billing/reference/message-types/subscription-line-create/"
+      },
+      {
+        "type": "Subscription.PriceUpdate.CreateProposal",
+        "action": "This message type is blocked.",
+        "href": "/subscription-billing/reference/message-types/subscription-priceupdate-createproposal/"
+      },
+      {
+        "type": "Subscription.PriceUpdate.Perform",
+        "action": "This message type is blocked.",
+        "href": "/subscription-billing/reference/message-types/subscription-priceupdate-perform/"
+      },
+      {
+        "type": "Subscription.PriceUpdate.SetTemplateFilter",
+        "action": "Writes one of the three view filters stored on a Price Update Template (table 8003): the Subscription Contract filter, the Subscription filter, or the Subscription Line filter.",
+        "href": "/subscription-billing/reference/message-types/subscription-priceupdate-settemplatefilter/"
+      },
+      {
+        "type": "Subscription.Renewal.CreateQuote",
+        "action": "Creates a contract renewal sales quote for a Customer Subscription Contract.",
+        "href": "/subscription-billing/reference/message-types/subscription-renewal-createquote/"
+      },
+      {
+        "type": "Subscription.Renewal.Extend",
+        "action": "Extends an existing Subscription (table 8057) onto a customer and/or vendor contract by running Microsoft's Codeunit \"Extend Sub. Contract Mgt.\".",
+        "href": "/subscription-billing/reference/message-types/subscription-renewal-extend/"
+      },
+      {
+        "type": "Subscription.Usage.ImportData",
+        "action": "Creates a Usage Data Import header (table 8013) and a Usage Data Blob (table 8011) holding the supplied file, then runs Microsoft's \"Import And Process Usage Data\" codeunit with…",
+        "href": "/subscription-billing/reference/message-types/subscription-usage-importdata/"
+      },
+      {
+        "type": "Subscription.Usage.Process",
+        "action": "Advances an existing Usage Data Import entry (table 8013) through its remaining processing stages: turning imported lines into billable quantities, creating Usage Data Billing…",
+        "href": "/subscription-billing/reference/message-types/subscription-usage-process/"
+      },
+      {
+        "type": "Subscription.VendorContract.CreateInvoice",
+        "action": "Bills the due Subscription Lines of one Vendor Subscription Contract.",
+        "href": "/subscription-billing/reference/message-types/subscription-vendorcontract-createinvoice/"
+      },
+      {
+        "type": "Subscription.VendorContract.GetLines",
+        "action": "Finds Subscription Lines (table 8059) that are invoiced via a contract, belong to the vendor partner, are not yet linked to any Vendor Subscription Contract, and have not…",
+        "href": "/subscription-billing/reference/message-types/subscription-vendorcontract-getlines/"
+      },
+      {
+        "type": "Subscription.VendorContract.PreviewInvoice",
+        "action": "Shows what Subscription.VendorContract.CreateInvoice would bill for a vendor subscription contract, without keeping anything and without ever creating a document.",
+        "href": "/subscription-billing/reference/message-types/subscription-vendorcontract-previewinvoice/"
+      }
+    ]
+  },
+  "inventory": {
+    "Item": [
+      {
+        "type": "Item.Attribute.Create",
+        "action": "Assigns attribute values to an item.",
+        "href": "/inventory/reference/message-types/item-attribute-create/"
+      },
+      {
+        "type": "Item.Attribute.Get",
+        "action": "Returns attribute definitions and assigned values for one or more items without multi-table Data.Records.Get joins.",
+        "href": "/inventory/reference/message-types/item-attribute-get/"
+      },
+      {
+        "type": "Item.Attribute.Update",
+        "action": "Changes an existing item↔attribute mapping value and returns before/after.",
+        "href": "/inventory/reference/message-types/item-attribute-update/"
+      },
+      {
+        "type": "Item.AttributeDefinition.Create",
+        "action": "Creates an item attribute definition (and optional option values) independently of any item.",
+        "href": "/inventory/reference/message-types/item-attributedefinition-create/"
+      }
+    ]
+  }
+}

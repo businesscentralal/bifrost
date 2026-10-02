@@ -2,8 +2,8 @@
 id: eula
 slug: /eula
 title: "Terms of Use"
-sidebar_label: "EULA"
-sidebar_position: 90
+sidebar_label: "Terms of Use"
+sidebar_position: 20
 description: "Terms of Use for Origo BC Bifröst and the related Origo BC Agentic Platform."
 ---
 

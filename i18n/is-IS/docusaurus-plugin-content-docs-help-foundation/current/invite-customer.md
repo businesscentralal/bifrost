@@ -18,4 +18,4 @@ Veldu **Í lagi** og staðfestu. Viðskiptavinurinn sér boðið eftir að hann 
 Uppsetning Bifröst. Þegar
 viðskiptavinurinn samþykkir það fer hann á **áskriftarleyfi** og þú rukkar fyrir notkun hans.
 
-Sjá [Að starfa sem samstarfsaðili](/foundation/licensing/partner/#inviting-customers).
+Sjá [Að starfa sem samstarfsaðili](/licensing/partner/#inviting-customers).

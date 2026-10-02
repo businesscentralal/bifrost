@@ -3,7 +3,7 @@ id: privacy
 slug: /privacy
 title: "Persónuverndaryfirlýsing"
 sidebar_label: "Persónuvernd"
-sidebar_position: 91
+sidebar_position: 21
 description: "Hvernig persónuupplýsingar eru unnar þegar Origo veitir Origo BC Bifröst; hlutverk ábyrgðaraðila og vinnsluaðila og lýsing á vinnslu þjónustunnar."
 ---
 

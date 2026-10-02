@@ -14,7 +14,7 @@ operations into a playbook, run it on a schedule, and hear about it when somethi
 
 {/* OPEN-21 */}
 
-*An add-on to [Bifröst Foundation](/foundation/). New to Bifröst? Start with
+*An additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start with
 [How Bifröst works](/documentation/how-it-works/).*
 
 ## What you can do
@@ -56,25 +56,18 @@ and [Playbooks](/help/orchestrator/playbooks/).
 ## Good to know
 
 - **A playbook runs with the permissions of whoever starts it**; a scheduled one, with those of the
-  Job Queue. {/* OPEN-22 */} Every step is logged on **Bifrost Messages** as well as in the
+  user its Job Queue entry runs as. {/* OPEN-22 */} Every step is logged on **Bifrost Messages** as well as in the
   playbook run.
 - **Try a playbook before you schedule it**, in a sandbox, with a case where there is work to do,
   one where there is none, and one with a bad input.
 - **The Telegram bot token** is stored encrypted in Business Central.
 
-## Reference
+## Capabilities and reference
 
-| Area | Message types |
-| --- | --- |
-| Playbooks | `Orchestrator.Playbook.Run`, `Orchestrator.Playbook.Schedule`, `Orchestrator.Playbook.Enqueue`, `Orchestrator.Workspace.Preview` |
-| Scheduled entries | `Orchestrator.Entry.Register`, `Orchestrator.Entry.Run`, `Orchestrator.Entry.Restart`, `Orchestrator.Entry.Schedule` |
-| Status | `Orchestrator.Status.Get`, `Orchestrator.Status.Restart`, `Orchestrator.Status.RestartIfNeeded` |
-| Job Queue | `Orchestrator.JobQueueEntry.Restart`, `Orchestrator.JobQueueEntry.RestartIfNeeded` |
-| Reports | `Orchestrator.Report.List`, `Orchestrator.Report.Get`, `Orchestrator.Report.Run`, `Orchestrator.Report.SaveAs` |
-| Delivery | `Orchestrator.Email.Send`, `Orchestrator.Telegram.Message` |
-| Help | `Help.Orchestrator.Get`, the directory of every type above |
+Capability: **`Orchestrator`**. What each message
+type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [In-product help](/help/orchestrator/)
-- [AppSource user scenarios](./user-scenarios) · [Partner Center listing](./listing)
+- [AppSource listing text](./listing) · [AppSource validation scenarios](./user-scenarios)
 - [What makes a good playbook step](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/Bifrost%20Reference%20Playbooks/README.md), in the partner reference repository

@@ -24,6 +24,11 @@ that does the work. Once it exists, every kind of caller can use it the same way
 MCP hosts, integrations over the API, other AL code, and workflows in
 [Bifrost Orchestrator](/orchestrator/).
 
+Give your app's message types a **capability** of their own, usually one: the first part of their names, such as
+`Calibration` in `Calibration.Certificate.Get`. An agent looks at the capabilities first, so pick one
+that is yours alone, never one another app already uses (`Sales`, `Data`, `Help` …).
+[What a capability is](/documentation/how-it-works/#capabilities-and-message-types)
+
 A plain AL procedure reaches only code that compiles against your app. A message type also gives
 you, from the platform:
 
@@ -55,6 +60,22 @@ Almost everything that makes a good message type follows from these four steps. 
 user's words gets found. A description that says what it changes and how it differs from its
 neighbours gets chosen. Help that is complete gets the first call right. An error that says what
 to do next lets the agent correct itself.
+
+## What a message type says about itself
+
+Every message type carries its own description, in three layers. The agent reads them in this order
+before it calls anything:
+
+| Layer | What it says | For `Customer.CreditLimit.Get` |
+|---|---|---|
+| **The name** | The capability, the thing and what is done to it | Customer · credit limit · get (reads, changes nothing) |
+| **One line** | What it does, so the agent can choose between similar ones | Checks a customer's credit: balance, overdue amount, open orders and what is left |
+| **The help** | What it needs, what it returns and what can go wrong | Which customer and how to name it; the figures that come back; the answer when the customer does not exist |
+
+The help is written by the people who build the app, and it is the same text you can read on this
+site: the [message type reference](/foundation/reference/message-types/), for example
+[`Customer.CreditLimit.Get`](/foundation/reference/message-types/customer-creditlimit-get/). So a new
+message type is usable as soon as its app is installed, set up and permitted.
 
 ## Make it headless first
 

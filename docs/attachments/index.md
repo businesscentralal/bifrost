@@ -7,49 +7,82 @@ slug: /
 description: "Azure Blob Storage, Azure File Share and SharePoint exposed as Bifröst message types for Business Central file operations."
 ---
 
-*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+# Bifröst Attachments
 
-Bifröst Attachments connects Business Central to cloud storage. It builds on Bifröst Foundation and exposes the standard Business Central External File Storage connectors — Azure Blob Storage, Azure File Share and SharePoint — as message types, so an external caller, an MCP client or a Business Central process can read and write files through the same queue, task and data pattern used by the rest of Bifröst.
+**Keep your Business Central files in cloud storage, and reach them from any process.** Read,
+write and attach files in Azure Blob Storage, Azure File Share or SharePoint, and move attachments
+out of the database without losing them.
 
-## What it does
+Other systems, assistants and Business Central processes all use the same storage connections, set
+up once by an administrator.
 
-- **File operations** — list, download, upload, copy, move, delete and check the existence of files in any configured storage connection.
-- **Directory operations** — list, create, delete and check the existence of directories.
-- **Chunked uploads** — deliver a large file as a sequence of small base64 chunks with session management (begin, append, commit, abort, status), which sidesteps the per-request payload limit.
-- **Attachment offloading** — move the content of a Document Attachment or Incoming Document Attachment out of the database into storage, and restore it on demand. Offloaded content still opens normally in the Business Central client.
-- **Attachment creation** — attach a file that is already in storage to an incoming document, or create a Document Attachment on any record from base64, from storage, or by copying an existing attachment.
-- **Storage connections** — each connection binds a short code to a registered Business Central file account, with an optional base path prepended to every path used through it.
-- **No secrets in this app** — credentials belong to the Business Central connector apps; Attachments only references a registered file account by id.
-- **Self-documenting contract** — `Help.Storage.Get` returns a Markdown catalogue of the module, and every message type answers its own per-type help.
+*An additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start with
+[How Bifröst works](/documentation/how-it-works/).*
 
-## How it works
+## What you can do
 
-1. Install a Business Central file storage connector app — Azure Blob Storage, Azure File Share or SharePoint — and register a file account in it.
-2. Enable HTTP client requests for the extension; the assisted setup *Set up Bifrost Storage* walks through this.
-3. Create a storage connection on **Bifrost Storage Setup**, binding a code to the file account, and confirm it with **Test Connection**.
-4. External systems send Bifröst messages carrying that `storageCode` to target the connection.
-5. All operations route through the standard Business Central External File Storage facade.
+- **Make the database smaller.** Move the content of a document attachment or an incoming
+  document attachment out to storage, and bring it back when needed. Offloaded files still open
+  normally in Business Central.
+- **Work with files and folders.** List, download, upload, copy, move and delete files, and
+  create, list and delete folders, in any storage connection you have set up.
+- **Attach a stored file to a record.** Attach a file already in storage to an incoming document,
+  or add a document attachment to any record, such as a customer, vendor, fixed asset or document,
+  without uploading it again. Incoming documents can then be handled as usual in
+  [Bifröst Foundation](/foundation/).
+- **Send large files.** A file too large for one request can be sent in pieces and put together
+  in storage, or attached straight to a record.
+- **Look up your Data Exchange setup.** Read Data Exchange definitions, Data Exchange types and
+  processed entries. This is read-only: nothing is uploaded or changed.
+- **Choose your storage.** Azure Blob Storage, Azure File Share or SharePoint, through the
+  standard Business Central connector apps.
 
-## Message types
+## Get it
 
-| Domain | Message types |
-| --- | --- |
-| Discovery | `Help.Storage.Get`, `Storage.Account.List` |
-| Files | `Storage.File.List`, `Storage.File.Get`, `Storage.File.Create`, `Storage.File.Delete`, `Storage.File.Copy`, `Storage.File.Move`, `Storage.File.Exists` |
-| Directories | `Storage.Directory.List`, `Storage.Directory.Create`, `Storage.Directory.Delete`, `Storage.Directory.Exists` |
-| Attachments | `Storage.Attachment.Offload`, `Storage.Attachment.Restore`, `Storage.Attachment.CreateLinked`, `Storage.Attachment.CreateForRecord` |
-| Upload | `Storage.Upload.Begin`, `Storage.Upload.Append`, `Storage.Upload.Commit`, `Storage.Upload.Abort`, `Storage.Upload.Status`, `Storage.Upload.CommitToRecord` |
+Install **Bifrost Attachments** next to Bifröst Foundation, from AppSource or through your
+partner. It needs Business Central 28.0 or later, Essentials or Premium, and at least one Business
+Central file storage connector app, for example the Azure Blob Storage Connector by Microsoft.
 
-## Requirements
+## Set it up
 
-- Microsoft Dynamics 365 Business Central 28.0 or later, Essentials or Premium.
-- Bifröst Foundation, available separately on AppSource.
-- At least one Business Central file storage connector app installed and configured, for example the Azure Blob Storage Connector by Microsoft, with a registered file account.
+| Step | What | Who |
+|---|---|---|
+| 1 | Install a file storage connector app (Azure Blob Storage, Azure File Share or SharePoint) and register a file account in it, for example with the **File Account Wizard**. | Business Central administrator |
+| 2 | Allow HTTP client requests for the extension. The assisted setup **Set up Bifrost Attachments** walks you through it. | Business Central administrator |
+| 3 | On **Bifrost Setup**, open **Bifrost Attachments Setup** in the **Apps** group and add a storage connection: a short code, the connector, the file account and, if you want, a base path. Choose **Test Connection**. | Business Central administrator |
+| 4 | Give the people and services that use storage the **`BIFROST Attach ori`** permission set (and `BIFROST DataExch ori` for data exchange). | Business Central administrator |
+| 5 | Send requests that name the storage connection by its code. | Whoever builds the integration |
 
-## Where to go next
+The step-by-step guides are in the in-product help:
+[Attachments setup](/help/attachments/attachments-setup/),
+[Bifrost Storage Setup](/help/attachments/storage-setup/),
+[Storage connection](/help/attachments/storage-card/) and
+[Select File Account](/help/attachments/storage-account-lookup/).
 
+## Good to know
+
+- **It acts as you.** Every call runs with your own Business Central permissions and is logged on
+  **Bifrost Messages**.
+- **No credentials in this app.** Keys and tokens stay in the Business Central connector apps.
+  Bifröst Attachments stores only the file account id and name.
+- **No permission, no access.** A user without `BIFROST Attach ori` gets a permission error,
+  and no data is shown or changed.
+- **A disabled storage connection** rejects every request until it is enabled again.
+- **Unfinished large uploads leave data behind.** Uploads that were never completed or cancelled
+  can be cleared with **Purge Upload Sessions** on Bifrost Attachments Setup.
+
+## Capabilities and reference
+
+Capabilities: **`Storage`** and **`DataExchange`**.
+
+What each message type does, in plain words: [Capabilities](./capabilities).
+
+For developers: every operation goes through the standard Business Central External File Storage
+connectors, and file content travels as base64, in chunks for large files.
+
+- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [In-product help](/help/attachments/)
-- [Message type reference](./reference/message-types/) — the request and response contract for every type, generated from the app itself
-- [AppSource user scenarios](./user-scenarios)
-- [Partner Center listing](./listing)
+- [AppSource listing text](./listing)
+- [AppSource validation scenarios](./user-scenarios)
 - [Build on Bifröst](/extensibility/)
+- Permission sets: `BIFROST Attach ori` (storage) and `BIFROST DataExch ori` (data exchange).

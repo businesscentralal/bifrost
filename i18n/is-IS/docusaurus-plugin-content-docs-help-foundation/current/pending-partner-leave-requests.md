@@ -23,4 +23,4 @@ söluaðila og leyfisstjórnunarheimildar.
 | **Staðfesta** | Samþykkir beiðnina. Samstarfsaðilanum er sagt upp við næstu samstillingu hans og hver viðskiptavinur hans fer aftur á fyrirframgreitt leyfi við sína næstu samstillingu. |
 | **Hafna** | Hafnar beiðninni með [ástæðu](/help/foundation/cancel-reason/). Samstarfsaðilinn sér hana eftir næstu samstillingu sína og er áfram samstarfsaðili. |
 
-Sjá [Úrsögn og uppsögn](/foundation/licensing/leaving-and-cancelling/).
+Sjá [Úrsögn og uppsögn](/licensing/leaving-and-cancelling/).

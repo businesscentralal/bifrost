@@ -60,6 +60,10 @@ through Bifröst: the envelope, the rules and the mistakes to avoid.
 
 ## Find what a message type does
 
+Message types are grouped into [capabilities](/documentation/how-it-works/#capabilities-and-message-types):
+the first part of the name, `Customer` in `Customer.CreditLimit.Get`. In the MCP server's tools a
+capability is called a *domain* (`list_domains`, `describe_domains`).
+
 The catalogue is live: an agent or system asks Bifröst which message types exist
 (`Help.MessageTypes.Get`) and reads each one's contract (`Help.Implementation.Get`). That answer is
 always current for your environment.
@@ -77,7 +81,7 @@ Two to start with:
 
 An integration's calls count in the **App Registration** pool, apart from people's calls. What
 counts as a message: [Usage and limits](/documentation/end-customers/administrators/#usage-and-limits).
-See also [Licensing](/foundation/licensing/).
+See also [Licensing](/licensing/).
 
 ## Add your own message types
 

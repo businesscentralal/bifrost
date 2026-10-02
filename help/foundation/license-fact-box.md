@@ -11,7 +11,7 @@ status of the current tenant and company. It is shown to users with licence admi
 
 | Field | Description |
 | --- | --- |
-| **License type** | **Prepaid** or **Subscription**. A tenant is on Subscription while it is the Customer of a Bifröst Partner. See [License types](/foundation/licensing/license-types/). |
+| **License type** | **Prepaid** or **Subscription**. A tenant is on Subscription while it is the Customer of a Bifröst Partner. See [License types](/licensing/license-types/). |
 | **Tenant Id Hash** | The one-way hash of your Microsoft Entra tenant ID that identifies your tenant to the licensing service. |
 | **User Licenses** | The remaining messages in the User pool and whether User calls are currently allowed (**Valid**). |
 | **App Registration Licenses** | The remaining messages in the App Registration pool and whether calls from Microsoft Entra applications are currently allowed. |

@@ -54,7 +54,7 @@ Call `Help.MessageTypes.Get` for the registered catalogue, or ask any single mes
 2. Install and activate **Bifröst Foundation**.
 3. Install **Bifröst Subscription Billing**.
 4. Assign the permission set **Bifrost Sub. Billing** (`BIFROST SubBil ori`) to the calling user or service, in addition to their Bifröst Foundation permissions.
-5. Send Bifröst messages named `Subscription.<Domain>.<Action>` through the Bifröst queue.
+5. Send Bifröst messages named `Subscription.<Entity>.<Action>` through the Bifröst queue.
 6. Review the results in Microsoft's own Subscription Billing pages.
 
 ## Learn More

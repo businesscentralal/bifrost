@@ -44,14 +44,14 @@ export default function PlatformMap(): ReactNode {
       <div className={styles.arrow} aria-hidden="true">↑</div>
 
       <div className={styles.rowLabel}>
-        <Translate id="platformMap.add">Who adds message types</Translate>
+        <Translate id="platformMap.add">Who adds capabilities</Translate>
       </div>
       <div className={styles.row}>
         <Link className={styles.builtin} to="/foundation/message-types/">
           <strong><Translate id="platformMap.builtin">Built into Foundation</Translate></strong>
           <span>
             <Translate id="platformMap.builtinBody">
-              Sales, purchase, finance, inventory, projects, data and more
+              Customer, Sales, Purchase, Finance, Inventory, Projects, Data and more
             </Translate>
           </span>
         </Link>
@@ -68,7 +68,7 @@ export default function PlatformMap(): ReactNode {
       </div>
       <figcaption className={styles.caption}>
         <Translate id="platformMap.caption">
-          Every app adds its own message types to the same catalogue, so every caller can use them.
+          Every app adds its own capabilities to the same catalogue, so every caller can use them.
         </Translate>
       </figcaption>
     </figure>

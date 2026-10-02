@@ -11,14 +11,14 @@ The **User Setup Editor** allows you to configure per-user settings for the Bifr
 
 | Field | Description |
 | --- | --- |
-| **Charge Type** | Read-only. What this user's messages are charged as: **User**, **App Registration**, and on Subscription **Internal**, **Demo** or **Support**. Set when the user is set up and updated by **Sync** on Bifröst Setup and by the daily usage sync. See [Charge types on Subscription](/foundation/licensing/license-types/#charge-types). |
+| **Charge Type** | Read-only. What this user's messages are charged as: **User**, **App Registration**, and on Subscription **Internal**, **Demo** or **Support**. Set when the user is set up and updated by **Sync** on Bifröst Setup and by the daily usage sync. See [Charge types on Subscription](/licensing/license-types/#charge-types). |
 | **Approval Type** | Whether message sources are accepted automatically or need approval for this user. When approval is required, a new source must be approved on [Approve Session Source](/help/foundation/session-source-approval/) before its messages are accepted. |
 
 ## Monthly Quota
 
 | Field | Description |
 | --- | --- |
-| **User Monthly Message Quota** | The most chargeable messages this user may use in a calendar month, on either license type. `0` means no limit. When it is reached, the user's calls are refused until the next month. Not enforced in a sandbox. Counts every charge type of the user's messages in the month - see [How the monthly quotas are counted](/foundation/licensing/license-types/#how-monthly-quotas-are-counted). |
+| **User Monthly Message Quota** | The most chargeable messages this user may use in a calendar month, on either license type. `0` means no limit. When it is reached, the user's calls are refused until the next month. Not enforced in a sandbox. Counts every charge type of the user's messages in the month - see [How the monthly quotas are counted](/licensing/license-types/#how-monthly-quotas-are-counted). |
 
 ## Linked Records
 
@@ -43,5 +43,5 @@ A custom markdown text that provides additional instructions to the AI model in 
 
 -   [User Setup List](/help/foundation/bifrost-user-setup-list/) – View all user configurations
 -   [Approve Session Source](/help/foundation/session-source-approval/) – Approve a message source for your user
--   [Monthly quotas](/foundation/licensing/license-types/#monthly-quotas) – Company and user monthly quotas
+-   [Monthly quotas](/licensing/license-types/#monthly-quotas) – Company and user monthly quotas
 -   [Bifrost Setup](/help/foundation/bifrost-setup/) – Global extension settings

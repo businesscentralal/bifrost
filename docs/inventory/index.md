@@ -7,48 +7,64 @@ slug: /
 description: "Item Attribute message types on Bifröst Foundation: get, create, update and define attributes without multi-table Data.Records joins."
 ---
 
-*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+# Bifröst Inventory
 
-Bifröst Inventory is a feature app on top of Bifröst Foundation. It publishes first-class **Item Attribute** message types so an external caller, an MCP client or a Business Central process can read and write item attributes through the same queue, task and data pattern used by the rest of Bifröst — without stitching multi-table `Data.Records.Get` joins.
+**Keep item attributes up to date from other systems and assistants.** Read an item's attributes,
+set their values and define new attributes, each in one request.
 
-## What it does
+The results show on the item in Business Central, under the standard item attributes. The app has
+no pages of its own.
 
-- **Read attributes** — `Item.Attribute.Get` returns attribute definitions and assigned values for one or more items, with optional filters and unassigned attributes.
-- **Assign values** — `Item.Attribute.Create` assigns attribute values to an item. Idempotent when the mapping already has the same value; use `overwrite: true` to replace a different value.
-- **Change mappings** — `Item.Attribute.Update` changes an existing item↔attribute mapping and returns before/after values.
-- **Define attributes** — `Item.AttributeDefinition.Create` creates an attribute definition and optional option values independently of any item.
-- **Self-documenting contract** — every message type answers its own Markdown help document (parameters, examples, response shape and errors).
+*An additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start with
+[How Bifröst works](/documentation/how-it-works/).*
 
-## How it works
+## What you can do
 
-1. Install and activate **Bifröst Foundation** (28.0.0.87 or later recommended; app depends on Foundation 28.0.0.0+).
-2. Install **Bifröst Inventory**. Permissions ship as PermissionSetExtensions onto `BIFROST Read ori` / `BIFROST Full ori`.
-3. External systems send Bifröst messages named `Item.Attribute.*` or `Item.AttributeDefinition.Create` through the standard queue → task → data pattern.
-4. Identifier resolution for item-scoped types prefers `subject` (GUID = `Item.SystemId`, otherwise `Item.No.`), then `data.itemNo` / id fields / `tableView`.
+- **See an item's attributes in one go.** Get the attributes and their values for one or more
+  items, and, if you want, the attributes that have no value yet.
+- **Give an item an attribute value.** Setting the same value again changes nothing. Replacing a
+  different value happens only when the request asks for it.
+- **Change a value that is already set.** The answer shows the value before and after the change.
+- **Define a new attribute.** Create an attribute, with its option values, before any item uses it.
+- **Feed catalogue and product data work.** Catalogue sync, enrichment of product information and
+  master-data tasks done by an AI assistant can all use the same requests.
 
-## Message types
+## Get it
 
-| Domain | Message types |
-| --- | --- |
-| Item attributes | `Item.Attribute.Get`, `Item.Attribute.Create`, `Item.Attribute.Update` |
-| Attribute definitions | `Item.AttributeDefinition.Create` |
+Install **Bifrost Inventory** next to Bifröst Foundation, from AppSource or through your partner.
+It needs Business Central 28.0 or later, Essentials or Premium, and Bifröst Foundation 28.0.0.0 or
+later.
 
-| Type | Direction | Purpose |
-|------|-----------|---------|
-| `Item.Attribute.Get` | Outbound | Read attributes/values for items |
-| `Item.Attribute.Create` | Inbound | Assign attribute value to an item |
-| `Item.Attribute.Update` | Inbound | Change an existing mapping |
-| `Item.AttributeDefinition.Create` | Inbound | Create attribute definition (+ options) |
+## Set it up
 
-## Requirements
+| Step | What | Who |
+|---|---|---|
+| 1 | Install and activate Bifröst Foundation, then install Bifröst Inventory. | Business Central administrator |
+| 2 | Make sure the people and services that call it have **`BIFROST Read ori`** or **`BIFROST Full ori`**. Inventory adds its permissions to those sets. | Business Central administrator |
+| 3 | Send item attribute requests, then check the attributes on the item in Business Central. | Whoever builds the integration |
 
-- Microsoft Dynamics 365 Business Central 28.0 or later, Essentials or Premium.
-- **Bifröst Foundation** 28.0.0.0 or later (this app was validated against 28.0.0.87), available separately on AppSource.
-- Object ID ranges: app `10036885–10036934`.
+The in-product help is at [Bifröst Inventory help](/help/inventory/). Platform settings are on
+[Bifrost Setup](/help/foundation/bifrost-setup/) in Bifröst Foundation.
 
-## Where to go next
+## Good to know
 
+- **It acts as you.** Every call runs with your own Business Central permissions and is logged on
+  **Bifrost Messages**.
+- **No new permission sets.** Access follows the Foundation sets `BIFROST Read ori` and
+  `BIFROST Full ori`.
+- **Nothing to open in the client.** The app adds no pages, actions or fields. Attribute values
+  are kept in the standard Business Central item attribute tables and show on the item.
+- **An item is named** by its system id or its item number.
+
+## Capabilities and reference
+
+Capability: **`Item`**. Bifröst Inventory adds its four message types to the `Item` capability that
+Bifröst Foundation already has.
+
+What each message type does, in plain words: [Capabilities](./capabilities).
+
+- [Message type reference](./reference/message-types/): the contract of every type, from the app's help codeunits
 - [In-product help](/help/inventory/)
-- [Message type reference](./reference/message-types/) — the request and response contract for every type, from the app's help codeunits
-- [Partner Center listing](./listing)
+- [AppSource listing text](./listing)
 - [Build on Bifröst](/extensibility/)
+- Permission sets: `BIFROST Read ori` or `BIFROST Full ori`, from Bifröst Foundation, extended by this app.

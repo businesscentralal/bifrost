@@ -7,7 +7,7 @@ sidebar_position: 7
 Þessi síða lýsir samningnum sem kallandi sér: hvaða köll eru talin, villunum sem kalli getur verið
 hafnað með, viðvörununum sem árangursríkt svar getur borið og gögnum leyfisstöðunnar. Um sjálft
 leyfislíkanið - fyrirframgreitt leyfi og áskrift, prufuleyfið, hlutverk söluaðila, samstarfsaðila
-og viðskiptavinar og hver rukkar hvern - sjá [Leyfi og samstarfsáætlun](/foundation/licensing).
+og viðskiptavinar og hver rukkar hvern - sjá [Leyfi og samstarfsáætlun](/licensing/).
 
 ## Hvað er talið
 
@@ -85,7 +85,7 @@ almanaksmánuði. Kvóti notanda er athugaður á undan kvóta fyrirtækis.
 
 Talið er út frá gjaldskyldum skilaboðum almanaksmánaðarins í **Bifröst-skilaboðum** fyrirtækisins;
 skil á notkun lækka ekki töluna. Í áskrift telur
-kvóti fyrirtækis ekki forritsskráningarskilaboð; kvóti notanda telur öll skilaboð notandans. Sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/foundation/licensing/license-types/#how-monthly-quotas-are-counted).
+kvóti fyrirtækis ekki forritsskráningarskilaboð; kvóti notanda telur öll skilaboð notandans. Sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/licensing/license-types/#how-monthly-quotas-are-counted).
 
 ## Viðvaranir {#warnings}
 
@@ -117,7 +117,7 @@ Notkun er tilkynnt til leyfisþjónustunnar einu sinni á dag **fyrir hvert fyri
 gjaldskyldu skilaboð dagsins setja af stað bakgrunnsverk sem tilkynnir gjaldskyld skilaboð hvers
 liðins dags eftir potti og endurnýjar eftirstöðvarnar í skyndiminni. **Samstilla** á síðunni
 Uppsetning Bifröst gerir það sama strax, að meðtöldum skilaboðum dagsins, og virkjar auk þess boð og
-uppsagnir - sjá [Úrsögn og uppsögn](/foundation/licensing/leaving-and-cancelling/). Notkun er
+uppsagnir - sjá [Úrsögn og uppsögn](/licensing/leaving-and-cancelling/). Notkun er
 tilkynnt eftir **tætigildi fyrirtækis** undir **tætigildi leigjanda**.
 
 ## Staða skoðuð {#checking-status}

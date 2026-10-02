@@ -7,60 +7,78 @@ slug: /
 description: "Microsoft's Subscription Billing app made callable — 22 Bifröst message types for contracts, the billing pipeline, usage data, deferrals and migration."
 ---
 
-*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+# Bifröst Subscription Billing
 
-Bifröst Subscription Billing makes Microsoft's **Subscription Billing** app callable from outside Business Central. It builds on Bifröst Foundation and adds message types covering the operations that live behind a page action — applying a subscription package, attaching lines to a contract, running a billing proposal, releasing deferrals — so an integration, an automation job or an MCP client can drive recurring billing end to end without a person clicking through the client.
+**Run recurring billing without clicking through every contract.** Bifröst Subscription Billing lets
+an integration, a scheduled routine or an assistant do the work that sits behind the action buttons
+in Microsoft's **Subscription Billing** app.
 
-Subscription Billing models recurring revenue well, but a generic record API reads and writes subscription records and then stops at the first button. This extension publishes one message type per operation that genuinely needs more than a record write: a Microsoft codeunit, record context at insert time, a stored view filter, or a preview-and-rollback run. Anything a plain read or a plain insert already covers is deliberately left to Foundation's `Data.Records.Get` and `Data.Records.Set`.
+It calls Microsoft's own Subscription Billing logic and reimplements none of it. The results appear
+in the standard Subscription Billing pages, so you review them where you always do.
 
-## What it does
+*An additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start with
+[How Bifröst works](/documentation/how-it-works/).*
 
-- **Subscription lines** — apply a Subscription Package to a Subscription and let Microsoft's own derivation logic compute prices, billing rhythms and dates for each new line.
-- **Customer and vendor contracts** — attach unassigned Subscription Lines to a contract, and bill a single contract to an unposted sales or purchase invoice.
-- **Billing pipeline** — build billing proposal lines for a Billing Template and date range, then turn the proposal into documents in one bulk run, grouped per contract or per customer.
-- **Preview without writing** — see exactly what a customer, vendor or bulk billing run would produce. The work is performed against real data so the numbers are true, then everything built for the preview is removed again.
-- **Usage-based billing** — deliver a usage file as data rather than through a file dialog, and advance it through Microsoft's own processing stages.
-- **Deferrals, analysis and migration** — release deferred revenue and cost to the general ledger, rebuild contract analysis entries, and turn staged import rows into real subscriptions and contracts.
-- **Nothing is ever deleted** — there are no `*.Delete` message types. Ending a subscription is an end date or a closed flag, not a hard delete.
-- **Self-documenting contract** — every message type answers its own Markdown help document, listing its parameters, a worked example, the response shape, the errors it raises and what it is safe to do.
+## What you can do
 
-## How it works
+- **Put subscriptions on contracts.** Apply a subscription package to a subscription, and attach
+  its lines to a customer or vendor contract. Microsoft's own rules work out the prices, billing
+  rhythms and dates.
+- **Bill a contract or a whole run.** Bill one contract to an unposted invoice, or build a billing
+  proposal for a billing template and turn it into documents in one run.
+- **See the result before you bill.** Preview what a contract or a billing run would produce, with
+  real figures, without keeping anything.
+- **Bill for usage.** Deliver a usage file as data and move it through Microsoft's processing
+  stages.
+- **Close the period.** Release deferred revenue and cost to the general ledger, rebuild contract
+  analysis entries, extend a subscription onto a new contract, or create a renewal sales quote.
+- **Move subscriptions in.** Turn staged import rows into real subscriptions and contracts.
 
-1. Install Microsoft's **Subscription Billing** app and run its assisted setup, so Subscription Contract Setup, number series and at least one Billing Template exist.
-2. Install **Bifröst Foundation** and activate it.
-3. Install **Bifröst Subscription Billing** and assign the permission set **Bifrost Sub. Billing** (`BIFROST SubBil ori`) alongside the caller's Foundation permissions.
-4. External systems send Bifröst messages named `Subscription.<Domain>.<Action>` through the same queue, task and data pattern used by the rest of Bifröst.
-5. Every write runs inside a shared isolated-transaction wrapper, so a failure partway through rolls back cleanly and returns a structured error rather than leaving half-written records — with the documented exceptions noted in the [message type guide](./message-types).
+Schedule the monthly billing proposal and document creation as a playbook in
+[Bifröst Orchestrator](/orchestrator/), and deal only with the exceptions.
 
-## Message types
+## Get it
 
-| Domain | Message types |
-| --- | --- |
-| Subscription lines | `Subscription.Line.Create` |
-| Customer contracts | `Subscription.Contract.GetLines`, `Subscription.Contract.CreateInvoice`, `Subscription.Contract.PreviewInvoice`, `Subscription.Contract.UpdateLineDates`, `Subscription.Contract.UpdateExchangeRates` |
-| Vendor contracts | `Subscription.VendorContract.GetLines`, `Subscription.VendorContract.CreateInvoice`, `Subscription.VendorContract.PreviewInvoice` |
-| Billing pipeline | `Subscription.Billing.CreateProposal`, `Subscription.Billing.CreateDocuments`, `Subscription.Billing.PreviewDocuments` |
-| Price updates | `Subscription.PriceUpdate.SetTemplateFilter`, `Subscription.PriceUpdate.CreateProposal`, `Subscription.PriceUpdate.Perform` |
-| Renewal | `Subscription.Renewal.Extend`, `Subscription.Renewal.CreateQuote` |
-| Usage | `Subscription.Usage.ImportData`, `Subscription.Usage.Process` |
-| Deferrals | `Subscription.Deferral.Release` |
-| Analysis | `Subscription.Analysis.Recalculate` |
-| Import | `Subscription.Import.CreateContracts` |
+Install **Bifrost Subscription Billing** next to Bifröst Foundation, from AppSource or through your
+partner. It needs Business Central 28.0 or later, Essentials or Premium, and Microsoft's
+**Subscription Billing** app installed and set up.
 
-Four of these — `Subscription.Contract.UpdateLineDates`, `Subscription.Contract.UpdateExchangeRates`, `Subscription.PriceUpdate.CreateProposal` and `Subscription.PriceUpdate.Perform` — are registered and discoverable but return a structured error instead of running, because Microsoft has not exposed a public API for the underlying operation. Each one names the procedure that would need to become public and points at the client action that does the job today. See the [message type guide](./message-types).
+## Set it up
 
-## Requirements
+| Step | What | Who |
+|---|---|---|
+| 1 | Install Microsoft's **Subscription Billing** app and run its assisted setup, so Subscription Contract Setup, number series and at least one Billing Template exist. | Business Central administrator |
+| 2 | Complete the posting setup Subscription Billing needs before billing and deferrals can post: General Posting Setup, VAT Posting Setup, Source Code Setup and the deferral release journal. | Business Central administrator or partner |
+| 3 | Install **Bifrost Subscription Billing** next to Bifröst Foundation. | Business Central administrator |
+| 4 | Give each user or service that calls it the **Bifrost Sub. Billing** (`BIFROST SubBil ori`) permission set, next to their Foundation permissions. | Business Central administrator |
 
-- Microsoft Dynamics 365 Business Central 28.0 or later, Essentials or Premium.
-- Microsoft's **Subscription Billing** app installed and set up. This extension calls Microsoft's own codeunits and reports; it does not reimplement any of their logic.
-- **Bifröst Foundation**, available separately on AppSource.
-- The permission set **Bifrost Sub. Billing** (`BIFROST SubBil ori`) on top of the caller's Foundation permissions. It grants execute rights on this app's objects only; it does not widen access to Subscription Billing tables.
+The app has no pages of its own. The in-product help explains where its results appear:
+[Bifröst Subscription Billing help](/help/subscription-billing/).
 
-## Where to go next
+## Good to know
 
-- [Message type guide](./message-types) — the shared request and response contract, what each type does, and the limitations worth knowing before you call one
-- [Message type reference](./reference/message-types/) — the request and response contract for every type, generated from the app itself
+- **It acts as you.** The permission set lets a user run this app's operations only. It
+  does not widen access to Subscription Billing data; the user's own permissions still apply.
+- **Nothing is deleted.** Ending a subscription is an end date or a closed flag. If a step fails,
+  the work is rolled back and a clear error comes back, except in the bulk billing, usage
+  processing and import runs, which keep what was done before the failure and say so.
+- **Some operations are not available yet.** Updating contract line dates, updating exchange rates
+  and the price update proposal and run are listed but return an error, because Microsoft has not
+  made the underlying function public. Use the matching action in Business Central instead.
+- **Deferral release posts to the general ledger, for every contract, up to the work date.** The
+  date cannot be passed in from outside. Check the work date before you run it in production.
+- **A contract is billed once until its last document is posted.** Vendor invoices are always
+  created unposted, and no external service or credential is involved: everything runs inside
+  Business Central.
+
+## Capabilities and reference
+
+Capability: **`Subscription`**.
+
+What each message type does, in plain words: [Capabilities](./capabilities).
+
+- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
+- [Message type guide](./message-types): the shared request and response contract, and the limitations in full
 - [In-product help](/help/subscription-billing/)
-- [AppSource user scenarios](./user-scenarios)
-- [Partner Center listing](./listing)
-- [Build on Bifröst](/extensibility/)
+- [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
+- Permission set: **Bifrost Sub. Billing** (`BIFROST SubBil ori`), on top of the caller's Foundation permissions.

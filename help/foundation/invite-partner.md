@@ -17,4 +17,4 @@ Choose **OK** and confirm. The tenant must already have installed Bifröst and a
 Partner sees the invitation as the *Register as Partner* notification after it chooses **Sync** on
 its Bifröst Setup page.
 
-See [Working as a Vendor](/foundation/licensing/vendor/#inviting-partners).
+See [Working as a Vendor](/licensing/vendor/#inviting-partners).

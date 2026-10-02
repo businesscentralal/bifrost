@@ -7,55 +7,89 @@ slug: /
 description: "Icelandic bank integrations as Bifröst message types: Landsbankinn, Arion, Íslandsbanki, Kvika and Sparisjóðir on a shared IOBS SOAP signer framework."
 ---
 
-*Part of Bifröst. New here? Start with [How Bifröst works](/documentation/how-it-works/) or [Set it up](/setup/).*
+# Bifröst Iceland Treasury
 
-Bifröst Iceland Treasury connects Business Central to the Icelandic banks. It builds on Bifröst Foundation and exposes claims, payments, statements, accounts, cards, currency rates and electronic documents as message types, so an external caller, an MCP client or a Business Central process reaches every bank through the same queue, task and data pattern used by the rest of Bifröst.
+**Your Icelandic banks, inside Business Central.** Fetch statements, send payments and manage
+claims (*kröfur*) at Landsbankinn, Arion banki, Íslandsbanki, Kvika banki and Sparisjóðir without
+leaving Business Central.
 
-Underneath sits **Draupnir**, the IOBS (Icelandic Online Banking Standard, *Sambankaskema*) signer framework. Every bank module builds its WS-Security signed SOAP envelopes through the same interface, so a new bank connector inherits the transport rather than re-implementing it.
+Each bank works the same way through Bifröst, so a routine, an integration or an assistant reaches
+every bank in the same way. You set up only the banks you use.
 
-## Modules
+*An additional app on [Bifröst Foundation](/foundation/), for companies in Iceland. New to Bifröst? Start
+with [How Bifröst works](/documentation/how-it-works/).*
 
-| Module | What it covers |
-| --- | --- |
-| **Draupnir** | The IOBS SOAP signer framework — five signing profiles behind one interface. Not a bank connector itself. |
-| **Landsbankinn** | Claims and claim batches, claim templates, cards and card ledger keys, accounts, portfolios and assets, currency and interest rates, electronic documents, acquiring settlement, domestic and foreign payments, and bank statement import and reconciliation. |
-| **Arion** | Account, statement, bill and credit-card queries, claims and claim batches (*innheimtukröfur*), domestic and foreign payments, foreign statements, currency rates, electronic document upload and bank statement reconciliation. |
-| **Íslandsbanki** | Message types over the B2B SOAP services: account statement, currency rates, account verification, unpaid invoices, payment batches, debit-card transfer, claims, *milliinnheimta*, foreign payments, presentment-file upload and securities transaction history. |
-| **Kvika banki** | Message types over the Kvika netbanki IOBS services: claim query and the asynchronous batch operations, account statement, currency rates, payment batch and payment result batch. |
-| **Sparisjóðir** | Message types over the Sparisjóður Sambankaskema 2013 services: statements, claims and asynchronous claim batches, payments, currency rates, accounts, bills, credit cards and the request-log reader, plus statement import into Bank Acc. Reconciliation through a Data Exchange definition. |
+## What you can do
 
-Each module has its own domain help codeunits, so `Help.Implementation.Get` answers for every message type with its exact request and response contract.
+- **Import bank statements into a reconciliation.** At Landsbankinn, Arion banki and Sparisjóðir a
+  statement imports straight into **Bank Acc. Reconciliation**, and you see a summary of the lines
+  and balances. Landsbankinn and Arion banki can import card transactions the same way.
+- **Read statements, accounts and balances.** Read account statements at every bank, and look up
+  or verify accounts. Landsbankinn also gives end-of-day balances, and Íslandsbanki securities
+  transaction history.
+- **Send payments.** Submit domestic payment batches at every bank and collect the result.
+  Landsbankinn, Arion banki and Íslandsbanki also take foreign payments.
+- **Create and follow up claims (*kröfur*).** Create and cancel claims, change them where the bank
+  allows it, and see the payments received against them.
+- **Work with cards, documents and rates.** Card transactions and ledger keys at Landsbankinn,
+  credit cards at Arion banki and Sparisjóðir, electronic documents at Landsbankinn and Arion
+  banki, and currency rates at every bank.
+- **Reconcile on a schedule.** Treasury fetches the statement and Foundation's bank reconciliation
+  matches it. With [Orchestrator](/orchestrator/) the same routine runs by itself, for example
+  every morning, and tells you what did not match. See
+  [What it covers, and how it grows](/documentation/how-it-works/#what-it-covers-and-how-it-grows).
 
-## How it works
+## Get it
 
-1. Install Bifröst Foundation, then Bifröst Iceland Treasury.
-2. Enable outgoing HTTP client requests for the extension.
-3. Configure the banks the company uses from the **Bifrost Setup** page. Certificates and credentials are registered with Foundation's shared secret store and never land in a table.
-4. Callers send Bifröst messages naming a bank message type; Draupnir signs the envelope and the module talks to the bank.
+Install **Bifrost Iceland Treasury** next to Bifröst Foundation, from AppSource or through your
+partner. It needs Business Central 28.0 or later, Essentials or Premium.
 
-## Asynchronous batch operations
+## Set it up
 
-Claim batch operations at Kvika, Sparisjóðir and Íslandsbanki are asynchronous: the bank returns an operation id and the result is collected afterwards with `getOperationResult`. A caller submits the batch, keeps the operation id and polls — it does not block waiting for the bank.
+| Step | What | Who |
+|---|---|---|
+| 1 | Make an agreement with each bank for the services you use, and get the user name, password and certificates or keys it issues. | Finance, with the bank |
+| 2 | Allow outbound HTTP for Bifröst apps, once, in Foundation's **Bifrost Setup Wizard**. | Business Central administrator |
+| 3 | Run **Set up Bifrost Iceland Treasury banks** from **Assisted Setup**. One wizard covers all five banks; enter the company user name and secrets for the banks you use. | Business Central administrator |
+| 4 | For claims at Landsbankinn, Arion banki or Sparisjóðir, set the bank's claim identifier on the Payment Method. For statement import, choose the bank's import format on the Business Central bank account. | Business Central administrator |
+| 5 | Give each user or service the permission sets for what they may do at the bank. Users who sign in as themselves enter their own bank credentials. | Business Central administrator, then each user |
 
-## Permission sets
+The step-by-step guides are in the in-product help:
+[Treasury Setup Wizard](/help/iceland-treasury/treasury-setup-wizard/),
+[Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/),
+[Bank secrets](/help/iceland-treasury/treasury-secrets/),
+[Bank credentials for your user](/help/iceland-treasury/bank-user-setup/) and
+[Payment Methods](/help/iceland-treasury/payment-methods/).
 
-Money- and state-moving message types sit behind gate tables, one permission set per gate, so a caller can be granted statement reads without being granted payment execution. Each module also ships a full set that extends Foundation's `BIFROST Full ori` — `BIFROST IBFull ori`, `BIFROST KVFull ori`, `BIFROST SPFull ori` and the Landsbankinn and Arion equivalents — and Sparisjóðir adds a read-only claims set that extends `BIFROST Read ori`.
+What each bank needs and covers, per bank: [Landsbankinn](./banks/landsbankinn),
+[Arion banki](./banks/arion), [Íslandsbanki](./banks/islandsbanki), [Kvika banki](./banks/kvika)
+and [Sparisjóðir](./banks/sparisjodir).
 
-## Replacing the published apps
+## Good to know
 
-Iceland Treasury is the successor of five published or per-tenant Cloud Events apps: *Origo Cloud Events Landsbankinn*, *Origo Cloud Events Arionbanki*, and the per-tenant *Cloud Events Íslandsbanki*, *Cloud Events Kvika banki* and *Cloud Events Sparisjóðir*. Each module has its own install codeunit that takes the predecessor's data over on first install while both apps are installed side by side, including the fields that live on shared base tables and the existing permission-set assignments.
+- **It acts as you.** A call uses the user's own bank credentials if they have set them, and
+  the company defaults otherwise. Every call is logged.
+- **Passwords, certificates and keys** are entered in masked dialogs and stored in Business
+  Central's Isolated Storage. They are never written to a table or shown in a response. The setup
+  page shows certificate details, so you can see when one needs renewing.
+- **Payments and claims move money.** They sit behind their own permission sets, so a user can be
+  allowed to read statements without being allowed to pay. Try them in a test company first.
+- **Requests are signed.** Landsbankinn, Arion banki, Kvika banki and Sparisjóðir sign each request
+  with a client certificate, through Draupnir. Íslandsbanki uses a user name and password only.
+- **Moving from the earlier Cloud Events bank apps?** Data is taken over on install, but stored
+  passwords and certificates do not carry over. Enter them again after the switch.
 
-Stored credentials do **not** carry over — Isolated Storage is scoped per extension, and the successor is a new app. Certificates and passwords are entered again after the switch.
+## Capabilities and reference
 
-## Requirements
+Capabilities: **`Landsbankinn`**, **`Arionbanki`**, **`Islandsbanki`**, **`Sparisjodir`** and
+**`Kvikabanki`**, one per bank.
 
-- Microsoft Dynamics 365 Business Central 28.0 or later, Essentials or Premium.
-- Bifröst Foundation, available separately on AppSource.
-- An agreement with the bank for the services in use, and the certificates and credentials it issues.
-- Outgoing HTTP client requests enabled for the extension.
+What each message type does, in plain words: [Capabilities](./capabilities).
 
-## Where to go next
-
+- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
+- [Draupnir signers](./reference/draupnir-signers): how requests to the banks are signed
 - [In-product help](/help/iceland-treasury/)
-- [Message type reference](./reference/message-types/) — the request and response contract for every type, generated from the app itself
-- [Build on Bifröst](/extensibility/)
+- [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
+- Permission sets: one per area that reads or moves money at each bank, listed on each bank page.
+  A full set per bank extends Foundation's `BIFROST Full ori`, for example `BIFROST LBFull ori`
+  for Landsbankinn.

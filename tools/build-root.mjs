@@ -176,16 +176,38 @@ const site = `${SITE_URL}${BASE_URL}`;
 const en = `${site}en-us/`;
 
 const appSections = [
-  ['foundation', 'Bifröst Foundation — the kernel every other app depends on'],
-  ['iceland', 'Bifröst Iceland — Icelandic ERP message types'],
-  ['iceland-treasury', 'Bifröst Iceland Treasury — Icelandic bank connectors and payments'],
-  ['iceland-docex', 'Bifröst Iceland DocEx — electronic document exchange (Peppol/BIS 3.0)'],
-  ['language-models', 'Bifröst Language Models — chat and language model providers'],
-  ['attachments', 'Bifröst Attachments — Azure Blob, Azure File Share and SharePoint storage'],
-  ['orchestrator', 'Bifröst Orchestrator — job queue scheduling and declarative playbooks'],
-  ['timesheets', 'Bifröst Timesheets — time tracking'],
-  ['subscription-billing', 'Bifröst Subscription Billing — recurring billing'],
+  ['foundation', 'Bifröst Foundation (the base app, always installed) — the standard Business Central capabilities'],
+  ['language-models', 'Bifröst Language Models (additional app) — chat in Business Central and language model providers'],
+  ['attachments', 'Bifröst Attachments (additional app) — Azure Blob, Azure File Share and SharePoint storage'],
+  ['orchestrator', 'Bifröst Orchestrator (additional app) — job queue supervision and playbooks that chain message types from any app'],
+  ['timesheets', 'Bifröst Timesheets (additional app) — time tracking'],
+  ['subscription-billing', 'Bifröst Subscription Billing (additional app) — recurring billing'],
+  ['inventory', 'Bifröst Inventory (additional app) — item attributes'],
+  ['iceland', 'Bifröst Iceland (additional app for Iceland) — Icelandic ERP message types'],
+  ['iceland-treasury', 'Bifröst Iceland Treasury (additional app for Iceland) — Icelandic bank connectors and payments'],
+  ['iceland-docex', 'Bifröst Iceland DocEx (additional app for Iceland) — electronic document exchange (Peppol/BIS 3.0)'],
 ];
+
+/**
+ * The capabilities of each app: the first part of the names of its message types, read off the
+ * generated reference pages so the list follows the apps without anyone editing it. The `Help`
+ * capability (the directory types) is left out; every app has one.
+ */
+async function capabilitiesOf(id) {
+  const dir = path.join(root, 'docs', id, 'reference', 'message-types');
+  if (!(await exists(dir))) return [];
+  const found = new Set();
+  for (const file of (await readdir(dir)).filter((name) => name.endsWith('.md'))) {
+    const title = (await readFile(path.join(dir, file), 'utf8')).match(/^title:\s*"?([^"\r\n]+)/m)?.[1];
+    const capability = title?.split('.')[0];
+    if (capability && capability !== 'Help' && /^[A-Za-z]+$/.test(capability)) found.add(capability);
+  }
+  return [...found].sort();
+}
+
+const appCapabilities = Object.fromEntries(
+  await Promise.all(appSections.map(async ([id]) => [id, await capabilitiesOf(id)])),
+);
 
 /**
  * The skills, read off disk so a new reference file or a new app skill reaches
@@ -237,6 +259,18 @@ const llms = [
        'Icelandic (`/is-is/`). The paths below are the English ones.']
     : ['This site holds all public documentation for those apps, in English (`/en-us/`).']),
   '',
+  '## Capabilities and apps',
+  '',
+  'A message type is one operation an agent calls, such as `Customer.CreditLimit.Get`. The first',
+  'part of its name is its capability (`Customer`); the MCP server\'s tools call it a domain. An app is',
+  'what a company installs: it adds capabilities, or more message types to one that exists.',
+  'Foundation is always installed and brings the standard Business Central capabilities.',
+  '',
+  'If a user asks for something no installed message type does, check which app below has the',
+  'capability and tell the user to install it. If no app has it, say it does not exist yet and',
+  'suggest their Business Central partner or Origo, or building it (see Building on Bifröst).',
+  `Explained for people: ${en}documentation/how-it-works/#capabilities-and-message-types`,
+  '',
   '## Skills',
   '',
   'A skill is a short SKILL.md — the mental model, the hard rules and an index — with',
@@ -271,7 +305,10 @@ const llms = [
   '',
   '## Apps',
   '',
-  ...appSections.map(([id, description]) => `- [${description}](${en}${id}/)`),
+  ...appSections.map(([id, description]) =>
+    `- [${description}](${en}${id}/)` +
+    (appCapabilities[id].length ? `. Capabilities: ${appCapabilities[id].join(', ')}` : '')),
+  `- [All apps built on Bifröst, including partners'](${en}apps/) and the machine-readable [apps.json](${site}apps.json)`,
   '',
   '## In-product help',
   '',

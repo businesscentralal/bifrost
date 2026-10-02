@@ -30,4 +30,4 @@ and licence administration permission.
 | **View Usage** | Opens the [usage entries](/help/foundation/license-usage/) of the selected Partner's customers. |
 | **Cancel Partner** | Cancels the selected **Open** Partner, with an optional [reason](/help/foundation/cancel-reason/). On the Partner's next Sync its registration is closed, and every customer of that Partner returns to the Prepaid license on its own next Sync. |
 
-See [Working as a Vendor](/foundation/licensing/vendor/).
+See [Working as a Vendor](/licensing/vendor/).

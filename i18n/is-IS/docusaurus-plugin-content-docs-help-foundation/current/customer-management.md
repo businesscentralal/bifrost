@@ -41,4 +41,4 @@ Reiturinn **Yfirlit** efst á síðunni sýnir hvers viðskiptavinir eru á list
 | **Segja upp viðskiptavini** | Aðeins samstarfsaðilar, á eigin viðskiptavinum. Lýkur samstarfinu við valinn viðskiptavin, með valfrjálsri [ástæðu](/help/foundation/cancel-reason/). Við næstu samstillingu viðskiptavinarins fer hann aftur á fyrirframgreitt leyfi; notkun hans fram að því helst í reikningstölunum þínum. |
 
 Aðeins virkir viðskiptavinir eru sýndir; viðskiptavinur sem hefur verið sagt upp hverfur af síðunni en
-er áfram í skilaboðategundum reikningagerðar fyrir tímabilið. Sjá [Að starfa sem samstarfsaðili](/foundation/licensing/partner/).
+er áfram í skilaboðategundum reikningagerðar fyrir tímabilið. Sjá [Að starfa sem samstarfsaðili](/licensing/partner/).

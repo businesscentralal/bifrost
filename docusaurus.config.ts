@@ -51,7 +51,29 @@ function ensureTrailingSlash(value: string): string {
 }
 
 /** Builds a docs plugin instance with the conventions shared by every section. */
-function docsInstance(id: string, routeBasePath: string, path: string): [string, DocsOptions] {
+/**
+ * An app's sidebar keeps two items on top, Overview and Capabilities, and folds everything else
+ * (message type guides, the generated reference, listing and validation texts) into one collapsed
+ * "For developers and partners" group. The pages and their addresses do not change.
+ */
+const groupAppSidebar: NonNullable<DocsOptions['sidebarItemsGenerator']> = async ({defaultSidebarItemsGenerator, ...args}) => {
+  const items = await defaultSidebarItemsGenerator(args);
+  const top = items.filter((item) => item.type === 'doc' && ['index', 'capabilities'].includes(item.id));
+  const rest = items.filter((item) => !top.includes(item));
+  if (!rest.length) return items;
+  return [
+    ...top,
+    {
+      type: 'category',
+      label: buildLocale === 'is-IS' ? 'Fyrir forritara og samstarfsaðila' : 'For developers and partners',
+      collapsed: true,
+      collapsible: true,
+      items: rest,
+    },
+  ];
+};
+
+function docsInstance(id: string, routeBasePath: string, path: string, isApp = false): [string, DocsOptions] {
   return [
     '@docusaurus/plugin-content-docs',
     {
@@ -60,6 +82,7 @@ function docsInstance(id: string, routeBasePath: string, path: string): [string,
       routeBasePath,
       sidebarPath: './sidebars.ts',
       showLastUpdateTime: true,
+      ...(isApp ? {sidebarItemsGenerator: groupAppSidebar} : {}),
     } satisfies DocsOptions,
   ];
 }
@@ -80,11 +103,16 @@ const routeIdRenames: Array<[fromPrefix: string, toPrefix: string]> = [
   ['/help/hnitbjorg', '/help/attachments'],
   ['/nornir', '/orchestrator'],
   ['/help/nornir', '/help/orchestrator'],
+  ['/cost', '/price'],
+  ['/foundation/licensing', '/licensing'],
   ['/clockify', '/timesheets'],
   ['/help/clockify', '/help/timesheets'],
 ];
 
 const slugRenames: Array<{from: string; to: string}> = [
+  // Licensing, Terms of Use and Privacy moved out of Foundation into their own section.
+  {from: '/foundation/eula', to: '/licensing/eula'},
+  {from: '/foundation/privacy', to: '/licensing/privacy'},
   // Build on Bifröst: the former internal developer pages now live in the partner reference repo.
   {from: '/extensibility/conventions', to: '/extensibility/'},
   {from: '/extensibility/message-types', to: '/extensibility/'},
@@ -107,7 +135,7 @@ function withTrailingSlash(path: string): string {
 }
 
 const docsPlugins = [
-  ...apps.map((app) => docsInstance(app.id, app.id, `docs/${app.id}`)),
+  ...apps.map((app) => docsInstance(app.id, app.id, `docs/${app.id}`, true)),
   ...apps.map((app) => docsInstance(`help-${app.id}`, `help/${app.id}`, `help/${app.id}`)),
   ...crossAppInstances.map((section) => docsInstance(section.id, section.id, `docs/${section.id}`)),
 ];
@@ -131,14 +159,14 @@ function appItems(group: 'base' | 'addon' | 'iceland', to: (app: (typeof apps)[n
 
 /**
  * The Help menu: Foundation first, marked as the base every other app needs,
- * then the add-on apps, then the apps for Iceland, each under a heading.
+ * then the additional apps, then the apps for Iceland, each under a heading.
  */
 function groupedAppItems(to: (app: (typeof apps)[number]) => string) {
   const heading = menuHeading;
   return [
     heading('The base, always installed', 'Grunnurinn, alltaf settur upp'),
     ...appItems('base', to),
-    heading('Add-on apps', 'Viðbætur'),
+    heading('Additional apps', 'Viðbætur'),
     ...appItems('addon', to),
     heading('For Iceland', 'Fyrir Ísland'),
     ...appItems('iceland', to),
@@ -238,9 +266,8 @@ const config: Config = {
     navbar: {
       title: 'Bifröst',
       items: [
-        // Two segments. On the left, the reader's journey: how it works, set it up,
-        // try it, the guide for your role, the cost. On the right, marked as one
-        // group (.navApps), the product: Foundation, the add-on apps and their help.
+        // Left to right: how it works, set it up, try it, the guide for your role, the price,
+        // licensing and terms, and the in-product help. The apps sit on the right.
         {label: buildLocale === 'is-IS' ? 'Hvernig það virkar' : 'How it works', to: '/documentation/how-it-works/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Uppsetning' : 'Set it up', to: '/setup/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/', position: 'left'},
@@ -261,15 +288,24 @@ const config: Config = {
             {label: buildLocale === 'is-IS' ? 'Færni fyrir gervigreind' : 'Skills for AI agents', to: '/skills/'},
           ],
         },
-        {label: buildLocale === 'is-IS' ? 'Verð' : 'Cost', to: '/cost/', position: 'left'},
-        // Foundation is its own chapter: the app every other app needs.
-        {label: 'Foundation', to: '/foundation/', position: 'right', activeBasePath: '/foundation/', className: 'navApps navApps--first'},
+        {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/', position: 'left'},
+        {label: buildLocale === 'is-IS' ? 'Leyfi' : 'Licensing', to: '/licensing/', position: 'left'},
         {
           type: 'dropdown',
-          label: buildLocale === 'is-IS' ? 'Viðbætur' : 'Add-on apps',
+          label: buildLocale === 'is-IS' ? 'Hjálp' : 'Help',
+          position: 'left',
+          items: groupedAppItems((app) => `/help/${app.id}/`),
+        },
+        // On the right, set apart: the apps. Foundation, the base every other app needs, then the
+        // additional apps. The label and the two items share one framed group (.navApps).
+        {type: 'html', position: 'right', value: `<span class="navAppsLabel">${buildLocale === 'is-IS' ? 'Forrit' : 'Apps'}</span>`, className: 'navApps'},
+        {label: 'Foundation', to: '/foundation/', position: 'right', activeBasePath: '/foundation/', className: 'navApps navAppsItem'},
+        {
+          type: 'dropdown',
+          label: buildLocale === 'is-IS' ? 'Viðbætur' : 'Additional apps',
           to: '/apps/',
           position: 'right',
-          className: 'navApps',
+          className: 'navApps navAppsItem',
           items: [
             {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/'},
             menuHeading('Work anywhere', 'Virka alls staðar'),
@@ -277,13 +313,6 @@ const config: Config = {
             menuHeading('For Iceland', 'Fyrir Ísland'),
             ...appItems('iceland', (app) => `/${app.id}/`),
           ],
-        },
-        {
-          type: 'dropdown',
-          label: buildLocale === 'is-IS' ? 'Hjálp' : 'Help',
-          position: 'right',
-          className: 'navApps navApps--last',
-          items: groupedAppItems((app) => `/help/${app.id}/`),
         },
         // The Icelandic site is not offered from the English one until the new chapters are
         // translated; the Icelandic build keeps the switcher so its readers can reach English.
@@ -310,10 +339,10 @@ const config: Config = {
           items: [
             {label: buildLocale === 'is-IS' ? 'Uppsetning' : 'Set it up', to: '/setup/'},
             {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/'},
-            {label: buildLocale === 'is-IS' ? 'Verð' : 'Cost', to: '/cost/'},
-            {label: buildLocale === 'is-IS' ? 'Skjölun' : 'Documentation', to: '/documentation/'},
-            {label: buildLocale === 'is-IS' ? 'Persónuvernd' : 'Privacy', to: '/foundation/privacy/'},
-            {label: buildLocale === 'is-IS' ? 'Notkunarskilmálar' : 'Terms of Use', to: '/foundation/eula/'},
+            {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/'},
+            {label: buildLocale === 'is-IS' ? 'Leiðbeiningar' : 'Guides', to: '/documentation/'},
+            {label: buildLocale === 'is-IS' ? 'Persónuvernd' : 'Privacy', to: '/licensing/privacy/'},
+            {label: buildLocale === 'is-IS' ? 'Notkunarskilmálar' : 'Terms of Use', to: '/licensing/eula/'},
           ],
         },
         {

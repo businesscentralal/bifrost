@@ -42,7 +42,9 @@ themselves, so the assistant works with exactly that user's permissions.
 Add the Bifröst connector from its store. On **Bifrost Setup**, the **Microsoft Copilot** action
 under *Connectors* opens it.
 
-:::note Being written (OPEN-02)
+{/* OPEN-02 */}
+
+:::note Being written
 Step by step, with screenshots.
 :::
 
@@ -51,7 +53,9 @@ Step by step, with screenshots.
 Add the Bifröst connector from its store. On **Bifrost Setup**, the **OpenAI ChatGPT** action under
 *Connectors* opens it.
 
-:::note Being written (OPEN-03)
+{/* OPEN-03 */}
+
+:::note Being written
 Step by step, with screenshots.
 :::
 

@@ -3,7 +3,7 @@ id: index
 title: "Licensing and partner program"
 sidebar_label: "Overview"
 sidebar_position: 1
-slug: /licensing
+slug: /
 description: "How Bifröst is licensed: Prepaid and Subscription, the Vendor, Partner and Customer roles, who invoices whom, and how a tenant moves between them."
 ---
 

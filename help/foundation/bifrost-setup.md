@@ -17,12 +17,12 @@ Every setup notification of the Bifröst family appears here, never on another a
 | _The Bifrost End-User License Agreement has not been approved for this company_ | **Start setup wizard**. Until the agreement is approved, every call for the company is refused. |
 | _Bifrost … license quota is running low_ | Shown when a Prepaid pool has fewer than 1,000 messages left. |
 | _Request Debug Mode is ON_ | A reminder to switch off **Request Debug Mode** after troubleshooting. |
-| _This tenant is eligible to register as a Bifrost Vendor_ | **Register as Vendor** - see [Working as a Vendor](/foundation/licensing/vendor/). |
-| _A Bifrost Vendor has introduced this tenant as a Partner_ | **Register as Partner** - see [Working as a Partner](/foundation/licensing/partner/). |
-| _A Bifrost Partner has invited this tenant as a Customer_ | **Register as Customer** - moves the tenant to the Subscription license. See [Being a Customer](/foundation/licensing/customer/). |
+| _This tenant is eligible to register as a Bifrost Vendor_ | **Register as Vendor** - see [Working as a Vendor](/licensing/vendor/). |
+| _A Bifrost Vendor has introduced this tenant as a Partner_ | **Register as Partner** - see [Working as a Partner](/licensing/partner/). |
+| _A Bifrost Partner has invited this tenant as a Customer_ | **Register as Customer** - moves the tenant to the Subscription license. See [Being a Customer](/licensing/customer/). |
 | _Pending customer / partner leave request(s) are waiting for review_ | Open **Pending Customer Leave Requests** or **Pending Partner Leave Requests**. |
 | _Your leave request was rejected by …_ | Shows the reason the Partner or Vendor gave. |
-| _Your Bifröst Partner relationship has ended_ / _A Bifröst Vendor has cancelled this Partner_ | A cancellation was applied on Sync - see [Leaving and cancelling](/foundation/licensing/leaving-and-cancelling/). |
+| _Your Bifröst Partner relationship has ended_ / _A Bifröst Vendor has cancelled this Partner_ | A cancellation was applied on Sync - see [Leaving and cancelling](/licensing/leaving-and-cancelling/). |
 
 The partner-program notifications are shown only to users with licence administration permission (the `BIFROST LicAdm ori` permission set). There is no notification for missing credentials: a credential that has not been entered disables the message types that need it. Enter credentials from **Secrets** or in the wizard.
 
@@ -39,7 +39,7 @@ The partner-program notifications are shown only to users with licence administr
 | **Export Company Name Type** | Which company name `CSV.Records.Get` and `CSV.DeletedRecords.Get` write to the `$Company` column: **Company Name** (default, stable) or **Company Display Name** (falls back to Company Name when blank). |
 | **Default Email Scenario** | The email scenario used to pick the sending account when a request does not name one. |
 | **Request Debug Mode** | Stores full, unmasked request and response bodies in the [Request Log](/help/foundation/bifrost-request-log/). Use only while troubleshooting. Requires the `BIFROST ReqLgAdm ori` permission set. |
-| **Company Monthly Message Quota** | The most chargeable messages the company may use in a calendar month, on either license type. `0` means no limit. When the quota is reached, calls are refused until the next month. Not enforced in a sandbox. On Subscription it does not count App Registration messages. Counted from the Bifrost Messages of the month, so keep at least 31 days of Bifrost Messages in the retention policy. See [How the monthly quotas are counted](/foundation/licensing/license-types/#how-monthly-quotas-are-counted). |
+| **Company Monthly Message Quota** | The most chargeable messages the company may use in a calendar month, on either license type. `0` means no limit. When the quota is reached, calls are refused until the next month. Not enforced in a sandbox. On Subscription it does not count App Registration messages. Counted from the Bifrost Messages of the month, so keep at least 31 days of Bifrost Messages in the retention policy. See [How the monthly quotas are counted](/licensing/license-types/#how-monthly-quotas-are-counted). |
 
 The **Environment** group (online only) shows the **Environment Name**, **Company Id**, **Azure Tenant Id**, the **Task API Url** and **Queue API Url** of this company, and a **Connection Prompt** you can paste into an AI assistant to connect it to this environment.
 
@@ -62,10 +62,10 @@ The page also lists the **Available Message Types** and, for licence administrat
 | | **License Usage** | The usage entries of your tenant - see [Bifrost Usage Entries](/help/foundation/license-usage/). |
 | | **Configure Rate Limit** | Subscription tenants, production only - see [Configure Rate Limit](/help/foundation/rate-limit-configuration/). |
 | | **Onboard as Vendor** | After a Sync, for a tenant approved as a Vendor that is not registered yet - see [Vendor Onboarding](/help/foundation/vendor-onboarding-wizard/). |
-| | **Partner Management**, **Pending Partner Leave Requests**, **Deregister as Vendor** | Vendors - see [Working as a Vendor](/foundation/licensing/vendor/). |
+| | **Partner Management**, **Pending Partner Leave Requests**, **Deregister as Vendor** | Vendors - see [Working as a Vendor](/licensing/vendor/). |
 | | **Customer Management** | Partners only - see [Customer Management](/help/foundation/customer-management/). |
-| | **Pending Customer Leave Requests**, **Request to Leave Vendor** | Partners - see [Working as a Partner](/foundation/licensing/partner/). |
-| | **Request to Leave Partner** | Customers - see [Being a Customer](/foundation/licensing/customer/). |
+| | **Pending Customer Leave Requests**, **Request to Leave Vendor** | Partners - see [Working as a Partner](/licensing/partner/). |
+| | **Request to Leave Partner** | Customers - see [Being a Customer](/licensing/customer/). |
 | Connectors | **Microsoft Copilot**, **OpenAI ChatGPT** | Open the Bifröst connector in each AI agent store. |
 | Memory | **Memory**, **User Memory** | Company- and user-scoped memory records. |
 | | **Bifrost Translations**, **Bifrost Integration** | Translations and the integration log. |

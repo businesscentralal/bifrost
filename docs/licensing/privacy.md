@@ -3,7 +3,7 @@ id: privacy
 slug: /privacy
 title: "Privacy Statement"
 sidebar_label: "Privacy"
-sidebar_position: 91
+sidebar_position: 21
 description: "How personal data is processed when Origo provides Origo BC Bifröst; controller/processor roles and the service processing description."
 ---
 
