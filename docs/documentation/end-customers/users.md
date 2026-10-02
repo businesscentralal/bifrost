@@ -106,8 +106,6 @@ misunderstand you: say *"show me first"*, and read what it proposes before you s
 
 ## When it says no
 
-{/* OPEN-16 */}
-
 | The assistant says | What it means | Who to ask |
 | --- | --- | --- |
 | The operation is not available | It is switched off in your company, or the app that provides it is not installed. | Your administrator |

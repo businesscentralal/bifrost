@@ -6,7 +6,7 @@
  *
  *   build/index.html   picks a locale from the browser's language list
  *   build/404.html     catches everything else, including unknown locale
- *                      prefixes such as /da-dk/help/orchestrator/
+ *                      prefixes such as /da-dk/help/foundation/
  *   build/apps.json    a locale-agnostic copy of data/apps.json, alongside the
  *                      per-locale /en-us/apps.json and /is-is/apps.json that
  *                      tools/copy-apps-json.mjs publishes via static/
@@ -92,12 +92,12 @@ const chooseLocale = OFFER_ICELANDIC ? `
  * GitHub Pages serves this one 404 for every missing path on the site, so it
  * has to tell two cases apart:
  *
- *   /xx-yy/help/orchestrator/setup/   an unsupported or differently-cased locale —
+ *   /xx-yy/help/foundation/setup/   an unsupported or differently-cased locale —
  *                               rewrite the prefix and keep the rest of the
  *                               path, so a Business Central client asking for
  *                               a locale we do not publish still lands on the
  *                               right help page;
- *   /en-us/orchestrator/typo/         a genuinely missing page inside a locale we do
+ *   /en-us/foundation/typo/         a genuinely missing page inside a locale we do
  *                               publish — leave it alone. Rewriting it would
  *                               produce the same URL and loop forever.
  */

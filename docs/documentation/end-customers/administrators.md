@@ -69,7 +69,7 @@ Two fields on [Bifrost Setup](/help/foundation/bifrost-setup/) deserve a deliber
   trail. It is **Blocked** by default: only fields the change log covers can be written, so turn on
   the change log for the fields you want agents to change.
   It also keeps the general field write narrow when there is no proper operation for a task.
-  {/* OPEN-19 */}
+
   If you use Bifröst with bookkeeping, decide it with that in mind: your bookkeeping obligations
   stay yours, and Bifröst's logs do not replace your own records.
 - **Request Debug Mode** stores full, unmasked request and response bodies in the request log. Turn
@@ -92,7 +92,7 @@ These logs live in your own Business Central:
 :::caution Be aware
 - **Retention is yours to set.** Use **Retention Policies** on Bifrost Setup. **Bifrost Messages has
   no retention period until you set one**, so messages are kept until you do.
-- **Keep at least 31 days** of Bifrost Messages if you use monthly message quotas. {/* OPEN-14 */}
+- **Keep at least 31 days** of Bifrost Messages if you use monthly message quotas.
 - **Access is yours to set.** Anyone with `BIFROST Read ori` or `BIFROST Full ori` can open every
   message on Bifrost Messages, so give those sets only to the people who need them.
 - **These logs are company data.** Include them wherever your own policies on data apply.
@@ -111,8 +111,6 @@ How licensing works, and what happens when a quota runs out: [Licensing](/licens
 Prices: [Price](/price/).
 
 ## Keep an eye on it
-
-{/* OPEN-17 */}
 
 - Look at Bifrost Messages and License Usage now and then.
 - Keep permissions narrow as roles change.

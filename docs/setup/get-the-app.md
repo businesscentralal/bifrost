@@ -24,12 +24,6 @@ Each app depends on Foundation, so Business Central installs Foundation first.
 Bifröst is installed from Microsoft AppSource, from the **Extension Marketplace** in Business
 Central.
 
-{/* OPEN-01 */}
-
-:::note Being written
-Direct links to each app's AppSource listing will be added here and on the [app list](/apps/).
-:::
-
 ## The license
 
 For production, see [Price](/price/).

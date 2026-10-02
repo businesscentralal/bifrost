@@ -12,15 +12,9 @@ type Domain =
   | 'inventory'
   | 'projects'
   | 'hr-payroll'
-  | 'banking'
-  | 'e-documents'
   | 'integration'
   | 'ai'
   | 'documents'
-  | 'scheduling'
-  | 'time-tracking'
-  | 'billing'
-  | 'iceland'
   | 'other';
 
 type Status = 'available' | 'preview' | 'coming-soon';
@@ -55,15 +49,9 @@ const DOMAIN_LABELS: Record<Domain, {en: string; is: string}> = {
   inventory: {en: 'Inventory', is: 'Birgðir'},
   projects: {en: 'Projects', is: 'Verkefni'},
   'hr-payroll': {en: 'HR & payroll', is: 'Mannauður og laun'},
-  banking: {en: 'Banking', is: 'Bankaviðskipti'},
-  'e-documents': {en: 'E-documents', is: 'Rafræn skjöl'},
   integration: {en: 'Integration', is: 'Samþætting'},
   ai: {en: 'AI', is: 'Gervigreind'},
   documents: {en: 'Documents', is: 'Skjöl'},
-  scheduling: {en: 'Scheduling', is: 'Áætlanagerð'},
-  'time-tracking': {en: 'Time tracking', is: 'Tímaskráning'},
-  billing: {en: 'Billing', is: 'Innheimta'},
-  iceland: {en: 'Iceland', is: 'Ísland'},
   other: {en: 'Other', is: 'Annað'},
 };
 

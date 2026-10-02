@@ -31,11 +31,7 @@ The wizard has six steps. Steps 1, 2, 4 and 6 are for you. Step 3, credentials, 
 on-premises. Online, wizard step 5 gives the consent link for [setup step 3](/setup/connect-your-ai/); you can
 finish the wizard first and send the link to your Entra administrator.
 
-{/* OPEN-13 */}
-
 ![The first step of the Bifrost Setup Wizard: what is stored with Origo, and the license agreement. The tenant hash is hidden in this picture.](/img/setup/wizard-1-welcome.png)
-
-![Step 2 of the wizard: outbound HTTP, per installed Bifröst app. Here it is already enabled for both apps.](/img/setup/wizard-2-http.png)
 
 Step by step: [Setup wizard](/help/foundation/bifrost-setup-wizard/).
 
@@ -70,8 +66,6 @@ A typical setup:
 
 On **Permission Sets**, search for *BIFROST* to see them all. For a typical setup you need only the sets named here; the
 others are for particular areas, and each is described on the help page of its area.
-
-![The Bifröst permission sets on the Permission Sets page](/img/setup/permission-sets.png)
 
 Before you assign them, read [Permissions](/documentation/end-customers/administrators/#permissions).
 

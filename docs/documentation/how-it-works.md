@@ -120,10 +120,10 @@ import DataFlow from '@site/src/components/DataFlow';
 
 In more detail:
 
-- **Origo** does not store message contents or your business data, {/* OPEN-07 OPEN-08 OPEN-18 */} and they are not used to train
+- **Origo** does not store message contents or your business data, and they are not used to train
   AI models. Its licensing service keeps your Bifröst configuration (company identification,
   environment name and connection details), usage counts with times and message type names, and a
-  hashed identifier of your tenant; the apps also send it technical diagnostics (telemetry). {/* OPEN-09 */} The
+  hashed identifier of your tenant; the apps also send it technical diagnostics (telemetry). The
   setup wizard shows what the licensing service stores before you accept.
 - **Bifrost Messages** in your Business Central keeps each call with the data it returned, for as
   long as you decide; see [Logs and retention](/documentation/end-customers/administrators/#logs-and-retention).
@@ -147,7 +147,7 @@ has been built for it, and that is a lot:
 | **Change a field** | A narrow, guarded path | A general write can change fields in a record, by default only the fields the change log covers ([ChangeLog Write Guard](/documentation/end-customers/administrators/#the-setup-page)). It does not replace an operation with Business Central's own logic. |
 
 When there is no message type for a task, the assistant cannot do it through Bifröst, and it should
-say so. {/* OPEN-19 */} That is the edge of what is installed, not a fault.
+say so. That is the edge of what is installed, not a fault.
 
 ### Every app moves the edge
 
