@@ -47,7 +47,7 @@ export default function Home(): ReactNode {
       description={translate({
         id: 'home.description',
         message:
-          'Documentation, in-product help and extensibility guidance for the Bifröst family of Business Central extensions by Origo.',
+          'Let AI assistants do real work in Business Central, as you and within your permissions. Documentation for Bifröst by Origo.',
       })}>
       <header className="bifrostHero">
         <p style={{textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '0.85rem', opacity: 0.75, marginBottom: '0.5rem'}}>
@@ -81,6 +81,23 @@ export default function Home(): ReactNode {
       </header>
       <main className="container">
         <h2 style={{marginTop: '2rem'}}>
+          <Translate id="home.examples.title">What it looks like</Translate>
+        </h2>
+        <div className="bifrostGrid" style={{marginBottom: '2.5rem'}}>
+          <Link className="bifrostCard" to="/documentation/how-it-works/#what-happens-when-you-ask">
+            <p><em><Translate id="home.examples.ask1">"How many of item 1896-S can we still promise this week, and where are they?"</Translate></em></p>
+            <p><Translate id="home.examples.do1">The assistant finds the right operation, reads live availability per location and answers with the figures.</Translate></p>
+          </Link>
+          <Link className="bifrostCard" to="/documentation/how-it-works/#what-happens-when-you-ask">
+            <p><em><Translate id="home.examples.ask2">"Turn quote SQ-1042 into an order and show me what posting it would do."</Translate></em></p>
+            <p><Translate id="home.examples.do2">It creates the order and previews the posting, without posting anything, so you see the result first.</Translate></p>
+          </Link>
+          <Link className="bifrostCard" to="/orchestrator/">
+            <p><em><Translate id="home.examples.ask3">"Every Friday, reconcile the bank statements and tell me what didn't match."</Translate></em></p>
+            <p><Translate id="home.examples.do3">A playbook in Orchestrator runs it on schedule and logs every step.</Translate></p>
+          </Link>
+        </div>
+        <h2>
           <Translate id="home.how.title">How it works</Translate>
         </h2>
         <div className="bifrostSteps">
@@ -158,29 +175,12 @@ export default function Home(): ReactNode {
             <span className="bifrostPathCta"><Translate id="home.roles.devs.cta">For developers</Translate> <span aria-hidden="true">→</span></span>
           </Link>
         </div>
-        <h2 style={{marginTop: '2rem'}}>
-          <Translate id="home.examples.title">What it looks like</Translate>
-        </h2>
-        <div className="bifrostGrid" style={{marginBottom: '2.5rem'}}>
-          <Link className="bifrostCard" to="/documentation/how-it-works/#what-happens-when-you-ask">
-            <p><em><Translate id="home.examples.ask1">"How many of item 1896-S can we still promise this week, and where are they?"</Translate></em></p>
-            <p><Translate id="home.examples.do1">The assistant finds the right operation, reads live availability per location and answers with the figures.</Translate></p>
-          </Link>
-          <Link className="bifrostCard" to="/documentation/how-it-works/#what-happens-when-you-ask">
-            <p><em><Translate id="home.examples.ask2">"Turn quote SQ-1042 into an order and show me what posting it would do."</Translate></em></p>
-            <p><Translate id="home.examples.do2">It creates the order and previews the posting, without posting anything, so you see the result first.</Translate></p>
-          </Link>
-          <Link className="bifrostCard" to="/orchestrator/">
-            <p><em><Translate id="home.examples.ask3">"Every Friday, reconcile the bank statements and tell me what didn't match."</Translate></em></p>
-            <p><Translate id="home.examples.do3">A playbook in Orchestrator runs it on schedule and logs every step.</Translate></p>
-          </Link>
-        </div>
         <h2>
           <Translate id="home.apps.title">The apps</Translate>
         </h2>
         <p>
           <Link to="/apps/">
-            <Translate id="home.apps.more">All apps, and how app pages differ from help</Translate> <span aria-hidden="true">→</span>
+            <Translate id="home.apps.more">Add more: banks, electronic invoices, storage, schedules and more</Translate> <span aria-hidden="true">→</span>
           </Link>
         </p>
         <div className="bifrostGrid">

@@ -14,7 +14,7 @@ operations into a playbook, run it on a schedule, and hear about it when somethi
 
 {/* OPEN-21 */}
 
-*An add-on to [Bifröst Foundation](/foundation/). New to Bifröst? Start with
+*An additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start with
 [How Bifröst works](/documentation/how-it-works/).*
 
 ## What you can do
@@ -64,7 +64,7 @@ and [Playbooks](/help/orchestrator/playbooks/).
 
 ## Capabilities and reference
 
-Capability: **`Orchestrator`**. Its directory of types is `Help.Orchestrator.Get`. What each message
+Capability: **`Orchestrator`**. What each message
 type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself

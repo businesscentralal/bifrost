@@ -159,14 +159,14 @@ function appItems(group: 'base' | 'addon' | 'iceland', to: (app: (typeof apps)[n
 
 /**
  * The Help menu: Foundation first, marked as the base every other app needs,
- * then the add-on apps, then the apps for Iceland, each under a heading.
+ * then the additional apps, then the apps for Iceland, each under a heading.
  */
 function groupedAppItems(to: (app: (typeof apps)[number]) => string) {
   const heading = menuHeading;
   return [
     heading('The base, always installed', 'Grunnurinn, alltaf settur upp'),
     ...appItems('base', to),
-    heading('Add-on apps', 'Viðbætur'),
+    heading('Additional apps', 'Viðbætur'),
     ...appItems('addon', to),
     heading('For Iceland', 'Fyrir Ísland'),
     ...appItems('iceland', to),

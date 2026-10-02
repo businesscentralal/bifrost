@@ -16,7 +16,7 @@ Bifröst Iceland connects Business Central to Þjóðskrá through Umsjá, Skatt
 Íslands, Skilagrein, island.is, Já Gagnatorg and the Síminn and Nova SMS gateways. A person, a
 scheduled routine or an assistant can use them the same way as the rest of Bifröst.
 
-*An add-on to [Bifröst Foundation](/foundation/) for companies in Iceland. New to Bifröst? Start
+*An additional app on [Bifröst Foundation](/foundation/), for companies in Iceland. New to Bifröst? Start
 with [How Bifröst works](/documentation/how-it-works/).*
 
 ## What you can do
@@ -63,8 +63,10 @@ The step-by-step guides are in the in-product help:
 
 ## Good to know
 
+- **It acts as you.** Every call runs with your own Business Central permissions and is logged on
+  **Bifrost Messages**.
 - **Each service has its own permission set**, so a user can be allowed to file VAT without being
-  able to send SMS or sync the register. Every call is logged on **Bifrost Messages**.
+  able to send SMS or sync the register.
 - **Credentials** are needed for Umsjá, Skatturinn, Skilagrein, SMS and Já Gagnatorg. They are
   kept in the Bifröst Foundation secret store, never shown again, and masked in the request log.
   Seðlabanki, island.is, holidays and postal codes need none.
@@ -75,9 +77,8 @@ The step-by-step guides are in the in-product help:
 
 ## Capabilities and reference
 
-Capabilities: **`Iceland`** and **`Ja`**. The app also adds the `Finance.VAT*` message types to
-Foundation's **`Finance`** capability. Its directories of types are `Help.Iceland.Get` and
-`Help.Ja.Get`.
+Capabilities: **`Iceland`** and **`Ja`**. It also adds VAT return message types
+(`Finance.VAT…`) to Foundation's **`Finance`** capability.
 
 What each message type does, in plain words: [Capabilities](./capabilities).
 

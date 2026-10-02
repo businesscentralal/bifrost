@@ -16,7 +16,7 @@ Bifröst Timesheets connects Business Central to [Clockify](https://clockify.me)
 time-tracking service. It can also keep clients, projects, tasks and tags in Clockify in step with
 Business Central.
 
-*An add-on to [Bifröst Foundation](/foundation/). New to Bifröst? Start with
+*An additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start with
 [How Bifröst works](/documentation/how-it-works/).*
 
 ## What you can do
@@ -44,10 +44,11 @@ key.
 | Step | What | Who |
 |---|---|---|
 | 1 | In Clockify, create an API key under **Profile Settings → API**, with an account that has the access the integration needs. | Clockify account owner |
-| 2 | On **Bifröst Setup**, open **Timesheets Setup** from the **Apps** group. Choose **Set Company API Key**, then pick the **Default Workspace**. | Business Central administrator |
+| 2 | On **Bifrost Setup**, open **Bifrost Timesheets Setup** from the **Apps** group. Choose **Set Company API Key**, then pick the **Default Workspace**. | Business Central administrator |
 | 3 | To sync to a Job Journal, fill in the Job Journal template, batch and default Work Type. To sync to Time Sheets, set up the resources for time sheets. | Business Central administrator |
 | 4 | Link Business Central records to Clockify objects, for example customers to clients and Work Types to tags. Links are listed on **Integration Links**. | Whoever builds the integration |
 | 5 | For real-time sync, enter the **Webhook Receiver URL**, choose **Register Webhooks**, and set up the signing tokens it shows on the receiver. | Business Central administrator, with whoever runs the receiver |
+| 6 | Give the people and services that use it the **`BIFROST Timeshts ori`** permission set. | Business Central administrator |
 
 The step-by-step guides are in the in-product help:
 [Timesheets setup](/help/timesheets/timesheets-setup/),
@@ -58,6 +59,8 @@ The step-by-step guides are in the in-product help:
 
 ## Good to know
 
+- **It acts as you.** Every call runs with your own Business Central permissions and is logged on
+  **Bifrost Messages**.
 - **It works in Clockify as the key's owner.** Everything done in Clockify happens with the
   permissions of the Clockify user who created the API key.
 - **The API key stays out of tables and logs.** It is stored in Business Central's isolated
@@ -71,10 +74,11 @@ The step-by-step guides are in the in-product help:
 
 ## Capabilities and reference
 
-Capability: **`Clockify`**. Its directory of types is `Help.Clockify.Get`.
+Capability: **`Clockify`**.
 
 What each message type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [In-product help](/help/timesheets/)
 - [Build on Bifröst](/extensibility/)
+- Permission set: `BIFROST Timeshts ori`.

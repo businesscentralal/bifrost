@@ -16,7 +16,7 @@ in Microsoft's **Subscription Billing** app.
 It calls Microsoft's own Subscription Billing logic and reimplements none of it. The results appear
 in the standard Subscription Billing pages, so you review them where you always do.
 
-*An add-on to [Bifröst Foundation](/foundation/). New to Bifröst? Start with
+*An additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start with
 [How Bifröst works](/documentation/how-it-works/).*
 
 ## What you can do
@@ -31,7 +31,7 @@ in the standard Subscription Billing pages, so you review them where you always 
 - **Bill for usage.** Deliver a usage file as data and move it through Microsoft's processing
   stages.
 - **Close the period.** Release deferred revenue and cost to the general ledger, rebuild contract
-  analysis entries, and extend or renew contracts.
+  analysis entries, extend a subscription onto a new contract, or create a renewal sales quote.
 - **Move subscriptions in.** Turn staged import rows into real subscriptions and contracts.
 
 Schedule the monthly billing proposal and document creation as a playbook in
@@ -57,7 +57,7 @@ The app has no pages of its own. The in-product help explains where its results 
 
 ## Good to know
 
-- **It acts as the caller.** The permission set lets a user run this app's operations only. It
+- **It acts as you.** The permission set lets a user run this app's operations only. It
   does not widen access to Subscription Billing data; the user's own permissions still apply.
 - **Nothing is deleted.** Ending a subscription is an end date or a closed flag. If a step fails,
   the work is rolled back and a clear error comes back, except in the bulk billing, usage

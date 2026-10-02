@@ -61,6 +61,22 @@ user's words gets found. A description that says what it changes and how it diff
 neighbours gets chosen. Help that is complete gets the first call right. An error that says what
 to do next lets the agent correct itself.
 
+## What a message type says about itself
+
+Every message type carries its own description, in three layers. The agent reads them in this order
+before it calls anything:
+
+| Layer | What it says | For `Customer.CreditLimit.Get` |
+|---|---|---|
+| **The name** | The capability, the thing and what is done to it | Customer · credit limit · get (reads, changes nothing) |
+| **One line** | What it does, so the agent can choose between similar ones | Checks a customer's credit: balance, overdue amount, open orders and what is left |
+| **The help** | What it needs, what it returns and what can go wrong | Which customer and how to name it; the figures that come back; the answer when the customer does not exist |
+
+The help is written by the people who build the app, and it is the same text you can read on this
+site: the [message type reference](/foundation/reference/message-types/), for example
+[`Customer.CreditLimit.Get`](/foundation/reference/message-types/customer-creditlimit-get/). So a new
+message type is usable as soon as its app is installed, set up and permitted.
+
 ## Make it headless first
 
 Every action on a page does two things: it **talks to a person** (a confirmation, a dialog, the

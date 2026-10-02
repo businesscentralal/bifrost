@@ -16,7 +16,7 @@ leaving Business Central.
 Each bank works the same way through Bifröst, so a routine, an integration or an assistant reaches
 every bank in the same way. You set up only the banks you use.
 
-*An add-on to [Bifröst Foundation](/foundation/), for companies in Iceland. New to Bifröst? Start
+*An additional app on [Bifröst Foundation](/foundation/), for companies in Iceland. New to Bifröst? Start
 with [How Bifröst works](/documentation/how-it-works/).*
 
 ## What you can do
@@ -50,7 +50,7 @@ partner. It needs Business Central 28.0 or later, Essentials or Premium.
 |---|---|---|
 | 1 | Make an agreement with each bank for the services you use, and get the user name, password and certificates or keys it issues. | Finance, with the bank |
 | 2 | Allow outbound HTTP for Bifröst apps, once, in Foundation's **Bifrost Setup Wizard**. | Business Central administrator |
-| 3 | Run **Set up Bifrost Iceland Treasury** from **Assisted Setup**. One wizard covers all five banks; enter the company user name and secrets for the banks you use. | Business Central administrator |
+| 3 | Run **Set up Bifrost Iceland Treasury banks** from **Assisted Setup**. One wizard covers all five banks; enter the company user name and secrets for the banks you use. | Business Central administrator |
 | 4 | For claims at Landsbankinn, Arion banki or Sparisjóðir, set the bank's claim identifier on the Payment Method. For statement import, choose the bank's import format on the Business Central bank account. | Business Central administrator |
 | 5 | Give each user or service the permission sets for what they may do at the bank. Users who sign in as themselves enter their own bank credentials. | Business Central administrator, then each user |
 
@@ -67,16 +67,15 @@ and [Sparisjóðir](./banks/sparisjodir).
 
 ## Good to know
 
-- **It acts as the user.** A call uses the user's own bank credentials if they have set them, and
+- **It acts as you.** A call uses the user's own bank credentials if they have set them, and
   the company defaults otherwise. Every call is logged.
 - **Passwords, certificates and keys** are entered in masked dialogs and stored in Business
   Central's Isolated Storage. They are never written to a table or shown in a response. The setup
   page shows certificate details, so you can see when one needs renewing.
 - **Payments and claims move money.** They sit behind their own permission sets, so a user can be
   allowed to read statements without being allowed to pay. Try them in a test company first.
-- **Requests are signed.** Four of the banks require a client certificate to sign each request;
-  Íslandsbanki uses the bank's own public certificate instead. The signing is handled by Draupnir,
-  shared by every bank.
+- **Requests are signed.** Landsbankinn, Arion banki, Kvika banki and Sparisjóðir sign each request
+  with a client certificate, through Draupnir. Íslandsbanki uses a user name and password only.
 - **Moving from the earlier Cloud Events bank apps?** Data is taken over on install, but stored
   passwords and certificates do not carry over. Enter them again after the switch.
 

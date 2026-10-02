@@ -16,7 +16,7 @@ out of the database without losing them.
 Other systems, assistants and Business Central processes all use the same storage connections, set
 up once by an administrator.
 
-*An add-on to [Bifröst Foundation](/foundation/). New to Bifröst? Start with
+*An additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start with
 [How Bifröst works](/documentation/how-it-works/).*
 
 ## What you can do
@@ -48,8 +48,8 @@ Central file storage connector app, for example the Azure Blob Storage Connector
 | Step | What | Who |
 |---|---|---|
 | 1 | Install a file storage connector app (Azure Blob Storage, Azure File Share or SharePoint) and register a file account in it, for example with the **File Account Wizard**. | Business Central administrator |
-| 2 | Allow HTTP client requests for the extension. The assisted setup **Set up Bifrost Storage** walks you through it. | Business Central administrator |
-| 3 | On **Bifröst Setup**, open **Bifrost Attachments Setup** in the **Apps** group and add a storage connection: a short code, the connector, the file account and, if you want, a base path. Choose **Test Connection**. | Business Central administrator |
+| 2 | Allow HTTP client requests for the extension. The assisted setup **Set up Bifrost Attachments** walks you through it. | Business Central administrator |
+| 3 | On **Bifrost Setup**, open **Bifrost Attachments Setup** in the **Apps** group and add a storage connection: a short code, the connector, the file account and, if you want, a base path. Choose **Test Connection**. | Business Central administrator |
 | 4 | Give the people and services that use storage the **`BIFROST Attach ori`** permission set (and `BIFROST DataExch ori` for data exchange). | Business Central administrator |
 | 5 | Send requests that name the storage connection by its code. | Whoever builds the integration |
 
@@ -61,6 +61,8 @@ The step-by-step guides are in the in-product help:
 
 ## Good to know
 
+- **It acts as you.** Every call runs with your own Business Central permissions and is logged on
+  **Bifrost Messages**.
 - **No credentials in this app.** Keys and tokens stay in the Business Central connector apps.
   Bifröst Attachments stores only the file account id and name.
 - **No permission, no access.** A user without `BIFROST Attach ori` gets a permission error,
@@ -71,8 +73,7 @@ The step-by-step guides are in the in-product help:
 
 ## Capabilities and reference
 
-Capabilities: **`Storage`** and **`DataExchange`**. Their directories of types are
-`Help.Storage.Get` and `Help.DataExchange.Get`.
+Capabilities: **`Storage`** and **`DataExchange`**.
 
 What each message type does, in plain words: [Capabilities](./capabilities).
 

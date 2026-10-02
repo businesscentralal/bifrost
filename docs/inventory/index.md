@@ -15,7 +15,7 @@ set their values and define new attributes, each in one request.
 The results show on the item in Business Central, under the standard item attributes. The app has
 no pages of its own.
 
-*An add-on to [Bifröst Foundation](/foundation/). New to Bifröst? Start with
+*An additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start with
 [How Bifröst works](/documentation/how-it-works/).*
 
 ## What you can do
@@ -33,7 +33,7 @@ no pages of its own.
 
 Install **Bifrost Inventory** next to Bifröst Foundation, from AppSource or through your partner.
 It needs Business Central 28.0 or later, Essentials or Premium, and Bifröst Foundation 28.0.0.0 or
-later. It was validated against Foundation 28.0.0.87.
+later.
 
 ## Set it up
 
@@ -48,6 +48,8 @@ The in-product help is at [Bifröst Inventory help](/help/inventory/). Platform 
 
 ## Good to know
 
+- **It acts as you.** Every call runs with your own Business Central permissions and is logged on
+  **Bifrost Messages**.
 - **No new permission sets.** Access follows the Foundation sets `BIFROST Read ori` and
   `BIFROST Full ori`.
 - **Nothing to open in the client.** The app adds no pages, actions or fields. Attribute values

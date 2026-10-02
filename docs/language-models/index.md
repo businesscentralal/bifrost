@@ -15,7 +15,7 @@ permissions.
 
 {/* OPEN-20 */}
 
-*An add-on to [Bifröst Foundation](/foundation/). New to Bifröst? Start with
+*An additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start with
 [How Bifröst works](/documentation/how-it-works/).*
 
 ## What you can do
@@ -23,7 +23,7 @@ permissions.
 - **Ask about the record in front of you.** On a sales order: *"Is anything on this order short
   in stock?"* On a customer: *"Summarise this customer's open entries."* The chat already knows
   which order or customer you mean.
-- **Get live figures, not guesses.** The chat reads Business Central through Bifröst's message
+- **Get live figures.** The chat reads Business Central through Bifröst's message
   types, so its answers come from your data at that moment.
 - **Stay in Business Central.** The chat is on 36 standard pages: customers, vendors, items, sales
   and purchase documents, ledger entries and incoming documents. **Focus** opens it on a full page.

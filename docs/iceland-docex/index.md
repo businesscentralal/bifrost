@@ -16,13 +16,14 @@ BIS 3.0 format.
 Received invoices arrive as incoming documents in Business Central, ready to become purchase
 documents. You use the same setup and the same steps whichever network you are on.
 
-*An add-on to [Bifröst Foundation](/foundation/), for companies in Iceland. New to Bifröst? Start
+*An additional app on [Bifröst Foundation](/foundation/), for companies in Iceland. New to Bifröst? Start
 with [How Bifröst works](/documentation/how-it-works/).*
 
 ## What you can do
 
 - **Receive invoices as incoming documents.** A received document becomes a Business Central
-  incoming document, handled by Foundation's **Incoming** capability. Each document is created
+  incoming document, which you can then process with Foundation's **Incoming** capability. Each
+  document is created
   only once, and then becomes a purchase document or general journal lines, as set for the vendor.
 - **Send invoices and other documents.** Send invoices, credit notes, orders, despatch advices and
   statements from Business Central documents, as UBL 2.1 XML in the Peppol BIS 3.0 format.
@@ -43,10 +44,10 @@ partner. It needs Business Central 28.0 or later, Essentials or Premium.
 | Step | What | Who |
 |---|---|---|
 | 1 | Get credentials from at least one network: Advania, Unimaze or InExchange. The Peppol reference data needs none. | Finance, with the network provider |
-| 2 | Allow HTTP requests for the extension. The setup page reminds you if it is not allowed. | Business Central administrator |
-| 3 | On **Bifröst Setup**, open **Bifrost Iceland DocEx Setup**. Choose Live or Test for each network you use, enter its credentials and test the connection. | Business Central administrator |
+| 2 | Allow HTTP requests for the extension in Foundation's **Bifrost Setup Wizard** (also reachable from **Setup Wizard** on Document Exchange Setup). | Business Central administrator |
+| 3 | On **Bifrost Setup**, open **Document Exchange Setup**. Choose Live or Test for each network you use, enter its credentials and test the connection. | Business Central administrator |
 | 4 | If you receive invoices, choose **Update BII Data Exchange Definitions**, then fill in the BIS30 Code Map and the VAT G/L Account Map. | Business Central administrator or partner |
-| 5 | Give each user or service that sends or receives documents the Bifrost Iceland DocEx permission set. | Business Central administrator |
+| 5 | Give each user or service that sends or receives documents `BIFROST Full ori`; the app adds its objects to it and to the standard D365 permission sets. | Business Central administrator |
 
 The step-by-step guides are in the in-product help:
 [DocEx Setup](/help/iceland-docex/docex-setup/),
@@ -55,12 +56,11 @@ The step-by-step guides are in the in-product help:
 
 ## Good to know
 
-- **It acts as the caller.** The permission set lets a user run document exchange operations only,
-  with no access beyond what it grants.
-- **Credentials are stored per network and per environment** in Business Central's Isolated
-  Storage, so a Test key is never used for a Live call. The setup page shows only whether a value
+- **It acts as you.** A call can do only what your own permissions allow.
+- **Credentials are stored per network and per environment** in the Bifröst Foundation secret
+  store, so a Test key is never used for a Live call. The setup page shows only whether a value
   is stored.
-- **Every call to a network is logged** on the Bifröst Request Log, with the credentials masked, so
+- **Every call to a network is logged** on the Bifrost Request Log, with the credentials masked, so
   a failed exchange can be traced.
 - **Sending a document is real.** On a Live environment it goes to the recipient. Try sending in
   the Test environment first.
@@ -69,11 +69,11 @@ The step-by-step guides are in the in-product help:
 
 ## Capabilities and reference
 
-Capability: **`DocumentExchange`**. Its directory of types is `Help.DocumentExchange.Get`.
+Capability: **`DocumentExchange`**.
 
 What each message type does, in plain words: [Capabilities](./capabilities).
 
 - [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [In-product help](/help/iceland-docex/)
 - [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
-- Permission set: **Bifrost Iceland DocEx**.
+- Permission sets: extends `BIFROST Full ori` (`DocEx Full ori`) and the standard D365 sets.

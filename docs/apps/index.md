@@ -18,7 +18,8 @@ and setup. The list below is generated from a single JSON file,
 which is also published as-is at [`/apps.json`](https://businesscentralal.github.io/bifrost/apps.json) for tools and
 in-product listings to read directly.
 
-**Adding an app is an install and a short setup wizard, not a project.** Its capabilities join the
+**Most apps are an install and a short setup wizard.** Some also need an agreement or credentials
+from an outside service, such as a bank; each app's page says so. Its capabilities join the
 same catalogue, run with the same permissions and are logged on Bifrost Messages. Each app's page
 says who is needed and which permission sets to assign.
 

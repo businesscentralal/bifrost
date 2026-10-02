@@ -177,15 +177,15 @@ const en = `${site}en-us/`;
 
 const appSections = [
   ['foundation', 'Bifröst Foundation (the base app, always installed) — the standard Business Central capabilities'],
-  ['language-models', 'Bifröst Language Models (add-on) — chat in Business Central and language model providers'],
-  ['attachments', 'Bifröst Attachments (add-on) — Azure Blob, Azure File Share and SharePoint storage'],
-  ['orchestrator', 'Bifröst Orchestrator (add-on) — job queue supervision and playbooks that chain message types from any app'],
-  ['timesheets', 'Bifröst Timesheets (add-on) — time tracking'],
-  ['subscription-billing', 'Bifröst Subscription Billing (add-on) — recurring billing'],
-  ['inventory', 'Bifröst Inventory (add-on) — item attributes'],
-  ['iceland', 'Bifröst Iceland (add-on for Iceland) — Icelandic ERP message types'],
-  ['iceland-treasury', 'Bifröst Iceland Treasury (add-on for Iceland) — Icelandic bank connectors and payments'],
-  ['iceland-docex', 'Bifröst Iceland DocEx (add-on for Iceland) — electronic document exchange (Peppol/BIS 3.0)'],
+  ['language-models', 'Bifröst Language Models (additional app) — chat in Business Central and language model providers'],
+  ['attachments', 'Bifröst Attachments (additional app) — Azure Blob, Azure File Share and SharePoint storage'],
+  ['orchestrator', 'Bifröst Orchestrator (additional app) — job queue supervision and playbooks that chain message types from any app'],
+  ['timesheets', 'Bifröst Timesheets (additional app) — time tracking'],
+  ['subscription-billing', 'Bifröst Subscription Billing (additional app) — recurring billing'],
+  ['inventory', 'Bifröst Inventory (additional app) — item attributes'],
+  ['iceland', 'Bifröst Iceland (additional app for Iceland) — Icelandic ERP message types'],
+  ['iceland-treasury', 'Bifröst Iceland Treasury (additional app for Iceland) — Icelandic bank connectors and payments'],
+  ['iceland-docex', 'Bifröst Iceland DocEx (additional app for Iceland) — electronic document exchange (Peppol/BIS 3.0)'],
 ];
 
 /**

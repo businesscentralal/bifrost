@@ -31,8 +31,8 @@ capability it belongs to:
 | `Sales.Document.Post` | **Sales** | Posts a sales document |
 | `Item.Availability.Get` | **Item** | Works out how much of an item you can promise |
 
-- **A message type** is one operation, and it is what an agent calls. Each one describes itself;
-  see [What a message type says about itself](#what-a-message-type-says-about-itself) below.
+- **A message type** is one operation, and it is what an agent calls. Each one describes itself.
+
 - **A capability** is a group of message types about the same thing, such as customers or sales
   documents. An agent looks at the capabilities first, then picks a message type inside the right
   one.
@@ -60,22 +60,10 @@ In the assistant's own tool list, capabilities are called *domains*. They have n
 Microsoft's **Copilot & AI Capabilities** page in Business Central, which turns Copilot features on
 and off.
 
-### What a message type says about itself
-
-Every message type carries its own description, in three layers. The agent reads them in this order
-before it calls anything:
-
-| Layer | What it says | For `Customer.CreditLimit.Get` |
-|---|---|---|
-| **The name** | The capability, the thing and what is done to it | Customer · credit limit · get (reads, changes nothing) |
-| **One line** | What it does, so the agent can choose between similar ones | Checks a customer's credit: balance, overdue amount, open orders and what is left |
-| **The help** | What it needs, what it returns and what can go wrong | Which customer and how to name it; the figures that come back; the answer when the customer does not exist |
-
-The help is written by the people who build the app, and it is the same text you can read on this
-site: the [message type reference](/foundation/reference/message-types/), for example
-[`Customer.CreditLimit.Get`](/foundation/reference/message-types/customer-creditlimit-get/). So a new
-message type is usable as soon as its app is installed, set up and permitted: nothing has to be taught to the assistant first.
-
+Every message type describes itself: what it does, what it needs, what it returns and what can go
+wrong. So a new one is usable as soon as its app is installed, set up and permitted; nothing has to
+be taught to the assistant first. How that description is built:
+[Build on Bifröst](/extensibility/#what-a-message-type-says-about-itself).
 
 ## Four things that make it different
 
@@ -146,14 +134,8 @@ The full statement: [Privacy](/licensing/privacy/).
 
 ## How far it goes
 
-| | What | Example |
-|---|---|---|
-| **Answer** | A question answered from live data | "What is still open on this project?" |
-| **Act** | One operation, on request | "Release this sales order." |
-| **Chain** | Several operations toward one outcome | Quotes to orders, previewed, reported back |
-| **Keep** | A result you open again | A credit-exposure view you check each morning |
-| **Run on a schedule** | The same chain, unattended | A reconciliation every Friday, with [Orchestrator](/orchestrator/) |
-| **Build on it** | An assistant or app other people use | A role-specific console, or your own app's message types |
+From one answer to routines that run by themselves: [Try it out](/try-it-out/#what-to-ask-first)
+goes through the levels, with a question to try for each.
 
 ## What it covers, and how it grows
 
@@ -171,9 +153,8 @@ say so. {/* OPEN-19 */} That is the edge of what is installed, not a fault.
 
 ### Every app moves the edge
 
-Capabilities come from apps, and anyone can build one. Each app's capabilities join the same
-catalogue, behind the same gate: the same permissions, the same log, the same help an agent reads
-before it calls. Every connected agent can use it as soon as the app is installed, set up and permitted.
+Capabilities come from apps, and anyone can build one. They all join the same catalogue, behind the
+same permissions and the same log.
 
 - **Origo's apps** add capabilities such as Icelandic banks, document exchange, storage and schedules;
   see the [app list](/apps/).
@@ -190,7 +171,7 @@ before it calls. Every connected agent can use it as soon as the app is installe
 | + [Iceland Treasury](/iceland-treasury/) | *"Fetch yesterday's statement from Landsbankinn and reconcile it."* {/* OPEN-30 */} | `Landsbankinn`, `Finance` |
 | + [Orchestrator](/orchestrator/) | *"Do this every morning and tell me what did not match."* | `Orchestrator`, `Landsbankinn`, `Finance` |
 
-The assistant combines capabilities from different apps as if they were one product.
+The assistant combines capabilities from different apps in one conversation.
 
 **Missing something?**
 
