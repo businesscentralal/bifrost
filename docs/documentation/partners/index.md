@@ -57,12 +57,6 @@ customers are licensed is described under [Licensing](/licensing/).
 - [Using Bifröst](/documentation/end-customers/users/#when-it-says-no) lists what users see when
   Bifröst says no, and what it means.
 
-{/* OPEN-11 */}
-
-:::note Being written
-Where partners escalate to Origo.
-:::
-
 ## Building your own app
 
 Bifröst reaches what has message types, and not every task in Business Central has one yet; see

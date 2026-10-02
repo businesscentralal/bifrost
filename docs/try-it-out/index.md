@@ -48,8 +48,6 @@ demo data. Do it before you use real data.
 
 ## What to ask first
 
-{/* OPEN-18 */}
-
 Once the first answer works, let it do more. Each level builds on the one before.
 
 | Level | Try asking | What you should see |

@@ -17,8 +17,7 @@
     "typecheck": "tsc",
     "check:ip-boundary": "node tools/check-docs.mjs ipBoundary",
     "check:docs": "node tools/check-docs.mjs",
-    "check:links": "node tools/check-links.mjs",
-    "open-items": "node tools/open-items.mjs"
+    "check:links": "node tools/check-links.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",

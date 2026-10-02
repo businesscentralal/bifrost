@@ -6,8 +6,6 @@ import styles from './styles.module.css';
  * what passes between them, and what each one keeps. The wording follows the
  * wizard's Tenant Identification and Data Storage Disclosure, telemetry, and the Privacy page; change it there
  * first if the product changes.
- * OPEN-07
- * OPEN-09
  */
 export default function DataFlow(): ReactNode {
   return (
