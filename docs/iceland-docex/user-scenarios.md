@@ -114,7 +114,7 @@ their contracts can be listed at any time with the MCP tools `list_message_types
 2. A document ID is known (from Scenario 4 or test data).
 
 ### Steps
-1. Ask the assistant: "Show the Advania document <document ID>."
+1. Ask the assistant: "Show the Advania document [document ID]."
 
 ### Expected Results
 - The answer contains the full document (header, lines, amounts).
@@ -131,7 +131,7 @@ their contracts can be listed at any time with the MCP tools `list_message_types
 2. A posted sales invoice exists in BC with valid customer electronic address.
 
 ### Steps
-1. Ask the assistant: "Send posted sales invoice <invoice no.> through Advania."
+1. Ask the assistant: "Send posted sales invoice [invoice no.] through Advania."
 
 ### Expected Results
 - The assistant confirms the invoice was submitted to Advania.
@@ -234,7 +234,7 @@ their contracts can be listed at any time with the MCP tools `list_message_types
 2. A posted sales invoice exists in BC.
 
 ### Steps
-1. Ask the assistant: "Render posted sales invoice <invoice no.> as Peppol BIS 3.0 UBL."
+1. Ask the assistant: "Render posted sales invoice [invoice no.] as Peppol BIS 3.0 UBL."
 
 ### Expected Results
 - The answer contains valid UBL 2.1 Invoice XML.
@@ -252,7 +252,7 @@ their contracts can be listed at any time with the MCP tools `list_message_types
 2. A sales order exists in BC.
 
 ### Steps
-1. Ask the assistant: "Render sales order <order no.> as UBL."
+1. Ask the assistant: "Render sales order [order no.] as UBL."
 
 ### Expected Results
 - The answer contains valid UBL 2.1 Order XML.
@@ -268,7 +268,7 @@ their contracts can be listed at any time with the MCP tools `list_message_types
 1. Advania credentials configured.
 
 ### Steps
-1. Ask the assistant: "Find trading partners in the Advania network named <name>" (or by electronic address).
+1. Ask the assistant: "Find trading partners in the Advania network named [name]" (or by electronic address).
 
 ### Expected Results
 - The answer lists trading partners registered in the Advania network.
@@ -285,7 +285,7 @@ their contracts can be listed at any time with the MCP tools `list_message_types
 2. A document ID is known for a document that has a PDF representation.
 
 ### Steps
-1. Ask the assistant: "Get the PDF of Advania document <document ID>."
+1. Ask the assistant: "Get the PDF of Advania document [document ID]."
 
 ### Expected Results
 - The answer contains the PDF.

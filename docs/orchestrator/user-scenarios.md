@@ -76,7 +76,7 @@ status and result.
 1. Open the "Job Queue Orchestrator Setup" page
 2. Observe the "Orchestrator Entries" subpage
 3. Navigate to "Job Queue Entries" via the action menu and note the description of any Job Queue Entry
-4. Ask the assistant: "Put the Job Queue entry <description from step 3> under Orchestrator supervision."
+4. Ask the assistant: "Put the Job Queue entry [description from step 3] under Orchestrator supervision."
 5. Ask the assistant: "Run that Orchestrator entry now."
 
 ### Expected Results

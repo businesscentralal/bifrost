@@ -76,7 +76,7 @@ niðurstöðu.
 1. Opnið síðuna „Job Queue Orchestrator Setup“
 2. Skoðið undirsíðuna „Orchestrator Entries“
 3. Farið í „Vinnsluraðarfærslur“ úr aðgerðavalmyndinni og skrifið hjá ykkur lýsingu einhverrar vinnsluraðarfærslu
-4. Biðjið aðstoðina: „Settu vinnsluraðarfærsluna <lýsing úr skrefi 3> undir eftirlit Orchestrator.“
+4. Biðjið aðstoðina: „Settu vinnsluraðarfærsluna [lýsing úr skrefi 3] undir eftirlit Orchestrator.“
 5. Biðjið aðstoðina: „Keyrðu þessa Orchestrator-færslu núna.“
 
 ### Væntar niðurstöður

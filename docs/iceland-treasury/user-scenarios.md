@@ -146,7 +146,7 @@ Every scenario below except the ones that call a bank (5 and 6) can be executed 
 
 ### Steps
 1. Ask the assistant: "Get today's currency rates from Arion banki" (or the bank you configured).
-2. Ask for the accounts or a statement at the same bank, for example "List our accounts at Landsbankinn" or "Show the statement of account <account no.> at Sparisjóðirnir for last week".
+2. Ask for the accounts or a statement at the same bank, for example "List our accounts at Landsbankinn" or "Show the statement of account [account no.] at Sparisjóðirnir for last week".
 3. Ask the assistant to describe the operation it used (its contract is read from `Help.Implementation.Get`).
 
 ### Expected Results
