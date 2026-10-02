@@ -146,7 +146,6 @@ const config: Config = {
 
   onBrokenLinks: 'warn',
   onBrokenAnchors: 'warn',
-  onBrokenMarkdownLinks: 'warn',
 
   // Each build produces exactly one locale, at an explicit locale-prefixed
   // baseUrl. The language switcher in the navbar links across the two builds.
@@ -157,6 +156,7 @@ const config: Config = {
 
   markdown: {
     mermaid: true,
+    hooks: {onBrokenMarkdownLinks: 'warn'},
   },
   themes: ['@docusaurus/theme-mermaid'],
 

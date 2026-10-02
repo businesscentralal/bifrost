@@ -15,18 +15,13 @@ const fallbackSummaries: Record<string, string> = {
   foundation: 'The base app every other app needs: the standard Business Central capabilities, permissions, the log and the API.',
 };
 
-function AppCard({id, title, appName, wave}: {id: string; title: string; appName: string; wave: 1 | 2}): ReactNode {
+function AppCard({id, title, appName}: {id: string; title: string; appName: string}): ReactNode {
   const summary = registrySummaries[appName] ?? fallbackSummaries[id];
   return (
     <Link className="bifrostCard" to={`/${id}/`}>
       <img src={useBaseUrl(`img/${id}.png`)} alt="" role="presentation" />
       <h3>{title}</h3>
       <p>{summary}</p>
-      {wave === 2 && (
-        <span className="bifrostBadge">
-          <Translate id="home.badge.comingSoon">Docs in progress</Translate>
-        </span>
-      )}
     </Link>
   );
 }
@@ -175,7 +170,7 @@ export default function Home(): ReactNode {
         </p>
         <div className="bifrostGrid">
           {apps.map((app) => (
-            <AppCard key={app.id} id={app.id} title={app.title} appName={app.appName} wave={app.wave} />
+            <AppCard key={app.id} id={app.id} title={app.title} appName={app.appName} />
           ))}
         </div>
       </main>

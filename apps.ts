@@ -1,9 +1,9 @@
 /**
- * Single source of truth for the Bifröst app family.
+ * Single source of truth for the apps documented on this site: published apps only.
  *
  * Every entry produces:
  *   - a docs plugin instance  `<id>`        served at  /{locale}/<id>/
- *   - a help plugin instance  `help-<id>`   served at  /{locale}/help/<id>/
+ *   - a help plugin instance  `help-<id>`   served at  /{locale}/help/<id>/ (only when help/<id>/ has pages)
  *
  * The help route is a contract with Business Central: an app sets
  *   contextSensitiveHelpUrl = https://docs.bifrost.origo.is/{0}/help/<id>/
@@ -12,27 +12,16 @@
 export type BifrostApp = {
   /**
    * Route segment and plugin instance id. Kebab-case; treat as stable.
-   * Four ids were intentionally renamed (with client redirects) to match live
-   * AppSource names: bragi→language-models, hnitbjorg→attachments,
-   * nornir→orchestrator, clockify→timesheets. AL app.json follow-up is separate.
    */
   id: string;
   /** Display name used in the navbar and sidebar headings. */
   title: string;
   /** AppSource / app.json name of the extension. */
   appName: string;
-  /** Import wave: 1 = documentation migrated, 2 = placeholder only. All apps are at 1 since 2026-09-06. */
-  wave: 1 | 2;
-  /**
-   * Where the app sits in the Apps and Help menus: `base` is Foundation, the one
-   * every other app needs; `addon` apps work in any country; `iceland` apps are
-   * for the Icelandic market. Left out, an app is listed as an add-on.
-   */
-  group?: 'base' | 'addon' | 'iceland';
 };
 
 export const apps: BifrostApp[] = [
-  {id: 'foundation', title: 'Foundation', appName: 'Bifrost Foundation', wave: 1, group: 'base'},
+  {id: 'foundation', title: 'Foundation', appName: 'Bifrost Foundation'},
 ];
 
 /**

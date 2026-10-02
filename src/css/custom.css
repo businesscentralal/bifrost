@@ -111,17 +111,6 @@ a.bifrostCard:focus-visible {
   color: var(--ifm-color-emphasis-700);
 }
 
-.bifrostBadge {
-  align-self: flex-start;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 0.15rem 0.5rem;
-  border-radius: 999px;
-  border: 1px solid var(--bifrost-border);
-  color: var(--ifm-color-emphasis-600);
-}
-
 /* Secondary link row ------------------------------------------------------ */
 
 .bifrostLinks {
@@ -222,14 +211,6 @@ a.bifrostCard:focus-visible {
     padding: 0.3rem 0.75rem;
   }
   .navbar__item.dropdown.navAppsItem > .navbar__link { padding: 0; }
-}
-
-/* Foundation in the Help menu: the base the other apps build on. */
-.dropdown__link.dropdownBase {
-  font-weight: 700;
-  border-left: 3px solid var(--ifm-color-primary);
-  background: var(--ifm-color-emphasis-100);
-  margin: 0.1rem 0 0.35rem;
 }
 
 /* Home: the request path in three steps, and the chapter doors. */

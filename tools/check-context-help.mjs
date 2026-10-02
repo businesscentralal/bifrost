@@ -19,7 +19,7 @@
  * Offline and read-only: no Business Central, no network, nothing written.
  *
  * Usage:
- *   node tools/check-context-help.mjs --app attachments --source ../bc-origo-bifrost-attachments
+ *   node tools/check-context-help.mjs --app foundation --source ../bc-origo-bifrost-core
  *
  * Options:
  *   --app <name>        route id, title or codename (as in the generator). Required.
