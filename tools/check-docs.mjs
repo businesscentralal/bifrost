@@ -10,8 +10,7 @@
  * It also fails on any value that looks like a personal kennitala (see
  * findKennitalaHits) under docs/, help/, i18n/ or static/. That part has no
  * baseline: personal data is never grandfathered.
- * Preview/deploy CI wiring is deferred until the GitHub token has the
- * `workflow` scope (`gh auth refresh -h github.com -s workflow`).
+ * Runs in the preview workflow on every pull request.
  *
  */
 import {execFile} from 'node:child_process';
@@ -27,10 +26,20 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // product names are case-insensitive, and Key Vault also catches KeyVault.
 //
 // The line this list draws: infrastructure, credentials and Origo's internal
-// object names are off the site. The public contract and the patterns partners
-// need to build on Bifröst (message types, their descriptions and help, the
-// interfaces, isolated writes via Codeunit.Run as in the reference repo) are not
-// IP and must not be blocked here.
+// object names are off the site, and so are message types (decision 30.09.2026):
+// the site names none of them, so readers and agents read them live from the
+// environment. The public extension surface partners build on (interfaces,
+// events, public codeunits, isolated writes via Codeunit.Run as in the reference
+// repo) is not blocked here.
+//
+// Entries marked `strict` are never grandfathered from the baseline: the content
+// they catch was removed from the whole site, so any hit is a regression.
+// A message-type name is Area.Entity.Verb (three or more PascalCase parts). AL and .NET namespaces
+// that start with these prefixes are not message types.
+const MESSAGE_TYPE_NAME = /(?<![\w./-])(?!(?:Origo|Microsoft|System)\.)[A-Z][A-Za-z0-9]*\.[A-Z][A-Za-z0-9]*\.[A-Z][A-Za-z0-9]*(?:\.[A-Z][A-Za-z0-9]*)*(?![\w-])/g;
+// The discovery entry points: how a reader finds every other type.
+const ALLOWED_TYPE_NAMES = new Set(['Help.MessageTypes.Get', 'Help.Implementation.Get']);
+
 const FORBIDDEN = [
   {token: 'Cosmos', pattern: /Cosmos/i},
   {token: 'Key Vault', pattern: /Key\s*Vault/i},
@@ -45,6 +54,14 @@ const FORBIDDEN = [
   {token: ' Impl ori', pattern: / Impl ori/},
   {token: ' Handler ori', pattern: / Handler ori/},
   {token: 'cloudapp.azure.com', pattern: /cloudapp\.azure\.com/i},
+  // Removed from the whole site on 02.10.2026 (#62, #68-#71); see the documentation rules.
+  {token: 'message type name', pattern: MESSAGE_TYPE_NAME, strict: true, allow: ALLOWED_TYPE_NAMES},
+  {token: 'message-type page', pattern: /reference\/message-types\/|\/foundation\/message-types\//, strict: true},
+  {token: 'telemetry id', pattern: /ORI-BIF-\d/, strict: true},
+  {token: 'IsolatedStorage', pattern: /IsolatedStorage/, strict: true},
+  {token: 'development container', pattern: /\bbc28-|\bCRONUS\b|\bAlpaca\b/, strict: true},
+  {token: 'partner program page', pattern: /\/licensing\/(vendor|partner|customer|leaving-and-cancelling)\/|\]\(\.\/(vendor|partner|customer|leaving-and-cancelling)\.md/, strict: true},
+  {token: 'skills page', pattern: /\]\(\/skills\/|static\/skills\//, strict: true},
 ];
 
 const SCAN_ROOTS = ['docs', 'help', 'i18n'];
@@ -75,9 +92,15 @@ function findHits(content, filePath) {
   const lines = content.split(/\r?\n/);
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    for (const {token, pattern} of FORBIDDEN) {
-      if (pattern.test(line)) {
-        hits.push({file: filePath, line: i + 1, token, source: line, excerpt: line.trim().slice(0, 160)});
+    for (const {token, pattern, strict, allow} of FORBIDDEN) {
+      let found;
+      if (pattern.global) {
+        found = [...line.matchAll(pattern)].some((m) => !allow?.has(m[0]));
+      } else {
+        found = pattern.test(line);
+      }
+      if (found) {
+        hits.push({file: filePath, line: i + 1, token, strict: Boolean(strict), source: line, excerpt: line.trim().slice(0, 160)});
       }
     }
   }
@@ -142,12 +165,31 @@ function removeGrandfatheredHits(currentHits, baselineHits) {
   }
 
   return currentHits.filter((hit) => {
+    if (hit.strict) return true;
     const key = `${hit.token}\0${hit.source}`;
     const remaining = allowances.get(key) ?? 0;
     if (remaining === 0) return true;
     allowances.set(key, remaining - 1);
     return false;
   });
+}
+
+async function findHelpIndexPages() {
+  const found = [];
+  const helpRoot = path.join(root, 'help');
+  for (const app of await readdir(helpRoot).catch(() => [])) {
+    for (const name of ['index.md', 'index.mdx']) {
+      if (await stat(path.join(helpRoot, app, name)).catch(() => null)) found.push(path.join('help', app, name));
+    }
+  }
+  const i18nRoot = path.join(root, 'i18n', 'is-IS');
+  for (const dir of (await readdir(i18nRoot).catch(() => [])).filter((d) => d.startsWith('docusaurus-plugin-content-docs-help-'))) {
+    for (const name of ['index.md', 'index.mdx']) {
+      const rel = path.join('i18n', 'is-IS', dir, 'current', name);
+      if (await stat(path.join(root, rel)).catch(() => null)) found.push(rel);
+    }
+  }
+  return found;
 }
 
 async function ipBoundary() {
@@ -175,6 +217,11 @@ async function ipBoundary() {
       const rel = path.relative(root, file);
       hits.push(...findKennitalaHits(await readFile(file, 'utf8'), rel));
     }
+  }
+
+  // Help is reached from Business Central, never browsed: no help instance has an index page.
+  for (const helpIndex of await findHelpIndexPages()) {
+    hits.push({file: helpIndex, line: 1, token: 'help index page', excerpt: 'help instances have no index page'});
   }
 
   if (hits.length === 0) {

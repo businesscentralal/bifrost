@@ -33,6 +33,9 @@ jobs:
       - name: Type-check
         run: npm run typecheck
 
+      - name: Public-site boundary (no message types, internals or removed pages)
+        run: npm run check:ip-boundary
+
       - name: Links between pages
         run: npm run check:links
 
