@@ -22,5 +22,3 @@ administration permission.
 | **Refresh** | Reloads the pending requests. |
 | **Confirm** | Accepts the request. The Partner is cancelled on its next Sync, and each of its customers returns to the Prepaid license on their next Sync. |
 | **Reject** | Declines the request with a [reason](/help/foundation/cancel-reason/). The Partner sees it after its next Sync and stays a Partner. |
-
-See [Leaving and cancelling](/licensing/leaving-and-cancelling/).

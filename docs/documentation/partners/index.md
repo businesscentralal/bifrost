@@ -38,19 +38,13 @@ When you do the steps for a customer, three things stay theirs:
 - **The decisions in step 4**, on what agents may see and how long logs are kept, belong to whoever
   owns the data. [Administrators](/documentation/end-customers/administrators/) explains what they
   are deciding.
-- **Accepting your invitation**, if the customer licenses Bifröst through you: see
-  [Being a Customer](/licensing/customer/).
+- **Accepting your invitation**, if the customer licenses Bifröst through you: it moves the
+  customer's tenant to the [Subscription license](/licensing/license-types/#subscription).
 
 ## Selling and licensing
 
-A partner can license Bifröst to its customers and follow their usage. To become a Bifröst
-partner, contact [The App Channel](https://www.theappchannel.com/).
-
-- [Licensing and partner program](/licensing/): the roles, and who invoices whom
-- [Working as a Partner](/licensing/partner/): registering, inviting customers,
-  following their usage
-- [Working as a Vendor](/licensing/vendor/): for a vendor with its own partners
-
+To become a Bifröst partner, contact [The App Channel](https://www.theappchannel.com/). How your
+customers are licensed is described under [Licensing](/licensing/).
 
 ## Supporting a customer
 

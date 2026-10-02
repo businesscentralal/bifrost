@@ -22,5 +22,3 @@ Veldu **Ljúka** til að skrá. **Umsjón samstarfsaðila**, **Óafgreiddar upps
 samstarfsaðila** og **Afskrá sem söluaðili** birtast þá á Uppsetning Bifröst. **Umsjón
 viðskiptavina** er hlutverk samstarfsaðila: söluaðili sér viðskiptavini samstarfsaðila sinna aðeins
 til lestrar með **Skoða viðskiptavini** á Umsjón samstarfsaðila.
-
-Sjá [Að starfa sem söluaðili](/licensing/vendor/).

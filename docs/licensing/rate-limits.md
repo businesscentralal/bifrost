@@ -36,9 +36,3 @@ Partner before you choose a tier above Free. Choosing **Free** removes the custo
 
 A tier can only be set while the tenant is linked to a Partner. When the Partner relationship ends
 and the tenant returns to Prepaid, its tier is reset to **Free** automatically.
-
-## What the Partner and the Vendor see
-
-Partners and Vendors see each customer's tier, its calls per day and whether it is **above the Free
-tier** on [Customer Management](/help/foundation/customer-management/), and per-tier totals in the
-billing message types - see [Usage and billing](./usage-and-billing.md).

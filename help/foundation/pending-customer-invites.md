@@ -17,4 +17,4 @@ has invited your tenant. Choose the Partner you want to work with.
 Select a row and choose **Accept**. Your tenant then moves to the **Subscription** license and the
 Partner invoices your usage. Only a licence administrator can accept an invitation.
 
-See [Being a Customer](/licensing/customer/).
+See [License types](/licensing/license-types/#subscription).

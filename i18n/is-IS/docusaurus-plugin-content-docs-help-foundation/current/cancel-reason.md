@@ -9,5 +9,3 @@ Svarglugginn **Uppsögn - ástæða** opnast þegar þú segir upp samstarfsaði
 uppsagnarbeiðni. Sláðu inn valfrjálsa ástæðu - hún fylgir uppsögninni eða höfnuninni og er sýnd hinum
 leigjandanum á síðunni Uppsetning Bifröst eftir næstu samstillingu hans. Hafðu reitinn auðan til að
 sleppa henni.
-
-Sjá [Úrsögn og uppsögn](/licensing/leaving-and-cancelling/).

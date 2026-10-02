@@ -9,27 +9,26 @@ description: "Fyrirframgreitt leyfi og áskriftarleyfi, prufuleyfið, skilaboða
 
 Kall telst sem **ein skilaboð** þegar hvort tveggja á við:
 
-- skilaboðategundin er gjaldskyld - sjá [Gjaldfrjálsar skilaboðategundir](#free-message-types);
+- kallið er gjaldskylt - sjá [Gjaldfrjáls köll](#free-calls);
 - kallið tókst - JSON-svar þar sem `status` er ekki `Success` er ekki talið (svar sem er ekki JSON,
   t.d. PDF- eða CSV-skrá, telst hafa tekist).
 
-Hvert gjaldskylt kall kostar nákvæmlega ein skilaboð, óháð skilaboðategund.
+Hvert gjaldskylt kall kostar nákvæmlega ein skilaboð, óháð því hvað það gerir.
 
-### Gjaldfrjálsar skilaboðategundir {#free-message-types}
+### Gjaldfrjáls köll {#free-calls}
 
-Þessar skilaboðategundir eru aldrei taldar og þeim er aldrei hafnað vegna kvóta:
+Þessi köll eru aldrei talin og þeim er aldrei hafnað vegna kvóta:
 
-| Forskeyti | Hvað þær gera |
-|---|---|
-| `Help.*` | Uppgötvun og sjálfslýsing - skráin yfir tegundir, samningur tegundar, hver er ég, staða leyfis |
-| `Memory.*` | Lestur og skrif minnisfærslna |
-| `Session.*` | Meðhöndlun setu, t.d. samþykkt á uppruna setu |
-| `Webhook.*` | Innkomin vefkrókaköll |
-| `ChangeLog.*` | Lestur breytingasögu og endurheimt gilda í reitum |
+- uppgötvun og sjálfslýsing - listinn yfir skilaboðategundir, samningur tegundar, hver er ég, staða
+  leyfis;
+- lestur og skrif minnisfærslna;
+- meðhöndlun setu, t.d. samþykkt á uppruna setu;
+- innkomin vefkrókaköll;
+- lestur breytingasögu og endurheimt gilda í reitum.
 
-Forskeytið gerir tegund gjaldfrjálsa aðeins þegar hún tilheyrir Bifröst-forriti frá Origo.
-Skilaboðategund sem annar útgefandi bætir við er gjaldskyld hvað sem hún heitir. Gjaldfrjálsar
-tegundir krefjast samt samþykkts notendaleyfissamnings - sjá [Fyrir fyrsta kallið](#before-the-first-call).
+Þau eru aðeins gjaldfrjáls þegar þau tilheyra Bifröst-forriti frá Origo. Skilaboðategund sem annar
+útgefandi bætir við er gjaldskyld hvað sem hún gerir. Gjaldfrjáls köll krefjast samt samþykkts
+notendaleyfissamnings - sjá [Fyrir fyrsta kallið](#before-the-first-call).
 
 ### Tveir pottar {#two-pools}
 
@@ -42,8 +41,8 @@ Skilaboð eru talin í tveimur pottum, eftir því hver framkvæmdi kallið:
 
 ### Gjaldfærslutegundir í áskrift {#charge-types}
 
-Í áskrift er hvert skilaboð einnig skráð með **gjaldfærslutegund**, svo samstarfsaðilinn þinn og
-söluaðili hans geti greint raunverulega notkun viðskiptavina frá eigin notkun. Gjaldfærslutegund
+Í áskrift er hvert skilaboð einnig skráð með **gjaldfærslutegund**, svo greina megi venjulega
+notkun þína frá vinnu samstarfsaðilans. Gjaldfærslutegund
 hvers notanda birtist í dálkinum **Gjaldfærslutegund** á síðunni
 [Uppsetning notanda Bifröst](/help/foundation/bifrost-user-setup-list/). Fyrsta reglan sem á við
 gildir:
@@ -71,7 +70,7 @@ framselda áskrift - gilda nýju gjaldfærslutegundirnar frá næstu daglegu sam
 
 Hvert fyrirtæki verður að samþykkja **notendaleyfissamninginn** (EULA) í
 [Uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/) áður en Bifröst vinnur úr
-nokkru kalli fyrir það. Fram að því er öllum köllum - líka `Help.*` - svarað með villunni
+nokkru kalli fyrir það. Fram að því er öllum köllum - líka uppgötvunarköllum - svarað með villunni
 `EULA_REQUIRED`, sem vísar á leiðsögnina. Kerfisstjóri getur dregið samþykkið til baka með
 **Afturkalla samþykki notendaleyfissamnings** á síðunni Uppsetning Bifröst; köllum er þá aftur
 hafnað þar til leiðsögninni hefur verið lokið.
@@ -89,7 +88,7 @@ viðskiptavinir samstarfsaðila.
   SaaS-framleiðsluumhverfi (eða úr tilkynningunni um að virkja prufuleyfið). Þar til það hefur
   verið virkjað er gjaldskyldum köllum svarað með villu um að *prufuleyfið hafi ekki verið virkjað*.
 - **Keyptur kvóti.** Að prufuleyfinu loknu kaupir þú fleiri skilaboð í hvorn pott frá Origo.
-  Uppsetning Bifröst sýnir tilkynningu þegar annar hvor potturinn fer undir 1.000 skilaboð.
+  Uppsetning Bifröst sýnir tilkynningu þegar annar hvor potturinn fer undir 200 skilaboð.
 - **Vikmörk.** Þegar pottur nær núlli er enn hægt að nota **100 skilaboð** í vikmörk; svörin bera þá
   viðvörun. Þegar vikmörkin eru líka uppurin er potturinn tæmdur.
 - **Lokun.** Tæmdur pottur hafnar köllum með villunni um uppurinn kvóta - nema leyfissamningur
@@ -109,10 +108,9 @@ leigjandann: öll fyrirtæki hans eru á áskrift, líka fyrirtæki sem byrja a�
 - **Álagsþak.** Fría þrepið sjálfgefið; viðskiptavinurinn getur valið hærra þrep í
   framleiðsluumhverfi. Sjá [Álagsþak](./rate-limits.md).
 
-Þegar sambandinu við samstarfsaðilann lýkur - samstarfsaðilinn segir viðskiptavininum upp,
-söluaðilinn segir samstarfsaðilanum upp eða samstarfsaðilinn staðfestir uppsagnarbeiðni
-viðskiptavinarins - fer leigjandinn aftur á **fyrirframgreitt leyfi** og álagsþak hans aftur á fría
-þrepið. Sjá [Úrsögn og uppsögn](./leaving-and-cancelling.md).
+Þegar sambandinu við samstarfsaðilann lýkur fer leigjandinn aftur á **fyrirframgreitt leyfi** og
+álagsþak hans aftur á fría þrepið. Breytingin tekur gildi þegar leyfisstjóri velur **Samstilla** á
+síðunni Uppsetning Bifröst.
 
 ## Mánaðarlegir kvótar {#monthly-quotas}
 
@@ -165,7 +163,8 @@ staðnum, og keypti kvótinn virkar eins og lýst er undir [Fyrirframgreitt leyf
 - Upplýsingareiturinn **Leyfi** á síðunni Uppsetning Bifröst sýnir tegund leyfis, eftirstöðvar
   kvóta og gildi hvors potts, skilaboð sem enn hafa ekki verið tilkynnt og dagsetningu síðustu
   samstillingar. Sjá [Upplýsingareitinn Leyfi](/help/foundation/license-fact-box/).
-- `Help.Bifrost.Get` skilar sömu stöðu sem `licenseStatus`, og
-  [`Bifrost.Subscription.GetStatus`](/foundation/reference/message-types/bifrost-subscription-getstatus/)
-  skilar stillingum leigjandans og notkun yfirstandandi mánaðar.
+- Gervigreindaraðstoðarmaður getur lesið sömu stöðu, og notkun leigjandans í yfirstandandi
+  mánuði, í gegnum Bifröst. Uppsettar skilaboðategundir og samningar þeirra eru lesnir úr Business
+  Central sjálfu: með MCP-tólunum `list_message_types` og `describe_message_type` eða á síðunni
+  Bifrost Message Types.
 - Villurnar og viðvaranirnar sem kallendur sjá eru í [Tilvísun um leyfisveitingar](/foundation/reference/licensing/).

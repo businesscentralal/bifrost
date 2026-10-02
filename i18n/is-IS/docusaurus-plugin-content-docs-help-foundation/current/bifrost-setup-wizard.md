@@ -44,10 +44,10 @@ Auðkenni sem vantar eru aldrei villa, hvorki hér né á Uppsetning Bifröst �
 | **Sandkassi** | **Sandkassaleyfi**: ekki þarf prufuleyfi og Bifröst sjálft takmarkar ekki skilaboð; opinberi MCP-þjónninn leyfir 1.000 skilaboð á 24 klukkustundum fyrir hvern Microsoft Entra leigjanda. Fyrir ótakmarkaðar prófanir í sandkassa skaltu nota staðbundna MCP-þjóninn úr [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp). |
 | **Á staðnum** | Hvernig staðbundni MCP-þjónninn er settur upp við hlið uppsetningarinnar og **Staðfesta tengingu** fyrir tenginguna við leyfisþjónustuna sem Origo lét fylgja leyfinu á staðnum. Ekki er hægt að halda áfram fyrr en tengingin hefur verið staðfest. |
 
-Sjá [Leyfi og samstarfsaðilakerfi](/licensing/) um leyfislíkanið.
+Sjá [Leyfi](/licensing/) um leyfislíkanið.
 
 ## Ábendingar
 
--   Ný uppsetning byrjar alltaf á **fyrirframgreiddu** leyfi. **Áskriftarleyfið** hefst síðar, þegar leigjandinn samþykkir boð frá Bifröst samstarfsaðila - sjá [Að vera viðskiptavinur](/licensing/customer/).
+-   Ný uppsetning byrjar alltaf á **fyrirframgreiddu** leyfi. **Áskriftarleyfið** hefst síðar, þegar leigjandinn samþykkir boð frá Bifröst samstarfsaðila - sjá [Tegundir leyfa](/licensing/license-types/#subscription).
 -   Ekkert sem þú gerir í leiðsögninni er óafturkræft: **Til baka** og **Áfram** henda aldrei gildum sem þú hefur þegar skráð og þú getur keyrt leiðsögnina aftur hvenær sem er.
 -   **Afturkalla samþykki notendaleyfissamnings** á Uppsetning Bifröst dregur samþykkið til baka fyrir fyrirtækið; keyrðu leiðsögnina aftur til að endurheimta það.

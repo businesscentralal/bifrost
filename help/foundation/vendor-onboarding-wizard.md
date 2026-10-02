@@ -21,5 +21,3 @@ which appears after the Sync. Opened any other way, for example by URL, the wiza
 Choose **Finish** to register. **Partner Management**, **Pending Partner Leave Requests** and
 **Deregister as Vendor** then appear on Bifröst Setup. **Customer Management** is a Partner function:
 a Vendor sees its Partners' customers read-only through **View Customers** on Partner Management.
-
-See [Working as a Vendor](/licensing/vendor/).
