@@ -748,15 +748,15 @@ User <UserSecurityId> does not have permissions to send documents to approval vi
 
 **Purpose:** Required to bypass the ChangeLog Write Guard when using `"force": true` in general record writes with the guard set to **Via force**. See [ChangeLog Write Guard](#changelog-write-guard) for details.
 
-### Posting Gates (Bifrost G/L / Item / FA / Job / Resource / Warehouse Posting)
+### Posting Gates (Bifrost G/L / Item / FA / Job / Resource Posting)
 
 Every message type that posts or reverses ledger entries is gated by a per-domain permission set. A user who does not hold the matching set receives an error response without any side effects:
 
 ```
-Posting denied: missing '<permission set name>' permission set (BIFROST GL Post ori, BIFROST ItemPost ori, BIFROST FA Post ori, BIFROST Job Post ori, BIFROST Res Post ori or BIFROST WhsePost ori).
+Posting denied: missing '<permission set name>' permission set.
 ```
 
-The six permission sets are independent and **not bundled into `BIFROST Read ori` or `BIFROST Full ori`** — they must be granted explicitly.
+The five permission sets are independent and **not bundled into `BIFROST Read ori` or `BIFROST Full ori`** — they must be granted explicitly.
 
 | Permission Set | What it allows |
 |---|---|
@@ -765,9 +765,8 @@ The six permission sets are independent and **not bundled into `BIFROST Read ori
 | `BIFROST FA Post ori` | Posting fixed asset journals |
 | `BIFROST Job Post ori` | Posting project journals |
 | `BIFROST Res Post ori` | Posting resource journals |
-| `BIFROST WhsePost ori` | Posting warehouse shipments (posting with invoicing also requires `BIFROST GL Post ori`), registering warehouse picks and put-aways |
 
-**Note:** Posting sales and purchase documents is gated to **G/L only** even though it may produce item and other ledger entries downstream. The gate represents the user's intent to trigger posting, not the entries that BC ultimately writes. Posting a warehouse shipment with invoicing is the only operation that requires two permission sets simultaneously.
+**Note:** Posting sales and purchase documents is gated to **G/L only** even though it may produce item and other ledger entries downstream. The gate represents the user's intent to trigger posting, not the entries that BC ultimately writes.
 
 ---
 

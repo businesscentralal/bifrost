@@ -19,7 +19,7 @@ which is also published as-is at [`/apps.json`](https://businesscentralal.github
 in-product listings to read directly.
 
 **Most apps are an install and a short setup wizard.** Some also need an agreement or credentials
-from an outside service, such as a bank; each app's page says so. Its capabilities join the
+from an outside service; each app's page says so. Its capabilities join the
 same catalogue, run with the same permissions and are logged on Bifrost Messages. Each app's page
 says who is needed and which permission sets to assign.
 
@@ -35,7 +35,7 @@ Each app has two kinds of pages on this site:
 |---|---|---|
 | **What it says** | What the app adds, in Business Central terms | What one page in Business Central is for, its fields and actions |
 | **Who reads it** | Anyone choosing apps, administrators and developers | A user on that page, who opens it from Business Central with the help button |
-| **Find it** | **Apps** on the right of the menu (Foundation and Additional apps) | From the help icon on each Bifröst page in Business Central |
+| **Find it** | **Apps** on the right of the menu (Foundation and All apps) | From the help icon on each Bifröst page in Business Central |
 
 An agent does not need either: it asks Bifröst which message types exist and reads their help
 directly.

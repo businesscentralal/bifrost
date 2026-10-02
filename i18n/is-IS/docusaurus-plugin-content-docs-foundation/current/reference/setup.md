@@ -282,15 +282,15 @@ User <UserSecurityId> does not have permissions to send documents to approval vi
 
 **Tilgangur:** Nauðsynlegt til að fara framhjá ChangeLog Write Guard þegar `"force": true` er notað í almennum skrifum færslna þar sem verndin er stillt á **Via force**. Sjá [ChangeLog Write Guard](#changelog-skrifjrn) fyrir nánari upplýsingar.
 
-### Bókunarhlið (Bifröst G/L / Item / FA / Job / Resource / Warehouse Posting)
+### Bókunarhlið (Bifröst G/L / Item / FA / Job / Resource Posting)
 
 Allar skilaboðategundir sem bóka eða bakfæra færslur í höfuðbækur eru með hlið per bókunarsviði. Notandi sem ekki hefur viðeigandi heimildarsett fær villuskil án nokkurra hliðaráhrifa:
 
 ```
-Posting denied: missing '<permission set name>' permission set (BIFROST GL Post ori, BIFROST ItemPost ori, BIFROST FA Post ori, BIFROST Job Post ori, BIFROST Res Post ori or BIFROST WhsePost ori).
+Bókun hafnað: vantar '<heiti heimildasamstæðu>' heimildasamstæðu.
 ```
 
-Heimildarsettin sex eru sjálfstæð og **eru ekki innifalin í `BIFROST Read ori` eða `BIFROST Full ori`** — þeim verður að úthluta sérstaklega.
+Heimildarsettin fimm eru sjálfstæð og **eru ekki innifalin í `BIFROST Read ori` eða `BIFROST Full ori`** — þeim verður að úthluta sérstaklega.
 
 | Heimildarsett | Hvað það leyfir |
 |---|---|
@@ -299,9 +299,8 @@ Heimildarsettin sex eru sjálfstæð og **eru ekki innifalin í `BIFROST Read or
 | `BIFROST FA Post ori` | Bókun eignabóka |
 | `BIFROST Job Post ori` | Bókun verkbóka |
 | `BIFROST Res Post ori` | Bókun forðabóka |
-| `BIFROST WhsePost ori` | Bókun vöruhúsaafhendinga (bókun með reikningsfærslu krefst líka `BIFROST GL Post ori`), skráning vöruhúsatínslu og frágangs |
 
-**Athugið:** Bókun sölu- og innkaupaskjala er gætt af **G/L eingöngu** þrátt fyrir að hún geti búið til vöru- og aðrar færslur í framhaldinu. Hliðið endurspeglar áform notandans um að ræsa bókun, ekki færslurnar sem BC skrifar að lokum. Bókun vöruhúsaafhendingar með reikningsfærslu er eina aðgerðin sem krefst tveggja heimildarsetta samtímis.
+**Athugið:** Bókun sölu- og innkaupaskjala er gætt af **G/L eingöngu** þrátt fyrir að hún geti búið til vöru- og aðrar færslur í framhaldinu. Hliðið endurspeglar áform notandans um að ræsa bókun, ekki færslurnar sem BC skrifar að lokum.
 
 ---
 

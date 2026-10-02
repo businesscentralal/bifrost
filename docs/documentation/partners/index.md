@@ -23,8 +23,6 @@ is covered.
   systems, checked in Business Central before you go live.
 - **In testing:** automated tests for new and changed features and before each release, run
   through the same message types a user's assistant would call.
-- **Routines:** [Orchestrator](/orchestrator/) playbooks that chain message types from any app,
-  built and looked after for a customer.
 
 Demos and your own use are counted apart from customers' use, as the **Demo** and **Internal**
 [charge types](/licensing/license-types/#charge-types).

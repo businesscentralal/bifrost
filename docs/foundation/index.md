@@ -14,6 +14,11 @@ Business Central: answer from live data, carry out tasks and run routines, as yo
 permissions. It does not replace Business Central or the extensions you have; it makes their data
 and business logic available to the AI you already use.
 
+Foundation is also the base of the whole Bifröst family. The setup page and setup wizard, the
+secret store, the permissions, licensing, the message log and the help described on this site work
+the same way for every Bifröst app. Other Bifröst apps depend on Foundation and add operations of
+their own.
+
 ## What you can do with it
 
 Foundation brings the standard Business Central
@@ -32,8 +37,8 @@ The installed message types and their contracts are read from Business Central i
 tools `list_message_types` and `describe_message_type`, or the Bifrost Message Types page.
 
 **Where it stops.** Foundation can read most of your data, but it can only carry out tasks that have
-a message type. For banks, document exchange, storage, schedules and more, add an
-[additional app](/apps/); see [What it covers](/documentation/how-it-works/#what-it-covers-and-how-it-grows).
+a message type. Other Bifröst apps add operations of their own; see
+[What it covers](/documentation/how-it-works/#what-it-covers-and-how-it-grows).
 
 ## Get it and set it up
 

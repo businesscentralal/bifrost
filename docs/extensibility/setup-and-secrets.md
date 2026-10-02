@@ -87,7 +87,7 @@ than in a table of your own.
   error text readable.
 - `Request Log URL Masker ori` decides what of the full URL and the operation text is stored. A
   value with no URL masker of its own stores both as passed in. If your URL path or query, or the
-  operation you log, can carry an identifier such as a kennitala, implement this interface on your
+  operation you log, can carry a personal identifier such as a national ID number, implement this interface on your
   masker codeunit and name it on your enum value:
   `Implementation = "Request Log Masker ori" = X, "Request Log URL Masker ori" = X;`.
 - `Request Log Reader ori` reads an entry back.

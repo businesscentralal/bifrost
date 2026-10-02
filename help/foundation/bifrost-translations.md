@@ -26,6 +26,6 @@ The **Bifrost Translations** page lets administrators maintain translation entri
 
 ## Tips
 
--   Translations are used at runtime by bifrost message processing when returning language-specific responses to external systems.
+-   Translations are used at runtime by Bifröst message processing when returning language-specific responses to external systems.
 -   You can create multiple translations for the same source text in different languages.
 -   This page can be reached directly from the [Bifrost Setup](/help/foundation/bifrost-setup/) page via the _Bifrost Translations_ action.

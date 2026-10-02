@@ -5,7 +5,7 @@ sidebar_label: "User Setup Editor"
 sidebar_position: 27
 ---
 
-The **User Setup Editor** allows you to configure per-user settings for the Bifrost extension. This includes the user's charge type and session source approval, a monthly message quota, linking your user to specific business records and defining a custom system prompt.
+The **User Setup Editor** allows you to configure per-user settings for Bifröst. This includes the user's charge type and session source approval, a monthly message quota, linking your user to specific business records and defining a custom system prompt.
 
 ## General
 
@@ -37,7 +37,7 @@ These fields link your user to specific business entities, enabling the system t
 
 ## System Prompt
 
-A custom markdown text that provides additional instructions to the AI model in Bifrost Language Models (chat) conversations. Use this to tailor the AI's behavior, add company-specific context, or restrict responses to certain domains.
+A custom markdown text that gives the AI additional instructions in chat conversations, when an app that provides a chat is installed and set up. Use this to tailor the AI's behavior, add company-specific context, or restrict responses to certain domains.
 
 ## See Also
 
