@@ -5,7 +5,7 @@ sidebar_label: "Velja skráareikning"
 sidebar_position: 2
 ---
 
-**Velja skráareikning** er uppfletting sem sýnir þá Business Central skráareikninga sem eru skráðir fyrir tengilinn sem valinn er á spjaldinu [Bifröst geymslutenging](/help/attachments/storage-card/). Þegar reikningur er valinn er geymslutengingin bundin honum, þannig að allar Bifröst-beiðnir sem nota `storageCode` þessarar tengingar lesa og skrifa í gegnum þann reikning.
+**Velja skráareikning** er uppfletting sem sýnir þá Business Central skráareikninga sem eru skráðir fyrir tengilinn sem valinn er á spjaldinu [Bifröst geymslutenging](/help/attachments/storage-card/). Þegar reikningur er valinn er geymslutengingin bundin honum, þannig að allar Bifröst-beiðnir sem vísa á kóða þessarar tengingar lesa og skrifa í gegnum þann reikning.
 
 Opnið uppflettinguna með aðgerðinni **Velja skráareikning** á geymslutengingarspjaldinu. Listinn er tómur þar til að minnsta kosti einn skráareikningur hefur verið skráður í uppsetningu tengilsins sjálfs — til dæmis í Azure Blob Storage tenglinum eða SharePoint tenglinum. Notið staðlaða **leiðsagnarforritið fyrir skráareikninga**, aðgengilegt úr flokknum **Geymsla** á Uppsetningarsíðu Bifrastar, til að skrá einn.
 

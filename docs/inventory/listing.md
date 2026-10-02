@@ -17,7 +17,7 @@ Bifröst Inventory
 Item attributes via Bifröst messages
 
 ## Offer Summary (max 100 chars)
-Get, create and update Item Attributes as Bifröst message types on Foundation.
+Read, set and change Business Central item attributes through Bifröst Foundation.
 
 ## Search Keywords
 1. Item attributes
@@ -55,7 +55,7 @@ https://www.origo.is/
 
 ## Full description text
 
-**Bifröst Inventory** adds Item Attribute message types to the Bifröst platform — a message-based integration layer that gives external systems, AI agents and automation tools structured access to Business Central via OData. Instead of joining Item, Item Attribute and Item Attribute Value Mapping through generic record APIs, callers use dedicated types for get, create, update and attribute definition create.
+**Bifröst Inventory** adds item attribute operations to the Bifröst platform — a message-based integration layer that gives external systems, AI agents and automation tools structured access to Business Central via OData. Instead of joining Item, Item Attribute and Item Attribute Value Mapping through generic record APIs, callers use dedicated operations to read attributes, set and change values, and define attributes.
 
 ### Who is this for?
 
@@ -65,15 +65,15 @@ https://www.origo.is/
 
 ### What it does
 
-- **Item.Attribute.Get** — outbound read of attribute definitions and assigned values for one or more items
-- **Item.Attribute.Create** — inbound assign (idempotent; optional overwrite)
-- **Item.Attribute.Update** — inbound change of an existing mapping with before/after
-- **Item.AttributeDefinition.Create** — inbound create of an attribute definition and optional option values
+- **Read attributes** — attribute definitions and assigned values for one or more items, optionally with the attributes that have no value yet
+- **Assign values** — give an item an attribute value; setting the same value again changes nothing, and a different value is replaced only on request
+- **Change values** — change an existing value, with the value before and after in the answer
+- **Define attributes** — create an attribute definition, with its option values, before any item uses it
 
 ### How it works
 
 1. Install **Bifröst Foundation** and **Bifröst Inventory**
-2. Callers send Bifröst messages with the item in `subject` or `data`
+2. Callers name the item by its system id or item number
 3. Results return as structured JSON through the standard Bifröst data API
 
 ### Supported editions and countries

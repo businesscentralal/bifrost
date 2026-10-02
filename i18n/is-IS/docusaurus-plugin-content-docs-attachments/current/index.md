@@ -4,49 +4,84 @@ title: "Bifröst Attachments"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Azure Blob Storage, Azure File Share and SharePoint exposed as Bifröst message types for Business Central file operations."
+description: "Geymdu skrár Business Central í Azure Blob Storage, Azure File Share eða SharePoint og náðu í þær úr hvaða ferli sem er."
 ---
 
-Bifröst Attachments connects Business Central to cloud storage. It builds on Bifröst Foundation og exposes the standard Business Central External File Storage connectors — Azure Blob Storage, Azure File Share og SharePoint — as message tegunds, so an external caller, an MCP client eða a Business Central process getur read og write skrár through the same queue, verkþáttur og data pattern used by the rest of Bifröst.
+# Bifröst Attachments
 
-## What it does
+**Geymdu skrár Business Central í skýgeymslu og náðu í þær úr hvaða ferli sem er.** Lestu,
+skrifaðu og hengdu skrár við í Azure Blob Storage, Azure File Share eða SharePoint, og færðu
+viðhengi út úr gagnagrunninum án þess að tapa þeim.
 
-- **File operations** — list, download, upload, copy, move, delete og check the existence of skrár in any stillt storage tenging.
-- **Directory operations** — list, create, delete og check the existence of directories.
-- **Chunked uploads** — deliver a large skrá as a sequence of small base64 chunks með session management (begin, append, commit, abort, status), which sidesteps the per-request payload limit.
-- **Attachment offloading** — move the innihald of a Document Attachment eða Incoming Document Attachment out of the database í storage, og restore it on demand. Offloaded innihald still opens normally in the Business Central client.
-- **Attachment creation** — attach a skrá that er already in storage to an incoming skjal, eða create a Document Attachment on any færsla úr base64, úr storage, eða by copying an existing attachment.
-- **Storage tengingar** — hver tenging binds a short kóði to a registered Business Central skrá account, með an optional base slóð prepended to every slóð used through it.
-- **No secrets in this app** — credentials belong to the Business Central connector apps; Attachments aðeins references a registered skrá account by id.
-- **Self-skjaling samningur** — `Help.Storage.Get` returns a Markdown catalogue of the module, og every message tegund answers its own per-tegund help.
+Önnur kerfi, aðstoðarmenn og ferli í Business Central nota sömu geymslutengingarnar, sem
+kerfisstjóri setur upp einu sinni.
 
-## How it works
+*Viðbótarapp ofan á [Bifröst Foundation](/foundation/). Nýr í Bifröst? Byrjaðu á
+[Hvernig Bifröst virkar](/documentation/how-it-works/).*
 
-1. Install a Business Central skrá storage connector app — Azure Blob Storage, Azure File Share eða SharePoint — og register a skrá account in it.
-2. Enable HTTP client requests fyrir the extension; the assisted setup *Stilltu up Bifrost Storage* walks through this.
-3. Create a storage tenging on **Bifrost Storage Stilltuup**, binding a kóði to the skrá account, og confirm it með **Test Connection**.
-4. External systems send Bifröst messages carrying that `storageCode` to target the tenging.
-5. All operations route through the standard Business Central External File Storage facade.
+## Hvað þú getur gert
 
-## Skilaboð tegunds
+- **Minnkað gagnagrunninn.** Færðu innihald fylgiskjals eða viðhengis innsends skjals út í
+  geymslu og sæktu það aftur þegar á þarf að halda. Útfærðar skrár opnast áfram eðlilega í
+  Business Central.
+- **Unnið með skrár og möppur.** Skráð, sótt, hlaðið upp, afritað, fært og eytt skrám, og
+  búið til, skráð og eytt möppum, í hvaða geymslutengingu sem þú hefur sett upp.
+- **Hengt geymda skrá við færslu.** Hengdu skrá sem þegar er í geymslu við innsent skjal, eða
+  bættu fylgiskjali við hvaða færslu sem er, til dæmis viðskiptamann, lánardrottin, eign eða
+  skjal, án þess að hlaða henni upp aftur. Innsend skjöl eru síðan meðhöndluð eins og venjulega í
+  [Bifröst Foundation](/foundation/).
+- **Sent stórar skrár.** Skrá sem er of stór fyrir eina beiðni má senda í bútum og setja saman í
+  geymslu, eða hengja beint við færslu.
+- **Flett upp í uppsetningu gagnaskipta.** Lestu skilgreiningar og tegundir gagnaskipta og unnar
+  færslur. Þetta er eingöngu lestur: engu er hlaðið upp og engu breytt.
+- **Valið geymslu.** Azure Blob Storage, Azure File Share eða SharePoint, í gegnum stöðluðu
+  tengiöpp Business Central.
 
-| Domain | Skilaboð tegunds |
-| --- | --- |
-| Discovery | `Help.Storage.Get`, `Storage.Account.List` |
-| Files | `Storage.File.List`, `Storage.File.Get`, `Storage.File.Create`, `Storage.File.Delete`, `Storage.File.Copy`, `Storage.File.Move`, `Storage.File.Exists` |
-| Directories | `Storage.Directory.List`, `Storage.Directory.Create`, `Storage.Directory.Delete`, `Storage.Directory.Exists` |
-| Attachments | `Storage.Attachment.Offload`, `Storage.Attachment.Restore`, `Storage.Attachment.CreateLinked`, `Storage.Attachment.CreateForRecord` |
-| Upload | `Storage.Upload.Begin`, `Storage.Upload.Append`, `Storage.Upload.Commit`, `Storage.Upload.Abort`, `Storage.Upload.Status`, `Storage.Upload.CommitToRecord` |
+## Sæktu appið
 
-## Requirements
+Settu **Bifrost Attachments** upp við hlið Bifröst Foundation, af AppSource eða í gegnum
+samstarfsaðila þinn. Það þarf Business Central 28.0 eða nýrra, Essentials eða Premium, og að
+minnsta kosti eitt tengiapp fyrir skráageymslu í Business Central, til dæmis Azure Blob Storage
+Connector frá Microsoft.
 
-- Microsoft Dynamics 365 Business Central 28.0 eða later, Essentials eða Premium.
-- Bifröst Foundation, available separately on AppSource.
-- At least one Business Central skrá storage connector app installed og stillt, fyrir example the Azure Blob Storage Connector by Microsoft, með a registered skrá account.
+## Uppsetning
 
-## Where to go next
+| Skref | Hvað | Hver |
+|---|---|---|
+| 1 | Settu upp tengiapp fyrir skráageymslu (Azure Blob Storage, Azure File Share eða SharePoint) og skráðu skráareikning í því, til dæmis með **leiðsagnarforritinu fyrir skráareikninga**. | Kerfisstjóri Business Central |
+| 2 | Leyfðu HTTP-biðlarabeiðnir fyrir viðbótina. Leiðsagnaruppsetningin **Setja upp Bifrost Attachments** leiðir þig í gegnum það. | Kerfisstjóri Business Central |
+| 3 | Opnaðu **Uppsetningu Bifrost Attachments** í flokknum **Forrit** á **Uppsetningu Bifrost** og bættu við geymslutengingu: stuttum kóða, tenglinum, skráareikningnum og, ef þú vilt, grunnslóð. Veldu **Prófa tengingu**. | Kerfisstjóri Business Central |
+| 4 | Gefðu fólki og þjónustum sem nota geymslu heimildasafnið **`BIFROST Attach ori`** (og `BIFROST DataExch ori` fyrir gagnaskipti). | Kerfisstjóri Business Central |
+| 5 | Sendu beiðnir sem vísa á geymslutenginguna með kóða hennar. | Sá sem smíðar samþættinguna |
 
-- [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, generated úr the app itself
-- [AppSource notandi scenarios](./user-scenarios)
-- [Partner Center listing](./listing)
-- [Build on Bifröst](/extensibility/)
+Leiðbeiningar skref fyrir skref eru í hjálpinni í appinu:
+[Uppsetning Attachments](/help/attachments/attachments-setup/),
+[Uppsetning Bifröst-geymslu](/help/attachments/storage-setup/),
+[Geymslutenging](/help/attachments/storage-card/) og
+[Velja skráareikning](/help/attachments/storage-account-lookup/).
+
+## Gott að vita
+
+- **Það vinnur sem þú.** Hvert kall keyrir með þínum eigin heimildum í Business Central og er skráð
+  á **Bifrost Messages**.
+- **Engin auðkenni í þessu appi.** Lyklar og teikn eru áfram í tengiöppum Business Central.
+  Bifröst Attachments geymir aðeins auðkenni og heiti skráareikningsins.
+- **Engin heimild, enginn aðgangur.** Notandi án `BIFROST Attach ori` fær heimildarvillu, og engin
+  gögn eru sýnd eða þeim breytt.
+- **Óvirk geymslutenging** hafnar öllum beiðnum þar til hún er virkjuð aftur.
+- **Ókláraðar stórar upphleðslur skilja eftir gögn.** Upphleðslur sem aldrei var lokið eða hætt við
+  má hreinsa með **Hreinsa upphleðslulotur** á Uppsetningu Bifrost Attachments.
+
+## Tilvísun
+
+Uppsettar skilaboðategundir og samningar þeirra eru lesnir úr Business Central sjálfu: með
+MCP-verkfærunum `list_message_types` og `describe_message_type`, eða á síðunni **Bifrost Message
+Types**.
+
+Fyrir forritara: hver aðgerð fer í gegnum stöðluðu tengla Business Central fyrir ytri
+skráageymslu, og innihald skráa ferðast sem base64, í bútum fyrir stórar skrár.
+
+- [Texti AppSource-skráningar](./listing)
+- [Prófunarsviðsmyndir fyrir AppSource](./user-scenarios)
+- [Byggðu á Bifröst](/extensibility/)
+- Heimildasöfn: `BIFROST Attach ori` (geymsla) og `BIFROST DataExch ori` (gagnaskipti).

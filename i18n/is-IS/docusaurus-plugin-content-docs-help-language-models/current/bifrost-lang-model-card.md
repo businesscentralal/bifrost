@@ -32,10 +32,7 @@ Allir veitendur nema Copilot þurfa API-lykil. Lykillinn er aldrei reitur á þe
 | **Sameiginlegur lykill geymdur** | Hvort lykill fyrir allt fyrirtækið hafi verið geymdur fyrir þetta líkan. Allir sem hafa engan persónulegan lykil nota hann. |
 | **Athugasemd** | Birtist aðeins meðan enginn nothæfur lykill er til og útskýrir að skrá þurfi gildið einu sinni. |
 
-| Kóði leyndarmáls | Umfang |
-| --- | --- |
-| `LANGMODEL-<Kóði>-API-KEY` | Fyrirtæki — sameiginlegi lykillinn |
-| `LANGMODEL-<Kóði>-USER-API-KEY` | Fyrirtæki og notandi — persónulegi lykillinn |
+Sameiginlegi lykillinn gildir fyrir alla í fyrirtækinu; persónulegur lykill gildir aðeins fyrir þig, í þessu fyrirtæki.
 
 Business Central heldur geymdum leyndarmálum aðskildum eftir viðbótum, svo lykill sem var skráður í eldri útgáfu forritsins flyst ekki með. Skráið hvern lykil einu sinni.
 

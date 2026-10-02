@@ -4,7 +4,7 @@ title: "Bifröst Subscription Billing"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Microsoft's Subscription Billing app made callable — 22 Bifröst message types for contracts, the billing pipeline, usage data, deferrals and migration."
+description: "Microsoft's Subscription Billing app made callable — contracts, the billing pipeline, usage data, deferrals and migration."
 ---
 
 # Bifröst Subscription Billing
@@ -52,8 +52,7 @@ partner. It needs Business Central 28.0 or later, Essentials or Premium, and Mic
 | 3 | Install **Bifrost Subscription Billing** next to Bifröst Foundation. | Business Central administrator |
 | 4 | Give each user or service that calls it the **Bifrost Sub. Billing** (`BIFROST SubBil ori`) permission set, next to their Foundation permissions. | Business Central administrator |
 
-The app has no pages of its own. The in-product help explains where its results appear:
-Bifröst Subscription Billing help.
+The app has no pages of its own: its results appear in the standard Subscription Billing pages.
 
 ## Good to know
 
@@ -71,13 +70,10 @@ Bifröst Subscription Billing help.
   created unposted, and no external service or credential is involved: everything runs inside
   Business Central.
 
-## Capabilities and reference
+## Reference
 
-Capability: **`Subscription`**.
+The installed message types and their contracts are read from Business Central itself: the MCP
+tools `list_message_types` and `describe_message_type`, or the **Bifrost Message Types** page.
 
-What each message type does, in plain words: [Capabilities](./capabilities).
-
-- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
-- [Message type guide](./message-types): the shared request and response contract, and the limitations in full
 - [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
 - Permission set: **Bifrost Sub. Billing** (`BIFROST SubBil ori`), on top of the caller's Foundation permissions.

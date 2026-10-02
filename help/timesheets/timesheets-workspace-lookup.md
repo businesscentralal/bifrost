@@ -14,11 +14,11 @@ The list is fetched from Clockify each time the lookup opens, so it always shows
 | Field | Description |
 | --- | --- |
 | Name | The name of the Clockify workspace. |
-| Workspace ID | The Clockify workspace identifier. This is the value that a Bifröst request passes as `workspaceId`. |
+| Workspace ID | The Clockify workspace identifier. This is the value a request names to choose a workspace. |
 
 ## Why a default workspace matters
 
-Most Clockify message types take a `workspaceId` in the request. When a request leaves it out, the connector falls back to the default workspace set here. Registering the real-time webhooks also requires a default workspace, because a webhook belongs to one workspace.
+Most Clockify operations work in one workspace. When a request does not name one, the connector falls back to the default workspace set here. Registering the real-time webhooks also requires a default workspace, because a webhook belongs to one workspace.
 
 ## If the list is empty or does not open
 

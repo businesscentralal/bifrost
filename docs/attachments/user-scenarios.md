@@ -10,7 +10,7 @@ description: "The scenarios Microsoft's validation team executes to certify this
 **App:** Bifrost Attachments (`672df32a-a0c5-4a22-b591-0efa38023e95`)
 **Version:** 28.0.0.0
 **Submission Date:** 2026-09-05
-**Test Environment:** Requires a configured Azure Blob Storage account or SharePoint document library accessible from the BC sandbox. See "Test Credentials" section below.
+**Test Environment:** Requires a configured Azure Blob Storage account or SharePoint document library accessible from the BC sandbox, and an AI assistant connected to Bifröst. See "Test Credentials" and "AI assistant" below.
 
 ---
 
@@ -29,12 +29,22 @@ appropriate connector app and configure it before testing.
 
 ---
 
+## AI assistant
+
+The scenarios below are run through an AI assistant (for example Copilot, ChatGPT or Claude)
+connected to the sandbox through the Bifröst MCP server, as described in
+[Connect your AI assistant](/setup/connect-your-ai/). Every request the assistant makes is
+logged on the **Bifrost Messages** page in Business Central, where the tester can check its
+status and result.
+
+---
+
 ## Scenario 1: Extension Installation and Setup
 
 **Area:** Installation & Activation
 
 ### Setup
-1. Start with a clean BC sandbox (Cronus company)
+1. Start with a clean BC sandbox (demo company)
 2. Install the "Bifrost Foundation" extension (dependency)
 3. Install the "Bifrost Attachments" extension
 
@@ -63,27 +73,22 @@ appropriate connector app and configure it before testing.
 
 ---
 
-## Scenario 2: List Storage Accounts via Bifrost API
+## Scenario 2: List the Storage Connections
 
 **Area:** Core Functionality
 
 ### Setup
 1. Complete Scenario 1 (storage connection "TEST" exists)
-2. Open a REST client (Postman or equivalent) configured for OData access to the BC sandbox
+2. Connect the AI assistant to the sandbox
 
 ### Steps
-1. POST a new record to the Bifrost Queue API page:
-   - `type`: `Storage.Account.List`
-   - `sendContent`: `{}` (empty JSON)
-2. POST to the Bifrost Task API to process the message
-3. GET the processed message from the Bifrost Data API
-4. Verify the response JSON contains the configured storage account
+1. Ask the assistant: "Which storage connections are set up in Business Central?"
+2. Open **Bifrost Messages** in Business Central and find the request
 
 ### Expected Results
-- The queue accepts the message without error
-- The task processes successfully (status changes to completed)
-- The response JSON contains an array with at least one entry showing `"code": "TEST"` and the connector type
-- No secrets (keys, tokens) are included in the response
+- The answer lists the connection "TEST" and its connector type
+- No secrets (keys, tokens) are included in the answer
+- The request is shown on **Bifrost Messages** as completed
 
 ---
 
@@ -96,16 +101,11 @@ appropriate connector app and configure it before testing.
 2. Ensure the connected storage account contains at least 2 files in the root or a known directory
 
 ### Steps
-1. POST a new record to the Bifrost Queue API page:
-   - `type`: `Storage.File.List`
-   - `sendContent`: `{"storageCode": "TEST", "path": ""}`
-2. POST to the Bifrost Task API to process the message
-3. GET the processed message from the Bifrost Data API
+1. Ask the assistant: "List the files in the root of storage connection TEST."
 
 ### Expected Results
-- The task processes successfully
-- The response JSON contains an array of file entries with name, path, and size information
-- At least 2 files are listed (matching the pre-existing files in storage)
+- The answer lists the files with name, path and size
+- At least 2 files are listed, matching the files in storage
 
 ---
 
@@ -115,23 +115,16 @@ appropriate connector app and configure it before testing.
 
 ### Setup
 1. Complete Scenario 1 (storage connection "TEST" exists)
-2. Prepare a small test file content encoded as base64 (e.g., "Hello World" = `SGVsbG8gV29ybGQ=`)
 
 ### Steps
-1. POST a new record to the Bifrost Queue API page:
-   - `type`: `Storage.File.Create`
-   - `sendContent`: `{"storageCode": "TEST", "path": "test-upload.txt", "contentBase64": "SGVsbG8gV29ybGQ="}`
-2. POST to the Bifrost Task API to process the message
-3. Verify the task completes successfully
-4. POST a new record to the Bifrost Queue API page:
-   - `type`: `Storage.File.Get`
-   - `sendContent`: `{"storageCode": "TEST", "path": "test-upload.txt"}`
-5. POST to the Bifrost Task API to process the message
-6. GET the processed message from the Bifrost Data API
+1. Ask the assistant: "Create a file test-upload.txt in storage connection TEST with the text Hello World."
+2. Check in the storage account (for example in the Azure portal) that the file exists
+3. Ask the assistant: "Read the file test-upload.txt from storage connection TEST and show me its content."
 
 ### Expected Results
-- Step 3: The file creation task completes without error
-- Step 6: The response contains the file content as base64, matching the uploaded content (`SGVsbG8gV29ybGQ=`)
+- Step 1: The assistant reports that the file was created, without error
+- Step 2: The file "test-upload.txt" is in the storage account
+- Step 3: The content shown is "Hello World"
 
 ---
 
@@ -143,19 +136,12 @@ appropriate connector app and configure it before testing.
 1. Complete Scenario 4 (file "test-upload.txt" exists in storage)
 
 ### Steps
-1. POST a new record to the Bifrost Queue API page:
-   - `type`: `Storage.File.Exists`
-   - `sendContent`: `{"storageCode": "TEST", "path": "test-upload.txt"}`
-2. POST to the Bifrost Task API to process the message
-3. GET the response from the Bifrost Data API
-4. POST another message:
-   - `type`: `Storage.File.Exists`
-   - `sendContent`: `{"storageCode": "TEST", "path": "nonexistent-file.txt"}`
-5. Process and retrieve the response
+1. Ask the assistant: "Does the file test-upload.txt exist in storage connection TEST?"
+2. Ask the assistant: "Does the file nonexistent-file.txt exist in storage connection TEST?"
 
 ### Expected Results
-- Step 3: Response indicates the file exists (`"exists": true`)
-- Step 5: Response indicates the file does not exist (`"exists": false`)
+- Step 1: The answer is that the file exists
+- Step 2: The answer is that the file does not exist
 
 ---
 
@@ -167,25 +153,16 @@ appropriate connector app and configure it before testing.
 1. Complete Scenario 4 (file "test-upload.txt" exists in storage)
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Storage.File.Copy`
-   - `sendContent`: `{"storageCode": "TEST", "sourcePath": "test-upload.txt", "targetPath": "test-copy.txt"}`
-2. Process the task and verify completion
-3. POST a Bifrost message:
-   - `type`: `Storage.File.Exists`
-   - `sendContent`: `{"storageCode": "TEST", "path": "test-copy.txt"}`
-4. Process and verify the copy exists
-5. POST a Bifrost message:
-   - `type`: `Storage.File.Move`
-   - `sendContent`: `{"storageCode": "TEST", "sourcePath": "test-copy.txt", "targetPath": "test-moved.txt"}`
-6. Process and verify completion
-7. Verify "test-copy.txt" no longer exists and "test-moved.txt" does exist
+1. Ask the assistant: "Copy test-upload.txt to test-copy.txt in storage connection TEST."
+2. Ask the assistant whether "test-copy.txt" exists
+3. Ask the assistant: "Move test-copy.txt to test-moved.txt in storage connection TEST."
+4. Check in the storage account that "test-copy.txt" no longer exists and "test-moved.txt" does
 
 ### Expected Results
-- Step 2: Copy completes without error
-- Step 4: The copied file exists
-- Step 6: Move completes without error
-- Step 7: Original path is gone, new path exists
+- Step 1: Copy completes without error
+- Step 2: The copied file exists
+- Step 3: Move completes without error
+- Step 4: The original path is gone, the new path exists
 
 ---
 
@@ -197,66 +174,40 @@ appropriate connector app and configure it before testing.
 1. Complete Scenario 1 (storage connection "TEST" exists)
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Storage.Directory.Create`
-   - `sendContent`: `{"storageCode": "TEST", "path": "test-dir"}`
-2. Process the task
-3. POST a Bifrost message:
-   - `type`: `Storage.Directory.Exists`
-   - `sendContent`: `{"storageCode": "TEST", "path": "test-dir"}`
-4. Process and retrieve the response
-5. POST a Bifrost message:
-   - `type`: `Storage.Directory.List`
-   - `sendContent`: `{"storageCode": "TEST", "path": ""}`
-6. Process and retrieve the response
-7. POST a Bifrost message:
-   - `type`: `Storage.Directory.Delete`
-   - `sendContent`: `{"storageCode": "TEST", "path": "test-dir"}`
-8. Process and verify completion
+1. Ask the assistant: "Create a folder test-dir in storage connection TEST."
+2. Ask the assistant whether the folder "test-dir" exists
+3. Ask the assistant to list the folders in the root of storage connection TEST
+4. Ask the assistant: "Delete the folder test-dir in storage connection TEST."
 
 ### Expected Results
-- Step 2: Directory creation succeeds
-- Step 4: Response shows `"exists": true`
-- Step 6: The directory list includes "test-dir"
-- Step 8: Directory deletion succeeds
+- Step 1: The folder is created
+- Step 2: The answer is that the folder exists
+- Step 3: The list includes "test-dir"
+- Step 4: The folder is deleted
 
 ---
 
-## Scenario 8: Chunked Upload (Large File)
+## Scenario 8: Upload a Large File in Pieces
 
 **Area:** Core Functionality
 
 ### Setup
 1. Complete Scenario 1 (storage connection "TEST" exists)
-2. Prepare two base64 chunks representing parts of a file
+2. Have a file of a few megabytes ready that the assistant can read (for example attached to the chat)
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Storage.Upload.Begin`
-   - `sendContent`: `{"storageCode": "TEST", "fileName": "large-file.dat"}`
-2. Process the task and note the returned `uploadId` and `chunkSizeHint`
-3. POST a Bifrost message:
-   - `type`: `Storage.Upload.Append`
-   - `sendContent`: `{"uploadId": "<upload-id>", "sequence": 1, "contentBase64": "<base64-chunk-1>"}`
-4. Process the task
-5. POST a Bifrost message:
-   - `type`: `Storage.Upload.Status`
-   - `sendContent`: `{"uploadId": "<upload-id>"}`
-6. Process and verify the status shows 1 chunk received
-7. POST a Bifrost message:
-   - `type`: `Storage.Upload.Commit`
-   - `sendContent`: `{"uploadId": "<upload-id>"}`
-8. Process and verify the file is written to storage
+1. Ask the assistant: "Upload this file to storage connection TEST as large-file.dat, in pieces."
+2. While the upload runs, ask the assistant for its progress
+3. Check in the storage account that the file is there
 
 ### Expected Results
-- Step 2: An `uploadId` and a `chunkSizeHint` are returned in the response
-- Step 4: Chunk append succeeds
-- Step 6: Status shows the upload session is active with progress information
-- Step 8: Commit succeeds and returns the written `path` (`bifrost-uploads/large-file.dat`); the file is accessible via `Storage.File.Exists`
+- Step 1: The assistant starts an upload, sends the pieces and finishes it, without error
+- Step 2: The progress shows how many pieces have been received
+- Step 3: The complete file is in storage, with the size of the original
 
 ---
 
-## Scenario 9: Abort a Chunked Upload
+## Scenario 9: Cancel an Upload
 
 **Area:** Error Handling
 
@@ -264,16 +215,12 @@ appropriate connector app and configure it before testing.
 1. Complete Scenario 1 (storage connection "TEST" exists)
 
 ### Steps
-1. Begin a chunked upload session (as in Scenario 8, steps 1-2)
-2. POST a Bifrost message:
-   - `type`: `Storage.Upload.Abort`
-   - `sendContent`: `{"uploadId": "<upload-id>"}`
-3. Process the task
-4. Verify the file was NOT written to storage
+1. Ask the assistant to start uploading a file named "cancelled-file.dat" in pieces to storage connection TEST, and to cancel the upload before it is finished
+2. Check in the storage account that no file "cancelled-file.dat" was written
 
 ### Expected Results
-- Step 3: Abort completes without error
-- Step 4: `Storage.File.Exists` for `bifrost-uploads/large-file.dat` returns `false`
+- Step 1: The upload is cancelled without error
+- Step 2: The file does not exist in storage
 
 ---
 
@@ -285,16 +232,13 @@ appropriate connector app and configure it before testing.
 1. Ensure no storage connection with code "INVALID" exists
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Storage.File.List`
-   - `sendContent`: `{"storageCode": "INVALID", "path": ""}`
-2. Process the task
-3. Retrieve the response
+1. Ask the assistant: "List the files in storage connection INVALID."
+2. Open **Bifrost Messages** and find the request
 
 ### Expected Results
-- The task completes with an error status
-- The response contains a structured error message indicating the storage code was not found
-- No unhandled exception or stack trace is exposed to the caller
+- The assistant reports a clear error saying the storage connection was not found
+- The request is shown with an error status and a readable message
+- No unhandled exception or stack trace is shown to the user
 
 ---
 
@@ -306,16 +250,11 @@ appropriate connector app and configure it before testing.
 1. Complete Scenario 1 (storage connection "TEST" exists)
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Storage.File.Get`
-   - `sendContent`: `{"storageCode": "TEST", "path": "this/path/does/not/exist.txt"}`
-2. Process the task
-3. Retrieve the response
+1. Ask the assistant: "Read the file this/path/does/not/exist.txt from storage connection TEST."
 
 ### Expected Results
-- The task completes with an error status
-- The response contains a clear error message indicating the file was not found
-- The error is structured JSON, not a raw BC error dialog
+- The assistant reports a clear error saying the file was not found
+- The request is shown on **Bifrost Messages** with an error status, not as a raw BC error dialog
 
 ---
 
@@ -325,19 +264,14 @@ appropriate connector app and configure it before testing.
 
 ### Setup
 1. Create a test user in the BC sandbox
-2. Assign only the "BIFROST Hnitbj. ori" permission set to the user (plus D365 BASIC)
+2. Assign only the "BIFROST Attach ori" permission set to the user (plus D365 BASIC)
 3. Complete Scenario 1 as an admin user
 
 ### Steps
-1. Sign in as the test user
-2. POST a Bifrost message via the Queue API:
-   - `type`: `Storage.File.List`
-   - `sendContent`: `{"storageCode": "TEST", "path": ""}`
-3. Process the task
-4. Retrieve the response
+1. Connect the AI assistant as the test user
+2. Ask the assistant: "List the files in the root of storage connection TEST."
 
 ### Expected Results
-- The test user can submit and process Bifrost messages for storage operations
 - The file list is returned successfully
 - No permission errors occur for standard storage read operations
 
@@ -348,14 +282,14 @@ appropriate connector app and configure it before testing.
 **Area:** Permission Verification
 
 ### Setup
-1. Create a test user with only D365 BASIC (no "BIFROST Hnitbj. ori" permission set)
+1. Create a test user with only D365 BASIC (no "BIFROST Attach ori" permission set)
 
 ### Steps
-1. Sign in as the test user
-2. Attempt to POST a Bifrost message to the Queue API
+1. Connect the AI assistant as the test user
+2. Ask the assistant to list the files in storage connection TEST
 
 ### Expected Results
-- The operation fails with a clear permission error
+- The request fails with a clear permission error
 - No data is exposed or modified
 
 ---
@@ -368,15 +302,12 @@ appropriate connector app and configure it before testing.
 1. Complete Scenario 4 (file "test-upload.txt" exists)
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Storage.File.Delete`
-   - `sendContent`: `{"storageCode": "TEST", "path": "test-upload.txt"}`
-2. Process the task
-3. Verify the file no longer exists using `Storage.File.Exists`
+1. Ask the assistant: "Delete the file test-upload.txt in storage connection TEST."
+2. Ask the assistant whether "test-upload.txt" still exists
 
 ### Expected Results
-- Step 2: Deletion completes without error
-- Step 3: File existence check returns `false`
+- Step 1: Deletion completes without error
+- Step 2: The answer is that the file does not exist
 
 ---
 
@@ -403,7 +334,7 @@ appropriate connector app and configure it before testing.
 
 ---
 
-## Scenario 16: Help Documentation
+## Scenario 16: Discover the Storage Operations
 
 **Area:** Core Functionality
 
@@ -411,23 +342,19 @@ appropriate connector app and configure it before testing.
 1. Complete Scenario 1 (extension installed)
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Help.Storage.Get`
-   - `sendContent`: `{}`
-2. Process the task
-3. Retrieve the response
+1. Ask the assistant: "What can you do with files in Business Central storage?"
+2. Open the **Bifrost Message Types** page in Business Central
 
 ### Expected Results
-- The response contains a Markdown-formatted help document
-- The document lists all available storage message types with descriptions
-- The document is readable and provides usage examples
+- The assistant describes the storage operations (files, folders, uploads, attachments), read from Business Central itself
+- The **Bifrost Message Types** page lists the storage operations of Bifrost Attachments with a description of each
 
 ---
 
 ## Cleanup
 
 After all scenarios are complete:
-1. Delete test files from storage: `test-upload.txt`, `test-moved.txt`, `bifrost-uploads/large-file.dat`
+1. Delete test files from storage: `test-upload.txt`, `test-moved.txt`, `large-file.dat`
 2. Delete test directory: `test-dir`
 3. Remove the "TEST" storage connection from Bifrost Storage Setup
 4. Uninstall the extension (if not already done in Scenario 15)

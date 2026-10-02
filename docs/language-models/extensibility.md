@@ -1,7 +1,7 @@
 ---
 id: extensibility
-title: "Extending Bragi with a chat provider"
-sidebar_label: "Extending Bragi"
+title: "Extending Bifrost Language Models with a chat provider"
+sidebar_label: "Adding a chat provider"
 sidebar_position: 3
 description: "The public extension point of Bifröst Language Models: registering an additional language model provider."
 ---
@@ -14,7 +14,7 @@ Anything not listed here is **internal** and may change between releases without
 
 ## How to depend on Bifrost Language Models
 
-Add both Bragi and the Bifrost Foundation it sits on to your extension's `app.json`. Bragi does not propagate its own dependency, so Foundation must be listed explicitly:
+Add both Bifrost Language Models and the Bifrost Foundation it sits on to your extension's `app.json`. Bifrost Language Models does not propagate its own dependency, so Foundation must be listed explicitly:
 
 ```json
 "dependencies": [
@@ -33,7 +33,7 @@ Add both Bragi and the Bifrost Foundation it sits on to your extension's `app.js
 ]
 ```
 
-All objects in this guide live in the namespace `Origo.Bifrost.Bragi`.
+All objects in this guide live in the namespace `Origo.Bifrost.LanguageModels`.
 
 ---
 
@@ -62,14 +62,14 @@ interface "Bifrost LangModel Provider ori"
 
 The signature never changes. The **operation** is carried in the `Procedure Type` field on the argument record, and new operations arrive as new values on the `Bifrost Chat Proc. Type ori` enum. A provider written against today's enum keeps compiling when operations are added — it simply does not answer the ones it does not know.
 
-The caller resolves the implementation through the `Bifrost LangModel Prov. ori` enum, which is stored in the **Chat Provider** field on each `Bifrost Language Model ori` record. Its `DefaultImplementation` is `Bifrost LangModel None ori`, the disabled provider that reports "not configured" for everything.
+The caller resolves the implementation through the `Bifrost LangModel Prov. ori` enum, which is stored in the **Chat Provider** field on each `Bifrost Language Model ori` record. Its default implementation is the disabled provider that reports "not configured" for everything.
 
 ### Registering the provider
 
 ```al
-namespace Acme.Bifrost.Ollama;
+namespace Acme.Ollama;
 
-using Origo.Bifrost.Bragi;
+using Origo.Bifrost.LanguageModels;
 
 enumextension 50100 "Acme LangModel Prov." extends "Bifrost LangModel Prov. ori"
 {
@@ -87,7 +87,7 @@ That is the whole registration. The value appears in the **Chat Provider** field
 
 ## Operations to handle
 
-`Bifrost Chat Proc. Type ori` (10035338) is grouped into config-dependent operations (10–17), provider metadata (100–116) and provider defaults (120–126).
+`Bifrost Chat Proc. Type ori` is grouped into config-dependent operations (10–17), provider metadata (100–116) and provider defaults (120–126).
 
 Before each call the facade resets `Result Boolean` to `false`, `Result Integer` to `0`, and clears the result text and the error message. An operation your `case` does not cover therefore reads back as "not supported" — never as a stale value from a previous call. That is what makes partial implementations safe.
 
@@ -95,16 +95,16 @@ Before each call the facade resets `Result Boolean` to `false`, `Result Integer`
 
 | Operation | Called by | Reads | Writes | Needed |
 |---|---|---|---|---|
-| `IsConfigured` (10) | Chat visibility gate; `LLM.Prompt.Complete` before it sends anything | Config fields, `GetApiKey` | `Result Boolean` | Always |
+| `IsConfigured` (10) | Chat visibility gate; the one-shot completion before it sends anything | Config fields, `GetApiKey` | `Result Boolean` | Always |
 | `BuildConfigJson` (11) | Chat control add-in on start-up | Config fields | `SetResultText` (JSON) | For the chat UI |
 | `SendChatMessage` (12) | `Bifrost Chat Mgt.SendChatMessage` | `GetPayload`, `GetSkill`, `GetUserPrompt`, `GetApiKey`, config | `SetResultText` (JSON) | For the chat UI |
 | `ContinueWithToolResults` (13) | Chat control, after it has run the tool calls | `GetConversationState`, `GetToolResults`, `GetApiKey` | `SetResultText` (JSON) | Only when `SupportsSplitToolExecution` is true |
 | `GetAvailableModels` (14) | **Get Models** on the language model card | Config, `GetApiKey` | `SetModels`, `Result Boolean` | Only when `SupportsModelSelection` is true |
 | `TestConnection` (15) | **Test Connection** on the language model card | Config, `GetApiKey` | `Result Boolean`, `SetErrorMessage` | Recommended |
 | `GetTokenUsage` (16) | Reserved — not called by the base app today | — | `Input Tokens`, `Output Tokens` | Optional |
-| `CompletePrompt` (17) | The `LLM.Prompt.Complete` message type | `GetPayload`, config, `GetApiKey` | `SetResultText` (JSON) | For the message type |
+| `CompletePrompt` (17) | The one-shot completion used by playbooks and scheduled tasks | `GetPayload`, config, `GetApiKey` | `SetResultText` (JSON) | For one-shot completions |
 
-A provider that answers only `IsConfigured`, `BuildConfigJson`, `SendChatMessage` and `CompletePrompt` is already usable: chat works, the message type works, and the card degrades gracefully because everything else reports "not supported".
+A provider that answers only `IsConfigured`, `BuildConfigJson`, `SendChatMessage` and `CompletePrompt` is already usable: chat works, one-shot completions work, and the card degrades gracefully because everything else reports "not supported".
 
 ### Provider metadata
 
@@ -136,7 +136,7 @@ A provider that answers only `IsConfigured`, `BuildConfigJson`, `SendChatMessage
 
 ## The argument record
 
-`Bifrost Chat Argument ori` (10035337) is a `TableType = Temporary` record. Short values travel as fields; anything that can exceed a field length travels through accessor procedures backed by codeunit-scoped variables, so nothing large is ever written to the database.
+`Bifrost Chat Argument ori` is a `TableType = Temporary` record. Short values travel as fields; anything that can exceed a field length travels through accessor procedures backed by codeunit-scoped variables, so nothing large is ever written to the database.
 
 ### Fields the caller fills in
 
@@ -213,7 +213,7 @@ A JSON object read by the chat control add-in. `provider`, `authMode`, `requires
 
 ## The MCP tool server
 
-`MCP Tool Server ori` (10035387) is `Access = Public` and `SingleInstance`. A provider uses it to give the model access to Business Central:
+`MCP Tool Server ori` is `Access = Public` and `SingleInstance`. A provider uses it to give the model access to Business Central:
 
 | Member | Purpose |
 |---|---|
@@ -235,9 +235,9 @@ A provider for a self-hosted Ollama endpoint that speaks the OpenAI chat-complet
 **AcmeLangModelProv.EnumExt.al**
 
 ```al
-namespace Acme.Bifrost.Ollama;
+namespace Acme.Ollama;
 
-using Origo.Bifrost.Bragi;
+using Origo.Bifrost.LanguageModels;
 
 /// <summary>
 /// Registers the Ollama provider on the Bifrost language model provider enum.
@@ -255,9 +255,9 @@ enumextension 50100 "Acme LangModel Prov." extends "Bifrost LangModel Prov. ori"
 **AcmeOllamaProvider.Codeunit.al**
 
 ```al
-namespace Acme.Bifrost.Ollama;
+namespace Acme.Ollama;
 
-using Origo.Bifrost.Bragi;
+using Origo.Bifrost.LanguageModels;
 
 /// <summary>
 /// Bifrost language model provider for a self-hosted Ollama endpoint that speaks the
@@ -420,7 +420,7 @@ codeunit 50100 "Acme Ollama Provider" implements "Bifrost LangModel Provider ori
 
         if not Client.Post(GetEndpoint(Argument), RequestContent, ResponseMessage) then
             exit(false);
-        ResponseMessage.Content.ReadAs(ResponseText);
+        ResponseMessage.Content().ReadAs(ResponseText);
         if not ResponseMessage.IsSuccessStatusCode then
             exit(false);
         if not ResponseObject.ReadFrom(ResponseText) then
@@ -659,11 +659,11 @@ begin
     if Argument.GetApiKey() = '' then
         exit;
     ApiKeySecret := Argument.GetApiKey();
-    Client.DefaultRequestHeaders.Add('Authorization', SecretStrSubstNo('Bearer %1', ApiKeySecret));
+    Client.DefaultRequestHeaders().Add('Authorization', SecretStrSubstNo('Bearer %1', ApiKeySecret));
 end;
 ```
 
-Mark every procedure that handles the key `[NonDebuggable]`, and answer `RequiresApiKey` with `true` so the chat control shows the key dialog. The base app stores what the user types — personal keys under `Bifrost_Chat_Usr_<SystemId>_<user security id>` and shared keys under `Bifrost_Chat_Svc_<SystemId>`, both in Isolated Storage with company scope — and hands the resolved value back through `GetApiKey()`.
+Mark every procedure that handles the key `[NonDebuggable]`, and answer `RequiresApiKey` with `true` so the chat control shows the key dialog. The app stores what the user types securely in Business Central — a personal key per user, or one shared key per language model — and hands the resolved value back through `GetApiKey()`.
 
 ---
 
@@ -672,9 +672,9 @@ Mark every procedure that handles the key `[NonDebuggable]`, and answer `Require
 Provider-specific settings belong on a `tableextension` over `Bifrost Language Model ori` in your own ID range:
 
 ```al
-namespace Acme.Bifrost.Ollama;
+namespace Acme.Ollama;
 
-using Origo.Bifrost.Bragi;
+using Origo.Bifrost.LanguageModels;
 
 /// <summary>
 /// Adds the Ollama keep-alive window to the Bifrost language model record.
@@ -700,12 +700,12 @@ Read the field inside `Execute` with `BifrostLanguageModel.GetBySystemId(Argumen
 ## Checklist
 
 1. Implement `Bifrost LangModel Provider ori` in one codeunit, with a `case` on `Argument."Procedure Type"`.
-2. Answer `IsConfigured` honestly — it is the gate for both the chat UI and `LLM.Prompt.Complete`.
-3. Handle `CompletePrompt` if you want the message type to work with your provider, and `SendChatMessage` if you want the chat UI to work.
+2. Answer `IsConfigured` honestly — it is the gate for both the chat UI and one-shot completions.
+3. Handle `CompletePrompt` if you want one-shot completions to work with your provider, and `SendChatMessage` if you want the chat UI to work.
 4. Return `error` in your JSON rather than raising an AL error; the callers turn that into a clean `status: Error` response.
 5. Register the value on `Bifrost LangModel Prov. ori` with an `enumextension` in your own ID range.
 6. Mark every procedure that touches the API key `[NonDebuggable]`.
-7. Put provider-specific settings on a `tableextension` over `Bifrost Language Model ori`, never on new field numbers inside Bragi's range.
+7. Put provider-specific settings on a `tableextension` over `Bifrost Language Model ori`, never on new field numbers inside the app's own range.
 
 ---
 
@@ -713,9 +713,9 @@ Read the field inside `Execute` with `BifrostLanguageModel.GetBySystemId(Argumen
 
 - **The interface**: `Execute(var Argument: Record "Bifrost Chat Argument ori" temporary)` is the permanent signature. New capability arrives as new `Bifrost Chat Proc. Type ori` values, never as a new procedure.
 - **The argument record**: new fields and new accessor procedures may be added; existing field numbers, field types and accessor signatures are preserved across minor versions.
-- **The provider enum**: Bragi owns its allocated ordinals only. Add your values from your own ID range.
+- **The provider enum**: Bifrost Language Models owns its allocated ordinals only. Add your values from your own ID range.
 - **`MCP Tool Server ori`**: the members listed above are part of the surface. The tool registry itself is data — tool names and schemas change as message types are added.
-- **Internal codeunits**: `Copilot LangModel Prov. ori`, `Copilot Chat Proxy ori`, `MCP Tool Executor ori` and the message-type implementations are internal. Do not call them and do not subscribe to their events.
+- **Everything else is internal**: the built-in providers, the Copilot proxy, the tool executor and the message-type implementations. Do not call them and do not subscribe to their events.
 
 If you need an extensibility hook that is not listed here, open an issue in the Bifrost Language Models repository describing the use case rather than depending on internal members.
 
@@ -723,6 +723,5 @@ If you need an extensibility hook that is not listed here, open an issue in the 
 
 ## Related Documentation
 
-- [Chat Message Types](/language-models/message-types/) — the `LLM.Prompt.Complete` contract
-- Bifrost Foundation, *Extensibility Reference* — the `Message Type ori` enum, the `Msg Interface ori` contract and the `Request Log Type ori` enum
-- Bifrost Foundation, *Setup Reference* — Bifrost User Setup and the per-user system prompt
+- [Foundation public surface](/extensibility/public-surface/) — the `Message Type ori` enum, the `Msg Interface ori` contract and the `Request Log Type ori` enum
+- [Setup reference](/foundation/reference/setup/) — Bifrost User Setup and the per-user system prompt

@@ -5,7 +5,7 @@ sidebar_label: "Storage Setup"
 sidebar_position: 4
 ---
 
-The **Bifrost Storage Setup** page lists all configured storage connections. Each row binds a short `Code` — the value a Bifröst request passes as `storageCode` — to a Business Central external file storage account.
+The **Bifrost Storage Setup** page lists all configured storage connections. Each row binds a short `Code`, which requests use to choose the connection, to a Business Central external file storage account.
 
 The same page is reached from [Bifröst Attachments Setup](/help/attachments/attachments-setup/), which is opened from the **Apps** group on the Bifröst **Setup** page.
 

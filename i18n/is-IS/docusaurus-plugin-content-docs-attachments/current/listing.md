@@ -6,7 +6,7 @@ sidebar_position: 9
 description: "The marketplace listing copy for this extension: offer name, summary, categories and full description."
 ---
 
-> Copy these texts í Partner Center þegar creating/updating the offer listing.
+> Afritaðu þessa texta inn í Partner Center þegar skráning tilboðsins er búin til eða uppfærð.
 
 ---
 
@@ -14,15 +14,15 @@ description: "The marketplace listing copy for this extension: offer name, summa
 Bifröst Attachments
 
 ## Search Result Summary (max 50 chars)
-Cloud storage fyrir Business Central
+Skýgeymsla fyrir Business Central
 
 ## Offer Summary (max 100 chars)
-Azure Blob, File Share og SharePoint as Bifröst message tegunds fyrir BC skrá operations.
+Azure Blob, File Share og SharePoint geymsla fyrir skrár og viðhengi í Business Central.
 
 ## Search Keywords
-1. Cloud storage
+1. Skýgeymsla
 2. Azure Blob
-3. File management
+3. Skjalastjórnun
 
 ## Categories
 - **Primary:** IT & Admin Tools > Data Integration
@@ -36,7 +36,7 @@ Azure Blob, File Share og SharePoint as Bifröst message tegunds fyrir BC skrá 
 
 ## Lýsing
 
-The full description text er [below](#full-description-text).
+Heildartexti lýsingarinnar er [hér fyrir neðan](#full-description-text).
 
 ---
 
@@ -48,44 +48,44 @@ https://www.origo.is/
 
 ---
 
-## Full description text
+## Heildartexti lýsingar {#full-description-text}
 
-**Bifröst Attachments** connects Business Central to cloud storage through the Bifröst platform — a message-based integration layer that gives external systems, AI agents, og automation tools structured access to Business Central data og procedures via OData. It exposes the standard BC external skrá storage connectors — Azure Blob Storage, Azure File Share, og SharePoint — as message tegunds that any MCP-compatible client, REST caller, eða BC process getur invoke through the same Queue → Task → Data API pattern used across the entire Bifröst ecosystem.
+**Bifröst Attachments** tengir Business Central við skýgeymslu í gegnum Bifröst, skilaboðabyggt samþættingarlag sem veitir ytri kerfum, gervigreindarþjónum og sjálfvirkniverkfærum skipulegan aðgang að gögnum og ferlum Business Central um OData. Það gerir stöðluðu tengla Business Central fyrir ytri skráageymslu — Azure Blob Storage, Azure File Share og SharePoint — aðgengilega hvaða MCP-biðlara, REST-kalli eða ferli í Business Central sem er, í gegnum sama Queue → Task → Data API og allt Bifröst-umhverfið notar.
 
-### Who er this for?
+### Fyrir hverja?
 
-**IT teams og integration developers** who need to connect Business Central to cloud storage fyrir skjal management, archival, og skrá exchange workflows. Ideal fyrir organizations that want to reduce database size by offloading attachments to cloud storage, eða need external systems to read og write skrár through a unified API án building custom integrations.
+**Upplýsingatækniteymi og samþættingarforritara** sem þurfa að tengja Business Central við skýgeymslu fyrir skjalastjórnun, geymslu og skráaskipti. Hentar fyrirtækjum sem vilja minnka gagnagrunninn með því að færa viðhengi út í skýgeymslu, eða þurfa að láta ytri kerfi lesa og skrifa skrár í gegnum eitt API án sérsmíðaðrar samþættingar.
 
-**Target industries:** Professional services, manufacturing, distribution, retail — any business that handles skjöl, attachments, eða skrá-based data exchange alongside Business Central.
+**Markhópar:** Sérfræðiþjónusta, framleiðsla, dreifing, smásala — hvert það fyrirtæki sem meðhöndlar skjöl, viðhengi eða skráabundin gagnaskipti samhliða Business Central.
 
-### What it does
+### Hvað það gerir
 
-- **File operations** — List, download, upload, copy, move, delete, og check existence of skrár in any stillt storage tenging
-- **Directory operations** — List, create, delete, og check existence of directories
-- **Chunked uploads** — Upload large skrár in pieces með session management (begin, append, commit, abort, status). Ideal fyrir skrár too large fyrir a single API call
-- **Attachment offloading** — Move BC skjal attachments to cloud storage to reduce database size, og restore them on demand
-- **Linked attachments** — Attach skrár already in storage to incoming skjöl, eða create a skjal attachment on any færsla, án re-uploading
+- **Skráaaðgerðir** — Skrá, sækja, hlaða upp, afrita, færa, eyða og kanna hvort skrár séu til í hvaða geymslutengingu sem er
+- **Möppuaðgerðir** — Skrá, búa til, eyða og kanna hvort möppur séu til
+- **Upphleðsla í bútum** — Hlaða stórum skrám upp í hlutum: hefja upphleðslu, senda bútana og ljúka henni eða hætta við, og skoða stöðuna hvenær sem er. Hentar skrám sem eru of stórar fyrir eitt API-kall
+- **Útfærsla viðhengja** — Færa fylgiskjöl Business Central í skýgeymslu til að minnka gagnagrunninn, og sækja þau aftur eftir þörfum
+- **Tengd viðhengi** — Hengja skrár sem þegar eru í geymslu við innsend skjöl, eða búa til fylgiskjal á hvaða færslu sem er, án þess að hlaða þeim upp aftur
 
-### How it works
+### Hvernig það virkar
 
-1. Configure storage tengingar in **Bifrost Storage Stilltuup**, binding a short kóði to a BC skrá account
-2. External systems send Bifröst messages með the storage kóði to target specific tengingar
-3. All operations route through the standard BC External File Storage facade — secrets eru managed by the connector apps, never by this extension
+1. Geymslutengingar eru settar upp í **Bifrost Storage Setup**, þar sem stuttur kóði er bundinn skráareikningi í Business Central
+2. Ytri kerfi og gervigreindarþjónar vísa á geymslutenginguna með kóða hennar
+3. Allar aðgerðir fara í gegnum staðlaða skráageymslulag Business Central — tengiöppin sjá um auðkenni, aldrei þessi viðbót
 
-### Supported connectors
+### Studdir tenglar
 
-Any connector registered með BC's External File Storage system:
+Hver sá tengill sem er skráður í ytri skráageymslukerfi Business Central:
 - Azure Blob Storage
 - Azure File Share
 - SharePoint
 
-### Supported editions og countries
+### Studdar útgáfur og lönd
 
-- **Editions:** Business Central Essentials og Premium
-- **Countries:** Iceland, United Kingdom, Denmark, Norway, Sweden, Finland, Germany, France, Netherlands, Austria, Switzerland, Ireland, Portugal, Spain
+- **Útgáfur:** Business Central Essentials og Premium
+- **Lönd:** Ísland, Bretland, Danmörk, Noregur, Svíþjóð, Finnland, Þýskaland, Frakkland, Holland, Austurríki, Sviss, Írland, Portúgal, Spánn
 
-### Requirements og prerequisites
+### Kröfur og forsendur
 
-- Microsoft Dynamics 365 Business Central 28.0 eða later
-- Bifrost Foundation extension by Origo (available separately on AppSource)
-- At least one BC skrá storage connector app installed og stillt (e.g., Azure Blob Storage Connector by Microsoft)
+- Microsoft Dynamics 365 Business Central 28.0 eða nýrra
+- Bifrost Foundation-viðbótin frá Origo (fáanleg sérstaklega á AppSource)
+- Að minnsta kosti eitt tengiapp fyrir skráageymslu uppsett og stillt (t.d. Azure Blob Storage Connector frá Microsoft)

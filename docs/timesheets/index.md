@@ -4,7 +4,7 @@ title: "Bifröst Timesheets"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "The Clockify time-tracking API exposed as Bifröst message types, with synchronisation of time entries into Business Central Job Journals and Time Sheets."
+description: "Clockify time tracking connected to Business Central, with synchronisation of time entries into Job Journals and Time Sheets."
 ---
 
 # Bifröst Timesheets
@@ -63,8 +63,8 @@ The step-by-step guides are in the in-product help:
   **Bifrost Messages**.
 - **It works in Clockify as the key's owner.** Everything done in Clockify happens with the
   permissions of the Clockify user who created the API key.
-- **The API key stays out of tables and logs.** It is stored in Business Central's isolated
-  storage, one key per company, and is never shown again after you enter it.
+- **The API key stays out of tables and logs.** It is stored securely in Business Central, one key
+  per company, and is never shown again after you enter it.
 - **Only finished entries are synced.** An entry that is still running has no duration, so every
   sync refuses it on purpose.
 - **Links are kept, not deleted.** A broken link between a record and a Clockify object is marked
@@ -72,12 +72,10 @@ The step-by-step guides are in the in-product help:
 - **Real-time sync needs a receiver.** Webhooks need a publicly reachable endpoint that forwards
   Clockify events into Business Central. The signing tokens are not stored in Business Central.
 
-## Capabilities and reference
+## Reference
 
-Capability: **`Clockify`**.
+The installed message types and their contracts are read from Business Central itself: the MCP
+tools `list_message_types` and `describe_message_type`, or the **Bifrost Message Types** page.
 
-What each message type does, in plain words: [Capabilities](./capabilities).
-
-- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [Build on Bifröst](/extensibility/)
 - Permission set: `BIFROST Timeshts ori`.

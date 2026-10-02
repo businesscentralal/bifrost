@@ -4,60 +4,80 @@ title: "Bifröst Timesheets"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "The Clockify time-tracking API exposed as Bifröst message types, with synchronisation of time entries into Business Central Job Journals and Time Sheets."
+description: "Tímaskráning í Clockify tengd við Business Central, með samstillingu tímafærslna í verkbækur og tímablöð."
 ---
 
-Bifröst Timesheets connects Business Central to [Clockify](https://clockify.me), the time-tracking service. It builds on Bifröst Foundation og exposes the Clockify REST API as 41 message tegunds, so an external caller, an MCP client eða a Business Central process getur read og write Clockify data through the same queue, verkþáttur og data pattern used by the rest of Bifröst. On top of that pass-through the connector brings finished Clockify tímafærslur í Business Central as Job Journal línur eða Time Sheet detail, og drives the Time Sheet lifecycle.
+# Bifröst Timesheets
 
-## What it does
+**Tímar skráðir í Clockify, bókaðir í Business Central.** Kláraðar tímafærslur verða að línum í
+verkbók eða að tímablaðsfærslum, án þess að slá þurfi þær inn aftur.
 
-- **Workspace mappa** — list the vinnusvæðis the API key getur reach, the current notandi, the vinnusvæði notendur og notandi groups, the vinnusvæði currencies og the vinnusvæði custom-field definitions. The currency, notandi-group og custom-field listar exist because Clockify write operations need those internal identifiers.
-- **Clients, verkefni, verkþættir og tags** — full list, get, create, updagsetning og delete over the Clockify vinnusvæði, so a Business Central process getur keep the Clockify side of a verkefni in step.
-- **Time entries** — list, get, create, updagsetning og delete a notandi's Clockify tímafærslur.
-- **Job Journal synchronisation** — bring a finished Clockify tímafærsla í a Business Central Job Journal lína, one entry at a time, fyrir a dagsetning range, eða fyrir every mapped notandi at once. The sync deduplicates, detects updagsetnings to an entry that was already synced og posts a correction rather than a duplicate.
-- **Time Sheet synchronisation** — write the same finished entries í the resource's open Time Sheet instead, as a lína plus its detail.
-- **Time Sheet lifecycle** — create the upcoming weekly sheets, submit og approve them, reject eða reopen submitted línur, transfer approved detail to a Job Journal og post it, then archive the fully posted sheets.
-- **Real-time webhooks** — register the Clockify `NEW_TIME_ENTRY`, `TIME_ENTRY_UPDATED` og `TIME_ENTRY_DELETED` webhooks against a receiver endpoint, so the sync follows the clock instead of a schedule.
-- **Integration links** — every Business Central færsla bound to a Clockify object er færslaed in a link table. Links eru never deleted, aðeins marked reversed, og eru purged by a retention policy about a month later.
-- **The API key stays out of the database** — it er held in IsolatedStorage at company scope og entered through a masked dialog. It er never written to a table field og never appears in a request log body.
-- **Self-skjaling samningur** — `Help.Clockify.Get` returns a Markdown catalogue of the connector, og every message tegund answers its own per-tegund help.
+Bifröst Timesheets tengir Business Central við [Clockify](https://clockify.me), tímaskráningarþjónustuna.
+Það getur líka haldið viðskiptavinum, verkefnum, verkþáttum og merkjum í Clockify í
+takt við Business Central.
 
-## How it works
+*Viðbótarapp ofan á [Bifröst Foundation](/foundation/). Nýr í Bifröst? Byrjaðu á
+[Hvernig Bifröst virkar](/documentation/how-it-works/).*
 
-1. Create a Clockify API key in Clockify under **Proskrá Stilltutings → API**.
-2. Open **Clockify Stilltuup** in Business Central — one action in the **Apps** group of the Bifröst **Stilltuup** page — og store the key með **Stilltu Company API Key**.
-3. Pick the sjálfgefið vinnusvæði úr the live lookup, so requests that omit `workspaceId` still resolve.
-4. Point the Job Journal template, batch og sjálfgefið Work Type at þar sem synced time should land, ef you sync to a Job Journal.
-5. External systems send Bifröst messages naming a Clockify message tegund; the connector calls Clockify með the stored key og answers through the Bifröst data API.
-6. For real-time sync, set the webhook receiver URL og choose **Register Webhooks**, then configure the signing tokens the action reports on the receiver.
+## Hvað þú getur gert
 
-## Skilaboð tegunds
+- **Fært tíma úr Clockify í verkbókina.** Eina færslu, tímabil, eða alla tengda notendur í einu.
+  Færsla sem er samstillt tvisvar tvöfaldast ekki, og breytt færsla er bókuð sem leiðrétting.
+- **Eða fyllt út tímablöð í staðinn.** Skrifaðu sömu kláruðu færslurnar í opið tímablað
+  forðans.
+- **Rekið tímablaðsvikuna.** Búðu til vikublöð komandi viku, sendu þau inn og samþykktu, hafnaðu
+  línum eða opnaðu þær aftur, bókaðu samþykkta tíma í gegnum verkbók og settu bókuð blöð í
+  geymslu.
+- **Haldið Clockify í takt við verkefnin þín.** Skráð, búið til, breytt og eytt viðskiptavinum,
+  verkefnum, verkþáttum, merkjum og tímafærslum í Clockify-vinnusvæðinu þínu.
+- **Samstillt jafnóðum.** Þegar vefkrókar Clockify eru skráðir berast nýjar, breyttar og eyddar
+  færslur til Business Central án þess að bíða eftir tímaáætlun.
 
-| Domain | Skilaboð tegunds |
-| --- | --- |
-| Directory | `Help.Clockify.Get` |
-| Workspace | `Clockify.Workspace.List`, `Clockify.User.GetCurrent`, `Clockify.User.List`, `Clockify.UserGroup.List`, `Clockify.Currency.List`, `Clockify.CustomField.List` |
-| Clients | `Clockify.Client.List`, `Clockify.Client.Get`, `Clockify.Client.Create`, `Clockify.Client.Update`, `Clockify.Client.Delete` |
-| Projects | `Clockify.Project.List`, `Clockify.Project.Get`, `Clockify.Project.Create`, `Clockify.Project.Update`, `Clockify.Project.Delete` |
-| Tasks | `Clockify.Task.List`, `Clockify.Task.Create`, `Clockify.Task.Update`, `Clockify.Task.Delete` |
-| Tags | `Clockify.Tag.List`, `Clockify.Tag.Create`, `Clockify.Tag.Update`, `Clockify.Tag.Delete` |
-| Time entries | `Clockify.TimeEntry.List`, `Clockify.TimeEntry.Get`, `Clockify.TimeEntry.Create`, `Clockify.TimeEntry.Update`, `Clockify.TimeEntry.Delete` |
-| Journal sync | `Clockify.TimeEntry.Sync`, `Clockify.TimeEntry.SyncRange`, `Clockify.TimeEntry.SyncAllUsers` |
-| Time Sheet sync | `Clockify.TimeEntry.SyncToTimeSheet`, `Clockify.TimeEntry.SyncRangeToTimeSheet` |
-| Time Sheets | `Clockify.TimeSheet.Create`, `Clockify.TimeSheet.Approve`, `Clockify.TimeSheet.Reject`, `Clockify.TimeSheet.Reopen`, `Clockify.TimeSheet.Post`, `Clockify.TimeSheet.Archive` |
+## Sæktu appið
 
-The keys eru the published API samningur og never change. Each tegund skjöl its own request og response samningur at runtime: send `Help.Clockify.Get` fyrir the connector catalogue, eða ask `Help.Implementation.Get` fyrir a single tegund.
+Settu **Bifrost Timesheets** upp við hlið Bifröst Foundation, af AppSource eða í gegnum
+samstarfsaðila þinn. Það þarf Business Central 28.0 eða nýrra, Essentials eða Premium, og
+Clockify-reikning með API-lykli.
 
-An in-progress Clockify entry — one that has been started but not stopped — er refused by every synchronisation tegund on purpose. Only a finished entry has a duration to post.
+## Uppsetning
 
-## Requirements
+| Skref | Hvað | Hver |
+|---|---|---|
+| 1 | Í Clockify skaltu búa til API-lykil undir **Profile Settings → API**, með reikningi sem hefur þann aðgang sem samþættingin þarf. | Eigandi Clockify-reikningsins |
+| 2 | Á **Uppsetningu Bifrost** skaltu opna **Uppsetningu Bifrost Timesheets** úr flokknum **Forrit**. Veldu **Set Company API Key** og veldu síðan **sjálfgefið vinnusvæði**. | Kerfisstjóri Business Central |
+| 3 | Til að samstilla í verkbók skaltu fylla út sniðmát verkbókar, keyrslu og sjálfgefna vinnutegund. Til að samstilla í tímablöð skaltu setja forðana upp fyrir tímablöð. | Kerfisstjóri Business Central |
+| 4 | Tengdu færslur í Business Central við hluti í Clockify, til dæmis viðskiptamenn við viðskiptavini og vinnutegundir við merki. Tengingarnar eru skráðar á **Integration Links**. | Sá sem smíðar samþættinguna |
+| 5 | Fyrir samstillingu jafnóðum skaltu slá inn **Webhook Receiver URL**, velja **Register Webhooks** og setja undirritunarteiknin sem þar birtast upp á móttakaranum. | Kerfisstjóri Business Central, ásamt þeim sem rekur móttakarann |
+| 6 | Gefðu fólki og þjónustum sem nota appið heimildasafnið **`BIFROST Timeshts ori`**. | Kerfisstjóri Business Central |
 
-- Microsoft Dynamics 365 Business Central 28.0 eða later, Essentials eða Premium.
-- Bifröst Foundation, available separately on AppSource.
-- A Clockify account með an API key. Job Journal synchronisation additionally needs a Job Journal template og batch; Time Sheet synchronisation needs resources set up fyrir time sheets.
-- Real-time webhooks need a publicly reachable receiver endpoint that forwards Clockify events í Business Central.
+Leiðbeiningar skref fyrir skref eru í hjálpinni í appinu:
+[Uppsetning Timesheets](/help/timesheets/timesheets-setup/),
+[Slá inn API-lykil Clockify](/help/timesheets/timesheets-set-secret-dialog/),
+[Vinnusvæði Clockify](/help/timesheets/timesheets-workspace-lookup/),
+[Samþættingartengingar](/help/timesheets/timesheets-integration-list/) og
+[Vefkrókar](/help/timesheets/timesheets-webhooks/).
 
-## Where to go next
+## Gott að vita
 
-- [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, generated úr the app itself
-- [Build on Bifröst](/extensibility/)
+- **Það vinnur sem þú.** Hvert kall keyrir með þínum eigin heimildum í Business Central og er skráð
+  á **Bifrost Messages**.
+- **Það vinnur í Clockify sem eigandi lykilsins.** Allt sem gert er í Clockify gerist með heimildum
+  Clockify-notandans sem bjó til API-lykilinn.
+- **API-lykillinn er hvorki í töflum né skrám.** Hann er geymdur á öruggan hátt í Business Central,
+  einn lykill fyrir hvert fyrirtæki, og er aldrei sýndur aftur eftir að hann hefur verið sleginn inn.
+- **Aðeins kláraðar færslur eru samstilltar.** Færsla sem enn er í gangi hefur enga lengd, svo
+  samstillingin hafnar henni viljandi.
+- **Tengingum er haldið, þeim er ekki eytt.** Rofin tenging milli færslu og hlutar í Clockify er
+  merkt bakfærð og fjarlægð með varðveislustefnu um mánuði síðar.
+- **Samstilling jafnóðum þarf móttakara.** Vefkrókar þurfa endapunkt sem er aðgengilegur af netinu
+  og áframsendir atburði Clockify til Business Central. Undirritunarteiknin eru ekki geymd í
+  Business Central.
+
+## Tilvísun
+
+Uppsettar skilaboðategundir og samningar þeirra eru lesnir úr Business Central sjálfu: með
+MCP-verkfærunum `list_message_types` og `describe_message_type`, eða á síðunni **Bifrost Message
+Types**.
+
+- [Byggðu á Bifröst](/extensibility/)
+- Heimildasafn: `BIFROST Timeshts ori`.

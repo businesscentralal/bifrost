@@ -4,7 +4,7 @@ title: "Bifröst Inventory"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Item Attribute message types on Bifröst Foundation: get, create, update and define attributes without multi-table Data.Records joins."
+description: "Item attributes on Bifröst Foundation: read, set, change and define item attributes, each in one request."
 ---
 
 # Bifröst Inventory
@@ -43,8 +43,7 @@ later.
 | 2 | Make sure the people and services that call it have **`BIFROST Read ori`** or **`BIFROST Full ori`**. Inventory adds its permissions to those sets. | Business Central administrator |
 | 3 | Send item attribute requests, then check the attributes on the item in Business Central. | Whoever builds the integration |
 
-The in-product help is at Bifröst Inventory help. Platform settings are on
-[Bifrost Setup](/help/foundation/bifrost-setup/) in Bifröst Foundation.
+Platform settings are on [Bifrost Setup](/help/foundation/bifrost-setup/) in Bifröst Foundation.
 
 ## Good to know
 
@@ -56,14 +55,13 @@ The in-product help is at Bifröst Inventory help. Platform settings are on
   are kept in the standard Business Central item attribute tables and show on the item.
 - **An item is named** by its system id or its item number.
 
-## Capabilities and reference
+## Reference
 
-Capability: **`Item`**. Bifröst Inventory adds its four message types to the `Item` capability that
-Bifröst Foundation already has.
+The installed message types and their contracts are read from Business Central itself: the MCP
+tools `list_message_types` and `describe_message_type`, or the **Bifrost Message Types** page.
+Bifröst Inventory's item attribute operations appear next to Bifröst Foundation's own item
+operations.
 
-What each message type does, in plain words: [Capabilities](./capabilities).
-
-- [Message type reference](./reference/message-types/): the contract of every type, from the app's help codeunits
 - [AppSource listing text](./listing)
 - [Build on Bifröst](/extensibility/)
 - Permission sets: `BIFROST Read ori` or `BIFROST Full ori`, from Bifröst Foundation, extended by this app.

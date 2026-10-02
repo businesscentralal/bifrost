@@ -4,53 +4,70 @@ title: "Bifröst Orchestrator"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types."
+description: "Tímasetning, vöktun og endurræsing vinnsluraðar í Business Central, auk keðja sem tengja aðgerðir Business Central saman í föst ferli."
 ---
 
-Bifröst Orchestrator manages scheduled work in Business Central. It monitors, restarts og supervises Job Queue entries, og it runs **playbooks** — declarative, multi-step sequences of message tegunds þar sem the response of one step feeds the request of the next. It builds on Bifröst Foundation, so everything the app does er also reachable as a message tegund over the Bifröst queue API, og an external system eða an AI agent getur drive a playbook the same way a scheduled Job Queue entry does.
+# Bifröst Orchestrator
 
-## What it does
+**Föst ferli sem keyra sig sjálf, og vinnsluröð sem passar upp á sig sjálf.** Tengdu aðgerðir
+Bifrastar saman í keðju, keyrðu hana eftir tímaáætlun og fáðu að vita þegar eitthvað bregst.
 
-- **Job Queue scheduling og supervision** — monitors, restarts og manages Job Queue entries, með configurable retry policies, recurring templates, scheduling og automatic restart on failure.
-- **Telegram og email notifications** — alerts þegar a job fails eða restarts; Telegram messages go to the notandi's stillt chat ID, email uses the built-in Business Central email system.
-- **Skilaboð playbooks** — declarative, multi-step workflows that chain Bifröst message tegunds, með data flowing through a shared vinnusvæði með `@path` references.
-- **Step control** — forEach iteration over arrays produced by earlier steps, separate next steps on success og failure, skip-if-failed, per-step start conditions, og paged execution through large datasets.
-- **Scheduled playbooks** — run a playbook on a recurring schedule through the Job Queue, eða enqueue it once með custom parameters.
-- **Reports on demand** — list, inspect, render (PDF, Excel, Word, XML) og run processing-only reports, með reusable request presets.
-- **Execution log** — every playbook run er færslaed as an instance með a per-step log holding the request, the response og a vinnusvæði snapshot.
-- **Stilltuup wizard** — guided setup fyrir HTTP client requests, Job Queue configuration og the Telegram bot token.
+{/* OPEN-21 */}
 
-## How it works
+*Viðbótarapp ofan á [Bifröst Foundation](/foundation/). Nýr í Bifröst? Byrjaðu á
+[Hvernig Bifröst virkar](/documentation/how-it-works/).*
 
-1. Register Job Queue entries as **scheduled entries**; Nornir monitors og restarts them automatically.
-2. Configure the **notification tegund** (None, Email, Telegram) per entry to get alerts on failure.
-3. Build **playbooks** by creating steps that call Bifröst message tegunds in sequence, með request templates með `@` vinnusvæði references to pass data between steps.
-4. Run playbooks manually, on a schedule, eða enqueue them fyrir deferred execution.
+## Hvað þú getur gert
 
-## Skilaboð tegunds
+- **Breytt föstu ferli í keðju.** Keðja er listi af skrefum, hvert skref aðgerð í
+  Business Central, þar sem svar eins skrefs nærir það næsta: finndu pantanir sem eru komnar fram
+  yfir dagsetningu, losaðu þær og láttu réttan aðila vita. Enginn kóði.
+- **Keyrt hana þegar hún á að keyra.** Handvirkt, eftir tímaáætlun í gegnum vinnsluröðina, eða þegar
+  aðstoð eða annað kerfi biður um það.
+- **Hætt að passa vinnsluröðina.** Orchestrator vaktar færslur vinnsluraðar, endurræsir þær þegar þær
+  bregðast og reynir aftur eftir reglunum sem þú setur.
+- **Fengið að vita þegar það skiptir máli.** Tölvupóstur eða Telegram-skilaboð þegar verk bregst
+  eða er endurræst.
+- **Séð hvað gerðist.** Hver keyrsla keðju er geymd, skref fyrir skref, með því sem hvert skref
+  fékk sent og hverju það svaraði.
+- **Keyrt skýrslur eftir þörfum.** Skráð, keyrt og vistað skýrslur sem PDF, Excel eða Word, með
+  vistuðum forstillingum beiðna.
 
-| Category | Types |
-| --- | --- |
-| Scheduled entries | `Orchestrator.Entry.Register`, `Orchestrator.Entry.Run`, `Orchestrator.Entry.Restart`, `Orchestrator.Entry.Schedule` |
-| Status | `Orchestrator.Status.Get`, `Orchestrator.Status.Restart`, `Orchestrator.Status.RestartIfNeeded` |
-| Job Queue | `Orchestrator.JobQueueEntry.Restart`, `Orchestrator.JobQueueEntry.RestartIfNeeded` |
-| Playbook | `Orchestrator.Playbook.Run`, `Orchestrator.Playbook.Schedule`, `Orchestrator.Playbook.Enqueue`, `Orchestrator.Workspace.Preview` |
-| Reports | `Orchestrator.Report.List`, `Orchestrator.Report.Get`, `Orchestrator.Report.Run`, `Orchestrator.Report.SaveAs` |
-| Delivery | `Orchestrator.Email.Send`, `Orchestrator.Telegram.Message` |
-| Help | `Help.Orchestrator.Get` |
+Keðjur geta notað skilaboðategundir úr hvaða Bifröst-appi sem er, svo hvert app sem þú bætir
+við gefur föstu ferlunum þínum meira til að vinna með. Aðstoð getur líka smíðað keðjur fyrir þig
+í samtali.
 
-`Help.Orchestrator.Get` er the API mappa: it returns the Markdown samningur of every tegund above.
+## Sæktu appið
 
-## Requirements
+Settu **Bifrost Orchestrator** upp við hlið Bifröst Foundation, af AppSource eða í gegnum
+samstarfsaðila þinn. Það þarf Business Central 28.0 eða nýrra, Essentials eða Premium.
 
-- Microsoft Dynamics 365 Business Central 28.0 eða later, Essentials eða Premium.
-- Bifröst Foundation, available separately on AppSource.
-- For Telegram notifications: a Telegram bot token created through `@BotFather`, og a Telegram chat ID per notandi on Bifrost Notaður Stilltuup.
-- For email notifications: a Business Central email account stillt með an email scenario.
+## Uppsetning
 
-## Where to go next
+| Skref | Hvað | Hver |
+|---|---|---|
+| 1 | Á **Uppsetningu Bifrost** skaltu keyra **leiðsagnarforrit** Orchestrator: leyfa HTTP-beiðnir fyrir appið og ræsa stjórnunarvinnsluröð þess. | Kerfisstjóri Business Central |
+| 2 | Fyrir Telegram-viðvaranir skaltu bæta við bot-teikni (frá `@BotFather` í Telegram) í leiðsagnarforritinu, og spjallauðkenni hvers og eins á **Bifrost User Setup**. Fyrir tölvupóstviðvaranir skaltu setja upp tölvupóstreikning í Business Central. | Kerfisstjóri Business Central |
+| 3 | Skráðu færslur vinnsluraðar sem Orchestrator á að vakta og veldu hvernig hver þeirra lætur vita. | Kerfisstjóri Business Central |
+| 4 | Smíðaðu eða fluttu inn keðjur, prófaðu þær og tímasettu síðan þær sem eiga að keyra sjálfar. | Eigandi ferlisins |
 
-- [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, generated úr the app itself
-- [AppSource notandi scenarios](./user-scenarios)
-- [Partner Center listing](./listing)
-- [Build on Bifröst](/extensibility/)
+Leiðbeiningar skref fyrir skref eru í hjálpinni í appinu: [Uppsetning Orchestrator](/help/orchestrator/orchestrator-setup/)
+og [Keðjur](/help/orchestrator/playbooks/).
+
+## Gott að vita
+
+- **Keðja keyrir með heimildum þess sem ræsir hana**; tímasett keðja með heimildum
+  notandans sem færsla vinnsluraðarinnar keyrir sem. {/* OPEN-22 */} Hvert skref er skráð á **Bifrost Messages** auk
+  keyrslu keðjunnar.
+- **Prófaðu keðju áður en þú tímasetur hana**, í sandkassa, með tilviki þar sem eitthvað er að
+  gera, tilviki þar sem ekkert er að gera og tilviki með röngu inntaki.
+- **Bot-teikn Telegram** er geymt dulkóðað í Business Central.
+
+## Tilvísun
+
+Uppsettar skilaboðategundir og samningar þeirra, þar með taldar aðgerðirnar sem skref í keðju
+getur kallað á, eru lesnir úr Business Central sjálfu: með MCP-verkfærunum `list_message_types` og
+`describe_message_type`, eða á síðunni **Bifrost Message Types**.
+
+- [Texti AppSource-skráningar](./listing) · [Prófunarsviðsmyndir fyrir AppSource](./user-scenarios)
+- [Hvað einkennir gott skref í keðju](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/Bifrost%20Reference%20Playbooks/README.md), í tilvísunarsafni samstarfsaðila

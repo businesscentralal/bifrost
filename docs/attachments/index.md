@@ -4,7 +4,7 @@ title: "Bifröst Attachments"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Azure Blob Storage, Azure File Share and SharePoint exposed as Bifröst message types for Business Central file operations."
+description: "Keep Business Central files in Azure Blob Storage, Azure File Share or SharePoint, and reach them from any process."
 ---
 
 # Bifröst Attachments
@@ -71,16 +71,14 @@ The step-by-step guides are in the in-product help:
 - **Unfinished large uploads leave data behind.** Uploads that were never completed or cancelled
   can be cleared with **Purge Upload Sessions** on Bifrost Attachments Setup.
 
-## Capabilities and reference
+## Reference
 
-Capabilities: **`Storage`** and **`DataExchange`**.
-
-What each message type does, in plain words: [Capabilities](./capabilities).
+The installed message types and their contracts are read from Business Central itself: the MCP
+tools `list_message_types` and `describe_message_type`, or the **Bifrost Message Types** page.
 
 For developers: every operation goes through the standard Business Central External File Storage
 connectors, and file content travels as base64, in chunks for large files.
 
-- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [AppSource listing text](./listing)
 - [AppSource validation scenarios](./user-scenarios)
 - [Build on Bifröst](/extensibility/)

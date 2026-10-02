@@ -5,7 +5,7 @@ sidebar_label: "Storage Connection"
 sidebar_position: 3
 ---
 
-The **Bifrost Storage Connection** card configures a single storage connection. It binds a `storageCode` to a specific Business Central file account and connector, with an optional base path for all operations.
+The **Bifrost Storage Connection** card configures a single storage connection. It binds a code to a specific Business Central file account and connector, with an optional base path for all operations.
 
 ## General
 

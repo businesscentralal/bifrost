@@ -4,47 +4,70 @@ title: "Bifröst Language Models"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type."
+description: "Gervigreindarspjall fyrir Business Central: mállíkön, sjö spjallveitur, MCP-verkfæraþjónn og stakar útfyllingar fyrir sjálfvirk ferli."
 ---
 
-Bifröst Language Models er the chat module of the Bifröst platform. It builds on Bifröst Foundation og adds a conversational assistant to Business Central: a chat FactBox on standard pages, language models that hold the provider configuration, an MCP tool server that lets the assistant read og act on Business Central data under the signed-in notandi's own permissions, og the `LLM.Prompt.Complete` message tegund fyrir one-shot completions in playbooks og scheduled verkþættir.
+# Bifröst Language Models
 
-## What it does
+**Spjallaðu við Business Central þar sem þú ert þegar að vinna.** Spjallgluggi situr við hliðina á
+viðskiptamanninum, vörunni eða pöntuninni sem þú ert með opna, veit hvaða færsla það er og svarar
+út frá lifandi gögnum með þínum eigin heimildum.
 
-- **Bifrost Chat** — a control add-in og FactBox on 36 standard pages, plus a focused full-page chat. The chat knows which færsla you eru looking at.
-- **Language models** — færslur that hold the provider configuration, the model settings og the skill text injected í every interactive conversation.
-- **Seven chat providers** — Copilot, OpenAI, Azure OpenAI, Custom LLM, Anthropic, xAI (Grok) og Google (Gemini).
-- **MCP tool server** — the assistant reads og updagsetnings Business Central data með the signed-in notandi's own permissions, so it getur answer með live figures.
-- **`LLM.Prompt.Complete`** — a one-shot completion með no tools, no bootstrap og no conversation state, meant as the general-purpose compute step fyrir playbooks og scheduled verkþættir.
-- **File input** — a completion getur carry an inlína base64 skrá, eða a reference to an Incoming Document Attachment eða Document Attachment færsla that Bragi reads og converts, fyrir providers that accept skjöl og images.
-- **Per-notandi eða shared API keys** — hver notandi getur set a personal key úr the chat control, eða an administrator holding the separate service-key permission set getur set one shared key per language model. Copilot needs no key.
-- **Layered permissions** — the chat gate that lets a notandi actually chat er a separate permission set, assigned explicitly on top of the read eða full Bragi set.
+{/* OPEN-20 */}
 
-## How it works
+*Viðbótarapp ofan á [Bifröst Foundation](/foundation/). Nýr í Bifröst? Byrjaðu á
+[Hvernig Bifröst virkar](/documentation/how-it-works/).*
 
-1. Assign `BIFROST Bragi ori` (or `BIFROST Bragi Rd ori`) plus `BIFROST Chat ori` to the notendur who may chat.
-2. Open **Bifrost Stilltuup**, choose **Bifrost Language Models**, create a language model, pick a provider, fill in the model settings og write the skill text.
-3. Stilltu an API key: a personal key úr the chat control, eða a shared key set by a notandi holding `BIFROST ChatSvc ori`. Copilot uses Microsoft-managed resources instead og verður að vera enabled in **Copilot & AI Capabilities**.
-4. Mark one language model as **Default**, eða assign a specific one per notandi on the Notaður Stilltuup Editor in the **Language Model Code** field.
-5. Open a viðskiptavinur, vara eða sales skjal og ask the assistant a question in the **Bifrost Chat** FactBox.
+## Hvað þú getur gert
 
-## Skilaboð tegunds
+- **Spurt um færsluna sem er fyrir framan þig.** Á sölupöntun: *„Vantar eitthvað á lager fyrir
+  þessa pöntun?“* Á viðskiptamanni: *„Taktu saman opnar færslur þessa viðskiptamanns.“* Spjallið
+  veit þegar hvaða pöntun eða viðskiptamann þú átt við.
+- **Fengið lifandi tölur.** Spjallið les Business Central í gegnum skilaboðategundir Bifrastar,
+  svo svörin koma úr gögnunum þínum eins og þau eru á þeirri stundu.
+- **Verið áfram í Business Central.** Spjallið er á 36 stöðluðum síðum: viðskiptamönnum,
+  lánardrottnum, vörum, sölu- og innkaupaskjölum, færslum og innsendum skjölum. **Focus** opnar það
+  á heilli síðu.
+- **Valið veitu.** Copilot, OpenAI, Azure OpenAI, Anthropic, Google Gemini, xAI eða þitt eigið
+  líkan. Copilot þarf engan API-lykil.
+- **Notað líkan inni í sjálfvirku ferli.** Verkferill eða tímasett verk getur beðið líkan um eitt
+  svar, til dæmis til að flokka eða taka saman skjal.
 
-| Skilaboð tegund | Direction | Purpose |
-| --- | --- | --- |
-| `LLM.Prompt.Complete` | Út á við | One-shot language model completion — send a system prompt og a notandi prompt, get text back. |
+## Sæktu appið
 
-## Requirements
+Settu **Bifrost Language Models** upp við hlið Bifröst Foundation, af AppSource eða í gegnum
+samstarfsaðila þinn. Það þarf Business Central 28.0 eða nýrra.
 
-- Microsoft Dynamics 365 Business Central 28.0 eða later.
-- Bifröst Foundation 28.0.0.0, installed beside Bragi.
-- A stillt language model. Every external provider needs an API key — a personal key per notandi eða one shared service key. Copilot needs no key but verður að vera enabled in **Copilot & AI Capabilities**.
-- HTTP client requests allowed fyrir the extension þegar an external provider er used.
-- The `BIFROST Chat ori` permission set, assigned per notandi; it er not bundled í the other Bragi permission sets.
+## Uppsetning
 
-## Where to go next
+| Skref | Hvað | Hver |
+|---|---|---|
+| 1 | Veldu veitu. Fyrir **Copilot** skaltu kveikja á því undir **Copilot & AI Capabilities**; fyrir aðra veitu skaltu hafa API-lykil hennar tilbúinn. | Kerfisstjóri Business Central |
+| 2 | Á **Uppsetningu Bifrost** skaltu opna **Uppsetningu Bifrost Language Models** og keyra **Setup Wizard**, eða búa mállíkan til handvirkt og velja síðan **Import Defaults** fyrir hæfnitextann. Merktu eitt líkan sem **Default**. | Kerfisstjóri Business Central |
+| 3 | Gefðu hverjum sem má spjalla heimildasafnið **`BIFROST Chat ori`**, við hlið `BIFROST LLM ori` (eða `BIFROST LLM Rd ori`). Spjall fylgir aldrei öðrum heimildasöfnum. | Kerfisstjóri Business Central |
+| 4 | Opnaðu viðskiptamann, vöru eða sölupöntun: spjallið birtist hægra megin. | Hver notandi |
 
-- [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, generated úr the app itself
-- [Chat message tegunds](./message-types)
-- [Extending Bragi með a chat provider](./extensibility)
-- [Build on Bifröst](/extensibility/)
+Leiðbeiningar skref fyrir skref eru í hjálpinni í appinu:
+[Uppsetning Language Models](/help/language-models/language-models-setup/) og
+[Bifrost Chat](/help/language-models/bifrost-chat/).
+
+## Gott að vita
+
+- **Það vinnur sem þú.** Spjallið getur aðeins lesið og breytt því sem þínar eigin heimildir í
+  Business Central leyfa, og hvert kall er skráð á **Bifrost Messages**.
+- **Engin spjallheimild, ekkert spjall.** Án `BIFROST Chat ori` eða nothæfs mállíkans birtist
+  spjallglugginn alls ekki. Engin villuboð koma; athugaðu þessi tvö atriði fyrst.
+- **API-lyklar** eru geymdir í Business Central, fyrir hvern notanda eða sem einn sameiginlegur
+  lykill fyrir hvert líkan. Copilot keyrir á auðlindum sem Microsoft rekur og þarf engan lykil.
+- **Samtölin þín fara til veitunnar sem þú velur**, samkvæmt samningi þínum við hana.
+  Sjá [Hvert gögnin þín fara](/documentation/how-it-works/#where-your-data-goes).
+
+## Tilvísun
+
+Uppsettar skilaboðategundir og samningar þeirra eru lesnir úr Business Central sjálfu: með
+MCP-verkfærunum `list_message_types` og `describe_message_type`, eða á síðunni **Bifrost Message
+Types**.
+
+- [Ný spjallveita](./extensibility)
+- Heimildasöfn: `BIFROST LLM ori` eða `BIFROST LLM Rd ori` fyrir appið, `BIFROST Chat ori` fyrir
+  spjall, `BIFROST ChatSvc ori` til að setja sameiginlegan lykil.

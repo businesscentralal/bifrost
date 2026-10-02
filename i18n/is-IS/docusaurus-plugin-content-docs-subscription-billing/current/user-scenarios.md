@@ -6,254 +6,240 @@ sidebar_position: 8
 description: "The scenarios Microsoft's validation team executes to certify this extension for AppSource."
 ---
 
-**Publisher:** Origo
+**Útgefandi:** Origo
 **App:** Bifrost Subscription Billing (`dd7b8bd8-f93e-4ac4-a251-1a132a14ef3d`)
-**Version:** 29.0.0.0
-**Submission Date:** 2026-09-06
-**Test Environment:** A Business Central sandbox með Microsoft's **Subscription Billing** app og **Bifrost Foundation** installed. See "Test Credentials" og "Prerequisites" below.
+**Útgáfa:** 29.0.0.0
+**Skiladagur:** 2026-09-06
+**Prófunarumhverfi:** Sandkassi í Business Central með appi Microsoft, **Subscription Billing**, og **Bifrost Foundation** uppsettum, og gervigreindaraðstoð sem er tengd við Bifröst. Sjá „Prófunarauðkenni“ og „Forsendur“ hér fyrir neðan.
 
 ---
 
-## Test Credentials
+## Prófunarauðkenni
 
-| Field | Value |
+| Reitur | Gildi |
 | --- | --- |
-| Environment | Sandbox með Subscription Billing enabled |
-| Company | CRONUS, eða any company með Subscription Billing set up |
-| Notaður | A notandi með SUPER, eða með `BIFROST SubBil ori` plus a Bifröst Foundation permission set |
+| Umhverfi | Sandkassi með Subscription Billing virkt |
+| Fyrirtæki | Sýnifyrirtækið, eða hvaða fyrirtæki sem er með Subscription Billing uppsett |
+| Notandi | Notandi með SUPER, eða með `BIFROST SubBil ori` auk heimildasafns Bifröst Foundation |
 
-This extension holds no secrets of its own og calls no external service. Everything it does runs inside Business Central, against Microsoft's Subscription Billing app.
+Þessi viðbót geymir engin eigin leyndarmál og kallar ekki á neina ytri þjónustu. Allt sem hún gerir keyrir inni í Business Central, á móti appi Microsoft, Subscription Billing.
 
 ---
 
-## Prerequisites
+## Forsendur
 
-1. Install **Bifrost Foundation** og activate it — see the Foundation app's own setup guide.
-2. Install **Subscription Billing** (Microsoft) og run its assisted setup, so that Subscription Contract Stilltuup, number series og a Billing Template exist.
-3. Install **Bifrost Subscription Billing**.
-4. Assign the permission set **Bifrost Sub. Billing** (`BIFROST SubBil ori`) to the test notandi, in addition to their Bifröst Foundation permissions.
+1. Setjið **Bifrost Foundation** upp og virkjið það — sjá uppsetningarleiðbeiningar Foundation-appsins.
+2. Setjið **Subscription Billing** (Microsoft) upp og keyrið leiðsagnaruppsetningu þess, svo Subscription Contract Setup, númeraraðir og reikningssniðmát séu til.
+3. Setjið **Bifrost Subscription Billing** upp.
+4. Úthlutið prófunarnotandanum heimildasafninu **Bifrost Sub. Billing** (`BIFROST SubBil ori`), auk heimilda hans í Bifröst Foundation.
+5. Tengið gervigreindaraðstoð (til dæmis Copilot, ChatGPT eða Claude) við sandkassann í gegnum MCP-þjón Bifrastar, eins og lýst er í [Tengdu gervigreindaraðstoðina](/setup/connect-your-ai/). Hver beiðni aðstoðarinnar er skráð á síðunni **Bifrost Messages** í Business Central.
 
-### Company setup the later scenarios depend on
+### Uppsetning fyrirtækis sem síðari sviðsmyndir byggja á
 
-Scenarios 1 to 5 need nothing beyond the four steps above. The billing, deferral og usage scenarios post to the general ledger, so the company verður also be set up fyrir that. These eru Microsoft's own Subscription Billing prerequisites rather than this app's, but they eru easy to miss on a fresh sandbox — every one of them was hit while testing this release against a Business Central 28.4 container.
+Sviðsmyndir 1 til 5 þurfa ekkert umfram skrefin hér að ofan. Sviðsmyndir um reikningagerð, frestanir og notkun bóka í fjárhag, svo fyrirtækið þarf líka að vera sett upp fyrir það. Þetta eru eigin forsendur Microsoft fyrir Subscription Billing frekar en þessa apps, en auðvelt er að missa af þeim í nýjum sandkassa.
 
-| Stilltuup | Why it er needed | Symptom ef missing |
+| Uppsetning | Hvers vegna hún þarf | Einkenni ef hana vantar |
 | --- | --- | --- |
-| **General Posting Stilltuup** fyrir the subscription vara's posting group combination: *Cust. Sub. Contract Account*, *Cust. Sub. Contr. Def Account*, *Vend. Sub. Contract Account*, *Vend. Sub. Contr. Def. Account* | Contract deferrals post through these accounts | Posting a billing skjal fails með *"Cust. Sub. Contract Deferral Account verður have a gildi in General Posting Stilltuup..."* |
-| **General Posting Stilltuup**: sales og purchase lína og reikningur discount accounts, credit memo accounts | The deferral release journal needs them | `Subscription.Deferral.Release` fails með *"Sales Line Disc. Account verður have a gildi..."* |
-| **VAT Posting Stilltuup** completed fyrir the subscription vara's VAT product posting group | Any posting | Posting fails með *"...VAT Posting Stilltuup er blocked"* |
-| **Source Code Stilltuup → Sub. Contr. Deferrals Release** | Stamps the deferral release entries | `Subscription.Deferral.Release` fails með *"Subscription Contract Deferral verður have a gildi in Source Code Stilltuup"* |
-| **Subscription Contract Stilltuup → Def. Rel. Jnl. Template Name / Def. Rel. Jnl. Batch Name** | The journal the release posts through | `Subscription.Deferral.Release` geturnot post |
-| **Subscription Contract Stilltuup → Vend. Sub. Contract Nos.** | Numbering vendor samningar | Creating a Vendor Subscription Contract fails |
-| An **Item Unit of Measure** row fyrir the subscription vara, og the same kóði on the Subscription header | The invoicing vara verður share the subscription's unit | `Subscription.Contract.CreateInvoice` fails með *"The subscription's unit of measure inniheldur a gildi that er fannst ekki in the vara unit of measure..."* |
-| **Currency Exchange Rates** covering the posting dagsetnings in use — including fyrir the **Additional Reporting Currency**, ef the company has one | Posting converts fjárhæðs to the additional reporting currency at the posting dagsetning | Posting fails með *"There er no Currency Exchange Rate within the filter"*. The reported currency kóði may be the **local** currency even þegar every skjal er in local currency og the missing rate belongs to the reporting currency, so check both |
+| **Almenn bókunaruppsetning** fyrir samsetningu bókunarflokka áskriftarvörunnar: *Cust. Sub. Contract Account*, *Cust. Sub. Contr. Def Account*, *Vend. Sub. Contract Account*, *Vend. Sub. Contr. Def. Account* | Frestanir samninga bókast á þessa reikninga | Bókun reikningsskjals mistekst með *„Cust. Sub. Contract Deferral Account must have a value in General Posting Setup...“* |
+| **Almenn bókunaruppsetning**: afsláttarreikningar sölu- og innkaupalína og reikninga, kreditreikningar | Færslubók losunar frestana þarf þá | Losun frestana mistekst með *„Sales Line Disc. Account must have a value...“* |
+| **VSK-bókunaruppsetning** fullgerð fyrir VSK-vörubókunarflokk áskriftarvörunnar | Öll bókun | Bókun mistekst með *„...VAT Posting Setup is blocked“* |
+| **Source Code Setup → Sub. Contr. Deferrals Release** | Merkir færslur losunar frestana | Losun frestana mistekst með *„Subscription Contract Deferral must have a value in Source Code Setup“* |
+| **Subscription Contract Setup → Def. Rel. Jnl. Template Name / Def. Rel. Jnl. Batch Name** | Færslubókin sem losunin bókast í gegnum | Losun frestana getur ekki bókað |
+| **Subscription Contract Setup → Vend. Sub. Contract Nos.** | Númerun samninga lánardrottna | Stofnun Vendor Subscription Contract mistekst |
+| Lína í **Item Unit of Measure** fyrir áskriftarvöruna, og sami kóði á haus áskriftarinnar | Reikningsvaran verður að hafa sömu einingu og áskriftin | Reikningur fyrir samning mistekst með *„The subscription's unit of measure contains a value that is not found in the item unit of measure...“* |
+| **Gengi gjaldmiðla** sem ná yfir bókunardagsetningarnar — líka fyrir **viðbótarskýrslugjaldmiðil**, ef fyrirtækið hefur hann | Bókun umreiknar upphæðir í viðbótarskýrslugjaldmiðilinn á bókunardegi | Bókun mistekst með *„There is no Currency Exchange Rate within the filter“*. Gjaldmiðilskóðinn sem nefndur er getur verið **staðbundni** gjaldmiðillinn jafnvel þegar öll skjöl eru í staðbundnum gjaldmiðli og gengið sem vantar tilheyrir skýrslugjaldmiðlinum, svo athugið hvort tveggja |
 
-### Extra setup fyrir the usage-based billing scenarios
+### Viðbótaruppsetning fyrir sviðsmyndir um reikninga eftir notkun
 
-`Subscription.Usage.ImportData` parses the skrá through Microsoft's generic usage-data connector, which needs, in addition to the above:
+Innflutningur notkunargagna les skrána í gegnum almennan notkunargagnatengil Microsoft, sem þarf, auk þess sem að ofan greinir:
 
-- a **Usage Data Supplier** of tegund Generic;
-- **Generic Import Stilltutings** fyrir that supplier, pointing at a **Data Exchange Definition** that maps the skrá's columns onto table 8018 *Usage Data Generic Import*;
-- **Usage Data Supplier Reference**, **Usage Data Supp. Customer** og **Usage Data Supp. Subscription** rows linking the skrá's viðskiptavinur og subscription identifiers to the Business Central viðskiptavinur og the usage-based Subscription Line.
+- **Usage Data Supplier** af tegundinni Generic;
+- **Generic Import Settings** fyrir þann birgi, sem vísa á **Data Exchange Definition** sem varpar dálkum skrárinnar á töfluna *Usage Data Generic Import*;
+- línur í **Usage Data Supplier Reference**, **Usage Data Supp. Customer** og **Usage Data Supp. Subscription** sem tengja auðkenni viðskiptamanna og áskrifta í skránni við viðskiptamanninn í Business Central og notkunarbundnu áskriftarlínuna.
 
-Without the Data Exchange Definition the import call still succeeds as a call og reports `processingStatus` of `Error` með Business Central's own reason — it gerir ekki throw.
-
----
-
-## Scenario 1: Installation og Activation
-
-**Area:** Installation & Activation
-
-### Steps
-1. Open **Extension Management**.
-2. Confirm **Bifrost Subscription Billing** er listed og installed.
-3. Confirm the dependency **Bifrost Foundation** er installed og appears above it.
-4. Open **Notaðurs**, select the test notandi, og confirm the permission set **Bifrost Sub. Billing** getur be assigned.
-
-### Expected Results
-- The extension installs með no villur.
-- Its permission set er assignable to a notandi.
+Án Data Exchange Definition lýkur innflutningnum samt sem beiðni og skilar vinnslustöðunni Error með eigin skýringu Business Central — hann kastar ekki villu.
 
 ---
 
-## Scenario 2: Discovering the Skilaboð Types
+## Sviðsmynd 1: Uppsetning og virkjun
 
-**Area:** Core Functionality
+**Svið:** Uppsetning og virkjun
 
-### Steps
-1. Kalla the Bifröst message tegund `Help.MessageTypes.Get` (Foundation).
-2. Inspect the returned list.
+### Skref
+1. Opnið **Extension Management**.
+2. Staðfestið að **Bifrost Subscription Billing** sé á listanum og uppsett.
+3. Staðfestið að forsendan **Bifrost Foundation** sé uppsett og birtist fyrir ofan.
+4. Opnið **Notendur**, veljið prófunarnotandann og staðfestið að hægt sé að úthluta heimildasafninu **Bifrost Sub. Billing**.
 
-### Expected Results
-- Svarið includes 22 message tegunds whose heitis begin með `Subscription.`
-- Each has a non-empty `description`, a `messageDirection` of `Inbound`, og `isEnabled` of `true`.
-
----
-
-## Scenario 3: Lestuing a Skilaboð Type's Help Document
-
-**Area:** Core Functionality
-
-### Steps
-1. Kalla `Help.Implementation.Get` með the subject `Subscription.Billing.CreateProposal`.
-2. Lestu the returned Markdown.
-3. Repeat fyrir any other `Subscription.*` tegund.
-
-### Expected Results
-- A Markdown skjal headed `Subscription.Billing.CreateProposal`, containing the sections Overview, Beiðni Parameters, Beiðni Example, Svar Shape, Villas, Safety og Related Skilaboð Types.
-- Every other `Subscription.*` tegund returns the same structure.
+### Væntar niðurstöður
+- Viðbótin setst upp án villna.
+- Hægt er að úthluta heimildasafni hennar á notanda.
 
 ---
 
-## Scenario 4: Core Functionality — Create a Billing Proposal
+## Sviðsmynd 2: Finna aðgerðirnar
 
-**Area:** Core Functionality
+**Svið:** Kjarnavirkni
 
-### Stilltuup
-1. In the client, open **Billing Templates** og note the kóði of an existing template, eða create one fyrir the Customer partner.
+### Skref
+1. Opnið síðuna **Bifrost Message Types** í Business Central.
+2. Spyrjið aðstoðina: „Hvað getur þú gert í Subscription Billing?“
 
-### Steps
-1. Kalla `Subscription.Billing.CreateProposal` með a body such as:
-
-   ```json
-   { "billingTemplateCode": "MONTHLY", "billingDate": "2026-08-31" }
-   ```
-
-2. Open **Recurring Billing** in the client og filter on the same template.
-
-### Expected Results
-- Svarið has `"status": "Success"` og reports `proposalLinesCreated`.
-- The same number of billing proposal línur er visible in Recurring Billing.
-- Ef nothing was due, the call still succeeds með `proposalLinesCreated` of 0 — this er not an villa.
+### Væntar niðurstöður
+- Síðan sýnir aðgerðir þessa apps í Subscription Billing, hverja með lýsingu, sem innleið og virka.
+- Aðstoðin lýsir sömu aðgerðum — samningum, reikningstillögum, forskoðun, notkunargögnum, frestunum, endurnýjun og innflutningi — lesnum úr Business Central sjálfu.
 
 ---
 
-## Scenario 5: Core Functionality — Bill a Contract to an Unposted Invoice
+## Sviðsmynd 3: Lesa hjálp aðgerðar
 
-**Area:** Core Functionality
+**Svið:** Kjarnavirkni
 
-### Stilltuup
-1. Choose a Customer Subscription Contract með subscription línur due fyrir billing.
+### Skref
+1. Biðjið aðstoðina: „Sýndu mér hjálpina fyrir aðgerðina sem býr til reikningstillögu.“ (Aðstoðin les hana með `Help.Implementation.Get`.)
+2. Endurtakið fyrir einhverja aðra aðgerð Subscription Billing.
 
-### Steps
-1. Kalla `Subscription.Contract.CreateInvoice` með the samningur number as the message subject, or:
-
-   ```json
-   { "contractNo": "CC000010", "billingDate": "2026-08-31" }
-   ```
-
-2. Open **Sales Invoices** in the client.
-
-### Expected Results
-- Svarið listar the created skjal under `documents`.
-- An **unposted** sales reikningur með that number er til fyrir the samningur's viðskiptavinur. Ekkert er posted.
-- Ef the samningur had nothing due, the response succeeds með an empty `documents` array og an explanatory `message`.
+### Væntar niðurstöður
+- Hjálparskjal fyrir aðgerðina, með köflunum Overview, Request Parameters, Request Example, Response Shape, Errors, Safety og Related Message Types.
+- Allar aðrar aðgerðir Subscription Billing skila sömu uppbyggingu.
 
 ---
 
-## Scenario 6: Preview Writes Ekkert
+## Sviðsmynd 4: Kjarnavirkni — búa til reikningstillögu
 
-**Area:** Core Functionality
+**Svið:** Kjarnavirkni
 
-### Stilltuup
-1. Note the number of unposted sales reikningar fyrir a viðskiptavinur, og the number of billing línur on one of that viðskiptavinur's samningar.
+### Undirbúningur
+1. Í biðlaranum opnið **Billing Templates** og skrifið hjá ykkur kóða sniðmáts sem er til, eða búið til sniðmát fyrir viðskiptamenn.
 
-### Steps
-1. Kalla `Subscription.Contract.PreviewInvoice` fyrir that samningur.
-2. Re-check the sales reikningur list og the samningur's billing línur.
+### Skref
+1. Biðjið aðstoðina: „Búðu til reikningstillögu fyrir reikningssniðmátið MONTHLY með reikningsdagsetningu 31. ágúst 2026.“ (Notið kóða sniðmátsins úr undirbúningnum.)
+2. Opnið **Recurring Billing** í biðlaranum og síið á sama sniðmát.
 
-### Expected Results
-- Svarið has `"status": "Success"`, `"preview": true` og `"rollback": true`, og describes what would be created.
-- **No new reikningur og no new billing lína er til** — both counts eru unchanged.
-
----
-
-## Scenario 7: Villa Handling — Invalid Input
-
-**Area:** Villa Handling
-
-### Steps
-1. Kalla `Subscription.Billing.CreateProposal` með a template kóði that gerir ekki exist:
-
-   ```json
-   { "billingTemplateCode": "DOES-NOT-EXIST" }
-   ```
-
-2. Kalla `Subscription.Contract.CreateInvoice` með no `contractNo` og no subject.
-
-### Expected Results
-- Both return `"status": "Error"` með a readable `error` message — the first naming the missing Billing Template, the second naming the missing required parameter.
-- Ekkert er written in either case.
-- Svarið includes a `hint` pointing at `Help.Implementation.Get`.
-- No unhandled exception eða raw Business Central villa dialog reaches the caller.
+### Væntar niðurstöður
+- Aðstoðin segir að beiðnin hafi tekist og hve margar tillögulínur hafi orðið til.
+- Jafnmargar línur reikningstillögu sjást í Recurring Billing.
+- Ef ekkert var á gjalddaga tekst beiðnin samt og 0 línur verða til — það er ekki villa.
 
 ---
 
-## Scenario 8: Documented Limitations Return a Clear Villa
+## Sviðsmynd 5: Kjarnavirkni — óbókaður reikningur fyrir samning
 
-**Area:** Villa Handling
+**Svið:** Kjarnavirkni
 
-### Steps
-1. Kalla `Subscription.PriceUpdate.CreateProposal`.
+### Undirbúningur
+1. Veljið Customer Subscription Contract með áskriftarlínum sem komnar eru á reikning.
 
-### Expected Results
-- Svarið er `"status": "Error"`.
-- The message states that Microsoft has not exposed a public API fyrir this operation in this version, heitis the Microsoft procedure concerned, og directs the notandi to the **Contract Price Updagsetning** page in the client.
-- This er the skjaled, intended behaviour — see the [message tegund guide](/subscription-billing/message-types) og the app's changelog.
+### Skref
+1. Biðjið aðstoðina: „Gerðu reikning fyrir áskriftarsamning viðskiptamanns CC000010 með reikningsdagsetningu 31. ágúst 2026.“ (Notið samningsnúmerið úr undirbúningnum.)
+2. Opnið **Sölureikninga** í biðlaranum.
 
----
-
-## Scenario 9: Data Integrity — No Deletions
-
-**Area:** Core Functionality
-
-### Steps
-1. Review the message tegund list úr Scenario 2.
-
-### Expected Results
-- No message tegund heiti ends in `.Delete`.
-- The app never deletes subscription, samningur eða billing færslur.
+### Væntar niðurstöður
+- Aðstoðin gefur upp númer skjalsins sem varð til.
+- **Óbókaður** sölureikningur með því númeri er til fyrir viðskiptamann samningsins. Ekkert er bókað.
+- Ef ekkert var á gjalddaga á samningnum tekst beiðnin, ekkert skjal verður til og aðstoðin útskýrir hvers vegna.
 
 ---
 
-## Scenario 10: Permission Verification
+## Sviðsmynd 6: Forskoðun skrifar ekkert
 
-**Area:** Permission Verification
+**Svið:** Kjarnavirkni
 
-### Stilltuup
-1. Create a notandi **without** the `BIFROST SubBil ori` permission set, holding Bifröst Foundation access only.
+### Undirbúningur
+1. Skrifið hjá ykkur fjölda óbókaðra sölureikninga viðskiptamanns og fjölda reikningslína á einum af samningum hans.
 
-### Steps
-1. Sign in as that notandi og attempt to invoke `Subscription.Billing.CreateProposal`.
-2. Assign `BIFROST SubBil ori` og retry.
+### Skref
+1. Biðjið aðstoðina: „Forskoðaðu reikninginn fyrir þann samning, án þess að búa neitt til.“
+2. Athugið aftur lista sölureikninga og reikningslínur samningsins.
 
-### Expected Results
-- Without the permission set, the call fails með a clear permission villa og nothing er written.
-- With it, the call succeeds — subject to the notandi's own permissions on the Subscription Billing tables, which this extension gerir ekki widen.
-
----
-
-## Scenario 11: Extension Uninstallation
-
-**Area:** Uninstallation
-
-### Steps
-1. Open **Extension Management**.
-2. Uninstall **Bifrost Subscription Billing**.
-3. Kalla `Help.MessageTypes.Get` again.
-
-### Expected Results
-- The extension uninstalls án villa.
-- The `Subscription.*` message tegunds no longer appear.
-- Bifröst Foundation og Microsoft's Subscription Billing continue to work normally, og no Subscription Billing data er removed by the uninstall.
+### Væntar niðurstöður
+- Aðstoðin segir frá vel heppnaðri forskoðun sem var bakfærð og lýsir því sem yrði til.
+- **Enginn nýr reikningur og engin ný reikningslína er til** — báðar tölurnar eru óbreyttar.
 
 ---
 
-## Cleanup
+## Sviðsmynd 7: Villumeðhöndlun — ógilt inntak
 
-After allir scenarios eru complete:
+**Svið:** Villumeðhöndlun
 
-1. Delete eða post the unposted sales reikningur created in Scenario 5.
-2. Clear any billing proposal línur left standing under the template used in Scenario 4.
-3. Remove the test notandi created in Scenario 10.
-4. Uninstall the extension, ef that was not already done in Scenario 11.
+### Skref
+1. Biðjið aðstoðina: „Búðu til reikningstillögu fyrir reikningssniðmátið DOES-NOT-EXIST.“
+2. Biðjið aðstoðina að gera samningsreikning án þess að nefna samning, og segið henni að senda beiðnina eins og hún er.
+3. Opnið **Bifrost Messages** og finnið báðar beiðnirnar.
+
+### Væntar niðurstöður
+- Báðum beiðnum lýkur með villustöðu og læsilegum skilaboðum — sú fyrri nefnir reikningssniðmátið sem vantar, sú síðari samninginn sem vantar.
+- Ekkert er skrifað í hvorugu tilvikinu.
+- Hvert svar vísar á `Help.Implementation.Get` fyrir rétta beiðni.
+- Engin ómeðhöndluð undantekning eða óunninn villugluggi Business Central nær til notandans.
+
+---
+
+## Sviðsmynd 8: Skjalfestar takmarkanir skila skýrri villu
+
+**Svið:** Villumeðhöndlun
+
+### Skref
+1. Biðjið aðstoðina: „Búðu til tillögu að verðuppfærslu í Subscription Billing.“
+
+### Væntar niðurstöður
+- Beiðninni lýkur með villustöðu.
+- Skilaboðin segja að Microsoft hafi ekki opnað opinbert API fyrir þessa aðgerð í þessari útgáfu, nefna fall Microsoft sem um ræðir og vísa notandanum á síðuna **Contract Price Update** í biðlaranum.
+- Þetta er skjalfest og ætluð hegðun — sjá breytingaskrá appsins.
+
+---
+
+## Sviðsmynd 9: Heilleiki gagna — engar eyðingar
+
+**Svið:** Kjarnavirkni
+
+### Skref
+1. Farið yfir aðgerðir Subscription Billing á síðunni **Bifrost Message Types** úr sviðsmynd 2.
+
+### Væntar niðurstöður
+- Engin aðgerðanna eyðir færslum.
+- Appið eyðir aldrei færslum áskrifta, samninga eða reikningagerðar.
+
+---
+
+## Sviðsmynd 10: Heimildaprófun
+
+**Svið:** Heimildaprófun
+
+### Undirbúningur
+1. Búið til notanda **án** heimildasafnsins `BIFROST SubBil ori`, aðeins með aðgang að Bifröst Foundation.
+
+### Skref
+1. Tengið gervigreindaraðstoðina sem þann notanda og biðjið hana að búa til reikningstillögu fyrir reikningssniðmát sem er til.
+2. Úthlutið `BIFROST SubBil ori` og reynið aftur.
+
+### Væntar niðurstöður
+- Án heimildasafnsins mistekst beiðnin með skýrri heimildavillu og ekkert er skrifað.
+- Með því tekst beiðnin — háð eigin heimildum notandans á töflum Subscription Billing, sem þessi viðbót víkkar ekki.
+
+---
+
+## Sviðsmynd 11: Fjarlæging viðbótar
+
+**Svið:** Fjarlæging
+
+### Skref
+1. Opnið **Extension Management**.
+2. Fjarlægið **Bifrost Subscription Billing**.
+3. Opnið síðuna **Bifrost Message Types** aftur.
+
+### Væntar niðurstöður
+- Viðbótin er fjarlægð án villu.
+- Aðgerðir Subscription Billing birtast ekki lengur.
+- Bifröst Foundation og Subscription Billing frá Microsoft virka áfram eðlilega, og engin gögn Subscription Billing eru fjarlægð við fjarlæginguna.
+
+---
+
+## Frágangur
+
+Þegar öllum sviðsmyndum er lokið:
+
+1. Eyðið eða bókið óbókaða sölureikninginn sem varð til í sviðsmynd 5.
+2. Hreinsið allar línur reikningstillögu sem standa eftir undir sniðmátinu úr sviðsmynd 4.
+3. Fjarlægið prófunarnotandann sem var búinn til í sviðsmynd 10.
+4. Fjarlægið viðbótina, ef það var ekki gert í sviðsmynd 11.

@@ -41,7 +41,7 @@ The full description text is [below](#full-description-text).
 ---
 
 ## Help Link
-https://docs.bifrost.origo.is/en-us/orchestrator/
+https://businesscentralal.github.io/bifrost/en-us/orchestrator/
 
 ## Support Link
 https://www.origo.is/
@@ -84,18 +84,6 @@ https://www.origo.is/
 3. Build **playbooks** by creating steps that call Bifrost message types in sequence, with request templates using `@` workspace references to pass data between steps
 4. Run playbooks manually, on a schedule, or enqueue them for deferred execution
 
-### Message Types (20)
-
-| Category | Types |
-|---|---|
-| **Scheduled entries** | `Orchestrator.Entry.Register`, `Orchestrator.Entry.Run`, `Orchestrator.Entry.Restart`, `Orchestrator.Entry.Schedule` |
-| **Status** | `Orchestrator.Status.Get`, `Orchestrator.Status.Restart`, `Orchestrator.Status.RestartIfNeeded` |
-| **Job Queue** | `Orchestrator.JobQueueEntry.Restart`, `Orchestrator.JobQueueEntry.RestartIfNeeded` |
-| **Playbook** | `Orchestrator.Playbook.Run`, `Orchestrator.Playbook.Schedule`, `Orchestrator.Playbook.Enqueue`, `Orchestrator.Workspace.Preview` |
-| **Reports** | `Orchestrator.Report.List`, `Orchestrator.Report.Get`, `Orchestrator.Report.Run`, `Orchestrator.Report.SaveAs` |
-| **Delivery** | `Orchestrator.Email.Send`, `Orchestrator.Telegram.Message` |
-| **Help** | `Help.Orchestrator.Get` |
-
 ### Supported editions and countries
 
 - **Editions:** Business Central Essentials and Premium
@@ -110,4 +98,4 @@ https://www.origo.is/
 
 ### Help and documentation
 
-https://docs.bifrost.origo.is/en-us/orchestrator/ (the Icelandic version is at https://docs.bifrost.origo.is/is-is/orchestrator/).
+https://businesscentralal.github.io/bifrost/en-us/orchestrator/ (the Icelandic version is at https://businesscentralal.github.io/bifrost/is-is/orchestrator/).

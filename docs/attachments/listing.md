@@ -17,7 +17,7 @@ Bifröst Attachments
 Cloud storage for Business Central
 
 ## Offer Summary (max 100 chars)
-Azure Blob, File Share and SharePoint as Bifröst message types for BC file operations.
+Azure Blob, File Share and SharePoint storage for Business Central files and attachments.
 
 ## Search Keywords
 1. Cloud storage
@@ -50,7 +50,7 @@ https://www.origo.is/
 
 ## Full description text
 
-**Bifröst Attachments** connects Business Central to cloud storage through the Bifröst platform — a message-based integration layer that gives external systems, AI agents, and automation tools structured access to Business Central data and procedures via OData. It exposes the standard BC external file storage connectors — Azure Blob Storage, Azure File Share, and SharePoint — as message types that any MCP-compatible client, REST caller, or BC process can invoke through the same Queue → Task → Data API pattern used across the entire Bifröst ecosystem.
+**Bifröst Attachments** connects Business Central to cloud storage through the Bifröst platform — a message-based integration layer that gives external systems, AI agents, and automation tools structured access to Business Central data and procedures via OData. It puts the standard BC external file storage connectors — Azure Blob Storage, Azure File Share, and SharePoint — within reach of any MCP-compatible client, REST caller, or BC process, through the same Queue → Task → Data API used across the entire Bifröst ecosystem.
 
 ### Who is this for?
 
@@ -62,14 +62,14 @@ https://www.origo.is/
 
 - **File operations** — List, download, upload, copy, move, delete, and check existence of files in any configured storage connection
 - **Directory operations** — List, create, delete, and check existence of directories
-- **Chunked uploads** — Upload large files in pieces with session management (begin, append, commit, abort, status). Ideal for files too large for a single API call
+- **Chunked uploads** — Upload large files in pieces: start an upload, send the pieces, then finish or cancel it, and check its progress at any time. Ideal for files too large for a single API call
 - **Attachment offloading** — Move BC document attachments to cloud storage to reduce database size, and restore them on demand
 - **Linked attachments** — Attach files already in storage to incoming documents, or create a document attachment on any record, without re-uploading
 
 ### How it works
 
 1. Configure storage connections in **Bifrost Storage Setup**, binding a short code to a BC file account
-2. External systems send Bifröst messages with the storage code to target specific connections
+2. External systems and AI assistants name the storage connection by its code
 3. All operations route through the standard BC External File Storage facade — secrets are managed by the connector apps, never by this extension
 
 ### Supported connectors

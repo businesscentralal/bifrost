@@ -1,20 +1,20 @@
 ---
 id: extensibility
-title: "Extending Bragi with a chat provider"
-sidebar_label: "Extending Bragi"
+title: "Ný spjallveita í Bifrost Language Models"
+sidebar_label: "Ný spjallveita"
 sidebar_position: 3
 description: "The public extension point of Bifröst Language Models: registering an additional language model provider."
 ---
 
-This skjal describes the **public extension point** of the Bifrost Language Models extension: adding a language model provider.
+Þetta skjal lýsir **opinbera viðbótarpunktinum** í Bifrost Language Models: hvernig bæta má við nýrri mállíkansveitu.
 
-Anything not listed here er **internal** og may change between releases án notice. The package marks internal kóðiunits með `Access = Internal` og locks down the rest via the publisher's standard release policy.
+Allt sem ekki er talið upp hér er **innra** og getur breyst milli útgáfa án fyrirvara. Innri kóðaeiningar eru merktar `Access = Internal` í pakkanum og afgangurinn er læstur samkvæmt hefðbundinni útgáfustefnu útgefandans.
 
 ---
 
-## How to depend on Bifrost Language Models
+## Að byggja á Bifrost Language Models
 
-Add both Bragi og the Bifrost Foundation it sits on to your extension's `app.json`. Bragi gerir ekki propagate its own dependency, so Foundation verður að vera listed explicitly:
+Bættu bæði Bifrost Language Models og Bifrost Foundation, sem það byggir á, við `app.json` viðbótarinnar þinnar. Bifrost Language Models flytur ekki eigin forsendu áfram, svo Foundation þarf að vera talið upp sérstaklega:
 
 ```json
 "dependencies": [
@@ -33,25 +33,25 @@ Add both Bragi og the Bifrost Foundation it sits on to your extension's `app.jso
 ]
 ```
 
-All objects in this guide live in the heitispace `Origo.Bifrost.Bragi`.
+Allir hlutir í þessum leiðbeiningum eru í nafnasvæðinu `Origo.Bifrost.LanguageModels`.
 
 ---
 
-## Extensibility surface at a glance
+## Viðbótarflöturinn í hnotskurn
 
-| Category | Items | Stability |
+| Flokkur | Atriði | Stöðugleiki |
 |---|---|---|
-| Interfaces | `Bifrost LangModel Provider ori` | Stable samningur — the single `Execute` signature never changes |
-| Extensible enums | `Bifrost LangModel Prov. ori`, `Bifrost Chat Proc. Type ori` | Add new `value(...)` entries úr your extension |
-| Public tables | `Bifrost Language Model ori`, `Bifrost Chat Argument ori` | Extend `Bifrost Language Model ori` með a `tableextension`; the argument færsla er the interface parameter |
-| Public kóðiunits | `Bifrost Chat Mgt ori`, `Bifrost Chat Transfer ori`, `MCP Tool Server ori` | Entry points fyrir chat hosts og provider implementations |
-| Control add-ins | `Bifrost Chat ori` | Hosted by the Bifrost Chat FactBox og the Chat Focus page |
+| Viðmót | `Bifrost LangModel Provider ori` | Stöðugur samningur — eina `Execute`-undirskriftin breytist aldrei |
+| Útvíkkanlegar upptalningar | `Bifrost LangModel Prov. ori`, `Bifrost Chat Proc. Type ori` | Bættu við nýjum `value(...)`-færslum úr þinni viðbót |
+| Opinberar töflur | `Bifrost Language Model ori`, `Bifrost Chat Argument ori` | Útvíkkaðu `Bifrost Language Model ori` með `tableextension`; færibreytufærslan er færibreyta viðmótsins |
+| Opinberar kóðaeiningar | `Bifrost Chat Mgt ori`, `Bifrost Chat Transfer ori`, `MCP Tool Server ori` | Inngangspunktar fyrir spjallhýsla og útfærslur veitna |
+| Stýriviðbætur | `Bifrost Chat ori` | Hýst í Bifrost Chat-upplýsingareitnum og á síðunni Chat Focus |
 
 ---
 
-## The provider samningur
+## Samningur veitunnar
 
-A language model provider er one kóðiunit implementing one interface:
+Mállíkansveita er ein kóðaeining sem útfærir eitt viðmót:
 
 ```al
 interface "Bifrost LangModel Provider ori"
@@ -60,16 +60,16 @@ interface "Bifrost LangModel Provider ori"
 }
 ```
 
-The signature never changes. The **operation** er carried in the `Procedure Type` field on the argument færsla, og new operations arrive as new gildi on the `Bifrost Chat Proc. Type ori` enum. A provider written against today's enum keeps compiling þegar operations eru added — it simply gerir ekki answer the ones it gerir ekki know.
+Undirskriftin breytist aldrei. **Aðgerðin** kemur í reitnum `Procedure Type` á færibreytufærslunni, og nýjar aðgerðir bætast við sem ný gildi í upptalningunni `Bifrost Chat Proc. Type ori`. Veita sem er skrifuð fyrir upptalninguna eins og hún er í dag þýðist áfram þegar aðgerðum er bætt við — hún svarar einfaldlega ekki þeim sem hún þekkir ekki.
 
-Kallandinn resolves the implementation through the `Bifrost LangModel Prov. ori` enum, which er stored in the **Chat Provider** field on hver `Bifrost Language Model ori` færsla. Its `DefaultImplementation` er `Bifrost LangModel None ori`, the disabled provider that reports "not stillt" fyrir everything.
+Kallandinn finnur útfærsluna í gegnum upptalninguna `Bifrost LangModel Prov. ori`, sem er geymd í reitnum **Chat Provider** á hverri `Bifrost Language Model ori`-færslu. Sjálfgefna útfærslan er óvirka veitan, sem segir „ekki uppsett“ um allt.
 
-### Registering the provider
+### Skráning veitunnar
 
 ```al
-namespace Acme.Bifrost.Ollama;
+namespace Acme.Ollama;
 
-using Origo.Bifrost.Bragi;
+using Origo.Bifrost.LanguageModels;
 
 enumextension 50100 "Acme LangModel Prov." extends "Bifrost LangModel Prov. ori"
 {
@@ -81,105 +81,105 @@ enumextension 50100 "Acme LangModel Prov." extends "Bifrost LangModel Prov. ori"
 }
 ```
 
-That er the whole registration. The gildi appears in the **Chat Provider** field on the Bifrost Language Model card, og every call the base app makes fyrir a language model með that provider lands in your kóðiunit.
+Það er öll skráningin. Gildið birtist í reitnum **Chat Provider** á Bifrost Language Model-spjaldinu, og hvert kall sem appið gerir fyrir mállíkan með þessa veitu lendir í kóðaeiningunni þinni.
 
 ---
 
-## Operations to handle
+## Aðgerðir sem þarf að svara
 
-`Bifrost Chat Proc. Type ori` (10035338) er grouped í config-dependent operations (10–17), provider metadata (100–116) og provider sjálfgefiðs (120–126).
+`Bifrost Chat Proc. Type ori` skiptist í aðgerðir sem byggja á stillingum (10–17), lýsigögn veitunnar (100–116) og sjálfgefin gildi veitunnar (120–126).
 
-Before hver call the facade resets `Result Boolean` to `false`, `Result Integer` to `0`, og clears the niðurstaða text og the villa message. An operation your `case` gerir ekki cover therefore reads back as "not supported" — never as a stale gildi úr a previous call. That er what makes partial implementations safe.
+Fyrir hvert kall setur framhliðin `Result Boolean` á `false`, `Result Integer` á `0` og hreinsar niðurstöðutextann og villuboðin. Aðgerð sem `case`-setningin þín nær ekki yfir les því sem „ekki stutt“ — aldrei sem gamalt gildi úr fyrra kalli. Það gerir hlutaútfærslur öruggar.
 
-### Config-dependent operations
+### Aðgerðir sem byggja á stillingum
 
-| Operation | Kallaðu áed by | Lestus | Writes | Needed |
+| Aðgerð | Kölluð af | Les | Skrifar | Þörf |
 |---|---|---|---|---|
-| `IsConfigured` (10) | Chat visibility gate; `LLM.Prompt.Complete` áður en it sends anything | Config fields, `GetApiKey` | `Result Boolean` | Alltaf |
-| `BuildConfigJson` (11) | Chat control add-in on start-up | Config fields | `SetResultText` (JSON) | For the chat UI |
-| `SendChatMessage` (12) | `Bifrost Chat Mgt.SendChatMessage` | `GetPayload`, `GetSkill`, `GetUserPrompt`, `GetApiKey`, config | `SetResultText` (JSON) | For the chat UI |
-| `ContinueWithToolResults` (13) | Chat control, eftir it has run the tool calls | `GetConversationState`, `GetToolResults`, `GetApiKey` | `SetResultText` (JSON) | Only þegar `SupportsSplitToolExecution` er true |
-| `GetAvailableModels` (14) | **Get Models** on the language model card | Config, `GetApiKey` | `SetModels`, `Result Boolean` | Only þegar `SupportsModelSelection` er true |
-| `TestConnection` (15) | **Test Connection** on the language model card | Config, `GetApiKey` | `Result Boolean`, `SetErrorMessage` | Recommended |
-| `GetTokenUsage` (16) | Reserved — not called by the base app today | — | `Input Tokens`, `Output Tokens` | Valfrjálst |
-| `CompletePrompt` (17) | The `LLM.Prompt.Complete` message tegund | `GetPayload`, config, `GetApiKey` | `SetResultText` (JSON) | For the message tegund |
+| `IsConfigured` (10) | Sýnileikahlið spjallsins; stakri útfyllingu áður en hún sendir nokkuð | Stillingareiti, `GetApiKey` | `Result Boolean` | Alltaf |
+| `BuildConfigJson` (11) | Stýriviðbót spjallsins við ræsingu | Stillingareiti | `SetResultText` (JSON) | Fyrir spjallviðmótið |
+| `SendChatMessage` (12) | `Bifrost Chat Mgt.SendChatMessage` | `GetPayload`, `GetSkill`, `GetUserPrompt`, `GetApiKey`, stillingar | `SetResultText` (JSON) | Fyrir spjallviðmótið |
+| `ContinueWithToolResults` (13) | Spjallstýringunni, eftir að hún hefur keyrt verkfærakallanir | `GetConversationState`, `GetToolResults`, `GetApiKey` | `SetResultText` (JSON) | Aðeins þegar `SupportsSplitToolExecution` er true |
+| `GetAvailableModels` (14) | **Get Models** á mállíkansspjaldinu | Stillingar, `GetApiKey` | `SetModels`, `Result Boolean` | Aðeins þegar `SupportsModelSelection` er true |
+| `TestConnection` (15) | **Test Connection** á mállíkansspjaldinu | Stillingar, `GetApiKey` | `Result Boolean`, `SetErrorMessage` | Mælt með |
+| `GetTokenUsage` (16) | Frátekið — appið kallar ekki á hana í dag | — | `Input Tokens`, `Output Tokens` | Valkvætt |
+| `CompletePrompt` (17) | Stakri útfyllingu sem verkferlar og tímasett verk nota | `GetPayload`, stillingar, `GetApiKey` | `SetResultText` (JSON) | Fyrir stakar útfyllingar |
 
-A provider that answers aðeins `IsConfigured`, `BuildConfigJson`, `SendChatMessage` og `CompletePrompt` er already usable: chat works, the message tegund works, og the card degrades gracefully because everything else reports "not supported".
+Veita sem svarar aðeins `IsConfigured`, `BuildConfigJson`, `SendChatMessage` og `CompletePrompt` er þegar nothæf: spjallið virkar, stakar útfyllingar virka og spjaldið bregst skynsamlega við því allt annað segir „ekki stutt“.
 
-### Provider metadata
+### Lýsigögn veitunnar
 
-| Operation | Kallaðu áed by | Writes |
+| Aðgerð | Kölluð af | Skrifar |
 |---|---|---|
-| `GetProviderName` (100) | Diagnostics og the chat config | `SetResultText` |
-| `RequiresApiKey` (101) | Chat config og the card's key dialog | `Result Boolean` |
-| `GetApiKeyLabel` (102), `GetApiKeyInstruction` (103), `GetApiKeyPlaceholder` (104), `GetApiKeyDocsUrl` (105), `GetApiKeyDocsLinkText` (106), `GetServiceKeyDescription` (107) | Chat config og the card's key dialog | `SetResultText` |
-| `HasServiceKeyPermission` (108) | Chat config — whether the notandi may save a shared key | `Result Boolean` |
-| `GetMaxToolCount` (110) | Reserved — not called by the base app today | `Result Integer` |
-| `SupportsSplitToolExecution` (111) | Chat config, as `supportsToolLoop` | `Result Boolean` |
-| `SupportsModelSelection` (112) | **Get Models** on the card | `Result Boolean` |
-| `SupportsToolCalling` (113) | Reserved — not called by the base app today | `Result Boolean` |
-| `HasExternalEndpoint` (114) | Card field visibility og sjálfgefið seeding | `Result Boolean` |
-| `RequiresChatPath` (115), `RequiresModelsPath` (116) | Card field visibility | `Result Boolean` |
+| `GetProviderName` (100) | Greiningu og stillingum spjallsins | `SetResultText` |
+| `RequiresApiKey` (101) | Stillingum spjallsins og lyklaglugga spjaldsins | `Result Boolean` |
+| `GetApiKeyLabel` (102), `GetApiKeyInstruction` (103), `GetApiKeyPlaceholder` (104), `GetApiKeyDocsUrl` (105), `GetApiKeyDocsLinkText` (106), `GetServiceKeyDescription` (107) | Stillingum spjallsins og lyklaglugga spjaldsins | `SetResultText` |
+| `HasServiceKeyPermission` (108) | Stillingum spjallsins — hvort notandinn megi vista sameiginlegan lykil | `Result Boolean` |
+| `GetMaxToolCount` (110) | Frátekið — appið kallar ekki á hana í dag | `Result Integer` |
+| `SupportsSplitToolExecution` (111) | Stillingum spjallsins, sem `supportsToolLoop` | `Result Boolean` |
+| `SupportsModelSelection` (112) | **Get Models** á spjaldinu | `Result Boolean` |
+| `SupportsToolCalling` (113) | Frátekið — appið kallar ekki á hana í dag | `Result Boolean` |
+| `HasExternalEndpoint` (114) | Sýnileika reita á spjaldinu og upphafsgildum | `Result Boolean` |
+| `RequiresChatPath` (115), `RequiresModelsPath` (116) | Sýnileika reita á spjaldinu | `Result Boolean` |
 
-`HasExternalEndpoint` er the switch that turns the endpoint half of the card on. Answer `false` fyrir a provider that talks to Microsoft-managed resources — the Base URL, Model, Chat Path og Models Path fields then stay hidden og unvalidagsetningd.
+`HasExternalEndpoint` er rofinn sem kveikir á endapunktshluta spjaldsins. Svaraðu `false` fyrir veitu sem talar við auðlindir sem Microsoft rekur — reitirnir Base URL, Model, Chat Path og Models Path eru þá faldir og ekki sannreyndir.
 
-### Provider sjálfgefiðs
+### Sjálfgefin gildi veitunnar
 
-| Operation | Kallaðu áed by | Writes |
+| Aðgerð | Kölluð af | Skrifar |
 |---|---|---|
-| `GetDefaultBaseUrl` (120), `GetDefaultModel` (121) | Seeded í the language model þegar the provider er selected, og used to decide whether the field er mandatory | `SetResultText` |
-| `GetDefaultTimeoutSeconds` (122), `GetDefaultMaxTokens` (123) | Seeded í the language model þegar the provider er selected | `Result Integer` |
-| `GetContextWindowChars` (124) | Reserved — not called by the base app today | `Result Integer` |
-| `GetDefaultSkillUrl` (125), `GetDefaultSkillText` (126) | **Load sjálfgefið skill** on the card | `SetResultText` |
+| `GetDefaultBaseUrl` (120), `GetDefaultModel` (121) | Sett í mállíkanið þegar veitan er valin, og notað til að ákveða hvort reiturinn sé skyldureitur | `SetResultText` |
+| `GetDefaultTimeoutSeconds` (122), `GetDefaultMaxTokens` (123) | Sett í mállíkanið þegar veitan er valin | `Result Integer` |
+| `GetContextWindowChars` (124) | Frátekið — appið kallar ekki á hana í dag | `Result Integer` |
+| `GetDefaultSkillUrl` (125), `GetDefaultSkillText` (126) | **Load default skill** á spjaldinu | `SetResultText` |
 
 ---
 
-## The argument færsla
+## Færibreytufærslan
 
-`Bifrost Chat Argument ori` (10035337) er a `TableType = Temporary` færsla. Short gildi travel as fields; anything that getur exceed a field length travels through accessor procedures backed by kóðiunit-scoped variables, so nothing large er ever written to the database.
+`Bifrost Chat Argument ori` er færsla með `TableType = Temporary`. Stutt gildi ferðast sem reitir; allt sem getur farið yfir lengd reits ferðast í gegnum aðgangsföll sem byggja á breytum kóðaeiningarinnar, svo ekkert stórt er nokkurn tíma skrifað í gagnagrunninn.
 
-### Fields the caller fills in
+### Reitir sem kallandinn fyllir út
 
-| Field | Type | Meaning |
+| Reitur | Tegund | Merking |
 |---|---|---|
-| `Language Model SystemId` | Guid | Primary key — the `SystemId` of the resolved `Bifrost Language Model ori` færsla. |
-| `Procedure Type` | Enum | The operation to perform. |
-| `Base URL` | Text[250] | Endpoint root úr the language model. |
-| `Model` | Text[100] | Model heiti úr the language model. |
-| `Timeout Ms` | Integer | **Timeout Seconds** úr the language model, already converted to milliseconds. |
-| `Max Tokens` | Integer | Token ceiling úr the language model. |
-| `Chat Path` | Text[250] | Path appended to `Base URL` fyrir completions. |
-| `Models Path` | Text[250] | Path appended to `Base URL` fyrir model discovery. |
-| `Debug Mode` | Boolean | **Beiðni Debug Mode** úr the Bifrost setup — log full payloads þegar set. |
+| `Language Model SystemId` | Guid | Aðallykill — `SystemId` mállíkansfærslunnar `Bifrost Language Model ori` sem varð fyrir valinu. |
+| `Procedure Type` | Enum | Aðgerðin sem á að framkvæma. |
+| `Base URL` | Text[250] | Rót endapunktsins úr mállíkaninu. |
+| `Model` | Text[100] | Heiti líkansins úr mállíkaninu. |
+| `Timeout Ms` | Integer | **Timeout Seconds** úr mállíkaninu, þegar umreiknað í millisekúndur. |
+| `Max Tokens` | Integer | Hámarksfjöldi tóka úr mállíkaninu. |
+| `Chat Path` | Text[250] | Slóð sem bætt er aftan við `Base URL` fyrir útfyllingar. |
+| `Models Path` | Text[250] | Slóð sem bætt er aftan við `Base URL` til að finna líkön. |
+| `Debug Mode` | Boolean | **Request Debug Mode** úr uppsetningu Bifrost — skrá allt innihald beiðna þegar kveikt er á því. |
 
-### Fields the provider writes
+### Reitir sem veitan skrifar
 
-| Field | Type | Meaning |
+| Reitur | Tegund | Merking |
 |---|---|---|
-| `Result Boolean` | Boolean | Answer to every boolean operation. |
-| `Result Integer` | Integer | Answer to every numeric operation. |
-| `Input Tokens`, `Output Tokens` | Integer | Answer to `GetTokenUsage`. |
+| `Result Boolean` | Boolean | Svar við öllum já/nei-aðgerðum. |
+| `Result Integer` | Integer | Svar við öllum tölulegum aðgerðum. |
+| `Input Tokens`, `Output Tokens` | Integer | Svar við `GetTokenUsage`. |
 
-### Text accessors
+### Aðgangsföll fyrir texta
 
-| Direction | Accessor | Carries |
+| Stefna | Aðgangsfall | Ber |
 |---|---|---|
-| In | `GetApiKey()` | The resolved key — the caller's personal key, else the company service key. The setter er `[NonDebuggable]`; keep your own key handling `[NonDebuggable]` too. |
-| In | `GetSkill()` | Skill text úr the language model, fyrir `SendChatMessage`. |
-| In | `GetUserPrompt()` | Kallandinn's own system prompt úr Bifrost Notaður Stilltuup, fyrir `SendChatMessage`. |
-| In | `GetPayload()` | Beiðnin payload fyrir `SendChatMessage` og `CompletePrompt`. |
-| In | `GetConversationState()`, `GetToolResults()` | Split tool execution state fyrir `ContinueWithToolResults`. |
-| Out | `SetResultText()` | Every text og JSON answer. |
-| Out | `SetErrorMessage()` | Human-readable failure fyrir `TestConnection`. |
-| Out | `SetModels()` | `Name/Value Buffer` of model ids og display heitis fyrir `GetAvailableModels`. |
+| Inn | `GetApiKey()` | Lykilinn sem varð fyrir valinu — persónulegan lykil kallandans, annars sameiginlegan þjónustulykil fyrirtækisins. Setjarinn er `[NonDebuggable]`; hafðu þína eigin lyklameðhöndlun líka `[NonDebuggable]`. |
+| Inn | `GetSkill()` | Hæfnitexta úr mállíkaninu, fyrir `SendChatMessage`. |
+| Inn | `GetUserPrompt()` | Eigin kerfisfyrirmæli kallandans úr Bifrost User Setup, fyrir `SendChatMessage`. |
+| Inn | `GetPayload()` | Innihald beiðninnar fyrir `SendChatMessage` og `CompletePrompt`. |
+| Inn | `GetConversationState()`, `GetToolResults()` | Stöðu skiptrar verkfærakeyrslu fyrir `ContinueWithToolResults`. |
+| Út | `SetResultText()` | Öll texta- og JSON-svör. |
+| Út | `SetErrorMessage()` | Læsileg villuboð fyrir `TestConnection`. |
+| Út | `SetModels()` | `Name/Value Buffer` með auðkennum og birtingarheitum líkana fyrir `GetAvailableModels`. |
 
 ---
 
-## Payload samningar
+## Samningar um innihald
 
 ### `CompletePrompt`
 
-Input, úr `GetPayload()`:
+Inntak, úr `GetPayload()`:
 
 ```json
 {
@@ -189,13 +189,13 @@ Input, úr `GetPayload()`:
 }
 ```
 
-`systemPrompt` og `files` eru present aðeins þegar the caller supplied them. Output, through `SetResultText()`, er a JSON object með either `reply` (or `text`) on success eða `error` on failure. A provider that geturnot process skjöl verður return an `error` þegar `files` er present rather than silently dropping the attachment.
+`systemPrompt` og `files` eru aðeins með þegar kallandinn sendi þau. Úttakið, í gegnum `SetResultText()`, er JSON-hlutur með annaðhvort `reply` (eða `text`) þegar vel gengur eða `error` þegar það mistekst. Veita sem getur ekki unnið með skjöl verður að skila `error` þegar `files` er með, frekar en að sleppa viðhenginu í hljóði.
 
 ### `SendChatMessage`
 
-Input carries `messages` (the full conversation, hver entry `role` plus `content`), optionally `model`, `recordContext` (the `tableId` og `recordSystemId` of the page the FactBox er docked to) og `contextSkill`. The skill og the notandi's system prompt arrive separately through `GetSkill()` og `GetUserPrompt()`.
+Inntakið ber `messages` (allt samtalið, hver færsla með `role` og `content`), og valkvætt `model`, `recordContext` (`tableId` og `recordSystemId` síðunnar sem upplýsingareiturinn er festur við) og `contextSkill`. Hæfnin og kerfisfyrirmæli notandans koma sér í gegnum `GetSkill()` og `GetUserPrompt()`.
 
-Output er one of three shapes:
+Úttakið hefur eina af þremur gerðum:
 
 ```json
 { "type": "reply", "reply": "...", "toolTrace": [] }
@@ -203,41 +203,41 @@ Output er one of three shapes:
 { "error": "..." }
 ```
 
-`tool_calls` er aðeins valid þegar `SupportsSplitToolExecution` reports `true`; the control add-in then runs hver tool og calls back í `ContinueWithToolResults` með the state og the niðurstöður. A provider that resolves its tool loop in-process returns `type: reply` directly og puts the calls it made í `toolTrace`.
+`tool_calls` er aðeins gilt þegar `SupportsSplitToolExecution` skilar `true`; stýriviðbótin keyrir þá hvert verkfæri og kallar aftur í `ContinueWithToolResults` með stöðunni og niðurstöðunum. Veita sem leysir verkfærahringinn innan ferlisins skilar `type: reply` beint og setur köllin sem hún gerði í `toolTrace`.
 
 ### `BuildConfigJson`
 
-A JSON object read by the chat control add-in. `provider`, `authMode`, `requiresApiKey` og a `labels` object of UI strings eru the fields the control uses; the facade then overlays `canManageServiceKey`, `apiKeyLabel`, `apiKeyInstruction`, `apiKeyPlaceholder`, `apiKeyDocsUrl`, `apiKeyDocsLinkText`, `serviceKeyDescription` og `supportsToolLoop` úr the metadata operations.
+JSON-hlutur sem stýriviðbót spjallsins les. `provider`, `authMode`, `requiresApiKey` og `labels`-hlutur með texta viðmótsins eru reitirnir sem stýringin notar; framhliðin bætir síðan `canManageServiceKey`, `apiKeyLabel`, `apiKeyInstruction`, `apiKeyPlaceholder`, `apiKeyDocsUrl`, `apiKeyDocsLinkText`, `serviceKeyDescription` og `supportsToolLoop` ofan á úr lýsigagnaaðgerðunum.
 
 ---
 
-## The MCP tool server
+## MCP-verkfæraþjónninn
 
-`MCP Tool Server ori` (10035387) er `Access = Public` og `SingleInstance`. A provider uses it to give the model access to Business Central:
+`MCP Tool Server ori` er `Access = Public` og `SingleInstance`. Veita notar hann til að gefa líkaninu aðgang að Business Central:
 
-| Member | Purpose |
+| Meðlimur | Tilgangur |
 |---|---|
-| `Bootstrap(RecordContext: Text): Text` | Builds the session system prompt — identity, company, memory og tool usage rules. Kallaðu á once per chat turn. Sendu the `recordContext` object úr the payload, eða an empty string. |
-| `ListTools(var Tools: JsonArray)` | The tool registry in MCP shape: `name`, `description`, `inputSchema`. Convert to your provider's dialect. |
-| `CallTool(ToolName: Text; Arguments: JsonObject; var ResultText: Text; var IsError: Boolean): Boolean` | Keyrir one tool inside its own `Codeunit.Run` scope. Skilar `false` fyrir an unknown tool; `IsError` reports a tool that ran og failed. |
-| `GetToolCount(): Integer` | Number of registered tools. |
-| `ClearSession()` | Drops the cached system prompt og the blob store. Kallaðu á þegar a conversation er reset. |
-| `BuildDynamicToolDefs(...)`, `SanitizeToolName(...)` | Build per-message-tegund tool definitions og turn a message tegund heiti í a valid tool heiti. |
+| `Bootstrap(RecordContext: Text): Text` | Smíðar kerfisfyrirmæli lotunnar — auðkenni, fyrirtæki, minni og reglur um notkun verkfæra. Kallað einu sinni í hverri umferð spjallsins. Sendu `recordContext`-hlutinn úr innihaldinu, eða tóman streng. |
+| `ListTools(var Tools: JsonArray)` | Verkfæraskráin á MCP-formi: `name`, `description`, `inputSchema`. Umbreyttu yfir á mállýsku veitunnar þinnar. |
+| `CallTool(ToolName: Text; Arguments: JsonObject; var ResultText: Text; var IsError: Boolean): Boolean` | Keyrir eitt verkfæri í eigin `Codeunit.Run`-umfangi. Skilar `false` fyrir óþekkt verkfæri; `IsError` segir frá verkfæri sem keyrði og mistókst. |
+| `GetToolCount(): Integer` | Fjöldi skráðra verkfæra. |
+| `ClearSession()` | Fleygir vistuðum kerfisfyrirmælum og gagnageymslu lotunnar. Kallaðu á það þegar samtal er endurræst. |
+| `BuildDynamicToolDefs(...)`, `SanitizeToolName(...)` | Smíða verkfæraskilgreiningar fyrir hverja skilaboðategund og breyta heiti skilaboðategundar í gilt heiti verkfæris. |
 
-Tool calls eru written to the Bifrost request log. Register your own `Request Log Type ori` gildi með a `Request Log Masker ori` implementation ef your provider logs requests that carry secrets.
+Verkfærakallanir eru skráðar í beiðnaskrá Bifrost. Skráðu þitt eigið `Request Log Type ori`-gildi með `Request Log Masker ori`-útfærslu ef veitan þín skráir beiðnir sem bera leyndarmál.
 
 ---
 
-## Complete example
+## Fullbúið dæmi
 
-A provider fyrir a self-hosted Ollama endpoint that speaks the OpenAI chat-completions dialect, resolves its tool loop in-process against the Bifrost MCP tool server, og needs no API key.
+Veita fyrir Ollama-endapunkt sem keyrir hjá þér og talar mállýsku OpenAI chat-completions, leysir verkfærahringinn innan ferlisins á móti MCP-verkfæraþjóni Bifrost og þarf engan API-lykil.
 
 **AcmeLangModelProv.EnumExt.al**
 
 ```al
-namespace Acme.Bifrost.Ollama;
+namespace Acme.Ollama;
 
-using Origo.Bifrost.Bragi;
+using Origo.Bifrost.LanguageModels;
 
 /// <summary>
 /// Registers the Ollama provider on the Bifrost language model provider enum.
@@ -255,9 +255,9 @@ enumextension 50100 "Acme LangModel Prov." extends "Bifrost LangModel Prov. ori"
 **AcmeOllamaProvider.Codeunit.al**
 
 ```al
-namespace Acme.Bifrost.Ollama;
+namespace Acme.Ollama;
 
-using Origo.Bifrost.Bragi;
+using Origo.Bifrost.LanguageModels;
 
 /// <summary>
 /// Bifrost language model provider for a self-hosted Ollama endpoint that speaks the
@@ -420,7 +420,7 @@ codeunit 50100 "Acme Ollama Provider" implements "Bifrost LangModel Provider ori
 
         if not Client.Post(GetEndpoint(Argument), RequestContent, ResponseMessage) then
             exit(false);
-        ResponseMessage.Content.ReadAs(ResponseText);
+        ResponseMessage.Content().ReadAs(ResponseText);
         if not ResponseMessage.IsSuccessStatusCode then
             exit(false);
         if not ResponseObject.ReadFrom(ResponseText) then
@@ -646,9 +646,9 @@ codeunit 50100 "Acme Ollama Provider" implements "Bifrost LangModel Provider ori
 }
 ```
 
-### Sending an API key
+### API-lykill sendur
 
-The example above needs no key, so it reports `RequiresApiKey = false` og never touches `GetApiKey()`. A provider that authenticates með a bearer token reads the resolved key úr the argument færsla og builds the header as a `SecretText`, so the gildi never appears in a debugger eða a request log:
+Dæmið hér að ofan þarf engan lykil, svo það svarar `RequiresApiKey = false` og snertir aldrei `GetApiKey()`. Veita sem auðkennir sig með bearer-teikni les lykilinn sem varð fyrir valinu úr færibreytufærslunni og smíðar hausinn sem `SecretText`, svo gildið birtist aldrei í villuleitara eða beiðnaskrá:
 
 ```al
 [NonDebuggable]
@@ -659,22 +659,22 @@ begin
     if Argument.GetApiKey() = '' then
         exit;
     ApiKeySecret := Argument.GetApiKey();
-    Client.DefaultRequestHeaders.Add('Authorization', SecretStrSubstNo('Bearer %1', ApiKeySecret));
+    Client.DefaultRequestHeaders().Add('Authorization', SecretStrSubstNo('Bearer %1', ApiKeySecret));
 end;
 ```
 
-Mark every procedure that handles the key `[NonDebuggable]`, og answer `RequiresApiKey` með `true` so the chat control shows the key dialog. The base app stores what the notandi tegunds — personal keys under `Bifrost_Chat_Usr_<SystemId>_<user security id>` og shared keys under `Bifrost_Chat_Svc_<SystemId>`, both in Isolated Storage með company scope — og hands the resolved gildi back through `GetApiKey()`.
+Merktu hvert fall sem meðhöndlar lykilinn `[NonDebuggable]`, og svaraðu `RequiresApiKey` með `true` svo spjallstýringin sýni lyklagluggann. Appið geymir það sem notandinn slær inn á öruggan hátt í Business Central — persónulegan lykil fyrir hvern notanda, eða einn sameiginlegan lykil fyrir hvert mállíkan — og skilar gildinu sem varð fyrir valinu í gegnum `GetApiKey()`.
 
 ---
 
-## Extending the language model færsla
+## Útvíkkun mállíkansfærslunnar
 
-Provider-specific settings belong on a `tableextension` over `Bifrost Language Model ori` in your own ID range:
+Stillingar sem eiga aðeins við eina veitu eiga heima í `tableextension` á `Bifrost Language Model ori`, í þínu eigin auðkennisbili:
 
 ```al
-namespace Acme.Bifrost.Ollama;
+namespace Acme.Ollama;
 
-using Origo.Bifrost.Bragi;
+using Origo.Bifrost.LanguageModels;
 
 /// <summary>
 /// Adds the Ollama keep-alive window to the Bifrost language model record.
@@ -693,36 +693,35 @@ tableextension 50100 "Acme Ollama Language Model" extends "Bifrost Language Mode
 }
 ```
 
-Lestu the field inside `Execute` með `BifrostLanguageModel.GetBySystemId(Argument."Language Model SystemId")` — that er what the `Language Model SystemId` field on the argument færsla er for.
+Lestu reitinn inni í `Execute` með `BifrostLanguageModel.GetBySystemId(Argument."Language Model SystemId")` — til þess er reiturinn `Language Model SystemId` á færibreytufærslunni.
 
 ---
 
-## Checklist
+## Gátlisti
 
-1. Implement `Bifrost LangModel Provider ori` in one kóðiunit, með a `case` on `Argument."Procedure Type"`.
-2. Answer `IsConfigured` honestly — it er the gate fyrir both the chat UI og `LLM.Prompt.Complete`.
-3. Handle `CompletePrompt` ef you want the message tegund to work með your provider, og `SendChatMessage` ef you want the chat UI to work.
-4. Return `error` in your JSON rather than raising an AL villa; the callers turn that í a clean `status: Error` response.
-5. Register the gildi on `Bifrost LangModel Prov. ori` með an `enumextension` in your own ID range.
-6. Mark every procedure that touches the API key `[NonDebuggable]`.
-7. Put provider-specific settings on a `tableextension` over `Bifrost Language Model ori`, never on new field numbers inside Bragi's range.
-
----
-
-## Stability commitments
-
-- **The interface**: `Execute(var Argument: Record "Bifrost Chat Argument ori" temporary)` er the permanent signature. New capability arrives as new `Bifrost Chat Proc. Type ori` gildi, never as a new procedure.
-- **The argument færsla**: new fields og new accessor procedures may be added; existing field numbers, field tegunds og accessor signatures eru preserved across minor versions.
-- **The provider enum**: Bragi owns its allocated ordinals only. Add your gildi úr your own ID range.
-- **`MCP Tool Server ori`**: the members listed above eru part of the surface. The tool registry itself er data — tool heitis og schemas change as message tegunds eru added.
-- **Internal kóðiunits**: `Copilot LangModel Prov. ori`, `Copilot Chat Proxy ori`, `MCP Tool Executor ori` og the message-tegund implementations eru internal. Ekki call them og do not subscribe to their events.
-
-Ef you need an extensibility hook that er not listed here, open an issue in the Bifrost Language Models repository describing the use case rather than depending on internal members.
+1. Útfærðu `Bifrost LangModel Provider ori` í einni kóðaeiningu, með `case` á `Argument."Procedure Type"`.
+2. Svaraðu `IsConfigured` heiðarlega — það er hliðið bæði fyrir spjallviðmótið og stakar útfyllingar.
+3. Svaraðu `CompletePrompt` ef stakar útfyllingar eiga að virka með veitunni þinni, og `SendChatMessage` ef spjallviðmótið á að virka.
+4. Skilaðu `error` í JSON-svarinu frekar en að kasta AL-villu; kallendurnir breyta því í hreint svar með `status: Error`.
+5. Skráðu gildið á `Bifrost LangModel Prov. ori` með `enumextension` í þínu eigin auðkennisbili.
+6. Merktu hvert fall sem snertir API-lykilinn `[NonDebuggable]`.
+7. Settu stillingar sem eiga aðeins við eina veitu í `tableextension` á `Bifrost Language Model ori`, aldrei í ný reitanúmer innan bils appsins sjálfs.
 
 ---
 
-## Related Documentation
+## Skuldbindingar um stöðugleika
 
-- [Chat Skilaboð Types](/language-models/message-types/) — the `LLM.Prompt.Complete` samningur
-- Bifrost Foundation, *Extensibility Reference* — the `Message Type ori` enum, the `Msg Interface ori` samningur og the `Request Log Type ori` enum
-- Bifrost Foundation, *Stilltuup Reference* — Bifrost Notaður Stilltuup og the per-notandi system prompt
+- **Viðmótið**: `Execute(var Argument: Record "Bifrost Chat Argument ori" temporary)` er varanleg undirskrift. Ný geta kemur sem ný gildi í `Bifrost Chat Proc. Type ori`, aldrei sem nýtt fall.
+- **Færibreytufærslan**: nýjum reitum og nýjum aðgangsföllum má bæta við; núverandi reitanúmer, reitategundir og undirskriftir aðgangsfalla haldast milli minni útgáfa.
+- **Upptalning veitna**: Bifrost Language Models á aðeins sín eigin úthlutuðu raðgildi. Bættu þínum gildum við úr þínu eigin auðkennisbili.
+- **`MCP Tool Server ori`**: meðlimirnir sem taldir eru upp hér að ofan tilheyra fletinum. Verkfæraskráin sjálf eru gögn — heiti verkfæra og skemu breytast eftir því sem skilaboðategundum er bætt við.
+- **Allt annað er innra**: innbyggðu veiturnar, Copilot-milliliðurinn, verkfærakeyrslan og útfærslur skilaboðategunda. Kallaðu ekki á þær og gerstu ekki áskrifandi að atburðum þeirra.
+
+Ef þú þarft viðbótarkrók sem ekki er talinn upp hér skaltu stofna mál í hugbúnaðarsafni Bifrost Language Models sem lýsir notkuninni, frekar en að byggja á innri meðlimum.
+
+---
+
+## Tengd skjöl
+
+- [Opinber flötur Foundation](/extensibility/public-surface/) — upptalningin `Message Type ori`, samningurinn `Msg Interface ori` og upptalningin `Request Log Type ori`
+- [Uppsetningartilvísun](/foundation/reference/setup/) — Bifrost User Setup og kerfisfyrirmæli hvers notanda

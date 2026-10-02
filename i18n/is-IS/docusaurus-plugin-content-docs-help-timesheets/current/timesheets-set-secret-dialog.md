@@ -7,7 +7,7 @@ sidebar_position: 6
 
 **Slá inn Clockify API lykil** er glugginn sem aðgerðin **Skrá API lykil fyrirtækis** á [Uppsetningu Clockify](/help/timesheets/timesheets-setup/) opnar. Þetta er eini staðurinn þar sem Clockify API lykillinn er sleginn inn í Business Central.
 
-Reiturinn er falinn meðan slegið er inn og gildið er ekki birt aftur á eftir. Þegar staðfest er fer lykillinn beint í IsolatedStorage á sviði fyrirtækisins — hann er hvorki skrifaður í reit í töflu, birtur í beiðnaskrá né sýndur aftur.
+Reiturinn er falinn meðan slegið er inn og gildið er ekki birt aftur á eftir. Þegar staðfest er geymist lykillinn á öruggan hátt í Business Central, aðeins fyrir þetta fyrirtæki — hann er hvorki skrifaður í reit í töflu, birtur í beiðnaskrá né sýndur aftur.
 
 ## Reitir
 
