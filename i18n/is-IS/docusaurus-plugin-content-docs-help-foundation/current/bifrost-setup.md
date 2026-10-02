@@ -1,8 +1,6 @@
 ---
 id: bifrost-setup
 title: "Uppsetning Bifröst"
-sidebar_label: "Uppsetning"
-sidebar_position: 22
 ---
 
 Síðan **Uppsetning Bifröst** er miðlæg uppsetningarsíða Bifröst. Hér velur þú útfærsluna að baki hverjum viðskiptaþætti, stillir sjálfgefið tungumál og mánaðarlegan skilaboðakvóta, sérð um leyndarmál og leyfi og - fyrir söluaðila og samstarfsaðila - heldur utan um samstarfsaðila sína og viðskiptavini.
@@ -30,7 +28,7 @@ Tilkynningar samstarfsaðilakerfisins birtast aðeins notendum með leyfisstjór
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Tegund lánamarks viðskiptavinar** | Útfærslan sem notuð er þegar Bifröst les lánamark viðskiptavinar. Sjálfgefna útfærslan notar staðlaðan lánamarksútreikning Business Central. Önnur forrit geta bætt við útfærslum með því að víkka upptalninguna. |
+| **Tegund lánamarks viðskiptavinar** | Útfærslan sem notuð er þegar Bifröst les lánamark viðskiptavinar. Sjálfgefna útfærslan notar staðlaðan lánamarksútreikning Business Central. |
 | **Vikmörk lánamarks %** | Prósenta (0–100) sem bætist ofan á lánamark viðskiptavinar. Með 10 % og lánamarki upp á 10.000 SGM getur viðskiptavinurinn notað allt að 11.000 SGM áður en hann er merktur. |
 | **Tegund yfirlits viðskiptavinar** | Útfærslan sem notuð er þegar Bifröst býr til yfirlit viðskiptavinar sem PDF-skrá. |
 | **Tegund verðútreiknings vöru** | Útfærslan sem notuð er þegar Bifröst reiknar söluverð vöru. Sjálfgefna útfærslan les virkar línur söluverðlista, þar á meðal verðlista fyrir tiltekinn viðskiptavin og alla viðskiptavini, með VSK. |

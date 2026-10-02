@@ -1,8 +1,6 @@
 ---
 id: bifrost-response
 title: "Bifrost Response"
-sidebar_label: "Response"
-sidebar_position: 20
 ---
 
 The **Bifrost Response** FactBox appears on the right side of the [Bifrost Messages](/help/foundation/bifrost-messages/) list. It displays the response data that was generated after the selected bifrost message was processed. The content is read-only.

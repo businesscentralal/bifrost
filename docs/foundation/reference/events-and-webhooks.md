@@ -4,8 +4,8 @@ title: "Events and webhooks"
 sidebar_position: 5
 ---
 
-**Parent Document:** [API_Reference.md](/foundation/reference/api/)  
-**Codeunit:** `Message Events ori`
+This page is for developers who connect another system to Bifröst and want to be told when a
+message is done instead of polling. It belongs with the [API reference](/foundation/reference/api/).
 
 ---
 
@@ -598,33 +598,7 @@ Track key metrics:
 
 ---
 
-## Code Reference
-
-### External Business Events
-
-**Codeunit:** `Message Events ori`
-
-```al
-/// Raised when a bifrost message processing completes successfully
-[ExternalBusinessEvent('BifrostMessageCompleted', 'Bifrost Message Completed',
-  'A bifrost message has completed successfully. Use MessageId to fetch response data via API.', EventCategory::"Origo Bifrost", '1.0')]
-procedure OnBifrostMessageCompleted(MessageId: Guid; MessageType: Text[250]; ResponseContentLink: Text[250]; Timestamp: DateTime)
-
-/// Raised when a bifrost message processing fails
-[ExternalBusinessEvent('BifrostMessageFailed', 'Bifrost Message Failed',
-  'A bifrost message has failed processing. Use MessageId to fetch error details via API.', EventCategory::"Origo Bifrost", '1.0')]
-procedure OnBifrostMessageFailed(MessageId: Guid; MessageType: Text[250]; ResponseContentLink: Text[250]; Timestamp: DateTime)
-```
-
-Both events are in the event category **Origo Bifrost**.
-
----
-
 ## Related Documentation
 
 - **[API Reference](/foundation/reference/api/)**: Complete API endpoint documentation
 - **[Setup Reference](/foundation/reference/setup/)**: Configuration and setup options
-
----
-
-**© 2024 Origo. All rights reserved.**

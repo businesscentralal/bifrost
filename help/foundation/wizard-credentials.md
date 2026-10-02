@@ -1,8 +1,6 @@
 ---
 id: wizard-credentials
 title: "Credentials"
-sidebar_label: "Wizard credentials"
-sidebar_position: 61
 ---
 
 The **Credentials** list, on the optional credentials step of the [Bifrost Setup Wizard](/help/foundation/bifrost-setup-wizard/),

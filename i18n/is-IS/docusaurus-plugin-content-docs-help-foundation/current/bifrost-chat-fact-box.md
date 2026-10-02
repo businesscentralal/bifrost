@@ -1,8 +1,6 @@
 ---
 id: bifrost-chat-fact-box
 title: "Spjalla með Bifröst"
-sidebar_label: "Spjallreitur"
-sidebar_position: 54
 ---
 
 Upplýsingareiturinn **Spjalla með Bifröst** gerir þér kleift að spjalla við Bifröst um færsluna sem

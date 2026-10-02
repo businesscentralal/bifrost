@@ -1,8 +1,6 @@
 ---
 id: bifrost-note-card
 title: "Bifröst tilkynningaspjald"
-sidebar_label: "Bifröst tilkynningaspjald"
-sidebar_position: 13
 ---
 
 **Tilkynningaspjaldið** sýnir nákvæmar upplýsingar um eina tilkynningu. Hér getur þú lesið allt innihald skilaboðanna, séð tengda færslu og svarað skilaboðum.

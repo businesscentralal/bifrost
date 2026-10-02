@@ -1,8 +1,6 @@
 ---
 id: set-secret-dialog
 title: "Set Secret"
-sidebar_label: "Set Secret"
-sidebar_position: 63
 ---
 
 The **Set Secret** dialog is where you enter the value of a secret for a Bifröst application. It

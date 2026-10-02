@@ -1,8 +1,6 @@
 ---
 id: cancel-reason
 title: "Cancel - Reason"
-sidebar_label: "Cancel reason"
-sidebar_position: 50
 ---
 
 The **Cancel - Reason** dialog opens when you cancel a Partner or a Customer, or reject a leave

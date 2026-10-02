@@ -1,8 +1,6 @@
 ---
 id: bifrost-user-setup-list
 title: "Bifröst notandauppsetning"
-sidebar_label: "Bifröst notandauppsetning"
-sidebar_position: 29
 ---
 
 Síðan **Bifröst notandauppsetning** sýnir uppsetningu á hvern notanda fyrir Bifröst viðbótina. Hver færsla geymir kerfisleiðbeiningar og valfrjálsar tengdar færslur sem stýra því hvernig gervigreindarþjónn finnur út hver notandinn er (notandasniðið sem hann les um kallandann).

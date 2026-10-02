@@ -1,8 +1,6 @@
 ---
 id: bifrost-delete-setup
 title: "Bifrost Delete Setup"
-sidebar_label: "Bifrost Delete Setup"
-sidebar_position: 5
 ---
 
 The **Bifrost Delete Setup** page controls which Business Central tables have their deleted records captured to the [Bifrost Delete Log](/help/foundation/bifrost-delete-log/). Each row maps a table to the delete-logging feature and optionally stores a full JSON snapshot of the record at the moment of deletion.

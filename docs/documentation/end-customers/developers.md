@@ -48,8 +48,8 @@ sequenceDiagram
 - [API reference](/foundation/reference/api/): endpoints, the message envelope and response shapes
 - [Errors](/foundation/reference/errors/): what an error answer contains
 - [Events and webhooks](/foundation/reference/events-and-webhooks/): being told instead of polling
-- [INTEGRATING guide](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/INTEGRATING.md)
-  in the partner reference repository: calling Bifröst from another system, worked end to end
+- [INTEGRATING guide](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/INTEGRATING.md):
+  calling Bifröst from another system, worked end to end
 
 ## Drive it from an AI agent
 
@@ -72,9 +72,5 @@ Central, and the MCP tools `list_message_types` and `describe_message_type` read
 An integration's calls count in the **App Registration** pool, apart from people's calls. What
 counts as a message: [Usage and limits](/documentation/end-customers/administrators/#usage-and-limits).
 See also [Licensing](/licensing/).
-
-## Add your own message types
-
-Want your own operations in the catalogue? See [Build on Bifröst](/extensibility/).
 
 **Next:** the [API reference](/foundation/reference/api/).

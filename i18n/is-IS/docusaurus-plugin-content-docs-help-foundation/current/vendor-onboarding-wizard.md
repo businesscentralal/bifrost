@@ -1,8 +1,6 @@
 ---
 id: vendor-onboarding-wizard
 title: "Bifröst söluaðilaskráning"
-sidebar_label: "Söluaðilaskráning"
-sidebar_position: 45
 ---
 
 Leiðsögnin **Bifröst söluaðilaskráning** skráir núverandi leigjanda sem **söluaðila** í Bifröst. Hún er

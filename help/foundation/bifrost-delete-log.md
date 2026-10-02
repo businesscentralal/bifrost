@@ -1,8 +1,6 @@
 ---
 id: bifrost-delete-log
 title: "Bifrost Delete Log"
-sidebar_label: "Bifrost Delete Log"
-sidebar_position: 4
 ---
 
 The **Bifrost Delete Log** is a read-only audit log that records every deletion from tables tracked in the [Bifrost Delete Setup](/help/foundation/bifrost-delete-setup/). Each entry identifies the table, the deleted record's SystemId, the time of deletion, and the user who performed it.

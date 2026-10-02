@@ -1,8 +1,6 @@
 ---
 id: bifrost-field-accesses
 title: "Bifröst svæðisaðgangar"
-sidebar_label: "Bifröst svæðisaðgangar"
-sidebar_position: 6
 ---
 
 Síðan **Bifröst svæðisaðgangar** gerir kerfisstjórum kleift að skilgreina aðgangstakmarkanir á svæðastigi fyrir einstaka notendur og Entra ID (AAD) forrit. Þessar takmarkanir stjórna því hvaða svæði er hægt að lesa eða skrifa með almennum lestri og skrifum færslna í Bifröst.

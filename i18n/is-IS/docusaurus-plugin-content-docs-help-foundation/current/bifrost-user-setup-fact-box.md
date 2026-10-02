@@ -1,8 +1,6 @@
 ---
 id: bifrost-user-setup-fact-box
 title: "Forskoðun notandauppsetningar"
-sidebar_label: "Forskoðun notandauppsetningar"
-sidebar_position: 28
 ---
 
 **Forskoðun notandauppsetningar** er upplýsingareitur sem birtist á hliðarsvæði síðna og sýnir fljótlegt yfirlit yfir stillingar núverandi notanda í Bifröst kerfinu.

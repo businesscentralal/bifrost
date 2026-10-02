@@ -1,8 +1,6 @@
 ---
 id: license-usage
 title: "Bifrost Usage Entries"
-sidebar_label: "License Usage"
-sidebar_position: 42
 ---
 
 The **Bifrost Usage Entries** page lists the usage reported to the licensing service: one entry per

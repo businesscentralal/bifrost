@@ -1,8 +1,6 @@
 ---
 id: bifrost-user-setup-editor
 title: "User Setup Editor"
-sidebar_label: "User Setup Editor"
-sidebar_position: 27
 ---
 
 The **User Setup Editor** allows you to configure per-user settings for Bifröst. This includes the user's charge type and session source approval, a monthly message quota, linking your user to specific business records and defining a custom system prompt.

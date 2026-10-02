@@ -1,8 +1,6 @@
 ---
 id: bifrost-memory
 title: "Bifröst minni"
-sidebar_label: "Bifröst minni"
-sidebar_position: 9
 ---
 
 Síðan **Bifröst minni** sýnir allt fyrirtækjaminni (company memory) sem er vistað í Bifröst kerfinu. Þetta minni er samnýtt af öllum notendum í fyrirtækinu og inniheldur sameiginlegar upplýsingar og stillingar.

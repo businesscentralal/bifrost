@@ -6,27 +6,9 @@ sidebar_position: 3
 
 ## Overview
 
-The Bifrost Setup provides centralized configuration for selecting implementation strategies for various Foundation operations. This document explains how to configure the setup table, select implementations through enums, and understand the interface-based architecture.
-
-**Namespace:** `Origo.Bifrost`  
-**Setup Table:** `Setup ori`  
-**Setup Page:** `Setup ori` (**Bifrost Setup**)
-
----
-
-## Setup Architecture
-
-The Bifrost extension uses an **interface-based architecture** where:
-
-1. **Interfaces** define contracts that implementations must follow
-2. **Enums** provide selection options that implement specific interfaces
-3. **Setup Table** stores the selected enum value for each feature area
-4. **Foundation operations** retrieve the selected interface from setup
-
-This design allows:
-- **Extensibility**: Add new implementations by extending the enum
-- **Flexibility**: Switch implementations without code changes
-- **Separation of Concerns**: Business logic is independent of implementation selection
+This page is for administrators. It describes the settings on the **Bifrost Setup** page, the
+integration and delete logs, the per-user setup, and the permission sets you assign to users. The
+setup wizard and the first steps are in [Set it up](/setup/).
 
 ---
 
@@ -35,8 +17,7 @@ This design allows:
 ### 1. Customer Credit Limit Type {#customer-credit-limit-type}
 
 **Field:** `Customer Credit Limit Type`  
-**Type:** Enum `Customer Credit Limit Type ori`  
-**Interface:** `Customer Credit Limit ori` (Interface)
+**Type:** Option
 
 **Purpose:** Determines how customer credit limit calculations are performed when an assistant or integration checks a customer's credit.
 
@@ -45,18 +26,6 @@ This design allows:
 | Value | Caption | Description |
 |-------|---------|-------------|
 | 0 | Default | Standard Business Central credit limit calculation |
-
-**Extensibility:**
-```al
-enumextension 50100 "My Credit Limit Type" extends "Customer Credit Limit Type ori"
-{
-    value(50100; "Enhanced Credit Check")
-    {
-        Caption = 'Enhanced Credit Check';
-        Implementation = "Customer Credit Limit ori" = "My Credit Limit Impl";
-    }
-}
-```
 
 ---
 
@@ -106,11 +75,10 @@ Calculation:
 
 ---
 
-### 3. Item Price Calc. Type {#item-price-calc-type}
+### 3. Item Price Calculation Type {#item-price-calc-type}
 
-**Field:** `Item Price Calc. Type`  
-**Type:** Enum `Item Price Calc. Type ori`  
-**Interface:** `Item Price Calculation ori` (Interface)
+**Field:** `Item Price Calculation Type`  
+**Type:** Option
 
 **Purpose:** Determines how item price information is calculated when an assistant or integration asks for an item's price.
 
@@ -120,9 +88,7 @@ Calculation:
 |-------|---------|-------------|
 | 0 | Default | Standard price list retrieval with customer-specific pricing support |
 
-**Implementation Details:**
-
-The Default Price Implementation provides:
+**How the Default value works:**
 - Retrieves active sales price list lines for items
 - Supports customer-specific price lists and all-customers price lists
 - Filters by:
@@ -153,18 +119,6 @@ The Default Price Implementation provides:
    - Includes Unit Price and Unit Cost from Item table
    - Only if no price list lines are found
 
-**Extensibility:**
-```al
-enumextension 50102 "My Price Type" extends "Item Price Calc. Type ori"
-{
-    value(50100; "ERP Integration")
-    {
-        Caption = 'External ERP Pricing';
-        Implementation = "Item Price Calculation ori" = "My ERP Price Impl";
-    }
-}
-```
-
 ---
 
 ### 4. Default Language Code {#default-language-code}
@@ -174,21 +128,20 @@ enumextension 50102 "My Price Type" extends "Item Price Calc. Type ori"
 **Table Relation:** Language.Code  
 **Applies to:** all message types that return language-specific captions
 
-**Purpose:** Specifies the default language used when executing cloud message tasks that return language-specific text (such as captions, descriptions, and field labels). This field provides a system-wide fallback when the `lcid` (Windows Language ID) is not specified in the Bifrost message.
+**Purpose:** Specifies the default language used when processing messages that return language-specific text (such as captions, descriptions, and field labels). This field provides a system-wide fallback when the `lcid` (Windows Language ID) is not specified in the Bifrost message.
 
 **How It Works:**
 
-The Bifrost extension supports language-specific responses through a two-tier approach:
+Bifröst chooses the language of a response in two steps:
 
 1. **Primary: message-level lcid**
    - The `lcid` field can be specified at the Bifrost message level (not in the data payload)
-   - This is a Bifrost extension attribute that follows the Bifrost v1.0 specification
    - When provided, it takes precedence over the Default Language Code
 
 2. **Fallback: Default Language Code**
    - If `lcid` is not specified in the Bifrost message, the system uses the Default Language Code
    - Foundation reads the Windows Language ID from the configured Language record
-   - If Default Language Code is not configured or the Language record is not found, defaults to **1033** (English - United States)
+   - If Default Language Code is blank, the Default Language Code in Company Information is used, then **1033** (English - United States)
 
 **Validation:**
 
@@ -211,46 +164,6 @@ This ensures:
 | SVE | 1053 | Swedish |
 | NOR | 1044 | Norwegian (Bokmal) |
 | DAN | 1030 | Danish |
-
-**Bifrost API Integration:**
-
-When queuing a message through the Queue API ori, you can specify the language at the message level:
-
-```json
-{
-  "specversion": "1.0",
-  "type": "Help.MessageTypes.Get",
-  "source": "/myapp/inventory",
-  "id": "A234-1234-1234",
-  "time": "2026-03-15T10:00:00Z",
-  "datacontenttype": "application/json",
-  "lcid": 1039,
-  "data": {}
-}
-```
-
-If `lcid` is not specified, the Default Language Code from setup is used.
-
-**Use Cases:**
-
-1. **Multi-Language Deployments:**
-   - Set Default Language Code to match your primary business language
-   - Ensures consistent language across all message responses
-   - Example: Icelandic company sets ISL (1039) as default
-
-2. **API Simplification:**
-   - Client applications don't need to specify `lcid` in every request
-   - Reduces payload size and client-side complexity
-   - System automatically uses the configured default
-
-3. **Testing and Development:**
-   - Set to ENU (1033) during development for English captions
-   - Switch to production language during deployment
-   - Test language-specific responses by temporarily changing the default
-
-4. **Help Documentation Retrieval:**
-   - `Help.MessageTypes.Get` and `Help.Implementation.Get` return their descriptions in the configured language
-   - Supports building language-aware client applications
 
 **Example Scenario:**
 
@@ -288,40 +201,23 @@ All message types that return language-specific content respect the Default Lang
 **Notes:**
 
 - The Default Language Code appears as a **mandatory field** in the Bifrost Setup page (indicated with asterisk)
-- The field tooltip explains: "Specifies the default language code used when executing cloud message tasks if not specified in the message request"
-- Changing the Default Language Code affects all subsequent message processing immediately
-- No restart or configuration reload is required
+- Changing the Default Language Code applies to the next message; no restart is needed
+- `Help.MessageTypes.Get` and `Help.Implementation.Get` also answer in this language when the request has no `lcid`
 
 ---
 
 ### 5. Customer Statement Type {#customer-statement-type}
 
 **Field:** `Customer Statement Type`  
-**Type:** Enum `Customer Statement Type ori`  
-**Interface:** `Customer Statement ori` (Interface)
+**Type:** Option
 
-**Purpose:** Determines which implementation is used to generate customer statement PDFs when an assistant or integration asks for a customer statement. This field makes statement generation pluggable — custom implementations can generate statements from alternative sources without modifying the base code.
+**Purpose:** Determines how customer statement PDFs are generated when an assistant or integration asks for a customer statement.
 
-**Available Implementations:**
+**Available Values:**
 
 | Value | Name | Description |
 |-------|------|-------------|
 | 0 | Standard Statement | Uses BC Report Selections for `C.Statement` to generate the PDF |
-
-**Extending Customer Statement Type:**
-
-To add a custom implementation, create an enum extension and a codeunit implementing the `Customer Statement` interface:
-
-```al
-enumextension 50100 "My Statement Type" extends "Customer Statement Type ori"
-{
-    value(50100; "Custom Statement")
-    {
-        Caption = 'Custom Statement';
-        Implementation = "Customer Statement ori" = "My Custom Statement Impl";
-    }
-}
-```
 
 **Default Value:** `Standard Statement` (value 0) — uses the configured Report Selection for `C.Statement`.
 
@@ -330,8 +226,7 @@ enumextension 50100 "My Statement Type" extends "Customer Statement Type ori"
 ### 6. ChangeLog Write Guard {#changelog-write-guard}
 
 **Field:** `ChangeLog Write Guard`  
-**Type:** Enum `ChangeLog Write Guard Type ori`  
-**Interface:** `ChangeLog Write Guard ori` (Interface)  
+**Type:** Option  
 **Applies to:** Bifröst's general record write and the restore of a field value from the change log
 
 **Purpose:** Controls which fields the general record write may write to. When active, the guard checks every target field against the BC Change Log Setup before the write is executed.
@@ -341,7 +236,7 @@ enumextension 50100 "My Statement Type" extends "Customer Statement Type ori"
 | Value | Caption | Behaviour |
 |-------|---------|-----------|
 | 0 | Open | All fields may be written — same as pre-guard behaviour. |
-| 1 | Blocked | Only fields covered by Change Log Modification tracking may be written. All others are rejected. Default. |
+| 1 | Blocked | Only fields covered by Change Log Modification tracking, or listed on [ChangeLog Guard Exceptions](/help/foundation/changelog-guard-exceptions/), may be written. All others are rejected. Default. |
 | 2 | Via force | Same as Blocked but the restriction can be bypassed by sending `"force": true` with the write **and** holding the `BIFROST Force ori` permission set. |
 
 **Validation:**
@@ -356,237 +251,27 @@ write. Without the `BIFROST Force ori` permission set the write is rejected even
 change log. If it is not covered and the guard is `Blocked` or `Via force`, the write will be
 rejected unless `force: true` is used (Via force only).
 
-**Extensibility:**
-
-```al
-enumextension 50103 "My Guard Type" extends "ChangeLog Write Guard Type"
-{
-    value(50100; "Custom Guard")
-    {
-        Caption = 'Custom Guard';
-        Implementation = "ChangeLog Write Guard" = "My Custom Guard Impl";
-    }
-}
-```
-
 ---
 
 ### 7. Export Company Name Type {#export-company-name-type}
 
 **Field:** `Export Company Name Type`  
-**Type:** Enum `Company Name Type ori`  
-**Interface:** `Company Name ori`  
+**Type:** Option  
 **Applies to:** CSV exports of records and of deleted records
 
-**Purpose:** Selects which company name is written to the `$Company` column of CSV exports. The setup field controls a single, system-wide choice that both CSV exporters resolve once per request (so every row in a single export shares the same value).
+**Purpose:** Selects which company name is written to the `$Company` column of CSV exports. The choice applies to both CSV exports, and every row of one export carries the same value.
 
 **Available Values:**
 
 | Value | Caption | Behaviour |
 |-------|---------|-----------|
-| 0 | Company Name | Returns `CompanyName()` (the technical `Company.Name`). Default. Stable across renames of the display name. |
-| 1 | Company Display Name | Returns `Company."Display Name"`. When the display name is blank, falls back to `CompanyName()` so the `$Company` column is never empty. |
+| 0 | Company Name | The company's technical name. Default. Stable across renames of the display name. |
+| 1 | Company Display Name | The company's display name. When the display name is blank, the technical name is used, so the `$Company` column is never empty. |
 
 **When to use each value:**
 
 - **Company Name** — downstream systems that key on company identity (data lake partitioning, Open Mirroring landing zones, bc2adls). Display-name renames must not change the partition key.
 - **Company Display Name** — CSV consumers that are human-readable (operational reports, ad-hoc analytics). Display name is friendlier and matches what users see in BC.
-
-**Resolution:** a CSV export resolves the company name once per request and reuses the value for
-every row written to the `$Company` column.
-
-**Extensibility:**
-
-```al
-enumextension 50104 "My Company Name Type" extends "Company Name Type ori"
-{
-    value(50100; "Legal Name")
-    {
-        Caption = 'Legal Name';
-        Implementation = "Company Name ori" = "My Legal Name Impl";
-    }
-}
-
-codeunit 50104 "My Legal Name Impl" implements "Company Name ori"
-{
-    procedure GetCompanyName(): Text[250]
-    var
-        Company: Record Company;
-    begin
-        Company.SetLoadFields("Legal Name");
-        if Company.Get(CompanyName()) and (Company."Legal Name" <> '') then
-            exit(CopyStr(Company."Legal Name", 1, 250));
-        exit(CopyStr(CompanyName(), 1, 250));
-    end;
-}
-```
-
----
-
-## Setup Procedures
-
-### GetRecordOnce()
-
-**Purpose:** Ensures the setup record is loaded only once per transaction.
-
-**Behavior:**
-- Checks if record has already been read in this session
-- If not read, attempts to retrieve the record
-- If record doesn't exist, creates it with default values
-- Sets the `RecordHasBeenRead` flag to prevent repeated reads
-
-**Usage:**
-```al
-BifrostSetup.GetRecordOnce();
-```
-
----
-
-### InsertIfNotExists()
-
-**Purpose:** Creates the setup record if it doesn't exist.
-
-**Behavior:**
-- Checks if the record exists
-- If not, initializes and inserts a new record with default values
-- Does not set the `RecordHasBeenRead` flag
-
-**Usage:**
-```al
-BifrostSetup.InsertIfNotExists();
-```
-
-**Note:** This is typically called during installation.
-
----
-
-## Extending the Setup
-
-### Adding a New Implementation
-
-To add a new implementation:
-
-1. **Create the Interface (if new feature area):**
-```al
-interface "My Custom Feature"
-{
-    procedure ProcessRequest(var Argument: Record "Message Argument ori")
-}
-```
-
-2. **Create the Enum:**
-```al
-enum 50100 "My Custom Feature Type" implements "My Custom Feature"
-{
-    Extensible = true;
-    
-    value(0; "Default")
-    {
-        Caption = 'Default';
-        Implementation = "My Custom Feature" = "My Default Impl";
-    }
-}
-```
-
-3. **Create the Implementation:**
-```al
-codeunit 50100 "My Default Impl" implements "My Custom Feature"
-{
-    procedure ProcessRequest(var Argument: Record "Message Argument ori")
-    begin
-        // Implementation logic
-    end;
-}
-```
-
-4. **Extend the Setup Table:**
-```al
-tableextension 50100 "My Setup Extension" extends "Setup ori"
-{
-    fields
-    {
-        field(50100; "My Custom Feature Type"; Enum "My Custom Feature Type")
-        {
-            Caption = 'My Custom Feature Type';
-            DataClassification = CustomerContent;
-        }
-    }
-}
-```
-
-5. **Add Setup Procedure:**
-```al
-tableextension 50100 "My Setup Extension" extends "Setup ori"
-{
-    procedure GetMyCustomFeatureInterface(): Interface "My Custom Feature"
-    begin
-        Rec.SetLoadFields("My Custom Feature Type");
-        Rec.GetRecordOnce();
-        exit("My Custom Feature Type");
-    end;
-}
-```
-
-### Extending an Existing Enum
-
-To add a new implementation to an existing feature:
-
-```al
-enumextension 50101 "My Price Extension" extends "Item Price Calc. Type ori"
-{
-    value(50100; "External API")
-    {
-        Caption = 'External API Pricing';
-        Implementation = "Item Price Calculation ori" = "My API Price Impl";
-    }
-}
-
-codeunit 50101 "My API Price Impl" implements "Item Price Calculation ori"
-{
-    procedure CalculateItemPrice(var Argument: Record "Message Argument ori")
-    begin
-        // Call external API for pricing
-        // Build response in standard format
-    end;
-}
-```
-
----
-
-## Best Practices
-
-### 1. Interface Design {#interface-design}
-- Keep interfaces simple and focused on a single responsibility
-- Use the `Message Argument ori` table for all data exchange
-- Document expected request and response formats
-
-### 2. Implementation Development {#implementation-development}
-- Always implement all interface procedures
-- Handle errors gracefully and return meaningful error messages
-- Use the `SetResponseJson()` or `SetResponseText()` methods for responses
-- Follow the standard response format with `status` field
-
-### 3. Enum Configuration {#enum-configuration}
-- Set a sensible `DefaultImplementation` for new enums
-- Use descriptive captions for enum values
-- Mark enums as `Extensible = true` to allow partners to add implementations
-
-### 4. Setup Field Additions {#setup-field-additions}
-- Use appropriate field numbers (starting from partner range if applicable)
-- Set proper `DataClassification` (typically `CustomerContent`)
-- Add tooltips and captions in multiple languages
-- Create corresponding setup procedures following the existing pattern
-
-### 5. Performance Optimization {#performance-optimization}
-- Use `SetLoadFields()` to load only needed fields
-- Call `GetRecordOnce()` to avoid repeated database reads
-- Cache interface instances when calling multiple times
-
-### 6. Testing {#testing}
-- Test with both default and custom implementations
-- Verify interface switching works correctly
-- Test extensibility by adding custom enum values
-- Validate error handling and edge cases
 
 ---
 
@@ -646,9 +331,7 @@ The Delete Setup table controls which Business Central tables have their deletio
 | `Table Name` | Text[250] | Resolved table caption (FlowField, read-only). |
 | `Store Record` | Boolean | When enabled, a full JSON snapshot of the record is saved at deletion time. |
 
-#### Caching Behaviour
-
-Delete Setup records are cached for performance. Any insert, modify, or delete on the setup table automatically resets the cache.
+A change to Delete Setup applies to the next deletion; no restart is needed.
 
 ### Delete Log
 
@@ -693,7 +376,7 @@ Delete Log records can be read through Bifröst's general record read and export
 
 ### Purpose
 
-Per-user configuration for the Bifrost extension. Each record stores a system prompt and optional linked-record overrides that are included in the user profile an assistant reads about the caller. The system prompt enables external AI systems to customise their behaviour per user. The optional link fields (resource, salesperson, employee, G/L account, customer, vendor, contact) override the default lookup logic so administrators can explicitly control which records appear in a user's profile.
+Per-user configuration for Bifröst. Each record stores a system prompt and optional linked-record overrides that are included in the user profile an assistant reads about the caller. The system prompt enables external AI systems to customise their behaviour per user. The optional link fields (resource, salesperson, employee, G/L account, customer, vendor, contact) override the default lookup logic so administrators can explicitly control which records appear in a user's profile.
 
 ### Fields
 
@@ -727,7 +410,7 @@ The User Setup Editor page provides a multi-line rich content field. On save, `<
 
 ## Permission Sets
 
-The Bifrost extension ships several permission sets that gate access to specific features.
+Bifröst Foundation ships several permission sets that gate access to specific features. Assign them to users and Entra applications on the standard **Permission Sets** page.
 
 ### BIFROST ApprAdm ori
 
@@ -741,8 +424,6 @@ The Bifrost extension ships several permission sets that gate access to specific
 ```
 User <UserSecurityId> does not have permissions to send documents to approval via Bifrost.
 ```
-
-**Assignment:** Assign via the standard BC **Permission Sets** page or via user group.
 
 ### BIFROST Force ori
 
@@ -773,11 +454,4 @@ The five permission sets are independent and **not bundled into `BIFROST Read or
 ## Related Documentation
 
 - **[API Reference](/foundation/reference/api/)**: API endpoints, the message envelope and response shapes
-- **Msg Interface ori**: Main interface for message type implementations
-- **Setup ori Page**: User interface for configuration
-
----
-
-## Support
-
-For questions regarding setup configuration or implementation development, please contact Origo support.
+- **[Field access](/foundation/reference/field-access-restrictions/)**: restricting which fields can be read and written

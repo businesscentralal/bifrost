@@ -1,8 +1,6 @@
 ---
 id: invite-customer
 title: "Bjóða viðskiptavin"
-sidebar_label: "Bjóða viðskiptavin"
-sidebar_position: 49
 ---
 
 Svarglugginn **Bjóða viðskiptavin**, sem opnast úr [Umsjón viðskiptavina](/help/foundation/customer-management/),

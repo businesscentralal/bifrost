@@ -1,8 +1,6 @@
 ---
 id: bifrost-request-log
 title: "Annáll beiðna Bifröst"
-sidebar_label: "Annáll beiðna"
-sidebar_position: 58
 ---
 
 **Annáll beiðna Bifröst** telur upp þær HTTP-beiðnir út á við sem Bifröst-forrit sendu fyrir þína

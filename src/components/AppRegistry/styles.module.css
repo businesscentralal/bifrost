@@ -193,15 +193,3 @@
 
 /* Register CTA ------------------------------------------------------------------------------------ */
 
-.registerCta {
-  margin-top: 3rem;
-  padding: 2rem;
-  text-align: center;
-  border: 1px solid var(--bifrost-border);
-  border-radius: 12px;
-  background: var(--bifrost-surface);
-}
-
-.registerCta h2 {
-  margin-top: 0;
-}

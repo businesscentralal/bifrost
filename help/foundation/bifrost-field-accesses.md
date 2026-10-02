@@ -1,8 +1,6 @@
 ---
 id: bifrost-field-accesses
 title: "Bifrost Field Accesses"
-sidebar_label: "Bifrost Field Accesses"
-sidebar_position: 6
 ---
 
 The **Bifrost Field Accesses** page allows administrators to define field-level access restrictions for individual users and Entra ID (AAD) applications. These restrictions control which fields can be read or written through Bifröst's general record read and write.

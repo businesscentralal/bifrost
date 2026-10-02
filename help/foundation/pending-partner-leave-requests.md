@@ -1,8 +1,6 @@
 ---
 id: pending-partner-leave-requests
 title: "Pending Partner Leave Requests"
-sidebar_label: "Pending Partner Leave Requests"
-sidebar_position: 52
 ---
 
 **Pending Partner Leave Requests** lists the requests your Partners sent with **Request to Leave

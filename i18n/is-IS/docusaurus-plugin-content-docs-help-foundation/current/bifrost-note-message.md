@@ -1,8 +1,6 @@
 ---
 id: bifrost-note-message
 title: "Skilaboð"
-sidebar_label: "Skilaboð"
-sidebar_position: 15
 ---
 
 **Skilaboð** síðan er skrifvarinn gluggi sem sýnir allt innihald eins skilaboðs. Hann opnast þegar þú smellir á skilaboð í þræði eða tilkynningalista.

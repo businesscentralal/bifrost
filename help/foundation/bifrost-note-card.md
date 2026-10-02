@@ -1,8 +1,6 @@
 ---
 id: bifrost-note-card
 title: "Bifrost Note Card"
-sidebar_label: "Bifrost Note Card"
-sidebar_position: 13
 ---
 
 The **Bifrost Note Card** displays the full details of a single notification, including the message body, sender, recipient, and notification type.

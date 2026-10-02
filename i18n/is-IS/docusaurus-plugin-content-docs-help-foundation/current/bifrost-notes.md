@@ -1,8 +1,6 @@
 ---
 id: bifrost-notes
 title: "Bifröst tilkynningar"
-sidebar_label: "Bifröst tilkynningar"
-sidebar_position: 16
 ---
 
 Síðan **Bifröst tilkynningar** er innhólf notandans fyrir öll skilaboð og tilkynningar sem berast í gegnum Bifröst kerfið. Hér sérðu ný og ólesin skilaboð, getur opnað þau, og svarað.

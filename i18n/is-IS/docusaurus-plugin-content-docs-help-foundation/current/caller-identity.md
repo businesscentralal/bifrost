@@ -1,8 +1,6 @@
 ---
 id: caller-identity
 title: "Auðkenni kallara"
-sidebar_label: "Auðkenni kallara"
-sidebar_position: 31
 ---
 
 Síðan **Auðkenni kallara** sýnir lista yfir skráða ytri kallara sem hafa aðgang að Bifröst API. Hvert auðkenni er tengt nafni, leyfi og skilgreiningum sem stýra því hvaða skilaboðagerðir kallarinn má nota.

@@ -1,8 +1,6 @@
 ---
 id: incoming-document-urls
 title: "Vefslóðir á móttekið skjal"
-sidebar_label: "Vefslóðir á móttekið skjal"
-sidebar_position: 57
 ---
 
 Hlutinn **Vefslóðir á móttekið skjal** á spjaldi móttekins skjals telur upp vefslóðir sem tengjast

@@ -4,8 +4,8 @@ title: "Events and webhooks"
 sidebar_position: 5
 ---
 
-**Yfirskjal:** [API_Reference.md](/foundation/reference/api/)  
-**Kóðaeining:** `Message Events ori`
+Þessi síða er fyrir forritara sem tengja annað kerfi við Bifröst og vilja fá að vita þegar skilaboð
+eru tilbúin í stað þess að spyrja aftur og aftur. Hún á heima með [API-viðmiðuninni](/foundation/reference/api/).
 
 ---
 

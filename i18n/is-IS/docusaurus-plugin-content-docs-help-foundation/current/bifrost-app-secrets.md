@@ -1,8 +1,6 @@
 ---
 id: bifrost-app-secrets
 title: "Leyndarmál forrita Bifröst"
-sidebar_label: "Leyndarmál forrita"
-sidebar_position: 62
 ---
 
 **Leyndarmál forrita Bifröst** telur upp leyndarmálin - lykilorð, lykla og tóka - sem uppsett

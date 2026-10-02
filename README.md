@@ -4,8 +4,7 @@ The public documentation site for the **Bifröst** family of Microsoft Dynamics 
 Business Central extensions by Origo — <https://docs.bifrost.origo.is>.
 
 All public-facing material for every Bifröst app lives here and nowhere else:
-product documentation, in-product (context-sensitive) help and extensibility
-guidance for partners building dependent apps. The app repositories keep only `README.md`,
+product documentation and in-product (context-sensitive) help. The app repositories keep only `README.md`,
 `CHANGELOG.md` and code.
 
 Built with [Docusaurus 3](https://docusaurus.io/) and deployed to GitHub Pages.
@@ -18,7 +17,6 @@ Built with [Docusaurus 3](https://docusaurus.io/) and deployed to GitHub Pages.
 | --- | --- | --- |
 | `/{locale}/<app>/` | one docs instance per app | Product documentation: overview, setup, AppSource scenarios, listing copy |
 | `/{locale}/help/<app>/` | one help instance per app | Context-sensitive help — one page per Business Central page |
-| `/{locale}/extensibility/` | `extensibility` | How to build a dependent app on Bifröst Foundation |
 
 The app list is declared once in [`apps.ts`](apps.ts); adding an entry there
 creates both instances and both navbar entries.
@@ -36,7 +34,6 @@ On disk:
 
 ```
 docs/<app>/                 English product documentation
-docs/extensibility/         English extensibility guide
 help/<app>/                 English help pages
 i18n/is-IS/docusaurus-plugin-content-docs-<instance>/current/
                             Icelandic translation of that instance

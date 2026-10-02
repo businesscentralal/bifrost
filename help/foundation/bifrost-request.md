@@ -1,8 +1,6 @@
 ---
 id: bifrost-request
 title: "Bifrost Request"
-sidebar_label: "Request"
-sidebar_position: 18
 ---
 
 The **Bifrost Request** FactBox appears on the right side of the [Bifrost Messages](/help/foundation/bifrost-messages/) list. It shows the incoming request payload (data) of the currently selected bifrost message. The content is read-only in this FactBox.

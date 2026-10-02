@@ -4,56 +4,62 @@ title: "Bifröst Foundation"
 sidebar_label: "Yfirlit"
 sidebar_position: 1
 slug: /
-description: "Skilaboðadrifið API fyrir Business Central: biðröð, verk og svar, sjálflýsandi skilaboðagerðir og grunnurinn sem öll önnur Bifrastar-forrit byggja á."
+description: "Bifröst-forritið sem öll önnur Bifröst-forrit þurfa: það gerir gervigreindaraðstoðarmönnum og öðrum kerfum kleift að vinna í Business Central, sem þú og innan þinna heimilda."
 ---
 
-**Bifröst Foundation er forritið sem alltaf er sett upp.** Það gerir gervigreindarþjónum og öðrum
-kerfum kleift að vinna raunveruleg verk í Business Central: svara spurningum úr lifandi gögnum,
-framkvæma verk og keyra ferla, sem þú og innan þinna heimilda. Það nær nú þegar yfir hefðbundin svið
-Business Central; hin Bifröst-forritin bæta hvert við sínu.
+# Bifröst Foundation
 
-| Þú vilt … | Farðu í |
-|---|---|
-| Skilja hvað það gerir | [Hvernig Bifröst virkar](/documentation/how-it-works/) (á ensku í bili) |
-| Setja það upp | [Uppsetning](/setup/) (á ensku í bili) |
-| Prófa það fyrst | [Prófaðu](/try-it-out/) (á ensku í bili) |
-| Vita til hvers síða í Business Central er | Hjálpartáknið á hverri Bifröst-síðu í Business Central |
+**Forritið sem alltaf er sett upp.** Foundation gerir gervigreindaraðstoðarmönnum og öðrum kerfum
+kleift að vinna raunveruleg verk í Business Central: svara úr lifandi gögnum, framkvæma verk og keyra
+ferla, sem þú og innan þinna heimilda. Það kemur ekki í stað Business Central eða viðbótanna sem þú
+ert með; það gerir gögn þeirra og viðskiptarök aðgengileg gervigreindinni sem þú notar nú þegar.
 
-## Tæknilegt yfirlit
+Foundation er líka grunnur allrar Bifröst-fjölskyldunnar. Uppsetningarsíðan og uppsetningarleiðsögnin,
+leyndarmálageymslan, heimildirnar, leyfismálin, skilaboðaskráin og hjálpin sem lýst er á þessum vef
+virka eins fyrir öll Bifröst-forrit. Önnur Bifröst-forrit byggja á Foundation og bæta við eigin
+aðgerðum.
 
-*Það sem eftir er af síðunni er fyrir forritara og samstarfsaðila.*
+## Hvað þú getur gert með því
 
-Bifröst Foundation breytir viðskiptarökum Business Central í API sem hægt er að kalla á og lýsir sér sjálft. Ytra kerfi sendir CloudEvents-umslag á biðraðar-API-ið (`origo/bifrost/v1.0`), Business Central keyrir viðeigandi **skilaboðagerð**, til dæmis lánamarksathugun viðskiptamanns, bókun sölubókhaldsskjals eða almenna skráningu gagna, og niðurstaðan kemur til baka í gegnum svar-API-ið, ýmist samstillt eða úr bakgrunnskeyrslu.
+Foundation kemur með hefðbundin
+[svið](/documentation/how-it-works/#capabilities-and-message-types) Business Central (á ensku í
+bili), til dæmis:
 
-Allt annað í Bifrastar-fjölskyldunni er forrit sem byggir ofan á þessu og bætir sínum eigin skilaboðagerðum í safnið. Foundation sér um flutninginn, biðröðina, leyfin, leyndarmálageymsluna, beiðnaskrána, tungumálaskiptin og uppgötvunina; forritið ofan á skrifar viðskiptarökin og hjálparskjalið.
+- **Sala:** tilboð, pantanir og reikningar, frá stofnun til bókunar, og hvað viðskiptamaður skuldar.
+- **Innkaup:** innkaupaskjöl og lánardrottnar, og bókun innkaupareiknings.
+- **Fjármál:** færslubækur, bókun og afstemming bankareikninga.
+- **Birgðir:** hvað er til, hverju má lofa, og birgðafærslubækur.
+- **Verk og forði:** verkfærslubækur, reikningsfærsla úr verki, og forði.
+- **Samþykktir, móttekin skjöl og breytingaskrá:** samþykkja eða hafna, skrá móttekna reikninga og
+  sjá hver breytti hverju.
+- **Lestur gagna:** flestar töflur í Business Central, innan þinna heimilda.
 
-## Hvað það gerir
+Uppsettar skilaboðagerðir og samningar þeirra eru lesnir úr Business Central sjálfu: MCP-tólin
+`list_message_types` og `describe_message_type`, eða síðan Bifrost Message Types.
 
-- **Eitt API fyrir allar aðgerðir** — þrír endapunktar (biðröð, verk, svar) bera allar skilaboðagerðir, svo kallandinn lærir flutninginn einu sinni.
-- **Staðlaðar ERP-skilaboðagerðir strax** — gagnaaðgangur, lýsigögn, sala, innkaup, fjármál, birgðir, verk, tilföng, samþykktir, móttekin skjöl, breytingaskrá, minni og tilkynningar til notenda.
-- **Sjálflýsandi** — `Help.MessageTypes.Get` skilar safninu og `Help.Implementation.Get` skilar fullum beiðni- og svarsamningi einnar gerðar sem Markdown, þannig að gervigreindarumboð getur fundið og kallað á gerð sem það hefur aldrei séð.
-- **Stækkanlegt frá grunni** — forrit ofan á bætir við gildi í `enumextension` og einni kóðaeiningu sem útfærir `Msg Interface ori`; ekkert breytist í Foundation.
-- **Öryggi á svæðastigi** — lestur og skrif á einstök svæði má takmarka eftir notanda eða Entra-forriti, ofan á venjulegar heimildir Business Central.
-- **Vörn breytingaskrár við skrif** — almenna skráningu gagna má takmarka við svæði sem breytingaskrá Business Central nær yfir, svo hver skrif í gegnum API skilja eftir sig slóð.
-- **Ein leyndarmálageymsla** — öll forrit fjölskyldunnar skrá aðgangsupplýsingar sínar hjá Foundation og sækja þær með einu kalli; gildin eru aldrei geymd í töflum og eru hulin í beiðnaskránni.
-- **Atburðir og vefkrókar** — ytri viðskiptaatburðir kvikna þegar skilaboð klárast eða mistakast, svo kallendur fá að vita í stað þess að þurfa að spyrja.
+**Hvar það endar.** Foundation getur lesið flest gögnin þín, en getur aðeins framkvæmt verk sem hafa
+skilaboðagerð. Önnur Bifröst-forrit bæta við eigin aðgerðum; sjá
+[Hvað það nær yfir](/documentation/how-it-works/#what-it-covers-and-how-it-grows) (á ensku í bili).
 
-## Hvernig það virkar
+## Náðu í það og settu það upp
 
-1. Kallandi sendir CloudEvents 1.0 umslag sem nefnir skilaboðagerð á `.../tasks`.
-2. Foundation staðfestir kallandann, finnur útfærslukóðaeininguna og keyrir hana strax eða setur hana í biðröð fyrir bakgrunnskeyrslu.
-3. Útfærslan vinnur verkið í Business Central og skrifar JSON-svar.
-4. Kallandinn les niðurstöðuna af svar-endapunktinum, eða fær vefkrók þegar skilaboðin klárast.
+Settu **Bifrost Foundation** upp frá AppSource eða í gegnum samstarfsaðila þinn í Business Central.
+Það þarf Business Central 28.0 eða nýrra, Essentials eða Premium. Fylgdu svo
+[Uppsetningu](/setup/) (á ensku í bili): fimm skref, og hvert segir hvern þarf til.
 
-## Hvert skal halda næst
+## Gott að vita
 
-- [API-viðmiðun](./reference/api/) — endapunktar, umslagið, auðkenning og form svara
-- [Uppsetningarviðmiðun](./reference/setup/) — Bifröst uppsetningarsíðan og útfærsluaðferðirnar að baki henni
-- Uppsettar skilaboðagerðir og samningar þeirra eru lesnir úr Business Central sjálfu: MCP-tólin `list_message_types` og `describe_message_type`, eða síðan Bifrost Message Types
-- Hjálp í kerfinu — ein síða fyrir hverja Business Central síðu í forritinu
-- [Byggðu á Bifröst](/extensibility/) — hvernig forrit ofan á er skrifað
+- **Það vinnur sem þú.** Aðstoðarmaður getur í mesta lagi gert það sem þú getur gert í Business
+  Central; sjá [Heimildir](/documentation/end-customers/administrators/#permissions) (á ensku í bili).
+- **Hvert kall er skráð** í þínu eigin Business Central, á síðunni **Bifrost Messages**.
+- **Gögnin þín:** [Hvert gögnin þín fara](/documentation/how-it-works/#where-your-data-goes) (á
+  ensku í bili) og [Persónuvernd](/licensing/privacy/).
+- **Verð og leyfi:** [Verð](/price/) (á ensku í bili) og [Leyfi](/licensing/).
+- **Síða í Business Central:** hver Foundation-síða hefur sína eigin hjálparsíðu.
 
-## Kröfur
+## Fyrir forritara og kerfisstjóra
 
-- Microsoft Dynamics 365 Business Central 28.0 eða nýrra, Essentials eða Premium.
-- Útgangandi HTTP-beiðnir virkjaðar fyrir viðbótina þar sem forrit ofan á kallar á ytri þjónustu.
+- [API-viðmiðun](./reference/api/): endapunktar, skilaboðaumslagið og form svara
+- [Villur](./reference/errors/), [Atburðir og vefkrókar](./reference/events-and-webhooks/),
+  [Aðgangur að svæðum](./reference/field-access-restrictions/)
+- [Uppsetningarviðmiðun](./reference/setup/): uppsetningarsíða Bifröst og stillingarnar að baki henni

@@ -1,8 +1,6 @@
 ---
 id: invite-partner
 title: "Bjóða samstarfsaðila"
-sidebar_label: "Bjóða samstarfsaðila"
-sidebar_position: 47
 ---
 
 Svarglugginn **Bjóða samstarfsaðila**, sem opnast úr [Umsjón samstarfsaðila](/help/foundation/partner-management/),

@@ -1,8 +1,6 @@
 ---
 id: bifrost-chat-fact-box
 title: "Chat via Bifrost"
-sidebar_label: "Chat fact box"
-sidebar_position: 54
 ---
 
 The **Chat via Bifrost** fact box lets you chat with Bifröst about the record you are looking at. It

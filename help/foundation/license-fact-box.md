@@ -1,8 +1,6 @@
 ---
 id: license-fact-box
 title: "License"
-sidebar_label: "License fact box"
-sidebar_position: 41
 ---
 
 The **License** fact box on the [Bifrost Setup](/help/foundation/bifrost-setup/) page shows the licence

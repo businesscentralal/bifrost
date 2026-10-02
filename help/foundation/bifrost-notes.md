@@ -1,8 +1,6 @@
 ---
 id: bifrost-notes
 title: "Bifrost notes"
-sidebar_label: "Bifrost notes"
-sidebar_position: 16
 ---
 
 The **Bifrost notes** page is your notification inbox. It shows all notification notes addressed to you, sorted newest first. Use it to track approval notifications, system alerts, and messages from other users or integrations.

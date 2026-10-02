@@ -73,9 +73,6 @@ const STRINGS = {
     comingSoonPill: 'Coming soon',
     noResults: 'No apps match your search.',
     resultCount: (n: number, total: number) => `Showing ${n} of ${total} apps`,
-    registerTitle: 'Register your app',
-    registerBody: 'Building a Business Central extension on Bifröst Foundation? List it here.',
-    registerCta: 'Register your app',
   },
   is: {
     searchPlaceholder: 'Leitaðu að forriti eftir nafni eða lýsingu…',
@@ -88,9 +85,6 @@ const STRINGS = {
     comingSoonPill: 'Væntanlegt',
     noResults: 'Ekkert forrit passar við leitina.',
     resultCount: (n: number, total: number) => `Sýni ${n} af ${total} forritum`,
-    registerTitle: 'Skráðu forritið þitt',
-    registerBody: 'Ertu að byggja Business Central viðbót ofan á Bifröst Foundation? Skráðu hana hér.',
-    registerCta: 'Skrá forrit',
   },
 } as const;
 
@@ -224,13 +218,6 @@ export default function AppRegistry(): ReactNode {
         </div>
       )}
 
-      <div className={styles.registerCta}>
-        <h2>{t.registerTitle}</h2>
-        <p>{t.registerBody}</p>
-        <Link className="button button--primary" to="/apps/register-your-app/">
-          {t.registerCta}
-        </Link>
-      </div>
     </div>
   );
 }

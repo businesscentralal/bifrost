@@ -1,8 +1,6 @@
 ---
 id: registered-apps
 title: "Bifrost Applications"
-sidebar_label: "Bifrost Applications"
-sidebar_position: 60
 ---
 
 The **Bifrost Applications** list, on the HTTP step of the [Bifrost Setup Wizard](/help/foundation/bifrost-setup-wizard/),

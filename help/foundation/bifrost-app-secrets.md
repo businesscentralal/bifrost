@@ -1,8 +1,6 @@
 ---
 id: bifrost-app-secrets
 title: "Bifrost App Secrets"
-sidebar_label: "App Secrets"
-sidebar_position: 62
 ---
 
 **Bifrost App Secrets** lists the secrets - passwords, keys, tokens - that the installed Bifröst

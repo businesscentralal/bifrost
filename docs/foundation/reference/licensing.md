@@ -28,11 +28,6 @@ refusal happen in one central place; individual message types do not perform lic
 | **User** | Messages processed under a normal (interactive or web service) user. |
 | **App Registration** | Messages processed by a Microsoft Entra application (service principal). |
 
-A message type can be told that it was called: `Msg Metering ori` is a hook that Foundation invokes
-after every successful non-exempt call so a billing solution can keep its own books. It has no
-influence on the count. See the [metering interface](/foundation/reference/metering-interface/) and
-[Metering a message type](/extensibility/metering).
-
 ## Why a call can be refused
 
 Checks run in this order; the first that applies answers the call with `"status": "Error"` and the

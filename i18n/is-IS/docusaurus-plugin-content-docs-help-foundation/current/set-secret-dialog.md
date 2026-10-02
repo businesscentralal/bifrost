@@ -1,8 +1,6 @@
 ---
 id: set-secret-dialog
 title: "Skrá leyndarmál"
-sidebar_label: "Skrá leyndarmál"
-sidebar_position: 63
 ---
 
 Í glugganum **Skrá leyndarmál** skráir þú gildi leyndarmáls fyrir Bifröst-forrit. Hann opnast úr

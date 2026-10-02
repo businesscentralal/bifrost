@@ -1,8 +1,6 @@
 ---
 id: invite-partner
 title: "Invite Partner"
-sidebar_label: "Invite Partner"
-sidebar_position: 47
 ---
 
 The **Invite Partner** dialog, opened from [Partner Management](/help/foundation/partner-management/),

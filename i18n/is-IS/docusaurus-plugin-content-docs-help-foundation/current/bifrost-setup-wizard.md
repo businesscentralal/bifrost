@@ -1,8 +1,6 @@
 ---
 id: bifrost-setup-wizard
 title: "Uppsetningarleiðsögn Bifröst"
-sidebar_label: "Uppsetningarleiðsögn"
-sidebar_position: 23
 ---
 
 **Uppsetningarleiðsögn Bifröst** er eini áfangastaður allra uppsetningartilkynninga Bifröst. Ekkert einstakt Bifröst-forrit sýnir eigin uppsetningartilkynningu — þegar eitthvað þarfnast athygli (leyfissamningurinn, útleiðar HTTP, auðkenni, prufuleyfið, tengingin við MCP-þjóninn) vísar [Uppsetning Bifröst](/help/foundation/bifrost-setup/) hingað og leiðsögnin fer yfir öll forrit sem eru uppsett.
@@ -32,7 +30,7 @@ Flest Bifröst-forrit þurfa útleiðar HTTP — Bifröst Foundation þarf það
 
 ### Auðkennaskref {#credentials-step}
 
-Hvert uppsett Bifröst-forrit getur skráð auðkennin sem það þarf í sameiginlegu leyndarmálageymsluna (sjá [Leyndarmál](/foundation/reference/secrets/)). Listinn [Auðkenni](/help/foundation/wizard-credentials/) sýnir þau öll. Veldu línu og síðan **Skrá gildi...** til að slá inn gildi.
+Hvert uppsett Bifröst-forrit getur skráð auðkennin sem það þarf í sameiginlegu leyndarmálageymsluna (sjá [Leyndarmál forrita Bifröst](/help/foundation/bifrost-app-secrets/)). Listinn [Auðkenni](/help/foundation/wizard-credentials/) sýnir þau öll. Veldu línu og síðan **Skrá gildi...** til að slá inn gildi.
 
 Auðkenni sem vantar eru aldrei villa, hvorki hér né á Uppsetning Bifröst — auðkenni sem er ekki skráð gerir óvirkar þær skilaboðategundir sem eru háðar því og hægt er að skrá það síðar með **Leyndarmál** á Uppsetning Bifröst.
 

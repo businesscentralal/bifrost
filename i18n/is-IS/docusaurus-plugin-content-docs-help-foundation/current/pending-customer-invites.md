@@ -1,8 +1,6 @@
 ---
 id: pending-customer-invites
 title: "Óafgreidd boð viðskiptavinar"
-sidebar_label: "Óafgreidd boð viðskiptavinar"
-sidebar_position: 53
 ---
 
 **Óafgreidd boð viðskiptavinar** opnast þegar þú velur **Skrá sem viðskiptavinur** og fleiri en einn

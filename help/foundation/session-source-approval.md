@@ -1,8 +1,6 @@
 ---
 id: session-source-approval
 title: "Approve Session Source"
-sidebar_label: "Approve Session Source"
-sidebar_position: 64
 ---
 
 **Approve Session Source** asks you to approve a message source - for example an AI assistant or an

@@ -1,8 +1,6 @@
 ---
 id: bifrost-user-memory
 title: "Bifrost User Memory"
-sidebar_label: "Bifrost User Memory"
-sidebar_position: 26
 ---
 
 The **Bifrost User Memory** page manages your personal memory entries used by Bifröst message types and by chat, when an app that provides a chat is installed. These entries are only visible to you and provide personal context that the AI uses during your conversations. Other users cannot see or access your personal memory.

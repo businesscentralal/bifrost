@@ -1,8 +1,6 @@
 ---
 id: incoming-document-urls
 title: "Incoming Document Urls"
-sidebar_label: "Incoming Document Urls"
-sidebar_position: 57
 ---
 
 The **Incoming Document Urls** part on the Incoming Document card lists web addresses linked to the

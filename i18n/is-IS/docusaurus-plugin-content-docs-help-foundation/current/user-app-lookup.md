@@ -1,8 +1,6 @@
 ---
 id: user-app-lookup
 title: "Velja notanda eða forrit"
-sidebar_label: "Velja notanda eða forrit"
-sidebar_position: 38
 ---
 
 Uppflettingarsíðan **Velja notanda eða forrit** sýnir alla virka Business Central notendur og skráð Entra ID (AAD) forrit. Hún er opnuð af síðunni [Bifröst svæðisaðgangar](/help/foundation/bifrost-field-accesses/) þegar uppflettingartakkinn er notaður á síunum **Notandanafn** til að velja hvers takmarkanir á að stjórna.

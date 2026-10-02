@@ -1,8 +1,6 @@
 ---
 id: bifrost-message-type-list
 title: "Available Message Types"
-sidebar_label: "Available Message Types"
-sidebar_position: 11
 ---
 
 The **Available Message Types** subpage appears on the [Bifrost Setup](/help/foundation/bifrost-setup/) page. It lists all bifrost message types that are registered in the system — both built-in types and any types added by extension apps. Use this panel to review what message types are available and to download their help documentation.

@@ -1,8 +1,6 @@
 ---
 id: user-app-lookup
 title: "Select User or Application"
-sidebar_label: "Select User or Application"
-sidebar_position: 38
 ---
 
 The **Select User or Application** lookup page lists all active Business Central users and registered Entra ID (AAD) applications. It is opened from the [Bifrost Field Accesses](/help/foundation/bifrost-field-accesses/) page when you use the lookup on the **User Name** filter to choose whose restrictions you want to manage.

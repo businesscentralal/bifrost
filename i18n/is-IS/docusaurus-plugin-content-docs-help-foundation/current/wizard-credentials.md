@@ -1,8 +1,6 @@
 ---
 id: wizard-credentials
 title: "Auðkenni"
-sidebar_label: "Auðkenni í leiðsögn"
-sidebar_position: 61
 ---
 
 Listinn **Auðkenni**, í valfrjálsu auðkennaskrefi [Uppsetningarleiðsagnar Bifröst](/help/foundation/bifrost-setup-wizard/),

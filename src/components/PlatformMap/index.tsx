@@ -1,15 +1,13 @@
 import type {ReactNode} from 'react';
 import Link from '@docusaurus/Link';
 import Translate from '@docusaurus/Translate';
-import {apps} from '../../../apps';
 import styles from './styles.module.css';
 
 /**
  * The Bifröst platform at a glance: who calls, the one gate, and who adds message types.
- * The app row is drawn from apps.ts, so a new app appears here without editing this page.
+ * Other apps are shown as one box: the site documents published apps only.
  */
 export default function PlatformMap(): ReactNode {
-  const dependentApps = apps.filter((app) => app.id !== 'foundation');
   return (
     <figure className={styles.map}>
       <div className={styles.rowLabel}>
@@ -57,14 +55,9 @@ export default function PlatformMap(): ReactNode {
         </Link>
       </div>
       <div className={styles.apps}>
-        {dependentApps.map((app) => (
-          <Link key={app.id} className={styles.app} to={`/${app.id}/`}>
-            {app.title}
-          </Link>
-        ))}
-        <Link className={styles.yours} to="/extensibility/">
-          <Translate id="platformMap.yours">Your app</Translate>
-        </Link>
+        <span className={styles.yours}>
+          <Translate id="platformMap.others">Other Bifröst apps</Translate>
+        </span>
       </div>
       <figcaption className={styles.caption}>
         <Translate id="platformMap.caption">

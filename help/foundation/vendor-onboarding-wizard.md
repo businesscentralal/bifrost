@@ -1,8 +1,6 @@
 ---
 id: vendor-onboarding-wizard
 title: "Bifrost Vendor Onboarding"
-sidebar_label: "Vendor Onboarding"
-sidebar_position: 45
 ---
 
 The **Bifrost Vendor Onboarding** wizard registers the current tenant as a Bifröst **Vendor**. It is

@@ -1,8 +1,6 @@
 ---
 id: pending-customer-leave-requests
 title: "Óafgreiddar uppsagnarbeiðnir viðskiptavina"
-sidebar_label: "Óafgreiddar uppsagnarbeiðnir viðskiptavina"
-sidebar_position: 51
 ---
 
 **Óafgreiddar uppsagnarbeiðnir viðskiptavina** sýnir beiðnirnar sem viðskiptavinir þínir sendu með

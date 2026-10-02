@@ -1,8 +1,6 @@
 ---
 id: bifrost-user-memory
 title: "Bifröst notandaminni"
-sidebar_label: "Bifröst notandaminni"
-sidebar_position: 26
 ---
 
 Síðan **Bifröst notandaminni** sýnir persónulegt minni þess notanda sem er innskráður. Hvert gildi er einkaminni notandans og er ekki sýnilegt öðrum.

@@ -1,8 +1,6 @@
 ---
 id: bifrost-chat
 title: "Spjalla með Bifröst"
-sidebar_label: "Spjall (heil síða)"
-sidebar_position: 55
 ---
 
 Heilsíðuyfirlitið **Spjalla með Bifröst** opnast úr **Fókus** í [spjallreitnum](/help/foundation/bifrost-chat-fact-box/).

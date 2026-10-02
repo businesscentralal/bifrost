@@ -1,8 +1,6 @@
 ---
 id: pending-partner-leave-requests
 title: "Óafgreiddar uppsagnarbeiðnir samstarfsaðila"
-sidebar_label: "Óafgreiddar uppsagnarbeiðnir samstarfsaðila"
-sidebar_position: 52
 ---
 
 **Óafgreiddar uppsagnarbeiðnir samstarfsaðila** sýnir beiðnirnar sem samstarfsaðilar þínir sendu með
