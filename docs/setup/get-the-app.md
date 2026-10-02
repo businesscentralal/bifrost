@@ -14,8 +14,8 @@ description: "Where to find Bifröst, which apps to install, and who can install
 
 - **Bifröst Foundation** is always needed. It is the gate every call goes through, and it already
   brings the standard Business Central capabilities.
-- **The other Bifröst apps** each add their own area, for example Icelandic banks or document
-  exchange. Install only the ones you need; the [app list](/apps/) says what each one adds.
+- **Other Bifröst apps** each add operations of their own. Install only the ones you need; the
+  [app list](/apps/) says what each one adds.
 
 Each app depends on Foundation, so Business Central installs Foundation first.
 

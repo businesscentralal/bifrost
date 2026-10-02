@@ -1,9 +1,0 @@
-{
-  "label": "Banks",
-  "position": 2,
-  "link": {
-    "type": "generated-index",
-    "slug": "/banks",
-    "description": "One page per bank: what the connector does for that bank, what has to be set up, and what you see in Business Central."
-  }
-}

@@ -90,24 +90,16 @@ function docsInstance(id: string, routeBasePath: string, path: string, isApp = f
 
 
 /**
- * Client-side redirects from former route ids to the live AppSource names.
+ * Client-side redirects from former route ids.
  * Each locale build uses a locale-prefixed baseUrl, so these paths are relative
- * to that base (e.g. /en-us/bragi/ → /en-us/language-models/).
+ * to that base (e.g. /en-us/cost/ → /en-us/price/).
  *
  * Explicit `redirects` cover help pages whose slug renamed with the product id.
  * `createRedirects` covers every other page under the old folder prefixes.
  */
 const routeIdRenames: Array<[fromPrefix: string, toPrefix: string]> = [
-  ['/bragi', '/language-models'],
-  ['/help/bragi', '/help/language-models'],
-  ['/hnitbjorg', '/attachments'],
-  ['/help/hnitbjorg', '/help/attachments'],
-  ['/nornir', '/orchestrator'],
-  ['/help/nornir', '/help/orchestrator'],
   ['/cost', '/price'],
   ['/foundation/licensing', '/licensing'],
-  ['/clockify', '/timesheets'],
-  ['/help/clockify', '/help/timesheets'],
 ];
 
 const slugRenames: Array<{from: string; to: string}> = [
@@ -121,14 +113,6 @@ const slugRenames: Array<{from: string; to: string}> = [
   {from: '/extensibility/testing', to: '/extensibility/'},
   {from: '/extensibility/install-and-upgrade', to: '/extensibility/'},
   {from: '/extensibility/ip-boundary', to: '/extensibility/'},
-  {from: '/help/bragi/bragi-setup', to: '/help/language-models/language-models-setup'},
-  {from: '/help/hnitbjorg/hnitbjorg-setup', to: '/help/attachments/attachments-setup'},
-  {from: '/help/nornir/nornir-setup', to: '/help/orchestrator/orchestrator-setup'},
-  {from: '/help/clockify/clockify-setup', to: '/help/timesheets/timesheets-setup'},
-  {from: '/help/clockify/clockify-integration-list', to: '/help/timesheets/timesheets-integration-list'},
-  {from: '/help/clockify/clockify-set-secret-dialog', to: '/help/timesheets/timesheets-set-secret-dialog'},
-  {from: '/help/clockify/clockify-webhooks', to: '/help/timesheets/timesheets-webhooks'},
-  {from: '/help/clockify/clockify-workspace-lookup', to: '/help/timesheets/timesheets-workspace-lookup'},
 ];
 
 function withTrailingSlash(path: string): string {
@@ -147,23 +131,6 @@ const docsPlugins = [
   ...helpApps.map((app) => docsInstance(`help-${app.id}`, `help/${app.id}`, `help/${app.id}`)),
   ...crossAppInstances.map((section) => docsInstance(section.id, section.id, `docs/${section.id}`)),
 ];
-
-/** A group heading inside a navbar dropdown. */
-function menuHeading(en: string, is: string) {
-  return {
-    type: 'html' as const,
-    value: `<span class="dropdownHeading">${buildLocale === 'is-IS' ? is : en}</span>`,
-  };
-}
-
-/** The apps of one group from apps.ts, as menu items. */
-function appItems(group: 'base' | 'addon' | 'iceland', to: (app: (typeof apps)[number]) => string) {
-  return apps.filter((app) => (app.group ?? 'addon') === group).map((app) => ({
-    label: app.title,
-    to: to(app),
-    ...(group === 'base' ? {className: 'dropdownBase'} : {}),
-  }));
-}
 
 const config: Config = {
   title: 'Bifröst',
@@ -281,24 +248,11 @@ const config: Config = {
         },
         {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Leyfi' : 'Licensing', to: '/licensing/', position: 'left'},
-        // On the right, set apart: the apps. Foundation, the base every other app needs, then the
-        // additional apps. The label and the two items share one framed group (.navApps).
+        // On the right, set apart: the apps. Only published apps are shown (Foundation for now), then the
+        // registry of apps built on Bifröst. The label and the items share one framed group (.navApps).
         {type: 'html', position: 'right', value: `<span class="navAppsLabel">${buildLocale === 'is-IS' ? 'Forrit' : 'Apps'}</span>`, className: 'navApps'},
         {label: 'Foundation', to: '/foundation/', position: 'right', activeBasePath: '/foundation/', className: 'navApps navAppsItem'},
-        {
-          type: 'dropdown',
-          label: buildLocale === 'is-IS' ? 'Viðbætur' : 'Additional apps',
-          to: '/apps/',
-          position: 'right',
-          className: 'navApps navAppsItem',
-          items: [
-            {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/'},
-            menuHeading('Work anywhere', 'Virka alls staðar'),
-            ...appItems('addon', (app) => `/${app.id}/`),
-            menuHeading('For Iceland', 'Fyrir Ísland'),
-            ...appItems('iceland', (app) => `/${app.id}/`),
-          ],
-        },
+        {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/', position: 'right', className: 'navApps navAppsItem'},
         // The Icelandic site is not offered from the English one until the new chapters are
         // translated; the Icelandic build keeps the switcher so its readers can reach English.
         ...(buildLocale === 'is-IS'

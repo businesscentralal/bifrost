@@ -77,13 +77,9 @@ import AskOrAct from '@site/src/components/AskOrAct';
 - **Do a sequence.** *"Create a sales invoice for the September hours on the Adatum project and send
   it."* Several operations in a row, the result of one feeding the next. If a step fails, the
   assistant can tell you which one and why.
-- **Bring in the outside world.** With the Iceland apps, for example, *"Fetch yesterday's bank
-  statement and match it"* or *"Look up this kennitala in the national register."* Each app adds
-  its own operations; see the [app list](/apps/).
-- **Let it run without you.** With [Orchestrator](/orchestrator/), a sequence becomes a
-  **playbook** (a saved routine) that runs on a schedule and keeps a log of every step. An administrator or
-  consultant sets up playbooks; you can ask the assistant to run one or tell you how the last run
-  went.
+- **Use what other apps add.** Other Bifröst apps your company installs add operations of their
+  own, and the assistant can combine them with Foundation's in the same conversation; see the
+  [app list](/apps/).
 - **Ask what is possible.** *"What can you do with purchase orders?"* The assistant looks it up
   in Bifröst and tells you.
 

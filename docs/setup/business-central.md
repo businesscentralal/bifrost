@@ -15,7 +15,8 @@ description: "Run the setup wizard once per company, give people and apps permis
 Open **Bifrost Setup** (search for it with *Tell me*). In Business Central the Bifröst pages are
 spelled without the ö: *Bifrost Setup*, *Bifrost Messages* and so on. The notification at the top opens the
 **setup wizard**. It covers every Bifröst app you have installed, so no app asks for setup on its
-own. Some apps also have a setup page for their own area, described in that app's help.
+own. Other Bifröst apps also have a setup page for their own area, reached from the **Apps** group
+on Bifrost Setup and described in that app's help.
 
 The wizard takes you through the license agreement, outbound HTTP for every installed Bifröst
 app, licensing, and, online, the connection to the MCP server. On-premises it also asks for the
@@ -54,9 +55,8 @@ Both get their permissions in Business Central, on **Users** or **Microsoft Entr
 - the ordinary Business Central permissions for the data they work with;
 - a **posting gate** for each ledger they may post to. A posting gate is a separate permission set,
   not part of the general Bifröst ones: `BIFROST GL Post ori`, `BIFROST ItemPost ori`,
-  `BIFROST FA Post ori`, `BIFROST Job Post ori` and `BIFROST Res Post ori`. Warehouse posting comes
-  with the Bifrost Warehouse app.
-  Which posting each one allows: [Posting gates](/foundation/reference/setup/#posting-gates-bifrost-gl--item--fa--job--resource--warehouse-posting).
+  `BIFROST FA Post ori`, `BIFROST Job Post ori` and `BIFROST Res Post ori`.
+  Which posting each one allows: [Posting gates](/foundation/reference/setup/#posting-gates-bifrost-gl--item--fa--job--resource-posting).
 
 A typical setup:
 

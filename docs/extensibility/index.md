@@ -21,8 +21,7 @@ the like) and build from it. The samples are MIT licensed, so you can copy them 
 A **message type** is one operation your app offers, such as "log maintenance on a fixed asset"
 or "list stock reservations". It has a name, a one-line description, a help document, and code
 that does the work. Once it exists, every kind of caller can use it the same way: AI agents,
-MCP hosts, integrations over the API, other AL code, and workflows in
-[Bifrost Orchestrator](/orchestrator/).
+MCP hosts, integrations over the API and other AL code.
 
 Give your app's message types a **capability** of their own, usually one: the first part of their names, such as
 `Calibration` for a calibration app. An agent looks at the capabilities first, so pick one
@@ -181,11 +180,8 @@ contract, its headless audit, its help and these tests all agree.
 - **Calling message types**, from another system or from AL:
   [Integrating](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/INTEGRATING.md).
   The endpoints themselves are in the [API reference](/foundation/reference/api/).
-- **Chaining them into workflows.** A message type that follows the contract can be a step in a
-  Bifrost Orchestrator playbook as it is.
-  [What makes a good playbook step](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/Bifrost%20Reference%20Playbooks/README.md)
-- **Letting a coding agent do the work.** The repository ships agent skills: one for building
-  message types, one for building playbooks by conversation.
+- **Letting a coding agent do the work.** The repository ships agent skills for building
+  message types.
   [Skills](https://github.com/businesscentralal/bc-bifrost-reference/tree/main/skills)
 
 ## Start
@@ -203,4 +199,3 @@ What Foundation itself offers a dependent app, beyond the pattern above:
 - [Foundation public surface](/extensibility/public-surface): the interfaces, enums and events you may rely on
 - [Metering](/extensibility/metering): how usage of your message types is counted
 - [Setup, secrets and the request log](/extensibility/setup-and-secrets)
-- [Language Models extension points](/language-models/extensibility): adding a language-model provider

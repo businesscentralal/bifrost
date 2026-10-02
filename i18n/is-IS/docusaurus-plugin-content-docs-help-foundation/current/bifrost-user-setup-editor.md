@@ -39,8 +39,8 @@ Business Central og eigin kerfisleiðbeiningar.
 
 ## Kerfisleiðbeiningar {#system-prompt}
 
-Eigin texti á markdown-sniði sem gefur mállíkaninu viðbótarleiðbeiningar í samtölum í Bifrost
-Language Models (spjalli). Notaðu hann til að laga hegðun gervigreindarinnar að notandanum, bæta við
+Eigin texti á markdown-sniði sem gefur gervigreindinni viðbótarleiðbeiningar í spjalli, þegar
+forrit sem býður upp á spjall hefur verið sett upp og stillt. Notaðu hann til að laga hegðun gervigreindarinnar að notandanum, bæta við
 samhengi fyrirtækisins eða takmarka svör við tiltekin svið.
 
 ## Sjá einnig

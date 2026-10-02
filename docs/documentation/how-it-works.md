@@ -44,17 +44,17 @@ flowchart LR
   F["App: Foundation"] --> C1["Capability: Customer"]
   F --> C2["Capability: Sales"]
   F --> C3["Capability: Finance"]
-  T["App: Iceland Treasury"] --> C4["Capability: Landsbankinn"]
+  T["App: another Bifröst app"] --> C4["Capability: its own"]
   C1 --> M1["Check a credit limit"]
   C1 --> M2["Customer statement as PDF"]
   C2 --> M3["Post a sales document"]
   C3 --> M4["Match a bank reconciliation"]
-  C4 --> M5["Fetch account transactions"]
+  C4 --> M5["Its own operations"]
 ```
 
 *In words: an app adds capabilities, and each capability holds message types. Foundation adds
-Customer, Sales and Finance, among others; Iceland Treasury adds one capability per bank, such as
-Landsbankinn. Checking a credit limit and printing a customer statement both belong to Customer.*
+Customer, Sales and Finance, among others; another Bifröst app adds a capability of its own. Checking
+a credit limit and printing a customer statement both belong to Customer.*
 
 In the assistant's own tool list, capabilities are called *domains*. They have nothing to do with
 Microsoft's **Copilot & AI Capabilities** page in Business Central, which turns Copilot features on
@@ -86,7 +86,8 @@ import PlatformMap from '@site/src/components/PlatformMap';
 
 [Bifröst Foundation](/foundation/) is the one gate. It holds the catalogue of message types, hands
 out their help, checks permissions and license, and logs every call. Everything else in the family
-is an app that adds its own capabilities to the same catalogue. The [app list](/apps/) shows them.
+is an app that adds its own capabilities to the same catalogue. The [app list](/apps/) shows the
+apps that are available.
 
 ## What happens when you ask
 
@@ -131,7 +132,7 @@ The full statement: [Privacy](/licensing/privacy/).
 
 ## How far it goes
 
-From one answer to routines that run by themselves: [Try it out](/try-it-out/#what-to-ask-first)
+From one answer to a chain of operations and your own app's capabilities: [Try it out](/try-it-out/#what-to-ask-first)
 goes through the levels, with a question to try for each.
 
 ## What it covers, and how it grows
@@ -153,20 +154,12 @@ say so. {/* OPEN-19 */} That is the edge of what is installed, not a fault.
 Capabilities come from apps, and anyone can build one. They all join the same catalogue, behind the
 same permissions and the same log.
 
-- **Origo's apps** add capabilities such as Icelandic banks, document exchange, storage and schedules;
+- **Other Bifröst apps** add capabilities of their own. Each has its own setup page, reached from the
+  **Apps** group on Bifröst Setup, its own help, and keeps its credentials in the shared secret store;
   see the [app list](/apps/).
 - **Partners and ISVs** add capabilities for their own apps and industries, and list them in the
   [app registry](/apps/register-your-app/). See [Build on Bifröst](/extensibility/).
 - **Your own developers** can add a capability for your company's own processes, the same way.
-- **[Orchestrator](/orchestrator/)** chains message types from any app into routines, with no code.
-
-**An example: bank reconciliation.** Each app you add lets you ask for more:
-
-| With | You can ask | Capabilities used |
-|---|---|---|
-| Foundation | *"Reconcile the main bank account against this statement and show me what does not match."* | `Finance` |
-| + [Iceland Treasury](/iceland-treasury/) | *"Fetch yesterday's statement from Landsbankinn and reconcile it."* {/* OPEN-30 */} | `Landsbankinn`, `Finance` |
-| + [Orchestrator](/orchestrator/) | *"Do this every morning and tell me what did not match."* | `Orchestrator`, `Landsbankinn`, `Finance` |
 
 The assistant combines capabilities from different apps in one conversation.
 
