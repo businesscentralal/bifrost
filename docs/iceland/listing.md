@@ -19,7 +19,7 @@ Bifrost Iceland
 Icelandic tax filing, registry lookups, central bank rates and SMS for Business Central. (87)
 
 ## Short Description (max 100 chars)
-Skatturinn, Þjóðskrá, Seðlabanki, Skilagrein and SMS as Bifrost message types. (77)
+Skatturinn, Þjóðskrá, Seðlabanki, Skilagrein and SMS connected to Business Central. (83)
 
 ## Search Keywords
 1. Iceland tax
@@ -59,7 +59,7 @@ See [Full description](#full-description) below for the full description text.
 https://www.origo.is/
 
 ## Help Link
-https://docs.bifrost.origo.is/en-us/iceland/
+https://businesscentralal.github.io/bifrost/en-us/iceland/
 
 ## Privacy Policy
 https://www.origo.is/um-origo/stefnur/personuverndarstefna
@@ -73,7 +73,7 @@ https://www.origo.is/um-origo/stefnur/personuverndarstefna
 
 **Bifrost Iceland** adds Iceland-specific capabilities to Bifrost — a message-based integration layer that gives external systems, AI agents, and automation tools structured access to Business Central data and procedures via OData. It connects Business Central to Icelandic government services, the Central Bank, and communication providers, all through the same Queue → Task → Data API pattern used across the Bifrost platform. Any MCP-compatible client, REST caller, or BC process can invoke these operations without custom development.
 
-The app adds 71 message types on top of **Bifrost Foundation**.
+The app is installed on top of **Bifrost Foundation**.
 
 ### Who is this for?
 
@@ -125,7 +125,7 @@ All submissions support both production and test client types. Test mode sends t
 
 ### Security
 
-Credentials for Umsjá, Síminn, Nova, Skatturinn, Skilagrein and Já Gagnatorg are held in the Bifröst Foundation secret store, backed by Business Central IsolatedStorage, and are masked before any outbound request is written to the request log. Access is governed by dedicated permission sets: BIFROST ISFull ori, BIFROST Umsja ori, BIFROST NatReg ori, BIFROST VAT ori, BIFROST Payroll ori, BIFROST CapTax ori, BIFROST Collect ori, BIFROST SMS ori and BIFROST SMS Fgn ori.
+Credentials for Umsjá, Síminn, Nova, Skatturinn, Skilagrein and Já Gagnatorg are held in the Bifröst Foundation secret store, are never shown again once entered, and are masked before any outbound request is written to the request log. Access is governed by dedicated permission sets: BIFROST ISFull ori, BIFROST Umsja ori, BIFROST NatReg ori, BIFROST VAT ori, BIFROST Payroll ori, BIFROST CapTax ori, BIFROST Collect ori, BIFROST SMS ori and BIFROST SMS Fgn ori.
 
 ### Supported editions and countries
 

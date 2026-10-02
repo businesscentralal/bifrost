@@ -5,7 +5,7 @@ sidebar_label: "Einingar þjóðskrár"
 sidebar_position: 4
 ---
 
-Síðan **Einingar þjóðskrár** (`Umsja Registry List ori`) sýnir staðbundið afrit af þjóðskrárgögnum sem sótt eru til Þjóðskrár Íslands gegnum Umsjár-þjónustuna. Hún er opnuð af spjaldinu [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/).
+Síðan **Einingar þjóðskrár** sýnir staðbundið afrit af þjóðskrárgögnum sem sótt eru til Þjóðskrár Íslands gegnum Umsjár-þjónustuna. Hún er opnuð af spjaldinu [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/).
 
 ## Hvað síðan sýnir
 
@@ -13,20 +13,14 @@ Ein lína á hvern einstakling eða lögaðila, auðkennd með kennitölu. Auk n
 
 ## Hvernig gögnin berast
 
-Síðan er skyndiminni, ekki innsláttarsíða — hverja línu skrifar skilaboðategund sem hefur spurt Umsjá. Uppfærðu hana með:
-
-| Skilaboðategund | Tilgangur |
-| --- | --- |
-| `Iceland.NationalRegistry.Sync` | Heildarsamstilling þjóðskrárafritsins. |
-| `Iceland.DeltaMonthly.Sync` | Mánaðarleg uppfærsla á breyttum færslum. |
-| `Iceland.NationalRegistryCheck.Get` | Flettir upp einni kennitölu í þjóðskrá. |
-| `Iceland.Search.Get`, `Iceland.SearchByName.Get`, `Iceland.SearchBySocialID.Get` | Leit í þjóðskrá eftir kennitölu eða nafni. |
-| `Iceland.Address.Get`, `Iceland.AddressInfo.Get` | Uppflettingar heimilisfanga. |
+Síðan er skyndiminni, ekki innsláttarsíða. Hver lína er skrifuð þegar Bifröst spyr Umsjá: við
+heildarsamstillingu þjóðskrár, mánaðarlega uppfærslu breyttra færslna, uppflettingu einnar kennitölu
+eða leit eftir kennitölu, nafni eða heimilisfangi.
 
 **Eyða öllu** hreinsar skyndiminnið. Það eyðir aðeins staðbundna afritinu; ekkert er sent til Þjóðskrár. Næsta samstilling fyllir síðuna aftur.
 
 ## Heimildir og uppsetning
 
-Lestur síðunnar og uppflettingar í þjóðskrá falla undir **BIFROST Umsja ori**, sem fylgir **BIFROST ISFull ori**; samstillingartegundirnar krefjast auk þess hins úthlutanlega **BIFROST NatReg ori**. Leyfisnúmer, notandanafn og lykilorð Umsjár þurfa að vera skráð fyrst — sjá [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/).
+Lestur síðunnar og uppflettingar í þjóðskrá falla undir **BIFROST Umsja ori**, sem fylgir **BIFROST ISFull ori**; samstilling þjóðskrár krefst auk þess hins úthlutanlega **BIFROST NatReg ori**. Leyfisnúmer, notandanafn og lykilorð Umsjár þurfa að vera skráð fyrst — sjá [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/).
 
 Þjóðskrárgögn eru persónuupplýsingar. Haltu heimildasettunum þröngum og hreinsaðu skyndiminnið þegar fyrirtækið hefur ekki lengur heimild til að geyma gögnin.

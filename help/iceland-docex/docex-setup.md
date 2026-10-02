@@ -24,17 +24,17 @@ Changing an environment changes which secret the module reads: credentials are s
 
 ## Credentials
 
-Credentials are never fields on this page. They live in the Bifröst secret store, are written to Isolated Storage, and are never shown again — the page reports only whether a value exists.
+Credentials are never fields on this page. They live in the Bifröst secret store and are never shown again — the page reports only whether a value exists.
 
-| Secret code | Scope | Used for |
-| --- | --- | --- |
-| `ADVANIA-<ENV>-USERNAME` / `ADVANIA-<ENV>-PASSWORD` | Company | Advania API sign-in. |
-| `UNIMAZE-<ENV>-USERNAME` / `UNIMAZE-<ENV>-PASSWORD` | Company | Unimaze API sign-in. The password field also takes an API key. |
-| `INEXCHANGE-<ENV>-API-KEY` / `INEXCHANGE-<ENV>-CLIENT-TOKEN` | Company | InExchange API key and the client token that identifies the company. |
+Each provider needs its own values, stored per environment:
 
-`<ENV>` is the selected environment, for example `ADVANIA-LIVE-USERNAME` or `INEXCHANGE-TEST-CLIENT-TOKEN`.
+| Provider | Values |
+| --- | --- |
+| Advania | User name and password for the Advania API. |
+| Unimaze | User name and password (the password field also takes an API key). |
+| InExchange | API key, and the client token that identifies the company. |
 
-Business Central keeps stored secrets separate per extension, so credentials entered in Origo Cloud Events DocEx — or in an earlier version of this app — cannot be carried over. Enter each value once after installing.
+Credentials entered in Origo Cloud Events DocEx cannot be carried over. Enter each value once after installing.
 
 ## Actions
 
@@ -55,15 +55,15 @@ Business Central keeps stored secrets separate per extension, so credentials ent
 | | BIS30 Code Map | Opens the [BIS30 Code Map](/help/iceland-docex/bis30-code-map/). |
 | | VAT G/L Account Map | Opens the [Vendor VAT G/L Account Map](/help/iceland-docex/vend-vat-gl-map/). |
 
-## Setup notification
+## Outbound HTTP
 
-Every provider is reached over HTTP. When **Allow HttpClient Requests** is not enabled for the extension, the page raises a notification with an action that opens the extension settings. No document exchange call succeeds until it is enabled.
+Every provider is reached over HTTP. Outbound HTTP for the Bifröst apps is turned on by the setup wizard: until it is, **Bifröst Setup** shows a notification with the action **Start setup wizard**, and no document exchange call succeeds.
 
 ## Getting started
 
-1.  Open **Bifröst Setup**, choose **Bifrost Iceland DocEx Setup** in the **Apps** group, and clear the HTTP client notification if it appears.
+1.  Open **Bifröst Setup**. If it shows the HTTP notification, choose **Start setup wizard** first. Then choose **Bifrost Iceland DocEx Setup** in the **Apps** group.
 2.  Set the **Environment** for each provider you use.
 3.  Enter the credentials for those providers with the **Set …** actions.
 4.  Choose **Test … Connection** for each provider and confirm it succeeds.
 5.  Choose **Update BII Data Exchange Definitions** if you import incoming documents.
-6.  Use the Bifröst Queue API to submit document exchange requests, and retrieve the results from the Bifröst Data API.
+6.  Send and receive documents through Bifröst, for example by asking your AI assistant.

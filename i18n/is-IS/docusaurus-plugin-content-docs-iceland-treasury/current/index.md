@@ -4,55 +4,89 @@ title: "Bifröst fjárstýring Íslands"
 sidebar_label: "Yfirlit"
 sidebar_position: 1
 slug: /
-description: "Tengingar við íslenska banka sem Bifrastar-skilaboðagerðir: Landsbankinn, Arion, Íslandsbanki, Kvika og Sparisjóðir á sameiginlegri IOBS-undirritunarumgjörð."
+description: "Tengir Business Central við Landsbankann, Arion banka, Íslandsbanka, Kviku banka og Sparisjóðina: yfirlit, greiðslur, kröfur, kort og rafræn skjöl."
 ---
 
-Bifröst fjárstýring Íslands tengir Business Central við íslensku bankana. Hún byggir á Bifröst Foundation og birtir kröfur, greiðslur, yfirlit, reikninga, kort, gengi og rafræn skjöl sem skilaboðagerðir, þannig að ytra kerfi, MCP-biðlari eða ferli í Business Central nái til hvers banka gegnum sama biðraðar-, verk- og gagnamynstur og önnur Bifrastar-forrit.
+# Bifröst fjárstýring Íslands
 
-Undir liggur **Draupnir**, undirritunarumgjörð IOBS (Icelandic Online Banking Standard, *Sambankaskema*). Sérhver bankaeining byggir WS-Security-undirrituð SOAP-umslög sín gegnum sama viðmót, svo ný bankatenging erfir flutninginn í stað þess að útfæra hann upp á nýtt.
+**Íslensku bankarnir þínir, inni í Business Central.** Sæktu yfirlit, sendu greiðslur og haltu utan um
+kröfur hjá Landsbankanum, Arion banka, Íslandsbanka, Kviku banka og Sparisjóðunum án þess að fara út
+úr Business Central.
 
-## Einingar
+Allir bankarnir virka eins gegnum Bifröst, svo ferli, samþætting eða aðstoðarmaður nær til hvers
+banka á sama hátt. Þú setur aðeins upp þá banka sem þú notar.
 
-| Eining | Hvað hún nær yfir |
-| --- | --- |
-| **Draupnir** | Undirritunarumgjörð IOBS — fimm undirritunarsnið á bak við eitt viðmót. Sjálf ekki bankatenging. |
-| **Landsbankinn** | Kröfur og kröfuskeyti, kröfusniðmát, kort og kortalyklar, reikningar, eignasöfn, gengi og vextir, rafræn skjöl, færsluhirðingaruppgjör, innlendar og erlendar greiðslur, og innlestur og afstemming bankayfirlita. |
-| **Arion** | Fyrirspurnir um reikninga, yfirlit, greiðsluseðla og kreditkort, innheimtukröfur og kröfuskeyti, innlendar og erlendar greiðslur, erlend yfirlit, gengi, innsendingu rafrænna skjala og afstemmingu bankayfirlita. |
-| **Íslandsbanki** | 23 skilaboðagerðir yfir B2B SOAP-þjónusturnar: reikningsyfirlit, gengi, staðfesting reiknings, ógreiddir reikningar, greiðsluskeyti, debetkortafærsla, kröfur, milliinnheimta, erlendar greiðslur, innsending skráa og viðskiptasaga verðbréfa. |
-| **Kvika banki** | 11 skilaboðagerðir yfir IOBS-þjónustur netbanka Kviku: kröfufyrirspurnir og ósamstilltar skeytaaðgerðir, reikningsyfirlit, gengi, greiðsluskeyti og niðurstöðuskeyti greiðslna. |
-| **Sparisjóðir** | 24 skilaboðagerðir yfir Sambankaskema 2013 hjá Sparisjóðunum: yfirlit, kröfur og ósamstillt kröfuskeyti, greiðslur, gengi, reikningar, greiðsluseðlar, kreditkort og lestur beiðnaskrár, auk innlesturs yfirlita í bankaafstemmingu gegnum gagnaskiptaskilgreiningu. |
+*Viðbótarforrit ofan á [Bifröst Foundation](/foundation/), fyrir fyrirtæki á Íslandi. Nýr notandi
+Bifrastar? Byrjaðu á [Hvernig Bifröst virkar](/documentation/how-it-works/).*
 
-Hver eining hefur sínar eigin hjálparkóðaeiningar eftir sviðum, svo `Help.Implementation.Get` svarar fyrir hverja skilaboðagerð með nákvæmum beiðni- og svarsamningi hennar.
+## Hvað þú getur gert
 
-## Hvernig það virkar
+- **Lesið bankayfirlit inn í afstemmingu.** Hjá Landsbankanum, Arion banka og Sparisjóðunum er
+  yfirlit lesið beint inn í **Bankareikningsafstemmingu** og þú sérð samantekt yfir línur og
+  stöður. Landsbankinn og Arion banki geta lesið inn kortafærslur á sama hátt.
+- **Lesið yfirlit, reikninga og stöður.** Lesið reikningsyfirlit hjá öllum bönkunum og flett upp eða
+  staðfest reikninga. Landsbankinn gefur einnig dagslokastöður og Íslandsbanki viðskiptasögu
+  verðbréfa.
+- **Sent greiðslur.** Sent bunka innlendra greiðslna hjá öllum bönkunum og sótt niðurstöðuna.
+  Landsbankinn, Arion banki og Íslandsbanki taka einnig við erlendum greiðslum.
+- **Stofnað kröfur og fylgt þeim eftir.** Stofnað og fellt niður kröfur, breytt þeim þar sem bankinn
+  leyfir það og séð greiðslur sem borist hafa inn á þær.
+- **Unnið með kort, skjöl og gengi.** Kortafærslur og kortalyklar hjá Landsbankanum, kreditkort hjá
+  Arion banka og Sparisjóðunum, rafræn skjöl hjá Landsbankanum og Arion banka, og gengi hjá öllum
+  bönkunum.
+- **Afstemmt eftir tímaáætlun.** Fjárstýringin sækir yfirlitið og bankaafstemming Foundation parar
+  það. Með [Orchestrator](/orchestrator/) keyrir sama ferli sjálfkrafa, til dæmis á hverjum morgni,
+  og segir þér hvað paraðist ekki. Sjá
+  [What it covers, and how it grows](/documentation/how-it-works/#what-it-covers-and-how-it-grows).
 
-1. Settu upp Bifröst Foundation og því næst Bifröst fjárstýringu Íslands.
-2. Virkjaðu útsendar HTTP-biðlarabeiðnir fyrir viðbótina.
-3. Stilltu þá banka sem fyrirtækið notar á uppsetningarsíðu Bifrastar. Skilríki og aðgangsupplýsingar eru skráð í sameiginlegu leyndarmálageymslu Foundation og rata aldrei í töflu.
-4. Kallendur senda Bifrastar-skilaboð sem nefna skilaboðagerð banka; Draupnir undirritar umslagið og einingin talar við bankann.
+## Fáðu það
 
-## Ósamstilltar skeytaaðgerðir
+Settu **Bifrost Iceland Treasury** upp við hlið Bifröst Foundation, af AppSource eða gegnum
+samstarfsaðila. Það krefst Business Central 28.0 eða nýrra, Essentials eða Premium.
 
-Kröfuskeytaaðgerðir hjá Kviku, Sparisjóðunum og Íslandsbanka eru ósamstilltar: bankinn skilar auðkenni aðgerðar og niðurstaðan er sótt á eftir með `getOperationResult`. Kallandi sendir skeytið, geymir auðkennið og spyr um stöðu — hann bíður ekki eftir bankanum.
+## Settu það upp
 
-## Heimildasett
+| Skref | Hvað | Hver |
+|---|---|---|
+| 1 | Gerðu samning við hvern banka um þær þjónustur sem þú notar og fáðu notandanafn, lykilorð og skilríki eða lykla sem hann gefur út. | Fjármálasvið, með bankanum |
+| 2 | Leyfðu útsendar HTTP-beiðnir fyrir Bifröst-forrit, einu sinni, í **uppsetningarleiðsögn Bifrastar** í Foundation. | Kerfisstjóri Business Central |
+| 3 | Keyrðu **Bifröst Ísland Fjárstýring - Bankauppsetning** úr **Leiðsögn við uppsetningu**. Ein leiðsögn nær yfir alla fimm bankana; skráðu notandanafn fyrirtækisins og leyndarmál fyrir bankana sem þú notar. | Kerfisstjóri Business Central |
+| 4 | Fyrir kröfur hjá Landsbankanum, Arion banka eða Sparisjóðunum: skráðu kröfuauðkenni bankans á greiðslumátann. Fyrir innlestur yfirlita: veldu innlestrarsnið bankans á bankareikningi Business Central. | Kerfisstjóri Business Central |
+| 5 | Gefðu hverjum notanda eða þjónustu heimildasettin fyrir það sem hann má gera hjá bankanum. Notendur sem skrá sig inn sem þeir sjálfir skrá eigin bankaaðgang. | Kerfisstjóri Business Central, síðan hver notandi |
 
-Skilaboðagerðir sem hreyfa fé eða stöðu liggja á bak við hliðtöflur, eitt heimildasett á hvert hlið, svo hægt er að veita lestur yfirlita án þess að veita heimild til að framkvæma greiðslur. Hver eining býður líka fullt sett sem víkkar `BIFROST Full ori` í Foundation — `BIFROST IBFull ori`, `BIFROST KVFull ori`, `BIFROST SPFull ori` og samsvarandi sett fyrir Landsbankann og Arion — og Sparisjóðirnir bæta við lesheimildasetti fyrir kröfur sem víkkar `BIFROST Read ori`.
+Leiðbeiningar skref fyrir skref eru í hjálpinni í forritinu:
+[Uppsetningarleiðsögn fjárstýringar](/help/iceland-treasury/treasury-setup-wizard/),
+[Uppsetning Bifröst Ísland Fjárstýringar](/help/iceland-treasury/treasury-setup/),
+[Leyndarmál banka](/help/iceland-treasury/treasury-secrets/),
+[Bankaaðgangur notanda](/help/iceland-treasury/bank-user-setup/) og
+[Greiðslumátar](/help/iceland-treasury/payment-methods/).
 
-## Í stað útgefnu forritanna
+Hvað hver banki þarf og nær yfir: [Landsbankinn](./banks/landsbankinn),
+[Arion banki](./banks/arion), [Íslandsbanki](./banks/islandsbanki), [Kvika banki](./banks/kvika)
+og [Sparisjóðir](./banks/sparisjodir).
 
-Fjárstýring Íslands er arftaki fimm útgefinna eða sérsniðinna Cloud Events forrita: *Origo Cloud Events Landsbankinn*, *Origo Cloud Events Arionbanki*, og sérsniðnu forritanna *Cloud Events Íslandsbanki*, *Cloud Events Kvika banki* og *Cloud Events Sparisjóðir*. Hver eining hefur sína uppsetningarkóðaeiningu sem tekur yfir gögn forvera síns við fyrstu uppsetningu meðan bæði forritin eru uppsett hlið við hlið, þar með talin svæði á sameiginlegum grunntöflum og úthlutuð heimildasett.
+## Gott að vita
 
-Geymdar aðgangsupplýsingar flytjast **ekki** yfir — Isolated Storage er bundið hverri viðbót og arftakinn er nýtt forrit. Skilríki og lykilorð eru skráð aftur eftir skiptin.
+- **Það vinnur sem þú.** Kall notar eigin bankaaðgang notandans ef hann hefur skráð hann, annars
+  sjálfgefin gildi fyrirtækisins. Hvert kall er skráð.
+- **Lykilorð, skilríki og lyklar** eru slegin inn í huldum gluggum og geymd í dulkóðaðri geymslu
+  forritsins sjálfs. Þau eru aldrei skrifuð í töflu eða sýnd í svari. Uppsetningarsíðan sýnir
+  upplýsingar um skilríkin, svo þú sjáir hvenær þarf að endurnýja þau.
+- **Greiðslur og kröfur hreyfa fé.** Þær eru á bak við eigin heimildasett, svo notandi getur fengið
+  að lesa yfirlit án þess að mega greiða. Prófaðu þær fyrst í prófunarfyrirtæki.
+- **Beiðnir eru undirritaðar.** Landsbankinn, Arion banki, Kvika banki og Sparisjóðirnir undirrita
+  hverja beiðni með biðlaraskilríki, gegnum Draupni. Íslandsbanki notar aðeins notandanafn og
+  lykilorð.
+- **Að færa þig frá eldri Cloud Events bankaforritunum?** Gögn eru tekin yfir við uppsetningu, en
+  geymd lykilorð og skilríki flytjast ekki. Skráðu þau aftur eftir skiptin.
 
-## Kröfur
+## Finndu aðgerðirnar
 
-- Microsoft Dynamics 365 Business Central 28.0 eða nýrra, Essentials eða Premium.
-- Bifröst Foundation, fáanlegt sérstaklega á AppSource.
-- Samning við bankann um þær þjónustur sem eru í notkun, ásamt þeim skilríkjum og aðgangsupplýsingum sem hann gefur út.
-- Útsendar HTTP-biðlarabeiðnir virkjaðar fyrir viðbótina.
+Uppsettar skilaboðategundir og samningar þeirra eru lesnir úr Business Central sjálfu: með
+MCP-tólunum `list_message_types` og `describe_message_type`, eða á síðunni Bifrost Message Types.
 
-## Hvert næst
-
-- [Uppflettirit skilaboðagerða](./reference/message-types/) — beiðni- og svarsamningur hverrar gerðar, myndaður úr forritinu sjálfu
-- [Byggja ofan á Bifröst](/extensibility/)
+- [Draupnir-undirritarar](./reference/draupnir-signers): hvernig beiðnir til bankanna eru undirritaðar
+- [Notendasviðsmyndir fyrir AppSource](./user-scenarios) · [Texti AppSource-skráningar](./listing)
+- Heimildasett: eitt fyrir hvert svið sem les eða hreyfir fé hjá hverjum banka, talin upp á síðu
+  hvers banka. Fullt sett fyrir hvern banka víkkar `BIFROST Full ori` í Foundation, til dæmis
+  `BIFROST LBFull ori` fyrir Landsbankann.

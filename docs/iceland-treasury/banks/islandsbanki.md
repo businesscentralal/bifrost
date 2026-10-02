@@ -3,104 +3,94 @@ id: islandsbanki
 title: "Íslandsbanki"
 sidebar_label: "Íslandsbanki"
 sidebar_position: 3
-description: "Twenty-three message types over the Íslandsbanki B2B SOAP services: statements, rates, payments, claims, milliinnheimta, foreign payments, file delivery and securities."
+description: "What Bifröst Iceland Treasury does with Íslandsbanki: statements, rates, account checks, domestic and foreign payments, claims, milliinnheimta, file delivery and securities."
 ---
 
-The Íslandsbanki module connects Business Central to the bank's B2B SOAP services. It exposes twenty-three message types covering account statements, currency rates, account verification, unpaid invoices, domestic and foreign payments, direct collection claims, *milliinnheimta*, presentment-file delivery and securities transaction history.
+This page is for the finance team and the Business Central administrator at a company that banks
+with Íslandsbanki. It explains what the Íslandsbanki connector in
+[Bifröst Iceland Treasury](/iceland-treasury/) does, what you set up, and what you see in Business
+Central afterwards.
 
-Íslandsbanki is the one bank in Iceland Treasury that signs nothing. Its transport sends a WS-Security UsernameToken over TLS, so the module never loads a client certificate. It stores the bank's own public certificate instead, and that is the only certificate it holds.
+Íslandsbanki is the one bank in the app that needs no client certificate: it authenticates with a
+user name and password over an encrypted connection.
 
-## What it covers
+## What it does for you
 
-| Area | What the module does |
-| --- | --- |
-| **Statements and rates** | Reads an account statement for an account and date span with skip/take paging, and the bank's published exchange rates for a date and rate type. |
-| **Account checks** | Verifies that an account exists, optionally against an owner's registration number, and lists the unpaid claims, giro slips, bonds and bills owed by a registration number. |
-| **Domestic payments** | Registers an interbank transfer batch, error-checks it, executes it and collects the result. Also transfers an amount onto a debit card. |
-| **Claims** | Creates and cancels single collection claims, fetches one claim by its identity, lists claims for a claimant over a due-date span and state, and lists the payments received against a claim. |
-| **Milliinnheimta** | Lists intermediary-collection claims and payments for a claimant over a date span, and returns a claim from intermediary collection. |
-| **Foreign payments** | Registers a cross-border payment batch, fetches the quote and charges for it, confirms it and collects the result. |
-| **File delivery** | Sends a Base64-encoded file into the bank's presentment system. |
-| **Securities** | Returns securities transaction history for an identifier over a date span. |
+- **Statements and rates.** Read an account statement for any account and period, and the bank's
+  exchange rates for a date and rate type.
+- **Account checks.** Verify that an account exists, optionally together with its owner's kennitala,
+  and list the unpaid claims, giro slips, bonds and bills a kennitala owes.
+- **Domestic payments.** Register a batch of transfers, have the bank check it, release it and
+  collect the result. Transfer an amount onto a debit card.
+- **Claims.** Create and cancel collection claims, look one up, list claims for a claimant by due
+  date and state, and see the payments received against a claim.
+- ***Milliinnheimta*.** List intermediary-collection claims and payments for a period, and return a
+  claim from intermediary collection.
+- **Foreign payments.** Register a batch, review the bank's quote and charges, confirm it and
+  collect the result.
+- **File delivery.** Send a file into the bank's presentment system.
+- **Securities.** Read securities transaction history for a period.
 
-Every call is written to Foundation's shared Bifröst Request Log with the log type `Islandsbanki`. The WS-Security password element is redacted from the logged envelope unless Request Debug Mode is switched on in Bifröst Setup.
+Payments are two-stage: what you register is not executed until it is released (domestic) or
+confirmed (foreign), and the bank identifies the work by a batch number you can come back with.
 
-## Message types
+You, a scheduled routine or an AI assistant can ask for any of these. The installed operations and
+their contracts are read from Business Central itself: the MCP tools `list_message_types` and
+`describe_message_type`, or the Bifrost Message Types page.
 
-Each type below has a generated page in the [message type reference](/iceland-treasury/reference/message-types/), which carries the full request and response contract, the validation errors and the access rules. The same contract is available at runtime through `Help.Implementation.Get`.
+## What you set up
 
-| Type | What it does |
-| --- | --- |
-| `Islandsbanki.Statement.Get` | Retrieves an account statement for an account and date span, with skip/take paging. |
-| `Islandsbanki.CurrencyRates.Get` | Retrieves exchange rates for a given date and rate type. |
-| `Islandsbanki.Account.Verify` | Checks whether an account, and optionally an owner registration number, exists. |
-| `Islandsbanki.UnpaidInvoice.Query` | Lists the unpaid claims, giro slips, bonds and bills owed by a registration number. |
-| `Islandsbanki.Payment.Batch` | Registers a batch of interbank transfers and returns the bank batch number. Gated. |
-| `Islandsbanki.Payment.Validate` | Error-checks a registered payment batch by batch number. |
-| `Islandsbanki.Payment.Execute` | Executes a registered payment batch by batch number. Gated. |
-| `Islandsbanki.Payment.Result` | Fetches the status and result of a payment batch by batch number. |
-| `Islandsbanki.DebitCard.Transfer` | Transfers an amount onto a debit card. Gated. |
-| `Islandsbanki.Claim.Create` | Creates a single collection claim. Gated. |
-| `Islandsbanki.Claim.Cancel` | Cancels a collection claim. Gated. |
-| `Islandsbanki.Claim.Get` | Fetches a single claim by its identity. |
-| `Islandsbanki.Claim.Query` | Lists claims for a claimant over a due-date span and state. |
-| `Islandsbanki.Claim.QueryPayments` | Lists the payments received against one claim. |
-| `Islandsbanki.Milliinnheimta.Claim.Query` | Lists intermediary-collection claims for a claimant over a date span. |
-| `Islandsbanki.Milliinnheimta.Payment.Query` | Lists intermediary-collection payments for a claimant over a date span. |
-| `Islandsbanki.Milliinnheimta.Claim.Return` | Returns a claim from intermediary collection. Gated. |
-| `Islandsbanki.ForeignPayment.Register` | Registers a batch of foreign payments and returns the bank batch number. Gated. |
-| `Islandsbanki.ForeignPayment.Rates` | Fetches the rates, quote and service charges for a registered foreign-payment batch. |
-| `Islandsbanki.ForeignPayment.Confirm` | Confirms and executes a registered foreign-payment batch. Gated. |
-| `Islandsbanki.ForeignPayment.Result` | Fetches the result and status of a foreign-payment batch. |
-| `Islandsbanki.File.Send` | Sends a Base64-encoded file into the presentment system. |
-| `Islandsbanki.Securities.TransactionHistory` | Returns securities transaction history for an identifier over a date span. |
+1. **An agreement with Íslandsbanki** for the services you use, with a B2B user name and password,
+   and the bank's own public certificate.
+2. **The Íslandsbanki row on Bifrost Iceland Treasury Setup**: leave it enabled, enter the company
+   user name, then use **Set Company Password** and **Set Bank Certificate**. The client certificate
+   action stays disabled for this bank. See the
+   [setup page help](/help/iceland-treasury/treasury-setup/).
+3. **Personal credentials, if your users have their own login at the bank.** Each user enters their
+   own user name and password on **Bifrost User Setup**; see
+   [Bank credentials for your user](/help/iceland-treasury/bank-user-setup/). A personal user name
+   without a personal password is refused with a clear error, never sent with the company password.
+4. **Permissions.** Assign the permission sets below.
 
-## Setting up
-
-Íslandsbanki is configured from the shared **Bifröst Treasury Setup** page, which lists all five banks in one place. The row for Íslandsbanki carries the enabled flag, the company user name, an optional base-URL override and the transport selection. See the [Treasury Setup help](/help/iceland-treasury/treasury-setup/) for the page itself.
-
-Íslandsbanki uses three of the shared bank secrets:
-
-| Secret | Scope | Purpose |
+| Credential | Kept for | Notes |
 | --- | --- | --- |
-| Company password | Company | The password for the company user name. Used when the caller has no personal credentials. |
-| User password | Company and user | The password for a caller's personal user name. |
-| Bank certificate | Company | The bank's own public certificate. |
+| Company password | The company | Used when the calling user has no personal credentials. |
+| User password | Each user | Used together with the user's own user name. |
+| Bank certificate | The company | The bank's public certificate. |
 
-There is no client certificate and no certificate password for this bank. Those actions stay switched off on the setup page, because the transport signs nothing. Secrets are held in the extension's own Isolated Storage, never in a table, telemetry entry or error message. See the [secrets help](/help/iceland-treasury/treasury-secrets/) for how to store and clear them.
+All values are entered in masked dialogs and never shown again; see
+[Bank secrets](/help/iceland-treasury/treasury-secrets/).
 
-A caller can authenticate as themselves rather than as the company. A personal user name is entered on **Bifröst User Setup**, and the personal password is stored against the same record; see the [user setup help](/help/iceland-treasury/bank-user-setup/). Name and password must match in scope: if a personal user name is set without a personal password, the call fails with an explicit error rather than falling back to the company password.
+## What you see in Business Central
 
-## Batch operations
-
-Payments and foreign payments are two-stage. The bank does not execute what you register until you tell it to, and it identifies the work by a batch number rather than by an operation id.
-
-- **Domestic payments.** `Payment.Batch` registers the transfers and returns the bank batch number. `Payment.Validate` error-checks that batch, `Payment.Execute` releases it, and `Payment.Result` reports what happened to it. A caller keeps the batch number and comes back for the result; it does not block waiting for the bank.
-- **Foreign payments.** `ForeignPayment.Register` returns the batch number, `ForeignPayment.Rates` returns the quote and service charges for review, `ForeignPayment.Confirm` executes the batch and `ForeignPayment.Result` reports the outcome.
-
-Registering and confirming are separately gated from reading the result, so a process that only collects outcomes needs no payment permission.
+- The Íslandsbanki row on **Bifrost Iceland Treasury Setup** shows whether every secret is in place.
+  Its certificate FactBox says the bank uses no client certificate.
+- Every call to the bank is logged on the **Bifrost Request Log**, with the password masked.
 
 ## Permission sets
 
-Money- and state-moving message types sit behind gate tables. Each gate is an empty table, and the permission set that grants write access to it is the permission itself — the module checks write permission before it does any work, and a caller without it gets an error response with no side effects.
+Registering and executing payments, and creating or cancelling claims, need their own permission
+sets. Reading statements, rates, claims and payment results needs nothing beyond general Bifröst
+access, so a routine that only collects results does not need payment rights.
 
-| Permission set | Gates |
+| Permission set | Grants |
 | --- | --- |
-| `BIFROST IBPaymt ori` | `Islandsbanki.Payment.Batch`, `Islandsbanki.Payment.Execute`, `Islandsbanki.DebitCard.Transfer` |
-| `BIFROST IBClaim ori` | `Islandsbanki.Claim.Create`, `Islandsbanki.Claim.Cancel`, `Islandsbanki.Milliinnheimta.Claim.Return` |
-| `BIFROST IBFrgPay ori` | `Islandsbanki.ForeignPayment.Register`, `Islandsbanki.ForeignPayment.Confirm` |
+| `BIFROST IBPaymt ori` | Registering and releasing domestic payment batches, and debit card transfers |
+| `BIFROST IBClaim ori` | Creating and cancelling claims, and returning a claim from intermediary collection |
+| `BIFROST IBFrgPay ori` | Registering and confirming foreign payments |
 
-The remaining message types are read-only and are not gated. `BIFROST IBFull ori` extends Foundation's `BIFROST Full ori` with the module's objects; it is the set to grant an integration user that needs everything.
+`BIFROST IBFull ori` extends Foundation's `BIFROST Full ori`: it is the set behind full access to the
+Íslandsbanki connector.
 
-## Replacing the per-tenant app
+## Moving from Cloud Events Íslandsbanki
 
-This module succeeds the per-tenant app *Cloud Events Íslandsbanki*. The two can be installed side by side, and on its first install the module runs a take-over that copies the predecessor's data:
+Install Bifröst Iceland Treasury beside the old app. On first install it takes over the company user
+name, the Íslandsbanki settings and the users' permission set assignments, then you can remove the
+old app. Data already in the new app is never overwritten.
 
-- the three gate tables, row for row, so existing access is preserved;
-- the company user name, which moves from the old setup table onto the shared Bank Setup row;
-- the Íslandsbanki fields that lived on shared base tables, copied field by field because their numbers moved with the new object range;
-- every user assignment of an old permission set, re-pointed at the Bifröst set that replaces it.
+**Passwords and the bank certificate do not carry over.** Enter them once after the switch.
 
-The take-over runs only on a first install, and it skips any table that already holds rows, so it cannot overwrite work done after the switch.
+## Where to go next
 
-Stored secrets do **not** carry over. Isolated Storage is scoped per extension and this is a new app, so the passwords and the bank certificate must be entered again once the module is installed.
+- [Iceland Treasury overview](/iceland-treasury/)
+- [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/)

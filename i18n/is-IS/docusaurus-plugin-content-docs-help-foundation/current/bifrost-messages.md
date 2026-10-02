@@ -13,7 +13,7 @@ Síðan **Bifröst skilaboð** sýnir öll Bifröst skilaboð sem kerfið hefur 
 | --- | --- |
 | **Kenni** | Einkvæmt auðkenni (GUID) skilaboðanna. |
 | **Útgáfa** | Útgáfa Bifröst forskriftar (t.d. 1.0). |
-| **Tegund** | Skilaboðagerð sem ákvarðar hvernig unnið er úr skilaboðunum (t.d. `Customer.CreditLimit.Get`). |
+| **Tegund** | Skilaboðagerð sem ákvarðar hvernig unnið er úr skilaboðunum. |
 | **Staða** | Núverandi vinnslustaða: _Vinnslu lokið_, _Vinnsla í gangi_, _Vinnsla ekki í gangi_, eða _Engin vinnsla áætluð_. |
 | **Uppruni** | Ytra kerfið eða forritið sem sendi skilaboðin. |
 | **Efni** | Frjáls texti sem lýsir innihaldi skilaboðanna. |

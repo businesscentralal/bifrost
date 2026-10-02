@@ -10,41 +10,33 @@ Bifröst Foundation owns one secret store for every application built on it. An 
 registers the secrets it needs, an administrator enters the values through one shared masked
 dialog, and the application reads them back with a single call.
 
-Before this, each application shipped its own `<X> Secret Mgt ori` codeunit and its own
-`<X> Set Secret Dialog ori` page. That is no longer needed.
+An application does not need a secret codeunit or a masked dialog of its own.
 
 **Namespace:** `Origo.Bifrost`
 
-| Object | Id | Purpose |
-|---|---|---|
-| Codeunit `Secret Store ori` | 10078305 | The public API - the only thing an application needs |
-| Table `App Secret ori` | 10078304 | The registry: which secrets exist, not their values |
-| Enum `Secret Scope ori` | 10078303 | `Company` / `Company And User` |
-| Page `Set Secret Dialog ori` | 10078306 | The shared masked input dialog |
-| Page `App Secrets ori` | 10078307 | The administrator's list of registered secrets |
+| Object | Purpose |
+|---|---|
+| Codeunit `Secret Store ori` | The public API - the only thing an application needs |
+| Table `App Secret ori` | The registry: which secrets exist, not their values |
+| Enum `Secret Scope ori` | `Company` / `Company And User` |
+| Page `Set Secret Dialog ori` | The shared masked input dialog |
+| Page `App Secrets ori` (**Bifrost App Secrets**) | The administrator's list of registered secrets |
 
 ---
 
 ## Where the value lives
 
-Values are written to **IsolatedStorage under the Bifröst Foundation module**, never to a table,
-never to telemetry, never to an error message. The storage key is:
+Values are kept in Business Central's isolated storage, owned by Bifröst Foundation, never in a
+table, never in telemetry, never in an error message. The registered scope decides who shares a
+value:
 
-```
-<App Id>/<Secret Code>
-```
-
-where `<App Id>` is the application's id formatted without braces (`Format(AppId, 0, 4)`).
-
-The IsolatedStorage data scope follows the registered scope:
-
-| Scope | Data scope | Meaning |
-|---|---|---|
-| `Company` | `DataScope::Company` | One value shared by everyone in the company |
-| `Company And User` | `DataScope::CompanyAndUser` | Every user enters an own value |
+| Scope | Meaning |
+|---|---|
+| `Company` | One value shared by everyone in the company |
+| `Company And User` | Every user enters an own value |
 
 Because the store is a `SecretText` end to end, an extension compiled for `Cloud` can pass the
-value to an `HttpClient` header, to `IsolatedStorage` or to a cryptography API, but can never
+value to an `HttpClient` header or to a cryptography API, but can never
 print it, log it or convert it back to `Text`. That is by design.
 
 ---
@@ -102,14 +94,13 @@ Stamps `Last Used On` on the registry row, at most once per day. `TryGet` delibe
 call it, so reading a secret never writes - a read-only API request would otherwise fail. Call it
 yourself from a context that is allowed to write.
 
-### Clear / ClearAll
+### Clear
 
 ```al
 procedure Clear(AppId: Guid; SecretCode: Code[50])
-procedure ClearAll(AppId: Guid)
 ```
 
-Remove the stored value(s). The registrations survive, so the administrator still sees which
+Removes the stored value. The registrations survive, so the administrator still sees which
 secrets the application expects.
 
 ### SetFromDialog
@@ -126,26 +117,17 @@ stored.
 - `MultiLine` shows a multi-line field instead of the masked one. Use it for long base-64 values
   such as certificates, which nobody types by hand and which cannot be reviewed in a masked field.
 
-### GetStorageKey
-
-```al
-procedure GetStorageKey(AppId: Guid; SecretCode: Code[50]): Text
-```
-
-Returns the IsolatedStorage key. Useful in tests and in support scenarios; it never exposes the
-value.
-
 ---
 
 ## Using it in an application
 
 ```al
-namespace Origo.Bifrost.IcelandTreasury;
+namespace Contoso.FieldService;
 
 using Origo.Bifrost;
 using System.Environment;
 
-codeunit 10036020 "Treasury Secrets ori"
+codeunit 50100 "Contoso Secrets"
 {
     var
         ClientSecretTok: Label 'CLIENT-SECRET', Locked = true;
@@ -157,7 +139,7 @@ codeunit 10036020 "Treasury Secrets ori"
     var
         SecretStore: Codeunit "Secret Store ori";
     begin
-        SecretStore.Register(AppId(), ClientSecretTok, 'Client secret of the bank API registration', "Secret Scope ori"::Company);
+        SecretStore.Register(AppId(), ClientSecretTok, 'Client secret of the service API registration', "Secret Scope ori"::Company);
     end;
 
     /// <summary>
@@ -198,7 +180,7 @@ field(ClientSecretIsSet; ClientSecretIsSet)
 action(SetClientSecret)
 {
     Caption = 'Set Client Secret...', Comment = 'is-IS=Skrá leyndarmál biðlarans...';
-    ToolTip = 'Enter the client secret of the bank API registration.', Comment = 'is-IS=Skráðu leyndarmál biðlarans fyrir skráningu bankans.';
+    ToolTip = 'Enter the client secret of the service API registration.', Comment = 'is-IS=Skráðu leyndarmál biðlarans fyrir skráningu þjónustunnar.';
     Image = EncryptionKeys;
 
     trigger OnAction()
@@ -226,7 +208,7 @@ end;
 
 ## The administrator's view
 
-**Bifrost Setup → Setup → Secrets** opens `App Secrets ori` for every installed application. The
+**Bifrost Setup → Setup → Secrets** opens **Bifrost App Secrets** for every installed application. The
 list shows the application, the secret code, its description, its scope, whether a value is stored
 (`Is Set`, green when set, red when missing), when it was entered and by whom. It never shows the
 value.
@@ -244,26 +226,7 @@ registration.
 | `BIFROST Full ori` | RIMD on `App Secret ori`, execute on the store and the pages |
 
 Reading a value through `TryGet` only needs read permission on the registry table; the value comes
-from IsolatedStorage, which is governed by the extension, not by table permissions.
-
----
-
-## Telemetry
-
-| Event type | Tag | Logged |
-|---|---|---|
-| `Secret Set` | ORI-BIF-0160 | app id, secret code |
-| `Secret Cleared` | ORI-BIF-0161 | app id, secret code |
-
-The value is never part of a telemetry dimension.
-
----
-
-## Not to be confused with
-
-`Secret Mgt ori` (codeunit 10077907) is **internal** to Foundation and serves the licensing
-backend. It is unrelated to the application secret store described here and is not part of the
-public API.
+from the store itself, which is governed by the extension, not by table permissions.
 
 ---
 

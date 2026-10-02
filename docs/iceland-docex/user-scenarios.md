@@ -6,17 +6,19 @@ sidebar_position: 8
 description: "The scenarios Microsoft's validation team executes to certify this extension for AppSource."
 ---
 
-**App:** Bifrost Iceland DocEx (`54d53040-b92f-4745-8980-89573b6b0463`), object range 10036385-10036784
+**App:** Bifrost Iceland DocEx (`54d53040-b92f-4745-8980-89573b6b0463`)
 **Publisher:** Origo
 **Version:** 28.0.0.0
 **Depends on:** Bifrost Foundation (`7505e808-6e52-4b96-a328-82573391297a`) 28.0.0.0
-**Submission Date:** 2026-07-07 (scenarios reviewed 2026-09-05 for the Bifrost Iceland DocEx rename)
-
-> **Before submitting to AppSource:** regenerate the PDF version of this document. The old
-> `AppSource-UserScenarios.pdf` was written for `Origo Cloud Events DocEx` and was deliberately not
-> migrated, so no PDF currently exists in this repository.
+**Submission Date:** 2026-07-07
 
 **Test Environment:** Requires credentials for at least one document exchange provider (Advania, Unimaze, or InExchange). Test accounts are available from each provider. BIS 3.0 reference data and UBL rendering work without credentials.
+
+The tester works through an AI assistant connected to Business Central with the Bifröst MCP server
+(see [Connect your AI assistant](/setup/connect-your-ai/)), or calls Bifröst from any other client. Each step says
+what to ask for and what to verify in Business Central or in the answer. The installed operations and
+their contracts can be listed at any time with the MCP tools `list_message_types` and
+`describe_message_type`, or on the Bifrost Message Types page.
 
 ---
 
@@ -49,7 +51,7 @@ description: "The scenarios Microsoft's validation team executes to certify this
 ### Expected Results
 - Extension installs without errors.
 - No data loss or service interruption.
-- Bifrost Setup page shows new document exchange message types.
+- The Bifrost Message Types page lists the document exchange operations, and Document Exchange Setup opens from Bifrost Setup.
 
 ---
 
@@ -62,14 +64,11 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. No provider credentials required.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.BIS30.CountryCodes`.
-2. Leave Subject and Send Content empty (full list) or provide a filter in the JSON payload.
-3. Process the task via the Task API.
-4. Retrieve the response from the Data API.
+1. Ask the assistant: "List the Peppol BIS 3.0 country codes."
+2. Optionally narrow it: "Only the Nordic countries."
 
 ### Expected Results
-- Response contains a JSON array of ISO country codes with names as defined by Peppol BIS 3.0.
-- Response Content-Type is `application/json`.
+- The answer lists ISO country codes with names as defined by Peppol BIS 3.0.
 
 ---
 
@@ -81,12 +80,10 @@ description: "The scenarios Microsoft's validation team executes to certify this
 1. Extension is installed.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.BIS30.DocumentTypeCodes`.
-2. Process the task.
-3. Retrieve the response.
+1. Ask the assistant: "List the Peppol BIS 3.0 document type codes."
 
 ### Expected Results
-- Response contains Peppol document type codes (e.g., 380 = Commercial Invoice, 381 = Credit Note).
+- The answer contains Peppol document type codes (e.g., 380 = Commercial Invoice, 381 = Credit Note).
 - Data matches the current Peppol BIS 3.0 specification.
 
 ---
@@ -100,12 +97,10 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. Ensure the Advania test sandbox has at least one unread document.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.Advania.GetUnread`.
-2. Process the task.
-3. Retrieve the response.
+1. Ask the assistant: "Which documents are unread in Advania?"
 
 ### Expected Results
-- Response contains a JSON array of unread document references (document ID, sender, date, type).
+- The answer lists the unread documents (document ID, sender, date, type).
 - Each entry includes enough information to fetch the full document.
 
 ---
@@ -119,13 +114,10 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. A document ID is known (from Scenario 4 or test data).
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.Advania.GetDocument`.
-2. Set Subject to the document ID (or provide in JSON payload).
-3. Process the task.
-4. Retrieve the response.
+1. Ask the assistant: "Show the Advania document <document ID>."
 
 ### Expected Results
-- Response contains the full document data (structured JSON with header, lines, amounts).
+- The answer contains the full document (header, lines, amounts).
 - Document fields include sender info, dates, currency, line items.
 
 ---
@@ -139,15 +131,12 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. A posted sales invoice exists in BC with valid customer electronic address.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.Advania.CreateInvoice`.
-2. Provide the invoice number as Subject or in JSON payload.
-3. Process the task.
-4. Retrieve the response.
+1. Ask the assistant: "Send posted sales invoice <invoice no.> through Advania."
 
 ### Expected Results
-- Response confirms the invoice was submitted to Advania.
-- Response includes a tracking ID or reference for status follow-up.
-- No error message in the response.
+- The assistant confirms the invoice was submitted to Advania.
+- The answer includes a tracking ID or reference for status follow-up.
+- No error message in the answer.
 
 ---
 
@@ -160,12 +149,10 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. At least one previously submitted document exists.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.Advania.StatusSync`.
-2. Process the task.
-3. Retrieve the response.
+1. Ask the assistant: "Update the status of the documents sent through Advania."
 
 ### Expected Results
-- Response contains updated status information for submitted documents.
+- The answer contains updated status information for submitted documents.
 - Statuses reflect the current state in the Advania system (e.g., delivered, rejected, pending).
 
 ---
@@ -179,12 +166,10 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. Ensure the Unimaze test environment has unread documents.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.Unimaze.GetUnread`.
-2. Process the task.
-3. Retrieve the response.
+1. Ask the assistant: "Which documents are unread in Unimaze?"
 
 ### Expected Results
-- Response contains a JSON array of unread document references from Unimaze.
+- The answer lists the unread documents from Unimaze.
 - Each entry includes document ID, sender, document type, and received date.
 
 ---
@@ -198,14 +183,11 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. A valid UBL document or BC invoice ready for submission.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.Unimaze.SubmitTransaction`.
-2. Provide document data in Send Content (UBL XML or reference to BC document).
-3. Process the task.
-4. Retrieve the response.
+1. Ask the assistant to send the document through Unimaze (a UBL document, or a reference to the BC document).
 
 ### Expected Results
-- Response confirms successful submission to Unimaze network.
-- Response includes a transaction ID for tracking.
+- The assistant confirms successful submission to the Unimaze network.
+- The answer includes a transaction ID for tracking.
 
 ---
 
@@ -218,12 +200,10 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. Ensure InExchange test account has incoming documents.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.InExchange.GetIncoming`.
-2. Process the task.
-3. Retrieve the response.
+1. Ask the assistant: "Which incoming documents are waiting in InExchange?"
 
 ### Expected Results
-- Response contains a list of incoming documents from InExchange.
+- The answer lists the incoming documents from InExchange.
 - Each document includes ID, sender, type, and status.
 
 ---
@@ -237,14 +217,11 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. A document ready for electronic delivery.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.InExchange.SendDocument`.
-2. Provide document data in Send Content.
-3. Process the task.
-4. Retrieve the response.
+1. Ask the assistant to send the document through InExchange.
 
 ### Expected Results
-- Response confirms document was submitted to InExchange.
-- Outbound tracking ID is returned.
+- The assistant confirms the document was submitted to InExchange.
+- An outbound tracking ID is returned.
 
 ---
 
@@ -257,13 +234,10 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. A posted sales invoice exists in BC.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.UBL.RenderBilling`.
-2. Set Subject to the posted sales invoice number.
-3. Process the task.
-4. Retrieve the response.
+1. Ask the assistant: "Render posted sales invoice <invoice no.> as Peppol BIS 3.0 UBL."
 
 ### Expected Results
-- Response contains valid UBL 2.1 Invoice XML.
+- The answer contains valid UBL 2.1 Invoice XML.
 - XML validates against Peppol BIS 3.0 billing schema.
 - All mandatory fields are populated (supplier, customer, lines, totals, tax).
 
@@ -278,13 +252,10 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. A sales order exists in BC.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.UBL.RenderOrder`.
-2. Set Subject to the sales order number.
-3. Process the task.
-4. Retrieve the response.
+1. Ask the assistant: "Render sales order <order no.> as UBL."
 
 ### Expected Results
-- Response contains valid UBL 2.1 Order XML.
+- The answer contains valid UBL 2.1 Order XML.
 - Order lines, quantities, prices, and delivery information are correctly rendered.
 
 ---
@@ -297,13 +268,10 @@ description: "The scenarios Microsoft's validation team executes to certify this
 1. Advania credentials configured.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.Advania.GetTradingPartners`.
-2. Optionally provide a search filter in JSON payload (e.g., by name or electronic address).
-3. Process the task.
-4. Retrieve the response.
+1. Ask the assistant: "Find trading partners in the Advania network named <name>" (or by electronic address).
 
 ### Expected Results
-- Response contains a list of trading partners registered in the Advania network.
+- The answer lists trading partners registered in the Advania network.
 - Each partner entry includes name, electronic address, and supported document types.
 
 ---
@@ -317,15 +285,11 @@ description: "The scenarios Microsoft's validation team executes to certify this
 2. A document ID is known for a document that has a PDF representation.
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.Advania.GetDocumentPdf`.
-2. Set Subject to the document ID.
-3. Process the task.
-4. Retrieve the response.
+1. Ask the assistant: "Get the PDF of Advania document <document ID>."
 
 ### Expected Results
-- Response contains the PDF binary data (base64 encoded or as blob).
-- Content-Type indicates PDF.
-- PDF is viewable and matches the source document.
+- The answer contains the PDF.
+- The PDF is viewable and matches the source document.
 
 ---
 
@@ -334,18 +298,16 @@ description: "The scenarios Microsoft's validation team executes to certify this
 **Area:** Error Handling
 
 ### Setup
-1. Configure Bifrost Setup with deliberately invalid provider credentials (wrong API key).
+1. On Document Exchange Setup, enter deliberately invalid provider credentials (wrong API key).
 
 ### Steps
-1. Submit a Bifrost message with Type = `DocumentExchange.Advania.GetUnread`.
-2. Process the task.
-3. Retrieve the response.
+1. Ask the assistant: "Which documents are unread in Advania?"
 
 ### Expected Results
-- Response contains a structured error JSON (not a raw exception).
-- Error message clearly indicates authentication failure.
+- The answer is a structured error, not a raw exception.
+- The error message clearly indicates authentication failure.
 - No unhandled exceptions or BC error dialogs.
-- System remains functional for other message types.
+- Other operations keep working.
 
 ---
 
@@ -360,12 +322,12 @@ description: "The scenarios Microsoft's validation team executes to certify this
 ### Steps
 1. Log in as the test user.
 2. Access Bifrost Setup and verify document exchange settings are visible.
-3. Submit and process a BIS 3.0 reference data request.
+3. Ask the assistant, signed in as the test user, for the Peppol BIS 3.0 country codes.
 4. Remove the permission set from the user.
 5. Attempt the same operation.
 
 ### Expected Results
-- With permission set: User can access setup and process document exchange messages.
+- With permission set: User can access setup and use the document exchange operations.
 - Without permission set: User receives a permission error and cannot execute document exchange operations.
 - No elevation of privileges beyond what the permission set grants.
 

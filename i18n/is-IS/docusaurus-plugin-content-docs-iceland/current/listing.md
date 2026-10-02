@@ -19,7 +19,7 @@ Bifrost Iceland
 Íslensk skattaskil, skrárleit, gengi Seðlabanka og SMS fyrir Business Central. (87)
 
 ## Stutt lýsing (hámark 100 stafir)
-Skatturinn, Þjóðskrá, Seðlabanki, Skilagrein og SMS sem Bifrost-skilaboðategundir. (77)
+Skatturinn, Þjóðskrá, Seðlabanki, Skilagrein og SMS tengd Business Central. (75)
 
 ## Leitarorð
 1. Íslenskur skattur
@@ -57,7 +57,7 @@ Sjá ítarlega lýsingu hér að neðan.
 https://www.origo.is/
 
 ## Hjálpartengill
-https://docs.bifrost.origo.is/en-us/iceland/
+https://businesscentralal.github.io/bifrost/en-us/iceland/
 
 ## Persónuverndarstefna
 https://www.origo.is/um-origo/stefnur/personuverndarstefna
@@ -71,7 +71,7 @@ https://www.origo.is/um-origo/stefnur/personuverndarstefna
 
 **Bifrost Iceland** bætir sértækum íslenskum eiginleikum við Bifrost — skilaboðamiðað samþættingarlag sem veitir ytri kerfum, gervigreindaröflum og sjálfvirkniverkfærum skipulagðan aðgang að gögnum og ferlum Business Central í gegnum OData. Það tengir Business Central við íslenska opinbera þjónustu, Seðlabankann og samskiptaþjónustur með sömu Queue → Task → Data API-leið og notuð er um allan Bifrost-vettvanginn. Hvaða MCP-samhæfður viðskiptavinur, REST-kallandi eða BC-ferli sem er getur kallað á aðgerðirnar án sérsmiðaðrar þróunar.
 
-Appið bætir 71 skilaboðategundum við ofan á **Bifrost Foundation**.
+Appið er sett upp ofan á **Bifrost Foundation**.
 
 ### Fyrir hverja er þetta?
 
@@ -123,7 +123,7 @@ Appið bætir 71 skilaboðategundum við ofan á **Bifrost Foundation**.
 
 ### Öryggi
 
-Skilríki fyrir Umsjá, Símann, Nova, Skattinn, Skilagrein og Já Gagnatorg eru geymd í leyndageymslu Bifröst, studd af Business Central IsolatedStorage, og grímuð áður en ytri beiðni er skrifuð í request-logginn. Aðgangi er stjórnað með sérstökum heimildasettum: BIFROST ISFull ori, BIFROST Umsja ori, BIFROST NatReg ori, BIFROST VAT ori, BIFROST Payroll ori, BIFROST CapTax ori, BIFROST Collect ori, BIFROST SMS ori og BIFROST SMS Fgn ori.
+Skilríki fyrir Umsjá, Símann, Nova, Skattinn, Skilagrein og Já Gagnatorg eru geymd í leyndarmálageymslu Bifröst Foundation, aldrei sýnd aftur eftir innslátt, og hulin áður en ytri beiðni er skrifuð í request-logginn. Aðgangi er stjórnað með sérstökum heimildasettum: BIFROST ISFull ori, BIFROST Umsja ori, BIFROST NatReg ori, BIFROST VAT ori, BIFROST Payroll ori, BIFROST CapTax ori, BIFROST Collect ori, BIFROST SMS ori og BIFROST SMS Fgn ori.
 
 ### Studdar útgáfur og lönd
 

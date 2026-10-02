@@ -11,6 +11,12 @@ description: "The scenarios Microsoft's validation team executes to certify this
 **Submission Date:** 2026-09-05
 **Test Environment:** Requires an Icelandic BC sandbox with the IS Core localization installed. The extension connects to Icelandic government web services (Skatturinn, Seðlabanki, Skilagrein, island.is). See "Test Credentials" section below.
 
+The tester works through an AI assistant connected to Business Central with the Bifröst MCP server
+(see [Connect your AI assistant](/setup/connect-your-ai/)), or calls Bifröst from any other client. Each step
+says what to ask for and what to verify in Business Central or in the answer. The installed operations
+and their contracts can be listed at any time with the MCP tools `list_message_types` and
+`describe_message_type`, or on the Bifrost Message Types page.
+
 ---
 
 ## Test Credentials
@@ -35,7 +41,7 @@ This extension connects to multiple Icelandic external services:
 **Area:** Installation & Activation
 
 ### Setup
-1. Start with a clean BC sandbox with IS Core localization installed (Cronus IS company)
+1. Start with a clean BC sandbox with IS Core localization installed (an Icelandic demo company)
 2. Install the "Bifrost Foundation" extension (dependency)
 3. Install the "Bifrost Iceland" extension
 
@@ -43,16 +49,16 @@ This extension connects to multiple Icelandic external services:
 1. Search for "Bifrost Iceland Setup" in the BC search bar, or open it from the **Apps** group of the Bifrost Setup page
 2. Verify the setup card opens without error
 3. Verify the Umsja, SMS, Skatturinn, Skilagrein and Ja Gagnatorg FastTabs appear on the card
-4. Search for "Help.Iceland.Get" — verify it appears in the message type list
+4. Open the Bifrost Message Types page and verify that Iceland operations are listed
 
 ### Expected Results
 - The extension installs without error
 - The Bifrost Iceland Setup card shows the client type and credential status fields of every domain
-- The Help.Iceland.Get message type is registered and callable
+- The Iceland operations are registered and can be called
 
 ---
 
-## Scenario 2: Help Overview
+## Scenario 2: Discover the Iceland operations
 
 **Area:** Core Functionality
 
@@ -60,16 +66,11 @@ This extension connects to multiple Icelandic external services:
 1. Complete Scenario 1 (extension installed)
 
 ### Steps
-1. POST a Bifrost message via the Queue API:
-   - `type`: `Help.Iceland.Get`
-   - `sendContent`: `{}`
-2. Process the task via the Task API
-3. Retrieve the response from the Data API
+1. Ask the assistant: "Which Icelandic services can you use in Business Central?"
 
 ### Expected Results
-- The response contains a Markdown-formatted help document
-- The document lists all Iceland message types grouped by domain (Seðlabanki, Skatturinn, island.is, SMS, etc.)
-- Each message type includes a description and usage example
+- The assistant lists the Iceland operations grouped by service (Seðlabanki, Skatturinn, island.is, SMS, and so on)
+- Each operation comes with a short description of what it does
 
 ---
 
@@ -81,18 +82,12 @@ This extension connects to multiple Icelandic external services:
 1. Complete Scenario 1
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.Holidays.Get`
-   - `sendContent`: `{"year": 2026}`
-2. Process and retrieve the response
-3. POST another message:
-   - `type`: `Iceland.Holidays.IsHoliday`
-   - `sendContent`: `{"date": "2026-12-25"}`
-4. Process and retrieve the response
+1. Ask the assistant: "List the Icelandic public holidays in 2026."
+2. Ask: "Is 25 December 2026 a public holiday in Iceland?"
 
 ### Expected Results
-- Step 2: Response contains an array of Icelandic public holidays for 2026 (including names in Icelandic)
-- Step 4: Response confirms December 25 is a holiday (`"isHoliday": true`)
+- Step 1: The answer lists the Icelandic public holidays for 2026, with their Icelandic names
+- Step 2: The answer confirms that 25 December 2026 is a holiday
 
 ---
 
@@ -104,13 +99,10 @@ This extension connects to multiple Icelandic external services:
 1. Complete Scenario 1
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.PostCode.Get`
-   - `sendContent`: `{}`
-2. Process and retrieve the response
+1. Ask the assistant: "Get the Icelandic postal code list."
 
 ### Expected Results
-- Response contains the full Icelandic postal code registry from Byggðastofnun
+- The answer contains the full Icelandic postal code registry from Byggðastofnun
 - Each entry includes postal code, place name, and municipality
 - Well-known codes are present (e.g., 101 = Reykjavík)
 
@@ -124,14 +116,10 @@ This extension connects to multiple Icelandic external services:
 1. Complete Scenario 1
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.Currency.Get`
-   - `sendContent`: `{}`
-2. Process and retrieve the response
+1. Ask the assistant: "Get the ISO 4217 currency list."
 
 ### Expected Results
-- Response contains the ISO 4217 currency list as JSON
-- Includes ISK (Icelandic Króna), EUR, USD, and other standard currencies
+- The answer includes ISK (Icelandic Króna), EUR, USD, and other standard currencies
 - Each entry has code, name, and numeric code
 
 ---
@@ -144,18 +132,12 @@ This extension connects to multiple Icelandic external services:
 1. Complete Scenario 1
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.CurrencyRates.Get`
-   - `sendContent`: `{"date": "2026-07-01"}`
-2. Process and retrieve the response
-3. POST another message:
-   - `type`: `Iceland.CurrencyRates.Get`
-   - `sendContent`: `{"dateFrom": "2026-06-01", "dateTo": "2026-06-30"}`
-4. Process and retrieve the response
+1. Ask the assistant: "What were Seðlabanki's exchange rates on 1 July 2026?"
+2. Ask: "Show the daily rates for June 2026."
 
 ### Expected Results
-- Step 2: Response contains exchange rates for the specified date (EUR, USD, GBP, etc. against ISK)
-- Step 4: Response contains daily rates for the full month of June 2026
+- Step 1: The answer contains exchange rates for that date (EUR, USD, GBP, etc. against ISK)
+- Step 2: The answer contains daily rates for the full month of June 2026
 
 ---
 
@@ -165,19 +147,16 @@ This extension connects to multiple Icelandic external services:
 
 ### Setup
 1. Complete Scenario 1
-2. Verify the "Currencies" and "Currency Exchange Rates" tables exist in BC
+2. Verify the "Currencies" and "Currency Exchange Rates" pages open in BC
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.Currency.Sync`
-   - `sendContent`: `{"date": "2026-07-01"}`
-2. Process and retrieve the response
-3. Navigate to "Currency Exchange Rates" in BC
-4. Verify rates were updated for the specified date
+1. Ask the assistant: "Update the Business Central exchange rates from Seðlabanki for 1 July 2026."
+2. Open "Currency Exchange Rates" in BC
+3. Verify rates were updated for that date
 
 ### Expected Results
-- Step 2: Response confirms sync completed with count of currencies updated
-- Step 4: BC Currency Exchange Rate table contains fresh rates from Seðlabanki for the sync date
+- Step 1: The assistant confirms the update and says how many currencies were updated
+- Step 3: The Currency Exchange Rates page shows fresh rates from Seðlabanki for that date
 
 ---
 
@@ -189,23 +168,14 @@ This extension connects to multiple Icelandic external services:
 1. Complete Scenario 1
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.InterestRates.Get`
-   - `sendContent`: `{"latest": true}`
-2. Process and retrieve the response
-3. POST a Bifrost message:
-   - `type`: `Iceland.ConsumerPriceIndex.Get`
-   - `sendContent`: `{"latest": true}`
-4. Process and retrieve the response
-5. POST a Bifrost message:
-   - `type`: `Iceland.PenaltyInterest.Get`
-   - `sendContent`: `{"latest": true}`
-6. Process and retrieve the response
+1. Ask the assistant: "What are Seðlabanki's current interest rates?"
+2. Ask: "What is the latest consumer price index?"
+3. Ask: "What is the current penalty interest rate (dráttarvextir)?"
 
 ### Expected Results
-- Step 2: Response contains current policy rate and facility rates
-- Step 4: Response contains current CPI index level and 12-month inflation rate
-- Step 6: Response contains current penalty interest rate (dráttarvextir)
+- Step 1: The answer contains the current policy rate and facility rates
+- Step 2: The answer contains the current CPI level and the 12-month inflation rate
+- Step 3: The answer contains the current penalty interest rate
 
 ---
 
@@ -217,18 +187,12 @@ This extension connects to multiple Icelandic external services:
 1. Complete Scenario 1
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.Kennitala.Validate`
-   - `sendContent`: `{"kennitala": "4502692829"}`
-2. Process and retrieve the response
-3. POST with an invalid kennitala:
-   - `type`: `Iceland.Kennitala.Validate`
-   - `sendContent`: `{"kennitala": "1234567890"}`
-4. Process and retrieve the response
+1. Ask the assistant: "Is 4502692829 a valid kennitala?"
+2. Ask: "Is 1234567890 a valid kennitala?"
 
 ### Expected Results
-- Step 2: Response confirms valid kennitala, returns type (individual/company) and derived birth date
-- Step 4: Response indicates the kennitala is invalid with clear explanation
+- Step 1: The answer confirms the kennitala is valid and says whether it belongs to an individual or a company
+- Step 2: The answer says the kennitala is invalid, with a clear explanation
 
 ---
 
@@ -240,14 +204,11 @@ This extension connects to multiple Icelandic external services:
 1. Complete Scenario 1
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.Vehicle.Get`
-   - `sendContent`: `{"plateNumber": "AA001"}`
-2. Process and retrieve the response
+1. Ask the assistant: "Look up the vehicle with plate number AA001."
 
 ### Expected Results
-- Response contains vehicle information (make, model, year, registration details)
-- If the plate is not found, a clear "not found" response is returned (not an error)
+- The answer contains vehicle information (make, model, year, registration details)
+- If the plate is not found, the answer says so clearly rather than failing
 
 ---
 
@@ -257,26 +218,17 @@ This extension connects to multiple Icelandic external services:
 
 ### Setup
 1. Complete Scenario 1
-2. Set the test company kennitala in Company Information and store the RSK test passwords with the Set VAT Password / Set Payroll Password actions on Bifrost Iceland Setup
+2. Set the test company kennitala in Company Information and store the RSK test passwords with the Set VAT Password / Set Payroll Password actions on Bifrost Iceland Setup, with the Skatturinn client type set to Test
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.VAT.GetNumbers`
-   - `sendContent`: `{}`
-2. Process and retrieve — note the VAT number returned
-3. POST a Bifrost message:
-   - `type`: `Iceland.VAT.GetPeriodEntries`
-   - `sendContent`: `{"period": "2026-01"}`
-4. Process and retrieve the response
-5. POST a Bifrost message:
-   - `type`: `Iceland.VAT.Validate`
-   - `sendContent`: (a valid VAT return structure for the test period)
-6. Process and retrieve the response
+1. Ask the assistant: "Which VAT numbers does Skatturinn have for this company?"
+2. Ask: "Show the VAT period details for January 2026."
+3. Ask the assistant to validate a VAT return for that test period with Skatturinn
 
 ### Expected Results
-- Step 2: Response contains the company's VAT registration number(s)
-- Step 4: Response contains period details and prerequisites
-- Step 6: Response contains validation result (pass/fail with itemized messages)
+- Step 1: The answer contains the company's VAT registration number(s)
+- Step 2: The answer contains the period details and prerequisites
+- Step 3: The answer contains the validation result (pass or fail, with itemized messages)
 
 ---
 
@@ -288,21 +240,15 @@ This extension connects to multiple Icelandic external services:
 1. Complete Scenario 11 (validation passed)
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.VAT.Submit`
-   - `sendContent`: (the validated VAT return from Scenario 11)
-2. Process and retrieve the response
-3. POST a Bifrost message:
-   - `type`: `Iceland.VAT.Receipt`
-   - `sendContent`: `{"period": "2026-01"}`
-4. Process and retrieve the response
+1. Ask the assistant to submit the validated VAT return from Scenario 11 to Skatturinn's test service
+2. Ask: "Get the receipt for the January 2026 VAT return."
 
 ### Expected Results
-- Step 2: Submission succeeds with confirmation number from RSK
-- Step 4: Response contains the PDF receipt from the submitted period (base64-encoded)
+- Step 1: The submission succeeds with a confirmation number from RSK
+- Step 2: The receipt for the submitted period is returned as a PDF
 
 ### Cleanup
-- Use `Iceland.VAT.DeleteInTest` to remove the test submission (test environment only)
+- Ask the assistant to delete the test submission (possible in the test environment only)
 
 ---
 
@@ -315,18 +261,12 @@ This extension connects to multiple Icelandic external services:
 2. Configure RSK test credentials
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.Payroll.GetAllPeriods`
-   - `sendContent`: `{}`
-2. Process and retrieve — note available periods
-3. POST a Bifrost message:
-   - `type`: `Iceland.Payroll.Validate`
-   - `sendContent`: (a payroll return for a test period)
-4. Process and retrieve the response
+1. Ask the assistant: "Which payroll tax periods are open with Skatturinn?"
+2. Ask the assistant to validate a payroll return for one of the test periods
 
 ### Expected Results
-- Step 2: Response lists payroll tax periods with prerequisites and status
-- Step 4: Validation returns pass/fail with itemized feedback
+- Step 1: The answer lists payroll tax periods with prerequisites and status
+- Step 2: The validation returns pass or fail with itemized feedback
 
 ---
 
@@ -339,18 +279,12 @@ This extension connects to multiple Icelandic external services:
 2. Configure RSK test credentials
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.CapitalTax.GetPeriods`
-   - `sendContent`: `{}`
-2. Process and retrieve the response
-3. POST a Bifrost message:
-   - `type`: `Iceland.CapitalTax.GetTypes`
-   - `sendContent`: `{}`
-4. Process and retrieve the response
+1. Ask the assistant: "Which capital income tax periods can be reported?"
+2. Ask: "Which income types are used for capital income tax?"
 
 ### Expected Results
-- Step 2: Response lists valid capital income tax periods
-- Step 4: Response lists valid income types for capital tax reporting
+- Step 1: The answer lists valid capital income tax periods
+- Step 2: The answer lists valid income types for capital tax reporting
 
 ---
 
@@ -363,18 +297,12 @@ This extension connects to multiple Icelandic external services:
 2. Store the Síminn magnSMS test account credentials with the Set Síminn User Name / Set Síminn Password actions on Bifrost Iceland Setup
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.SMS.Send`
-   - `sendContent`: `{"to": "+3548001234", "message": "Test message from Bifrost"}`
-2. Process and retrieve the response — note the message ID
-3. POST a Bifrost message:
-   - `type`: `Iceland.SMS.Status`
-   - `sendContent`: `{"messageId": "<id-from-step-2>"}`
-4. Process and retrieve the response
+1. Ask the assistant: "Send the SMS 'Test message from Bifrost' to +3548001234."
+2. Ask: "Was that SMS delivered?"
 
 ### Expected Results
-- Step 2: Response confirms the SMS was queued/sent with a message ID
-- Step 4: Response contains delivery status for the message
+- Step 1: The assistant confirms the SMS was queued or sent and gives its message ID
+- Step 2: The answer contains the delivery status of the message
 
 ### Notes
 - Use a test number that does not deliver actual SMS (Síminn provides these for testing)
@@ -390,23 +318,12 @@ This extension connects to multiple Icelandic external services:
 2. Configure Skilagrein test credentials
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.PensionFund.Get`
-   - `sendContent`: `{}`
-2. Process and retrieve the response
-3. POST a Bifrost message:
-   - `type`: `Iceland.Union.Get`
-   - `sendContent`: `{}`
-4. Process and retrieve the response
-5. POST a Bifrost message:
-   - `type`: `Iceland.Collector.Get`
-   - `sendContent`: `{}`
-6. Process and retrieve the response
+1. Ask the assistant: "Fetch the pension funds, unions and collectors from Skilagrein."
+2. Open the Skilagrein master data pages from Bifrost Iceland Setup
 
 ### Expected Results
-- Step 2: Response contains list of Icelandic pension funds with codes and names
-- Step 4: Response contains list of Icelandic unions with codes and names
-- Step 6: Response contains list of collectors (innheimtumenn) with codes
+- Step 1: The answer lists Icelandic pension funds, unions and collectors (innheimtumenn) with codes and names
+- Step 2: The same data appears on the Skilagrein master data pages
 
 ---
 
@@ -419,14 +336,11 @@ This extension connects to multiple Icelandic external services:
 2. Configure INVALID RSK credentials (wrong password)
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.VAT.GetNumbers`
-   - `sendContent`: `{}`
-2. Process and retrieve the response
+1. Ask the assistant: "Which VAT numbers does Skatturinn have for this company?"
 
 ### Expected Results
-- The task completes with an error status
-- The response contains a structured error message indicating authentication failed
+- The request completes with an error status
+- The answer explains that authentication failed
 - No raw SOAP fault or stack trace is exposed to the caller
 
 ---
@@ -437,18 +351,15 @@ This extension connects to multiple Icelandic external services:
 
 ### Setup
 1. Complete Scenario 1
-2. Configure an unreachable URL or invalid endpoint for RSK (if configurable)
+2. Make the RSK service unreachable (for example, disallow outgoing HTTP requests for the extension in Extension Management)
 
 ### Steps
-1. POST a Bifrost message:
-   - `type`: `Iceland.VAT.GetNumbers`
-   - `sendContent`: `{}`
-2. Process and retrieve the response
+1. Ask the assistant: "Which VAT numbers does Skatturinn have for this company?"
 
 ### Expected Results
-- The task completes with an error status
-- The error message clearly indicates the external service is unreachable
-- The error is structured JSON, not a raw exception
+- The request completes with an error status
+- The error message clearly indicates the external service could not be reached
+- The error is structured, not a raw exception
 
 ---
 
@@ -461,14 +372,11 @@ This extension connects to multiple Icelandic external services:
 2. Complete Scenario 1 as admin
 
 ### Steps
-1. Sign in as the test user
-2. POST a Bifrost message via the Queue API:
-   - `type`: `Iceland.Holidays.Get`
-   - `sendContent`: `{"year": 2026}`
-3. Process and retrieve the response
+1. Connect the assistant as the test user
+2. Ask: "List the Icelandic public holidays in 2026."
 
 ### Expected Results
-- The test user can submit and process Iceland-related Bifrost messages
+- The test user can call the Iceland operations
 - Holiday data is returned successfully
 
 ---
@@ -481,8 +389,8 @@ This extension connects to multiple Icelandic external services:
 1. Create a test user with only D365 BASIC (none of the BIFROST permission sets)
 
 ### Steps
-1. Sign in as the test user
-2. Attempt to invoke a Bifrost message type that requires Iceland permissions
+1. Connect the assistant as the test user
+2. Ask for an operation that requires Iceland permissions, for example "Which VAT numbers does Skatturinn have for this company?"
 
 ### Expected Results
 - The operation fails with a clear permission error
@@ -507,7 +415,7 @@ This extension connects to multiple Icelandic external services:
 
 ### Expected Results
 - Uninstallation completes without error
-- The Iceland message types are no longer available
+- The Iceland operations are no longer listed on the Bifrost Message Types page
 - Bifrost Foundation continues to work normally
 - Standard BC operations are unaffected
 
@@ -516,6 +424,6 @@ This extension connects to multiple Icelandic external services:
 ## Cleanup
 
 After all scenarios are complete:
-1. Delete any test VAT submissions in the RSK test environment using `Iceland.VAT.DeleteInTest`
+1. Delete any test VAT submissions in the RSK test environment (ask the assistant to delete the test submission)
 2. Remove test credentials with the Clear actions on Bifrost Iceland Setup
 3. Uninstall the extension (if not already done in Scenario 21)

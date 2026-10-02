@@ -4,7 +4,7 @@ title: "Bifröst Iceland"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Icelandic government services and SMS gateways as Bifröst message types: Þjóðskrá through Umsjá, Skatturinn, Seðlabanki, Skilagrein, island.is and Já Gagnatorg."
+description: "Connects Business Central to Icelandic government services and SMS gateways: Þjóðskrá through Umsjá, Skatturinn, Seðlabanki, Skilagrein, island.is and Já Gagnatorg."
 ---
 
 # Bifröst Iceland
@@ -75,17 +75,14 @@ The step-by-step guides are in the in-product help:
 - **The national register copy is personal data.** Keep the permission sets narrow, and clear the
   copy when the company no longer has a lawful basis for holding it.
 
-## Capabilities and reference
+## Find the operations
 
-Capabilities: **`Iceland`** and **`Ja`**. It also adds VAT return message types
-(`Finance.VAT…`) to Foundation's **`Finance`** capability.
+The installed message types and their contracts are read from Business Central itself: the MCP
+tools `list_message_types` and `describe_message_type`, or the Bifrost Message Types page.
 
-What each message type does, in plain words: [Capabilities](./capabilities).
-
-- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
 
-### Permission sets
+## Permission sets
 
 `BIFROST ISFull ori` is a permission set extension: it adds every Iceland object to Bifröst
 Foundation's `BIFROST Full ori`, so that is the set to assign for full access. The rest gate one

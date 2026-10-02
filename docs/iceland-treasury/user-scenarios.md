@@ -9,7 +9,13 @@ description: "The scenarios Microsoft's validation team executes to certify this
 **Publisher:** Origo
 **Version:** 28.0.0.0
 **Submission Date:** 2026-09-06
-**Test Environment:** An Icelandic Business Central sandbox (Cronus IS) with the Bifrost Foundation extension installed. The extension connects to the B2B web services of five Icelandic banks over signed SOAP and REST; there is no mock or offline mode for a live bank call. See "Test Credentials" below.
+**Test Environment:** An Icelandic Business Central sandbox (an Icelandic demo company) with the Bifrost Foundation extension installed. The extension connects to the B2B web services of five Icelandic banks over signed SOAP and REST; there is no mock or offline mode for a live bank call. See "Test Credentials" below.
+
+Where a scenario calls a bank, the tester works through an AI assistant connected to Business Central
+with the Bifröst MCP server (see [Connect your AI assistant](/setup/connect-your-ai/)), or calls
+Bifröst from any other client. The installed operations and their contracts can be listed at any time
+with the MCP tools `list_message_types` and `describe_message_type`, or on the Bifrost Message Types
+page.
 
 ---
 
@@ -36,7 +42,7 @@ Every scenario below except the ones that call a bank (5 and 6) can be executed 
 **Area:** Installation & Activation
 
 ### Setup
-1. Start with a clean Business Central sandbox with the IS localization (Cronus IS company).
+1. Start with a clean Business Central sandbox with the IS localization (an Icelandic demo company).
 2. Install the **Bifrost Foundation** extension (dependency).
 
 ### Steps
@@ -44,13 +50,13 @@ Every scenario below except the ones that call a bank (5 and 6) can be executed 
 2. Open **Extension Management**, select Bifrost Iceland Treasury and confirm **Allow HttpClient Requests** is ticked. Tick it if it is not — the bank connectors call the banks over HTTPS and Business Central blocks outbound calls from an extension until an administrator allows them.
 3. Search for **Bifrost Setup** and open it.
 4. On the **Apps** group, confirm an **Iceland Treasury** entry appears with an action that opens the treasury setup page.
-5. Invoke `Help.MessageTypes.Get` over the queue API and confirm the bank message types are registered.
+5. Open the **Bifrost Message Types** page and confirm the bank operations are listed.
 
 ### Expected Results
 - The extension installs without error and without disturbing existing functionality.
 - Outgoing HTTP client requests can be allowed for the extension.
 - The Bifrost Setup page gains exactly one Iceland Treasury action under **Apps**; no bank-specific fields are added to that page.
-- The message type list contains the Landsbankinn, Arion banki, Íslandsbanki, Kvika banki and Sparisjóðir types.
+- The Bifrost Message Types page lists operations for Landsbankinn, Arion banki, Íslandsbanki, Kvika banki and Sparisjóðir.
 
 ---
 
@@ -130,7 +136,7 @@ Every scenario below except the ones that call a bank (5 and 6) can be executed 
 
 ---
 
-## Scenario 5: Query a Bank over the Queue API
+## Scenario 5: Query a Bank through Bifröst
 
 **Area:** Core Functionality — Bank Query
 
@@ -139,17 +145,15 @@ Every scenario below except the ones that call a bank (5 and 6) can be executed 
 2. Confirm the bank's row shows **Enabled** and **Secrets** = *Complete*.
 
 ### Steps
-1. POST a Bifrost message via the Queue API naming the bank's currency rate type, for example `Arionbanki.CurrencyRates.Get`, with the request body described by its help contract.
-2. Process the task via the Task API.
-3. Retrieve the response from the Data API.
-4. Repeat with an account or statement type for the same bank, for example `Landsbankinn.Account.List` or `Sparisjodir.Statement.Get`.
-5. Invoke `Help.Implementation.Get` for one of the types used.
+1. Ask the assistant: "Get today's currency rates from Arion banki" (or the bank you configured).
+2. Ask for the accounts or a statement at the same bank, for example "List our accounts at Landsbankinn" or "Show the statement of account <account no.> at Sparisjóðirnir for last week".
+3. Ask the assistant to describe the operation it used (its contract is read from `Help.Implementation.Get`).
 
 ### Expected Results
-- Step 3: the response is structured JSON containing the bank's published rates; content type is `application/json`.
-- Step 4: the response contains the requested accounts or statement lines for the given account and date range.
-- Step 5: the help response documents that message type's exact request and response contract.
-- The whole exchange runs through the standard Queue → Task → Data pattern; no Business Central page interaction is required.
+- Step 1: the answer contains the bank's published rates.
+- Step 2: the answer contains the requested accounts or statement lines for the given account and date range.
+- Step 3: the description documents the operation's exact request and response contract.
+- No Business Central page interaction is required.
 
 ---
 
@@ -188,13 +192,13 @@ Every scenario below except the ones that call a bank (5 and 6) can be executed 
 
 ### Steps
 1. Sign in as the test user.
-2. Invoke the bank's statement or account message type over the Queue API and process the task.
-3. Invoke the bank's payment batch message type and process the task.
+2. Ask the assistant, connected as the test user, for a statement or the accounts at that bank.
+3. Ask the assistant to send a payment batch at that bank.
 
 ### Expected Results
 - Step 2: the statement or account call succeeds and returns data.
-- Step 3: the call is refused because the caller is not through the payment access gate. The refusal is a clear, structured permission error; no payment is submitted to the bank and no data is modified.
-- Each money- or state-moving domain sits behind its own gate, so read access can be granted independently of execution rights.
+- Step 3: the call is refused because the user does not hold the bank's payment permission set. The refusal is a clear, structured permission error; no payment is submitted to the bank and no data is modified.
+- Each money- or state-moving area sits behind its own permission set, so read access can be granted independently of execution rights.
 - A user holding Bifrost Foundation's `BIFROST Full ori` reaches the whole integration, because each bank's full set extends it.
 
 ---
@@ -208,17 +212,15 @@ Every scenario below except the ones that call a bank (5 and 6) can be executed 
 2. Leave the bank's row **Enabled**.
 
 ### Steps
-1. POST a Bifrost message naming any message type of that bank, for example its currency rate or statement type.
-2. Process the task via the Task API.
-3. Retrieve the response from the Data API.
-4. Repeat with a personal user name set on **Bifrost User Setup** but no personal password stored.
+1. Ask the assistant for anything at that bank, for example its currency rates or a statement.
+2. Repeat with a personal user name set on **Bifrost User Setup** but no personal password stored.
 
 ### Expected Results
 - The task completes with an error status; it does not crash, hang or return an HTTP 5xx.
-- The response is a structured error stating that the connector is not configured, naming what is missing. The message type reports itself as unavailable and refuses to run rather than calling the bank and failing there.
+- The response is a structured error stating that the connector is not configured, naming what is missing. The operation reports itself as unavailable and refuses to run rather than calling the bank and failing there.
 - No raw SOAP fault, stack trace or partial response reaches the caller.
 - No credential value, certificate content or endpoint detail appears in the error text or in the request log.
-- Step 4: the mismatched pair is reported as such — the connector states that a personal password is missing instead of quietly falling back to the company password.
+- Step 2: the mismatched pair is reported as such — the connector states that a personal password is missing instead of quietly falling back to the company password.
 
 ---
 
@@ -227,13 +229,12 @@ Every scenario below except the ones that call a bank (5 and 6) can be executed 
 After all scenarios are complete:
 1. Run **Clear Company Secrets** for every bank configured during testing, and clear any personal secrets from Bifrost User Setup.
 2. Delete the test bank reconciliations created in Scenario 6.
-3. Uninstall Bifrost Iceland Treasury and confirm Bifrost Foundation continues to work — the Bifrost Setup page opens, and the bank message types are gone while Foundation's own types remain.
+3. Uninstall Bifrost Iceland Treasury and confirm Bifrost Foundation continues to work — the Bifrost Setup page opens, and the bank operations are gone from the Bifrost Message Types page while Foundation's own remain.
 
 ---
 
 ## Related documentation
 
 - [Bifröst Iceland Treasury overview](/iceland-treasury/)
-- [Message type reference](/iceland-treasury/reference/message-types/) — the request and response contract for every type
 - [Draupnir signer framework](./reference/draupnir-signers.md)
 - In-product help: [Treasury Setup](/help/iceland-treasury/treasury-setup/), [Setup Wizard](/help/iceland-treasury/treasury-setup-wizard/), [Bank secrets](/help/iceland-treasury/treasury-secrets/), [Your bank credentials](/help/iceland-treasury/bank-user-setup/), [Select Start Date](/help/iceland-treasury/date-input-dialog/), [Statement Import Summary](/help/iceland-treasury/statement-import-summary/)

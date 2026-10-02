@@ -3,89 +3,85 @@ id: kvika
 title: "Kvika banki"
 sidebar_label: "Kvika banki"
 sidebar_position: 4
-description: "Eleven message types over the Kvika netbanki IOBS services: claim query, asynchronous claim and payment batches, account statements and currency rates."
+description: "What Bifröst Iceland Treasury does with Kvika banki: claims and claim batches, payment batches, account statements and currency rates."
 ---
 
-The Kvika banki module connects Business Central to the Kvika netbanki services over the Icelandic Online Banking Standard (IOBS, *Sambankaskema*). It exposes eleven message types covering claim search and lookup, asynchronous claim batches, payment batches, account statements and currency rates.
+This page is for the finance team and the Business Central administrator at a company that banks
+with Kvika banki. It explains what the Kvika connector in
+[Bifröst Iceland Treasury](/iceland-treasury/) does, what you set up, and what you see in Business
+Central afterwards.
 
-Kvika signs its SOAP envelopes. The module builds them through Draupnir, the shared IOBS signer framework, using a client certificate held in the shared secret store.
+## What it does for you
 
-## What it covers
+- **Find claims.** Search claims by claimant, period, payer and status, or look up one claim. The
+  period can be the due date, final due date, cancellation date or creation date.
+- **Create, change and cancel claims in batches.** Kvika takes claim changes in batches only. The bank
+  confirms the batch straight away and reports the outcome afterwards, so nothing waits on the bank.
+- **Claim payments.** See the payments received against your claims.
+- **Payments.** Send batches of account-to-account transfers and claim payments, with a future
+  payment date if you want, and choose whether the whole batch is rolled back when one line fails.
+  Collect the result afterwards: the status, the errors only, the successful lines, or everything.
+- **Statements.** Read an account statement for any account and period.
+- **Currency rates.** Kvika's published rates.
 
-| Area | What the module does |
-| --- | --- |
-| **Claim search** | Paged claim search by claimant, period, payor identifier and status, and a single claim lookup by its full key. Period filters can be applied against the due date, final due date, cancellation date or creation date. |
-| **Claim batches** | Creates, alters and cancels claims in batches. The bank processes each batch asynchronously; the result is collected afterwards. Claim creation, alteration and cancellation are batch-only, as the standard requires. |
-| **Claim payments** | Paged search of the payments received against claims. |
-| **Payments** | Submits payment batches of account-to-account transfers and claim payments, then polls the result. Batches can carry a forward payment date and can be set to roll back as a whole on error. |
-| **Statements** | Reads an account statement for an account and date span in the IOBS bank import and export format. All bank pages are merged into one set of transaction lines, which the caller pages with skip and take. |
-| **Currency rates** | Reads the bank's published currency rates. |
+You, a scheduled routine or an AI assistant can ask for any of these. The installed operations and
+their contracts are read from Business Central itself: the MCP tools `list_message_types` and
+`describe_message_type`, or the Bifrost Message Types page.
 
-Every call is written to Foundation's shared Bifröst Request Log with the log type `Kvika banki`. The WS-Security password element is redacted from the logged envelope unless Request Debug Mode is switched on in Bifröst Setup.
+## What you set up
 
-## Message types
+1. **An agreement with Kvika banki** for the services you use, with a B2B user name, a password and a
+   client signing certificate (a `.pfx` file, with its password if it has one).
+2. **The Kvika row on Bifrost Iceland Treasury Setup**: leave it enabled, enter the company user name,
+   then use **Set Company Password** and **Set Certificate**. See the
+   [setup page help](/help/iceland-treasury/treasury-setup/) and
+   [Draupnir signers](../reference/draupnir-signers.md).
+3. **Personal credentials, if your users have their own login at the bank.** Each user enters their
+   own user name and password on **Bifrost User Setup**; see
+   [Bank credentials for your user](/help/iceland-treasury/bank-user-setup/). A personal user name
+   without a personal password is refused with a clear error, never sent with the company password.
+4. **Permissions.** Assign the permission sets below.
 
-Each type below has a generated page in the [message type reference](/iceland-treasury/reference/message-types/), which carries the full request and response contract, the validation errors and the access rules. The same contract is available at runtime through `Help.Implementation.Get`.
-
-| Type | What it does |
-| --- | --- |
-| `Kvikabanki.Claim.Query` | Paged claim search by claimant, period, payor and status. |
-| `Kvikabanki.Claim.QueryOne` | Single claim lookup by claim key. |
-| `Kvikabanki.Claim.CreateBatch` | Asynchronous batch claim creation. |
-| `Kvikabanki.Claim.AlterBatch` | Asynchronous batch claim alteration. |
-| `Kvikabanki.Claim.CancelBatch` | Asynchronous batch claim cancellation by key. |
-| `Kvikabanki.Claim.QueryPayments` | Paged payment search for claims. |
-| `Kvikabanki.Claim.GetOperationResult` | Polls the result of an asynchronous claim batch. |
-| `Kvikabanki.Payment.Batch` | Asynchronous batch payment submission. |
-| `Kvikabanki.Payment.ResultBatch` | Polls the result of an asynchronous payment batch. |
-| `Kvikabanki.Statement.Get` | Reads an account statement for an account and date span. |
-| `Kvikabanki.CurrencyRates.Get` | Reads currency rates. |
-
-## Setting up
-
-Kvika is configured from the shared **Bifröst Treasury Setup** page, which lists all five banks in one place. The row for Kvika carries the enabled flag, the company user name, an optional base-URL override and the transport selection. See the [Treasury Setup help](/help/iceland-treasury/treasury-setup/) for the page itself.
-
-Kvika uses four of the shared bank secrets:
-
-| Secret | Scope | Purpose |
+| Credential | Kept for | Notes |
 | --- | --- | --- |
-| Company password | Company | The password for the company user name. Used when the caller has no personal credentials. |
-| User password | Company and user | The password for a caller's personal user name. |
-| Client certificate | Company | The certificate the module signs the SOAP envelope with. |
-| Certificate password | Company | The password protecting that certificate. Leave it unset if the certificate has none. |
+| Company password | The company | Used when the calling user has no personal credentials. |
+| User password | Each user | Used together with the user's own user name. |
+| Client certificate and its password | The company | Signs every request. Leave the password empty if the certificate has none. |
 
-Secrets are held in the extension's own Isolated Storage, never in a table, telemetry entry or error message. See the [secrets help](/help/iceland-treasury/treasury-secrets/) for how to store and clear them.
+All values are entered in masked dialogs and never shown again; see
+[Bank secrets](/help/iceland-treasury/treasury-secrets/).
 
-A caller can authenticate as themselves rather than as the company. A personal user name is entered on **Bifröst User Setup**, and the personal password is stored against the same record; see the [user setup help](/help/iceland-treasury/bank-user-setup/). Name and password must match in scope: if a personal user name is set without a personal password, the call fails with an explicit error rather than falling back to the company password.
+## What you see in Business Central
 
-## Asynchronous claim batches
-
-The three writing claim operations are asynchronous. `Claim.CreateBatch`, `Claim.AlterBatch` and `Claim.CancelBatch` hand the batch to the bank and return an operation id straight away. The caller keeps that id and collects the outcome later with `Claim.GetOperationResult`; nothing blocks waiting for the bank to finish.
-
-Payments follow the same shape. `Payment.Batch` returns a payments identifier for each submitted batch, and `Payment.ResultBatch` polls it. The poll can be narrowed to the batch status, the errors only, the successful lines only, or everything.
-
-Reading is synchronous throughout: `Claim.Query`, `Claim.QueryOne`, `Claim.QueryPayments`, `Statement.Get` and `CurrencyRates.Get` answer from the call itself.
+- The Kvika row on **Bifrost Iceland Treasury Setup** shows whether every secret is in place, and
+  the certificate FactBox shows when the certificate expires.
+- Every call to the bank is logged on the **Bifrost Request Log**, with the password masked.
 
 ## Permission sets
 
-Every Kvika message type sits behind a gate table. Each gate is an empty table, and the permission set that grants write access to it is the permission itself — the module checks write permission before it does any work, and a caller without it gets an error response with no side effects. The three gates split the module by domain, so statement reads can be granted without granting payment execution.
+Every Kvika operation needs one of three permission sets, so statement reads can be granted without
+payment rights.
 
-| Permission set | Gates |
+| Permission set | Grants |
 | --- | --- |
-| `BIFROST KVClmPmt ori` | The seven claim types: `Claim.Query`, `Claim.QueryOne`, `Claim.CreateBatch`, `Claim.AlterBatch`, `Claim.CancelBatch`, `Claim.QueryPayments`, `Claim.GetOperationResult` |
-| `BIFROST KVPaymt ori` | `Kvikabanki.Payment.Batch`, `Kvikabanki.Payment.ResultBatch` |
-| `BIFROST KVStmt ori` | `Kvikabanki.Statement.Get`, `Kvikabanki.CurrencyRates.Get` |
+| `BIFROST KVClmPmt ori` | Finding claims, claim batches and their results, and claim payments |
+| `BIFROST KVPaymt ori` | Payment batches and their results |
+| `BIFROST KVStmt ori` | Statements and currency rates |
 
-`BIFROST KVFull ori` extends Foundation's `BIFROST Full ori` with the module's objects; it is the set to grant an integration user that needs everything.
+`BIFROST KVFull ori` extends Foundation's `BIFROST Full ori`: it is the set behind full access to the
+Kvika connector.
 
-## Replacing the per-tenant app
+## Moving from Cloud Events Kvika banki
 
-This module succeeds the per-tenant app *Cloud Events Kvika banki*. The two can be installed side by side, and on its first install the module runs a take-over that copies the predecessor's data:
+Install Bifröst Iceland Treasury beside the old app. On first install it takes over the Kvika
+settings (whether the connector is enabled and the company user name), the Kvika fields on standard
+Business Central records and the users' permission set assignments, then you can remove the old app.
+Data already in the new app is never overwritten.
 
-- the company-wide Kvika settings, which move from the old setup table onto the shared Bank Setup row — the enabled flag, the base URL and the company user name all carry over, so a company that had switched the connector on stays switched on;
-- the Kvika fields that lived on shared base tables, copied field by field because their numbers moved with the new object range;
-- every user assignment of an old permission set, re-pointed at the Bifröst set that replaces it.
+**Passwords and the client certificate do not carry over.** Enter them once after the switch.
 
-The legacy transport selection is deliberately not carried over: every production company runs the live transport, which is what the new row defaults to. The take-over runs only on a first install, so it cannot overwrite work done after the switch.
+## Where to go next
 
-Stored secrets do **not** carry over. Isolated Storage is scoped per extension and this is a new app, so the passwords and the client certificate must be entered again once the module is installed.
+- [Iceland Treasury overview](/iceland-treasury/)
+- [Draupnir signers](../reference/draupnir-signers.md): the client certificate
+- [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/)

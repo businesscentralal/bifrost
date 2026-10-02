@@ -31,11 +31,11 @@ an assistant works with.)
 
 Each app has two kinds of pages on this site:
 
-| | The app's section (for example [Foundation](/foundation/)) | The app's help (for example Foundation help) |
+| | The app's section (for example [Foundation](/foundation/)) | The app's help pages |
 |---|---|---|
-| **What it says** | What the app adds, and the message types it brings | What one page in Business Central is for, its fields and actions |
-| **Who reads it** | Anyone choosing apps, administrators, developers, and agents looking up a message type | A user on that page, who opens it from Business Central with the help button |
-| **Find it** | **Apps** on the right of the menu (Foundation and Additional apps) | The **Help** menu, or from inside Business Central |
+| **What it says** | What the app adds, in Business Central terms | What one page in Business Central is for, its fields and actions |
+| **Who reads it** | Anyone choosing apps, administrators and developers | A user on that page, who opens it from Business Central with the help button |
+| **Find it** | **Apps** on the right of the menu (Foundation and Additional apps) | From the help icon on each Bifröst page in Business Central |
 
 An agent does not need either: it asks Bifröst which message types exist and reads their help
 directly.

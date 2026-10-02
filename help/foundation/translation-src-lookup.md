@@ -13,7 +13,7 @@ The list is populated automatically each time the page opens by reading the dist
 
 | Column | Description |
 | --- | --- |
-| **Source** | The source identifier that groups a set of translation entries. This is typically a message type name, module name, or external system identifier — for example `Customer.CreditLimit.Get` or `MyIntegration`. |
+| **Source** | The source identifier that groups a set of translation entries. This is typically a message type name, module name, or external system identifier — for example `MyIntegration`. |
 
 ## Usage
 

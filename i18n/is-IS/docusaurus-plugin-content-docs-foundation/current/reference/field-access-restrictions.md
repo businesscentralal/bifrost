@@ -18,12 +18,12 @@ fyrir lestur, skrif eða hvort tveggja í gegnum stillingarborðið — án þes
 | Write | 2 | ✓ | ✗ | Reitur má vera lesinn en skrif eru stöðvuð með villu |
 | Bypass | 3 | ✓ | ✓ | Takmörkun óvirk — reitur er aðgengilegur alla vega (notað til að undanskilja reiti úr breiðari takmarkana) |
 
-### Hegðun við lestur (`Data.Records.Get`, `CSV.Records.Get`)
+### Hegðun við lestur færslna (líka CSV-útflutning)
 
 Reitir með `Read` eða `Both` tegund eru **þegjandi** slepptir frá útgangi: enginn villudagar, reiturinn
 birtist einfaldlega ekki í JSON-svaritöflum. Þetta tryggir bakwardstengda samhæfni.
 
-### Hegðun við skrif (`Data.Records.Set`)
+### Hegðun við almenn skrif færslna
 
 Ef kallari reynir að skrifa í reit sem er lokaður með `Write` eða `Both` tegund, skilar API villu
 með skýru skilaboði: `"Field 'FieldName' is write-restricted in table 'TableName'."` Skrifun
@@ -120,63 +120,6 @@ takmarkanir eiga aðeins við um gagnaðgenga BC-notendur, ekki API-þjónustur.
 
 Í þessu dæmi geta allir notendur/API-þjónustur ekki lesið né skrifað `Credit Limit (LCY)`, nema
 `SVC_INT_USR`-notandinn sem fær fullan aðgang.
-
----
-
-## API-tilvísun
-
-### Tafla 10077889 — Field Access ori
-
-| Reitur nr. | Heiti reits | Tegund | Lýsing |
-|---|---|---|---|
-| 1 | Table No. | Integer | Töflunúmer töflunnar sem takmarkaður reitur tilheyrir |
-| 2 | Field No. | Integer | Reitanúmer reitsins sem er takmarkaður |
-| 3 | User Name | Code[50] | BC-notendanafn. `(All Users)` = allar keyrslur |
-| 4 | Restriction Type | Enum | `Both` (0), `Read` (1), `Write` (2), `Bypass` (3) |
-| 5 | Table Name | Text[250] | Heiti töflu (ritlæst, sótt sjálfkrafa) |
-| 6 | Field Name | Text[250] | Heiti reits (ritlæst, sótt sjálfkrafa) |
-
-### Kóðaeining 10077895 — Field Access ori
-
-Þessi kóðaeining útfærir athuganarrök fyrir reitaðgangstakmörk.
-
-**Opinberar aðferðir:**
-
-```al
-/// <summary>
-/// Athugar hvort reitur sé lokaður frá lestur fyrir gefinn notanda.
-/// </summary>
-procedure IsReadRestricted(TableNo: Integer; FieldNo: Integer; UserName: Code[50]): Boolean
-
-/// <summary>
-/// Athugar hvort reitur sé lokaður frá skrifum fyrir gefinn notanda.
-/// </summary>
-procedure IsWriteRestricted(TableNo: Integer; FieldNo: Integer; UserName: Code[50]): Boolean
-
-/// <summary>
-/// Skilar lista yfir alla takmarkaða reiti í töflu fyrir gefinn notanda.
-/// </summary>
-procedure GetRestrictedFields(TableNo: Integer; UserName: Code[50]; var BifrostFieldAccess: Record "Field Access ori")
-```
-
----
-
-## Þróunarsnotkun
-
-Reitaðgangstakmörk eru framfylgt sjálfkrafa af `Data.Records.Get` og `Data.Records.Set`
-meðhöndlun skilaboðategunda. Þú þarft ekki að kalla á `Field Access ori`
-kóðaeininguna beint nema þú sért að smíða eigin viðbætur ofan á Bifröst grunninn.
-
-Ef þú vilt athuga hvort ákveðinn reitur sé lokaður í kóða:
-
-```al
-var
-    BifrostFieldAccessMgt: Codeunit "Field Access ori";
-begin
-    if BifrostFieldAccessMgt.IsWriteRestricted(Database::Customer, 21, UserId()) then
-        Error('Reitur er lokaður frá skrifum.');
-end;
-```
 
 ---
 

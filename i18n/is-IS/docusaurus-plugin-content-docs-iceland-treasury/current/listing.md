@@ -15,7 +15,7 @@ Bifröst Iceland Treasury
 Íslenskar bankatengingar fyrir Business Central: yfirlit, kröfur, greiðslur og gjaldmiðlar.
 
 ## Stutt lýsing (hámark 100 stafir)
-Landsbankinn, Arion, Íslandsbanki, Kvika og sparisjóðir sem Bifröst-skilaboðategundir.
+Landsbankinn, Arion, Íslandsbanki, Kvika og sparisjóðir tengd Business Central.
 
 ## Leitarorð
 1. Íslensk bankatenging
@@ -39,9 +39,9 @@ Landsbankinn, Arion, Íslandsbanki, Kvika og sparisjóðir sem Bifröst-skilabo�
 
 ## Heildarlýsing
 
-**Bifröst Iceland Treasury** tengir Business Central við íslenska banka. Hún byggir á Bifröst — skilaboðadrifnu samþættingarlagi sem veitir ytri kerfum, gervigreindarvöktum og sjálfvirkniverkfærum skipulagðan aðgang að gögnum og ferlum Business Central í gegnum OData — og birtir kröfur, greiðslur, yfirlit, reikninga, kort, gjaldmiðla og rafræn skjöl sem skilaboðategundir.
+**Bifröst Iceland Treasury** tengir Business Central við íslenska banka. Hún byggir á Bifröst — skilaboðadrifnu samþættingarlagi sem veitir ytri kerfum, gervigreindarfulltrúum og sjálfvirkniverkfærum skipulagðan aðgang að gögnum og ferlum Business Central í gegnum OData — og gerir kröfur, greiðslur, yfirlit, reikninga, kort, gengi og rafræn skjöl aðgengileg gegnum það.
 
-Viðbótin bætir 158 skilaboðategundum ofan á **Bifröst Foundation** og nær yfir fimm banka í einu forriti: Landsbankann, Arion banka, Íslandsbanka, Kviku banka og sparisjóði.
+Viðbótin er sett upp ofan á **Bifröst Foundation** og nær yfir fimm banka í einu forriti: Landsbankann, Arion banka, Íslandsbanka, Kviku banka og sparisjóði.
 
 ### Fyrir hvern er þetta?
 

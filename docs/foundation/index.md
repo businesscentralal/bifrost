@@ -28,7 +28,8 @@ Foundation brings the standard Business Central
   invoices, see who changed what.
 - **Reading data:** most tables in Business Central, within your permissions.
 
-The full list, with what every message type does in plain words: [Capabilities](./capabilities).
+The installed message types and their contracts are read from Business Central itself: the MCP
+tools `list_message_types` and `describe_message_type`, or the Bifrost Message Types page.
 
 **Where it stops.** Foundation can read most of your data, but it can only carry out tasks that have
 a message type. For banks, document exchange, storage, schedules and more, add an
@@ -56,7 +57,4 @@ each saying who is needed.
 - [Errors](./reference/errors/), [Events and webhooks](./reference/events-and-webhooks/),
   [Field access](./reference/field-access-restrictions/), [Secrets](./reference/secrets/)
 - [Setup reference](./reference/setup/): the Bifrost Setup page and the settings behind it
-- [Message type guides](./message-types/): each Foundation capability in depth
-- [Message type reference](./reference/message-types/): the full contract of every message type,
-  generated from the app itself
 - [Build on Bifröst](/extensibility/)

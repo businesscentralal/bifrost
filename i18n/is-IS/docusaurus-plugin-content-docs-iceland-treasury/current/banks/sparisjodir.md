@@ -3,163 +3,111 @@ id: sparisjodir
 title: "Sparisjóðir"
 sidebar_label: "Sparisjóðir"
 sidebar_position: 5
-description: "Statements, claims, greiðslur, accounts, bills og credit cards at the Icelandic savings banks, exposed as 24 Bifröst message types."
+description: "Hvað Bifröst fjárstýring gerir með sparisjóðunum: yfirlit, kröfur og kröfubunkar, greiðslur, reikningar, greiðsluseðlar, kreditkort, gengi og innflutningur yfirlita."
 ---
 
-The Sparisjóðir module connects Business Central til the Icelandic savings banks over their shared Sambankaskema 2013 B2B services. It exposes 24 message types covering statements, claims og asynchronous claim batches, greiðslur, accounts, bills, credit cards og currency rates, og it imports bank statements í Business Central's own Bank Acc. Reconciliation.
+Þessi síða er fyrir fjármálasvið og kerfisstjóra Business Central hjá fyrirtæki sem er í viðskiptum
+við einn af íslensku sparisjóðunum. Hún útskýrir hvað Sparisjóðatengingin í
+[Bifröst fjárstýringu](/iceland-treasury/) gerir, hvað þú setur upp og hvað þú sérð í Business
+Central á eftir.
 
-The savings banks share a service contract but not a host. One Business Central fyrirtæki integrates með exactly one savings bank, og which one er chosen by configuration rather than by code. See [Bank statement import](#bank-statement-import) below.
+Sparisjóðirnir bjóða sömu þjónustur, hver frá sínu vistfangi. Fyrirtæki í Business Central vinnur með
+einum sparisjóði, sem er valinn með innflutningssniði yfirlita (sjá hér að neðan).
 
-## What it covers
+## Hvað hún gerir fyrir þig
 
-- **Statements.** reikningur statements fyrir an reikningur og date range, either as a message Svar eða imported straight í a reconciliation.
-- **Claims (*innheimtukröfur*).** Fyrirspurn claims, one claim eða many; Fyrirspurn the greiðslur received against them og the færslur that make up a claim's lifecycle.
-- **Claim batches.** Create, alter, cancel og re-create batches of claims, og mark a batch fyrir secondary collection. These eru asynchronous — see below.
-- **greiðslur.** Submit a greiðsla batch og poll fyrir its result.
-- **Accounts.** The accounts the credentials reach, accounts by owner registration number, a stakan reikningur, og verification that an owner og an reikningur belong together.
-- **Bills og credit cards.** Outstanding bills og bill detail; the credit card Listi, one card með detail, og card færslur.
-- **Currency rates.** The savings bank's published rates.
+- **Yfirlit inn í afstemmingu.** Flyttu yfirlit beint inn í **afstemmingu bankareiknings**, eða lestu
+  yfirlit fyrir hvaða reikning og tímabil sem er.
+- **Kröfur (*innheimtukröfur*).** Finndu kröfur, sjáðu greiðslur sem borist hafa inn á þær og fylgdu
+  kröfu gegnum ferilinn.
+- **Kröfubunkar.** Stofnaðu, breyttu, felldu niður og endurstofnaðu kröfur í bunkum, og sendu bunka í
+  milliinnheimtu. Bankinn staðfestir bunkann fyrst og skilar niðurstöðunni á eftir. Staðfestur bunki
+  þýðir ekki að greiðandinn hafi greitt: skoðaðu greiðslur krafnanna til þess.
+- **Greiðslur.** Sendu greiðslubunka og sæktu niðurstöðu hans.
+- **Reikningar.** Reikningarnir sem bankanotandinn þinn nær til, reikningar í eigu kennitölu,
+  upplýsingar um einn reikning, og staðfesting á að eigandi og reikningur eigi saman.
+- **Greiðsluseðlar og kreditkort.** Ógreiddir seðlar og nánari upplýsingar um þá; kreditkortin þín og
+  færslur þeirra.
+- **Gengi.** Birt gengi sparisjóðsins.
 
-## Message types
+Þú, tímasett ferli eða gervigreindaraðstoðarmaður getið beðið um hvað sem er af þessu. Uppsettar
+skilaboðategundir og samningar þeirra eru lesnir úr Business Central sjálfu: með MCP-tólunum
+`list_message_types` og `describe_message_type`, eða á síðunni Bifrost Message Types.
 
-The fulla Beiðni og Svar contract fyrir each Gerð — every Reitur, every error — er in the generated [message Gerð reference](/iceland-treasury/reference/message-types/). `Help.Sparisjodir.Get` Skilar same index frá inside Business Central.
+## Hvað þú setur upp
 
-### Statements
+1. **Samning við sparisjóðinn þinn** um þær þjónustur sem þú notar, með B2B-notandanafni, lykilorði og
+   undirritunarskilríki (`.pfx`-skrá með eigin lykilorði).
+2. **Línu Sparisjóða á Uppsetning Bifröst Ísland Fjárstýringar**: hafðu hana virka, skráðu
+   notandanafn fyrirtækisins og notaðu svo **Skrá lykilorð fyrirtækis** og **Skrá skírteini**. Sjá
+   [hjálp uppsetningarsíðunnar](/help/iceland-treasury/treasury-setup/) og
+   [Draupnir-undirritara](../reference/draupnir-signers.md).
+3. **Eigin aðgang notenda, ef þeir hafa sinn eigin aðgang hjá bankanum.** Hver notandi skráir eigið
+   notandanafn og lykilorð í **notandastillingum Bifrastar**; sjá
+   [Bankaaðgangur notanda](/help/iceland-treasury/bank-user-setup/).
+4. **Innflutning yfirlita, sem einnig velur sparisjóðinn.** Á bankareikningi í Business Central
+   skaltu velja snið sparisjóðsins þíns sem **Innflutningssnið bankayfirlits**: `SPAR-IN-SPARAUST`,
+   `SPAR-IN-SPTHIN`, `SPAR-IN-SPSTR` eða `SPAR-IN-SPSH`. Enginn sérstakur bankareitur er á
+   uppsetningarsíðunni. Breytingar sem þú gerir á þessum sniðum haldast við enduruppsetningu og
+   uppfærslu.
+5. **Kröfur.** Á hvern greiðslumáta sem notaður er til innheimtu skráirðu **kröfuauðkenni Spar** sem
+   bankinn úthlutaði þeim innheimtusamningi. **Síðasta kröfunúmer Spar** heldur númeraröðinni
+   gangandi. Kennitala kröfuhafa er lesin úr upplýsingum fyrirtækis. Sjá
+   [Greiðslumátar](/help/iceland-treasury/payment-methods/).
+6. **Heimildir.** Úthlutaðu heimildasettunum hér að neðan.
 
-| Gerð | What it does |
-| --- | --- |
-| `Sparisjodir.Statement.Get` | Statement fyrir one reikningur over a date range |
-
-### Claims
-
-| Gerð | What it does |
-| --- | --- |
-| `Sparisjodir.Claim.Query` | Queries claims |
-| `Sparisjodir.Claim.QueryOne` | Queries a stakan claim |
-| `Sparisjodir.Claim.QueryPayments` | greiðslur received against claims |
-| `Sparisjodir.Claim.QueryTransactions` | Claim lifecycle færslur |
-
-### Claim batches
-
-| Gerð | What it does |
-| --- | --- |
-| `Sparisjodir.Claim.CreateBatch` | Sendir a batch of new claims |
-| `Sparisjodir.Claim.AlterBatch` | Sendir changes til existing claims |
-| `Sparisjodir.Claim.CancelBatch` | Cancels a batch of claims |
-| `Sparisjodir.Claim.ReCreateBatch` | Re-Býr til a batch of claims |
-| `Sparisjodir.Claim.MarkBatchForSecCollection` | Marks a batch fyrir secondary collection |
-| `Sparisjodir.Claim.GetOperationResult` | Collects Niðurstaðan of a submitted batch operation |
-
-### greiðslur
-
-| Gerð | What it does |
-| --- | --- |
-| `Sparisjodir.Payment.Batch` | Sendir a greiðsla batch |
-| `Sparisjodir.Payment.ResultBatch` | Polls a submitted greiðsla batch |
-
-### Accounts
-
-| Gerð | What it does |
-| --- | --- |
-| `Sparisjodir.Account.Get` | Accounts fyrir the authenticated user |
-| `Sparisjodir.Account.GetByOwner` | Accounts belonging til one owner |
-| `Sparisjodir.Account.GetOne` | One reikningur by bank, ledger og reikningur number |
-| `Sparisjodir.Account.Verify` | Confirms that an owner og an reikningur belong together |
-
-### Bills
-
-| Gerð | What it does |
-| --- | --- |
-| `Sparisjodir.Bill.Get` | Lists outstanding bills |
-| `Sparisjodir.Bill.GetDetails` | One bill með its detail |
-
-### Credit cards
-
-| Gerð | What it does |
-| --- | --- |
-| `Sparisjodir.CreditCard.Get` | Lists credit cards |
-| `Sparisjodir.CreditCard.GetOne` | One card með its detail |
-| `Sparisjodir.CreditCard.Transactions` | færslur on a card |
-
-### Currency rates og help
-
-| Gerð | What it does |
-| --- | --- |
-| `Sparisjodir.CurrencyRates.Get` | Published currency rates |
-| `Help.Sparisjodir.Get` | Skilar a Markdown index of every Sparisjóðir message Gerð |
-
-### Claim batches eru asynchronous
-
-A batch operation er not a transfer. The bank accepts the batch og Skilar an operation id; the outcome er collected afterwards með `Sparisjodir.Claim.GetOperationResult`. A caller Sendir the batch, keeps the operation id og polls — it does not block waiting fyrir the bank, og a successful submission does not mean the payer has been charged. Notaðu `Sparisjodir.Claim.QueryPayments` og `Sparisjodir.Claim.QueryTransactions` fyrir settlement evidence.
-
-## Setting up
-
-Allt five bank modules share one setup page, með a row per bank. Open **Bifröst Iceland Treasury Setup**, select the Sparisjóðir row, og set the fyrirtæki-default user Heiti. See the [in-product help](/help/iceland-treasury/treasury-setup/) fyrir the page itself.
-
-Sparisjóðir uses four secrets:
-
-| Secret | Scope | Tilgangur |
+| Aðgangsupplýsingar | Geymdar fyrir | Athugasemdir |
 | --- | --- | --- |
-| fyrirtæki password | fyrirtæki | The fyrirtæki-default B2B password |
-| User password | Per user | Overrides the fyrirtæki password fyrir one user |
-| Client certificate | fyrirtæki | Signs the SOAP envelopes |
-| Certificate password | fyrirtæki | Opens the certificate |
+| Lykilorð fyrirtækis | Fyrirtækið | Sjálfgefið B2B-lykilorð fyrirtækisins. |
+| Lykilorð notanda | Hvern notanda | Notað með eigin notandanafni hans. |
+| Undirritunarskilríki og lykilorð þess | Fyrirtækið | Undirritar hverja beiðni. Lokadagsetning þess sést á uppsetningarsíðunni. |
 
-Secrets eru entered through masked dialogs og stored in Isolated Storage. They eru never written til a table og never appear in a Svar. See [Treasury secrets](/help/iceland-treasury/treasury-secrets/).
+Öll gildi eru slegin inn í huldum gluggum og aldrei sýnd aftur; sjá
+[Leyndarmál banka](/help/iceland-treasury/treasury-secrets/).
 
-A user who needs their own login sets a personal user Heiti og password on their own færsla; leave those blank og the fyrirtæki defaults apply. See [Bank user setup](/help/iceland-treasury/bank-user-setup/).
+## Hvað þú sérð í Business Central
 
-## Bank statement import {#bank-statement-import}
+- **Flytja inn bankayfirlit** í afstemmingu bankareiknings sækir yfirlitið til sparisjóðsins. Sé ekkert
+  eldra bókað yfirlit til að halda áfram frá biður það um
+  [upphafsdagsetningu](/help/iceland-treasury/date-input-dialog/).
+  [Innfærsla yfirlits — samantekt](/help/iceland-treasury/statement-import-summary/) sýnir síðan
+  reikninginn, gjaldmiðil, IBAN, innfluttar línur og upphafs- og lokastöðu, og varar við ef þær stemma
+  ekki við bankann.
+- **Greiðslumátar** sýna kröfuauðkenni Spar og síðasta kröfunúmer.
+- **Upplýsingagluggi viðskiptamannafærslna** sýnir kröfureikning og kröfudagsetningu hjá sparisjóðnum,
+  fyrir notendur sem mega lesa kröfur. Sjá
+  [Viðskiptamannafærslur — kröfuupplýsingar](/help/iceland-treasury/customer-ledger-factbox/).
+- Hvert kall til bankans er skráð í **beiðnaskrá Bifrastar**, með aðgangsupplýsingarnar huldar.
 
-The module installs **four** Data Exchange definitions of Gerð Bank Statement Import, one per savings bank, together með the matching Bank Export/Import Setup rows:
+## Heimildasett
 
-| Format |
-| --- |
-| `SPAR-IN-SPARAUST` |
-| `SPAR-IN-SPTHIN` |
-| `SPAR-IN-SPSTR` |
-| `SPAR-IN-SPSH` |
+Hvert svið hefur sitt heimildasett, svo notandi getur lesið yfirlit án þess að geta greitt.
 
-Choosing one of these as the **Bank Statement Import Format** on the Business Central bankareikningur er how the savings bank er selected. There er no separate bank Reitur on the setup page; the import format carries that choice.
-
-Importing a statement on a Bank Acc. Reconciliation calls the bank, converts Svarið og maps it onto reconciliation lines through the staðlaða mapping. Þegar there er no earlier posted statement til derive the window frá, the module asks fyrir a start date first — see the [date input dialog](/help/iceland-treasury/date-input-dialog/). eftir a successful import a read-Aðeins [statement import summary](/help/iceland-treasury/statement-import-summary/) shows the reikningur, currency, IBAN, the number of lines imported og the calculated starting og ending balances, og warns Þegar those do not agree með what the reconciliation already held.
-
-The definitions eru created once og left alone on reinstall, so changes an administrator makes til them survive an upgrade.
-
-## Claims on greiðsla Methods
-
-A claim er issued under a collection agreement, og in Business Central that agreement er represented by a greiðsla Aðferð. The module adds two fields til the base greiðsla Aðferð table og shows them on the greiðsla Methods Listi:
-
-| Reitur | Tilgangur |
+| Heimildasett | Veitir |
 | --- | --- |
-| Spar Claim Identifier | The three-character identifier the bank assigned til this collection agreement |
-| Spar Last Claim No. | The last claim number used, so the next claim continues the sequence |
+| `BIFROST SPStmt ori` | Yfirlit |
+| `BIFROST SPAcct ori` | Uppflettingar og staðfestingu reikninga |
+| `BIFROST SPBill ori` | Greiðsluseðla |
+| `BIFROST SPCard ori` | Kreditkort og kortafærslur |
+| `BIFROST SPClmPmt ori` | Leit að kröfum, greiðslur krafna og feril krafna |
+| `BIFROST SPClmCrt ori` | Kröfubunka og niðurstöður þeirra |
+| `BIFROST SPPaymt ori` | Greiðslubunka og niðurstöður þeirra |
 
-A fyrirtæki getur map several greiðsla Methods til different bank identifiers. The claimant registration number er always read frá fyrirtæki Information og er never stored on the greiðsla Aðferð. See [greiðsla methods](/help/iceland-treasury/payment-methods/).
+`BIFROST SPFull ori` víkkar `BIFROST Full ori` í Foundation, svo allir með fullan Bifrastaraðgang ná
+til alls sem Sparisjóðatengingin gerir. `BIFROST SPRdClm ori` víkkar `BIFROST Read ori` með
+lesaðgangi að kröfum.
 
-viðskiptavinur Ledger Entries carry a FactBox showing the Sparisjóður claim reikningur og claim date behind the entry, resolved frá the claim line linked til it. The fields stay hidden fyrir users without read access til the claim tables. See [viðskiptavinur ledger FactBox](/help/iceland-treasury/customer-ledger-factbox/).
+## Að færa sig frá Cloud Events Sparisjóðir
 
-## Permission sets
+Settu Bifröst fjárstýringu upp við hlið gamla forritsins. Við fyrstu uppsetningu tekur hún yfir gögn
+sparisjóðanna (kröfur, kröfu- og greiðslubunka, kröfureitina á greiðslumátum, stillingar notenda,
+notandanafn fyrirtækisins og úthlutanir heimildasetta) og síðan má fjarlægja gamla forritið. Gögnum
+sem þegar eru í nýja forritinu er aldrei skrifað yfir.
 
-Each functional area sits behind a gate table með one assignable permission set, so a caller getur be granted statement reads without being granted greiðsla execution:
+**Lykilorð, skilríki og lykilorð skilríkisins flytjast ekki.** Skráðu þau einu sinni eftir skiptin.
 
-| Permission set | Covers |
-| --- | --- |
-| `BIFROST SPStmt ori` | `Sparisjodir.Statement.Get` |
-| `BIFROST SPAcct ori` | The four reikningur message types |
-| `BIFROST SPBill ori` | Bill Listi og bill detail |
-| `BIFROST SPCard ori` | The three credit card message types |
-| `BIFROST SPClmPmt ori` | Claim queries, claim greiðslur og claim færslur |
-| `BIFROST SPClmCrt ori` | Claim batch create, alter, cancel, re-create, secondary collection og the operation result |
-| `BIFROST SPPaymt ori` | greiðsla batch submission og results |
+## Hvert næst
 
-Two further sets extend Bifröst Foundation rather than standing alone. `BIFROST SPFull ori` extends `BIFROST Full ori`, so anyone með fulla Bifröst access reaches the whole Sparisjóðir integration. `BIFROST SPRdClm ori` extends `BIFROST Read ori` með read access til the claim header og claim line tables.
-
-## Replacing the published app
-
-This module succeeds the per-tenant app *Cloud Events Sparisjóðir*. The successor er a separate app, so both getur be installed side by side while the switch er made.
-
-On its first install the module takes the predecessor's data over: claim headers, lines og batches, greiðsla batches og lines, og the gate tables eru copied table by table. Fields that live on shared base tables — the claim identifier og last claim number on greiðsla Aðferð, og the Sparisjóðir fields on Bifröst User Setup — eru copied Reitur by Reitur, because their Reitur numbers moved með the new object range. Existing user assignments of the old permission sets eru re-pointed at the sets that replace them. A table that already holds rows er left alone, so a second install never overwrites live data.
-
-Stored secrets do not carry over. Isolated Storage er scoped per extension, og the successor er a different extension, so the password, certificate og certificate password eru entered again eftir the switch. The fyrirtæki-default user Heiti er carried across með the rest of the setup.
-
+- [Yfirlit fjárstýringar](/iceland-treasury/)
+- [Draupnir-undirritarar](../reference/draupnir-signers.md): undirritunarskilríkið
+- [Uppsetning Bifröst Ísland Fjárstýringar](/help/iceland-treasury/treasury-setup/)

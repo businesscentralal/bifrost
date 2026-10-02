@@ -22,7 +22,7 @@ The detail that does differ between banks, and the actions that store secrets, a
 | Field | Description |
 |---|---|
 | **Bank** | The Icelandic bank the row configures: Landsbankinn, Arion banki, Íslandsbanki, Kvika banki or Sparisjóðir. |
-| **Enabled** | Whether the connector may run. Turn it off to stop every message type of that bank without deleting its settings. New rows start switched on. |
+| **Enabled** | Whether the connector may run. Turn it off to stop every operation of that bank without deleting its settings. New rows start switched on. |
 | **Username** | The company-default B2B user name the bank issued. A user can override it for themselves on **Bifrost User Setup**. |
 | **Secrets** | Whether every secret this bank needs has been entered. Shows **Complete** in green, or **Missing** highlighted. |
 | **Base URL** | Optional endpoint override, hidden by default. Leave it blank to use the connector's built-in production endpoint. Use it only for a test or sandbox gateway. |

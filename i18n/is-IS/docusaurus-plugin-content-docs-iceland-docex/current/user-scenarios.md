@@ -8,74 +8,79 @@ description: "Sviðsmyndir fyrir vottun Bifröst Iceland DocEx á AppSource."
 
 Prófaðu í Business Central 28.0 eða nýrra með Bifröst Foundation og prófunaraðgangi að þeim skjalaskiptaþjónustum sem á að nota.
 
+Prófandinn vinnur gegnum gervigreindaraðstoðarmann sem er tengdur Business Central með MCP-þjóni
+Bifrastar (sjá [Tengdu gervigreindaraðstoðarmanninn](/setup/connect-your-ai/)), eða kallar á Bifröst úr
+öðrum biðlara. Uppsettar aðgerðir og samningar þeirra eru alltaf listaðir með MCP-tólunum
+`list_message_types` og `describe_message_type`, eða á síðunni Bifrost Message Types.
+
 ## Sviðsmynd 1: Setja upp viðbót
 
-Settu upp Foundation og DocEx, opnaðu Bifröst Setup → Document Exchange og staðfestu að þjónustuaðilar og skilríkjastöður birtist án villu.
+Settu upp Foundation og DocEx, opnaðu Uppsetning Bifröst → Uppsetning skjalaskipta og staðfestu að þjónustuaðilar og skilríkjastöður birtist án villu, og að skjalaskiptaaðgerðirnar séu á síðunni Bifrost Message Types.
 
 ## Sviðsmynd 2: BIS 3.0 landskóðar
 
-Keyrðu `DocumentExchange.BIS30.CountryCodes`. Svarið skal innihalda Peppol-landskóða.
+Biddu aðstoðarmanninn um landskóða Peppol BIS 3.0. Svarið skal innihalda landskóða með heitum.
 
 ## Sviðsmynd 3: BIS 3.0 skjalategundarkóðar
 
-Keyrðu `DocumentExchange.BIS30.DocumentTypeCodes` og staðfestu að staðlaðir skjalakóðar komi til baka.
+Biddu um skjalategundarkóða Peppol BIS 3.0 og staðfestu að staðlaðir kóðar komi til baka (t.d. 380 reikningur, 381 kreditreikningur).
 
 ## Sviðsmynd 4: Advania — ólesin skjöl
 
-Keyrðu `DocumentExchange.Advania.GetUnread`. Staðfestu lista yfir ólesin skjöl og að beiðni og svar séu skráð með huldu leyndarmáli.
+Spyrðu hvaða skjöl séu ólesin hjá Advania. Staðfestu lista yfir ólesin skjöl og að kallið sé skráð í beiðnaskrá með aðgangsupplýsingarnar huldar.
 
 ## Sviðsmynd 5: Advania — heilt skjal
 
-Notaðu `DocumentExchange.Advania.GetDocument` og `DocumentExchange.Advania.GetDocumentPdf` til að sækja gögn og PDF.
+Biddu um eitt skjal frá Advania eftir skjalanúmeri og staðfestu haus, línur og upphæðir.
 
 ## Sviðsmynd 6: Advania — senda reikning
 
-Keyrðu `DocumentExchange.Advania.CreateInvoice` með gildu Business Central-skjali og staðfestu stöðu sendingar.
+Biddu aðstoðarmanninn að senda bókaðan sölureikning gegnum Advania og staðfestu að sendingin fái rakningarnúmer.
 
 ## Sviðsmynd 7: Advania — samstilling stöðu
 
-Keyrðu `DocumentExchange.Advania.StatusSync` og staðfestu að stöður skjala samstillist.
+Biddu um að staða sendra skjala hjá Advania sé uppfærð og staðfestu að stöðurnar endurspegli kerfi Advania.
 
 ## Sviðsmynd 8: Unimaze — ólesin skjöl
 
-Keyrðu `DocumentExchange.Unimaze.GetUnread` og staðfestu móttekin skjöl.
+Spyrðu hvaða skjöl séu ólesin hjá Unimaze og staðfestu móttekin skjöl.
 
 ## Sviðsmynd 9: Unimaze — senda færslu
 
-Keyrðu `DocumentExchange.Unimaze.SubmitTransaction` með prófunargögnum og staðfestu staðfestingu eða sundurliðaðar villur.
+Biddu um sendingu skjals gegnum Unimaze með prófunargögnum og staðfestu færslunúmer eða sundurliðaðar villur.
 
 ## Sviðsmynd 10: InExchange — innkomandi skjöl
 
-Keyrðu `DocumentExchange.InExchange.GetIncoming` og staðfestu að innkomandi skjöl og lýsigögn skili sér.
+Spyrðu hvaða innkomandi skjöl bíði hjá InExchange og staðfestu að skjöl og lýsigögn skili sér.
 
 ## Sviðsmynd 11: InExchange — senda skjal
 
-Keyrðu `DocumentExchange.InExchange.SendDocument` og staðfestu afhendingarstöðu.
+Biddu um sendingu skjals gegnum InExchange og staðfestu rakningarnúmer sendingar.
 
 ## Sviðsmynd 12: UBL — reikningur
 
-Keyrðu `DocumentExchange.UBL.RenderBilling` og staðfestu gilt UBL 2.1 XML.
+Biddu um að bókaður sölureikningur sé myndaður sem Peppol BIS 3.0 UBL og staðfestu gilt UBL 2.1 XML.
 
 ## Sviðsmynd 13: UBL — pöntun
 
-Keyrðu `DocumentExchange.UBL.RenderOrder` og staðfestu UBL 2.1 XML fyrir pöntun.
+Biddu um að sölupöntun sé mynduð sem UBL og staðfestu UBL 2.1 XML fyrir pöntun.
 
 ## Sviðsmynd 14: Uppfletting viðskiptafélaga
 
-Keyrðu `DocumentExchange.Advania.GetTradingPartners` og staðfestu að kaupendur og seljendur finnist.
+Biddu um leit að viðskiptafélögum á Advania-netinu eftir nafni eða rafrænu auðkenni og staðfestu að kaupendur og seljendur finnist.
 
 ## Sviðsmynd 15: Sækja PDF skjals
 
-Sæktu skjal með `DocumentExchange.Advania.GetDocumentPdf` og staðfestu að svarið innihaldi PDF-gögn.
+Biddu um PDF af skjali hjá Advania og staðfestu að PDF-skjalið opnist og passi við upprunaskjalið.
 
 ## Sviðsmynd 16: Ógild skilríki
 
-Keyrðu þjónustuaðgerð með röngum skilríkjum. Skipulögð villa skal skila sér og aðgangsupplýsingar mega ekki birtast í Request Log.
+Skráðu röng skilríki á Uppsetning skjalaskipta og endurtaktu sviðsmynd 4. Skipulögð villa skal skila sér og aðgangsupplýsingar mega ekki birtast í beiðnaskránni.
 
 ## Sviðsmynd 17: Heimildir
 
-Staðfestu að lesheimildir leyfi uppflettingar en að sendi- og uppfærsluaðgerðir krefjist viðeigandi heimildasetts.
+Staðfestu að notandi með heimildasettið geti opnað uppsetninguna og notað skjalaskiptaaðgerðirnar, og að sami notandi fái heimildavillu þegar settið er tekið af honum.
 
 ## Sviðsmynd 18: Fjarlægja viðbót
 
-Fjarlægðu DocEx og staðfestu að uppsetningar- og fjarlægingarferli ljúki án villu.
+Fjarlægðu DocEx og staðfestu að fjarlægingin ljúki án villu og að önnur Bifröst-forrit virki áfram.

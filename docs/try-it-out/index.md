@@ -23,7 +23,7 @@ trial.
 (SUPER, for outbound HTTP in the setup wizard), and an Entra administrator for the one-time
 consent.
 
-1. **Create a sandbox** with demo data (for example CRONUS) in the Business Central admin center,
+1. **Create a sandbox** with demo data in the Business Central admin center,
    or use one you already have.
 2. **Install Bifröst Foundation** from the Extension Marketplace. See [step 1](/setup/get-the-app/).
 3. **Run the setup wizard** from Bifrost Setup. If your user has SUPER, it already has what

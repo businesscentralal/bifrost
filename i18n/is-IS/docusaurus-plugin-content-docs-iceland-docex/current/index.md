@@ -7,54 +7,70 @@ slug: /
 description: "Rafræn skjalaskipti fyrir Business Central gegnum Advania, Unimaze og InExchange, með Peppol BIS 3.0 gögnum og UBL-myndun."
 ---
 
-Bifröst Iceland DocEx sendir og móttekur rafræn viðskiptaskjöl gegnum fjórar þjónustur — Advania, Unimaze, InExchange og opinberu viðmiðunargagnaþjónustuna fyrir Peppol BIS Billing 3.0 — og birtir hverja aðgerð sem skilaboðategund. Hún byggir á Bifröst Foundation: sendandi póstar einum skilaboðum á borð við `DocumentExchange.Advania.GetUnread`, viðbótin framkvæmir HTTP-kallið, skráir samskiptin í Bifrastar-beiðnaskrána með leyniorðin hulin, og skilar JSON-svari.
+# Bifröst Iceland DocEx
 
-## Hvað hún gerir
+**Sendu og taktu á móti rafrænum reikningum úr Business Central.** Bifröst Iceland DocEx tengir
+Business Central við skjalaskiptanet Advania, Unimaze og InExchange, á Peppol BIS 3.0 sniði.
 
-- **Advania** — taka á móti og senda skjöl, lesa lýsigögn, línur, viðhengi og sögu, samstilla stöður, fletta upp í innhólfi og sendum skjölum, fletta upp viðskiptafélögum, sækja PDF-skjöl og keyra OCR og XML-umbreytingu.
-- **Unimaze** — taka á móti og senda skjöl, senda færslur og hrátt XML, bæta við viðhengjum, lesa niðurstöður sannprófunar, endurreyna skilaboð sem brugðust, skrá greiðslur og höfnun, og lista aðgerðir sem bíða ákvörðunar.
-- **InExchange** — sækja innkomandi skjöl, senda skjöl út, fylgjast með afhendingarstöðu, merkja skjöl afgreidd og fletta upp kaupendum og seljendum.
-- **Peppol BIS 3.0 viðmiðunargögn** — landskóðar, gjaldmiðlar, skjalategundarkóðar, rafræn auðkenniskerfi, auðkenniskerfi þátttakenda, MIME-kóðar, einingarkóðar og VSK-kóðar, án ytri aðgangsupplýsinga.
-- **UBL-myndun** — mynda UBL 2.1 XML fyrir reikninga, kreditreikninga, pantanir, afhendingartilkynningar og yfirlit beint úr skjölum Business Central, án vörpunarverkefnis.
-- **Skjöl á innleið** — innkomandi greiðsla getur orðið að innkomandi skjali í Business Central, án tvítekningar þar sem skjalaauðkenni þjónustuaðilans er skráð, og þaðan annaðhvort að innkaupapappír eða fjárhagskladdalínum eftir bókunarhætti lánardrottins.
-- **Bókunarreglur á hvern lánardrottin** — hægt er að stilla lánardrottin þannig að innkomandi línur bókist á fasta fjárhagsreikninga eftir VSK-prósentu.
-- **Rekjanleg samskipti** — hvert kall til þjónustuaðila er skráð í Bifrastar-beiðnaskrána gegnum hulunarkóða þjónustuaðilans, svo endurgera megi misheppnuð samskipti án þess að leyniorð birtist.
-- **Eitt viðmót fyrir fjögur net** — sendandinn skiptir um skilaboðategund, ekki um samþættingarkóða.
+Mótteknir reikningar berast sem innkomandi skjöl í Business Central, tilbúnir til að verða
+innkaupaskjöl. Uppsetningin og skrefin eru þau sömu, sama á hvaða neti þú ert.
 
-## Hvernig hún virkar
+*Viðbótarforrit ofan á [Bifröst Foundation](/foundation/), fyrir fyrirtæki á Íslandi. Nýr notandi
+Bifrastar? Byrjaðu á [Hvernig Bifröst virkar](/documentation/how-it-works/).*
 
-1. Stjórnandi opnar **Bifröst uppsetning → Skjalaskipti**, velur umhverfi (Live eða Test) fyrir hvern þjónustuaðila og slær inn aðgangsupplýsingar. Þær fara í Isolated Storage; síðan sýnir aðeins gátreitinn **Innskráningarupplýsingar geymdar**.
-2. Sendandi — ytra kerfi, MCP-biðlari eða ferli í Business Central — póstar skilaboðum með `DocumentExchange.*`-tegund og JSON-greiðslu á biðraðarviðmót Bifrastar.
-3. Bifröst Foundation leysir skilaboðategundina upp í meðhöndlunarkóðaeiningu hennar.
-4. Meðhöndlarinn les umhverfi þjónustuaðilans úr uppsetningunni, finnur réttan biðlara og framkvæmir HTTP-kallið. Beiðni og svar eru skráð í Bifrastar-beiðnaskrána með aðgangsupplýsingarnar huldar.
-5. Meðhöndlarinn skrifar JSON-svar aftur á skilaboðin og sendandinn sækir það úr gagnaviðmóti Bifrastar.
-6. Fyrir skjöl á innleið sem beðið er um með `createIncomingDocument: true` býr viðbótin einnig til innkomandi skjal í Business Central og, eftir bókunarhætti lánardrottins, innkaupapappír eða fjárhagskladdalínur.
+## Hvað þú getur gert
 
-## Skilaboðategundir
+- **Tekið á móti reikningum sem innkomandi skjölum.** Móttekið skjal verður innkomandi skjal í
+  Business Central, sem síðan má vinna áfram með getu Foundation fyrir innkomandi skjöl. Hvert skjal
+  er aðeins stofnað einu sinni og verður síðan að innkaupaskjali eða færslubókarlínum, eftir því
+  hvernig lánardrottinn er stilltur.
+- **Sent reikninga og önnur skjöl.** Sent reikninga, kreditreikninga, pantanir, afhendingartilkynningar
+  og yfirlit úr skjölum Business Central, sem UBL 2.1 XML á Peppol BIS 3.0 sniði.
+- **Fylgst með hverju skjali.** Skoðað innhólf og send skjöl, lesið stöðu og sögu skjals og sótt PDF
+  þess. Með Unimaze má einnig skrá greiðslu eða höfnun.
+- **Fundið viðskiptafélaga.** Flett upp kaupendum, seljendum og viðskiptafélögum á netinu áður en þú
+  sendir.
+- **Bókað innkomandi línur á rétta reikninga.** Varpað línum lánardrottins á fasta fjárhagsreikninga
+  eftir VSK-prósentu, og þýtt Peppol-kóða yfir í kóðana sem fyrirtækið notar.
 
-Viðbótin bætir 76 skilaboðategundum ofan á Bifröst Foundation. Hver þeirra lýsir sér sjálf: sendu `Help.DocumentExchange.Get` með heiti skilaboðategundarinnar sem viðfang til að fá lýsingu á beiðni og svari á Markdown-sniði.
+## Fáðu það
 
-| Flokkur | Tegundir | Hvað hann nær yfir |
-| --- | --- | --- |
-| BIS 3.0 viðmiðunargögn | 10 | Kóðalistar Peppol BIS 3.0 — lönd, gjaldmiðlar, skjalategundir, auðkenniskerfi heimilisfanga og þátttakenda, MIME-kóðar, einingarkóðar, VSK-kóðar. |
-| Advania | 30 | Móttaka, sending, stöðustýring, fyrirspurnir í hólf, uppfletting viðskiptafélaga, sókn skjala, OCR og XML-umbreyting, notenda- og vefviðmótsaðgangur. |
-| Unimaze | 23 | Móttaka, sending, stöðustýring, fyrirspurnir, viðhengi og sannprófun, ferli greiðslu og höfnunar. |
-| InExchange | 8 | Innkomandi skjöl, sending og staða á útleið, uppfletting kaupenda og seljenda. |
-| UBL-myndun | 4 | `DocumentExchange.UBL.RenderBilling`, `RenderOrder`, `RenderDespatchAdvice`, `RenderStatement`. |
-| Hjálp | 1 | `Help.DocumentExchange.Get` — lýsing á öllum tegundunum hér að ofan. |
+Settu **Bifrost Iceland DocEx** upp við hlið Bifröst Foundation, af AppSource eða gegnum
+samstarfsaðila. Það krefst Business Central 28.0 eða nýrra, Essentials eða Premium.
 
-Heildarlistann, eina línu á hverja skilaboðategund, er að finna í hjálpinni í kerfinu.
+## Settu það upp
 
-## Kröfur
+| Skref | Hvað | Hver |
+|---|---|---|
+| 1 | Fáðu aðgangsupplýsingar frá að minnsta kosti einu neti: Advania, Unimaze eða InExchange. Peppol-viðmiðunargögnin þurfa engar. | Fjármálasvið, með þjónustuaðila netsins |
+| 2 | Leyfðu HTTP-beiðnir fyrir viðbótina í **uppsetningarleiðsögn Bifrastar** í Foundation (einnig opnuð með **Uppsetningarleiðsögn** á uppsetningarsíðu skjalaskipta). | Kerfisstjóri Business Central |
+| 3 | Á **Uppsetning Bifröst** skaltu opna **Uppsetning skjalaskipta**. Veldu Live eða Test fyrir hvert net sem þú notar, skráðu aðgangsupplýsingar þess og prófaðu tenginguna. | Kerfisstjóri Business Central |
+| 4 | Ef þú tekur á móti reikningum: veldu **Uppfæra BII-gagnaskiptaskilgreiningar** og fylltu síðan út BIS30-kóðavörpunina og VSK-fjárhagsreikningsvörpunina. | Kerfisstjóri Business Central eða samstarfsaðili |
+| 5 | Gefðu hverjum notanda eða þjónustu sem sendir eða tekur á móti skjölum `BIFROST Full ori`; forritið bætir hlutum sínum við það og við stöðluðu D365-heimildasettin. | Kerfisstjóri Business Central |
 
-- Microsoft Dynamics 365 Business Central 28.0 eða nýrri, Essentials eða Premium.
-- Bifröst Foundation, fáanleg sér á AppSource.
-- Aðgangsupplýsingar frá að minnsta kosti einu studdu skjalaskiptaneti — Advania, Unimaze eða InExchange.
-- BIS 3.0 viðmiðunargögn og UBL-myndun þurfa engar ytri aðgangsupplýsingar.
+Leiðbeiningar skref fyrir skref eru í hjálpinni í forritinu:
+[Uppsetning Bifröst DocEx](/help/iceland-docex/docex-setup/),
+[BIS30 kóðavörpun](/help/iceland-docex/bis30-code-map/) og
+[VSK fjárhagsreikningsvörpun lánardrottins](/help/iceland-docex/vend-vat-gl-map/).
 
-## Hvert skal halda næst
+## Gott að vita
 
-- [Uppflettirit skilaboðategunda](./reference/message-types/) — beiðni og svar fyrir hverja tegund, búið til beint úr forritinu
-- [Notendasviðsmyndir fyrir AppSource](./user-scenarios)
-- [Skráning í Partner Center](./listing)
-- [Byggja á Bifröst](/extensibility/)
+- **Það vinnur sem þú.** Kall getur aðeins gert það sem þínar eigin heimildir leyfa.
+- **Aðgangsupplýsingar eru geymdar fyrir hvert net og hvert umhverfi** í leyndarmálageymslu Bifröst
+  Foundation, svo prófunarlykill er aldrei notaður í raunkall. Uppsetningarsíðan sýnir aðeins hvort
+  gildi sé geymt.
+- **Hvert kall til nets er skráð** í beiðnaskrá Bifrastar, með aðgangsupplýsingarnar huldar, svo
+  rekja megi misheppnuð samskipti.
+- **Sending skjals er raunveruleg.** Í Live-umhverfi fer það til viðtakandans. Prófaðu sendingu fyrst
+  í Test-umhverfinu.
+- **Að færa þig frá Origo Cloud Events DocEx?** Settu þetta forrit upp við hliðina á því.
+  Kóðavarpanir og VSK-fjárhagsreikningsvarpanir eru afritaðar, en aðgangsupplýsingar flytjast ekki.
+  Skráðu þær aftur.
+
+## Finndu aðgerðirnar
+
+Uppsettar skilaboðategundir og samningar þeirra eru lesnir úr Business Central sjálfu: með
+MCP-tólunum `list_message_types` og `describe_message_type`, eða á síðunni Bifrost Message Types.
+
+- [Notendasviðsmyndir fyrir AppSource](./user-scenarios) · [Texti AppSource-skráningar](./listing)
+- Heimildasett: víkkar út `BIFROST Full ori` (`DocEx Full ori`) og stöðluðu D365-settin.

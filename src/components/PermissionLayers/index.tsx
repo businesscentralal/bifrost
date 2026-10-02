@@ -4,7 +4,7 @@ import styles from './styles.module.css';
 /**
  * One concrete request and the permission checks it has to pass, with what the
  * user sees when a check fails. Names follow docs/setup/business-central.md;
- * facts checked against Foundation (posting gate on Sales.Document.Post).
+ * facts checked against Foundation (the G/L posting gate on posting a sales document).
  * Field Access is not part of posting: it applies to record reads and writes.
  */
 const checks = [

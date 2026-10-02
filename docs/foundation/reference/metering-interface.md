@@ -9,18 +9,9 @@ after every successful message call so that a billing or metering solution can r
 happened. It is the second interface on `Message Type ori`: `Msg Interface ori` says what a
 type **does**, `Msg Metering ori` is told when it **has been done**.
 
-Namespace `Origo.Bifrost`. Selector enum `Message Type ori` (10077894).
+Namespace `Origo.Bifrost`. Selector enum `Message Type ori`.
 
-```al
-enum 10077894 "Message Type ori" implements "Msg Interface ori", "Msg Metering ori"
-{
-    Extensible = true;
-    DefaultImplementation = "Msg Metering ori" = "Default Metering ori";
-    // …
-}
-```
-
-Because the enum names a `DefaultImplementation`, **every** value has the hook — Foundation
+Because the enum names a default implementation that does nothing, **every** value has the hook — Foundation
 values and the enum-extension values of dependent apps alike — without declaring anything.
 
 ## The method
@@ -33,15 +24,15 @@ procedure OnMessageCompleted(var Argument: Record "Message Argument ori")
 |---|---|
 | Parameter | `Argument` — the completed `Message Argument ori`. Carries the message type (`Type`), the `Subject`, the request content and the response the caller receives. |
 | Returns | Nothing. |
-| Called | Once, after a **successful** call, once the response has been written to `Message ori` and committed. |
+| Called | Once, after a **successful** call, once the response has been written to the message log and committed. |
 | May | Write to the database. The hook runs in its own transaction scope, so inserts, modifications and queued work are all allowed. |
 | Must not | Change the response — the caller already holds it — or assume it runs inside the caller's transaction. |
 
 ## When Foundation calls it
 
-`Message Task ori` runs the hook when all of the following hold:
+Foundation runs the hook when all of the following hold:
 
-- the message type's key does **not** start with `Help.` or `Webhook.`;
+- the message type is not one of the exempt types listed below;
 - the implementation ran and the response is successful — a JSON object whose `status` is
   `Success`, or a non-JSON response such as PDF or CSV.
 
@@ -54,27 +45,16 @@ Nothing else gates it. In particular the hook runs:
 | Message-quota licensing **not** required (SaaS sandbox) | Yes |
 | Caller's pool exhausted, call refused | No — the call never ran |
 | Response `status` is `Error` | No |
-| `Help.*`, `Memory.*`, `Session.*`, `Webhook.*` or `ChangeLog.*` message type of an Origo application | No |
+| A help, memory, session, webhook or change-log message type of an Origo application | No |
 
-The prefix rule is the same rule that exempts those types from charging, and it applies only to
-message types in an Origo object-ID block - a type another publisher adds is metered and charged
-whatever its name. It is the only exemption: a message type cannot opt itself out of the hook.
+The exemption is the same rule that exempts those types from charging, and it applies only to
+Origo's own message types - a type another publisher adds is metered and charged whatever its
+name. It is the only exemption: a message type cannot opt itself out of the hook.
 
 ## Isolated invocation
 
 A metering implementation must never cost the caller its response, so Foundation does not
-call it inline. `Message Task ori` runs it through `Codeunit.Run`:
-
-```al
-MeteringHook: Codeunit "Metering Hook ori";
-// …
-if MeteringHook.Run(Argument) then
-    exit;
-// otherwise: log ORI-BIF-0170
-```
-
-`Metering Hook ori` (10078309) is an internal codeunit with `TableNo = "Message Argument ori"`.
-Its `OnRun` resolves the implementation from `Rec."Type"` and calls `OnMessageCompleted`.
+call it inline. It runs it through `Codeunit.Run`.
 
 The choice of `Codeunit.Run` over a `TryFunction` is deliberate. A metering implementation is
 expected to **write** — a meter entry, a counter, a queued call to a billing service — and the
@@ -83,28 +63,14 @@ AL runtime refuses database writes inside a `TryFunction` nested in the message 
 
 - an error raised by the implementation is caught by `Run` returning `false`;
 - only the writes made inside the hook are rolled back;
-- the failure is written as telemetry;
+- the failure is recorded in Origo's diagnostics;
 - the caller receives exactly the response it would have received with no hook at all.
 
-The hook is invoked **after** the response has been written to `Message ori` and committed —
+The hook is invoked **after** the response has been written to the message log and committed —
 immediately before the webhook notification. By then the caller already holds its response,
 which is why nothing the hook does, including failing outright, can reach it.
 
-| Telemetry event | Event ID | Verbosity | Custom dimensions |
-|---|---|---|---|
-| Message metering hook failed | `ORI-BIF-0170` | Error | `messageType`, `error` |
-
-`error` carries the first 250 characters of the last error text.
-
-## Metering objects in Foundation
-
-| Codeunit | Role | Behaviour |
-|---|---|---|
-| `Default Metering ori` (10078308) | The `DefaultImplementation` of the interface, used by every value that does not name one | Empty body. Costs one interface call per successful message and does nothing else. |
-| `Metering Hook ori` (10078309) | The isolation wrapper, `Access = Internal`, `TableNo = "Message Argument ori"` | Resolves the implementation from `Rec."Type"` and calls `OnMessageCompleted`. `Message Task ori` runs it with `Codeunit.Run`. |
-
-Foundation ships no other implementation of the interface. It counts messages for licensing
-on its own and needs no help from the hook.
+Foundation counts messages for licensing on its own and needs no help from the hook.
 
 ## What the hook does not do
 
@@ -113,7 +79,7 @@ existed:
 
 - a successful, non-exempt call costs exactly **one message** from the caller's pool;
 - the pool — **User** or **App Registration** — is resolved centrally from the caller's
-  identity and is recorded in `Message ori."Charge Type"`;
+  identity and is recorded with the message;
 - there is no charge weight, no meter and no per-type price in the platform.
 
 A solution that needs per-call pricing keeps that model in its own tables and fills it from

@@ -7,8 +7,8 @@ sidebar_position: 64
 
 **Approve Session Source** asks you to approve a message source - for example an AI assistant or an
 integration - before it may submit Bifröst messages as your user. When your user setup requires
-approval, messages from a source you have not approved are refused; the source then calls
-`Session.Source.Approve`, which returns a link to this page for you to open.
+approval, messages from a source you have not approved are refused; the source then asks for
+approval and gets a link to this page for you to open.
 
 | Field | Description |
 | --- | --- |

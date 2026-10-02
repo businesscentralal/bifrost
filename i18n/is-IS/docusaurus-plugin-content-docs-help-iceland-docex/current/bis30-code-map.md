@@ -22,4 +22,4 @@ Síðan er opnuð með aðgerðinni **BIS30 kóðavörpun** á [uppsetningarsí�
 ## Ábendingar
 
 -   Hvern upprunakóða má aðeins varpa einu sinni fyrir hverja tegund vörpunar. Notið **Lokað** frekar en að eyða þegar vörpun á að hætta að gilda en sagan skiptir máli.
--   Peppol-uppflettilistarnir sjálfir eru aðgengilegir án auðkenna gegnum skilaboðategundirnar `DocumentExchange.BIS30.*` — notið þær til að fletta upp gildum upprunakóðum.
+-   Peppol-uppflettilistarnir sjálfir eru aðgengilegir án auðkenna: biðjið Bifröst (til dæmis gegnum gervigreindaraðstoðarmanninn) um kóðalista Peppol BIS 3.0 til að fletta upp gildum upprunakóðum.

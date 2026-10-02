@@ -3,204 +3,112 @@ id: arion
 title: "Arion banki"
 sidebar_label: "Arion banki"
 sidebar_position: 2
-description: "The Arion banki connector: 34 message types covering statements, claims, payments, accounts, cards, documents and currency rates, over the Sambankaskema SOAP services and Arion's REST document service."
+description: "What Bifröst Iceland Treasury does with Arion banki: statements, accounts, bills, credit cards, claims, domestic and foreign payments, foreign-currency accounts, electronic documents and currency rates."
 ---
 
-The Arion module connects Business Central to Arion banki. It exposes 34 message types across ten domains, so a caller reaches the bank through the same queue, task and data pattern used everywhere else in Bifröst. Nothing about the transport is visible to the caller: the module resolves credentials, builds the SOAP body, signs the envelope through [Draupnir](../reference/draupnir-signers.md), and returns a parsed response.
+This page is for the finance team and the Business Central administrator at a company that banks
+with Arion banki. It explains what the Arion connector in
+[Bifröst Iceland Treasury](/iceland-treasury/) does, what you set up, and what you see in Business
+Central afterwards.
 
-Every message type answers `Help.Implementation.Get` from its own domain help codeunit, and `Help.Arionbanki.Get` returns a Markdown directory of the whole module.
+## What it does for you
 
-## What it covers
+- **Statements into a reconciliation.** Import an Arion account statement straight into **Bank Acc.
+  Reconciliation**, or read a statement for any account and period. Credit card transactions can be
+  imported the same way.
+- **Accounts.** List the accounts your bank user may see, look one up, list the accounts a kennitala
+  owns, and verify that a kennitala owns a given account before you pay to it.
+- **Bills and credit cards.** See outstanding bills (*seðlar*) and their detail, your credit cards,
+  and card transactions by period or due month.
+- **Claims (*innheimtukröfur*).** Find claims and the payments received against them, and follow a
+  claim through its life. Create, change and cancel claims in batches: the bank confirms the batch
+  first and reports the outcome afterwards.
+- **Payments.** Send a batch of domestic ISK payments and collect the result per line. Send foreign
+  payments, see the active batches and fetch the receipts.
+- **Foreign-currency accounts.** See your foreign-currency accounts with their transactions and
+  statements.
+- **Electronic documents.** Upload a PDF or XML document for delivery to the recipient's online
+  bank, and check that it was processed.
+- **Currency rates.** Arion's buy and sell rates for any date. No permission set is needed for rates.
 
-| Area | What you can do |
-| --- | --- |
-| **Accounts** | List the accounts the service user may see, look one up by account number, list the accounts owned by a kennitala, and verify that a kennitala owns a given account. |
-| **Statements** | Retrieve a statement for one account over a date span, with paging. Statements also import straight into Bank Acc. Reconciliation — see below. |
-| **Bills** | List outstanding bills (*seðlar*) and read the full detail of one. |
-| **Credit cards** | List cards, read one card, and fetch card transactions by date range, by due month or in full. |
-| **Claims** | Query claims (*innheimtukröfur*) by claimant, account and date span; read a single claim; list the payments received against claims and a claim's lifecycle transactions. |
-| **Claim batches** | Create, alter and cancel claims in batches. These are asynchronous — the bank returns an operation id and the result is collected afterwards. |
-| **Domestic payments** | Submit an ISK payment batch and retrieve the per-line result. |
-| **Foreign payments** | Submit a foreign-currency payment batch, list active batches, and retrieve receipts by date range, transaction number or batch id. |
-| **Foreign statements** | List foreign-currency accounts and fetch their transactions and statements. |
-| **Currency rates** | Fetch Arion's buy and sell rates for a date. |
-| **Electronic documents** | Upload a PDF or XML document for distribution in the recipient's online bank, then poll its processing result. |
+You, a scheduled routine or an AI assistant can ask for any of these. The installed operations and
+their contracts are read from Business Central itself: the MCP tools `list_message_types` and
+`describe_message_type`, or the Bifrost Message Types page.
 
-## Message types
+## What you set up
 
-The table names each type and what it does. The request and response contract for each one — fields, defaults, errors — lives in the [message type reference](/iceland-treasury/reference/message-types/).
+1. **An agreement with Arion banki** for the services you use, with a B2B user name, a password and
+   a client signing certificate (a `.pfx` file with its own password).
+2. **The Arion row on Bifrost Iceland Treasury Setup**: leave it enabled, enter the company user
+   name, then use **Set Company Password** and **Set Certificate**. See the
+   [setup page help](/help/iceland-treasury/treasury-setup/) and [Draupnir signers](../reference/draupnir-signers.md).
+3. **Personal credentials, if your users have their own login at the bank.** Each user enters their
+   own user name and password on **Bifrost User Setup**; see
+   [Bank credentials for your user](/help/iceland-treasury/bank-user-setup/).
+4. **Statement import.** On the Business Central bank account, choose the Arion bank statement
+   format as **Bank Statement Import Format**. For a credit card, create a bank account whose
+   account number is the card id and choose the Arion card format.
+5. **Claims.** On each Payment Method used for collection, enter the **Arion Claim Identifier** from
+   your collection agreement. **Arion Last Claim No.** keeps the numbering going. See
+   [Payment Methods](/help/iceland-treasury/payment-methods/).
+6. **Permissions.** Assign the permission sets below.
 
-### Statements
-
-| Type | What it does |
-| --- | --- |
-| `Arionbanki.Statement.Get` | Returns a statement for one account over a date span, with skip/take paging. |
-
-### Claims
-
-| Type | What it does |
-| --- | --- |
-| `Arionbanki.Claim.Query` | Returns claims matching a claimant, account span and date span. |
-| `Arionbanki.Claim.QueryOne` | Returns a single claim by claimant and reference. |
-| `Arionbanki.Claim.QueryPayments` | Returns a paged list of payments received against claims. |
-| `Arionbanki.Claim.QueryTransactions` | Returns the lifecycle transactions of one claim, paged. |
-| `Arionbanki.Claim.CreateBatch` | Creates a batch of claims. Asynchronous — returns an operation id. |
-| `Arionbanki.Claim.AlterBatch` | Alters a batch of existing claims. Asynchronous. |
-| `Arionbanki.Claim.CancelBatch` | Cancels a batch of claims by key. Asynchronous. |
-| `Arionbanki.Claim.GetOperationResult` | Polls the result of a previous asynchronous batch operation. |
-
-### Domestic payments
-
-| Type | What it does |
-| --- | --- |
-| `Arionbanki.Payment.Batch` | Submits a batch of domestic payments. |
-| `Arionbanki.Payment.ResultBatch` | Returns the processing result of a submitted batch, with a filter. |
-
-### Foreign payments
-
-| Type | What it does |
-| --- | --- |
-| `Arionbanki.ForeignPayment.EnterBatch` | Enters a batch of foreign payments. A batch of one is a single payment. |
-| `Arionbanki.ForeignPayment.GetBatches` | Returns the active foreign payment batches. |
-| `Arionbanki.ForeignPayment.GetPaymentsByBatchId` | Returns the payment requests in one batch. |
-| `Arionbanki.ForeignPayment.GetReceipts` | Returns receipts for a date range. |
-| `Arionbanki.ForeignPayment.GetReceipt` | Returns one receipt by transaction number. |
-| `Arionbanki.ForeignPayment.GetReceiptByBatchId` | Returns the receipts belonging to one batch. |
-
-### Foreign statements
-
-| Type | What it does |
-| --- | --- |
-| `Arionbanki.ForeignStatement.Accounts.Get` | Returns an overview of the foreign-currency accounts. |
-| `Arionbanki.ForeignStatement.Transactions.Get` | Returns transactions for a foreign account and date range. |
-| `Arionbanki.ForeignStatement.Statements.Get` | Returns statements for a foreign account and date range. |
-
-### Accounts
-
-| Type | What it does |
-| --- | --- |
-| `Arionbanki.Account.Get` | Returns every account the authenticated service user may see. |
-| `Arionbanki.Account.GetByOwner` | Returns the accounts owned by one kennitala. |
-| `Arionbanki.Account.GetOne` | Returns one account by bank, ledger and account number, with full detail. |
-| `Arionbanki.Account.Verify` | Verifies that a kennitala owns a given account. |
-
-### Bills
-
-| Type | What it does |
-| --- | --- |
-| `Arionbanki.Bill.Get` | Returns the outstanding bills for the authenticated user. |
-| `Arionbanki.Bill.GetDetails` | Returns the full detail of one bill. |
-
-### Credit cards
-
-| Type | What it does |
-| --- | --- |
-| `Arionbanki.CreditCard.Get` | Returns the credit cards of the authenticated user. |
-| `Arionbanki.CreditCard.GetOne` | Returns one card by card id. |
-| `Arionbanki.CreditCard.Transactions` | Returns card transactions by date range, by due month or in full, with paging. |
-
-### Electronic documents
-
-| Type | What it does |
-| --- | --- |
-| `Arionbanki.Document.Upload` | Uploads a PDF or XML document for distribution in the recipient's online bank. |
-| `Arionbanki.Document.GetResult` | Polls the processing result of one uploaded document. |
-| `Arionbanki.Document.GetResults` | Returns processing results for documents uploaded in a date range. |
-
-### Reference data and directory
-
-| Type | What it does |
-| --- | --- |
-| `Arionbanki.CurrencyRates.Get` | Returns buy and sell exchange rates for a date. |
-| `Help.Arionbanki.Get` | Returns a Markdown overview of the module and every message type it adds. |
-
-## Transports
-
-Arion is reached over three transports. The module picks the right one per operation; a caller never chooses.
-
-| Transport | Used by |
-| --- | --- |
-| Sambankaskema `ClaimService` SOAP API | Claims and claim batches. |
-| Sambankaskema IOBS SOAP services, through the [Draupnir signer framework](../reference/draupnir-signers.md) | Statements, accounts, bills, credit cards, domestic payments, foreign payments, foreign statements and currency rates. |
-| Arion's REST service | Electronic document upload and its result queries. |
-
-Within the IOBS services Draupnir uses two signing profiles. The shared Sambankaskema services are signed only, with the default WS-Security profile. Arion's proprietary account and bill services additionally encrypt the body to the bank's certificate, using the symmetric mutual-certificate profile; the bank's public certificate is read from the service's own metadata rather than entered by an administrator.
-
-## Setting up
-
-All five banks share one **Treasury Setup** page, one row per bank: whether the bank is enabled, the service user name and the transport. Open it from Bifröst Setup — see the [in-product help](/help/iceland-treasury/treasury-setup/).
-
-Arion needs three credentials:
-
-| Credential | Scope | Notes |
+| Credential | Kept for | Notes |
 | --- | --- | --- |
-| Company password | One value for the company | Used when the calling user has no personal password. |
-| User password | One value per user | Set by the user on Bank User Setup. Overrides the company password. |
-| Client certificate and its password | One value for the company | A PKCS#12 certificate, entered once. |
+| Company password | The company | Used when the calling user has no personal password. |
+| User password | Each user | Set by the user on Bifrost User Setup. Used together with the user's own user name. |
+| Client certificate and its password | The company | Signs every request. Its expiry date shows on the setup page. |
 
-Arion needs no API key and no bank certificate; those belong to other connectors. Every value is written to the extension's encrypted storage and never to a table; see [secrets](/help/iceland-treasury/treasury-secrets/). The certificate's expiry is shown on the setup page's FactBox, in green, amber or red as the date approaches. The personal password is entered by each user on [Bank User Setup](/help/iceland-treasury/bank-user-setup/).
+Arion needs no API key and no bank certificate. All values are entered in masked dialogs and never
+shown again; see [Bank secrets](/help/iceland-treasury/treasury-secrets/).
 
-## Bank statement import
+## What you see in Business Central
 
-Statements do not have to be read as message types. The module also registers two Data Exchange definitions — one for bank accounts and one for credit cards — so a statement imports directly into **Bank Acc. Reconciliation** through the standard Business Central import action.
-
-A credit card is set up as a Business Central bank account whose account number carries the card id and whose import format is the card feed. Otherwise the two feeds behave identically.
-
-On import the module asks for a start date and then reports what it fetched:
-
-- The [date range dialog](/help/iceland-treasury/date-input-dialog/) proposes a start date and lets you change it before the call.
-- The [statement import summary](/help/iceland-treasury/statement-import-summary/) shows the statement number, the number of lines imported, any warning, the calculated opening and closing balances against the balance the bank reported, and the account's own details.
-
-## Claims on Payment Methods
-
-Claims are configured where the rest of the payment terms live. The module adds two fields to the base **Payment Method** table:
-
-| Field | Purpose |
-| --- | --- |
-| Arion Claim Identifier | The three-character claim identifier from the collection agreement with the bank. |
-| Arion Last Claim No. | The last claim number issued, so the next claim continues the sequence. |
-
-There is no claim account field on Payment Method; the disposal account comes from the standard balancing-account fields. See [payment methods](/help/iceland-treasury/payment-methods/).
-
-On the customer side, the **Customer Ledger Entries** FactBox gains the claim account and claim date registered with Arion for the entry, resolved from the claim line linked to it. The two fields appear only for users who may read the claim tables. See the [customer ledger FactBox](/help/iceland-treasury/customer-ledger-factbox/).
+- **Import Bank Statement** on a Bank Acc. Reconciliation fetches the statement from Arion. The
+  first time, it asks for a [start date](/help/iceland-treasury/date-input-dialog/); afterwards it
+  continues from the last posted statement. A
+  [Statement Import Summary](/help/iceland-treasury/statement-import-summary/) then shows the lines
+  imported and the opening and closing balances, and warns when they do not agree with the bank.
+- **Payment Methods** show the Arion claim identifier and last claim number.
+- The **Customer Ledger Entry** FactBox shows the claim account and claim date registered with Arion,
+  for users who may read claims. See the
+  [customer ledger FactBox](/help/iceland-treasury/customer-ledger-factbox/).
+- Every call to the bank is logged on the **Bifrost Request Log**, with credentials masked.
 
 ## Permission sets
 
-Every message-type group sits behind its own gate table and its own assignable permission set. A user is granted a group by being granted its set; without it the call returns an error response and does nothing. This lets an integration read statements without being able to execute payments.
+Each area that reads or moves money has its own permission set, so a user can read statements
+without being able to pay.
 
 | Permission set | Grants |
 | --- | --- |
-| `BIFROST ABStmt ori` | Statement queries |
-| `BIFROST ABAcct ori` | Account queries and verification |
-| `BIFROST ABBill ori` | Bill queries |
-| `BIFROST ABCard ori` | Credit card queries and transactions |
-| `BIFROST ABClmPmt ori` | Claim queries, claim payments and claim transactions |
-| `BIFROST ABClmCrt ori` | Claim batch create, alter, cancel and operation result |
-| `BIFROST ABPaymt ori` | Domestic payment batches and their results |
+| `BIFROST ABStmt ori` | Statements |
+| `BIFROST ABAcct ori` | Account lookups and verification |
+| `BIFROST ABBill ori` | Bills |
+| `BIFROST ABCard ori` | Credit cards and card transactions |
+| `BIFROST ABClmPmt ori` | Claim lookups, claim payments and claim history |
+| `BIFROST ABClmCrt ori` | Creating, changing and cancelling claims |
+| `BIFROST ABPaymt ori` | Domestic payments and their results |
 | `BIFROST ABFrgPay ori` | Foreign payments and receipts |
-| `BIFROST ABFStmt ori` | Foreign accounts, transactions and statements |
-| `BIFROST ABDoc ori` | Electronic document upload and results |
+| `BIFROST ABFStmt ori` | Foreign-currency accounts, transactions and statements |
+| `BIFROST ABDoc ori` | Electronic documents |
 
-Two permission set extensions widen Foundation's own sets rather than being assigned directly: `BIFROST ABFull ori` extends `BIFROST Full ori`, and `BIFROST ABRdClm ori` extends `BIFROST Read ori` with read access to the claim tables. A user who holds Foundation's full or read set picks these up automatically.
+`BIFROST ABFull ori` extends Foundation's `BIFROST Full ori`, and `BIFROST ABRdClm ori` extends
+`BIFROST Read ori` with read access to claims. A user who holds Foundation's full or read set gets
+them automatically.
 
-`Arionbanki.CurrencyRates.Get` and `Help.Arionbanki.Get` are not gated. Rates are public market data and the help type returns documentation.
+## Moving from Origo Cloud Events Arionbanki
 
-## Replacing the published app
+Install Bifröst Iceland Treasury beside the old app. On first install it takes over the Arion data
+(claims, batches, the claim fields on Payment Methods, the Arion settings and the users' permission
+set assignments), then you can remove the old app. Data already in the new app is never overwritten.
 
-This module succeeds the AppSource app *Origo Cloud Events Arionbanki*. The successor is a separate app: install it beside the published one, let it take the data over, then remove the old app.
-
-`Arion Take-Over Install ori` runs once on first install, while both apps are present, and copies:
-
-- 16 persistent tables, field for field. Transient tables — messages, arguments, request logs and buffers — are not copied.
-- The Arion fields on tables shared with other extensions: Bifröst Setup, Bifröst User Setup and the base application's Payment Method.
-- The ten access-gate permission set assignments, re-pointed at their `BIFROST AB… ori` replacements.
-
-The legacy full-access and read-claims sets are not re-pointed, because both were permission set extensions and so never appeared in Access Control. Their replacements are extensions too, and take effect through Foundation's assignable sets.
-
-**Stored secrets do not carry over.** Isolated Storage belongs to the extension that wrote it, and the successor is a new extension, so passwords and certificates are entered once more after the switch. Arion's secrets need particular attention: in the older implementation Landsbankinn shared Arion's storage keys, so the two banks overwrote each other's values. Rather than guess which bank a stored value belonged to, the upgrade deletes those keys. Both banks re-enter their password and certificate.
+**Passwords and certificates do not carry over.** Enter them once after the switch. Enter
+Landsbankinn's again too: the old apps could mix up the two banks' stored values, so neither is
+carried over.
 
 ## Where to go next
 
 - [Iceland Treasury overview](/iceland-treasury/)
-- [Draupnir signers](../reference/draupnir-signers.md) — how the IOBS envelopes are signed
-- [Message type reference](/iceland-treasury/reference/message-types/)
+- [Draupnir signers](../reference/draupnir-signers.md): the client certificate
+- [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/)

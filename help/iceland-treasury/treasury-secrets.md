@@ -37,7 +37,7 @@ The two are always used as a pair. When a user has their own bank user name, the
 
 On [Bifrost Iceland Treasury Setup](./treasury-setup.md) the **Secrets** column shows **Complete** or **Missing** for each bank. Missing means at least one secret the connector needs has no value — check the company password first, then the certificate for the four banks that use one, then the API key for Landsbankinn.
 
-While a bank shows **Missing**, its message types report themselves as unavailable and refuse to run, rather than calling the bank and failing there.
+While a bank shows **Missing**, its operations report themselves as unavailable and refuse to run, rather than calling the bank and failing there.
 
 ## The Bifröst secret registry
 

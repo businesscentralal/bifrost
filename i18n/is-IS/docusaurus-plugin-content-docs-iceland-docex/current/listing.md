@@ -52,7 +52,7 @@ Heildarlýsingin er [hér að neðan](#heildarlýsing).
 ## Stuðningur
 - **Vefslóð:** https://www.origo.is/
 - **Netfang:** bc-support@origo.is
-- **Hjálparslóð:** https://docs.bifrost.origo.is/en-us/iceland-docex/
+- **Hjálparslóð:** https://businesscentralal.github.io/bifrost/en-us/iceland-docex/
 
 ## Persónuverndarstefna
 https://www.origo.is/
@@ -63,7 +63,7 @@ Staðlaður Microsoft AppSource EULA gildir.
 ## Skjámyndir
 1. Bifröst uppsetning með skjalaskiptaþjónustum stilltum.
 2. Biðraðarviðmót sem sýnir sendingu skjalaskiptaskilaboða.
-3. UBL-reiknings-XML úr RenderBilling-aðgerðinni.
+3. UBL-reiknings-XML myndað úr bókuðum sölureikningi.
 
 ---
 
@@ -73,7 +73,7 @@ Staðlaður Microsoft AppSource EULA gildir.
 
 **Bifröst Iceland DocEx** bætir rafrænum skjalaskiptum við Business Central í gegnum Bifröst — skilaboðadrifið samþættingarlag fyrir skipulagðan aðgang að gögnum og ferlum Business Central í gegnum OData. Sendu og móttaktu rafræna reikninga, pantanir og önnur viðskiptaskjöl frá mörgum þjónustuaðilum án sérsmíðaðra tenginga eða handvirkrar skráameðhöndlunar.
 
-Byggt á **Bifröst Foundation** bætir forritið skjalaskiptum við sem skilaboðategundum sem MCP-biðlari, REST-sendi eða BC-ferli getur kallað í gegnum sama biðröð → verk → gögn-mynstur og aðrir hlutar Bifrastar.
+Byggt á **Bifröst Foundation** bætir forritið skjalaskiptum við sem aðgerðum sem MCP-biðlari, REST-sendi eða BC-ferli getur kallað í gegnum sama biðröð → verk → gögn-mynstur og aðrir hlutar Bifrastar.
 
 ### Fyrir hvern er þetta?
 
@@ -97,11 +97,11 @@ Byggt á **Bifröst Foundation** bætir forritið skjalaskiptum við sem skilabo
 - **Sameinað viðmót** — allir þjónustuaðilar nota sama Bifröst-skilaboðamynstur.
 - **Peppol-samræmi** — UBL-myndun og BIS 3.0 viðmiðunargögn styðja staðlaða útgáfu skjala.
 - **Allur líftími skjala** — taka á móti, senda, fylgjast með stöðu, sækja PDF og stjórna viðskiptafélögum.
-- **Stækkanlegt** — bæta má sérsniðnum þjónustuaðilum og skilaboðategundum við með AL-viðbótum.
+- **Stækkanlegt** — bæta má sérsniðnum þjónustuaðilum og aðgerðum við með AL-viðbótum.
 
 ### Hvernig það virkar
 
-Ytri kerfi eða BC-ferli senda skilaboð í Bifröst-biðraðarviðmótið með þjónustuaðila og aðgerð, til dæmis `DocumentExchange.Advania.GetUnread`. Kerfið sendir skilaboðin til rétta meðhöndlara, keyrir aðgerðina og skilar niðurstöðu í gegnum gagnaviðmótið.
+Ytri kerfi eða BC-ferli senda skilaboð í Bifröst-biðraðarviðmótið með þjónustuaðila og aðgerð, til dæmis „sækja ólesin skjöl frá Advania". Kerfið sendir skilaboðin til rétts þjónustuaðila, keyrir aðgerðina og skilar niðurstöðu í gegnum gagnaviðmótið.
 
 ### Kröfur og forsendur
 

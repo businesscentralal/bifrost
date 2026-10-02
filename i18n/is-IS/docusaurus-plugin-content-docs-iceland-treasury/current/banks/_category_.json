@@ -1,10 +1,9 @@
 {
-  "label": "Banks",
+  "label": "Bankar",
   "position": 2,
   "link": {
-    "Gerð": "generated-index",
+    "type": "generated-index",
     "slug": "/banks",
-    "Lýsing": "One page per bank connector: what it covers, its message types, how it er set up og which published app it replaces."
+    "description": "Ein síða fyrir hvern banka: hvað tengingin gerir fyrir bankann, hvað þarf að setja upp og hvað þú sérð í Business Central."
   }
 }
-

@@ -24,17 +24,17 @@ Hver hópur hefur reitinn **Umhverfi** sem velur hvaða þjónustu einingin kall
 
 ## Innskráningarupplýsingar
 
-Innskráningarupplýsingar eru aldrei reitir á þessari síðu. Þær eru í leyndarmálageymslu Bifrastar, skrifaðar í einangraða geymslu og aldrei sýndar aftur — síðan segir aðeins hvort gildi sé til.
+Innskráningarupplýsingar eru aldrei reitir á þessari síðu. Þær eru í leyndarmálageymslu Bifrastar og aldrei sýndar aftur — síðan segir aðeins hvort gildi sé til.
 
-| Kóði leyndarmáls | Umfang | Notað fyrir |
-| --- | --- | --- |
-| `ADVANIA-<UMHV>-USERNAME` / `ADVANIA-<UMHV>-PASSWORD` | Fyrirtæki | Innskráning í Advania-vefþjónustuna. |
-| `UNIMAZE-<UMHV>-USERNAME` / `UNIMAZE-<UMHV>-PASSWORD` | Fyrirtæki | Innskráning í Unimaze-vefþjónustuna. Lykilorðsreiturinn tekur einnig við API-lykli. |
-| `INEXCHANGE-<UMHV>-API-KEY` / `INEXCHANGE-<UMHV>-CLIENT-TOKEN` | Fyrirtæki | API-lykill InExchange og biðlaratókinn sem auðkennir fyrirtækið. |
+Hver þjónustuaðili þarf sín eigin gildi, geymd fyrir hvert umhverfi:
 
-`<UMHV>` er valda umhverfið, til dæmis `ADVANIA-LIVE-USERNAME` eða `INEXCHANGE-TEST-CLIENT-TOKEN`.
+| Þjónustuaðili | Gildi |
+| --- | --- |
+| Advania | Notandanafn og lykilorð fyrir vefþjónustu Advania. |
+| Unimaze | Notandanafn og lykilorð (lykilorðsreiturinn tekur einnig við API-lykli). |
+| InExchange | API-lykill og biðlaratókinn sem auðkennir fyrirtækið. |
 
-Business Central heldur geymdum leyndarmálum aðskildum eftir viðbótum, svo innskráningarupplýsingar sem voru skráðar í Origo Cloud Events DocEx — eða í eldri útgáfu þessa forrits — flytjast ekki með. Skráið hvert gildi einu sinni eftir uppsetningu.
+Innskráningarupplýsingar sem voru skráðar í Origo Cloud Events DocEx flytjast ekki með. Skráið hvert gildi einu sinni eftir uppsetningu.
 
 ## Aðgerðir
 
@@ -55,15 +55,15 @@ Business Central heldur geymdum leyndarmálum aðskildum eftir viðbótum, svo i
 | | BIS30 kóðavörpun | Opnar [BIS30 kóðavörpun](/help/iceland-docex/bis30-code-map/). |
 | | VSK fjárhagsreikningsvörpun | Opnar [VSK fjárhagsreikningsvörpun lánardrottins](/help/iceland-docex/vend-vat-gl-map/). |
 
-## Tilkynning við uppsetningu
+## HTTP-beiðnir út á við
 
-Allir þjónustuaðilar eru sóttir um HTTP. Þegar **Leyfa HttpClient-beiðnir** er ekki virkt fyrir viðbótina birtir síðan tilkynningu með aðgerð sem opnar stillingar viðbótarinnar. Ekkert skjalaskiptakall tekst fyrr en það hefur verið virkjað.
+Allir þjónustuaðilar eru sóttir um HTTP. Uppsetningarleiðsögnin kveikir á HTTP-beiðnum út á við fyrir Bifröst-forritin: þar til það hefur verið gert birtir **Uppsetning Bifrastar** tilkynningu með aðgerðinni **Hefja uppsetningarleiðsögn**, og ekkert skjalaskiptakall tekst.
 
 ## Fyrstu skref
 
-1.  Opnið **Uppsetningu Bifrastar**, veljið **Uppsetning Bifröst Iceland DocEx** í flokknum **Forrit** og hreinsið HTTP-tilkynninguna ef hún birtist.
+1.  Opnið **Uppsetningu Bifrastar**. Ef hún sýnir HTTP-tilkynninguna skuluð þið fyrst velja **Hefja uppsetningarleiðsögn**. Veljið síðan **Uppsetning Bifröst Iceland DocEx** í flokknum **Forrit**.
 2.  Stillið **Umhverfi** fyrir hvern þjónustuaðila sem þið notið.
 3.  Skráið innskráningarupplýsingar þeirra aðila með **Skrá …** aðgerðunum.
 4.  Veljið **Prófa … tengingu** fyrir hvern aðila og staðfestið að hún takist.
 5.  Veljið **Uppfæra BII gagnaskiptaskilgreiningar** ef þið flytjið inn skjöl á innleið.
-6.  Notið biðraðarvefþjónustu Bifrastar til að senda skjalaskiptabeiðnir og sækið niðurstöðurnar úr gagnavefþjónustu Bifrastar.
+6.  Sendið og takið á móti skjölum gegnum Bifröst, til dæmis með því að biðja gervigreindaraðstoðarmanninn.

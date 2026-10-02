@@ -5,7 +5,7 @@ sidebar_label: "ChangeLog Guard Exceptions"
 sidebar_position: 56
 ---
 
-**ChangeLog Guard Exceptions** lists the tables and fields that `Data.Records.Set` may write even when
+**ChangeLog Guard Exceptions** lists the tables and fields that Bifröst's general record write may write even when
 the **ChangeLog Write Guard** on [Bifrost Setup](/help/foundation/bifrost-setup/) is **Blocked** or
 **Via force** and the field is not covered by the change log.
 

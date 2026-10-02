@@ -13,7 +13,7 @@ The **Bifrost Messages** page displays all bifrost messages that have been recei
 | --- | --- |
 | **Id** | Unique identifier (GUID) of the message. |
 | **Version** | Bifrost specification version (e.g. 1.0). |
-| **Type** | The message type that determines how the message is processed (e.g. `Customer.CreditLimit.Get`). |
+| **Type** | The message type that determines how the message is processed. |
 | **Status** | Current processing status: _Task completed_, _Task is running_, _Task is not running_, or _No task scheduled_. |
 | **Source** | The external system or application that sent the message. |
 | **Subject** | Free-text subject describing what the message is about. |

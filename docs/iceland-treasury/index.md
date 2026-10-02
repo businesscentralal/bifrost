@@ -4,7 +4,7 @@ title: "Bifröst Iceland Treasury"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Icelandic bank integrations as Bifröst message types: Landsbankinn, Arion, Íslandsbanki, Kvika and Sparisjóðir on a shared IOBS SOAP signer framework."
+description: "Connects Business Central to Landsbankinn, Arion banki, Íslandsbanki, Kvika banki and Sparisjóðir: statements, payments, claims, cards and electronic documents."
 ---
 
 # Bifröst Iceland Treasury
@@ -50,7 +50,7 @@ partner. It needs Business Central 28.0 or later, Essentials or Premium.
 |---|---|---|
 | 1 | Make an agreement with each bank for the services you use, and get the user name, password and certificates or keys it issues. | Finance, with the bank |
 | 2 | Allow outbound HTTP for Bifröst apps, once, in Foundation's **Bifrost Setup Wizard**. | Business Central administrator |
-| 3 | Run **Set up Bifrost Iceland Treasury banks** from **Assisted Setup**. One wizard covers all five banks; enter the company user name and secrets for the banks you use. | Business Central administrator |
+| 3 | Run **Bifrost Iceland Treasury - Bank Setup** from **Assisted Setup**. One wizard covers all five banks; enter the company user name and secrets for the banks you use. | Business Central administrator |
 | 4 | For claims at Landsbankinn, Arion banki or Sparisjóðir, set the bank's claim identifier on the Payment Method. For statement import, choose the bank's import format on the Business Central bank account. | Business Central administrator |
 | 5 | Give each user or service the permission sets for what they may do at the bank. Users who sign in as themselves enter their own bank credentials. | Business Central administrator, then each user |
 
@@ -69,8 +69,8 @@ and [Sparisjóðir](./banks/sparisjodir).
 
 - **It acts as you.** A call uses the user's own bank credentials if they have set them, and
   the company defaults otherwise. Every call is logged.
-- **Passwords, certificates and keys** are entered in masked dialogs and stored in Business
-  Central's Isolated Storage. They are never written to a table or shown in a response. The setup
+- **Passwords, certificates and keys** are entered in masked dialogs and kept in the app's own
+  encrypted storage. They are never written to a table or shown in a response. The setup
   page shows certificate details, so you can see when one needs renewing.
 - **Payments and claims move money.** They sit behind their own permission sets, so a user can be
   allowed to read statements without being allowed to pay. Try them in a test company first.
@@ -79,14 +79,11 @@ and [Sparisjóðir](./banks/sparisjodir).
 - **Moving from the earlier Cloud Events bank apps?** Data is taken over on install, but stored
   passwords and certificates do not carry over. Enter them again after the switch.
 
-## Capabilities and reference
+## Find the operations
 
-Capabilities: **`Landsbankinn`**, **`Arionbanki`**, **`Islandsbanki`**, **`Sparisjodir`** and
-**`Kvikabanki`**, one per bank.
+The installed message types and their contracts are read from Business Central itself: the MCP
+tools `list_message_types` and `describe_message_type`, or the Bifrost Message Types page.
 
-What each message type does, in plain words: [Capabilities](./capabilities).
-
-- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
 - [Draupnir signers](./reference/draupnir-signers): how requests to the banks are signed
 - [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
 - Permission sets: one per area that reads or moves money at each bank, listed on each bank page.

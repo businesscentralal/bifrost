@@ -64,7 +64,7 @@ The full description text is [below](#full-description-text).
 
 - **URL:** https://www.origo.is/
 - **Email:** bc-support@origo.is
-- **Help URL:** https://docs.bifrost.origo.is/en-us/iceland-docex/
+- **Help URL:** https://businesscentralal.github.io/bifrost/en-us/iceland-docex/
 
 ## Privacy Policy
 
@@ -78,7 +78,7 @@ Standard Microsoft AppSource EULA applies.
 
 1. Bifrost Setup showing document exchange providers configured.
 2. Queue API demonstrating document exchange message submission.
-3. UBL invoice XML output from RenderBilling operation.
+3. UBL invoice XML rendered from a posted sales invoice.
 
 ---
 
@@ -88,7 +88,7 @@ Standard Microsoft AppSource EULA applies.
 
 **Bifrost Iceland DocEx** extends Business Central with electronic document exchange capabilities through the Bifrost platform — a message-based integration layer that gives external systems, AI agents, and automation tools structured access to Business Central data and procedures via OData. Send and receive electronic invoices, orders, and other business documents via multiple providers — without custom integrations or manual file handling.
 
-Built on the **Bifrost Foundation** framework, this extension adds document exchange as a set of message types that any MCP-compatible client, REST caller, or BC process can invoke through the same Queue → Task → Data API pattern used across the entire Bifrost ecosystem.
+Built on the **Bifrost Foundation** framework, this extension adds document exchange as a set of operations that any MCP-compatible client, REST caller, or BC process can invoke through the same Queue → Task → Data API pattern used across the entire Bifrost ecosystem.
 
 ### Who is this for?
 
@@ -114,11 +114,11 @@ Built on the **Bifrost Foundation** framework, this extension adds document exch
 - **Unified API** — All providers accessed through the same Bifrost message pattern. No provider-specific integration code needed.
 - **Peppol compliance** — UBL rendering and BIS 3.0 reference data ensure standards-compliant documents.
 - **Full document lifecycle** — Receive, send, track status, retrieve PDFs, and manage trading partners.
-- **Extensible** — Built on the Bifrost framework. Add custom providers or message types through AL extensions.
+- **Extensible** — Built on the Bifrost framework. Add custom providers or operations through AL extensions.
 
 ### How It Works
 
-External systems or BC processes submit messages to the Bifrost queue API specifying the provider and operation (e.g., `DocumentExchange.Advania.GetUnread`). The framework dispatches each message to the appropriate provider handler, executes the operation, and returns results through the data API.
+External systems or BC processes submit messages to the Bifrost queue API specifying the provider and the operation, for example "get the unread documents from Advania". The framework dispatches each message to the right provider, executes the operation, and returns results through the data API.
 
 ### Requirements and prerequisites
 
