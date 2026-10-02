@@ -60,7 +60,7 @@ Ef annað hvort vantar birtist upplýsingareiturinn einfaldlega ekki á síðunn
 5.  Skrifaðu **Hæfni** á Markdown-sniði, eða notaðu **Flytja inn sjálfgefið** til að sækja staðlaðan hæfnitexta veitandans. Hæfnin segir aðstoðinni í hverju hún er sterk og hvernig hún á að svara.
 6.  Merktu eitt mállíkan sem **Sjálfgefið**. Aðeins eitt mállíkan getur verið sjálfgefið og það er notað fyrir alla sem hafa enga persónulega tengingu.
 
-Ef valinn veitandi krefst API-lykils biður spjallið um hann í fyrsta skipti sem það er notað og geymir hann á öruggan hátt í einangraðri geymslu. Kerfisstjórar með tilskildar heimildir geta þess í stað vistað þjónustulykil fyrir allt fyrirtækið svo einstakir notendur séu aldrei beðnir um lykil.
+Ef valinn veitandi krefst API-lykils biður spjallið um hann í fyrsta skipti sem það er notað og geymir hann á öruggan hátt í Business Central. Kerfisstjórar með tilskildar heimildir geta þess í stað vistað þjónustulykil fyrir allt fyrirtækið svo einstakir notendur séu aldrei beðnir um lykil.
 
 ## Tenging mállíkans við notanda
 
@@ -109,4 +109,4 @@ Bifrost Language Models inniheldur innbyggðan MCP verkfæraþjón. Hann birtir 
 
 -   [Bifröst mállíkön](/help/language-models/bifrost-lang-model-list/) – Listi yfir öll skilgreind mállíkön
 -   [Mállíkansspjald](/help/language-models/bifrost-lang-model-card/) – Veitandi, líkanstillingar og hæfni
--   [Hjálp fyrir Bifrost Language Models](/help/language-models/) – Yfirlit yfir viðbótina
+-   [Bifrost Language Models](/language-models/) – Yfirlit yfir appið

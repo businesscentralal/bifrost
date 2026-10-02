@@ -16,5 +16,3 @@ invites a tenant to become a Partner of your Vendor.
 Choose **OK** and confirm. The tenant must already have installed Bifröst and approved the EULA. The
 Partner sees the invitation as the *Register as Partner* notification after it chooses **Sync** on
 its Bifröst Setup page.
-
-See [Working as a Vendor](/licensing/vendor/#inviting-partners).

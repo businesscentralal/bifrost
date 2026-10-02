@@ -5,15 +5,15 @@ sidebar_label: "Bifrost Iceland Setup"
 sidebar_position: 2
 ---
 
-The **Bifrost Iceland Setup** card (`Iceland Setup ori`) holds every setting of the Bifröst Iceland connectors — Umsjá, SMS, Skatturinn, Skilagrein and Já Gagnatorg. Open it from the **Bifrost Iceland Setup** action in the **Apps** group of the Bifröst **Setup** page, where it is also promoted, or by searching for *Bifrost Iceland Setup*. There is exactly one setup record per company.
+The **Bifrost Iceland Setup** card holds every setting of the Bifröst Iceland connectors — Umsjá, SMS, Skatturinn, Skilagrein and Já Gagnatorg. Open it from the **Bifrost Iceland Setup** action in the **Apps** group of the Bifröst **Setup** page, where it is also promoted, or by searching for *Bifrost Iceland Setup*. There is exactly one setup record per company.
 
 Nothing about Iceland is configured on Bifröst Foundation's own setup card any more. Foundation's **Setup** page carries a single Iceland action, and everything else lives here, so the app can be installed, configured and removed on its own.
 
-A guided **Set up Bifrost Iceland connectors** wizard (`Iceland Setup Wizard ori`) walks through the connector client-type settings step by step. Start it from **Assisted Setup**. The **Setup Wizard** action on this page opens Bifröst Foundation's **Bifrost Setup Wizard** instead: outbound HTTP and every credential on this page are configured there once, for every installed Bifröst application - this app's own wizard does not repeat either step.
+A guided **Set up Bifrost Iceland connectors** wizard walks through the connector client-type settings step by step. Start it from **Assisted Setup**. The **Setup Wizard** action on this page opens Bifröst Foundation's **Bifrost Setup Wizard** instead: outbound HTTP and every credential on this page are configured there once, for every installed Bifröst application - this app's own wizard does not repeat either step.
 
 ## Notifications
 
-This page raises no notifications of its own. The only setup notification in the Bifröst family - HTTP client requests not yet enabled for one or more Bifröst applications - is shown on Bifröst Foundation's [Bifrost Setup](/help/foundation/bifrost-setup/) page, and its single action **Start setup wizard** opens the Bifrost Setup Wizard, which enables HTTP for every registered application in one step. Missing credentials raise no notification: a message type whose credentials have not been entered simply answers with an error until they are, and this page shows per domain whether a value is stored.
+This page raises no notifications of its own. The only setup notification in the Bifröst family - HTTP client requests not yet enabled for one or more Bifröst applications - is shown on Bifröst Foundation's [Bifrost Setup](/help/foundation/bifrost-setup/) page, and its single action **Start setup wizard** opens the Bifrost Setup Wizard, which enables HTTP for every registered application in one step. Missing credentials raise no notification: an operation whose credentials have not been entered simply answers with an error until they are, and this page shows per domain whether a value is stored.
 
 ## Umsjá
 
@@ -31,13 +31,13 @@ This page raises no notifications of its own. The only setup notification in the
 | Set Password | Prompts for the Umsjá web-service password in the shared masked dialog. |
 | Clear Credentials | Removes the stored Umsjá user name and password. |
 
-Umsjá credentials unlock `Iceland.NationalRegistry.*`, `Iceland.Search*`, `Iceland.Parties.Get`, `Iceland.Relations.Get` and the related lookups. The objects are covered by **BIFROST Umsja ori**, which is not assignable on its own — it comes with **BIFROST ISFull ori**. Registry synchronization is gated separately by the assignable **BIFROST NatReg ori**.
+Umsjá credentials unlock the national register lookups (people, companies, addresses, relations, roles and parties) and the register synchronisation. The objects are covered by **BIFROST Umsja ori**, which is not assignable on its own — it comes with **BIFROST ISFull ori**. Registry synchronization is gated separately by the assignable **BIFROST NatReg ori**.
 
 ## SMS
 
 | Field | Description |
 | --- | --- |
-| SMS Client Type | Which gateway handles `Iceland.SMS.Send` — Síminn, Síminn (SOAP) or Nova. The sub-groups below follow this choice. |
+| SMS Client Type | Which gateway sends SMS — Síminn, Síminn (SOAP) or Nova. The sub-groups below follow this choice. |
 
 ### Síminn
 
@@ -106,8 +106,8 @@ There is no Skilagrein password on this page. Each collector authenticates with 
 | Field | Description |
 | --- | --- |
 | Ja Client Type | Which Já Gagnatorg client the connector uses. |
-| Search API Key | Whether the Já Search v6 (Símaskrá) key used by `Ja.Search.Query` is stored. Read-only. |
-| Registry API Key | Whether the Já Skrá v1 (Þjóðskrá / Fyrirtækjaskrá) key used by `Ja.Person.Get` and `Ja.Company.Get` is stored. Read-only. |
+| Search API Key | Whether the Já Search v6 (Símaskrá) key used for directory search is stored. Read-only. |
+| Registry API Key | Whether the Já Skrá v1 (Þjóðskrá / Fyrirtækjaskrá) key used for person and company lookups is stored. Read-only. |
 
 | Action | Description |
 | --- | --- |
@@ -115,7 +115,7 @@ There is no Skilagrein password on this page. Each collector authenticates with 
 | Set Registry API Key | Prompts for the Já Registry API key. |
 | Clear Já API Keys | Removes both stored Já API keys. |
 
-Calling any of the three real Já Gagnatorg message types additionally requires **BIFROST Ja ori**. `Help.Ja.Get` is open to all users.
+Searching Já Gagnatorg or looking up a person or company there additionally requires **BIFROST Ja ori**.
 
 ## Other actions
 
@@ -130,37 +130,23 @@ Calling any of the three real Já Gagnatorg message types additionally requires 
 
 Every credential is held in the Bifröst Foundation **secret store**, not on this page and not in the setup table. Each **Set …** action opens the same shared masked dialog: the value is masked while you type, goes straight into storage, and is never displayed again. The fields on the card only report whether a value is present.
 
-| Secret code | Holds | Scope |
-| --- | --- | --- |
-| `UMSJA-USERNAME` | Umsjá web-service user name | Company |
-| `UMSJA-PASSWORD` | Umsjá web-service password | Company |
-| `SIMINN-USERNAME` | Síminn magnSMS user name | Company |
-| `SIMINN-PASSWORD` | Síminn magnSMS password | Company |
-| `NOVA-USERNAME` | Nova SMS user name | Company |
-| `NOVA-PASSWORD` | Nova SMS password | Company |
-| `RSK-VAT-PASSWORD` | Skatturinn VAT password | Company |
-| `RSK-PAYROLL-PASSWORD` | Skatturinn payroll password | Company |
-| `RSK-FTS-PASSWORD` | Skatturinn capital income tax password | Company |
-| `RSK-TEST-VAT-PASSWORD` | Skatturinn VAT password - test environment (used while Skatturinn Client Type is Test) | Company |
-| `RSK-TEST-PAYROLL-PASSWORD` | Skatturinn payroll password - test environment | Company |
-| `RSK-TEST-FTS-PASSWORD` | Skatturinn capital income tax password - test environment | Company |
-| `JA-SEARCH-API-KEY` | Já Search v6 API key | Company |
-| `JA-REGISTRY-API-KEY` | Já Skrá v1 API key | Company |
-| `SKG-COLLECTOR-<collector no.>-PASSWORD` | One per skilagrein.is collector, set from the collectors page | Company |
-
-The values are written to IsolatedStorage owned by the Bifröst Foundation extension, never to a table field, never to telemetry and never to the request log.
+The store holds the Umsjá user name and password, the Síminn and Nova user names and passwords, the
+three Skatturinn passwords (with a separate set for the test service, used while the Skatturinn client
+type is Test), the two Já Gagnatorg API keys, and one web-service password per Skilagrein collector, set
+from the collectors page. Each value belongs to the company it was entered in and never appears in a
+table field, in telemetry or in the request log.
 
 ## Notes
 
--   **Credentials do not carry over from Origo Cloud Events Iceland.** IsolatedStorage is private to each extension, so nothing stored by the predecessor app is readable here. An administrator has to enter every credential once after installing Bifröst Iceland.
+-   **Credentials do not carry over from Origo Cloud Events Iceland.** Nothing the predecessor app stored is readable here. An administrator has to enter every credential once after installing Bifröst Iceland.
 -   The non-secret settings — client type selections, the Umsjá licence and the sender IDs — are taken over automatically on install and upgrade. Only the secrets need re-entering.
 -   Use the Skatturinn Test client type for the first submissions and switch to Live once the payloads validate.
--   Message types that need no credentials — holidays, postal codes, ISO currencies, Seðlabanki rates, island.is lookups — work as soon as HTTP client requests are enabled.
+-   Operations that need no credentials — holidays, postal codes, ISO currencies, Seðlabanki rates, island.is lookups — work as soon as HTTP client requests are enabled.
 -   **BIFROST ISFull ori** is a permission set extension: it adds every Iceland object to Bifröst Foundation's **BIFROST Full ori**. Assign **BIFROST Full ori** — the Iceland objects come with it.
 
 ## The setup wizard
 
-**Set up Bifrost Iceland connectors** (`Iceland Setup Wizard ori`) covers the connector client-type settings in three steps.
+**Set up Bifrost Iceland connectors** covers the connector client-type settings in three steps.
 
 | Step | Covers |
 | --- | --- |

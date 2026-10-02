@@ -6,19 +6,27 @@ writes it.
 
 ## What belongs on the site
 
-**Document the contract fully.** Partners and customers build on it:
-
-- message types: names, descriptions, help, request and response, errors;
-- the public extension surface of Bifrost Foundation and how a dependent app uses it;
+- what each app does, in Business Central terms;
 - setup, permissions and behaviour as administrators and users experience them;
-- licensing as customers experience it.
+- licensing as customers experience it: license types, quotas, rate limits, their own usage, the
+  Terms of Use and privacy;
+- the public extension surface of Bifrost Foundation and how a dependent app uses it;
+- one help page per Business Central page that opens help (no index pages).
 
-**Keep off the site how Origo runs and builds the product:**
+**Keep off the site:**
 
-- infrastructure: hosts, environments, storage and vault products, identifiers of Origo's own
-  tenants and companies;
+- message types: no names, parameters, examples or errors. Readers and agents read them from the
+  environment, where they follow the installed apps (`Help.MessageTypes.Get` and
+  `Help.Implementation.Get`, or the MCP tools `list_message_types` and `describe_message_type`);
+- the partner program (working as a Vendor or Partner) and agent skills;
+
+and how Origo runs and builds the product:
+
+- infrastructure: hosts, environments, development containers, storage and vault products,
+  identifiers of Origo's own tenants and companies;
 - credentials in any form, secret names used as worked examples, storage-key formats;
 - internal object names, object IDs, source paths, test apps and internal code;
+- telemetry event ids and storage keys;
 - how enforcement works internally, and where a control does not reach;
 - internal working practice, programme notes and dates;
 - real personal or company data. Use obvious placeholders.
@@ -30,7 +38,7 @@ If you are unsure, leave it out and ask the maintainers.
 - **One owner per topic.** Link to the page that owns a topic instead of explaining it again.
 - **Stays current.** No hand-typed counts ("N message types"), no lists that claim to be complete,
   no versions or dates unless the page is explicitly versioned. Point to the live catalogue
-  (`Help.MessageTypes.Get`) or the generated reference instead.
+  (`Help.MessageTypes.Get`) instead.
 - **No promises beyond the product and the Terms of Use.** Describe what the product does; avoid
   "guaranteed", "unconditional", "never" unless the product and the terms back it.
 - **Purpose first.** The first paragraph says who the page is for and what they can do afterwards.
@@ -41,9 +49,7 @@ If you are unsure, leave it out and ask the maintainers.
 
 ## Where to make a change
 
-- **Generated message-type pages** (`docs/<app>/reference/message-types/`) come from each app's
-  help text. Fix the app, release it, and regenerate. Don't hand-edit them for a lasting fix.
-- **Everything else** is written here: open a pull request.
+- **Everything on the site** is written here: open a pull request.
 - **Building on Bifröst** is documented in the partner reference repository
   ([bc-bifrost-reference](https://github.com/businesscentralal/bc-bifrost-reference)). This site
   explains the ideas and links there for the details.

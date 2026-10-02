@@ -26,12 +26,7 @@ The **Client Credentials Card** is where one credential pair is created and main
 
 ## Secrets
 
-| Secret code | Scope |
-| --- | --- |
-| `CREDENTIAL-<Code>-CLIENT-ID` | Company |
-| `CREDENTIAL-<Code>-CLIENT-SECRET` | Company |
-
-`<Code>` is the record code uppercased. A code long enough to overflow is shortened deterministically, so two similar codes never share a secret. Deleting the record clears both values.
+Both values are stored securely in Business Central, for this company only, and are never shown again. Deleting the record clears both values.
 
 ## Tips
 

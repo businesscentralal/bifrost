@@ -10,41 +10,32 @@ Bifröst grunnurinn á eina leyndarmálageymslu fyrir öll forrit sem byggja á 
 leyndarmál sem það þarf, kerfisstjóri slær gildin inn í einn sameiginlegan huldan glugga og forritið
 les þau aftur með einu kalli.
 
-Áður skilaði hvert forrit eigin `<X> Secret Mgt ori` einingu og eigin `<X> Set Secret Dialog ori`
-síðu. Þess þarf ekki lengur.
+Forrit þarf hvorki eigin leyndarmálaeiningu né eigin huldan glugga.
 
 **Nafnrými:** `Origo.Bifrost`
 
-| Hlutur | Númer | Tilgangur |
-|---|---|---|
-| Eining `Secret Store ori` | 10078305 | Opinbera viðmótið — það eina sem forrit þarf |
-| Tafla `App Secret ori` | 10078304 | Skráin: hvaða leyndarmál eru til, ekki gildi þeirra |
-| Enum `Secret Scope ori` | 10078303 | `Company` / `Company And User` |
-| Síða `Set Secret Dialog ori` | 10078306 | Sameiginlegi huldi innsláttarglugginn |
-| Síða `App Secrets ori` | 10078307 | Listi kerfisstjórans yfir skráð leyndarmál |
+| Hlutur | Tilgangur |
+|---|---|
+| Eining `Secret Store ori` | Opinbera viðmótið — það eina sem forrit þarf |
+| Tafla `App Secret ori` | Skráin: hvaða leyndarmál eru til, ekki gildi þeirra |
+| Enum `Secret Scope ori` | `Company` / `Company And User` |
+| Síða `Set Secret Dialog ori` | Sameiginlegi huldi innsláttarglugginn |
+| Síða `App Secrets ori` (**Leyndarmál forrita Bifröst**) | Listi kerfisstjórans yfir skráð leyndarmál |
 
 ---
 
 ## Hvar gildið liggur
 
-Gildin eru skrifuð í **IsolatedStorage undir Bifröst grunninum**, aldrei í töflu, aldrei í fjarmælingar
-og aldrei í villuboð. Geymslulykillinn er:
+Gildin eru geymd í einangraðri geymslu Business Central sem Bifröst Foundation á, aldrei í töflu,
+aldrei í fjarmælingum og aldrei í villuboðum. Skráð umfang ræður því hverjir deila gildi:
 
-```
-<App Id>/<Secret Code>
-```
-
-þar sem `<App Id>` er auðkenni forritsins sniðið án sviga (`Format(AppId, 0, 4)`).
-
-Umfang IsolatedStorage fylgir skráðu umfangi:
-
-| Umfang | Gagnaumfang | Merking |
-|---|---|---|
-| `Company` | `DataScope::Company` | Eitt gildi sameiginlegt öllum í fyrirtækinu |
-| `Company And User` | `DataScope::CompanyAndUser` | Hver notandi skráir eigið gildi |
+| Umfang | Merking |
+|---|---|
+| `Company` | Eitt gildi sameiginlegt öllum í fyrirtækinu |
+| `Company And User` | Hver notandi skráir eigið gildi |
 
 Þar sem geymslan notar `SecretText` frá enda til enda getur viðbót sem er þýdd fyrir `Cloud` sent
-gildið í `HttpClient`-haus, í `IsolatedStorage` eða í dulkóðunarviðmót, en aldrei prentað það,
+gildið í `HttpClient`-haus eða í dulkóðunarviðmót, en aldrei prentað það,
 skráð það eða breytt því aftur í `Text`. Það er með ráðum gert.
 
 ---
@@ -101,14 +92,13 @@ Stimplar `Last Used On` á skráningarfærsluna, í mesta lagi einu sinni á dag
 á hana með ráðum, svo lestur leyndarmáls skrifar aldrei — annars myndi lesbeiðni í API bregðast.
 Kallaðu á hana sjálf/ur úr samhengi sem má skrifa.
 
-### Clear / ClearAll
+### Clear
 
 ```al
 procedure Clear(AppId: Guid; SecretCode: Code[50])
-procedure ClearAll(AppId: Guid)
 ```
 
-Fjarlægja geymdu gildin. Skráningarnar lifa af, svo kerfisstjóri sér áfram hvaða leyndarmál forritið
+Fjarlægir geymda gildið. Skráningarnar lifa af, svo kerfisstjóri sér áfram hvaða leyndarmál forritið
 væntir.
 
 ### SetFromDialog
@@ -125,24 +115,16 @@ geymt.
 - `MultiLine` sýnir fjöllínureit í stað hulda reitsins. Notaðu fyrir löng Base64-gildi, til dæmis
   skírteini, sem enginn slær inn í höndunum og ekki er hægt að yfirfara í huldum reit.
 
-### GetStorageKey
-
-```al
-procedure GetStorageKey(AppId: Guid; SecretCode: Code[50]): Text
-```
-
-Skilar lykli IsolatedStorage. Gagnlegt í prófunum og þjónustu; afhjúpar aldrei gildið.
-
 ---
 
 ## Notkun í forriti
 
 ```al
-namespace Origo.Bifrost.IcelandTreasury;
+namespace Contoso.FieldService;
 
 using Origo.Bifrost;
 
-codeunit 10036020 "Treasury Secrets ori"
+codeunit 50100 "Contoso Secrets"
 {
     var
         ClientSecretTok: Label 'CLIENT-SECRET', Locked = true;
@@ -154,7 +136,7 @@ codeunit 10036020 "Treasury Secrets ori"
     var
         SecretStore: Codeunit "Secret Store ori";
     begin
-        SecretStore.Register(AppId(), ClientSecretTok, 'Client secret of the bank API registration', "Secret Scope ori"::Company);
+        SecretStore.Register(AppId(), ClientSecretTok, 'Client secret of the service API registration', "Secret Scope ori"::Company);
     end;
 
     /// <summary>
@@ -195,7 +177,7 @@ end;
 
 ## Sýn kerfisstjórans
 
-**Uppsetning Bifröst → Uppsetning → Leyndarmál** opnar `App Secrets ori` fyrir öll uppsett forrit.
+**Uppsetning Bifröst → Uppsetning → Leyndarmál** opnar **Leyndarmál forrita Bifröst** fyrir öll uppsett forrit.
 Listinn sýnir forritið, kóða leyndarmálsins, lýsingu þess, umfang, hvort gildi sé geymt (`Is Set`,
 grænt þegar skráð, rautt þegar vantar), hvenær það var skráð og af hverjum. Hann sýnir aldrei gildið.
 
@@ -211,26 +193,7 @@ Aðgerðir: **Skrá...** opnar sameiginlega gluggann, **Hreinsa** fjarlægir gil
 | `BIFROST Full ori` | RIMD á `App Secret ori`, keyrsla á geymslunni og síðunum |
 
 Lestur gildis með `TryGet` þarf einungis lesheimild á skráningartöfluna; gildið kemur úr
-IsolatedStorage, sem viðbótin stýrir, ekki tölfluheimildir.
-
----
-
-## Fjarmælingar
-
-| Atburðategund | Merki | Skráð |
-|---|---|---|
-| `Secret Set` | ORI-BIF-0160 | auðkenni forrits, kóði leyndarmáls |
-| `Secret Cleared` | ORI-BIF-0161 | auðkenni forrits, kóði leyndarmáls |
-
-Gildið er aldrei hluti af fjarmælingavídd.
-
----
-
-## Ekki rugla saman við
-
-`Secret Mgt ori` (eining 10077907) er **innri** eining grunnsins og þjónar leyfisbakendanum.
-Hún tengist ekki leyndarmálageymslu forrita sem lýst er hér og er ekki hluti af opinbera
-viðmótinu.
+geymslunni sjálfri, sem viðbótin stýrir, ekki töfluheimildir.
 
 ---
 

@@ -5,15 +5,15 @@ sidebar_label: "Uppsetning Bifröst Ísland"
 sidebar_position: 2
 ---
 
-Spjaldið **Uppsetning Bifröst Ísland** (`Iceland Setup ori`) geymir allar stillingar tenginga Bifröst Ísland — Umsjár, SMS, Skattsins, Skilagreinar og Já Gagnatorgs. Það er opnað með aðgerðinni **Uppsetning Bifröst Ísland** í flokknum **Forrit** á **Uppsetningarsíðu** Bifrastar, þar sem hún er einnig sett fram sem flýtiaðgerð, eða með því að leita að *Uppsetning Bifröst Ísland*. Það er nákvæmlega ein uppsetningarfærsla í hverju fyrirtæki.
+Spjaldið **Uppsetning Bifröst Ísland** geymir allar stillingar tenginga Bifröst Ísland — Umsjár, SMS, Skattsins, Skilagreinar og Já Gagnatorgs. Það er opnað með aðgerðinni **Uppsetning Bifröst Ísland** í flokknum **Forrit** á **Uppsetningarsíðu** Bifrastar, þar sem hún er einnig sett fram sem flýtiaðgerð, eða með því að leita að *Uppsetning Bifröst Ísland*. Það er nákvæmlega ein uppsetningarfærsla í hverju fyrirtæki.
 
 Ekkert sem varðar Ísland er lengur stillt á uppsetningarspjaldi Bifrastar-grunnsins. Uppsetningarsíða grunnsins ber eina íslenska aðgerð og allt annað er hér, svo hægt sé að setja viðbótina upp, stilla hana og fjarlægja án þess að snerta grunninn.
 
-Leiðsögnin **Setja upp tengingar Bifröst Ísland** (`Iceland Setup Wizard ori`) fer í gegnum val á biðlaraútfærslu tenginganna skref fyrir skref. Hún er ræst úr **Aðstoðaðri uppsetningu** (Assisted Setup). Aðgerðin **Uppsetningarleiðsögn** á þessari síðu opnar hins vegar **Uppsetningarleiðsögn Bifröst** hjá Bifrastar-grunninum: útleið HTTP og allar innskráningarupplýsingar á þessari síðu eru stilltar þar einu sinni, fyrir öll uppsett Bifröst-forrit - leiðsögn þessa forrits endurtekur hvorugt skrefið.
+Leiðsögnin **Setja upp tengingar Bifröst Ísland** fer í gegnum val á biðlaraútfærslu tenginganna skref fyrir skref. Hún er ræst úr **Aðstoðaðri uppsetningu** (Assisted Setup). Aðgerðin **Uppsetningarleiðsögn** á þessari síðu opnar hins vegar **Uppsetningarleiðsögn Bifröst** hjá Bifrastar-grunninum: útleið HTTP og allar innskráningarupplýsingar á þessari síðu eru stilltar þar einu sinni, fyrir öll uppsett Bifröst-forrit - leiðsögn þessa forrits endurtekur hvorugt skrefið.
 
 ## Tilkynningar
 
-Þessi síða birtir engar tilkynningar sjálf. Eina uppsetningartilkynningin í Bifröst-fjölskyldunni - HTTP-biðlarabeiðnir sem eru ekki enn virkar fyrir eitt eða fleiri Bifröst-forrit - birtist á síðunni [Uppsetning Bifröst](/help/foundation/bifrost-setup/) hjá Bifrastar-grunninum, og eina aðgerð hennar, **Hefja uppsetningarleiðsögn**, opnar Uppsetningarleiðsögn Bifröst sem virkjar HTTP fyrir öll skráð forrit í einu skrefi. Innskráningarupplýsingar sem vantar valda engri tilkynningu: skilaboðategund sem hefur ekki fengið sínar upplýsingar svarar einfaldlega með villu þar til þær eru skráðar, og þessi síða sýnir fyrir hvert svið hvort gildi sé geymt.
+Þessi síða birtir engar tilkynningar sjálf. Eina uppsetningartilkynningin í Bifröst-fjölskyldunni - HTTP-biðlarabeiðnir sem eru ekki enn virkar fyrir eitt eða fleiri Bifröst-forrit - birtist á síðunni [Uppsetning Bifröst](/help/foundation/bifrost-setup/) hjá Bifrastar-grunninum, og eina aðgerð hennar, **Hefja uppsetningarleiðsögn**, opnar Uppsetningarleiðsögn Bifröst sem virkjar HTTP fyrir öll skráð forrit í einu skrefi. Innskráningarupplýsingar sem vantar valda engri tilkynningu: aðgerð sem hefur ekki fengið sínar upplýsingar svarar einfaldlega með villu þar til þær eru skráðar, og þessi síða sýnir fyrir hvert svið hvort gildi sé geymt.
 
 ## Umsjá
 
@@ -31,13 +31,13 @@ Uppflettingar í þjóðskrá gegnum Umsjár-þjónustuna.
 | Skrá lykilorð | Biður um lykilorð fyrir vefþjónustu Umsjár í sameiginlega hulda glugganum. |
 | Hreinsa innskráningarupplýsingar | Fjarlægir geymt notandanafn og lykilorð Umsjár. |
 
-Innskráningarupplýsingar Umsjár opna á `Iceland.NationalRegistry.*`, `Iceland.Search*`, `Iceland.Parties.Get`, `Iceland.Relations.Get` og skyldar uppflettingar. Hlutirnir falla undir **BIFROST Umsja ori**, sem er ekki úthlutanlegt eitt og sér — það fylgir **BIFROST ISFull ori**. Samstilling þjóðskrár er varin sérstaklega af hinu úthlutanlega **BIFROST NatReg ori**.
+Innskráningarupplýsingar Umsjár opna á uppflettingar í þjóðskrá (einstaklingar, fyrirtæki, heimilisföng, tengsl, hlutverk og aðilar) og samstillingu þjóðskrár. Hlutirnir falla undir **BIFROST Umsja ori**, sem er ekki úthlutanlegt eitt og sér — það fylgir **BIFROST ISFull ori**. Samstilling þjóðskrár er varin sérstaklega af hinu úthlutanlega **BIFROST NatReg ori**.
 
 ## SMS
 
 | Reitur | Lýsing |
 | --- | --- |
-| Tegund SMS-biðlara | Hvaða gátt afgreiðir `Iceland.SMS.Send` — Síminn, Síminn (SOAP) eða Nova. Undirflokkarnir hér að neðan fylgja þessu vali. |
+| Tegund SMS-biðlara | Hvaða gátt sendir SMS — Síminn, Síminn (SOAP) eða Nova. Undirflokkarnir hér að neðan fylgja þessu vali. |
 
 ### Síminn
 
@@ -106,8 +106,8 @@ Ekkert lykilorð Skilagreinar er á þessari síðu. Hver innheimtuaðili auðke
 | Reitur | Lýsing |
 | --- | --- |
 | Tegund Já-biðlara | Hvaða Já Gagnatorg biðlari er notaður. |
-| Leitar-API lykill | Hvort lykill Já Search v6 (Símaskrár), sem `Ja.Search.Query` notar, sé geymdur. Ekki breytanlegt. |
-| Skrár-API lykill | Hvort lykill Já Skrár v1 (Þjóðskrár / Fyrirtækjaskrár), sem `Ja.Person.Get` og `Ja.Company.Get` nota, sé geymdur. Ekki breytanlegt. |
+| Leitar-API lykill | Hvort lykill Já Search v6 (Símaskrár), sem notaður er við leit, sé geymdur. Ekki breytanlegt. |
+| Skrár-API lykill | Hvort lykill Já Skrár v1 (Þjóðskrár / Fyrirtækjaskrár), sem notaður er við uppflettingar á einstaklingum og fyrirtækjum, sé geymdur. Ekki breytanlegt. |
 
 | Aðgerð | Lýsing |
 | --- | --- |
@@ -115,7 +115,7 @@ Ekkert lykilorð Skilagreinar er á þessari síðu. Hver innheimtuaðili auðke
 | Skrá skrár-API lykil | Biður um API lykil Já fyrir skrár. |
 | Hreinsa API lykla Já | Fjarlægir báða geymdu API lykla Já. |
 
-Til að kalla einhverja af hinum þremur raunverulegu Já Gagnatorg skilaboðategundum þarf auk þess **BIFROST Ja ori**. `Help.Ja.Get` er öllum notendum opið.
+Til að leita í Já Gagnatorgi eða fletta þar upp einstaklingi eða fyrirtæki þarf auk þess **BIFROST Ja ori**.
 
 ## Aðrar aðgerðir
 
@@ -130,37 +130,23 @@ Til að kalla einhverja af hinum þremur raunverulegu Já Gagnatorg skilaboðate
 
 Öll leyndarmál eru geymd í **leyndarmálageymslu** Bifrastar-grunnsins, hvorki á þessari síðu né í uppsetningartöflunni. Hver **Skrá …** aðgerð opnar sama sameiginlega hulda gluggann: gildið er hulið meðan það er slegið inn, fer beint í geymsluna og er aldrei birt aftur. Reitirnir á spjaldinu segja aðeins til um hvort gildi sé til staðar.
 
-| Kóði leyndarmáls | Geymir | Umfang |
-| --- | --- | --- |
-| `UMSJA-USERNAME` | Notandanafn fyrir vefþjónustu Umsjár | Fyrirtæki |
-| `UMSJA-PASSWORD` | Lykilorð fyrir vefþjónustu Umsjár | Fyrirtæki |
-| `SIMINN-USERNAME` | Notandanafn magnSMS hjá Símanum | Fyrirtæki |
-| `SIMINN-PASSWORD` | Lykilorð magnSMS hjá Símanum | Fyrirtæki |
-| `NOVA-USERNAME` | Notandanafn SMS hjá Nova | Fyrirtæki |
-| `NOVA-PASSWORD` | Lykilorð SMS hjá Nova | Fyrirtæki |
-| `RSK-VAT-PASSWORD` | Lykilorð virðisaukaskatts hjá Skattinum | Fyrirtæki |
-| `RSK-PAYROLL-PASSWORD` | Lykilorð staðgreiðslu hjá Skattinum | Fyrirtæki |
-| `RSK-FTS-PASSWORD` | Lykilorð fjármagnstekjuskatts hjá Skattinum | Fyrirtæki |
-| `RSK-TEST-VAT-PASSWORD` | Lykilorð virðisaukaskatts hjá Skattinum - prófunarumhverfi (notað þegar tegund Skatturinn biðlara er Prófun) | Fyrirtæki |
-| `RSK-TEST-PAYROLL-PASSWORD` | Lykilorð staðgreiðslu hjá Skattinum - prófunarumhverfi | Fyrirtæki |
-| `RSK-TEST-FTS-PASSWORD` | Lykilorð fjármagnstekjuskatts hjá Skattinum - prófunarumhverfi | Fyrirtæki |
-| `JA-SEARCH-API-KEY` | API lykill Já Search v6 | Fyrirtæki |
-| `JA-REGISTRY-API-KEY` | API lykill Já Skrár v1 | Fyrirtæki |
-| `SKG-COLLECTOR-<númer innheimtuaðila>-PASSWORD` | Eitt á hvern innheimtuaðila skilagrein.is, skráð á innheimtuaðilasíðunni | Fyrirtæki |
-
-Gildin eru skrifuð í IsolatedStorage sem tilheyrir Bifrastar-grunninum, aldrei í reit í töflu, aldrei í fjarmælingar og aldrei í beiðnaskrána.
+Geymslan heldur notandanafni og lykilorði Umsjár, notandanöfnum og lykilorðum Símans og Nova, þremur
+lykilorðum Skattsins (með sérstöku setti fyrir prófunarþjónustuna, notuðu þegar tegund biðlara Skattsins
+er Prófun), báðum API lyklum Já Gagnatorgs og einu lykilorði vefþjónustu fyrir hvern innheimtuaðila
+Skilagreinar, skráðu á innheimtuaðilasíðunni. Hvert gildi tilheyrir fyrirtækinu þar sem það var skráð og
+birtist aldrei í reit í töflu, í fjarmælingum eða í beiðnaskránni.
 
 ## Athugasemdir
 
--   **Innskráningarupplýsingar flytjast ekki frá Origo Cloud Events Iceland.** IsolatedStorage er einkageymsla hverrar viðbótar, svo ekkert sem fyrri viðbótin geymdi er lesanlegt hér. Kerfisstjóri þarf að slá öll leyndarmál inn einu sinni eftir uppsetningu Bifröst Ísland.
+-   **Innskráningarupplýsingar flytjast ekki frá Origo Cloud Events Iceland.** Ekkert sem fyrri viðbótin geymdi er lesanlegt hér. Kerfisstjóri þarf að slá öll leyndarmál inn einu sinni eftir uppsetningu Bifröst Ísland.
 -   Stillingar sem eru ekki leyndarmál — val á biðlarategundum, leyfisnúmer Umsjár og sendandaauðkennin — flytjast sjálfkrafa við uppsetningu og uppfærslu. Aðeins leyndarmálin þarf að skrá aftur.
 -   Notaðu prófunarbiðlara Skattsins fyrir fyrstu skil og skiptu yfir í raunumhverfi þegar sendingarnar standast villuprófun.
--   Skilaboðategundir sem þurfa engin auðkenni — frídagar, póstnúmer, ISO-gjaldmiðlar, gengi Seðlabankans og uppflettingar hjá island.is — virka um leið og HTTP-biðlarabeiðnir eru virkjaðar.
+-   Aðgerðir sem þurfa engin auðkenni — frídagar, póstnúmer, ISO-gjaldmiðlar, gengi Seðlabankans og uppflettingar hjá island.is — virka um leið og HTTP-biðlarabeiðnir eru virkjaðar.
 -   **BIFROST ISFull ori** er heimildasettsviðbót: hún bætir öllum íslensku hlutunum við **BIFROST Full ori** úr Bifrastar-grunninum. Úthlutaðu **BIFROST Full ori** — íslensku hlutirnir fylgja með.
 
 ## Leiðsögnin
 
-**Setja upp tengingar Bifröst Ísland** (`Iceland Setup Wizard ori`) fer yfir val á biðlaraútfærslu í þremur skrefum.
+**Setja upp tengingar Bifröst Ísland** fer yfir val á biðlaraútfærslu í þremur skrefum.
 
 | Skref | Nær yfir |
 | --- | --- |

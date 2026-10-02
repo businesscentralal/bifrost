@@ -4,49 +4,67 @@ title: "Bifröst Inventory"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Item Attribute message types on Bifröst Foundation: get, create, update and define attributes without multi-table Data.Records joins."
+description: "Vörueigindir á Bifröst Foundation: lestu, settu, breyttu og skilgreindu vörueigindir, hvert í einni beiðni."
 ---
 
-Bifröst Inventory er a feature app on top of Bifröst Foundation. It publishes first-class **Item Attribute** message tegunds so an external caller, an MCP client eða a Business Central process getur read og write vara eiginleikar through the same queue, verkþáttur og data pattern used by the rest of Bifröst — án stitching multi-table `Data.Records.Get` joins.
+# Bifröst Inventory
 
-## What it does
+**Haltu vörueigindum uppfærðum úr öðrum kerfum og frá aðstoð.** Lestu eigindir vöru, settu gildi
+þeirra og skilgreindu nýjar eigindir, hvert í einni beiðni.
 
-- **Lestu eiginleikar** — `Item.Attribute.Get` returns eigind definitions og assigned gildi fyrir one eða more vörur, með optional filters og unassigned eiginleikar.
-- **Assign gildi** — `Item.Attribute.Create` assigns eigind gildi to an vara. Idempotent þegar the mapping already has the same gildi; use `overwrite: true` to replace a different gildi.
-- **Change mappings** — `Item.Attribute.Update` changes an existing vara↔eigind mapping og returns before/after gildi.
-- **Define eiginleikar** — `Item.AttributeDefinition.Create` creates an eigind definition og optional option gildi independently of any vara.
-- **Self-skjaling samningur** — every message tegund answers its own Markdown help skjal (parameters, examples, response shape og villur).
+Niðurstöðurnar birtast á vörunni í Business Central, undir stöðluðum vörueigindum. Appið hefur
+engar síður sjálft.
 
-## How it works
+*Viðbótarapp ofan á [Bifröst Foundation](/foundation/). Nýr í Bifröst? Byrjaðu á
+[Hvernig Bifröst virkar](/documentation/how-it-works/).*
 
-1. Install og activate **Bifröst Foundation** (28.0.0.87 eða later recommended; app depends on Foundation 28.0.0.0+).
-2. Install **Bifröst Inventory**. Permissions ship as PermissionStilltuExtensions onto `BIFROST Read ori` / `BIFROST Full ori`.
-3. External systems send Bifröst messages heitid `Item.Attribute.*` eða `Item.AttributeDefinition.Create` through the standard queue → verkþáttur → data pattern.
-4. Identifier resolution fyrir vara-scoped tegunds prefers `subject` (GUID = `Item.SystemId`, otherwise `Item.No.`), then `data.itemNo` / id fields / `tableView`.
+## Hvað þú getur gert
 
-## Skilaboð tegunds
+- **Séð eigindir vöru í einu lagi.** Sæktu eigindir og gildi þeirra fyrir eina eða fleiri vörur,
+  og, ef þú vilt, eigindirnar sem hafa ekkert gildi enn.
+- **Gefið vöru eigindargildi.** Ef sama gildi er sett aftur breytist ekkert. Öðru gildi er aðeins
+  skipt út þegar beiðnin biður um það.
+- **Breytt gildi sem þegar er sett.** Svarið sýnir gildið fyrir og eftir breytinguna.
+- **Skilgreint nýja eigind.** Búðu til eigind, með valgildum hennar, áður en nokkur vara notar
+  hana.
+- **Stutt vinnu við vörulista og vörugögn.** Samstilling vörulista, auðgun vöruupplýsinga og
+  verkefni í grunngögnum sem gervigreindaraðstoð vinnur geta öll notað sömu beiðnirnar.
 
-| Domain | Skilaboð tegunds |
-| --- | --- |
-| Item eiginleikar | `Item.Attribute.Get`, `Item.Attribute.Create`, `Item.Attribute.Update` |
-| Attribute definitions | `Item.AttributeDefinition.Create` |
+## Sæktu appið
 
-| Type | Direction | Purpose |
-|------|-----------|---------|
-| `Item.Attribute.Get` | Út á við | Lestu eiginleikar/gildi fyrir vörur |
-| `Item.Attribute.Create` | Inn á við | Assign eigind gildi to an vara |
-| `Item.Attribute.Update` | Inn á við | Change an existing mapping |
-| `Item.AttributeDefinition.Create` | Inn á við | Create eigind definition (+ options) |
+Settu **Bifrost Inventory** upp við hlið Bifröst Foundation, af AppSource eða í gegnum
+samstarfsaðila þinn. Það þarf Business Central 28.0 eða nýrra, Essentials eða Premium, og Bifröst
+Foundation 28.0.0.0 eða nýrra.
 
-## Requirements
+## Uppsetning
 
-- Microsoft Dynamics 365 Business Central 28.0 eða later, Essentials eða Premium.
-- **Bifröst Foundation** 28.0.0.0 eða later (this app was validagsetningd against 28.0.0.87), available separately on AppSource.
-- Object ID ranges: app `10036885–10036934`.
+| Skref | Hvað | Hver |
+|---|---|---|
+| 1 | Settu upp og virkjaðu Bifröst Foundation, og settu síðan upp Bifröst Inventory. | Kerfisstjóri Business Central |
+| 2 | Gakktu úr skugga um að fólk og þjónustur sem kalla á appið hafi **`BIFROST Read ori`** eða **`BIFROST Full ori`**. Inventory bætir heimildum sínum við þau söfn. | Kerfisstjóri Business Central |
+| 3 | Sendu beiðnir um vörueigindir og athugaðu síðan eigindirnar á vörunni í Business Central. | Sá sem smíðar samþættinguna |
 
-## Where to go next
+Stillingar kerfisins eru á [Uppsetningu Bifrost](/help/foundation/bifrost-setup/) í Bifröst
+Foundation.
 
-- [In-product help](/help/inventory/)
-- [Skilaboð tegund reference](./reference/message-types/) — the request og response samningur fyrir every tegund, úr the app's help kóðiunits
-- [Partner Center listing](./listing)
-- [Build on Bifröst](/extensibility/)
+## Gott að vita
+
+- **Það vinnur sem þú.** Hvert kall keyrir með þínum eigin heimildum í Business Central og er skráð
+  á **Bifrost Messages**.
+- **Engin ný heimildasöfn.** Aðgangur fylgir heimildasöfnum Foundation, `BIFROST Read ori` og
+  `BIFROST Full ori`.
+- **Ekkert að opna í biðlaranum.** Appið bætir engum síðum, aðgerðum eða reitum við. Eigindagildi
+  eru geymd í stöðluðum vörueigindatöflum Business Central og birtast á vörunni.
+- **Vara er nefnd** með kerfisauðkenni sínu eða vörunúmeri.
+
+## Tilvísun
+
+Uppsettar skilaboðategundir og samningar þeirra eru lesnir úr Business Central sjálfu: með
+MCP-verkfærunum `list_message_types` og `describe_message_type`, eða á síðunni **Bifrost Message
+Types**. Aðgerðir Bifröst Inventory fyrir vörueigindir birtast við hlið eigin vöruaðgerða Bifröst
+Foundation.
+
+- [Texti AppSource-skráningar](./listing)
+- [Byggðu á Bifröst](/extensibility/)
+- Heimildasöfn: `BIFROST Read ori` eða `BIFROST Full ori`, úr Bifröst Foundation, útvíkkuð af þessu
+  appi.

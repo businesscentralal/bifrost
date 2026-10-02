@@ -18,8 +18,8 @@ fleiri en eitt vandamál eru **þau öll talin upp í einu**, svo næsta kall ge
   "error": "Vendor \"99999\" was not found (from subject).",
   "parameter": "subject",
   "received": "99999",
-  "nextStep": "Check the number with Data.Records.Get on table Vendor.",
-  "hint": "For usage details, call the \"Help.Implementation.Get\" message type with subject \"Purchase.Document.Create\"."
+  "nextStep": "Check the number in the Vendor table.",
+  "hint": "For usage details, call the \"Help.Implementation.Get\" message type with subject \"{message-type}\"."
 }
 ```
 
@@ -50,11 +50,11 @@ eiga sameiginlegan - `lines` í Create-gerð svara `InvalidLine`. Beiðni með a
   "error": "3 problems in the request. Nothing was created.",
   "errors": [
     { "code": "RecordNotFound", "error": "Item \"1896-X\" was not found.", "parameter": "lines[2].no", "received": "1896-X",
-      "nextStep": "Check the item number with Data.Records.Get on table Item." },
+      "nextStep": "Check the item number in the Item table." },
     { "code": "InvalidParameterFormat", "error": "\"abc\" is not a valid number.", "parameter": "lines[3].quantity", "received": "abc", "expected": "number" },
     { "code": "MissingParameter", "error": "Required parameter \"quantity\" is missing.", "parameter": "lines[4].quantity" }
   ],
-  "hint": "For usage details, call the \"Help.Implementation.Get\" message type with subject \"Purchase.Document.Create\"."
+  "hint": "For usage details, call the \"Help.Implementation.Get\" message type with subject \"{message-type}\"."
 }
 ```
 

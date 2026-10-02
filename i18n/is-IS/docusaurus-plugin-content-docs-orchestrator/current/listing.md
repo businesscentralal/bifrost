@@ -6,7 +6,7 @@ sidebar_position: 9
 description: "The marketplace listing copy for this extension: offer name, summary, categories and full description."
 ---
 
-> Copy these texts í Partner Center þegar creating/updating the offer listing.
+> Afritaðu þessa texta inn í Partner Center þegar skráning tilboðsins er búin til eða uppfærð.
 
 ---
 
@@ -14,15 +14,15 @@ description: "The marketplace listing copy for this extension: offer name, summa
 Bifrost Orchestrator
 
 ## Search Result Summary (max 50 chars)
-Job Queue scheduling og Bifrost playbooks
+Tímasetning vinnsluraðar og keðjur Bifrost
 
 ## Offer Summary (max 100 chars)
-Job Queue management með message playbooks, reports, Telegram og email alerts, og scheduling.
+Stjórnun vinnsluraðar með keðjum, skýrslum, Telegram- og tölvupóstviðvörunum og tímasetningu.
 
 ## Search Keywords
-1. Job Queue
-2. Workflow automation
-3. Playbook
+1. Vinnsluröð
+2. Sjálfvirkni ferla
+3. Keðja
 
 ## Categories
 - **Primary:** IT & Admin Tools > Data Integration
@@ -36,12 +36,12 @@ Job Queue management með message playbooks, reports, Telegram og email alerts, 
 
 ## Lýsing
 
-The full description text er [below](#full-description-text).
+Heildartexti lýsingarinnar er [hér fyrir neðan](#full-description-text).
 
 ---
 
 ## Help Link
-https://bifrost.origo.is/en-us/orchestrator/
+https://businesscentralal.github.io/bifrost/en-us/orchestrator/
 
 ## Support Link
 https://www.origo.is/
@@ -50,64 +50,52 @@ https://www.origo.is/
 - Dynamics 365 Business Central
 
 ## Dependencies
-- Bifrost Foundation (Origo) — required, available separately on AppSource
+- Bifrost Foundation (Origo) — nauðsynlegt, fáanlegt sérstaklega á AppSource
 
 ---
 
-## Full description text
+## Heildartexti lýsingar {#full-description-text}
 
-**Bifrost Orchestrator** adds Job Queue scheduling, monitoring, restart og villa handling to Business Central through the Bifrost platform — a message-based integration layer that gives external systems, AI agents, og automation tools structured access to Business Central data og procedures. It includes a declarative message playbook runner that executes sequences of Bifrost message tegunds með data flow, forEach iteration, conditional branching, paged execution, og delivery via Email eða Telegram.
+**Bifrost Orchestrator** bætir tímasetningu, vöktun, endurræsingu og villumeðhöndlun vinnsluraðar við Business Central í gegnum Bifrost, skilaboðabyggt samþættingarlag sem veitir ytri kerfum, gervigreindarþjónum og sjálfvirkniverkfærum skipulegan aðgang að gögnum og ferlum Business Central. Það inniheldur keyrsluvél fyrir keðjur sem keyrir runur af aðgerðum með gagnaflæði, ítrun yfir lista, skilyrtum greiningum, keyrslu í síðum og afhendingu með tölvupósti eða Telegram.
 
-### Who er this for?
+### Fyrir hverja?
 
-**IT teams, integration developers, og Business Central administrators** who need reliable, automated Job Queue management og multi-step workflow orchestration. Ideal fyrir organizations running scheduled integrations, recurring data synchronization, eða automated skjal processing pipelínur þar sem monitoring, restart policies, og notification on failure eru critical.
+**Upplýsingatækniteymi, samþættingarforritara og kerfisstjóra Business Central** sem þurfa áreiðanlega, sjálfvirka stjórnun vinnsluraðar og samhæfingu ferla í mörgum skrefum. Hentar fyrirtækjum sem keyra tímasettar samþættingar, reglulega samstillingu gagna eða sjálfvirka skjalavinnslu þar sem vöktun, endurræsingarreglur og tilkynningar um villur skipta sköpum.
 
-**Target industries:** Professional services, manufacturing, distribution, retail — any business that runs scheduled background jobs in Business Central.
+**Markhópar:** Sérfræðiþjónusta, framleiðsla, dreifing, smásala — hvert það fyrirtæki sem keyrir tímasett bakgrunnsverk í Business Central.
 
-### What it does
+### Hvað það gerir
 
-- **Job Queue scheduling og supervision** — Monitors, restarts, og manages Job Queue entries. Configurable retry policies, recurring templates, scheduling, og automatic restart on failure
-- **Telegram & Email Notifications** — Sendir alerts þegar jobs fail eða restart. Telegram messages go to the notandi's stillt chat ID; email uses BC's built-in email system
-- **Skilaboð Playbooks** — Declarative, multi-step workflows that chain Bifrost message tegunds. Each step calls one message tegund, með data flowing through a shared vinnusvæði með `@path` references
-- **ForEach Iteration** — Playbook steps getur iterate over arrays úr prior steps, processing hver element með its own message tegund call
-- **Skilyrðial branching** — Separate next steps on success og failure, skip-if-failed, og per-step start conditions
-- **Paged Execution** — Playbook steps getur auto-paginate through large datasets
-- **Scheduled Playbooks** — Run playbooks on a recurring schedule via the Job Queue, eða enqueue fyrir one-time execution með custom parameters
-- **Reports on demand** — List, inspect, render (PDF, Excel, Word, XML) og run processing-only reports, með reusable request presets
-- **Execution log** — Every playbook run er færslaed as an instance með a per-step log holding the request, the response og a vinnusvæði snapshot
-- **Stilltuup Wizard** — Guided setup fyrir HTTP client requests, Job Queue configuration, og the Telegram bot token
+- **Tímasetning og eftirlit með vinnsluröð** — Vaktar, endurræsir og stýrir færslum vinnsluraðar. Stillanlegar endurtekningarreglur, endurtekin sniðmát, tímasetning og sjálfvirk endurræsing við villu
+- **Tilkynningar í Telegram og tölvupósti** — Sendir viðvaranir þegar verk bregðast eða eru endurræst. Telegram-skilaboð fara á spjallauðkenni notandans; tölvupóstur notar innbyggt tölvupóstkerfi BC
+- **Keðjur** — Ferli í mörgum skrefum þar sem hvert skref er ein aðgerð og gögn flæða um sameiginlegt vinnusvæði með `@path`-tilvísunum
+- **Ítrun** — Skref í keðju getur farið í gegnum lista úr fyrri skrefum og unnið hvert stak með sinni eigin aðgerð
+- **Skilyrtar greiningar** — Mismunandi næstu skref eftir árangri eða villu, sleppa ef fyrra skref mistókst, og upphafsskilyrði fyrir hvert skref
+- **Keyrsla í síðum** — Skref í keðju geta farið sjálfkrafa í gegnum stór gagnasöfn í síðum
+- **Tímasettar keðjur** — Keyra keðjur eftir endurtekinni tímaáætlun í gegnum vinnsluröðina, eða setja þær í röð til keyrslu einu sinni með eigin færibreytum
+- **Skýrslur eftir þörfum** — Skrá, skoða, birta (PDF, Excel, Word, XML) og keyra vinnsluskýrslur, með endurnýtanlegum forstillingum beiðna
+- **Keyrsluskrá** — Hver keyrsla keðju er skráð sem tilvik með skrá fyrir hvert skref sem geymir beiðnina, svarið og mynd af vinnusvæðinu
+- **Leiðsagnarforrit** — Leiðsögn um uppsetningu HTTP-beiðna, vinnsluraðar og bot-teiknis Telegram
 
-### How it works
+### Hvernig það virkar
 
-1. Register Job Queue entries as **scheduled entries** — Bifrost Orchestrator monitors og restarts them automatically
-2. Configure **notification tegund** (None, Email, Telegram) per entry to get alerts on failure
-3. Build **playbooks** by creating steps that call Bifrost message tegunds in sequence, með request templates með `@` vinnusvæði references to pass data between steps
-4. Run playbooks manually, on a schedule, eða enqueue them fyrir deferred execution
+1. Skráðu færslur vinnsluraðar sem **tímasettar færslur** — Bifrost Orchestrator vaktar þær og endurræsir sjálfkrafa
+2. Stilltu **tegund tilkynningar** (Engin, Tölvupóstur, Telegram) fyrir hverja færslu til að fá viðvaranir við villu
+3. Smíðaðu **keðjur** úr skrefum sem keyra aðgerðir í röð, með beiðnasniðmátum sem nota `@`-tilvísanir í vinnusvæðið til að flytja gögn milli skrefa
+4. Keyrðu keðjur handvirkt, eftir tímaáætlun, eða settu þær í röð til síðari keyrslu
 
-### Skilaboð Types (20)
+### Studdar útgáfur og lönd
 
-| Category | Types |
-|---|---|
-| **Scheduled entries** | `Orchestrator.Entry.Register`, `Orchestrator.Entry.Run`, `Orchestrator.Entry.Restart`, `Orchestrator.Entry.Schedule` |
-| **Status** | `Orchestrator.Status.Get`, `Orchestrator.Status.Restart`, `Orchestrator.Status.RestartIfNeeded` |
-| **Job Queue** | `Orchestrator.JobQueueEntry.Restart`, `Orchestrator.JobQueueEntry.RestartIfNeeded` |
-| **Playbook** | `Orchestrator.Playbook.Run`, `Orchestrator.Playbook.Schedule`, `Orchestrator.Playbook.Enqueue`, `Orchestrator.Workspace.Preview` |
-| **Reports** | `Orchestrator.Report.List`, `Orchestrator.Report.Get`, `Orchestrator.Report.Run`, `Orchestrator.Report.SaveAs` |
-| **Delivery** | `Orchestrator.Email.Send`, `Orchestrator.Telegram.Message` |
-| **Help** | `Help.Orchestrator.Get` |
+- **Útgáfur:** Business Central Essentials og Premium
+- **Lönd:** Ísland, Bretland, Danmörk, Noregur, Svíþjóð, Finnland, Þýskaland, Frakkland, Holland, Austurríki, Sviss, Írland, Portúgal, Spánn
 
-### Supported editions og countries
+### Kröfur og forsendur
 
-- **Editions:** Business Central Essentials og Premium
-- **Countries:** Iceland, United Kingdom, Denmark, Norway, Sweden, Finland, Germany, France, Netherlands, Austria, Switzerland, Ireland, Portugal, Spain
+- Microsoft Dynamics 365 Business Central 28.0 eða nýrra
+- Bifrost Foundation-viðbótin (fáanleg sérstaklega á AppSource)
+- Fyrir Telegram-tilkynningar: bot-teikn frá Telegram (búið til með @BotFather) og spjallauðkenni notenda skráð í Bifrost User Setup
+- Fyrir tölvupósttilkynningar: tölvupóstreikningur í BC, stilltur með tölvupóstsviðsmynd
 
-### Requirements og prerequisites
+### Hjálp og skjölun
 
-- Microsoft Dynamics 365 Business Central 28.0 eða later
-- Bifrost Foundation extension (available separately on AppSource)
-- For Telegram notifications: a Telegram Bot Token (created via @BotFather) og notandi Telegram Chat IDs stillt in Bifrost Notaður Stilltuup
-- For Email notifications: BC email account stillt með an email scenario
-
-### Help og skjalation
-
-https://bifrost.origo.is/en-us/orchestrator/ (the Icelandic version er at https://bifrost.origo.is/is-is/orchestrator/).
+https://businesscentralal.github.io/bifrost/is-is/orchestrator/ (enska útgáfan er á https://businesscentralal.github.io/bifrost/en-us/orchestrator/).

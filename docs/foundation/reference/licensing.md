@@ -6,17 +6,16 @@ sidebar_position: 7
 
 This page is the contract a caller sees: which calls count, the errors a call can be refused with,
 the warnings a successful response can carry, and the licence status payload. For the licence
-model itself - Prepaid and Subscription, the trial, the Vendor, Partner and Customer roles and who
-invoices whom - see [Licensing and partner program](/licensing/).
+model itself - Prepaid and Subscription, the trial, pools and quotas - see [Licensing](/licensing/).
 
 ## What counts
 
 A message consumes **one** unit from the caller's pool when **all** of the following hold:
 
-- The message type is **not exempt**. The `Help.*`, `Memory.*`, `Session.*`, `Webhook.*` and
-  `ChangeLog.*` types of Origo's Bifröst applications are exempt - they never consume quota and are
-  never refused for quota. The prefix counts only for types in an Origo object-ID block; a type
-  another publisher adds is chargeable whatever its name.
+- The message type is **not exempt**. The discovery, memory, session, webhook and change-log types
+  of Origo's Bifröst applications are exempt - they never consume quota and are never refused for
+  quota. A type another publisher adds is chargeable whatever its name. See
+  [Free calls](/licensing/license-types/#free-calls).
 - The message was processed **successfully** (a JSON response with `status` other than `Success`
   is not counted; non-JSON responses such as PDF/CSV count as successful).
 
@@ -41,7 +40,7 @@ call is not processed and not counted.
 
 | Order | Condition | Applies to | Response |
 |---|---|---|---|
-| 1 | The company has not approved the EULA | Every call, including `Help.*` | `code: "EULA_REQUIRED"`, `setupUrl`, `setupWizardUrl` |
+| 1 | The company has not approved the EULA | Every call, including discovery calls | `code: "EULA_REQUIRED"`, `setupUrl`, `setupWizardUrl` |
 | 2 | Outbound HTTP is not allowed for Bifröst Foundation | Chargeable calls, outside a sandbox | The error names the setup page |
 | 3 | The trial has not been activated | Chargeable calls, outside a sandbox | `activationMethod: "Setup"`, `requestUrl` |
 | 4 | The user's monthly quota is reached | Both license types, outside a sandbox | `quotaScope: "user"`, `requestUrl` |
@@ -111,15 +110,17 @@ The Bifrost Setup page also shows a notification when either Prepaid pool drops 
 Usage is reported to the licensing service once per day **per company**. The first chargeable
 message of the day schedules a background task that reports each completed day's chargeable messages
 per charge type and refreshes the cached remaining quota. **Sync** on the Bifrost Setup page does the same
-immediately, including today's messages, and also applies invitations and cancellations - see
-[Leaving and cancelling](/licensing/leaving-and-cancelling/). Usage is reported per
+immediately, including today's messages, and also applies a change to the tenant's Partner
+relationship - see [How a tenant moves between license types](/licensing/#how-a-tenant-moves-between-license-types).
+Usage is reported per
 **hashed company** under the **hashed tenant**.
 
 ## Checking status
 
-- `Help.Bifrost.Get` returns the current licence status as `licenseStatus`.
-- [`Bifrost.Subscription.GetStatus`](/foundation/reference/message-types/bifrost-subscription-getstatus/)
-  returns the tenant's configuration, licence status and current-month usage.
+- An AI assistant can read the licence status and the tenant's current-month usage through
+  Bifröst. The installed message types and their contracts are read from Business Central itself:
+  the MCP tools `list_message_types` and `describe_message_type`, or the Bifrost Message Types page;
+  the status is returned as `licenseStatus`.
 - The **License** fact box on the Bifrost Setup page shows the same information plus the number of
   unreported messages and the last sync date.
 
@@ -127,7 +128,7 @@ immediately, including today's messages, and also applies invitations and cancel
 "licenseStatus": {
   "tenantIdHash": "a7f3c1…",
   "companyIdHash": "b2d4e6…",
-  "companyName": "CRONUS International Ltd.",
+  "companyName": "Contoso Ltd.",
   "user":            { "remaining": 812, "valid": true, "blockOnMissingQuota": true },
   "appRegistration": { "remaining": -40, "valid": true, "blockOnMissingQuota": false }
 }

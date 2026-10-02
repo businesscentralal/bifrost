@@ -18,7 +18,7 @@ Síðan er opnuð úr flokknum **Forrit** á **Uppsetningarsíðu** Bifrastar. E
 | **Notandaauðkenni vinnsluraðar** | Notandinn sem á stjórnunarfærsluna. Sá notandi verður að hafa heimild til að keyra vinnsluraðarfærslur. Autt þýðir núverandi notandi. Aðeins sýnt í staðbundnum uppsetningum. |
 | **Staða vinnsluraðara** | Staða stjórnunarfærslunnar, ekki breytanleg. Kafið niður til að opna undirliggjandi vinnsluraðarfærslu og uppfæra stöðuna. |
 | **Senda fjarmælingar** | Sendir fjarmælingar fyrir hverja keyrslu sem vinnsluraðarinn framkvæmir. |
-| **Telegram-vélmennislykill** | Staða, ekki breytanleg, sem sýnir hvort vélmennislykill hafi verið geymdur. Gildið sjálft er aldrei birt — það er í leyndarmálageymslu Bifrastar undir kóðanum `TELEGRAM-BOT-TOKEN`. |
+| **Telegram-vélmennislykill** | Staða, ekki breytanleg, sem sýnir hvort vélmennislykill hafi verið geymdur. Gildið sjálft er aldrei birt — það er í leyndarmálageymslu Bifrastar. |
 
 ## Vinnsluraðir
 
@@ -40,29 +40,22 @@ Hlutinn **Vinnsluraðir** sýnir vinnsluraðarafærslurnar sem eru skráðar í 
 
 ## Leyndarmál
 
-Bifröst Orchestrator geymir öll auðkenni í leyndarmálageymslu Bifröst-grunnsins í stað eigin taflna. Gildin eru skrifuð í einangraða geymslu, eru aldrei sýnd aftur og rata hvorki í töflu, skrá né fjarmælingar.
-
-| Kóði leyndarmáls | Umfang | Notað fyrir |
-| --- | --- | --- |
-| `TELEGRAM-BOT-TOKEN` | Fyrirtæki | Telegram Bot API-lykillinn sem er notaður til að senda tilkynningar. |
-| `CREDENTIAL-<Kóði>-CLIENT-ID` | Fyrirtæki | OAuth 2.0 biðlaraauðkenni einnar færslu í [auðkennum biðlara](/help/orchestrator/credentials-card/). |
-| `CREDENTIAL-<Kóði>-CLIENT-SECRET` | Fyrirtæki | OAuth 2.0 leyniorð biðlara fyrir sömu færslu. |
+Bifröst Orchestrator geymir öll auðkenni í leyndarmálageymslu Bifröst Foundation í stað eigin taflna: Telegram-vélmennislykilinn sem er notaður til að senda tilkynningar, og OAuth 2.0 biðlaraauðkenni og leyniorð hverrar færslu í [auðkennum biðlara](/help/orchestrator/credentials-card/). Gildin eru geymd á öruggan hátt í Business Central fyrir þetta fyrirtæki, eru aldrei sýnd aftur og rata hvorki í töflu, skrá né fjarmælingar.
 
 Business Central heldur geymdum leyndarmálum aðskildum eftir viðbótum, svo gildi sem voru skráð í eldri útgáfu forritsins — eða í eldri vinnsluraðara Origo Cloud Events — flytjast ekki með. Skráið hvert gildi einu sinni eftir uppsetningu.
 
-## Tilkynning við uppsetningu
+## HTTP á útleið
 
-Þegar síðan er opnuð athugar viðbótin tvennt og birtir tilkynningu ef annað hvort vantar:
+Telegram-tilkynningar og köll í ytri þjónustur fara um HTTP, svo viðbótin þarf að mega senda HTTP-biðlarabeiðnir. Uppsetningarleiðsögn Bifrastar kveikir á þeim fyrir öll uppsett Bifröst-forrit í einu. Þangað til birtir síðan **Uppsetning Bifrastar** tilkynningu með aðgerðinni **Hefja uppsetningarleiðsögn**, og allt sem þarf HTTP mistekst með villu um að HTTP-biðlarabeiðnir séu ekki virkar fyrir viðbótina.
 
-| Staða | Skilaboð |
-| --- | --- |
-| **HTTP lokað og röðin ekki í gangi** | HTTP-biðlarabeiðnir eru lokaðar og vinnsluröð vinnsluraðarans er ekki í gangi. |
-| **Aðeins HTTP lokað** | HTTP-biðlarabeiðnir eru ekki virkar fyrir þessa viðbót. |
-| **Aðeins röðin ekki í gangi** | Vinnsluröð vinnsluraðarans er ekki í gangi. |
+Eigin [leiðsagnaruppsetning](/help/orchestrator/scheduler-setup-wizard/) Orchestrator athugar líka HTTP á útleið og ræsir stjórnunarvinnsluröðina.
 
-Hver tilkynning ber aðgerðina **Keyra leiðsagnarforrit** sem opnar [leiðsagnaruppsetninguna](/help/orchestrator/scheduler-setup-wizard/) á því skrefi sem lagar vandann.
+## Fyrstu skref
 
-Önnur tilkynning telur þau leyndarmál sem hafa ekkert gildi enn, með aðgerð sem opnar listann yfir leyndarmál forritsins. Hún hverfur þegar öll skráð leyndarmál hafa verið slegin inn.
+1.  Opnið **Uppsetningu Bifrastar**. Ef hún sýnir HTTP-tilkynninguna, veljið þá fyrst **Hefja uppsetningarleiðsögn** og ljúkið leiðsögninni.
+2.  Keyrið leiðsagnaruppsetninguna [Uppsetning Bifröst Orchestrator](/help/orchestrator/scheduler-setup-wizard/) til að ræsa stjórnunarvinnsluröðina.
+3.  Opnið þessa síðu úr flokknum **Forrit** á **Uppsetningu Bifrastar** og athugið að **Staða vinnsluraðara** sýni að röðin sé í gangi.
+4.  Sláið inn Telegram-vélmennislykilinn og þau auðkenni biðlara sem færslur og keðjur nota.
 
 ## Ábendingar
 

@@ -8,7 +8,7 @@ sidebar_position: 64
 **Samþykkja uppruna setu** biður þig um að samþykkja uppruna skilaboða - til dæmis
 gervigreindaraðstoðarmann eða samþættingu - áður en hann má senda Bifröst-skilaboð sem notandinn þinn.
 Þegar notandauppsetningin þín krefst samþykkis er skilaboðum frá uppruna sem þú hefur ekki samþykkt
-hafnað; uppruninn kallar þá á `Session.Source.Approve`, sem skilar tengli á þessa síðu sem þú opnar.
+hafnað; uppruninn biður þá um samþykki og fær tengil á þessa síðu sem þú opnar.
 
 | Reitur | Lýsing |
 | --- | --- |

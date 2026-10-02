@@ -4,6 +4,6 @@
   "link": {
     "type": "generated-index",
     "slug": "/banks",
-    "description": "One page per bank connector: what it covers, its message types, how it is set up and which published app it replaces."
+    "description": "One page per bank: what the connector does for that bank, what has to be set up, and what you see in Business Central."
   }
 }

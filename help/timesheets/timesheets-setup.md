@@ -24,7 +24,7 @@ Nothing about the Clockify integration is configured on Bifröst Foundation's ow
 
 | Field | Description |
 | --- | --- |
-| Job Journal Template | The Job Journal template that synced Clockify time entries are written to, by both the sync message types and the real-time webhook handler. |
+| Job Journal Template | The Job Journal template that synced Clockify time entries are written to, by both the synchronisation and the real-time webhooks. |
 | Job Journal Batch | The Job Journal batch that synced time entries are written to. It must belong to the selected template. |
 | Default Work Type | The Work Type put on a synced Job Journal line when the Clockify time entry has no tag linked to a Work Type. A linked Clockify tag takes precedence over this value; leaving it blank leaves the line's Work Type empty. |
 
@@ -39,7 +39,7 @@ Nothing about the Clockify integration is configured on Bifröst Foundation's ow
 
 | Action | Description |
 | --- | --- |
-| Set Company API Key | Prompts for the Clockify API key in a [masked dialog](/help/timesheets/timesheets-set-secret-dialog/) and stores it in IsolatedStorage at company scope. |
+| Set Company API Key | Prompts for the Clockify API key in a [masked dialog](/help/timesheets/timesheets-set-secret-dialog/) and stores it securely in Business Central. |
 | Clear Company API Key | Removes the stored company Clockify API key after a confirmation. |
 | Register Webhooks | Registers the real-time time-entry webhooks in Clockify against the receiver URL, and shows the signing tokens to configure on the receiver. |
 | Remove Webhooks | Removes the registered Clockify time-entry webhooks. |
@@ -49,9 +49,9 @@ Nothing about the Clockify integration is configured on Bifröst Foundation's ow
 
 ## Notes on the API key
 
-The key is never written to a table field and never appears in the request log. It is stored in IsolatedStorage at company scope, so each company in the tenant has its own key. **Company API Key Stored** is read live from storage every time the card is refreshed, which is why it cannot be edited directly.
+The key is never written to a table field and never appears in the request log. It is stored securely in Business Central, and each company has its own key. **Company API Key Stored** is checked every time the card is refreshed, which is why it cannot be edited directly.
 
-Create the key in Clockify under **Profile Settings → API**. The connector sends it as the `X-Api-Key` header on every call.
+Create the key in Clockify under **Profile Settings → API**. The connector uses it on every call to Clockify.
 
 ## Notes on webhooks
 

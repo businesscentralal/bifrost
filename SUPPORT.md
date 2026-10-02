@@ -3,7 +3,7 @@
 ## Documentation
 
 Everything published about the Bifröst apps lives on
-<https://bifrost.origo.is> — product documentation, in-product help,
+<https://docs.bifrost.origo.is> — product documentation, in-product help,
 extensibility guidance and skills for AI agents.
 
 ## Getting help

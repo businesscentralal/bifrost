@@ -11,7 +11,7 @@ The **Available Message Types** subpage appears on the [Bifrost Setup](/help/fou
 
 | Column | Description |
 | --- | --- |
-| **Name** | The internal name of the message type (e.g. `Customer.CreditLimit.Get`). This is the value used in the `type` field of a bifrost message. |
+| **Name** | The name of the message type, a three-part name: area, entity and verb. This is the value used in the `type` field of a bifrost message. |
 | **Description** | A short description of what the message type does. |
 | **Filter Table No.** | The BC table number that this message type filters on, or `0` if it applies to any table. |
 | **Direction** | Whether the message type is _Inbound_ (data written to BC) or _Outbound_ (data read from BC). |

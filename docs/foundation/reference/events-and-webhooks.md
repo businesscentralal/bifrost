@@ -5,8 +5,7 @@ sidebar_position: 5
 ---
 
 **Parent Document:** [API_Reference.md](/foundation/reference/api/)  
-**Implementation Folder:** `app/src/Task/`  
-**Codeunit:** `Message Events ori` (Codeunit 10078250)
+**Codeunit:** `Message Events ori`
 
 ---
 
@@ -37,7 +36,6 @@ Business Central's External Business Events allow external systems to subscribe 
 
 All Bifrost webhook notifications are categorized under:
 - **Category Name**: "Origo Bifrost"
-- **EventCategory Extension**: Enum Extension 10077886 `Category ori`
 
 This category can be used to filter and organize event subscriptions in Business Central.
 
@@ -59,8 +57,7 @@ After receiving a webhook notification, subscribers call the **Bifrost Data API*
 
 **Event Name:** `BifrostMessageCompleted`  
 **Event Display Name:** `Bifrost Message Completed`  
-**Event Category:** `Origo Bifrost`  
-**Raised By:** Codeunit 10078251 `Message Task ori`
+**Event Category:** `Origo Bifrost`
 
 ### When This Event is Raised
 
@@ -69,7 +66,7 @@ The event is raised **after** a bifrost message has been successfully processed:
 1. Message is submitted to Queue API or Task API
 2. Message processing begins (via background task or synchronously)
 3. Implementation executes business logic successfully
-4. Response data is stored in `Message ori` table
+4. Response data is stored with the message on **Bifrost Messages**
 5. **Event is raised** with MessageId, MessageType, and completion timestamp
 6. Webhook notification is sent to all subscribers
 7. Subscribers receive notification and can fetch response data
@@ -79,7 +76,7 @@ The event is raised **after** a bifrost message has been successfully processed:
 ```json
 {
   "MessageId": "a8f5f167-8f2c-4a42-9b3e-5c6c7d8e9f0a",
-  "MessageType": "Customer.CreditLimit.Get",
+  "MessageType": "{message-type}",
   "ResponseContentLink": "/api/origo/bifrost/v1.0/responses(a8f5f167-8f2c-4a42-9b3e-5c6c7d8e9f0a)/data",
   "Timestamp": "2026-03-08T14:30:22Z"
 }
@@ -90,7 +87,7 @@ The event is raised **after** a bifrost message has been successfully processed:
 | Field | Type | Description |
 |-------|------|-------------|
 | `MessageId` | Guid | Unique identifier for the message. Use this to call GET /bifrostData(MessageId) to retrieve full response. |
-| `MessageType` | Text[250] | The type of message that completed (e.g., "Customer.CreditLimit.Get", "Data.Records.Get"). Can be used for routing or filtering. |
+| `MessageType` | Text[250] | The name of the message type that completed. Can be used for routing or filtering. |
 | `ResponseContentLink` | Text[250] | Direct API link to download response data. Use this URL to retrieve the full response without constructing the API path manually. |
 | `Timestamp` | DateTime | When the message completed processing (ISO 8601 format). |
 
@@ -149,8 +146,7 @@ sequenceDiagram
 
 **Event Name:** `BifrostMessageFailed`  
 **Event Display Name:** `Bifrost Message Failed`  
-**Event Category:** `Origo Bifrost`  
-**Raised By:** Codeunit 10078249 `Message Error ori`
+**Event Category:** `Origo Bifrost`
 
 ### When This Event is Raised
 
@@ -159,7 +155,7 @@ The event is raised **after** a bifrost message processing has failed:
 1. Message is submitted to Queue API or Task API
 2. Message processing begins (via background task or synchronously)
 3. Implementation encounters an error or validation fails
-4. Error details are captured and stored in `Message ori` table
+4. Error details are captured and stored with the message on **Bifrost Messages**
 5. **Event is raised** with MessageId, MessageType, and failure timestamp
 6. Webhook notification is sent to all subscribers
 7. Subscribers receive notification and can fetch error details
@@ -169,7 +165,7 @@ The event is raised **after** a bifrost message processing has failed:
 ```json
 {
   "MessageId": "b9f6f267-9f3d-5b52-0c4f-6d7d8e9f1b1b",
-  "MessageType": "Data.Records.Set",
+  "MessageType": "{message-type}",
   "ResponseContentLink": "/api/origo/bifrost/v1.0/responses(b9f6f267-9f3d-5b52-0c4f-6d7d8e9f1b1b)/data",
   "Timestamp": "2026-03-08T14:35:18Z"
 }
@@ -180,7 +176,7 @@ The event is raised **after** a bifrost message processing has failed:
 | Field | Type | Description |
 |-------|------|-------------|
 | `MessageId` | Guid | Unique identifier for the message. Use this to call GET /bifrostQueue(MessageId) to retrieve error details. |
-| `MessageType` | Text[250] | The type of message that failed (e.g., "Data.Records.Set", "Sales.Document.Release"). |
+| `MessageType` | Text[250] | The name of the message type that failed. |
 | `ResponseContentLink` | Text[250] | Direct API link to download error details. Use this URL to retrieve the error response without constructing the API path manually. |
 | `Timestamp` | DateTime | When the message failed processing (ISO 8601 format). |
 
@@ -198,7 +194,7 @@ Authorization: Bearer {token}
 ```json
 {
   "id": "b9f6f267-9f3d-5b52-0c4f-6d7d8e9f1b1b",
-  "type": "Data.Records.Set",
+  "type": "{message-type}",
   "specversion": "1.0",
   "source": "MyIntegrationApp v1.0",
   "time": "2026-03-08T14:35:15Z",
@@ -248,82 +244,6 @@ sequenceDiagram
 - **Automatic Retry**: External systems can implement retry logic with exponential backoff
 - **Error Analysis**: Fetch detailed error information for troubleshooting
 - **SLA Tracking**: Monitor processing failures and response times
-
----
-
-## Integration Events
-
-In addition to External Business Events for webhooks, the Bifrost extension provides **Integration Events** that allow other Business Central extensions to react to message lifecycle events.
-
-### OnBeforeBifrostMessageProcessing
-
-**Purpose:** Raised before a bifrost message starts processing.
-
-**Event Type:** IntegrationEvent  
-**Visibility:** Internal  
-**Raised By:** Codeunit 10078251 `Message Task ori`
-
-**Signature:**
-```al
-[IntegrationEvent(false, false)]
-internal procedure OnBeforeBifrostMessageProcessing(var BifrostMessage: Record "Message ori")
-```
-
-**Parameters:**
-- `BifrostMessage`: The message record about to be processed (passed by reference, can be modified)
-
-**Use Cases:**
-- **Pre-Processing Validation**: Validate message data before processing begins
-- **Data Enrichment**: Add additional context or metadata to the message
-- **Telemetry**: Log message processing start event
-- **Custom Routing**: Modify message type or data based on custom logic
-
-### OnAfterBifrostMessageCompleted
-
-**Purpose:** Raised after a bifrost message completes successfully.
-
-**Event Type:** IntegrationEvent  
-**Visibility:** Internal  
-**Raised By:** Codeunit 10078251 `Message Task ori`
-
-**Signature:**
-```al
-[IntegrationEvent(false, false)]
-internal procedure OnAfterBifrostMessageCompleted(var BifrostMessage: Record "Message ori")
-```
-
-**Parameters:**
-- `BifrostMessage`: The completed message record (passed by reference)
-
-**Use Cases:**
-- **Post-Processing**: Perform additional actions after successful processing
-- **Data Synchronization**: Sync message data to other tables or systems
-- **Telemetry**: Log completion metrics (duration, size, etc.)
-- **Workflow Triggering**: Start dependent workflows or processes
-
-### OnAfterBifrostMessageFailed
-
-**Purpose:** Raised after a bifrost message processing fails.
-
-**Event Type:** IntegrationEvent  
-**Visibility:** Internal  
-**Raised By:** Codeunit 10078249 `Message Error ori`
-
-**Signature:**
-```al
-[IntegrationEvent(false, false)]
-internal procedure OnAfterBifrostMessageFailed(var BifrostMessage: Record "Message ori"; ErrorText: Text)
-```
-
-**Parameters:**
-- `BifrostMessage`: The failed message record (passed by reference)
-- `ErrorText`: The error message text
-
-**Use Cases:**
-- **Error Logging**: Log errors to custom logging tables
-- **Alert Generation**: Send alerts via email or other channels
-- **Automatic Recovery**: Attempt automatic recovery or data correction
-- **Analytics**: Track error patterns and failure rates
 
 ---
 
@@ -559,7 +479,7 @@ curl -X POST "https://your-bc-instance/api/origo/bifrost/v1.0/queues" \
   -H "Content-Type: application/json" \
   -d '{
     "specversion": "1.0",
-    "type": "Help.Tables.Get",
+    "type": "Help.MessageTypes.Get",
     "source": "Webhook Test v1.0"
   }'
 ```
@@ -682,58 +602,27 @@ Track key metrics:
 
 ### External Business Events
 
-**Codeunit:** 10078250 `Message Events ori`
+**Codeunit:** `Message Events ori`
 
 ```al
 /// Raised when a bifrost message processing completes successfully
-[ExternalBusinessEvent('BifrostMessageCompleted', 'Bifrost Message Completed', 
-  'A bifrost message has completed successfully.', EventCategory::"Origo Bifrost")]
-procedure OnBifrostMessageCompleted(MessageId: Guid; MessageType: Text[250]; Timestamp: DateTime)
+[ExternalBusinessEvent('BifrostMessageCompleted', 'Bifrost Message Completed',
+  'A bifrost message has completed successfully. Use MessageId to fetch response data via API.', EventCategory::"Origo Bifrost", '1.0')]
+procedure OnBifrostMessageCompleted(MessageId: Guid; MessageType: Text[250]; ResponseContentLink: Text[250]; Timestamp: DateTime)
 
 /// Raised when a bifrost message processing fails
-[ExternalBusinessEvent('BifrostMessageFailed', 'Bifrost Message Failed', 
-  'A bifrost message has failed processing.', EventCategory::"Origo Bifrost")]
-procedure OnBifrostMessageFailed(MessageId: Guid; MessageType: Text[250]; Timestamp: DateTime)
+[ExternalBusinessEvent('BifrostMessageFailed', 'Bifrost Message Failed',
+  'A bifrost message has failed processing. Use MessageId to fetch error details via API.', EventCategory::"Origo Bifrost", '1.0')]
+procedure OnBifrostMessageFailed(MessageId: Guid; MessageType: Text[250]; ResponseContentLink: Text[250]; Timestamp: DateTime)
 ```
 
-### Integration Events
-
-```al
-/// Raised before a bifrost message starts processing
-[IntegrationEvent(false, false)]
-internal procedure OnBeforeBifrostMessageProcessing(var BifrostMessage: Record "Message ori")
-
-/// Raised after a bifrost message completes successfully
-[IntegrationEvent(false, false)]
-internal procedure OnAfterBifrostMessageCompleted(var BifrostMessage: Record "Message ori")
-
-/// Raised after a bifrost message processing fails
-[IntegrationEvent(false, false)]
-internal procedure OnAfterBifrostMessageFailed(var BifrostMessage: Record "Message ori"; ErrorText: Text)
-```
-
-### Event Category Extension
-
-**EnumExtension:** 10077886 `Category ori`
-
-```al
-enumextension 10077886 "Category ori" extends EventCategory
-{
-    value(10077885; "Origo Bifrost")
-    {
-        Caption = 'Origo Bifrost';
-    }
-}
-```
+Both events are in the event category **Origo Bifrost**.
 
 ---
 
 ## Related Documentation
 
 - **[API Reference](/foundation/reference/api/)**: Complete API endpoint documentation
-- **[Data Message Types](/foundation/message-types/data/)**: Data integration message types
-- **[Sales Message Types](/foundation/message-types/sales/)**: Sales and business operation message types
-- **[Metadata Message Types](/foundation/message-types/metadata/)**: System metadata and discovery message types
 - **[Setup Reference](/foundation/reference/setup/)**: Configuration and setup options
 
 ---

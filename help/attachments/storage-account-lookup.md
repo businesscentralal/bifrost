@@ -5,7 +5,7 @@ sidebar_label: "Select File Account"
 sidebar_position: 2
 ---
 
-**Select File Account** is a modal lookup that lists the Business Central file accounts registered for the connector chosen on a [Bifrost Storage Connection](/help/attachments/storage-card/) card. Choosing an account binds the storage connection to it, so every Bifröst request that uses this connection's `storageCode` reads and writes through that account.
+**Select File Account** is a modal lookup that lists the Business Central file accounts registered for the connector chosen on a [Bifrost Storage Connection](/help/attachments/storage-card/) card. Choosing an account binds the storage connection to it, so every Bifröst request that names this connection's code reads and writes through that account.
 
 Open it with the **Select File Account** action on the storage connection card. The list is empty until at least one file account has been registered in the connector's own setup — for example in the Azure Blob Storage Connector or the SharePoint Connector app. Use the standard **File Account Wizard**, reachable from the **Storage** group on the Bifröst Setup page, to register one.
 

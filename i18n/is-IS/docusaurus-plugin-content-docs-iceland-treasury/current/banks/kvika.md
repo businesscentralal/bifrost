@@ -3,90 +3,85 @@ id: kvika
 title: "Kvika banki"
 sidebar_label: "Kvika banki"
 sidebar_position: 4
-description: "Eleven message types over the Kvika netbanki IOBS services: claim Fyrirspurn, asynchronous claim og greiðsla batches, reikningur statements og currency rates."
+description: "Hvað Bifröst fjárstýring gerir með Kviku banka: kröfur og kröfubunkar, greiðslubunkar, reikningsyfirlit og gengi."
 ---
 
-The Kvika banki module connects Business Central til the Kvika netbanki services over the Icelandic Online Banking staðlaða (IOBS, *Sambankaskema*). It exposes eleven message types covering claim search og lookup, asynchronous claim batches, greiðsla batches, reikningur statements og currency rates.
+Þessi síða er fyrir fjármálasvið og kerfisstjóra Business Central hjá fyrirtæki sem er í viðskiptum
+við Kviku banka. Hún útskýrir hvað Kvikutengingin í [Bifröst fjárstýringu](/iceland-treasury/) gerir,
+hvað þú setur upp og hvað þú sérð í Business Central á eftir.
 
-Kvika signs its SOAP envelopes. The module builds them through Draupnir, the shared IOBS signer framework, using a client certificate held in the shared secret store.
+## Hvað hún gerir fyrir þig
 
-## What it covers
+- **Leit að kröfum.** Leitaðu að kröfum eftir kröfuhafa, tímabili, greiðanda og stöðu, eða flettu
+  einni kröfu upp. Tímabilið getur miðast við gjalddaga, eindaga, niðurfellingardag eða stofndag.
+- **Stofnun, breyting og niðurfelling krafna í bunkum.** Kvika tekur aðeins við kröfubreytingum í
+  bunkum. Bankinn staðfestir bunkann strax og skilar niðurstöðunni á eftir, svo ekkert bíður eftir
+  bankanum.
+- **Greiðslur krafna.** Sjáðu greiðslur sem borist hafa inn á kröfurnar þínar.
+- **Greiðslur.** Sendu bunka millifærslna og kröfugreiðslna, með framvirkum greiðsludegi ef þú vilt,
+  og veldu hvort allur bunkinn sé bakfærður ef ein lína mistekst. Sæktu niðurstöðuna á eftir: stöðuna,
+  aðeins villurnar, aðeins línurnar sem tókust, eða allt.
+- **Yfirlit.** Lestu reikningsyfirlit fyrir hvaða reikning og tímabil sem er.
+- **Gengi.** Birt gengi Kviku.
 
-| Area | What the module does |
-| --- | --- |
-| **Claim search** | Paged claim search by claimant, period, payor identifier og status, og a stakan claim lookup by its fulla key. Period filters getur be applied against the due date, final due date, cancellation date eða creation date. |
-| **Claim batches** | Býr til, alters og cancels claims in batches. The bank processes each batch asynchronously; Niðurstaðan er collected afterwards. Claim creation, alteration og cancellation eru batch-Aðeins, as the staðlaða requires. |
-| **Claim greiðslur** | Paged search of the greiðslur received against claims. |
-| **greiðslur** | Sendir greiðsla batches of reikningur-til-reikningur transfers og claim greiðslur, then polls Niðurstaðan. Batches getur carry a forward greiðsla date og getur be set til roll back as a whole on error. |
-| **Statements** | Reads an reikningur statement fyrir an reikningur og date span in the IOBS bank import og export format. Allt bank pages eru merged í one set of færsla lines, which the caller pages með skip og take. |
-| **Currency rates** | Reads the bank's published currency rates. |
+Þú, tímasett ferli eða gervigreindaraðstoðarmaður getið beðið um hvað sem er af þessu. Uppsettar
+skilaboðategundir og samningar þeirra eru lesnir úr Business Central sjálfu: með MCP-tólunum
+`list_message_types` og `describe_message_type`, eða á síðunni Bifrost Message Types.
 
-Every Kallaðu á er written til Foundation's shared Bifröst Beiðni Log með the log Gerð `Kvika banki`. The WS-Security password element er redacted frá the logged envelope unless Beiðni Debug Mode er switched on in Bifröst Setup.
+## Hvað þú setur upp
 
-## Message types
+1. **Samning við Kviku banka** um þær þjónustur sem þú notar, með B2B-notandanafni, lykilorði og
+   undirritunarskilríki (`.pfx`-skrá, með lykilorði ef hún hefur það).
+2. **Línu Kviku á Uppsetning Bifröst Ísland Fjárstýringar**: hafðu hana virka, skráðu notandanafn
+   fyrirtækisins og notaðu svo **Skrá lykilorð fyrirtækis** og **Skrá skírteini**. Sjá
+   [hjálp uppsetningarsíðunnar](/help/iceland-treasury/treasury-setup/) og
+   [Draupnir-undirritara](../reference/draupnir-signers.md).
+3. **Eigin aðgang notenda, ef þeir hafa sinn eigin aðgang hjá bankanum.** Hver notandi skráir eigið
+   notandanafn og lykilorð í **notandastillingum Bifrastar**; sjá
+   [Bankaaðgangur notanda](/help/iceland-treasury/bank-user-setup/). Eigið notandanafn án eigin
+   lykilorðs er stöðvað með skýrri villu og aldrei sent með lykilorði fyrirtækisins.
+4. **Heimildir.** Úthlutaðu heimildasettunum hér að neðan.
 
-Each Gerð below has a Mynduð síða in the [message Gerð reference](/iceland-treasury/reference/message-types/), which carries the fulla Beiðni og Svar contract, the validation errors og the access rules. The same contract er available at runtime through `Help.Implementation.Get`.
-
-| Gerð | What it does |
-| --- | --- |
-| `Kvikabanki.Claim.Query` | Paged claim search by claimant, period, payor og status. |
-| `Kvikabanki.Claim.QueryOne` | stakan claim lookup by claim key. |
-| `Kvikabanki.Claim.CreateBatch` | Asynchronous batch claim creation. |
-| `Kvikabanki.Claim.AlterBatch` | Asynchronous batch claim alteration. |
-| `Kvikabanki.Claim.CancelBatch` | Asynchronous batch claim cancellation by key. |
-| `Kvikabanki.Claim.QueryPayments` | Paged greiðsla search fyrir claims. |
-| `Kvikabanki.Claim.GetOperationResult` | Polls Niðurstaðan of an asynchronous claim batch. |
-| `Kvikabanki.Payment.Batch` | Asynchronous batch greiðsla submission. |
-| `Kvikabanki.Payment.ResultBatch` | Polls Niðurstaðan of an asynchronous greiðsla batch. |
-| `Kvikabanki.Statement.Get` | Reads an reikningur statement fyrir an reikningur og date span. |
-| `Kvikabanki.CurrencyRates.Get` | Reads currency rates. |
-
-## Setting up
-
-Kvika er configured frá the shared **Bifröst Treasury Setup** page, which lists Allt five banks in one place. The row fyrir Kvika carries the enabled flag, the fyrirtæki user Heiti, an valfrjálst base-URL override og the transport selection. See the [Treasury Setup help](/help/iceland-treasury/treasury-setup/) fyrir the page itself.
-
-Kvika uses four of the shared bank secrets:
-
-| Secret | Scope | Tilgangur |
+| Aðgangsupplýsingar | Geymdar fyrir | Athugasemdir |
 | --- | --- | --- |
-| fyrirtæki password | fyrirtæki | The password fyrir the fyrirtæki user Heiti. Used Þegar the caller has no personal credentials. |
-| User password | fyrirtæki og user | The password fyrir a caller's personal user Heiti. |
-| Client certificate | fyrirtæki | The certificate the module signs the SOAP envelope með. |
-| Certificate password | fyrirtæki | The password protecting that certificate. Leave it unset Ef the certificate has none. |
+| Lykilorð fyrirtækis | Fyrirtækið | Notað þegar notandinn hefur engan eigin aðgang. |
+| Lykilorð notanda | Hvern notanda | Notað með eigin notandanafni hans. |
+| Undirritunarskilríki og lykilorð þess | Fyrirtækið | Undirritar hverja beiðni. Skildu lykilorðið eftir autt ef skilríkið hefur ekkert. |
 
-Secrets eru held in the extension's own Isolated Storage, never in a table, telemetry entry eða error message. See the [secrets help](/help/iceland-treasury/treasury-secrets/) fyrir how til store og clear them.
+Öll gildi eru slegin inn í huldum gluggum og aldrei sýnd aftur; sjá
+[Leyndarmál banka](/help/iceland-treasury/treasury-secrets/).
 
-A caller getur authenticate as themselves rather than as the fyrirtæki. A personal user Heiti er entered on **Bifröst User Setup**, og the personal password er stored against the same færsla; see the [user setup help](/help/iceland-treasury/bank-user-setup/). Heiti og password verður að match in scope: Ef a personal user Heiti er set without a personal password, the Kallaðu á fails með an explicit error rather than falling back til the fyrirtæki password.
+## Hvað þú sérð í Business Central
 
-## Asynchronous claim batches
+- Lína Kviku á **Uppsetning Bifröst Ísland Fjárstýringar** sýnir hvort öll leyndarmál séu skráð, og
+  skírteinisglugginn sýnir hvenær skilríkið rennur út.
+- Hvert kall til bankans er skráð í **beiðnaskrá Bifrastar**, með lykilorðið hulið.
 
-The three writing claim operations eru asynchronous. `Claim.CreateBatch`, `Claim.AlterBatch` og `Claim.CancelBatch` hand the batch til the bank og return an operation id straight away. The caller keeps that id og collects the outcome later með `Claim.GetOperationResult`; nothing blocks waiting fyrir the bank til finish.
+## Heimildasett
 
-greiðslur follow the same shape. `Payment.Batch` Skilar a greiðslur identifier fyrir each submitted batch, og `Payment.ResultBatch` polls it. The poll getur be narrowed til the batch status, the errors Aðeins, the successful lines Aðeins, eða everything.
+Hver aðgerð Kviku krefst eins af þremur heimildasettum, svo veita má lestur yfirlita án
+greiðsluheimilda.
 
-Reading er synchronous throughout: `Claim.Query`, `Claim.QueryOne`, `Claim.QueryPayments`, `Statement.Get` og `CurrencyRates.Get` answer frá the Kallaðu á itself.
-
-## Permission sets
-
-Every Kvika message Gerð sits behind a gate table. Each gate er an empty table, og the permission set that grants write access til it er the permission itself — the module checks write permission áður en it does any work, og a caller without it Sækir an error Svar með no side effects. The three gates split the module by domain, so statement reads getur be granted without granting greiðsla execution.
-
-| Permission set | Gates |
+| Heimildasett | Veitir |
 | --- | --- |
-| `BIFROST KVClmPmt ori` | The seven claim types: `Claim.Query`, `Claim.QueryOne`, `Claim.CreateBatch`, `Claim.AlterBatch`, `Claim.CancelBatch`, `Claim.QueryPayments`, `Claim.GetOperationResult` |
-| `BIFROST KVPaymt ori` | `Kvikabanki.Payment.Batch`, `Kvikabanki.Payment.ResultBatch` |
-| `BIFROST KVStmt ori` | `Kvikabanki.Statement.Get`, `Kvikabanki.CurrencyRates.Get` |
+| `BIFROST KVClmPmt ori` | Leit að kröfum, kröfubunka og niðurstöður þeirra, og greiðslur krafna |
+| `BIFROST KVPaymt ori` | Greiðslubunka og niðurstöður þeirra |
+| `BIFROST KVStmt ori` | Yfirlit og gengi |
 
-`BIFROST KVFull ori` extends Foundation's `BIFROST Full ori` með the module's objects; it er the set til grant an integration user that needs everything.
+`BIFROST KVFull ori` víkkar `BIFROST Full ori` í Foundation: það er settið á bak við fullan aðgang að
+Kvikutengingunni.
 
-## Replacing the per-tenant app
+## Að færa sig frá Cloud Events Kvika banki
 
-This module succeeds the per-tenant app *Cloud Events Kvika banki*. The two getur be installed side by side, og on its first install the module runs a take-over that copies the predecessor's data:
+Settu Bifröst fjárstýringu upp við hlið gamla forritsins. Við fyrstu uppsetningu tekur hún yfir
+stillingar Kviku (hvort tengingin er virk og notandanafn fyrirtækisins), Kvikureitina á stöðluðum
+færslum Business Central og úthlutanir heimildasetta til notenda, og síðan má fjarlægja gamla
+forritið. Gögnum sem þegar eru í nýja forritinu er aldrei skrifað yfir.
 
-- the fyrirtæki-wide Kvika settings, which move frá the old setup table onto the shared Bank Setup row — the enabled flag, the base URL og the fyrirtæki user Heiti Allt carry over, so a fyrirtæki that had switched Tengingin on stays switched on;
-- the Kvika fields that lived on shared base tables, copied Reitur by Reitur because their numbers moved með the new object range;
-- every user assignment of an old permission set, re-pointed at the Bifröst set that replaces it.
+**Lykilorð og undirritunarskilríki flytjast ekki.** Skráðu þau einu sinni eftir skiptin.
 
-The legacy transport selection er deliberately not carried over: every production fyrirtæki runs the live transport, which er what the new row defaults til. The take-over runs Aðeins on a first install, so it cannot overwrite work done eftir the switch.
+## Hvert næst
 
-Stored secrets do **not** carry over. Isolated Storage er scoped per extension og this er a new app, so the passwords og the client certificate verður að be entered again once the module er installed.
-
+- [Yfirlit fjárstýringar](/iceland-treasury/)
+- [Draupnir-undirritarar](../reference/draupnir-signers.md): undirritunarskilríkið
+- [Uppsetning Bifröst Ísland Fjárstýringar](/help/iceland-treasury/treasury-setup/)

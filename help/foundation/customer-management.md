@@ -25,8 +25,8 @@ The **View** field at the top shows whose customers are listed.
 | **Environment Name** | The Business Central environment of the company. |
 | **Approved At** / **Approved By User Id** | When and by whom the customer accepted the Partner relationship. |
 | **Rate Limit Tier** / **Rate Limit Per Day** | The tier the customer chose and its API calls per day. Free is the default 1,000 calls per day. |
-| **Above Free Tier** | The customer chose a tier above Free - invoice it at the tier price agreed with the customer. |
-| **User Msgs MTD** / **App Msgs MTD** | User and App Registration messages used this month - invoice them at the Subscription prices agreed with the customer. |
+| **Above Free Tier** | The customer chose a tier above Free. |
+| **User Msgs MTD** / **App Msgs MTD** | User and App Registration messages used this month. |
 | **Internal Messages MTD** | Messages this month by people in this customer when it is your own tenant. Reported separately from customer usage. |
 | **Demo Messages MTD** | Messages this month by people in this customer when you marked it as a demo environment. Reported separately from customer usage. |
 | **Support Messages MTD** | Messages this month by your users working in this customer through a delegated partner plan. Reported separately from customer usage. |
@@ -38,7 +38,7 @@ The **View** field at the top shows whose customers are listed.
 | **Refresh** | Reloads the list. |
 | **View Usage** | Opens the [usage entries](/help/foundation/license-usage/) of the selected customer. |
 | **Invite Customer** | Partners only, on their own customers. Opens [Invite Customer](/help/foundation/invite-customer/). |
-| **Cancel Customer** | Partners only, on their own customers. Ends the relationship with the selected customer, with an optional [reason](/help/foundation/cancel-reason/). On the customer's next Sync it returns to the Prepaid license; its usage up to then stays in your billing figures. |
+| **Cancel Customer** | Partners only, on their own customers. Ends the relationship with the selected customer, with an optional [reason](/help/foundation/cancel-reason/). On the customer's next Sync it returns to the Prepaid license. |
 
-Only active customers are listed; a cancelled customer disappears from the page but remains in the
-billing message types for the period. See [Working as a Partner](/licensing/partner/).
+Only active customers are listed; a cancelled customer disappears from the page, but its usage up to
+the cancellation stays in the usage entries. See [Charge types on Subscription](/licensing/license-types/#charge-types).

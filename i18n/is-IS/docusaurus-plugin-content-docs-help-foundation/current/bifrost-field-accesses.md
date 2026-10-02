@@ -5,7 +5,7 @@ sidebar_label: "Bifröst svæðisaðgangar"
 sidebar_position: 6
 ---
 
-Síðan **Bifröst svæðisaðgangar** gerir kerfisstjórum kleift að skilgreina aðgangstakmarkanir á svæðastigi fyrir einstaka notendur og Entra ID (AAD) forrit. Þessar takmarkanir stjórna því hvaða svæði er hægt að lesa eða skrifa í gegnum Bifröst API (`Data.Records.Get` og `Data.Records.Set` skilaboðagerðir).
+Síðan **Bifröst svæðisaðgangar** gerir kerfisstjórum kleift að skilgreina aðgangstakmarkanir á svæðastigi fyrir einstaka notendur og Entra ID (AAD) forrit. Þessar takmarkanir stjórna því hvaða svæði er hægt að lesa eða skrifa með almennum lestri og skrifum færslna í Bifröst.
 
 Takmarkanir eru notanda- og svæðissértækar og veita nákvæma gagnavernd án þess að breyta fyrirliggjandi hlutverkaheimildum. Aðeins svæði með skráðar takmarkanir verða fyrir áhrifum – öll önnur svæði haga sér eðlilega.
 
@@ -30,8 +30,8 @@ Sýnir allar svæðistakmarkanir sem eru skilgreindar fyrir valinn notanda. Hver
 | **Svæðisheiti** | Heiti svæðisins (lesaðeins, fyllt út sjálfkrafa út frá svæðisnúmerinu). |
 | **Tegund takmarkana** | Tilgreinir hvaða tegund aðgangs er takmörkuð:
 -   **Bæði** – Svæðið er útilokað úr lesvörum og er ekki hægt að breyta því. Strangar takmarkanir.
--   **Lesa** – Svæðið er útilokað úr svörum `Data.Records.Get` en er enn hægt að breyta með `Data.Records.Set`.
--   **Skrifa** – Svæðið kemur fram í lesvörum en er ekki hægt að breyta með `Data.Records.Set`.
+-   **Lesa** – Svæðið er útilokað úr lesvörum en er enn hægt að breyta með almennum skrifum færslna.
+-   **Skrifa** – Svæðið kemur fram í lesvörum en er ekki hægt að breyta með almennum skrifum færslna.
 -   **Framhjá** – Svæðið er undanskilið öllum takmörkunarprófunum. ChangeLog Write Guard leyfir skrif á þetta svæði án tillits til Breytingaskrárdekkunar. Þessi færsla lokar ekki fyrir lese- eða skrifaheimildir; hún hefur einvörðungu áhrif á mat Write Guard.
 
  |

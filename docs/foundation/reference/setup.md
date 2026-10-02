@@ -6,11 +6,11 @@ sidebar_position: 3
 
 ## Overview
 
-The Bifrost Setup provides centralized configuration for selecting implementation strategies for various message types. This document explains how to configure the setup table, select implementations through enums, and understand the interface-based architecture.
+The Bifrost Setup provides centralized configuration for selecting implementation strategies for various Foundation operations. This document explains how to configure the setup table, select implementations through enums, and understand the interface-based architecture.
 
 **Namespace:** `Origo.Bifrost`  
-**Setup Table:** `Setup ori` (Table 10077901)  
-**Setup Page:** `Setup ori` (Page 10077914)
+**Setup Table:** `Setup ori`  
+**Setup Page:** `Setup ori` (**Bifrost Setup**)
 
 ---
 
@@ -21,7 +21,7 @@ The Bifrost extension uses an **interface-based architecture** where:
 1. **Interfaces** define contracts that implementations must follow
 2. **Enums** provide selection options that implement specific interfaces
 3. **Setup Table** stores the selected enum value for each feature area
-4. **Message Type Implementations** retrieve the selected interface from setup
+4. **Foundation operations** retrieve the selected interface from setup
 
 This design allows:
 - **Extensibility**: Add new implementations by extending the enum
@@ -34,18 +34,17 @@ This design allows:
 
 ### 1. Customer Credit Limit Type {#customer-credit-limit-type}
 
-**Field:** `Customer Credit Limit Type` (Field 10)  
-**Type:** Enum `Customer Credit Limit Type ori` (Enum 10077887)  
-**Interface:** `Customer Credit Limit ori` (Interface)  
-**Related Message Type:** `Customer.CreditLimit.Get`
+**Field:** `Customer Credit Limit Type`  
+**Type:** Enum `Customer Credit Limit Type ori`  
+**Interface:** `Customer Credit Limit ori` (Interface)
 
-**Purpose:** Determines how customer credit limit calculations are performed for the `Customer.CreditLimit.Get` message type.
+**Purpose:** Determines how customer credit limit calculations are performed when an assistant or integration checks a customer's credit.
 
 **Available Values:**
 
-| Value | Caption | Implementation | Description |
-|-------|---------|----------------|-------------|
-| 0 | Default | Default Credit Limit Impl ori | Standard Business Central credit limit calculation |
+| Value | Caption | Description |
+|-------|---------|-------------|
+| 0 | Default | Standard Business Central credit limit calculation |
 
 **Extensibility:**
 ```al
@@ -63,7 +62,7 @@ enumextension 50100 "My Credit Limit Type" extends "Customer Credit Limit Type o
 
 ### 2. Credit Limit Tolerance % {#credit-limit-tolerance}
 
-**Field:** `Credit Limit Tolerance %` (Field 11)  
+**Field:** `Credit Limit Tolerance %`  
 **Type:** Decimal  
 **Range:** 0 to 100  
 **Decimal Places:** 0:2
@@ -105,121 +104,21 @@ Calculation:
 - Reduce manual intervention for borderline cases
 - Maintain customer satisfaction while managing risk
 
-**Related Response Fields:**
-
-The `Customer.CreditLimit.Get` message type returns:
-- `remainingCredit`: Calculated without tolerance
-- `tolerancePercent`: The configured tolerance percentage
-- `remainingCreditWithTolerance`: Calculated with tolerance applied
-- `isCreditLimitExceeded`: Boolean based on tolerance calculation
-
 ---
 
-### 3. Item Calc. Avail.Type {#item-calc-availtype}
+### 3. Item Price Calc. Type {#item-price-calc-type}
 
-**Field:** `Item Calc. Avail.Type` (Field 12)  
-**Type:** Enum `Item Calc. Avail.Type ori` (Enum 10077891)  
-**Interface:** `Item Calc. Availability ori` (Interface)  
-**Related Message Type:** `Item.Availability.Get`
+**Field:** `Item Price Calc. Type`  
+**Type:** Enum `Item Price Calc. Type ori`  
+**Interface:** `Item Price Calculation ori` (Interface)
 
-**Purpose:** Determines how item availability is calculated for the `Item.Availability.Get` message type.
+**Purpose:** Determines how item price information is calculated when an assistant or integration asks for an item's price.
 
 **Available Values:**
 
-| Value | Caption | Implementation | Description |
-|-------|---------|----------------|-------------|
-| 0 | Physical Inventory | Physical Inventory Impl ori | Returns actual physical inventory quantity by location |
-| 1 | Calculated Quantity | Calculated Quantity Impl ori | Returns calculated available quantity considering supply and demand |
-
-**Implementation Details:**
-
-#### Physical Inventory
-- Returns actual `Inventory` field value from Item Ledger Entry
-- Simple query-based calculation
-- Fastest performance
-- Use when:
-  - You need current on-hand quantities
-  - Future demand/supply doesn't matter
-  - Simple inventory checks are sufficient
-
-**Response Format:**
-```json
-{
-  "status": "Success",
-  "itemNo": "1000",
-  "itemDescription": "Bicycle",
-  "baseUnitOfMeasure": "PCS",
-  "inventory": [
-    { "locationCode": "BLUE", "inventory": 50 },
-    { "locationCode": "RED", "inventory": 30 }
-  ]
-}
-```
-
-#### Calculated Quantity
-- Calculates projected available quantity based on:
-  - Current inventory
-  - Reserved quantities (expected by requested date)
-  - Gross requirements from sales orders, service orders, jobs, production, assembly (due by requested date)
-  - Scheduled receipts from purchase orders, production, assembly, transfers (arriving by requested date)
-  - Planned order receipts from requisition and planned production (due by requested date)
-- Filters all supply and demand to the `requested-delivery-date` parameter
-- More complex calculation with deeper integration
-- Use when:
-  - You need projected availability
-  - Planning for future deliveries
-  - Advanced inventory management is in place
-
-**Response Format:**
-```json
-{
-  "status": "Success",
-  "itemNo": "1000",
-  "itemDescription": "Bicycle",
-  "baseUnitOfMeasure": "PCS",
-  "requestedDeliveryDate": "2026-03-15",
-  "availability": [
-    {
-      "locationCode": "BLUE",
-      "inventory": 50,
-      "reserved": 10,
-      "grossRequirement": 20,
-      "scheduledReceipt": 30,
-      "plannedOrderReceipt": 15,
-      "projectedAvailableBalance": 65
-    }
-  ]
-}
-```
-
-**Extensibility:**
-```al
-enumextension 50101 "My Availability Type" extends "Item Calc. Avail.Type ori"
-{
-    value(50100; "Custom ATP")
-    {
-        Caption = 'Custom Available to Promise';
-        Implementation = "Item Calc. Availability ori" = "My ATP Impl";
-    }
-}
-```
-
----
-
-### 4. Item Price Calc. Type {#item-price-calc-type}
-
-**Field:** `Item Price Calc. Type` (Field 13)  
-**Type:** Enum `Item Price Calc. Type ori` (Enum 10077897)  
-**Interface:** `Item Price Calculation ori` (Interface)  
-**Related Message Type:** `Item.Price.Get`
-
-**Purpose:** Determines how item price information is calculated for the `Item.Price.Get` message type.
-
-**Available Values:**
-
-| Value | Caption | Implementation | Description |
-|-------|---------|----------------|-------------|
-| 0 | Default | Default Price Impl ori | Standard price list retrieval with customer-specific pricing support |
+| Value | Caption | Description |
+|-------|---------|-------------|
+| 0 | Default | Standard price list retrieval with customer-specific pricing support |
 
 **Implementation Details:**
 
@@ -227,7 +126,7 @@ The Default Price Implementation provides:
 - Retrieves active sales price list lines for items
 - Supports customer-specific price lists and all-customers price lists
 - Filters by:
-  - Customer number (from request)
+  - Customer number
   - Requested delivery date (for date-effective pricing)
   - Item number
   - Variant code (optional)
@@ -254,56 +153,6 @@ The Default Price Implementation provides:
    - Includes Unit Price and Unit Cost from Item table
    - Only if no price list lines are found
 
-**Request Parameters:**
-
-```json
-{
-  "itemNo": "1000",
-  "customerNo": "C001",
-  "requestedDeliveryDate": "2026-03-15",
-  "quantity": 10,
-  "variantCode": "BLUE"
-}
-```
-
-**Response Format:**
-```json
-{
-  "status": "Success",
-  "itemNo": "1000",
-  "itemDescription": "Bicycle",
-  "baseUnitOfMeasure": "PCS",
-  "customerNo": "C001",
-  "requestedDeliveryDate": "2026-03-15",
-  "priceListLines": [
-    {
-      "priceListCode": "RETAIL-2026",
-      "priceListDescription": "Retail Price List 2026",
-      "lineNo": 10000,
-      "assetNo": "1000",
-      "variantCode": "BLUE",
-      "unitOfMeasureCode": "PCS",
-      "qtyPerUnitOfMeasure": 1.0,
-      "minimumQuantity": 10,
-      "amountType": "Price",
-      "unitPrice": 950.00,
-      "unitPriceExclVAT": 950.00,
-      "unitPriceInclVAT": 1178.00,
-      "lineDiscountPct": 5.0,
-      "allowInvoiceDisc": true,
-      "allowLineDisc": true,
-      "vatBusPostingGr": "DOMESTIC",
-      "vatProdPostingGr": "STANDARD",
-      "vatPct": 24.0,
-      "priceType": "Customer",
-      "status": "Active",
-      "startingDate": "2026-01-01",
-      "endingDate": "2026-12-31"
-    }
-  ]
-}
-```
-
 **Extensibility:**
 ```al
 enumextension 50102 "My Price Type" extends "Item Price Calc. Type ori"
@@ -318,12 +167,12 @@ enumextension 50102 "My Price Type" extends "Item Price Calc. Type ori"
 
 ---
 
-### 5. Default Language Code {#default-language-code}
+### 4. Default Language Code {#default-language-code}
 
-**Field:** `Default Language Code` (Field 14)  
+**Field:** `Default Language Code`  
 **Type:** Code[10]  
 **Table Relation:** Language.Code  
-**Related Message Types:** `Help.Tables.Get`, `Help.Fields.Get`, and all message types that return language-specific captions
+**Applies to:** all message types that return language-specific captions
 
 **Purpose:** Specifies the default language used when executing cloud message tasks that return language-specific text (such as captions, descriptions, and field labels). This field provides a system-wide fallback when the `lcid` (Windows Language ID) is not specified in the Bifrost message.
 
@@ -331,56 +180,24 @@ enumextension 50102 "My Price Type" extends "Item Price Calc. Type ori"
 
 The Bifrost extension supports language-specific responses through a two-tier approach:
 
-1. **Primary: Message ori-Level lcid**
+1. **Primary: message-level lcid**
    - The `lcid` field can be specified at the Bifrost message level (not in the data payload)
    - This is a Bifrost extension attribute that follows the Bifrost v1.0 specification
    - When provided, it takes precedence over the Default Language Code
 
 2. **Fallback: Default Language Code**
    - If `lcid` is not specified in the Bifrost message, the system uses the Default Language Code
-   - The `GetDefaultLanguageId()` procedure retrieves the Windows Language ID from the configured Language record
+   - Foundation reads the Windows Language ID from the configured Language record
    - If Default Language Code is not configured or the Language record is not found, defaults to **1033** (English - United States)
 
 **Validation:**
 
-The field includes validation to ensure data integrity:
-
-```al
-trigger OnValidate()
-var
-    Language: Record Language;
-begin
-    if "Default Language Code" <> '' then begin
-        Language.Get("Default Language Code");
-        Language.TestField("Windows Language ID");
-    end;
-end;
-```
+The field is validated when it is set.
 
 This ensures:
 - The specified Language Code exists in the Language table
 - The Language record has a valid Windows Language ID configured
 - Language-specific captions can be retrieved successfully
-
-**GetDefaultLanguageId() Procedure:**
-
-The setup table provides a helper procedure to retrieve the language ID:
-
-```al
-procedure GetDefaultLanguageId(): Integer
-var
-    Language: Record Language;
-begin
-    GetRecordOnce();
-    if "Default Language Code" = '' then
-        exit(1033);  // English - United States
-    
-    if not Language.Get("Default Language Code") then
-        exit(1033);
-    
-    exit(Language."Windows Language ID");
-end;
-```
 
 **Common Language Codes:**
 
@@ -402,7 +219,7 @@ When queuing a message through the Queue API ori, you can specify the language a
 ```json
 {
   "specversion": "1.0",
-  "type": "Help.Tables.Get",
+  "type": "Help.MessageTypes.Get",
   "source": "/myapp/inventory",
   "id": "A234-1234-1234",
   "time": "2026-03-15T10:00:00Z",
@@ -432,8 +249,7 @@ If `lcid` is not specified, the Default Language Code from setup is used.
    - Test language-specific responses by temporarily changing the default
 
 4. **Help Documentation Retrieval:**
-   - `Help.Tables.Get` returns table captions in the configured language
-   - `Help.Fields.Get` returns field captions in the configured language
+   - `Help.MessageTypes.Get` and `Help.Implementation.Get` return their descriptions in the configured language
    - Supports building language-aware client applications
 
 **Example Scenario:**
@@ -445,19 +261,19 @@ If `lcid` is not specified, the Default Language Code from setup is used.
 **Message Request (without lcid):**
 ```json
 {
-  "type": "Help.Tables.Get",
+  "type": "Help.MessageTypes.Get",
   "data": {}
 }
 ```
 
 **Result:**
-- System calls `GetDefaultLanguageId()` → returns 1039
+- Foundation resolves the default language → 1039
 - Captions returned in Icelandic
 
 **Message Request (with lcid):**
 ```json
 {
-  "type": "Help.Tables.Get",
+  "type": "Help.MessageTypes.Get",
   "lcid": 1033,
   "data": {}
 }
@@ -467,15 +283,7 @@ If `lcid` is not specified, the Default Language Code from setup is used.
 - System uses `lcid` from message → 1033
 - Captions returned in English (overrides default)
 
-**Related Message Types:**
-
-All message types that return language-specific content respect the Default Language Code:
-
-- **Help.Tables.Get** - Returns table captions and descriptions
-- **Help.Fields.Get** - Returns field captions and option captions
-- **Customer.CreditLimit.Get** - Returns translated status messages
-- **Item.Availability.Get** - Returns item descriptions and location names
-- **Item.Price.Get** - Returns price list and item descriptions
+All message types that return language-specific content respect the Default Language Code.
 
 **Notes:**
 
@@ -486,20 +294,19 @@ All message types that return language-specific content respect the Default Lang
 
 ---
 
-### 6. Customer Statement Type {#customer-statement-type}
+### 5. Customer Statement Type {#customer-statement-type}
 
-**Field:** `Customer Statement Type` (Field 15)  
-**Type:** Enum `Customer Statement Type ori` (Enum 10077888)  
-**Interface:** `Customer Statement ori` (Interface)  
-**Related Message Type:** `Customer.Statement.Pdf`
+**Field:** `Customer Statement Type`  
+**Type:** Enum `Customer Statement Type ori`  
+**Interface:** `Customer Statement ori` (Interface)
 
-**Purpose:** Determines which implementation is used to generate customer statement PDFs for the `Customer.Statement.Pdf` message type. This field makes statement generation pluggable — custom implementations can generate statements from alternative sources without modifying the base code.
+**Purpose:** Determines which implementation is used to generate customer statement PDFs when an assistant or integration asks for a customer statement. This field makes statement generation pluggable — custom implementations can generate statements from alternative sources without modifying the base code.
 
 **Available Implementations:**
 
-| Value | Name | Implementation | Description |
-|-------|------|----------------|-------------|
-| 0 | Standard Statement | Standard Statement Impl ori | Uses BC Report Selections for `C.Statement` to generate the PDF |
+| Value | Name | Description |
+|-------|------|-------------|
+| 0 | Standard Statement | Uses BC Report Selections for `C.Statement` to generate the PDF |
 
 **Extending Customer Statement Type:**
 
@@ -520,14 +327,14 @@ enumextension 50100 "My Statement Type" extends "Customer Statement Type ori"
 
 ---
 
-### 7. ChangeLog Write Guard {#changelog-write-guard}
+### 6. ChangeLog Write Guard {#changelog-write-guard}
 
-**Field:** `ChangeLog Write Guard` (Field 17)  
-**Type:** Enum `ChangeLog Write Guard Type ori` (Enum 10077898)  
+**Field:** `ChangeLog Write Guard`  
+**Type:** Enum `ChangeLog Write Guard Type ori`  
 **Interface:** `ChangeLog Write Guard ori` (Interface)  
-**Related Message Type:** `Data.Records.Set`, `ChangeLog.Field.Restore`
+**Applies to:** Bifröst's general record write and the restore of a field value from the change log
 
-**Purpose:** Controls which fields `Data.Records.Set` may write to. When active, the guard checks every target field against the BC Change Log Setup before the write is executed.
+**Purpose:** Controls which fields the general record write may write to. When active, the guard checks every target field against the BC Change Log Setup before the write is executed.
 
 **Available Values:**
 
@@ -535,44 +342,19 @@ enumextension 50100 "My Statement Type" extends "Customer Statement Type ori"
 |-------|---------|-----------|
 | 0 | Open | All fields may be written — same as pre-guard behaviour. |
 | 1 | Blocked | Only fields covered by Change Log Modification tracking may be written. All others are rejected. Default. |
-| 2 | Via force | Same as Blocked but the restriction can be bypassed by including `"force": true` in the request **and** holding the `BIFROST Force ori` permission set. |
+| 2 | Via force | Same as Blocked but the restriction can be bypassed by sending `"force": true` with the write **and** holding the `BIFROST Force ori` permission set. |
 
 **Validation:**
 
-Changing the guard to `Blocked` or `Via force` requires that the BC Change Log feature is active:
+Changing the guard to `Blocked` or `Via force` requires that the BC Change Log feature is active.
 
-```al
-trigger OnValidate()
-begin
-    if Rec."ChangeLog Write Guard" in [Blocked, "Via force"] then
-        if not ChangeLogSetup.Get() or not ChangeLogSetup."Change Log Activated" then
-            Error(ChangeLogNotEnabledErr);
-end;
-```
+**Using the `force` bypass (Via force mode only):** the caller sends `"force": true` with the
+write. Without the `BIFROST Force ori` permission set the write is rejected even with
+`force: true`.
 
-**Using `force` bypass (Via force mode only):**
-
-```json
-{
-  "specversion": "1.0",
-  "type": "Data.Records.Set",
-  "source": "MyApp v1.0",
-  "subject": "Customer",
-  "data": "{\"force\":true,\"data\":[{\"id\":\"...\",\"fields\":{\"Name\":\"New Name\"}}]}"
-}
-```
-
-The `force` key is a top-level boolean inside the `data` JSON (alongside the `data` array). Without the `BIFROST Force ori` permission set the request is rejected even with `force: true`.
-
-**Checking field coverage:**
-
-Before writing, use `ChangeLog.Field.Enabled` to verify that a field is covered:
-
-```json
-{ "type": "ChangeLog.Field.Enabled", "data": "{\"tableName\":\"Customer\",\"fieldNo\":2}" }
-```
-
-If `fieldCovered` is `false` and the guard is `Blocked` or `Via force`, the write will be rejected unless `force: true` is used (Via force only).
+**Checking field coverage:** an assistant can check beforehand whether a field is covered by the
+change log. If it is not covered and the guard is `Blocked` or `Via force`, the write will be
+rejected unless `force: true` is used (Via force only).
 
 **Extensibility:**
 
@@ -589,39 +371,29 @@ enumextension 50103 "My Guard Type" extends "ChangeLog Write Guard Type"
 
 ---
 
-### 8. Export Company Name Type {#export-company-name-type}
+### 7. Export Company Name Type {#export-company-name-type}
 
-**Field:** `Export Company Name Type` (Field 18)  
-**Type:** Enum `Company Name Type ori` (Enum 10077886)  
+**Field:** `Export Company Name Type`  
+**Type:** Enum `Company Name Type ori`  
 **Interface:** `Company Name ori`  
-**Related Message Types:** `CSV.Records.Get`, `CSV.DeletedRecords.Get`
+**Applies to:** CSV exports of records and of deleted records
 
 **Purpose:** Selects which company name is written to the `$Company` column of CSV exports. The setup field controls a single, system-wide choice that both CSV exporters resolve once per request (so every row in a single export shares the same value).
 
 **Available Values:**
 
-| Value | Caption | Implementation | Behaviour |
-|-------|---------|----------------|-----------|
-| 0 | Company Name | `Default Company Name Impl ori` (10077888) | Returns `CompanyName()` (the technical `Company.Name`). Default. Stable across renames of the display name. |
-| 1 | Company Display Name | `Display Company Name Impl ori` (10077889) | Returns `Company."Display Name"`. When the display name is blank, falls back to `CompanyName()` so the `$Company` column is never empty. |
+| Value | Caption | Behaviour |
+|-------|---------|-----------|
+| 0 | Company Name | Returns `CompanyName()` (the technical `Company.Name`). Default. Stable across renames of the display name. |
+| 1 | Company Display Name | Returns `Company."Display Name"`. When the display name is blank, falls back to `CompanyName()` so the `$Company` column is never empty. |
 
 **When to use each value:**
 
 - **Company Name** — downstream systems that key on company identity (data lake partitioning, Open Mirroring landing zones, bc2adls). Display-name renames must not change the partition key.
 - **Company Display Name** — CSV consumers that are human-readable (operational reports, ad-hoc analytics). Display name is friendlier and matches what users see in BC.
 
-**Resolution:**
-
-```al
-var
-    BifrostSetup: Record "Setup ori";
-    ExportCompanyName: Text[250];
-begin
-    ExportCompanyName := BifrostSetup.GetExportCompanyName();
-end;
-```
-
-Both CSV implementations call `GetExportCompanyName()` once per request and reuse the value for every row written to the `$Company` column.
+**Resolution:** a CSV export resolves the company name once per request and reuses the value for
+every row written to the `$Company` column.
 
 **Extensibility:**
 
@@ -685,271 +457,6 @@ BifrostSetup.InsertIfNotExists();
 ```
 
 **Note:** This is typically called during installation.
-
----
-
-### GetCustomerCreditLimitInterface()
-
-**Purpose:** Retrieves the selected Customer Credit Limit implementation.
-
-**Returns:** Interface `Customer Credit Limit ori`
-
-**Behavior:**
-1. Loads only the `Customer Credit Limit Type ori` field (optimized)
-2. Calls `GetRecordOnce()` to ensure record exists
-3. Returns the enum value as an interface
-
-**Usage:**
-```al
-var
-    CreditLimitInterface: Interface "Customer Credit Limit ori";
-    BifrostSetup: Record "Setup ori";
-begin
-    CreditLimitInterface := BifrostSetup.GetCustomerCreditLimitInterface();
-    CreditLimitInterface.CheckCreditLimit(Argument);
-end;
-```
-
-**Implementation in Message Type:**
-```al
-internal procedure ExecuteBifrostTask(var Argument: Record "Message Argument ori")
-var
-    BifrostSetup: Record "Setup ori";
-    CreditLimitInterface: Interface "Customer Credit Limit ori";
-begin
-    // Get the configured interface implementation
-    CreditLimitInterface := BifrostSetup.GetCustomerCreditLimitInterface();
-    
-    // Execute using the selected implementation
-    CreditLimitInterface.CheckCreditLimit(Argument);
-end;
-```
-
----
-
-### GetItemCalculateAvailabilityInterface()
-
-**Purpose:** Retrieves the selected Item Calculate Availability implementation.
-
-**Returns:** Interface `Item Calc. Availability ori`
-
-**Behavior:**
-1. Loads only the `Item Calc. Avail.Type ori` field (optimized)
-2. Calls `GetRecordOnce()` to ensure record exists
-3. Returns the enum value as an interface
-
-**Usage:**
-```al
-var
-    AvailabilityInterface: Interface "Item Calc. Availability ori";
-    BifrostSetup: Record "Setup ori";
-begin
-    AvailabilityInterface := BifrostSetup.GetItemCalculateAvailabilityInterface();
-    AvailabilityInterface.CalculateAvailability(Argument);
-end;
-```
-
----
-
-### GetItemPriceCalculationInterface()
-
-**Purpose:** Retrieves the selected Item Price Calculation ori implementation.
-
-**Returns:** Interface `Item Price Calculation ori`
-
-**Behavior:**
-1. Loads only the `Item Price Calc. Type ori` field (optimized)
-2. Calls `GetRecordOnce()` to ensure record exists
-3. Returns the enum value as an interface
-
-**Usage:**
-```al
-var
-    PriceInterface: Interface "Item Price Calculation ori";
-    BifrostSetup: Record "Setup ori";
-begin
-    PriceInterface := BifrostSetup.GetItemPriceCalculationInterface();
-    PriceInterface.CalculateItemPrice(Argument);
-end;
-```
-
----
-
-### GetCustomerStatementInterface()
-
-**Purpose:** Retrieves the selected Customer Statement implementation.
-
-**Returns:** Interface `Customer Statement`
-
-**Behavior:**
-1. Loads only the `Customer Statement Type` field (optimized)
-2. Calls `GetRecordOnce()` to ensure record exists
-3. Returns the enum value as an interface
-
-**Usage:**
-```al
-var
-    StatementInterface: Interface "Customer Statement";
-    BifrostSetup: Record "Setup ori";
-begin
-    StatementInterface := BifrostSetup.GetCustomerStatementInterface();
-    StatementInterface.GetCustomerStatement(Argument);
-end;
-```
-
----
-
-### GetCompanyNameInterface()
-
-**Purpose:** Retrieves the selected Company Name ori implementation.
-
-**Returns:** Interface `Company Name ori`
-
-**Behavior:**
-1. Loads only the `Export Company Name Type` field (optimized)
-2. Calls `GetRecordOnce()` to ensure the setup record exists
-3. Returns the enum value as an interface
-
-**Usage:**
-```al
-var
-    CompanyNameInterface: Interface "Company Name ori";
-    BifrostSetup: Record "Setup ori";
-begin
-    CompanyNameInterface := BifrostSetup.GetCompanyNameInterface();
-end;
-```
-
----
-
-### GetExportCompanyName()
-
-**Purpose:** Convenience wrapper that resolves the configured implementation and returns the company name for the `$Company` column.
-
-**Returns:** `Text[250]`
-
-**Behavior:**
-1. Calls `GetCompanyNameInterface()` to obtain the configured implementation
-2. Invokes `GetCompanyName()` on it
-3. Returns the resulting text (never blank — the Display Name implementation falls back to `CompanyName()`)
-
-**Usage:**
-```al
-var
-    BifrostSetup: Record "Setup ori";
-    ExportCompanyName: Text[250];
-begin
-    ExportCompanyName := BifrostSetup.GetExportCompanyName();
-end;
-```
-
-Callers should resolve this **once per request** and reuse the value for every row in a single export.
-
----
-
-## Interface Architecture
-
-### Interface Definition Pattern
-
-Each feature area defines an interface that all implementations must follow:
-
-**Example: Item Calc. Availability ori Interface**
-```al
-interface "Item Calc. Availability ori"
-{
-    /// <summary>
-    /// Calculates item availability based on the implementation strategy.
-    /// </summary>
-    /// <param name="Argument">Message argument containing request/response data</param>
-    procedure CalculateAvailability(var Argument: Record "Message Argument ori")
-}
-```
-
-### Enum Implementation Pattern
-
-Enums implement the interface and specify which codeunit provides the implementation:
-
-**Example: Item Calc. Avail.Type ori Enum**
-```al
-enum 10077891 "Item Calc. Avail.Type ori" implements "Item Calc. Availability ori"
-{
-    Extensible = true;
-    DefaultImplementation = "Item Calc. Availability ori" = "Physical Inventory Impl ori";
-
-    value(0; "Physical Inventory")
-    {
-        Caption = 'Physical Inventory';
-        Implementation = "Item Calc. Availability ori" = "Physical Inventory Impl ori";
-    }
-    value(1; "Calculated Quantity")
-    {
-        Caption = 'Calculated Quantity';
-        Implementation = "Item Calc. Availability ori" = "Calculated Quantity Impl ori";
-    }
-}
-```
-
-### Implementation Codeunit Pattern
-
-Implementation codeunits implement the interface:
-
-**Example: Physical Inventory Implementation**
-```al
-codeunit 10077900 "Physical Inventory Impl ori" implements "Item Calc. Availability ori"
-{
-    procedure CalculateAvailability(var Argument: Record "Message Argument ori")
-    var
-        Item: Record Item;
-        RequestJson: JsonObject;
-        ItemNo: Code[20];
-    begin
-        // Parse request
-        RequestJson := Argument.GetRequestJson();
-        ItemNo := GetItemNoFromRequest(RequestJson, Argument);
-        
-        // Execute business logic
-        Item.Get(ItemNo);
-        Item.CalcFields(Inventory);
-        
-        // Build response
-        BuildInventoryResponse(Item, Argument);
-    end;
-}
-```
-
----
-
-## Message Type Integration
-
-Message type implementations use the setup to retrieve the correct interface:
-
-### Pattern: Message Type Implementation
-
-```al
-codeunit 10077908 "Item Availability Get Impl ori" implements "Msg Interface ori"
-{
-    internal procedure ExecuteBifrostTask(var Argument: Record "Message Argument ori")
-    var
-        BifrostSetup: Record "Setup ori";
-        AvailabilityInterface: Interface "Item Calc. Availability ori";
-    begin
-        // Validate specification version
-        if Argument."Message Version ori" <> Argument."Message Version ori"::"1.0" then
-            Error(UnsupportedVersionErr, Argument."Message Version ori");
-
-        // Get the selected implementation from setup
-        AvailabilityInterface := BifrostSetup.GetItemCalculateAvailabilityInterface();
-
-        // Execute using the selected implementation
-        AvailabilityInterface.CalculateAvailability(Argument);
-    end;
-}
-```
-
-This pattern ensures:
-- Message type implementations are independent of concrete implementations
-- Switching implementations only requires changing the setup
-- New implementations can be added without modifying message types
 
 ---
 
@@ -1085,8 +592,8 @@ codeunit 50101 "My API Price Impl" implements "Item Price Calculation ori"
 
 ## Bifrost Integration Log
 
-**Table:** `Integration ori` (Table 10077891)  
-**Page:** `Integration ori` (Page 10077895)  
+**Table:** `Integration ori`  
+**Page:** **Bifrost Integration**  
 **Access:** Bifrost Setup → Messages → Bifrost Integration
 
 ### Purpose
@@ -1112,14 +619,8 @@ The table uses a composite primary key of `Source + Table Id + Date & Time`, ens
 
 ### API Access
 
-Records in this table are read and written via the standard data message types:
-
-- **Data.Records.Get** — retrieve integration log entries:
-  ```json
-  { "tableName": "Integration ori" }
-  ```
-- **Data.Records.Set** — insert or update integration log entries
-- **CSV.Records.Get** — export the full log as a CSV file for Open Mirroring
+Records in this table can be read and written through Bifröst's general record read and write,
+and exported as a CSV file for Open Mirroring.
 
 ### Retention Policy
 
@@ -1127,13 +628,13 @@ The Bifrost Integration table is registered with Business Central's retention po
 
 ---
 
-## Delete Log ori
+## Delete Log
 
 ### Delete Setup
 
-**Table:** `Delete Setup ori` (Table 10077887)
-**Page:** `Delete Setup ori` (Page 10077886)
-**Access:** Search → Delete Setup ori
+**Table:** `Delete Setup ori`  
+**Page:** **Bifrost Delete Setup**  
+**Access:** Search → Bifrost Delete Setup
 
 The Delete Setup table controls which Business Central tables have their deletions captured to the delete log. Each row registers one table. When a record in that table is deleted, the extension logs the deletion automatically.
 
@@ -1147,13 +648,13 @@ The Delete Setup table controls which Business Central tables have their deletio
 
 #### Caching Behaviour
 
-Delete Setup records are cached in a SingleInstance codeunit (`Delete Log Mgt ori`, 10077892) for performance. Any insert, modify, or delete on the setup table automatically resets the cache.
+Delete Setup records are cached for performance. Any insert, modify, or delete on the setup table automatically resets the cache.
 
 ### Delete Log
 
-**Table:** `Delete Log ori` (Table 10077886)
-**Page:** `Delete Log ori` (Page 10077885)
-**Access:** Search → Delete Log ori
+**Table:** `Delete Log ori`  
+**Page:** **Bifrost Delete Log**  
+**Access:** Search → Bifrost Delete Log
 
 The Delete Log is a read-only audit trail. One entry is created per deleted record from any monitored table.
 
@@ -1179,24 +680,20 @@ The Delete Log table is registered with Business Central's retention policy fram
 
 #### API Access
 
-Delete Log records can be retrieved via the standard data message types:
-
-- **Data.Records.Get** — `{ "tableName": "Delete Log ori" }`
-- **CSV.Records.Get** — export the full log as CSV
+Delete Log records can be read through Bifröst's general record read and exported as CSV.
 
 ---
 
-## User Setup ori
+## User Setup
 
-**Table:** `User Setup ori` (Table 10077909)
-**Page:** `User Setup List ori` (Page 10077920)
-**Card Page:** `User Setup Editor ori` (Page 10077918)
-**Management Codeunit:** `User Setup Mgt ori` (Codeunit 10078245)
-**Access:** Search → User Setup ori (Usage Category: Administration)
+**Table:** `User Setup ori`  
+**Page:** **Bifrost User Setup**  
+**Card Page:** **User Setup Editor**  
+**Access:** Search → Bifrost User Setup (Usage Category: Administration)
 
 ### Purpose
 
-Per-user configuration for the Bifrost extension. Each record stores a system prompt and optional linked-record overrides that are included in the `Help.WhoAmI.Get` response. The system prompt enables external AI systems to customise their behaviour per user. The optional link fields (resource, salesperson, employee, G/L account, customer, vendor, contact) override the default lookup logic so administrators can explicitly control which records appear in a user's profile.
+Per-user configuration for the Bifrost extension. Each record stores a system prompt and optional linked-record overrides that are included in the user profile an assistant reads about the caller. The system prompt enables external AI systems to customise their behaviour per user. The optional link fields (resource, salesperson, employee, G/L account, customer, vendor, contact) override the default lookup logic so administrators can explicitly control which records appear in a user's profile.
 
 ### Fields
 
@@ -1205,37 +702,26 @@ Per-user configuration for the Bifrost extension. Each record stores a system pr
 | `User Security ID` | Guid | Primary key. Links to the `User` table. |
 | `User Name` | Code[50] | Display name (FlowField from `User`). |
 | `System Prompt` | Blob | The prompt text stored as UTF-8. |
-| `G/L Account No.` | Code[20] | Optional. Links to a G/L Account for the `dueFromToOwner` section in `Help.WhoAmI.Get`. |
-| `Employee No.` | Code[20] | Optional. Overrides the `employee` and `manager` sections in `Help.WhoAmI.Get` (skips Resource→Employee chain lookup). |
-| `Customer No.` | Code[20] | Optional. Links to a Customer for the `customer` section in `Help.WhoAmI.Get`. |
-| `Vendor No.` | Code[20] | Optional. Links to a Vendor for the `vendor` section in `Help.WhoAmI.Get`. |
-| `Resource No.` | Code[20] | Optional. Overrides the `resource` section in `Help.WhoAmI.Get` (skips Time Sheet Owner lookup). |
-| `Salesperson Code` | Code[20] | Optional. Overrides the `salesperson` section in `Help.WhoAmI.Get` (skips User Setup lookup). |
-| `Contact No.` | Code[20] | Optional. Links to a Contact for the `contact` section in `Help.WhoAmI.Get`. |
+| `G/L Account No.` | Code[20] | Optional. Links to a G/L Account for the `dueFromToOwner` section of the user profile. |
+| `Employee No.` | Code[20] | Optional. Overrides the `employee` and `manager` sections of the user profile (skips Resource→Employee chain lookup). |
+| `Customer No.` | Code[20] | Optional. Links to a Customer for the `customer` section of the user profile. |
+| `Vendor No.` | Code[20] | Optional. Links to a Vendor for the `vendor` section of the user profile. |
+| `Resource No.` | Code[20] | Optional. Overrides the `resource` section of the user profile (skips Time Sheet Owner lookup). |
+| `Salesperson Code` | Code[20] | Optional. Overrides the `salesperson` section of the user profile (skips User Setup lookup). |
+| `Contact No.` | Code[20] | Optional. Links to a Contact for the `contact` section of the user profile. |
 | `Location Code` | Code[10] | Optional. Reserved for future use. |
 
 ### Security Model
 
 The page uses a layered security approach:
 
-1. **Auto-provisioning:** On page open, `EnsureCurrentUserExists()` creates a record for the current user if one does not exist (uses InherentPermissions for RI access).
-2. **Self-service editing:** Users without full table permissions can only see and edit their own prompt (FilterGroup(2) applied). The `UpdateOwnPrompt()` procedure uses InherentPermissions for RM access.
+1. **Auto-provisioning:** On page open, a record is created for the current user if one does not exist.
+2. **Self-service editing:** Users without full table permissions can only see and edit their own prompt.
 3. **Admin editing:** Users with full table data permissions (RMID) can see and edit all users' prompts.
 
 ### Editor Behaviour
 
-The User Setup Editor page provides a multi-line rich content field. On save, `<div>` tags are stripped via Regex before persisting to the blob.
-
-### Programmatic Access
-
-```al
-var
-    BifrostUserSetupMgt: Codeunit "User Setup Mgt ori";
-begin
-    BifrostUserSetupMgt.EnsureCurrentUserExists();
-    BifrostUserSetupMgt.UpdateOwnPrompt('You are a helpful assistant.');
-end;
-```
+The User Setup Editor page provides a multi-line rich content field. On save, `<div>` tags are stripped before the prompt is stored.
 
 ---
 
@@ -1245,11 +731,10 @@ The Bifrost extension ships several permission sets that gate access to specific
 
 ### BIFROST ApprAdm ori
 
-**Permission Set ID:** 10077889  
 **Name:** `BIFROST ApprAdm ori`  
 **Assignable:** Yes
 
-**Purpose:** Controls which users may send documents to approval via the `Document.Approval.Send` message type. A user who does not hold this permission set receives an error response when calling `Document.Approval.Send`.
+**Purpose:** Controls which users may send documents for approval through Bifröst. A user who does not hold this permission set receives an error response when an assistant or integration tries to send a document for approval.
 
 **Error when missing:**
 
@@ -1257,44 +742,38 @@ The Bifrost extension ships several permission sets that gate access to specific
 User <UserSecurityId> does not have permissions to send documents to approval via Bifrost.
 ```
 
-**How it works:** The permission set grants write access to the gate table `Approval Access ori` (10077895). The implementation checks `WritePermission()` on that table before processing the request — no records are stored in the table.
-
 **Assignment:** Assign via the standard BC **Permission Sets** page or via user group.
 
 ### BIFROST Force ori
 
-**Purpose:** Required to bypass the ChangeLog Write Guard when using `"force": true` in `Data.Records.Set` requests with the guard set to **Via force**. See [ChangeLog Write Guard](#changelog-write-guard) for details.
+**Purpose:** Required to bypass the ChangeLog Write Guard when using `"force": true` in general record writes with the guard set to **Via force**. See [ChangeLog Write Guard](#changelog-write-guard) for details.
 
 ### Posting Gates (Bifrost G/L / Item / FA / Job / Resource / Warehouse Posting)
 
-Every `*.Post` and `*.Reverse` message type that writes ledger entries is gated by a per-domain permission set. A user who does not hold the matching set receives an error response without any side effects:
+Every message type that posts or reverses ledger entries is gated by a per-domain permission set. A user who does not hold the matching set receives an error response without any side effects:
 
 ```
 Posting denied: missing '<permission set name>' permission set (BIFROST GL Post ori, BIFROST ItemPost ori, BIFROST FA Post ori, BIFROST Job Post ori, BIFROST Res Post ori or BIFROST WhsePost ori).
 ```
 
-The six permission sets are independent and **not bundled into `BIFROST Read ori` or `BIFROST Full ori`** — they must be granted explicitly. Each grants RIMD on an empty stub table (10077903–10077908) that BC's security kernel uses for the `WritePermission()` check; no records are ever stored.
+The six permission sets are independent and **not bundled into `BIFROST Read ori` or `BIFROST Full ori`** — they must be granted explicitly.
 
-| Permission Set | ID | Gate Table | Gated message types |
-|---|---|---|---|
-| `BIFROST GL Post ori` | 10077895 | `G/L Posting ori` (10077904) | `Finance.GeneralJournal.Post`, `Finance.GeneralJournal.ReverseRegister`, `Finance.GeneralJournal.ReverseTransaction`, `Finance.BankReconciliation.Post`, `Finance.VAT.CalcAndPostSettlement`, `Customer.Application.Post`, `Customer.Application.Reverse`, `Vendor.Application.Post`, `Vendor.Application.Reverse`, `Sales.Document.Post`, `Purchase.Document.Post` |
-| `BIFROST ItemPost ori` | 10077896 | `Item Posting ori` (10077905) | `Inventory.ItemJournal.Post`, `Inventory.TransferOrder.Post`, `Inventory.AssemblyOrder.Post` |
-| `BIFROST FA Post ori` | 10077892 | `FA Posting ori` (10077903) | `FixedAssets.FAJournal.Post` |
-| `BIFROST Job Post ori` | 10077897 | `Job Posting ori` (10077906) | `Projects.ProjectJournal.Post` |
-| `BIFROST Res Post ori` | 10077899 | `Resource Posting ori` (10077907) | `Resources.ResourceJournal.Post` |
-| `BIFROST WhsePost ori` | 10077900 | `Warehouse Posting ori` (10077908) | `Warehouse.Shipment.Post` (always; additionally requires `BIFROST GL Post ori` when `invoice = true`); `Warehouse.Pick.Register` (always); `Warehouse.Putaway.Register` (always) |
+| Permission Set | What it allows |
+|---|---|
+| `BIFROST GL Post ori` | Posting general journals and reversing registers and transactions, posting bank reconciliations and VAT settlements, posting and reversing customer and vendor applications, posting sales and purchase documents |
+| `BIFROST ItemPost ori` | Posting item journals, transfer orders and assembly orders |
+| `BIFROST FA Post ori` | Posting fixed asset journals |
+| `BIFROST Job Post ori` | Posting project journals |
+| `BIFROST Res Post ori` | Posting resource journals |
+| `BIFROST WhsePost ori` | Posting warehouse shipments (posting with invoicing also requires `BIFROST GL Post ori`), registering warehouse picks and put-aways |
 
-**Note:** `Sales.Document.Post` and `Purchase.Document.Post` are gated to **G/L only** even though they may produce item and other ledger entries downstream. The gate represents the user's intent to trigger posting, not the entries that BC ultimately writes. `Warehouse.Shipment.Post` with `invoice = true` is the only operation that requires two permission sets simultaneously.
-
-The check lives in codeunit `Posting Gate ori` (10078243). To extend the model, add a new value to enum `Posting Type ori` (10077899) and a matching gate table + permission set.
+**Note:** Posting sales and purchase documents is gated to **G/L only** even though it may produce item and other ledger entries downstream. The gate represents the user's intent to trigger posting, not the entries that BC ultimately writes. Posting a warehouse shipment with invoicing is the only operation that requires two permission sets simultaneously.
 
 ---
 
 ## Related Documentation
 
-- **API_Reference.md**: Complete API endpoint documentation and message types
-- **Data_Message_Types.md**: Data.Records.Get, Data.Records.Set, CSV.Records.Get
-- **Approval_Message_Types.md**: Document approval workflows and permission requirements
+- **[API Reference](/foundation/reference/api/)**: API endpoints, the message envelope and response shapes
 - **Msg Interface ori**: Main interface for message type implementations
 - **Setup ori Page**: User interface for configuration
 

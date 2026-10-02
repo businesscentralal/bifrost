@@ -7,7 +7,7 @@ sidebar_position: 3
 
 Síðan **Clockify tengingar** sýnir tengslin milli Business Central færslna og Clockify-hluta — hvaða viðskiptavinur í Business Central er hvaða viðskiptavinur í Clockify, hvaða verkefni er hvaða Clockify-verkefni, hvaða vinnutegund er hvaða Clockify-merkimiði og svo framvegis. Tengingin les þessi tengsl þegar hún samstillir tímafærslur, svo hægt sé að rekja Clockify-færslu til rétta verksins, starfsmannsins og vinnutegundarinnar í Business Central.
 
-Síðan er stjórnunarsýn og ekki hægt að breyta henni. Tengingar eru stofnaðar og viðhaldið af samþættingaraðilum gegnum Bifröst-skilaboðategundirnar `Data.Records.Get` og `Data.Records.Set`, ekki af þessari síðu. Hún er opnuð með aðgerðinni **Clockify tengingar** á [Uppsetningu Clockify](/help/timesheets/timesheets-setup/).
+Síðan er stjórnunarsýn og ekki hægt að breyta henni. Tengingar eru stofnaðar og viðhaldið af samþættingaraðilum gegnum almennar aðgerðir Bifrastar til að lesa og skrifa færslur, ekki af þessari síðu. Hún er opnuð með aðgerðinni **Clockify tengingar** á [Uppsetningu Clockify](/help/timesheets/timesheets-setup/).
 
 ## Reitir
 

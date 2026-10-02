@@ -28,17 +28,12 @@ Bifröst Chat exposes the Bifröst message types to the language model as Model 
 
 ## API Keys
 
-Bragi keeps every provider API key in the Bifröst secret store rather than in its own tables. Each language model has a **shared** key for the whole company and a **personal** key per user.
+Bifrost Language Models keeps every provider API key in the Bifröst secret store rather than in its own tables. Each language model has a **shared** key for the whole company and a **personal** key per user.
 
 | Field | Description |
 | --- | --- |
 | **Language Models Without a Key** | How many language models need an API key but have neither a shared key nor a personal key stored for you. Drill down to open the language model list. Shown in red while the count is above zero. |
 | **Note** | Appears only while keys are missing, explaining that the values must be entered once. |
-
-| Secret code | Scope | Used for |
-| --- | --- | --- |
-| `LANGMODEL-<Code>-API-KEY` | Company | The shared provider key of one language model, used by every user who has no personal key. |
-| `LANGMODEL-<Code>-USER-API-KEY` | Company and user | The personal provider key of one user for that language model. |
 
 Business Central keeps stored secrets separate per extension, so keys entered in an earlier version of the app cannot be carried over. Open a language model and use **Set Personal API Key** or **Set Shared API Key** on the [language model card](/help/language-models/bifrost-lang-model-card/) to enter each key once. Setting or clearing the shared key requires the `BIFROST ChatSvc ori` permission set.
 
@@ -49,14 +44,14 @@ Business Central keeps stored secrets separate per extension, so keys entered in
 | **Language Models** | Opens the [language model list](/help/language-models/bifrost-lang-model-list/). |
 | **API Keys** | Opens the Bifröst App Secrets list filtered to Bifrost Language Models, showing every key this module has registered and whether a value has been entered. The value itself is never shown. |
 
-## Setup notification
+## Outbound HTTP
 
-Every external provider is reached over HTTP. When **Allow HttpClient Requests** is not enabled for the extension, the page raises a notification with an **Open Extension Settings** action. Copilot is unaffected; the notification concerns OpenAI, Azure OpenAI, Custom LLM, Anthropic, xAI and Google Gemini.
+OpenAI, Azure OpenAI, Custom LLM, Anthropic, xAI and Google Gemini are reached over HTTP, so the extension needs outbound HTTP client requests for them. Copilot does not need it. The Bifröst setup wizard turns outbound HTTP on for every installed Bifröst app at once. Until it is on, the **Bifröst Setup** page shows a notification with the action **Start setup wizard**, and a chat with one of those providers fails with an error saying that HTTP client requests are not enabled for the extension.
 
 ## Getting started
 
 1.  Assign the `BIFROST Chat ori` permission set to every user who is allowed to use the chat.
-2.  Open **Bifröst Setup**, choose **Bifrost Language Models Setup** in the **Apps** group, and clear the HTTP client notification if it appears.
+2.  Open **Bifröst Setup**. If it shows the HTTP notification, choose **Start setup wizard** and complete the wizard first. Then choose **Bifrost Language Models Setup** in the **Apps** group.
 3.  Choose **Language Models** and create a model with a chat provider and a skill.
 4.  On the model card, set the shared or personal API key.
 5.  Mark one language model as **Default**, or assign a model per user in Bifröst user setup.

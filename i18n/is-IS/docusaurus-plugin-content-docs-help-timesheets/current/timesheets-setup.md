@@ -24,7 +24,7 @@ Ekkert sem varðar Clockify er stillt á uppsetningarspjaldi Bifröst Foundation
 
 | Reitur | Lýsing |
 | --- | --- |
-| Verkbókarlýsing | Verkbókarlýsingin sem samstilltar Clockify-tímafærslur eru skrifaðar í, bæði af samstillingartegundunum og rauntíma vefkróknum. |
+| Verkbókarlýsing | Verkbókarlýsingin sem samstilltar Clockify-tímafærslur eru skrifaðar í, bæði af samstillingunni og rauntíma vefkrókunum. |
 | Verkbókarflokkur | Verkbókarflokkurinn sem samstilltar tímafærslur eru skrifaðar í. Hann verður að tilheyra valinni lýsingu. |
 | Sjálfgefin vinnutegund | Vinnutegundin sem sett er á samstillta verkbókarlínu þegar Clockify-tímafærslan hefur engan merkimiða tengdan vinnutegund. Tengdur Clockify-merkimiði hefur forgang fram yfir þetta gildi; sé reiturinn auður er vinnutegund línunnar skilin eftir auð. |
 
@@ -39,7 +39,7 @@ Ekkert sem varðar Clockify er stillt á uppsetningarspjaldi Bifröst Foundation
 
 | Aðgerð | Lýsing |
 | --- | --- |
-| Skrá API lykil fyrirtækis | Biður um Clockify API lykilinn í [földum glugga](/help/timesheets/timesheets-set-secret-dialog/) og geymir hann í IsolatedStorage á sviði fyrirtækisins. |
+| Skrá API lykil fyrirtækis | Biður um Clockify API lykilinn í [földum glugga](/help/timesheets/timesheets-set-secret-dialog/) og geymir hann á öruggan hátt í Business Central. |
 | Eyða API lykli fyrirtækis | Fjarlægir geymda Clockify API lykil fyrirtækisins að fenginni staðfestingu. |
 | Skrá vefkróka | Skráir rauntíma vefkróka fyrir tímafærslur í Clockify á móttökuslóðina og sýnir undirritunarlyklana sem stilla þarf á móttakaranum. |
 | Fjarlægja vefkróka | Fjarlægir skráða Clockify-vefkróka fyrir tímafærslur. |
@@ -49,9 +49,9 @@ Ekkert sem varðar Clockify er stillt á uppsetningarspjaldi Bifröst Foundation
 
 ## Um API lykilinn
 
-Lykillinn er hvorki skrifaður í reit í töflu né birtur í beiðnaskránni. Hann er geymdur í IsolatedStorage á sviði fyrirtækisins, svo hvert fyrirtæki í leigjandanum hefur sinn eigin lykil. **API lykill fyrirtækis geymdur** er lesinn beint úr geymslunni í hvert sinn sem spjaldið er endurnýjað, og þess vegna er ekki hægt að breyta reitnum handvirkt.
+Lykillinn er hvorki skrifaður í reit í töflu né birtur í beiðnaskránni. Hann er geymdur á öruggan hátt í Business Central og hvert fyrirtæki hefur sinn eigin lykil. **API lykill fyrirtækis geymdur** er athugaður í hvert sinn sem spjaldið er endurnýjað, og þess vegna er ekki hægt að breyta reitnum handvirkt.
 
-Búðu lykilinn til í Clockify undir **Profile Settings → API**. Tengingin sendir hann sem hausinn `X-Api-Key` í hverju kalli.
+Búðu lykilinn til í Clockify undir **Profile Settings → API**. Tengingin notar hann í hverju kalli til Clockify.
 
 ## Um vefkróka
 

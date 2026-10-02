@@ -9,27 +9,26 @@ description: "Prepaid and Subscription licensing, the trial, the two message poo
 
 A call counts as **one message** when both of the following are true:
 
-- the message type is chargeable - see [Free message types](#free-message-types);
+- the call is chargeable - see [Free calls](#free-calls);
 - the call succeeded - a JSON response whose `status` is not `Success` is not counted (a non-JSON
   response such as a PDF or a CSV file counts as successful).
 
-Every chargeable call costs exactly one message, whatever the message type.
+Every chargeable call costs exactly one message, whatever it does.
 
-### Free message types
+### Free calls {#free-calls}
 
-These message types are never counted and never refused for quota:
+These calls are never counted and never refused for quota:
 
-| Prefix | What they do |
-|---|---|
-| `Help.*` | Discovery and self-description - the catalogue, a type's contract, who am I, licence status |
-| `Memory.*` | Reading and writing memory records |
-| `Session.*` | Session handling, such as approving a session source |
-| `Webhook.*` | Incoming webhook calls |
-| `ChangeLog.*` | Reading change-log history and restoring field values |
+- discovery and self-description - the list of message types, a type's contract, who am I, licence
+  status;
+- reading and writing memory records;
+- session handling, such as approving a session source;
+- incoming webhook calls;
+- reading change-log history and restoring field values.
 
-The prefix makes a type free only when it belongs to a Bifröst application from Origo. A message
-type that another publisher adds is chargeable whatever its name. Free types still need the
-approved EULA - see [Before the first call](#before-the-first-call).
+They are free only when they belong to a Bifröst application from Origo. A message type that
+another publisher adds is chargeable whatever it does. Free calls still need the approved EULA -
+see [Before the first call](#before-the-first-call).
 
 ### Two pools
 
@@ -42,8 +41,8 @@ Messages are counted in two pools, according to who made the call:
 
 ### Charge types on Subscription {#charge-types}
 
-On Subscription each message is also recorded with a **charge type**, so that your Partner and its
-Vendor can tell real customer usage apart from their own. Every user's charge type is shown in the
+On Subscription each message is also recorded with a **charge type**, so that your regular usage can
+be told apart from work done by your Partner. Every user's charge type is shown in the
 **Charge Type** column of [Bifrost User Setup](/help/foundation/bifrost-user-setup-list/). The first
 rule that matches wins:
 
@@ -69,7 +68,7 @@ daily sync; choose **Sync** to apply them at once.
 
 Every company must approve the **End-User License Agreement (EULA)** in the
 [Setup Wizard](/help/foundation/bifrost-setup-wizard/) before Bifröst processes any call for it.
-Until then every call - including `Help.*` - is answered with an `EULA_REQUIRED` error that points
+Until then every call - including discovery calls - is answered with an `EULA_REQUIRED` error that points
 to the wizard. An administrator can withdraw the approval with **Revoke EULA Approval** on the
 Bifrost Setup page; calls are then refused again until the wizard is completed.
 
@@ -107,9 +106,9 @@ company of the tenant is on Subscription, including companies that start using B
 - **Rate limit.** The Free tier by default; the Customer can choose a higher tier in production.
   See [Rate limits](./rate-limits.md).
 
-When the Partner relationship ends - the Partner cancels the Customer, the Vendor cancels the
-Partner, or the Partner confirms the Customer's leave request - the tenant returns to **Prepaid**
-and its rate limit returns to the Free tier. See [Leaving and cancelling](./leaving-and-cancelling.md).
+When the relationship with the Partner ends, the tenant returns to **Prepaid** and its rate limit
+returns to the Free tier. The change takes effect when a licence administrator chooses **Sync** on
+Bifrost Setup.
 
 ## Monthly quotas
 
@@ -157,7 +156,7 @@ described under [Prepaid](#prepaid).
 - The **License** fact box on the Bifrost Setup page shows the license type, the remaining quota and
   validity of each pool, the messages not yet reported, and the date of the last sync. See
   [License fact box](/help/foundation/license-fact-box/).
-- `Help.Bifrost.Get` returns the same status as `licenseStatus`, and
-  [`Bifrost.Subscription.GetStatus`](/foundation/reference/message-types/bifrost-subscription-getstatus/)
-  returns the tenant's configuration and current-month usage.
+- An AI assistant can read the same status, and the tenant's usage in the current month, through
+  Bifröst. The installed message types and their contracts are read from Business Central itself:
+  the MCP tools `list_message_types` and `describe_message_type`, or the Bifrost Message Types page.
 - The error and warning shapes callers see are in the [Licensing reference](/foundation/reference/licensing/).

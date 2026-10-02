@@ -40,11 +40,8 @@ Use standard Business Central filters to narrow the list. For example:
 
 ## API Access
 
-Integration records can be read and written programmatically via the Bifrost message types:
-
--   **Data.Records.Get** — retrieve integration log entries as JSON
--   **Data.Records.Set** — insert or update integration log entries
--   **CSV.Records.Get** — export the full log as a CSV file for Open Mirroring pipelines
+Integration records can be read and written programmatically through Bifröst's general record
+read and write, and the full log can be exported as a CSV file for Open Mirroring pipelines.
 
 ## Retention Policy
 

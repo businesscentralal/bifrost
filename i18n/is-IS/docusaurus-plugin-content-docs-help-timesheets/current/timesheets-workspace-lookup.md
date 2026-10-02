@@ -14,11 +14,11 @@ Listinn er sóttur frá Clockify í hvert sinn sem uppflettingin opnast, svo han
 | Reitur | Lýsing |
 | --- | --- |
 | Heiti | Heiti Clockify vinnusvæðisins. |
-| Kenni vinnusvæðis | Auðkenni Clockify vinnusvæðisins. Þetta er gildið sem Bifröst-beiðni sendir sem `workspaceId`. |
+| Kenni vinnusvæðis | Auðkenni Clockify vinnusvæðisins. Þetta er gildið sem beiðni nefnir til að velja vinnusvæði. |
 
 ## Hvers vegna sjálfgefið vinnusvæði skiptir máli
 
-Flestar Clockify-skilaboðategundir taka við `workspaceId` í beiðninni. Þegar beiðni sleppir því grípur tengingin til sjálfgefna vinnusvæðisins sem valið er hér. Skráning rauntíma vefkróka krefst líka sjálfgefins vinnusvæðis, því vefkrókur tilheyrir einu vinnusvæði.
+Flestar Clockify-aðgerðir vinna í einu vinnusvæði. Þegar beiðni nefnir ekkert grípur tengingin til sjálfgefna vinnusvæðisins sem valið er hér. Skráning rauntíma vefkróka krefst líka sjálfgefins vinnusvæðis, því vefkrókur tilheyrir einu vinnusvæði.
 
 ## Ef listinn er tómur eða opnast ekki
 

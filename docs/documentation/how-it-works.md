@@ -23,13 +23,13 @@ what can go wrong. The agent reads those descriptions, picks the right operation
 ## Capabilities and message types
 
 Message types are grouped into **capabilities**. The first part of a message type's name says which
-capability it belongs to:
+capability it belongs to. For example:
 
-| Message type | Capability | What it does |
-|---|---|---|
-| `Customer.CreditLimit.Get` | **Customer** | Checks a customer's credit: balance, overdue amount, open orders and what is left |
-| `Sales.Document.Post` | **Sales** | Posts a sales document |
-| `Item.Availability.Get` | **Item** | Works out how much of an item you can promise |
+| Capability | A message type in it does |
+|---|---|
+| **Customer** | Checks a customer's credit: balance, overdue amount, open orders and what is left |
+| **Sales** | Posts a sales document |
+| **Item** | Works out how much of an item you can promise |
 
 - **A message type** is one operation, and it is what an agent calls. Each one describes itself.
 
@@ -45,16 +45,16 @@ flowchart LR
   F --> C2["Capability: Sales"]
   F --> C3["Capability: Finance"]
   T["App: Iceland Treasury"] --> C4["Capability: Landsbankinn"]
-  C1 --> M1["Customer.CreditLimit.Get"]
-  C1 --> M2["Customer.Statement.Pdf"]
-  C2 --> M3["Sales.Document.Post"]
-  C3 --> M4["Finance.BankReconciliation.Match"]
-  C4 --> M5["Landsbankinn.Account.Transactions"]
+  C1 --> M1["Check a credit limit"]
+  C1 --> M2["Customer statement as PDF"]
+  C2 --> M3["Post a sales document"]
+  C3 --> M4["Match a bank reconciliation"]
+  C4 --> M5["Fetch account transactions"]
 ```
 
 *In words: an app adds capabilities, and each capability holds message types. Foundation adds
 Customer, Sales and Finance, among others; Iceland Treasury adds one capability per bank, such as
-Landsbankinn. `Customer.CreditLimit.Get` and `Customer.Statement.Pdf` both belong to Customer.*
+Landsbankinn. Checking a credit limit and printing a customer statement both belong to Customer.*
 
 In the assistant's own tool list, capabilities are called *domains*. They have nothing to do with
 Microsoft's **Copilot & AI Capabilities** page in Business Central, which turns Copilot features on
@@ -93,21 +93,18 @@ is an app that adds its own capabilities to the same catalogue. The [app list](/
 > "How many of item 1896-S can we still promise this week, and where are they?"
 
 1. **The agent searches** the catalogue in your words and gets a short list of candidates.
-2. **It chooses** by their one-line descriptions. `Item.Availability.Get` returns calculated
+2. **It chooses** by their one-line descriptions. The availability operation returns calculated
    availability per location, including reservations and expected receipts, which is what the
    question is about; the on-hand count alone would not answer it.
 3. **It reads the help** of that message type: how to name the item, what comes back.
 4. **It calls it.** Foundation checks that you may, runs it as you and logs the call.
-
-   ![A real call in Claude, with the connector under its temporary name: the assistant asks to run Item.Availability.Get for item 1896-S](/img/setup/claude-invoke-availability.png)
-
 5. **It answers** in plain words, with the figures per location.
 
 A change works the same way, with one more safeguard: the agent can look before it acts.
 
 > "Turn quote SQ-1042 into an order and show me what posting it would do."
 
-The agent calls `Sales.Quote.MakeOrder`, then `Sales.Document.PreviewPost`, which shows the entries
+The agent turns the quote into an order, then previews the posting, which shows the entries
 posting would create **without posting anything**. You see the result before anything is posted,
 and whether the agent may post at all is decided by the permissions of the identity it runs as.
 
@@ -145,7 +142,7 @@ has been built for it, and that is a lot:
 | | How far it reaches | How |
 |---|---|---|
 | **Read** | Most of your data | A general read reaches any table that is not restricted, within your permissions and [Field Access](/documentation/end-customers/administrators/#field-access). Most questions can be answered. |
-| **Do** | What has a message type | Creating, converting, releasing and posting each need their own message type. Foundation's [capabilities](/foundation/capabilities/) cover sales, purchasing, finance, inventory and projects, among others. Not every task in Business Central has one yet. |
+| **Do** | What has a message type | Creating, converting, releasing and posting each need their own message type. Foundation's capabilities cover sales, purchasing, finance, inventory and projects, among others. Not every task in Business Central has one yet. |
 | **Change a field** | A narrow, guarded path | A general write can change fields in a record, by default only the fields the change log covers ([ChangeLog Write Guard](/documentation/end-customers/administrators/#the-setup-page)). It does not replace an operation with Business Central's own logic. |
 
 When there is no message type for a task, the assistant cannot do it through Bifröst, and it should

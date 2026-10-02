@@ -26,10 +26,7 @@ Providers other than Copilot need an API key. The key is never a field on this p
 | **Shared Key Stored** | Whether a company-wide key has been stored for this model. Everyone without a personal key uses it. |
 | **Note** | Appears only while no usable key exists, explaining that the value must be entered once. |
 
-| Secret code | Scope |
-| --- | --- |
-| `LANGMODEL-<Code>-API-KEY` | Company — the shared key |
-| `LANGMODEL-<Code>-USER-API-KEY` | Company and user — the personal key |
+The shared key applies to everyone in the company; a personal key applies only to you, in this company.
 
 Business Central keeps stored secrets separate per extension, so a key entered in an earlier version of the app cannot be carried over. Enter each key once.
 

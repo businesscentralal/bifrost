@@ -2,19 +2,15 @@
 id: usage-and-billing
 title: "Usage and billing"
 sidebar_position: 8
-description: "Who invoices whom, how usage is reported, and the pages and message types Customers, Partners and Vendors use to see it."
+description: "Who invoices your tenant, how its usage is reported, and where you see it in Business Central."
 ---
 
-## Who invoices whom
+## Who invoices you
 
-| Invoice | From | To | Based on |
-|---|---|---|---|
-| Subscription usage | **Partner** | its **Customers** | The messages each customer used in the month, per [charge type](./license-types.md#charge-types), plus a rate-limit tier above Free when the customer chose one - at the prices agreed between them. |
-| Partner billing | **Vendor** | its **Partners** | The Subscription usage and tiers of all customers of each Partner. |
-| Prepaid quota | Origo | a Prepaid tenant | Purchased message quota, per pool. |
-
-Prepaid usage never appears in Partner or Vendor billing. A customer whose relationship ended during
-the period is still included for the Subscription usage it had before the cancellation.
+| License type | Invoiced by | Based on |
+|---|---|---|
+| **Prepaid** | Origo | The message quota you buy, per pool. |
+| **Subscription** | Your Bifröst **Partner** | The messages your tenant used in the month, per [charge type](./license-types.md#charge-types), plus a rate-limit tier above Free if you chose one - at the prices agreed with your Partner. |
 
 ## How usage is reported
 
@@ -34,33 +30,12 @@ messages were used) and the **reporting date** (the day the entry was reported).
 
 ## Where to see usage
 
-| Who | Page | Message type |
-|---|---|---|
-| Every tenant | [License Usage](/help/foundation/license-usage/) - usage entries of your own companies | [`Bifrost.Subscription.GetUsage`](/foundation/reference/message-types/bifrost-subscription-getusage/) (scopes `CurrentCompany`, `CurrentTenant`) |
-| Every tenant | [License fact box](/help/foundation/license-fact-box/) on Bifrost Setup | [`Bifrost.Subscription.GetStatus`](/foundation/reference/message-types/bifrost-subscription-getstatus/) |
-| Partner | [Customer Management](/help/foundation/customer-management/) - month-to-date messages and tier per customer; **View Usage** for the entries | [`Bifrost.Partner.GetBillingSummary`](/foundation/reference/message-types/bifrost-partner-getbillingsummary/), [`Bifrost.Partner.GetCustomers`](/foundation/reference/message-types/bifrost-partner-getcustomers/), `Bifrost.Subscription.GetUsage` (scope `Partner` for yourself, `CustomerTenant`) |
-| Vendor | [Partner Management](/help/foundation/partner-management/) and Customer Management | [`Bifrost.Vendor.GetBillingSummary`](/foundation/reference/message-types/bifrost-vendor-getbillingsummary/), [`Bifrost.Vendor.GetPartners`](/foundation/reference/message-types/bifrost-vendor-getpartners/), [`Bifrost.Vendor.GetCustomers`](/foundation/reference/message-types/bifrost-vendor-getcustomers/), `Bifrost.Subscription.GetUsage` (scopes `Vendor`, `Partner`, `CustomerTenant`) |
+| Page | What it shows |
+|---|---|
+| [License Usage](/help/foundation/license-usage/) | The usage entries of your own companies |
+| [License fact box](/help/foundation/license-fact-box/) on Bifrost Setup | The license type, the remaining quota of each pool, the messages not yet reported and the last sync |
 
-All of these require licence administration permission (the `BIFROST LicAdm ori` permission set);
-the Partner and Vendor views also require the Partner or Vendor role.
-
-## Billing periods
-
-The billing message types take a `period` - `currentMonth` (the default) or `previousMonth` - or an
-explicit `startDate` and `endDate` (`yyyy-MM-dd`), and a `dateBasis`: `usageDate` (the default)
-filters the period on the usage date, `reportedDate` on the reporting date. Their responses include:
-
-- **totals** - customers, customers above the Free tier, messages per charge type (`userMessages`,
-  `appMessages`, `internalMessages`, `demoMessages`, `supportMessages`) and total rate-limit capacity
-  per day;
-- **tiers** - per tier: calls per day, number of customers on it, capacity per day;
-- **rows** - one per customer (or per Partner for `Bifrost.Vendor.GetPartners`) with billing mode,
-  state, messages and tier.
-
-Invoice from the figures of a closed period (`previousMonth`): usage is reported daily, so the
-current month keeps growing until it ends. With `dateBasis` = `reportedDate` a closed period never
-changes afterwards - usage of the last days of a month that is reported in the next month is
-invoiced with the next month.
-
-Internal, Demo and Support usage is reported separately from regular User usage, so that a Partner
-can decide how to invoice it - for example not to invoice its own Internal and Demo usage at all.
+Both require licence administration permission (the `BIFROST LicAdm ori` permission set). An AI
+assistant can read the same figures through Bifröst; the installed message types and their
+contracts are read from Business Central itself: the MCP tools `list_message_types` and
+`describe_message_type`, or the Bifrost Message Types page.

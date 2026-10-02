@@ -6,7 +6,7 @@ sidebar_position: 9
 description: "The marketplace listing copy for this extension: offer name, summary, categories and full description."
 ---
 
-> Copy these texts í Partner Center þegar creating/updating the offer listing.
+> Afritaðu þessa texta inn í Partner Center þegar skráning tilboðsins er búin til eða uppfærð.
 
 ---
 
@@ -14,17 +14,17 @@ description: "The marketplace listing copy for this extension: offer name, summa
 Bifröst Inventory
 
 ## Search Result Summary (max 50 chars)
-Item eiginleikar via Bifröst messages
+Vörueigindir í gegnum Bifröst-skilaboð
 
 ## Offer Summary (max 100 chars)
-Get, create og updagsetning Item Attributes as Bifröst message tegunds on Foundation.
+Lestu, settu og breyttu vörueigindum í Business Central í gegnum Bifröst Foundation.
 
 ## Search Keywords
-1. Item eiginleikar
-2. Inventory
-3. Product eiginleikar
+1. Vörueigindir
+2. Birgðir
+3. Eigindir vara
 4. Bifröst
-5. Business Central integration
+5. Samþætting Business Central
 
 ## Categories
 - **Primary:** Operations > Supply Chain
@@ -40,7 +40,7 @@ Get, create og updagsetning Item Attributes as Bifröst message tegunds on Found
 
 ## Lýsing
 
-The full description text er [below](#full-description-text).
+Heildartexti lýsingarinnar er [hér fyrir neðan](#full-description-text).
 
 ---
 
@@ -49,39 +49,39 @@ https://www.origo.is/
 
 ## Products your app works with
 - Dynamics 365 Business Central
-- Bifrost Foundation (required dependency)
+- Bifrost Foundation (nauðsynleg forsenda)
 
 ---
 
-## Full description text
+## Heildartexti lýsingar {#full-description-text}
 
-**Bifröst Inventory** adds Item Attribute message tegunds to the Bifröst platform — a message-based integration layer that gives external systems, AI agents og automation tools structured access to Business Central via OData. Instead of joining Item, Item Attribute og Item Attribute Value Mapping through generic færsla APIs, callers use dedicated tegunds fyrir get, create, updagsetning og eigind definition create.
+**Bifröst Inventory** bætir aðgerðum fyrir vörueigindir við Bifröst, skilaboðabyggt samþættingarlag sem veitir ytri kerfum, gervigreindarþjónum og sjálfvirkniverkfærum skipulegan aðgang að Business Central um OData. Í stað þess að tengja saman Item, Item Attribute og Item Attribute Value Mapping í gegnum almenn færslu-API nota kallendur sérstakar aðgerðir til að lesa eigindir, setja og breyta gildum og skilgreina eigindir.
 
-### Who er this for?
+### Fyrir hverja?
 
-**Integration developers og AI agents** that need to read eða maintain product eiginleikar on vörur án multi-table joins. Ideal fyrir catalogue sync, PIM-style enrichment og agent-driven master-data verkþættir.
+**Samþættingarforritara og gervigreindarþjóna** sem þurfa að lesa eða viðhalda eigindum vara án þess að tengja saman margar töflur. Hentar fyrir samstillingu vörulista, auðgun vöruupplýsinga og verkefni í grunngögnum sem gervigreindarþjónar vinna.
 
-**Target industries:** manufacturing, distribution, retail — any business that classifies vörur með Business Central vara eiginleikar.
+**Markhópar:** framleiðsla, dreifing, smásala — hvert það fyrirtæki sem flokkar vörur með vörueigindum Business Central.
 
-### What it does
+### Hvað það gerir
 
-- **Item.Attribute.Get** — outbound read of eigind definitions og assigned gildi fyrir one eða more vörur
-- **Item.Attribute.Create** — inbound assign (idempotent; optional overwrite)
-- **Item.Attribute.Updagsetning** — inbound change of an existing mapping með before/after
-- **Item.AttributeDefinition.Create** — inbound create of an eigind definition og optional option gildi
+- **Lesa eigindir** — skilgreiningar eiginda og úthlutuð gildi fyrir eina eða fleiri vörur, valkvætt ásamt eigindum sem hafa ekkert gildi enn
+- **Úthluta gildum** — gefa vöru eigindargildi; ef sama gildi er sett aftur breytist ekkert, og öðru gildi er aðeins skipt út þegar beðið er um það
+- **Breyta gildum** — breyta gildi sem er til, með gildinu fyrir og eftir í svarinu
+- **Skilgreina eigindir** — búa til skilgreiningu eigindar, með valgildum hennar, áður en nokkur vara notar hana
 
-### How it works
+### Hvernig það virkar
 
-1. Install **Bifröst Foundation** og **Bifröst Inventory**
-2. Kallaðu áers send Bifröst messages með the vara in `subject` eða `data`
-3. Results return as structured JSON through the standard Bifröst data API
+1. Settu upp **Bifröst Foundation** og **Bifröst Inventory**
+2. Kallendur nefna vöruna með kerfisauðkenni hennar eða vörunúmeri
+3. Niðurstöður skila sér sem skipulagt JSON í gegnum staðlað gagna-API Bifrastar
 
-### Supported editions og countries
+### Studdar útgáfur og lönd
 
-- **Editions:** Business Central Essentials og Premium
-- **Countries:** Iceland, United Kingdom, Denmark, Norway, Sweden, Finland, Germany, France, Netherlands, Austria, Switzerland, Ireland, Portugal, Spain
+- **Útgáfur:** Business Central Essentials og Premium
+- **Lönd:** Ísland, Bretland, Danmörk, Noregur, Svíþjóð, Finnland, Þýskaland, Frakkland, Holland, Austurríki, Sviss, Írland, Portúgal, Spánn
 
-### Requirements og prerequisites
+### Kröfur og forsendur
 
-- Microsoft Dynamics 365 Business Central 28.0 eða later
-- Bifrost Foundation extension by Origo (available separately on AppSource)
+- Microsoft Dynamics 365 Business Central 28.0 eða nýrra
+- Bifrost Foundation-viðbótin frá Origo (fáanleg sérstaklega á AppSource)

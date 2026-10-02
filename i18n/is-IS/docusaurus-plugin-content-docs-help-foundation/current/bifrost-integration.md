@@ -40,11 +40,8 @@ Notaðu staðlaða Business Central síur til að þrengja listann. Til dæmis:
 
 ## API-aðgangur
 
-Hægt er að lesa og skrifa samþættingarfærslur forritunarlega í gegnum skilaboðagerðir Bifröst:
-
--   **Data.Records.Get** — sæki samþættingarfærslur sem JSON
--   **Data.Records.Set** — settu inn eða uppfærðu samþættingarfærslur
--   **CSV.Records.Get** — flytu út alla skrána sem CSV-skrá fyrir Open Mirroring leiðslur
+Hægt er að lesa og skrifa samþættingarfærslur forritunarlega með almennum lestri og skrifum
+færslna í Bifröst, og flytja alla skrána út sem CSV-skrá fyrir Open Mirroring leiðslur.
 
 ## Varðveislureglur
 

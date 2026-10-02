@@ -37,7 +37,7 @@ Flest fyrirtæki nota eitt sett af bankaauðkennum sem allir deila. Notandi sem 
 
 Á síðunni [Uppsetning Bifröst Ísland Fjárstýringar](./treasury-setup.md) sýnir dálkurinn **Leyndarmál** stöðuna **Fullskráð** eða **Vantar** fyrir hvern banka. Vantar þýðir að minnst eitt leyndarmál sem tengingin þarf hefur ekkert gildi — athugaðu fyrst lykilorð fyrirtækisins, svo skírteinið hjá bönkunum fjórum sem nota það, og loks API-lykilinn hjá Landsbankanum.
 
-Á meðan banki sýnir **Vantar** tilkynna skilaboð hans sig sem óaðgengileg og neita að keyra, í stað þess að hringja í bankann og mistakast þar.
+Á meðan banki sýnir **Vantar** tilkynna aðgerðir hans sig sem óaðgengilegar og neita að keyra, í stað þess að kalla á bankann og mistakast þar.
 
 ## Leyndarmálaskrá Bifrastar
 

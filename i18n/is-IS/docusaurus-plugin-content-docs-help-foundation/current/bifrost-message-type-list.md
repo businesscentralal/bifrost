@@ -11,7 +11,7 @@ Undirsiðan **Tiltækar skilaboðategundir** birtist á síðunni [Bifröst upps
 
 | Dálkur | Lýsing |
 | --- | --- |
-| **Heiti** | Innra heiti skilaboðategundarinnar (t.d. `Customer.CreditLimit.Get`). Þetta er gildið sem notað er í `type` reitnum í Bifröst skilaboðum. |
+| **Heiti** | Heiti skilaboðategundarinnar, þriggja hluta heiti: svið, eining og sögn. Þetta er gildið sem notað er í `type` reitnum í Bifröst skilaboðum. |
 | **Lýsing** | Stutt lýsing á því hvað skilaboðategundin gerir. |
 | **Afmarkanir töflunúmer** | BC töflunúmerið sem þessi skilaboðategund afmarkar, eða `0` ef hún á við allar töflur. |
 | **Stefna** | Hvort skilaboðategundin sé _inn_ (gögn skrifuð í BC) eða _út_ (gögn lesin úr BC). |

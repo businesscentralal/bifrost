@@ -5,9 +5,9 @@ sidebar_label: "Uppsetning Bifröst-geymslu"
 sidebar_position: 4
 ---
 
-Síðan **Uppsetning Bifröst-geymslu** sýnir allar uppsettar geymslutengingar. Hver lína bindur stuttan `Kóða` — gildið sem Bifröst-beiðni sendir sem `storageCode` — við ytri skráareikning í Business Central.
+Síðan **Uppsetning Bifröst-geymslu** sýnir allar uppsettar geymslutengingar. Hver lína bindur stuttan `Kóða`, sem beiðnir nota til að velja tenginguna, við ytri skráareikning í Business Central.
 
-Sama síða er aðgengileg úr [Uppsetningu Bifröst Hnitbjargar](/help/attachments/attachments-setup/), sem er opnuð úr flokknum **Forrit** á **Uppsetningarsíðu** Bifrastar.
+Sama síða er aðgengileg úr [Uppsetningu Bifröst Attachments](/help/attachments/attachments-setup/), sem er opnuð úr flokknum **Forrit** á **Uppsetningarsíðu** Bifrastar.
 
 ## Reitir
 

@@ -7,7 +7,7 @@ sidebar_position: 6
 
 **Enter Clockify API Key** is the dialog that the **Set Company API Key** action on [Timesheets Setup](/help/timesheets/timesheets-setup/) opens. It is the only place the Clockify API key is typed into Business Central.
 
-The field is masked while you type, and the value is not echoed back afterwards. Once you confirm, the key goes straight into IsolatedStorage at company scope — it is never written to a table field, never included in a request log body and never shown again.
+The field is masked while you type, and the value is not echoed back afterwards. Once you confirm, the key is stored securely in Business Central, for this company only — it is never written to a table field, never included in a request log and never shown again.
 
 ## Fields
 

@@ -60,7 +60,7 @@ If either is missing the FactBox simply does not appear on the page – there is
 5.  Write the **Skill** in Markdown, or use **Import Defaults** to download the provider's standard skill text. The skill tells the assistant what it is good at and how it should answer.
 6.  Mark one language model as **Default**. Only one model can be the default, and it is used by everyone who has no personal assignment.
 
-If the chosen provider needs an API key, the chat asks for it the first time you use it and stores it securely in isolated storage. Administrators with the required permission can store a company-wide service key instead, so individual users are not prompted at all.
+If the chosen provider needs an API key, the chat asks for it the first time you use it and stores it securely in Business Central. Administrators with the required permission can store a company-wide service key instead, so individual users are not prompted at all.
 
 ## Per-User Language Model Assignment
 
@@ -109,4 +109,4 @@ When a tool is running, the chat shows which tool it is calling. Tool results ar
 
 -   [Bifrost Language Models](/help/language-models/bifrost-lang-model-list/) – List of all defined language models
 -   [Bifrost Language Model Card](/help/language-models/bifrost-lang-model-card/) – Provider, model settings and skill
--   [Bifrost Language Models Help](/help/language-models/) – Overview of the extension
+-   [Bifrost Language Models](/language-models/) – Overview of the app

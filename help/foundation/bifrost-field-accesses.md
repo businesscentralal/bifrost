@@ -5,7 +5,7 @@ sidebar_label: "Bifrost Field Accesses"
 sidebar_position: 6
 ---
 
-The **Bifrost Field Accesses** page allows administrators to define field-level access restrictions for individual users and Entra ID (AAD) applications. These restrictions control which fields can be read or written through the Bifrost API (`Data.Records.Get` and `Data.Records.Set` message types).
+The **Bifrost Field Accesses** page allows administrators to define field-level access restrictions for individual users and Entra ID (AAD) applications. These restrictions control which fields can be read or written through Bifröst's general record read and write.
 
 Restrictions are user-specific and field-specific, providing fine-grained data protection without modifying existing security roles or permissions. Only fields that have explicit restrictions are affected – all other fields continue to behave normally.
 
@@ -30,8 +30,8 @@ Displays every field restriction defined for the selected user. Each row identif
 | **Field Name** | The name of the field (read-only, populated automatically from Field No.). |
 | **Restriction Type** | Specifies what kind of access is restricted:
 -   **Both** – The field is excluded from read responses and cannot be modified. Most restrictive option.
--   **Read** – The field is excluded from `Data.Records.Get` responses but can still be modified via `Data.Records.Set`.
--   **Write** – The field appears in read responses but cannot be modified via `Data.Records.Set`.
+-   **Read** – The field is excluded from read responses but can still be modified through the general record write.
+-   **Write** – The field appears in read responses but cannot be modified through the general record write.
 -   **Bypass** – The field is excluded from restriction checks entirely. The ChangeLog Write Guard will allow writes to this field regardless of Change Log coverage. This entry does not block read or write access; it only affects the Write Guard evaluation.
 
  |

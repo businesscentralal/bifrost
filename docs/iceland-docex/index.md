@@ -67,13 +67,10 @@ The step-by-step guides are in the in-product help:
 - **Moving from Origo Cloud Events DocEx?** Install this app beside it. Code maps and VAT G/L
   account maps are copied, but credentials do not carry over. Enter them again.
 
-## Capabilities and reference
+## Find the operations
 
-Capability: **`DocumentExchange`**.
+The installed message types and their contracts are read from Business Central itself: the MCP
+tools `list_message_types` and `describe_message_type`, or the Bifrost Message Types page.
 
-What each message type does, in plain words: [Capabilities](./capabilities).
-
-- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
-- [In-product help](/help/iceland-docex/)
 - [AppSource validation scenarios](./user-scenarios) · [AppSource listing text](./listing)
 - Permission sets: extends `BIFROST Full ori` (`DocEx Full ori`) and the standard D365 sets.

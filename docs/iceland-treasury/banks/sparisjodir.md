@@ -3,162 +3,111 @@ id: sparisjodir
 title: "Sparisjóðir"
 sidebar_label: "Sparisjóðir"
 sidebar_position: 5
-description: "Statements, claims, payments, accounts, bills and credit cards at the Icelandic savings banks, exposed as 24 Bifröst message types."
+description: "What Bifröst Iceland Treasury does with the Icelandic savings banks: statements, claims and claim batches, payments, accounts, bills, credit cards, currency rates and statement import."
 ---
 
-The Sparisjóðir module connects Business Central to the Icelandic savings banks over their shared Sambankaskema 2013 B2B services. It exposes 24 message types covering statements, claims and asynchronous claim batches, payments, accounts, bills, credit cards and currency rates, and it imports bank statements into Business Central's own Bank Acc. Reconciliation.
+This page is for the finance team and the Business Central administrator at a company that banks
+with one of the Icelandic savings banks (Sparisjóðir). It explains what the Sparisjóðir connector in
+[Bifröst Iceland Treasury](/iceland-treasury/) does, what you set up, and what you see in Business
+Central afterwards.
 
-The savings banks share a service contract but not a host. One Business Central company integrates with exactly one savings bank, and which one is chosen by configuration rather than by code. See [Bank statement import](#bank-statement-import) below.
+The savings banks offer the same services, each from its own address. A Business Central company
+works with one savings bank, chosen through the statement import format (see below).
 
-## What it covers
+## What it does for you
 
-- **Statements.** Account statements for an account and date range, either as a message response or imported straight into a reconciliation.
-- **Claims (*innheimtukröfur*).** Query claims, one claim or many; query the payments received against them and the transactions that make up a claim's lifecycle.
-- **Claim batches.** Create, alter, cancel and re-create batches of claims, and mark a batch for secondary collection. These are asynchronous — see below.
-- **Payments.** Submit a payment batch and poll for its result.
-- **Accounts.** The accounts the credentials reach, accounts by owner registration number, a single account, and verification that an owner and an account belong together.
-- **Bills and credit cards.** Outstanding bills and bill detail; the credit card list, one card with detail, and card transactions.
+- **Statements into a reconciliation.** Import a statement straight into **Bank Acc.
+  Reconciliation**, or read a statement for any account and period.
+- **Claims (*innheimtukröfur*).** Find claims, see the payments received against them and follow a
+  claim through its life.
+- **Claim batches.** Create, change, cancel and re-create claims in batches, and send a batch to
+  secondary collection. The bank confirms the batch first and reports the outcome afterwards. A
+  confirmed batch does not mean the payer has paid: check the claim payments for that.
+- **Payments.** Send a payment batch and collect its result.
+- **Accounts.** The accounts your bank user reaches, the accounts a kennitala owns, one account's
+  detail, and verification that an owner and an account belong together.
+- **Bills and credit cards.** Outstanding bills and their detail; your credit cards and their
+  transactions.
 - **Currency rates.** The savings bank's published rates.
 
-## Message types
+You, a scheduled routine or an AI assistant can ask for any of these. The installed operations and
+their contracts are read from Business Central itself: the MCP tools `list_message_types` and
+`describe_message_type`, or the Bifrost Message Types page.
 
-The full request and response contract for each type — every field, every error — is in the generated [message type reference](/iceland-treasury/reference/message-types/). `Help.Sparisjodir.Get` returns the same index from inside Business Central.
+## What you set up
 
-### Statements
+1. **An agreement with your savings bank** for the services you use, with a B2B user name, a password
+   and a client signing certificate (a `.pfx` file with its own password).
+2. **The Sparisjóðir row on Bifrost Iceland Treasury Setup**: leave it enabled, enter the company
+   user name, then use **Set Company Password** and **Set Certificate**. See the
+   [setup page help](/help/iceland-treasury/treasury-setup/) and
+   [Draupnir signers](../reference/draupnir-signers.md).
+3. **Personal credentials, if your users have their own login at the bank.** Each user enters their
+   own user name and password on **Bifrost User Setup**; see
+   [Bank credentials for your user](/help/iceland-treasury/bank-user-setup/).
+4. **Statement import, which also selects the savings bank.** On the Business Central bank account,
+   choose your savings bank's format as **Bank Statement Import Format**: `SPAR-IN-SPARAUST`,
+   `SPAR-IN-SPTHIN`, `SPAR-IN-SPSTR` or `SPAR-IN-SPSH`. There is no separate bank field on the setup
+   page. Changes you make to these formats are kept when the app is reinstalled or upgraded.
+5. **Claims.** On each Payment Method used for collection, enter the **Spar Claim Identifier** the
+   bank assigned to that collection agreement. **Spar Last Claim No.** keeps the numbering going. The
+   claimant kennitala is read from Company Information. See
+   [Payment Methods](/help/iceland-treasury/payment-methods/).
+6. **Permissions.** Assign the permission sets below.
 
-| Type | What it does |
-| --- | --- |
-| `Sparisjodir.Statement.Get` | Statement for one account over a date range |
-
-### Claims
-
-| Type | What it does |
-| --- | --- |
-| `Sparisjodir.Claim.Query` | Queries claims |
-| `Sparisjodir.Claim.QueryOne` | Queries a single claim |
-| `Sparisjodir.Claim.QueryPayments` | Payments received against claims |
-| `Sparisjodir.Claim.QueryTransactions` | Claim lifecycle transactions |
-
-### Claim batches
-
-| Type | What it does |
-| --- | --- |
-| `Sparisjodir.Claim.CreateBatch` | Submits a batch of new claims |
-| `Sparisjodir.Claim.AlterBatch` | Submits changes to existing claims |
-| `Sparisjodir.Claim.CancelBatch` | Cancels a batch of claims |
-| `Sparisjodir.Claim.ReCreateBatch` | Re-creates a batch of claims |
-| `Sparisjodir.Claim.MarkBatchForSecCollection` | Marks a batch for secondary collection |
-| `Sparisjodir.Claim.GetOperationResult` | Collects the result of a submitted batch operation |
-
-### Payments
-
-| Type | What it does |
-| --- | --- |
-| `Sparisjodir.Payment.Batch` | Submits a payment batch |
-| `Sparisjodir.Payment.ResultBatch` | Polls a submitted payment batch |
-
-### Accounts
-
-| Type | What it does |
-| --- | --- |
-| `Sparisjodir.Account.Get` | Accounts for the authenticated user |
-| `Sparisjodir.Account.GetByOwner` | Accounts belonging to one owner |
-| `Sparisjodir.Account.GetOne` | One account by bank, ledger and account number |
-| `Sparisjodir.Account.Verify` | Confirms that an owner and an account belong together |
-
-### Bills
-
-| Type | What it does |
-| --- | --- |
-| `Sparisjodir.Bill.Get` | Lists outstanding bills |
-| `Sparisjodir.Bill.GetDetails` | One bill with its detail |
-
-### Credit cards
-
-| Type | What it does |
-| --- | --- |
-| `Sparisjodir.CreditCard.Get` | Lists credit cards |
-| `Sparisjodir.CreditCard.GetOne` | One card with its detail |
-| `Sparisjodir.CreditCard.Transactions` | Transactions on a card |
-
-### Currency rates and help
-
-| Type | What it does |
-| --- | --- |
-| `Sparisjodir.CurrencyRates.Get` | Published currency rates |
-| `Help.Sparisjodir.Get` | Returns a Markdown index of every Sparisjóðir message type |
-
-### Claim batches are asynchronous
-
-A batch operation is not a transfer. The bank accepts the batch and returns an operation id; the outcome is collected afterwards with `Sparisjodir.Claim.GetOperationResult`. A caller submits the batch, keeps the operation id and polls — it does not block waiting for the bank, and a successful submission does not mean the payer has been charged. Use `Sparisjodir.Claim.QueryPayments` and `Sparisjodir.Claim.QueryTransactions` for settlement evidence.
-
-## Setting up
-
-All five bank modules share one setup page, with a row per bank. Open **Bifröst Iceland Treasury Setup**, select the Sparisjóðir row, and set the company-default user name. See the [in-product help](/help/iceland-treasury/treasury-setup/) for the page itself.
-
-Sparisjóðir uses four secrets:
-
-| Secret | Scope | Purpose |
+| Credential | Kept for | Notes |
 | --- | --- | --- |
-| Company password | Company | The company-default B2B password |
-| User password | Per user | Overrides the company password for one user |
-| Client certificate | Company | Signs the SOAP envelopes |
-| Certificate password | Company | Opens the certificate |
+| Company password | The company | The company-default B2B password. |
+| User password | Each user | Used together with the user's own user name. |
+| Client certificate and its password | The company | Signs every request. Its expiry date shows on the setup page. |
 
-Secrets are entered through masked dialogs and stored in Isolated Storage. They are never written to a table and never appear in a response. See [Treasury secrets](/help/iceland-treasury/treasury-secrets/).
+All values are entered in masked dialogs and never shown again; see
+[Bank secrets](/help/iceland-treasury/treasury-secrets/).
 
-A user who needs their own login sets a personal user name and password on their own record; leave those blank and the company defaults apply. See [Bank user setup](/help/iceland-treasury/bank-user-setup/).
+## What you see in Business Central
 
-## Bank statement import {#bank-statement-import}
-
-The module installs **four** Data Exchange definitions of type Bank Statement Import, one per savings bank, together with the matching Bank Export/Import Setup rows:
-
-| Format |
-| --- |
-| `SPAR-IN-SPARAUST` |
-| `SPAR-IN-SPTHIN` |
-| `SPAR-IN-SPSTR` |
-| `SPAR-IN-SPSH` |
-
-Choosing one of these as the **Bank Statement Import Format** on the Business Central bank account is how the savings bank is selected. There is no separate bank field on the setup page; the import format carries that choice.
-
-Importing a statement on a Bank Acc. Reconciliation calls the bank, converts the response and maps it onto reconciliation lines through the standard mapping. When there is no earlier posted statement to derive the window from, the module asks for a start date first — see the [date input dialog](/help/iceland-treasury/date-input-dialog/). After a successful import a read-only [statement import summary](/help/iceland-treasury/statement-import-summary/) shows the account, currency, IBAN, the number of lines imported and the calculated starting and ending balances, and warns when those do not agree with what the reconciliation already held.
-
-The definitions are created once and left alone on reinstall, so changes an administrator makes to them survive an upgrade.
-
-## Claims on Payment Methods
-
-A claim is issued under a collection agreement, and in Business Central that agreement is represented by a Payment Method. The module adds two fields to the base Payment Method table and shows them on the Payment Methods list:
-
-| Field | Purpose |
-| --- | --- |
-| Spar Claim Identifier | The three-character identifier the bank assigned to this collection agreement |
-| Spar Last Claim No. | The last claim number used, so the next claim continues the sequence |
-
-A company can map several Payment Methods to different bank identifiers. The claimant registration number is always read from Company Information and is never stored on the Payment Method. See [Payment methods](/help/iceland-treasury/payment-methods/).
-
-Customer Ledger Entries carry a FactBox showing the Sparisjóður claim account and claim date behind the entry, resolved from the claim line linked to it. The fields stay hidden for users without read access to the claim tables. See [Customer ledger FactBox](/help/iceland-treasury/customer-ledger-factbox/).
+- **Import Bank Statement** on a Bank Acc. Reconciliation fetches the statement from the savings
+  bank. When there is no earlier posted statement to continue from, it asks for a
+  [start date](/help/iceland-treasury/date-input-dialog/). A
+  [Statement Import Summary](/help/iceland-treasury/statement-import-summary/) then shows the account,
+  currency, IBAN, the lines imported and the opening and closing balances, and warns when they do not
+  agree with the bank.
+- **Payment Methods** show the Spar claim identifier and last claim number.
+- The **Customer Ledger Entry** FactBox shows the Sparisjóður claim account and claim date, for users
+  who may read claims. See the
+  [customer ledger FactBox](/help/iceland-treasury/customer-ledger-factbox/).
+- Every call to the bank is logged on the **Bifrost Request Log**, with credentials masked.
 
 ## Permission sets
 
-Each functional area sits behind a gate table with one assignable permission set, so a caller can be granted statement reads without being granted payment execution:
+Each area has its own permission set, so a user can read statements without being able to pay.
 
-| Permission set | Covers |
+| Permission set | Grants |
 | --- | --- |
-| `BIFROST SPStmt ori` | `Sparisjodir.Statement.Get` |
-| `BIFROST SPAcct ori` | The four account message types |
-| `BIFROST SPBill ori` | Bill list and bill detail |
-| `BIFROST SPCard ori` | The three credit card message types |
-| `BIFROST SPClmPmt ori` | Claim queries, claim payments and claim transactions |
-| `BIFROST SPClmCrt ori` | Claim batch create, alter, cancel, re-create, secondary collection and the operation result |
-| `BIFROST SPPaymt ori` | Payment batch submission and results |
+| `BIFROST SPStmt ori` | Statements |
+| `BIFROST SPAcct ori` | Account lookups and verification |
+| `BIFROST SPBill ori` | Bills |
+| `BIFROST SPCard ori` | Credit cards and card transactions |
+| `BIFROST SPClmPmt ori` | Finding claims, claim payments and claim history |
+| `BIFROST SPClmCrt ori` | Claim batches and their results |
+| `BIFROST SPPaymt ori` | Payment batches and their results |
 
-Two further sets extend Bifröst Foundation rather than standing alone. `BIFROST SPFull ori` extends `BIFROST Full ori`, so anyone with full Bifröst access reaches the whole Sparisjóðir integration. `BIFROST SPRdClm ori` extends `BIFROST Read ori` with read access to the claim header and claim line tables.
+`BIFROST SPFull ori` extends Foundation's `BIFROST Full ori`, so anyone with full Bifröst access
+reaches all of Sparisjóðir. `BIFROST SPRdClm ori` extends `BIFROST Read ori` with read access to
+claims.
 
-## Replacing the published app
+## Moving from Cloud Events Sparisjóðir
 
-This module succeeds the per-tenant app *Cloud Events Sparisjóðir*. The successor is a separate app, so both can be installed side by side while the switch is made.
+Install Bifröst Iceland Treasury beside the old app. On first install it takes over the Sparisjóðir
+data (claims, claim and payment batches, the claim fields on Payment Methods, the users' Sparisjóðir
+settings, the company user name and the users' permission set assignments), then you can remove the
+old app. Data already in the new app is never overwritten.
 
-On its first install the module takes the predecessor's data over: claim headers, lines and batches, payment batches and lines, and the gate tables are copied table by table. Fields that live on shared base tables — the claim identifier and last claim number on Payment Method, and the Sparisjóðir fields on Bifröst User Setup — are copied field by field, because their field numbers moved with the new object range. Existing user assignments of the old permission sets are re-pointed at the sets that replace them. A table that already holds rows is left alone, so a second install never overwrites live data.
+**The password, certificate and certificate password do not carry over.** Enter them once after the
+switch.
 
-Stored secrets do not carry over. Isolated Storage is scoped per extension, and the successor is a different extension, so the password, certificate and certificate password are entered again after the switch. The company-default user name is carried across with the rest of the setup.
+## Where to go next
+
+- [Iceland Treasury overview](/iceland-treasury/)
+- [Draupnir signers](../reference/draupnir-signers.md): the client certificate
+- [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/)

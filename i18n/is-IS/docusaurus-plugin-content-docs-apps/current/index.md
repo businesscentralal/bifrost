@@ -25,11 +25,11 @@ sem þú þarft.
 
 Hvert forrit hefur tvenns konar síður á þessum vef:
 
-| | Kafli forritsins (til dæmis [Foundation](/foundation/)) | Hjálp forritsins (til dæmis [hjálp Foundation](/help/foundation/)) |
+| | Kafli forritsins (til dæmis [Foundation](/foundation/)) | Hjálparsíður forritsins |
 |---|---|---|
-| **Hvað þar stendur** | Hvað forritið bætir við og skilaboðagerðirnar sem því fylgja | Til hvers ein síða í Business Central er, reitir hennar og aðgerðir |
-| **Hver les** | Þau sem velja forrit, kerfisstjórar, forritarar og gervigreindarþjónar sem fletta upp skilaboðagerð | Notandi á síðunni, sem opnar hjálpina úr Business Central með hjálparhnappnum |
-| **Hvar það finnst** | Valmyndin **Forrit** | Valmyndin **Hjálp**, eða úr Business Central |
+| **Hvað þar stendur** | Hvað forritið bætir við, á máli Business Central | Til hvers ein síða í Business Central er, reitir hennar og aðgerðir |
+| **Hver les** | Þau sem velja forrit, kerfisstjórar og forritarar | Notandi á síðunni, sem opnar hjálpina úr Business Central með hjálparhnappnum |
+| **Hvar það finnst** | Valmyndin **Forrit** | Úr hjálpartákninu á hverri Bifröst-síðu í Business Central |
 
 Gervigreindarþjónn þarf hvorugt: hann spyr Bifröst hvaða skilaboðagerðir eru til og les hjálp þeirra
 beint.

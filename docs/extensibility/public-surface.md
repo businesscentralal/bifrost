@@ -74,7 +74,7 @@ What an app does at install and upgrade is in [Platform integration in START-HER
 | `Message Events ori` | React when a message completes or fails (also available as business events for external subscribers), and add to Foundation's overview and line-to-header table mapping. |
 | `Preview Events ori` | Add fields and calculated values to posting-preview responses. |
 | `Webhook Inbound Events ori` | Handle an inbound webhook payload and mark it as handled. |
-| `Data Records Set Events ori` | Inspect a record, or add your own validation, while `Data.Records.Set` writes it. |
+| `Data Records Set Events ori` | Inspect a record, or add your own validation, while Foundation's general record write saves it. |
 
 ## Pluggable behaviour
 

@@ -27,5 +27,5 @@ sidebar_position: 4
 ## Ábendingar
 
 -   Þessi síða er lesskráð. Færslur eru settar inn sjálfkrafa af eyðingaraðgerðum og er ekki hægt að breyta eða eyða af notendaviðmóti.
--   Hægt er að nota **Kerfisauðkenni færslu** með `Data.DeletedRecordIds.Get` skilaboðategundinni til að staðfesta eyðingar frá ytri kerfum.
+-   Ytri kerfi geta borið **Kerfisauðkenni færslu** saman við eigin færslur til að staðfesta eyðingar.
 -   JSON-gögn eru aðeins tiltæk þegar **Vista færslu** er virkt á viðeigandi töflu í [uppsetningu eyðingarskráningar](/help/foundation/bifrost-delete-setup/).

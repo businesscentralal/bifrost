@@ -6,17 +6,16 @@ sidebar_position: 7
 
 Þessi síða lýsir samningnum sem kallandi sér: hvaða köll eru talin, villunum sem kalli getur verið
 hafnað með, viðvörununum sem árangursríkt svar getur borið og gögnum leyfisstöðunnar. Um sjálft
-leyfislíkanið - fyrirframgreitt leyfi og áskrift, prufuleyfið, hlutverk söluaðila, samstarfsaðila
-og viðskiptavinar og hver rukkar hvern - sjá [Leyfi og samstarfsáætlun](/licensing/).
+leyfislíkanið - fyrirframgreitt leyfi og áskrift, prufuleyfið, potta og kvóta - sjá [Leyfi](/licensing/).
 
 ## Hvað er talið
 
 Skilaboð draga **eina** einingu úr potti kallandans þegar **allt** eftirfarandi á við:
 
-- Skilaboðategundin er **ekki undanþegin**. Tegundirnar `Help.*`, `Memory.*`, `Session.*`,
-  `Webhook.*` og `ChangeLog.*` í Bifröst-forritum Origo eru undanþegnar - þær draga aldrei af kvóta
-  og þeim er aldrei hafnað vegna kvóta. Forskeytið gildir aðeins fyrir tegundir í kennisviði Origo;
-  tegund sem annar útgefandi bætir við er gjaldskyld hvað sem hún heitir.
+- Skilaboðategundin er **ekki undanþegin**. Tegundir uppgötvunar, minnis, setu, vefkróka og
+  breytingasögu í Bifröst-forritum Origo eru undanþegnar - þær draga aldrei af kvóta og þeim er
+  aldrei hafnað vegna kvóta. Tegund sem annar útgefandi bætir við er gjaldskyld hvað sem hún heitir.
+  Sjá [Gjaldfrjáls köll](/licensing/license-types/#free-calls).
 - Skilaboðin voru unnin **með árangri** (JSON-svar þar sem `status` er annað en `Success` er ekki
   talið; svör sem eru ekki JSON, t.d. PDF/CSV, teljast hafa tekist).
 
@@ -43,7 +42,7 @@ og kallið er hvorki unnið né talið.
 
 | Röð | Skilyrði | Á við um | Svar |
 |---|---|---|---|
-| 1 | Fyrirtækið hefur ekki samþykkt notendaleyfissamninginn | Öll köll, líka `Help.*` | `code: "EULA_REQUIRED"`, `setupUrl`, `setupWizardUrl` |
+| 1 | Fyrirtækið hefur ekki samþykkt notendaleyfissamninginn | Öll köll, líka uppgötvunarköll | `code: "EULA_REQUIRED"`, `setupUrl`, `setupWizardUrl` |
 | 2 | Útleið HTTP-beiðnir eru ekki leyfðar fyrir Bifröst Foundation | Gjaldskyld köll, utan sandkassa | Villan nefnir uppsetningarsíðuna |
 | 3 | Prufuleyfið hefur ekki verið virkjað | Gjaldskyld köll, utan sandkassa | `activationMethod: "Setup"`, `requestUrl` |
 | 4 | Mánaðarlegum kvóta notandans er náð | Báðar tegundir leyfa, utan sandkassa | `quotaScope: "user"`, `requestUrl` |
@@ -109,22 +108,24 @@ skilaboð eftir - fyrirframgreiddur pottur eða mánaðarlegur kvóti.
 ```
 
 Síðan Uppsetning Bifröst sýnir einnig tilkynningu þegar annar hvor fyrirframgreiddi potturinn fer
-undir 1.000.
+undir 200.
 
 ## Dagleg samstilling notkunar
 
 Notkun er tilkynnt til leyfisþjónustunnar einu sinni á dag **fyrir hvert fyrirtæki**. Fyrstu
 gjaldskyldu skilaboð dagsins setja af stað bakgrunnsverk sem tilkynnir gjaldskyld skilaboð hvers
 liðins dags eftir potti og endurnýjar eftirstöðvarnar í skyndiminni. **Samstilla** á síðunni
-Uppsetning Bifröst gerir það sama strax, að meðtöldum skilaboðum dagsins, og virkjar auk þess boð og
-uppsagnir - sjá [Úrsögn og uppsögn](/licensing/leaving-and-cancelling/). Notkun er
-tilkynnt eftir **tætigildi fyrirtækis** undir **tætigildi leigjanda**.
+Uppsetning Bifröst gerir það sama strax, að meðtöldum skilaboðum dagsins, og virkjar auk þess
+breytingu á sambandi leigjandans við samstarfsaðila - sjá
+[Hvernig leigjandi færist á milli tegunda leyfa](/licensing/#how-a-tenant-moves-between-license-types).
+Notkun er tilkynnt eftir **tætigildi fyrirtækis** undir **tætigildi leigjanda**.
 
 ## Staða skoðuð {#checking-status}
 
-- `Help.Bifrost.Get` skilar núverandi leyfisstöðu sem `licenseStatus`.
-- [`Bifrost.Subscription.GetStatus`](/foundation/reference/message-types/bifrost-subscription-getstatus/)
-  skilar stillingum leigjandans, leyfisstöðu og notkun yfirstandandi mánaðar.
+- Gervigreindaraðstoðarmaður getur lesið leyfisstöðuna og notkun leigjandans í yfirstandandi
+  mánuði í gegnum Bifröst. Uppsettar skilaboðategundir og samningar þeirra eru lesnir úr Business
+  Central sjálfu: með MCP-tólunum `list_message_types` og `describe_message_type` eða á síðunni
+  Bifrost Message Types; henni er skilað sem `licenseStatus`.
 - Upplýsingareiturinn **Leyfi** á síðunni Uppsetning Bifröst sýnir sömu upplýsingar auk fjölda
   ótilkynntra skilaboða og dagsetningar síðustu samstillingar.
 
@@ -132,7 +133,7 @@ tilkynnt eftir **tætigildi fyrirtækis** undir **tætigildi leigjanda**.
 "licenseStatus": {
   "tenantIdHash": "a7f3c1…",
   "companyIdHash": "b2d4e6…",
-  "companyName": "CRONUS International Ltd.",
+  "companyName": "Contoso Ltd.",
   "user":            { "remaining": 812, "valid": true, "blockOnMissingQuota": true },
   "appRegistration": { "remaining": -40, "valid": true, "blockOnMissingQuota": false }
 }

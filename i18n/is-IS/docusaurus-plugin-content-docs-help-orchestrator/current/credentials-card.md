@@ -26,12 +26,7 @@ sidebar_position: 2
 
 ## Leyndarmál
 
-| Kóði leyndarmáls | Umfang |
-| --- | --- |
-| `CREDENTIAL-<Kóði>-CLIENT-ID` | Fyrirtæki |
-| `CREDENTIAL-<Kóði>-CLIENT-SECRET` | Fyrirtæki |
-
-`<Kóði>` er kóði færslunnar með hástöfum. Kóði sem er of langur er styttur á fyrirsjáanlegan hátt, svo tveir líkir kóðar deila aldrei leyndarmáli. Þegar færslunni er eytt eru bæði gildin hreinsuð.
+Bæði gildin eru geymd á öruggan hátt í Business Central, aðeins fyrir þetta fyrirtæki, og eru aldrei sýnd aftur. Þegar færslunni er eytt eru bæði gildin hreinsuð.
 
 ## Ábendingar
 

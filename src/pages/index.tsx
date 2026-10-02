@@ -230,20 +230,6 @@ export default function Home(): ReactNode {
                 <Translate id="home.extensibility.cta">Start building</Translate> <span aria-hidden="true">→</span>
               </span>
             </Link>
-            <Link className="bifrostPath" to="/skills/">
-              <h3>
-                <Translate id="home.skills.title">Skills for AI agents</Translate>
-              </h3>
-              <p>
-                <Translate id="home.skills.body">
-                  What an agent loads before it works with Business Central through Bifröst: the
-                  envelope, the rules and the mistakes to avoid.
-                </Translate>
-              </p>
-              <span className="bifrostPathCta">
-                <Translate id="home.skills.cta">Skills</Translate> <span aria-hidden="true">→</span>
-              </span>
-            </Link>
           </div>
         </div>
       </section>

@@ -29,5 +29,3 @@ krefst hlutverks söluaðila og leyfisstjórnunarheimildar.
 | **Skoða viðskiptavini** | Opnar [Umsjón viðskiptavina](/help/foundation/customer-management/) fyrir viðskiptavini valins samstarfsaðila, aðeins til lestrar. |
 | **Skoða notkun** | Opnar [notkunarfærslur](/help/foundation/license-usage/) viðskiptavina valins samstarfsaðila. |
 | **Segja upp samstarfsaðila** | Segir upp völdum samstarfsaðila í stöðunni **Open**, með valfrjálsri [ástæðu](/help/foundation/cancel-reason/). Við næstu samstillingu samstarfsaðilans er skráningu hans lokað og hver viðskiptavinur hans fer aftur á fyrirframgreitt leyfi við sína næstu samstillingu. |
-
-Sjá [Að starfa sem söluaðili](/licensing/vendor/).

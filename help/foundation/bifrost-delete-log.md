@@ -27,5 +27,5 @@ The **Bifrost Delete Log** is a read-only audit log that records every deletion 
 ## Tips
 
 -   This page is read-only. Records are inserted automatically by the delete-logging triggers and cannot be edited or removed from the UI.
--   The **Record System Id** can be matched against the `Data.DeletedRecordIds.Get` message type to confirm deletions from external systems.
+-   External systems can match the **Record System Id** against their own records to confirm deletions.
 -   JSON data is only available when **Store Record** is enabled on the corresponding table in [Delete Setup](/help/foundation/bifrost-delete-setup/).

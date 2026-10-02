@@ -5,7 +5,7 @@ sidebar_label: "Bifröst geymslutenging"
 sidebar_position: 3
 ---
 
-Spjaldið **Bifröst geymslutenging** stillir eina geymslutengingu. Það bindur `storageCode` við ákveðinn Business Central skráareikning og tengil, með valkvæðri grunnslóð fyrir allar aðgerðir.
+Spjaldið **Bifröst geymslutenging** stillir eina geymslutengingu. Það bindur kóða við ákveðinn Business Central skráareikning og tengil, með valkvæðri grunnslóð fyrir allar aðgerðir.
 
 ## Almennt
 

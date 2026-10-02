@@ -22,4 +22,4 @@ Open the page from the **BIS30 Code Map** action on [Bifröst DocEx Setup](/help
 ## Tips
 
 -   One source code may only be mapped once per map type. Use **Blocked** rather than deleting when a mapping should stop applying but the history matters.
--   The Peppol reference lists themselves are available without credentials through the `DocumentExchange.BIS30.*` message types — use them to look up the valid source codes.
+-   The Peppol reference lists themselves are available without credentials: ask Bifröst (for example through your AI assistant) for the Peppol BIS 3.0 code lists to look up the valid source codes.

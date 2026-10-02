@@ -4,7 +4,7 @@ title: "Bifröst Orchestrator"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Job Queue scheduling, monitoring and restart for Business Central, plus declarative playbooks that chain Bifröst message types."
+description: "Job Queue scheduling, monitoring and restart for Business Central, plus playbooks that chain Business Central operations into routines."
 ---
 
 # Bifröst Orchestrator
@@ -19,8 +19,8 @@ operations into a playbook, run it on a schedule, and hear about it when somethi
 
 ## What you can do
 
-- **Turn a routine into a playbook.** A playbook is a list of steps, each one a message type, where
-  one step's answer feeds the next: list the orders past their date, then release them, then tell
+- **Turn a routine into a playbook.** A playbook is a list of steps, each one an operation in
+  Business Central, where one step's answer feeds the next: list the orders past their date, then release them, then tell
   the right person. No code.
 - **Run it when it should run.** By hand, on a schedule through the Job Queue, or when an assistant
   or another system asks for it.
@@ -33,8 +33,7 @@ operations into a playbook, run it on a schedule, and hear about it when somethi
   presets.
 
 Playbooks can use message types from any Bifröst app, so every app you add gives your routines more
-to work with. An assistant can also build playbooks for you by conversation; see
-[Skills for AI agents](/skills/).
+to work with. An assistant can also build playbooks for you by conversation.
 
 ## Get it
 
@@ -62,12 +61,11 @@ and [Playbooks](/help/orchestrator/playbooks/).
   one where there is none, and one with a bad input.
 - **The Telegram bot token** is stored encrypted in Business Central.
 
-## Capabilities and reference
+## Reference
 
-Capability: **`Orchestrator`**. What each message
-type does, in plain words: [Capabilities](./capabilities).
+The installed message types and their contracts, including the operations a playbook step can call,
+are read from Business Central itself: the MCP tools `list_message_types` and
+`describe_message_type`, or the **Bifrost Message Types** page.
 
-- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
-- [In-product help](/help/orchestrator/)
 - [AppSource listing text](./listing) · [AppSource validation scenarios](./user-scenarios)
 - [What makes a good playbook step](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/Bifrost%20Reference%20Playbooks/README.md), in the partner reference repository

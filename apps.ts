@@ -6,7 +6,7 @@
  *   - a help plugin instance  `help-<id>`   served at  /{locale}/help/<id>/
  *
  * The help route is a contract with Business Central: an app sets
- *   contextSensitiveHelpUrl = https://bifrost.origo.is/{0}/help/<id>/
+ *   contextSensitiveHelpUrl = https://docs.bifrost.origo.is/{0}/help/<id>/
  * and BC appends the page's ContextSensitiveHelpPage slug.
  */
 export type BifrostApp = {
@@ -57,5 +57,4 @@ export const crossAppInstances = [
   {id: 'licensing', title: 'Licensing'},
   {id: 'apps', title: 'Apps'},
   {id: 'extensibility', title: 'Extensibility'},
-  {id: 'skills', title: 'Skills'},
 ];

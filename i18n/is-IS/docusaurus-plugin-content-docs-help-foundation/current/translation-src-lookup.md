@@ -13,7 +13,7 @@ Listinn er fylltur sjálfkrafa í hvert skipti sem síðan opnast með því að
 
 | Dálkur | Lýsing |
 | --- | --- |
-| **Uppruni** | Upprunaauðkennið sem flokkar saman safn af þýðingafærslum. Þetta er yfirleitt nafn skilaboðategundar, nafn einingar eða auðkenni ytri kerfis — til dæmis `Customer.CreditLimit.Get` eða `MinnaðlagingMin`. |
+| **Uppruni** | Upprunaauðkennið sem flokkar saman safn af þýðingafærslum. Þetta er yfirleitt nafn skilaboðategundar, nafn einingar eða auðkenni ytri kerfis — til dæmis `MinnaðlagingMin`. |
 
 ## Notkun
 

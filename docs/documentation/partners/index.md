@@ -38,23 +38,17 @@ When you do the steps for a customer, three things stay theirs:
 - **The decisions in step 4**, on what agents may see and how long logs are kept, belong to whoever
   owns the data. [Administrators](/documentation/end-customers/administrators/) explains what they
   are deciding.
-- **Accepting your invitation**, if the customer licenses Bifröst through you: see
-  [Being a Customer](/licensing/customer/).
+- **Accepting your invitation**, if the customer licenses Bifröst through you: it moves the
+  customer's tenant to the [Subscription license](/licensing/license-types/#subscription).
 
 ## Selling and licensing
 
-A partner can license Bifröst to its customers and follow their usage. To become a Bifröst
-partner, contact [The App Channel](https://www.theappchannel.com/).
-
-- [Licensing and partner program](/licensing/): the roles, and who invoices whom
-- [Working as a Partner](/licensing/partner/): registering, inviting customers,
-  following their usage
-- [Working as a Vendor](/licensing/vendor/): for a vendor with its own partners
-
+To become a Bifröst partner, contact [The App Channel](https://www.theappchannel.com/). How your
+customers are licensed is described under [Licensing](/licensing/).
 
 ## Supporting a customer
 
-- The [in-product help](/help/foundation/) has a page for every Bifröst page in Business Central.
+- The in-product help has a page for every Bifröst page in Business Central.
 - **[Bifrost Messages](/help/foundation/bifrost-messages/)** shows every call, with the request and
   the answer, so you can see what an agent asked for and what it got back. A consultant with the
   `BIFROST Read ori` permission set in the customer's Business Central can open it; agree that with
@@ -83,6 +77,5 @@ sold like any other part of your app.
 - The [partner reference repository](https://github.com/businesscentralal/bc-bifrost-reference):
   a working example app and the full guide
 - [Register your app](/apps/register-your-app/): list it among the apps built on Bifröst
-- [Skills for AI agents](/skills/): what agents load to work with Bifröst
 
 **Next:** [Set it up](/setup/), the steps you will take with each customer.

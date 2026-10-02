@@ -5,7 +5,7 @@ sidebar_label: "Bifrost User Setup"
 sidebar_position: 29
 ---
 
-The **Bifrost User Setup** page displays per-user configuration for the Bifrost extension. Each record stores a system prompt and optional linked-record overrides that control how AI-powered message types (such as `Help.WhoAmI.Get`) resolve user context.
+The **Bifrost User Setup** page displays per-user configuration for the Bifrost extension. Each record stores a system prompt and optional linked-record overrides that control how an AI assistant resolves who the user is (the user profile it reads about the caller).
 
 ## Fields
 
@@ -14,8 +14,8 @@ The **Bifrost User Setup** page displays per-user configuration for the Bifrost 
 | **User Security ID** | The unique security identifier of the Business Central user. |
 | **User Name** | The display name of the user (read-only, derived from the User Security ID). |
 | **Charge Type** | Read-only. What this user's messages are charged as: **User**, **App Registration**, and on Subscription **Internal**, **Demo** or **Support**. Set when the user is set up and updated by **Sync** on Bifröst Setup and by the daily usage sync. See [Charge types on Subscription](/licensing/license-types/#charge-types). |
-| **System Prompt** | Prompt text appended to AI context for this user. Managed through the `User Setup Mgt ori` codeunit or the User Setup Editor card. |
-| **G/L Account No.** | Optional G/L account override used by `Help.WhoAmI.Get` for balance reporting. |
+| **System Prompt** | Prompt text appended to AI context for this user. Managed on the User Setup Editor card. |
+| **G/L Account No.** | Optional G/L account override used in the user profile for balance reporting. |
 | **Employee No.** | Optional employee override for the user's identity context. |
 | **Customer No.** | Optional customer override linked to this user. |
 | **Vendor No.** | Optional vendor override linked to this user. |
@@ -27,5 +27,5 @@ The **Bifrost User Setup** page displays per-user configuration for the Bifrost 
 ## Tips
 
 -   Non-administrator users see only their own record on this page.
--   The `Help.WhoAmI.Get` message type uses these fields to resolve linked records and the system prompt.
+-   The user profile an assistant reads uses these fields to resolve linked records and the system prompt.
 -   When a link field is empty, the response falls back to standard BC resolution (e.g. Time Sheet Owner for Resource, User Setup for Salesperson).

@@ -5,7 +5,7 @@ sidebar_label: "Undanþágur breytingaskrárverndar"
 sidebar_position: 56
 ---
 
-**Undanþágur breytingaskrárverndar** telur upp þær töflur og þau svæði sem `Data.Records.Set` má
+**Undanþágur breytingaskrárverndar** telur upp þær töflur og þau svæði sem almenn skrif færslna í Bifröst mega
 skrifa í jafnvel þótt **Breytingaskrárvernd** í [Uppsetning Bifröst](/help/foundation/bifrost-setup/)
 sé **Lokað** eða **Með þvingunarheimild** og svæðið sé ekki vaktað í breytingaskránni.
 

@@ -18,7 +18,7 @@ The page is opened from the **Apps** group on the Bifröst **Setup** page. There
 | **Job Queue User ID** | The user that owns the management job queue entry. That user must be allowed to run job queue entries. Blank means the current user. Shown on-premises only. |
 | **Job Queue Orchestrator Status** | Read-only status of the management job queue entry. Drill down to open the underlying job queue entry and refresh the status. |
 | **Emit Telemetry** | Emits telemetry for every execution the orchestrator performs. |
-| **Telegram Bot Token** | Read-only status showing whether a bot token has been stored. The value itself is never displayed — it lives in the Bifröst secret store under the code `TELEGRAM-BOT-TOKEN`. |
+| **Telegram Bot Token** | Read-only status showing whether a bot token has been stored. The value itself is never displayed — it lives in the Bifröst secret store. |
 
 ## Job Queues
 
@@ -40,31 +40,24 @@ The **Job Queues** part lists the orchestrator entries registered in this compan
 
 ## Secrets
 
-Bifröst Orchestrator keeps every credential in the Bifröst Foundation secret store rather than in its own tables. The values are written to Isolated Storage, are never shown again, and never reach a table, a log or telemetry.
-
-| Secret code | Scope | Used for |
-| --- | --- | --- |
-| `TELEGRAM-BOT-TOKEN` | Company | The Telegram Bot API token used to send notifications. |
-| `CREDENTIAL-<Code>-CLIENT-ID` | Company | The OAuth 2.0 client id of one [client credentials](/help/orchestrator/credentials-card/) record. |
-| `CREDENTIAL-<Code>-CLIENT-SECRET` | Company | The OAuth 2.0 client secret of that record. |
+Bifröst Orchestrator keeps every credential in the Bifröst Foundation secret store rather than in its own tables: the Telegram bot token used to send notifications, and the OAuth 2.0 client id and client secret of each [client credentials](/help/orchestrator/credentials-card/) record. The values are stored securely in Business Central for this company, are never shown again, and never reach a table, a log or telemetry.
 
 Business Central keeps stored secrets separate per extension, so values entered in an earlier version of the app — or in the legacy Origo Cloud Events orchestrator — cannot be carried over. Enter each value once after installing.
 
-## Setup notification
+## Outbound HTTP
 
-When you open the page, the extension checks two things and shows a notification if either is missing:
+Telegram notifications and calls to external services go over HTTP, so the extension needs outbound HTTP client requests. The Bifröst setup wizard turns them on for every installed Bifröst app at once. Until they are on, the **Bifröst Setup** page shows a notification with the action **Start setup wizard**, and anything that needs HTTP fails with an error saying that HTTP client requests are not enabled for the extension.
 
-| Situation | Message |
-| --- | --- |
-| **HTTP blocked and the queue is not running** | HTTP client requests are blocked and the orchestrator job queue is not running. |
-| **HTTP blocked only** | HTTP client requests are not enabled for this extension. |
-| **Queue not running only** | The orchestrator job queue is not running. |
+The Orchestrator's own [assisted setup](/help/orchestrator/scheduler-setup-wizard/) also checks outbound HTTP and starts the management job queue.
 
-Each notification carries a **Run Setup Wizard** action that opens the [assisted setup](/help/orchestrator/scheduler-setup-wizard/) at the step that fixes the problem.
+## Getting started
 
-A second notification counts the secrets that still have no value, with an action that opens the App Secrets list. It disappears once every registered secret has been entered.
+1.  Open **Bifröst Setup**. If it shows the HTTP notification, choose **Start setup wizard** and complete the wizard first.
+2.  Run the [Bifrost Orchestrator Setup](/help/orchestrator/scheduler-setup-wizard/) assisted setup to start the management job queue.
+3.  Open this page from the **Apps** group on **Bifröst Setup** and check that **Job Queue Orchestrator Status** shows the queue running.
+4.  Enter the Telegram bot token and any client credentials your entries and playbooks use.
 
 ## Tips
 
--   If the status field shows that the queue is not running, either use **Restart Job Queue** here or run the [setup wizard](/help/orchestrator/scheduler-setup-wizard/).
+-   If the status field shows that the queue is not running, either use **Restart Job Queue** here or run the [assisted setup](/help/orchestrator/scheduler-setup-wizard/).
 -   The Telegram bot token is only needed when an orchestrator entry or a scheduled playbook uses the _Telegram_ notification type.

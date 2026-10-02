@@ -4,7 +4,7 @@ title: "Bifröst Language Models"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "AI chat for Business Central: language models, seven chat providers, an MCP tool server and a one-shot completion message type."
+description: "AI chat for Business Central: language models, seven chat providers, an MCP tool server and one-shot completions for routines."
 ---
 
 # Bifröst Language Models
@@ -29,8 +29,8 @@ permissions.
   and purchase documents, ledger entries and incoming documents. **Focus** opens it on a full page.
 - **Choose your provider.** Copilot, OpenAI, Azure OpenAI, Anthropic, Google Gemini, xAI or your
   own model. Copilot needs no API key.
-- **Use a model inside a routine.** `LLM.Prompt.Complete` gives a playbook or a scheduled task one
-  answer from a model, for example to classify or summarise a document.
+- **Use a model inside a routine.** A playbook or a scheduled task can ask a model for one answer,
+  for example to classify or summarise a document.
 
 ## Get it
 
@@ -61,12 +61,11 @@ The step-by-step guide is in the in-product help:
 - **Your conversations go to the provider you choose**, under your agreement with that provider.
   See [Where your data goes](/documentation/how-it-works/#where-your-data-goes).
 
-## Capabilities and reference
+## Reference
 
-Capability: **`LLM`**. What each message type does, in plain words: [Capabilities](./capabilities).
+The installed message types and their contracts are read from Business Central itself: the MCP
+tools `list_message_types` and `describe_message_type`, or the **Bifrost Message Types** page.
 
-- [Message type reference](./reference/message-types/): the contract of every type, generated from the app itself
-- [Chat message types](./message-types) and [Adding a chat provider](./extensibility)
-- [In-product help](/help/language-models/)
+- [Adding a chat provider](./extensibility)
 - Permission sets: `BIFROST LLM ori` or `BIFROST LLM Rd ori` for the app, `BIFROST Chat ori` for
   chat, `BIFROST ChatSvc ori` for setting a shared key.

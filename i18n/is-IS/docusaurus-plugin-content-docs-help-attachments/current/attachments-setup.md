@@ -5,11 +5,11 @@ sidebar_label: "Uppsetning Attachments"
 sidebar_position: 5
 ---
 
-**Uppsetning Bifröst Hnitbjargar** er eina uppsetningarsíða geymslueiningarinnar. Allt sem viðbótin þarf að láta kerfisstjóra stilla er aðgengilegt héðan, og síðan er opnuð úr flokknum **Forrit** á **Uppsetningarsíðu** Bifrastar.
+**Uppsetning Bifröst Attachments** er eina uppsetningarsíða geymslueiningarinnar. Allt sem viðbótin þarf að láta kerfisstjóra stilla er aðgengilegt héðan, og síðan er opnuð úr flokknum **Forrit** á **Uppsetningarsíðu** Bifrastar.
 
 ## Geymslutengingar
 
-Síðan sýnir uppsettar geymslutengingar. Hver lína bindur stuttan `Kóða` — gildið sem Bifröst-beiðni sendir sem `storageCode` — við skráðan skráareikning í Business Central. Veljið línu til að opna [geymslutengingarspjaldið](/help/attachments/storage-card/) og breyta eða prófa þá tengingu.
+Síðan sýnir uppsettar geymslutengingar. Hver lína bindur stuttan `Kóða`, sem beiðnir nota til að velja tenginguna, við skráðan skráareikning í Business Central. Veljið línu til að opna [geymslutengingarspjaldið](/help/attachments/storage-card/) og breyta eða prófa þá tengingu.
 
 Auðkenni eru áfram í tengilsviðbótum Business Central. Þessi viðbót geymir aðeins tilvísun í skráareikning, aldrei lykil eða teikn.
 
@@ -22,15 +22,15 @@ Auðkenni eru áfram í tengilsviðbótum Business Central. Þessi viðbót geym
 | **Uppsetning Bifröst geymslu** | Opnar heildarlistann [Uppsetning Bifröst-geymslu](/help/attachments/storage-setup/) yfir geymslutengingar. |
 | **Hreinsa upphleðslulotur** | Eyðir yfirgefnum bútuðum upphleðslulotum og bitum þeirra. Lotur sem aldrei voru staðfestar eða hætt við skilja eftir gögn; þessi aðgerð fjarlægir þau. |
 
-## Tilkynning við uppsetningu
+## HTTP á útleið
 
-Allar geymslur eru sóttar um HTTP. Þegar **Leyfa HttpClient-beiðnir** er ekki virkt fyrir viðbótina birtir síðan tilkynningu með tveimur aðgerðum: **Keyra leiðsagnarforrit**, sem opnar leiðsagnaruppsetninguna, og **Opna stillingar viðbótar**, sem fer beint í stillinguna.
+Allar geymslur eru sóttar um HTTP, svo viðbótin þarf að mega senda HTTP-biðlarabeiðnir. Uppsetningarleiðsögn Bifrastar kveikir á þeim fyrir öll uppsett Bifröst-forrit í einu. Þangað til birtir síðan **Uppsetning Bifrastar** tilkynningu með aðgerðinni **Hefja uppsetningarleiðsögn**, og hver beiðni sem les eða skrifar skrár um geymslutengingu mistekst með villu um að HTTP-biðlarabeiðnir séu ekki virkar fyrir viðbótina.
 
 ## Fyrstu skref
 
 1.  Setjið upp tengilsviðbót fyrir skráageymslu í Business Central og stillið skráareikning í henni.
-2.  Opnið **Uppsetningu Bifrastar** og veljið **Uppsetning Bifröst Hnitbjargar** í flokknum **Forrit**.
-3.  Hreinsið HTTP-tilkynninguna ef hún birtist.
+2.  Opnið **Uppsetningu Bifrastar**. Ef hún sýnir HTTP-tilkynninguna, veljið þá fyrst **Hefja uppsetningarleiðsögn** og ljúkið leiðsögninni.
+3.  Veljið **Uppsetning Bifröst Attachments** í flokknum **Forrit**.
 4.  Bætið við geymslutengingu sem bindur stuttan kóða við skráareikninginn.
 5.  Prófið tenginguna á [geymslutengingarspjaldinu](/help/attachments/storage-card/).
-6.  Sendið Bifröst-skilaboð með `"storageCode": "ÞINN-KÓÐI"` í beiðninni.
+6.  Vísið á tenginguna með kóða hennar í beiðnum sem lesa eða skrifa skrár.

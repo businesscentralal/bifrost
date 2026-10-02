@@ -22,7 +22,7 @@ Bankarnir fimm eru allir stilltir eins: aðalrofi, notandanafn og safn leyndarm�
 | Reitur | Lýsing |
 |---|---|
 | **Banki** | Íslenski bankinn sem línan stillir: Landsbankinn, Arion banki, Íslandsbanki, Kvika banki eða Sparisjóðir. |
-| **Virkt** | Hvort tengingin megi keyra. Slökktu á henni til að stöðva öll skilaboð þess banka án þess að eyða stillingunum. Nýjar línur byrja virkar. |
+| **Virkt** | Hvort tengingin megi keyra. Slökktu á henni til að stöðva allar aðgerðir þess banka án þess að eyða stillingunum. Nýjar línur byrja virkar. |
 | **Notandanafn** | Sjálfgefna B2B-notandanafnið sem bankinn gaf út fyrir fyrirtækið. Notandi getur skráð eigin yfirskrift í **notandastillingum Bifrastar**. |
 | **Leyndarmál** | Hvort öll leyndarmál sem bankinn þarf hafi verið skráð. Sýnir **Fullskráð** með grænu, eða **Vantar** upplýst. |
 | **Grunnslóð** | Valfrjáls yfirskrift á endapunkti, falin sjálfgefið. Skildu eftir autt til að nota innbyggða framleiðsluendapunkt tengingarinnar. Notaðu hana aðeins fyrir prófunargátt. |

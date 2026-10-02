@@ -3,7 +3,7 @@ id: developers
 title: "Connecting to Bifröst"
 sidebar_label: "Developers"
 sidebar_position: 3
-description: "For developers at a Business Central customer: connect another system, drive Bifröst from an agent, and find the reference for every message type."
+description: "For developers at a Business Central customer: connect another system, drive Bifröst from an agent, and find what each message type does."
 ---
 
 # Connecting to Bifröst: for developers
@@ -46,8 +46,6 @@ sequenceDiagram
 ```
 
 - [API reference](/foundation/reference/api/): endpoints, the message envelope and response shapes
-- [Authentication](/skills/bifrost-bc-integration/references/authentication/): the base address,
-  the token scope and the company segment
 - [Errors](/foundation/reference/errors/): what an error answer contains
 - [Events and webhooks](/foundation/reference/events-and-webhooks/): being told instead of polling
 - [INTEGRATING guide](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/INTEGRATING.md)
@@ -55,27 +53,19 @@ sequenceDiagram
 
 ## Drive it from an AI agent
 
-[Skills for AI agents](/skills/) are what an agent loads before it works with Business Central
-through Bifröst: the envelope, the rules and the mistakes to avoid.
+Connect an AI assistant through the Origo BC MCP server: see [Connect your AI](/setup/connect-your-ai/).
+The assistant reads the installed message types and their contracts from Business Central itself.
 
 ## Find what a message type does
 
 Message types are grouped into [capabilities](/documentation/how-it-works/#capabilities-and-message-types):
-the first part of the name, `Customer` in `Customer.CreditLimit.Get`. In the MCP server's tools a
-capability is called a *domain* (`list_domains`, `describe_domains`).
+the first part of a message type's name, such as `Customer`. In the MCP server's tools a capability
+is called a *domain* (`list_domains`, `describe_domains`).
 
 The catalogue is live: an agent or system asks Bifröst which message types exist
 (`Help.MessageTypes.Get`) and reads each one's contract (`Help.Implementation.Get`). That answer is
-always current for your environment.
-
-For reading ahead, each app has a message type reference generated from the app itself, for example
-[Foundation's](/foundation/reference/message-types/). Other apps: from the [app list](/apps/).
-Two to start with:
-
-- [Sales.Document.Create](/foundation/reference/message-types/sales-document-create/) creates a sales
-  document header; its help says how to add the lines.
-- [Item.Availability.Get](/foundation/reference/message-types/item-availability-get/) returns
-  availability per location.
+always current for your environment. The same list is on the Bifrost Message Types page in Business
+Central, and the MCP tools `list_message_types` and `describe_message_type` read it too.
 
 ## What it counts
 

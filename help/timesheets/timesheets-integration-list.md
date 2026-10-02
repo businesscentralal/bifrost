@@ -7,7 +7,7 @@ sidebar_position: 3
 
 The **Timesheets Integration** page lists the links between Business Central records and Clockify objects — which Business Central customer is which Clockify client, which project is which Clockify project, which Work Type is which Clockify tag, and so on. The connector reads these links when it synchronises time entries, so a Clockify entry can be resolved to the right Business Central job, resource and work type.
 
-The page is an administrative view and cannot be edited. Links are created and maintained by integrators through the Bifröst `Data.Records.Get` and `Data.Records.Set` message types, not from this page. It is reached from the **Integration Links** action on [Timesheets Setup](/help/timesheets/timesheets-setup/).
+The page is an administrative view and cannot be edited. Links are created and maintained by integrators through Bifröst's generic operations for reading and writing records, not from this page. It is reached from the **Integration Links** action on [Timesheets Setup](/help/timesheets/timesheets-setup/).
 
 ## Fields
 

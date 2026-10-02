@@ -19,7 +19,7 @@ Bifrost Iceland Treasury
 Icelandic bank integrations for Business Central: statements, claims, payments and currency rates. (98)
 
 ## Short Description (max 100 chars)
-Landsbankinn, Arion, Íslandsbanki, Kvika and Sparisjóðir as Bifrost message types. (82)
+Landsbankinn, Arion, Íslandsbanki, Kvika and Sparisjóðir connected to Business Central. (87)
 
 ## Search Keywords
 1. Iceland banking
@@ -76,9 +76,9 @@ https://www.origo.is/skilmalar-og-oryggismal
 
 ## Full description
 
-**Bifrost Iceland Treasury** connects Business Central to the Icelandic banks. It builds on Bifrost — a message-based integration layer that gives external systems, AI agents and automation tools structured access to Business Central data and procedures via OData — and exposes claims, payments, statements, accounts, cards, currency rates and electronic documents as message types. Any MCP-compatible client, REST caller or Business Central process reaches every bank through the same Queue → Task → Data API pattern used across the Bifrost platform, without custom development.
+**Bifrost Iceland Treasury** connects Business Central to the Icelandic banks. It builds on Bifrost — a message-based integration layer that gives external systems, AI agents and automation tools structured access to Business Central data and procedures via OData — and makes claims, payments, statements, accounts, cards, currency rates and electronic documents available through it. Any MCP-compatible client, REST caller or Business Central process reaches every bank through the same Queue → Task → Data API pattern used across the Bifrost platform, without custom development.
 
-The app adds 158 message types on top of **Bifrost Foundation**, covering five banks in one extension.
+The app is installed on top of **Bifrost Foundation** and covers five banks in one extension.
 
 ### Who is this for?
 
@@ -96,7 +96,7 @@ The app adds 158 message types on top of **Bifrost Foundation**, covering five b
 | **Kvika banki** | Claim query and the asynchronous claim batch operations, account statement, currency rates, payment batch and payment result batch. |
 | **Sparisjóðir** | Statements, claims and asynchronous claim batches, payments, currency rates, accounts, bills and credit cards, with statement import for each of the four savings-bank feeds. |
 
-Each bank has its own domain help codeunits, so the built-in `Help.Implementation.Get` message type answers for every type with its exact request and response contract.
+Every operation describes itself: its exact request and response contract is read live from Business Central with `Help.Implementation.Get`.
 
 ### Draupnir — the shared signing framework
 
@@ -120,15 +120,15 @@ An assisted setup wizard walks through the same settings one bank at a time, inc
 
 ### Security
 
-Passwords, client certificates, certificate passwords, API keys and the Íslandsbanki bank certificate are held in the extension's encrypted storage. They are never written to a table, never included in telemetry and never returned to a page — the setup page reports only whether a value is present. Outgoing SOAP envelopes are masked in the shared Bifrost request log unless request debug mode is switched on.
+Passwords, client certificates, certificate passwords, API keys and the Íslandsbanki bank certificate are held in encrypted storage. They are never written to a table, never included in telemetry and never returned to a page — the setup page reports only whether a value is present. Outgoing SOAP envelopes are masked in the shared Bifrost request log unless request debug mode is switched on.
 
-Message types that move money or change state at the bank sit behind access gates, one assignable permission set per gate, so a caller can be granted statement reads without being granted payment execution. Each bank also ships a full set that extends Bifrost Foundation's `BIFROST Full ori`, and the claim-carrying banks add a read-only claims set that extends `BIFROST Read ori`.
+Operations that move money or change state at the bank sit behind their own assignable permission sets, so a caller can be granted statement reads without being granted payment execution. Each bank also ships a full set that extends Bifrost Foundation's `BIFROST Full ori`, and the claim-carrying banks add a read-only claims set that extends `BIFROST Read ori`.
 
 ### Replacing the published apps
 
-Bifrost Iceland Treasury is the successor of five earlier connectors: *Origo Cloud Events Landsbankinn*, *Origo Cloud Events Arionbanki*, and the per-tenant *Cloud Events Íslandsbanki*, *Cloud Events Kvika banki* and *Cloud Events Sparisjóðir*. Each module has an install codeunit that takes the predecessor's data over on first install while both apps are installed side by side — claims, batches, gate tables, the fields that live on shared base tables, and the existing permission-set assignments. A table that already holds rows is left alone, so a second install never overwrites live data.
+Bifrost Iceland Treasury is the successor of five earlier connectors: *Origo Cloud Events Landsbankinn*, *Origo Cloud Events Arionbanki*, and the per-tenant *Cloud Events Íslandsbanki*, *Cloud Events Kvika banki* and *Cloud Events Sparisjóðir*. The predecessor's data is taken over on first install while both apps are installed side by side — claims, batches, the bank fields on standard Business Central records, and the existing permission-set assignments. A table that already holds rows is left alone, so a second install never overwrites live data.
 
-Stored credentials do **not** carry over. Isolated Storage belongs to the extension that wrote it and the successor is a new app, so passwords, certificates and API keys are entered once after the switch.
+Stored credentials do **not** carry over: the successor is a new app, so passwords, certificates and API keys are entered once after the switch.
 
 ### Supported editions and countries
 

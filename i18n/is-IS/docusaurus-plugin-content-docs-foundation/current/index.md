@@ -17,13 +17,13 @@ Business Central; hin Bifröst-forritin bæta hvert við sínu.
 | Skilja hvað það gerir | [Hvernig Bifröst virkar](/documentation/how-it-works/) (á ensku í bili) |
 | Setja það upp | [Uppsetning](/setup/) (á ensku í bili) |
 | Prófa það fyrst | [Prófaðu](/try-it-out/) (á ensku í bili) |
-| Vita til hvers síða í Business Central er | [Hjálp Foundation](/help/foundation/) |
+| Vita til hvers síða í Business Central er | Hjálpartáknið á hverri Bifröst-síðu í Business Central |
 
 ## Tæknilegt yfirlit
 
 *Það sem eftir er af síðunni er fyrir forritara og samstarfsaðila.*
 
-Bifröst Foundation breytir viðskiptarökum Business Central í API sem hægt er að kalla á og lýsir sér sjálft. Ytra kerfi sendir CloudEvents-umslag á biðraðar-API-ið (`origo/bifrost/v1.0`), Business Central keyrir viðeigandi **skilaboðagerð** — `Customer.CreditLimit.Get`, `Sales.Document.Post`, `Data.Records.Set` — og niðurstaðan kemur til baka í gegnum svar-API-ið, ýmist samstillt eða úr bakgrunnskeyrslu.
+Bifröst Foundation breytir viðskiptarökum Business Central í API sem hægt er að kalla á og lýsir sér sjálft. Ytra kerfi sendir CloudEvents-umslag á biðraðar-API-ið (`origo/bifrost/v1.0`), Business Central keyrir viðeigandi **skilaboðagerð**, til dæmis lánamarksathugun viðskiptamanns, bókun sölubókhaldsskjals eða almenna skráningu gagna, og niðurstaðan kemur til baka í gegnum svar-API-ið, ýmist samstillt eða úr bakgrunnskeyrslu.
 
 Allt annað í Bifrastar-fjölskyldunni er forrit sem byggir ofan á þessu og bætir sínum eigin skilaboðagerðum í safnið. Foundation sér um flutninginn, biðröðina, leyfin, leyndarmálageymsluna, beiðnaskrána, tungumálaskiptin og uppgötvunina; forritið ofan á skrifar viðskiptarökin og hjálparskjalið.
 
@@ -34,8 +34,8 @@ Allt annað í Bifrastar-fjölskyldunni er forrit sem byggir ofan á þessu og b
 - **Sjálflýsandi** — `Help.MessageTypes.Get` skilar safninu og `Help.Implementation.Get` skilar fullum beiðni- og svarsamningi einnar gerðar sem Markdown, þannig að gervigreindarumboð getur fundið og kallað á gerð sem það hefur aldrei séð.
 - **Stækkanlegt frá grunni** — forrit ofan á bætir við gildi í `enumextension` og einni kóðaeiningu sem útfærir `Msg Interface ori`; ekkert breytist í Foundation.
 - **Öryggi á svæðastigi** — lestur og skrif á einstök svæði má takmarka eftir notanda eða Entra-forriti, ofan á venjulegar heimildir Business Central.
-- **Vörn breytingaskrár við skrif** — `Data.Records.Set` má takmarka við svæði sem breytingaskrá Business Central nær yfir, svo hver skrif í gegnum API skilja eftir sig slóð.
-- **Ein leyndarmálageymsla** — öll forrit fjölskyldunnar skrá aðgangsupplýsingar sínar hjá Foundation og sækja þær með einu kalli; gildin liggja í Isolated Storage og eru hulin í beiðnaskránni.
+- **Vörn breytingaskrár við skrif** — almenna skráningu gagna má takmarka við svæði sem breytingaskrá Business Central nær yfir, svo hver skrif í gegnum API skilja eftir sig slóð.
+- **Ein leyndarmálageymsla** — öll forrit fjölskyldunnar skrá aðgangsupplýsingar sínar hjá Foundation og sækja þær með einu kalli; gildin eru aldrei geymd í töflum og eru hulin í beiðnaskránni.
 - **Atburðir og vefkrókar** — ytri viðskiptaatburðir kvikna þegar skilaboð klárast eða mistakast, svo kallendur fá að vita í stað þess að þurfa að spyrja.
 
 ## Hvernig það virkar
@@ -47,13 +47,11 @@ Allt annað í Bifrastar-fjölskyldunni er forrit sem byggir ofan á þessu og b
 
 ## Hvert skal halda næst
 
-- [Leiðbeiningar um skilaboðagerðir](./message-types/) — hvað hvert viðskiptasvið staðlaða safnsins getur gert
 - [API-viðmiðun](./reference/api/) — endapunktar, umslagið, auðkenning og form svara
 - [Uppsetningarviðmiðun](./reference/setup/) — Bifröst uppsetningarsíðan og útfærsluaðferðirnar að baki henni
-- [Viðmiðun skilaboðagerða](./reference/message-types/) — beiðni- og svarsamningur hverrar gerðar, myndaður úr forritinu sjálfu
-- [Hjálp í kerfinu](/help/foundation/) — ein síða fyrir hverja Business Central síðu í forritinu
+- Uppsettar skilaboðagerðir og samningar þeirra eru lesnir úr Business Central sjálfu: MCP-tólin `list_message_types` og `describe_message_type`, eða síðan Bifrost Message Types
+- Hjálp í kerfinu — ein síða fyrir hverja Business Central síðu í forritinu
 - [Byggðu á Bifröst](/extensibility/) — hvernig forrit ofan á er skrifað
-- [Kunnátta fyrir gervigreindarumboð](/skills/) — hvernig umboð á að keyra API-ið
 
 ## Kröfur
 

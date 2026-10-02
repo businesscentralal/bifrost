@@ -37,10 +37,3 @@ er sérvalda þrepið fjarlægt.
 Aðeins er hægt að velja þrep á meðan leigjandinn er tengdur samstarfsaðila. Þegar sambandinu við
 samstarfsaðilann lýkur og leigjandinn fer aftur á fyrirframgreitt leyfi er þrepið sjálfkrafa
 endurstillt á **Frítt**.
-
-## Hvað samstarfsaðilinn og söluaðilinn sjá
-
-Samstarfsaðilar og söluaðilar sjá þrep hvers viðskiptavinar, köll hans á dag og hvort hann er
-**yfir fría þrepinu** á [Umsjón viðskiptavina](/help/foundation/customer-management/), og samtölur
-fyrir hvert þrep í skilaboðategundum reikningsfærslunnar - sjá
-[Notkun og reikningsfærsla](./usage-and-billing.md).

@@ -5,8 +5,7 @@ sidebar_position: 5
 ---
 
 **Yfirskjal:** [API_Reference.md](/foundation/reference/api/)  
-**Útfærslumappa:** `app/src/Task/`  
-**Kóðaeining:** `Message Events ori` (Kóðaeining 10078250)
+**Kóðaeining:** `Message Events ori`
 
 ---
 
@@ -42,7 +41,6 @@ viðskiptaviðburði:
 
 Allar Bifröst vefkrókstilkynningar falla undir:
 - **Heiti flokks**: "Origo Bifröst"
-- **Viðburðaflokksviðbót**: Enum Extension 10077886 `Category ori`
 
 Þennan flokk má nota til að sía og skipuleggja viðburðaáskriftir í Business Central.
 
@@ -65,8 +63,7 @@ að ná í öll svarsgögn.
 
 **Viðburðarheiti:** `BifrostMessageCompleted`  
 **Birtiheiti viðburðar:** `Bifrost Message Completed`  
-**Viðburðaflokkur:** `Origo Bifrost`  
-**Gefinn út af:** Kóðaeining 10078251 `Message Task ori`
+**Viðburðaflokkur:** `Origo Bifrost`
 
 ### Þegar viðburðurinn er gefinn út
 
@@ -75,7 +72,7 @@ Viðburðurinn er gefinn út **eftir** að skilaboð í bifrost hafa verið afgr
 1. Skilaboð eru lögð í biðröð í gegnum Queue API eða Task API
 2. Úrvinnsla skilaboðanna hefst (í gegnum bakgrunnsverkefni eða samstillt)
 3. Útfærslan keyrir viðskiptalegar aðgerðir með velgengi
-4. Svarsgögn eru geymd í `Message ori` töflunni
+4. Svarsgögn eru geymd með skilaboðunum á **Bifrost Messages**
 5. **Viðburðurinn er gefinn út** með MessageId, MessageType og tímastimpli lokunar
 6. Vefkrókstilkynning er send til allra áskrifenda
 7. Áskrifendur fá tilkynningu og geta sótt svarsgögn
@@ -85,7 +82,7 @@ Viðburðurinn er gefinn út **eftir** að skilaboð í bifrost hafa verið afgr
 ```json
 {
   "MessageId": "a8f5f167-8f2c-4a42-9b3e-5c6c7d8e9f0a",
-  "MessageType": "Customer.CreditLimit.Get",
+  "MessageType": "{message-type}",
   "ResponseContentLink": "/api/origo/bifrost/v1.0/responses(a8f5f167-8f2c-4a42-9b3e-5c6c7d8e9f0a)/data",
   "Timestamp": "2026-03-08T14:30:22Z"
 }
@@ -96,7 +93,7 @@ Viðburðurinn er gefinn út **eftir** að skilaboð í bifrost hafa verið afgr
 | Reitur | Tegund | Lýsing |
 |---|---|---|
 | `MessageId` | Guid | Einkvæmt auðkenni skilaboðanna. Notaðu þetta til að kalla GET /bifrostData(MessageId) til að ná í öll svarsgögn. |
-| `MessageType` | Text[250] | Tegund skilaboðanna sem klárast (t.d. "Customer.CreditLimit.Get", "Data.Records.Get"). Hægt að nota til leiðarins eða síunar. |
+| `MessageType` | Text[250] | Heiti skilaboðategundarinnar sem kláraðist. Hægt að nota til leiðarins eða síunar. |
 | `ResponseContentLink` | Text[250] | Bein API-tengill til að sækja svarsgögn. Notaðu þessa slóð til að ná í öll svar án þess að smíða API-slóðina handvirkt. |
 | `Timestamp` | DateTime | Þegar skilaboðin klárðust (ISO 8601 snið). |
 
@@ -155,8 +152,7 @@ sequenceDiagram
 
 **Viðburðarheiti:** `BifrostMessageFailed`  
 **Birtiheiti viðburðar:** `Bifrost Message Failed`  
-**Viðburðaflokkur:** `Origo Bifrost`  
-**Gefinn út af:** Kóðaeining 10078249 `Message Error ori`
+**Viðburðaflokkur:** `Origo Bifrost`
 
 ### Þegar viðburðurinn er gefinn út
 
@@ -165,7 +161,7 @@ Viðburðurinn er gefinn út **eftir** að úrvinnsla skilaboða í bifrost hefu
 1. Skilaboð eru lögð í biðröð í gegnum Queue API eða Task API
 2. Úrvinnsla skilaboðanna hefst (í gegnum bakgrunnsverkefni eða samstillt)
 3. Útfærslan lendir í villu eða sannvottun mistekst
-4. Villuupplýsingar eru fangaðar og geymdar í `Message ori` töflunni
+4. Villuupplýsingar eru fangaðar og geymdar með skilaboðunum á **Bifrost Messages**
 5. **Viðburðurinn er gefinn út** með MessageId, MessageType og tímastimpli mistaks
 6. Vefkrókstilkynning er send til allra áskrifenda
 7. Áskrifendur fá tilkynningu og geta sótt villuupplýsingar
@@ -175,7 +171,7 @@ Viðburðurinn er gefinn út **eftir** að úrvinnsla skilaboða í bifrost hefu
 ```json
 {
   "MessageId": "b9f6f267-9f3d-5b52-0c4f-6d7d8e9f1b1b",
-  "MessageType": "Data.Records.Set",
+  "MessageType": "{message-type}",
   "ResponseContentLink": "/api/origo/bifrost/v1.0/responses(b9f6f267-9f3d-5b52-0c4f-6d7d8e9f1b1b)/data",
   "Timestamp": "2026-03-08T14:35:18Z"
 }
@@ -186,7 +182,7 @@ Viðburðurinn er gefinn út **eftir** að úrvinnsla skilaboða í bifrost hefu
 | Reitur | Tegund | Lýsing |
 |---|---|---|
 | `MessageId` | Guid | Einkvæmt auðkenni skilaboðanna. Notaðu þetta til að kalla GET /bifrostQueue(MessageId) til að ná í villuupplýsingar. |
-| `MessageType` | Text[250] | Tegund skilaboðanna sem mistókst (t.d. "Data.Records.Set", "Sales.Document.Release"). |
+| `MessageType` | Text[250] | Heiti skilaboðategundarinnar sem mistókst. |
 | `ResponseContentLink` | Text[250] | Bein API-tengill til að sækja villuupplýsingar. Notaðu þessa slóð til að ná í villusvari án þess að smíða API-slóðina handvirkt. |
 | `Timestamp` | DateTime | Þegar úrvinnsla skilaboðanna mistókst (ISO 8601 snið). |
 
@@ -204,7 +200,7 @@ Authorization: Bearer {token}
 ```json
 {
   "id": "b9f6f267-9f3d-5b52-0c4f-6d7d8e9f1b1b",
-  "type": "Data.Records.Set",
+  "type": "{message-type}",
   "specversion": "1.0",
   "source": "MyIntegrationApp v1.0",
   "time": "2026-03-08T14:35:15Z",
@@ -231,83 +227,6 @@ vandamálin. Sjá [Villur og viðvaranir](./errors.md). Villusvör innihalda ald
 - **Sjálfvirk endursendingarreyna**: Ytri kerfi geta útfært endurhleðslu-rök með veldisreiknum bið
 - **Villugreining**: Ná í nákvæmar villuupplýsingar til úrræðaleitunar
 - **SLA-eftirlit**: Fylgjast með úrvinnslubilonum og svartíma
-
----
-
-## Samþættingarviðburðir
-
-Auk Ytri viðskiptaviðburða fyrir vefkróka veitir Bifröst viðbótin **Samþættingarviðburði**
-sem leyfa öðrum Business Central viðbótum að bregðast við skilaboðalíftímaviðburðum.
-
-### OnBeforeBifrostMessageProcessing
-
-**Tilgangur:** Gefinn út áður en úrvinnsla skilaboða í bifrost hefst.
-
-**Viðburðartegund:** IntegrationEvent  
-**Aðgengi:** Internal  
-**Gefinn út af:** Kóðaeining 10078251 `Message Task ori`
-
-**Undirskrift:**
-```al
-[IntegrationEvent(false, false)]
-internal procedure OnBeforeBifrostMessageProcessing(var BifrostMessage: Record "Message ori")
-```
-
-**Færibreytur:**
-- `BifrostMessage`: Skilaboðafærslan sem er að fara í vinnslu (sent með tilvísun, hægt að breyta)
-
-**Notkunartilvik:**
-- **Sannprófun fyrir úrvinnslu**: Sannreyna gögn skilaboða áður en úrvinnsla hefst
-- **Gagnabæting**: Bæta við viðbótarsamhengi eða lýsigögnum við skilaboðin
-- **Telemetría**: Skrá upphaf úrvinnslu skilaboða
-- **Sérsniðin leiðsögn**: Breyta tegund eða gögnum skilaboða byggt á sérsniðnum rökum
-
-### OnAfterBifrostMessageCompleted
-
-**Tilgangur:** Gefinn út eftir að skilaboð í bifrost hefur lokið með velgengi.
-
-**Viðburðartegund:** IntegrationEvent  
-**Aðgengi:** Internal  
-**Gefinn út af:** Kóðaeining 10078251 `Message Task ori`
-
-**Undirskrift:**
-```al
-[IntegrationEvent(false, false)]
-internal procedure OnAfterBifrostMessageCompleted(var BifrostMessage: Record "Message ori")
-```
-
-**Færibreytur:**
-- `BifrostMessage`: Skráin fyrir klárað skilaboðið (sent með tilvísun)
-
-**Notkunartilvik:**
-- **Vinnsla eftirá**: Framkvæma viðbótaraðgerðir eftir velgengna úrvinnslu
-- **Gagnassamstilling**: Samstilla gögn skilaboða við aðrar töflur eða kerfi
-- **Telemetría**: Skrá lokunarmælingar (tímalengd, stærð o.s.frv.)
-- **Verkflæðishlekkjun**: Hefja háð verkflæði eða ferla
-
-### OnAfterBifrostMessageFailed
-
-**Tilgangur:** Gefinn út eftir að úrvinnsla skilaboða í bifrost hefur mistekist.
-
-**Viðburðartegund:** IntegrationEvent  
-**Aðgengi:** Internal  
-**Gefinn út af:** Kóðaeining 10078249 `Message Error ori`
-
-**Undirskrift:**
-```al
-[IntegrationEvent(false, false)]
-internal procedure OnAfterBifrostMessageFailed(var BifrostMessage: Record "Message ori"; ErrorText: Text)
-```
-
-**Færibreytur:**
-- `BifrostMessage`: Skráin fyrir misheppnaðan skilaboðið (sent með tilvísun)
-- `ErrorText`: Texti villuskilaboðanna
-
-**Notkunartilvik:**
-- **Villuskráning**: Skrá villur í sérsniðnar skráningartöflur
-- **Viðvörunargerð**: Senda viðvaranir í gegnum tölvupóst eða aðrar leiðir
-- **Sjálfvirk bata**: Reyna sjálfvirka endurheimtu eða lagfæringu gagna
-- **Greiningar**: Fylgjast með villumynstrum og bilunartíðni
 
 ---
 
@@ -543,7 +462,7 @@ curl -X POST "https://your-bc-instance/api/origo/bifrost/v1.0/queues" \
   -H "Content-Type: application/json" \
   -d '{
     "specversion": "1.0",
-    "type": "Help.Tables.Get",
+    "type": "Help.MessageTypes.Get",
     "source": "Webhook Test v1.0"
   }'
 ```
