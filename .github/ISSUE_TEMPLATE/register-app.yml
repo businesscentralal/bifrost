@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        See [Register your app](https://bifrost.origo.is/en-us/apps/register-your-app/)
+        See [Register your app](https://docs.bifrost.origo.is/en-us/apps/register-your-app/)
         for the full rules. Every field below maps directly to one field in
         `data/apps.json`.
 

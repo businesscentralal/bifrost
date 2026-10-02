@@ -52,7 +52,7 @@ Heildarlýsingin er [hér að neðan](#heildarlýsing).
 ## Stuðningur
 - **Vefslóð:** https://www.origo.is/
 - **Netfang:** bc-support@origo.is
-- **Hjálparslóð:** https://bifrost.origo.is/en-us/iceland-docex/
+- **Hjálparslóð:** https://docs.bifrost.origo.is/en-us/iceland-docex/
 
 ## Persónuverndarstefna
 https://www.origo.is/

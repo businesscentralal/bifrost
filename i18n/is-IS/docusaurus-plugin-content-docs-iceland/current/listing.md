@@ -57,7 +57,7 @@ Sjá ítarlega lýsingu hér að neðan.
 https://www.origo.is/
 
 ## Hjálpartengill
-https://bifrost.origo.is/en-us/iceland/
+https://docs.bifrost.origo.is/en-us/iceland/
 
 ## Persónuverndarstefna
 https://www.origo.is/um-origo/stefnur/personuverndarstefna

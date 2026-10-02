@@ -38,7 +38,7 @@ import {isTestApp, loadSources, objectProperties, propertyText} from './lib/al-s
 import {APP_ROUTES, appJsonMatches, parseArgs, resolveApp} from './lib/app-routes.mjs';
 
 /** Site roots the help can be served from (GitHub Pages today, the custom domain later). */
-const SITE_ROOTS = ['https://businesscentralal.github.io/bifrost/', 'https://bifrost.origo.is/'];
+const SITE_ROOTS = ['https://businesscentralal.github.io/bifrost/', 'https://docs.bifrost.origo.is/'];
 const LOCALES = [{bc: 'en-US', dir: 'en-us'}, {bc: 'is-IS', dir: 'is-is'}];
 
 /** Page types a user never opens on their own; help is optional there. */

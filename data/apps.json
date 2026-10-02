@@ -11,7 +11,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/foundation/",
+        "docs": "https://docs.bifrost.origo.is/en-us/foundation/",
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/foundation.png"
@@ -28,7 +28,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/iceland/",
+        "docs": "https://docs.bifrost.origo.is/en-us/iceland/",
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/iceland.png"
@@ -45,7 +45,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/iceland-treasury/",
+        "docs": "https://docs.bifrost.origo.is/en-us/iceland-treasury/",
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/iceland-treasury.png"
@@ -62,7 +62,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/iceland-docex/",
+        "docs": "https://docs.bifrost.origo.is/en-us/iceland-docex/",
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/iceland-docex.png"
@@ -78,7 +78,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/attachments/",
+        "docs": "https://docs.bifrost.origo.is/en-us/attachments/",
         "repository": "https://github.com/businesscentralal/bc-origo-bifrost-attachments",
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/attachments.png"
@@ -94,7 +94,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/language-models/",
+        "docs": "https://docs.bifrost.origo.is/en-us/language-models/",
         "repository": "https://github.com/businesscentralal/bc-origo-bifrost-language-models",
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/language-models.png"
@@ -110,7 +110,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/orchestrator/",
+        "docs": "https://docs.bifrost.origo.is/en-us/orchestrator/",
         "repository": "https://github.com/businesscentralal/bc-origo-bifrost-orchestrator",
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/orchestrator.png"
@@ -126,7 +126,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/timesheets/",
+        "docs": "https://docs.bifrost.origo.is/en-us/timesheets/",
         "repository": "https://github.com/businesscentralal/bc-origo-bifrost-timesheets",
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/timesheets.png"
@@ -142,7 +142,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/subscription-billing/",
+        "docs": "https://docs.bifrost.origo.is/en-us/subscription-billing/",
         "repository": "https://github.com/businesscentralal/bc-origo-bifrost-subscription-billing",
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/subscription-billing.png"
@@ -158,7 +158,7 @@
       "status": "coming-soon",
       "links": {
         "appSource": null,
-        "docs": "https://bifrost.origo.is/en-us/inventory/",
+        "docs": "https://docs.bifrost.origo.is/en-us/inventory/",
         "repository": "https://github.com/businesscentralal/bc-origo-bifrost-inventory",
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/inventory.png"

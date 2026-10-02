@@ -64,7 +64,7 @@ The full description text is [below](#full-description-text).
 
 - **URL:** https://www.origo.is/
 - **Email:** bc-support@origo.is
-- **Help URL:** https://bifrost.origo.is/en-us/iceland-docex/
+- **Help URL:** https://docs.bifrost.origo.is/en-us/iceland-docex/
 
 ## Privacy Policy
 

@@ -19,7 +19,7 @@ import {apps, crossAppInstances} from './apps';
  * Deployment target is controlled entirely by two environment variables so the
  * same commit deploys to GitHub Pages today and to the custom domain later:
  *
- *   SITE_URL   https://businesscentralal.github.io   |  https://bifrost.origo.is
+ *   SITE_URL   https://businesscentralal.github.io   |  https://docs.bifrost.origo.is
  *   BASE_URL   /bifrost/                             |  /
  */
 const SITE_URL = process.env.SITE_URL ?? 'https://businesscentralal.github.io';

@@ -59,7 +59,7 @@ See [Full description](#full-description) below for the full description text.
 https://www.origo.is/
 
 ## Help Link
-https://bifrost.origo.is/en-us/iceland/
+https://docs.bifrost.origo.is/en-us/iceland/
 
 ## Privacy Policy
 https://www.origo.is/um-origo/stefnur/personuverndarstefna

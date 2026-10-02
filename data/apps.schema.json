@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://bifrost.origo.is/apps.schema.json",
+  "$id": "https://docs.bifrost.origo.is/apps.schema.json",
   "title": "Bifrost App Registry",
   "description": "The list of apps built on Bifrost Foundation, rendered as the 'Apps built on Bifrost' page and served verbatim at /apps.json for machine readers such as Foundation's in-product app list.",
   "type": "object",

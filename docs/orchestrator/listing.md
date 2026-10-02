@@ -41,7 +41,7 @@ The full description text is [below](#full-description-text).
 ---
 
 ## Help Link
-https://bifrost.origo.is/en-us/orchestrator/
+https://docs.bifrost.origo.is/en-us/orchestrator/
 
 ## Support Link
 https://www.origo.is/
@@ -110,4 +110,4 @@ https://www.origo.is/
 
 ### Help and documentation
 
-https://bifrost.origo.is/en-us/orchestrator/ (the Icelandic version is at https://bifrost.origo.is/is-is/orchestrator/).
+https://docs.bifrost.origo.is/en-us/orchestrator/ (the Icelandic version is at https://docs.bifrost.origo.is/is-is/orchestrator/).

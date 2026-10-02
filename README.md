@@ -1,7 +1,7 @@
 # Bifröst documentation site
 
 The public documentation site for the **Bifröst** family of Microsoft Dynamics 365
-Business Central extensions by Origo — <https://bifrost.origo.is>.
+Business Central extensions by Origo — <https://docs.bifrost.origo.is>.
 
 All public-facing material for every Bifröst app lives here and nowhere else:
 product documentation, in-product (context-sensitive) help, extensibility
@@ -68,15 +68,15 @@ Docusaurus does not prefix its default locale, so the site is built once per
 locale as its own single-locale site with an explicit `baseUrl`. That gives:
 
 ```
-https://bifrost.origo.is/en-us/help/attachments/storage-setup/
-https://bifrost.origo.is/is-is/help/attachments/storage-setup/
+https://docs.bifrost.origo.is/en-us/help/attachments/storage-setup/
+https://docs.bifrost.origo.is/is-is/help/attachments/storage-setup/
 ```
 
 Each app therefore sets, in `app/app.json`:
 
 ```jsonc
-"help": "https://bifrost.origo.is/en-us/<app>/",
-"contextSensitiveHelpUrl": "https://bifrost.origo.is/{0}/help/<app>/",
+"help": "https://docs.bifrost.origo.is/en-us/<app>/",
+"contextSensitiveHelpUrl": "https://docs.bifrost.origo.is/{0}/help/<app>/",
 "supportedLocales": [ "en-US", "is-IS" ]
 ```
 
@@ -98,28 +98,30 @@ where a build is rooted, and the deploy workflow passes them in:
 
 | Variable | GitHub Pages (today) | Custom domain (after DNS) |
 | --- | --- | --- |
-| `SITE_URL` | `https://businesscentralal.github.io` | `https://bifrost.origo.is` |
+| `SITE_URL` | `https://businesscentralal.github.io` | `https://docs.bifrost.origo.is` |
 | `BASE_URL` | `/bifrost/` | `/` |
 
 Today the site is live at <https://businesscentralal.github.io/bifrost/>.
 
-**To switch to `https://bifrost.origo.is`:**
+**To switch to `https://docs.bifrost.origo.is`:**
 
-1. Add a DNS `CNAME` record for `bifrost.origo.is` pointing at
+1. Add a DNS `CNAME` record for `docs.bifrost.origo.is` pointing at
    `businesscentralal.github.io`.
 2. In this repository: **Settings → Pages → Custom domain**, enter
-   `bifrost.origo.is` and wait for the DNS check to pass, then tick
+   `docs.bifrost.origo.is` and wait for the DNS check to pass, then tick
    **Enforce HTTPS**. GitHub writes the `CNAME` file into the published site
    itself; it is deliberately **not** committed here, so the site keeps working
    on the `github.io` address until DNS actually exists.
 3. In [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), change the
-   two values under `env:` to `SITE_URL: https://bifrost.origo.is` and
+   two values under `env:` to `SITE_URL: https://docs.bifrost.origo.is` and
    `BASE_URL: /`, then push.
-4. Update `help` and `contextSensitiveHelpUrl` in each app's `app.json` — they
-   already point at `bifrost.origo.is`, so nothing changes there.
+4. Leave the apps' `app.json` links (`help`, `contextSensitiveHelpUrl`,
+   `privacyStatement`, `EULA`) on the `github.io` address for now. Once the custom
+   domain is set, GitHub Pages redirects `https://businesscentralal.github.io/bifrost/...`
+   to `https://docs.bifrost.origo.is/...`, so published apps keep working. Move the
+   apps to the new address in a later release.
 
-Until step 3 is done, links published in `app.json` will not resolve. Do the DNS
-record and the workflow change together.
+Do the DNS record and the workflow change together.
 
 ## Local development
 
