@@ -13,15 +13,6 @@ const registrySummaries: Record<string, string> = Object.fromEntries(
 
 const fallbackSummaries: Record<string, string> = {
   foundation: 'The base app every other app needs: the standard Business Central capabilities, permissions, the log and the API.',
-  iceland: 'Icelandic capabilities: the national register, VAT, and local business rules.',
-  'iceland-treasury': 'Bank connectors and payment services for Icelandic banks.',
-  'iceland-docex': 'Electronic document exchange: Peppol/BIS 3.0, incoming and outgoing documents.',
-  'language-models': 'Chat and language models — Copilot, OpenAI, Azure OpenAI, Anthropic, Gemini and xAI.',
-  attachments: 'External storage — Azure Blob, Azure File Share and SharePoint.',
-  orchestrator: 'Scheduling and orchestration — job queue supervision and declarative playbooks.',
-  timesheets: 'Time tracking synchronised with Business Central resources and jobs.',
-  'subscription-billing': 'Recurring billing and subscription management.',
-  inventory: 'Item attributes: get, create, update and define them.',
 };
 
 function AppCard({id, title, appName, wave}: {id: string; title: string; appName: string; wave: 1 | 2}): ReactNode {
@@ -73,9 +64,8 @@ export default function Home(): ReactNode {
         </p>
         <p>
           <Translate id="home.onePlatform">
-            One platform. Origo's apps add Icelandic banks, document exchange, storage and schedules,
-            partners add their own, and your developers can add more. The assistant uses them all
-            together.
+            One platform. Other Bifröst apps add operations of their own, partners add theirs, and
+            your developers can add more. The assistant uses them all together.
           </Translate>
         </p>
       </header>
@@ -92,9 +82,9 @@ export default function Home(): ReactNode {
             <p><em><Translate id="home.examples.ask2">"Turn quote SQ-1042 into an order and show me what posting it would do."</Translate></em></p>
             <p><Translate id="home.examples.do2">It creates the order and previews the posting, without posting anything, so you see the result first.</Translate></p>
           </Link>
-          <Link className="bifrostCard" to="/orchestrator/">
-            <p><em><Translate id="home.examples.ask3">"Every Friday, reconcile the bank statements and tell me what didn't match."</Translate></em></p>
-            <p><Translate id="home.examples.do3">A playbook in Orchestrator runs it on schedule and logs every step.</Translate></p>
+          <Link className="bifrostCard" to="/documentation/how-it-works/#what-happens-when-you-ask">
+            <p><em><Translate id="home.examples.ask3">"Which customers are over their credit limit, and how much of it is overdue?"</Translate></em></p>
+            <p><Translate id="home.examples.do3">It reads balances, credit limits and open entries, and answers with a list you can check in Business Central.</Translate></p>
           </Link>
         </div>
         <h2>

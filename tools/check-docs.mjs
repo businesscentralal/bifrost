@@ -14,6 +14,7 @@
  *
  */
 import {execFile} from 'node:child_process';
+import {createHash} from 'node:crypto';
 import {promisify} from 'node:util';
 import {readdir, readFile, stat} from 'node:fs/promises';
 import path from 'node:path';
@@ -40,6 +41,39 @@ const MESSAGE_TYPE_NAME = /(?<![\w./-])(?!(?:Origo|Microsoft|System)\.)[A-Z][A-Z
 // The discovery entry points: how a reader finds every other type.
 const ALLOWED_TYPE_NAMES = new Set(['Help.MessageTypes.Get', 'Help.Implementation.Get']);
 
+// Apps that are not published on AppSource yet. This repository is public, so their names are kept
+// as hashes: the first 16 hex digits of SHA-256 over the lower-cased name (ö written as o), one to three
+// words, and over each docs route. `node tools/check-docs.mjs hash "<name or route>"` prints the value to
+// add. When an app is published, remove its hashes in the same pull request that brings its pages back.
+const UNPUBLISHED_NAME_HASHES = new Set([
+  'd94df5d992169251', 'fe99523a77b777ec', 'a046c4f0a310ac2f', 'a0a446ad370b830c', '17214a07d5b7578b',
+  '1b797f6e6728ad2b', '4e335a9a47a11647', '3381590a4e4bd9ff', 'a6ad3891ba67c714', '63874763be005259',
+  'e3fb45974f88dc34', '6f3e4d7fd1f5e471', 'b0dd3a2d68522b2d', '2756636f5ac88609', '90a45c6dcbb66d38',
+  '9a91356d3b648e62',
+]);
+const UNPUBLISHED_ROUTE_HASHES = new Set([
+  '9eb5c59d70089e53', '97a37556dc257040', 'b25920b5f0013a9f', 'a43a82a5e0b2fb98', '3930e671c9e40dee',
+  '11376b7e2acf0c93', 'dc0d200aaebbf548', 'c2750447ccba4184', 'b11a85b296a90afc',
+]);
+const shortHash = (value) => createHash('sha256').update(value).digest('hex').slice(0, 16);
+
+/** A pattern-like object: true when a line names an unpublished app or links to one of its routes. */
+const UNPUBLISHED_APPS = {
+  global: false,
+  test(line) {
+    const words = line.toLowerCase().replace(/ö/g, 'o').match(/[a-z0-9]+/g) ?? [];
+    for (let i = 0; i < words.length; i++) {
+      for (let n = 1; n <= 3 && i + n <= words.length; n++) {
+        if (UNPUBLISHED_NAME_HASHES.has(shortHash(words.slice(i, i + n).join(' ')))) return true;
+      }
+    }
+    for (const m of line.matchAll(/\]\(\/(?:help\/)?([a-z-]+)\//g)) {
+      if (UNPUBLISHED_ROUTE_HASHES.has(shortHash(m[1]))) return true;
+    }
+    return false;
+  },
+};
+
 const FORBIDDEN = [
   {token: 'Cosmos', pattern: /Cosmos/i},
   {token: 'Key Vault', pattern: /Key\s*Vault/i},
@@ -62,6 +96,9 @@ const FORBIDDEN = [
   {token: 'development container', pattern: /\bbc28-|\bCRONUS\b|\bAlpaca\b/, strict: true},
   {token: 'partner program page', pattern: /\/licensing\/(vendor|partner|customer|leaving-and-cancelling)\/|\]\(\.\/(vendor|partner|customer|leaving-and-cancelling)\.md/, strict: true},
   {token: 'skills page', pattern: /\]\(\/skills\/|static\/skills\//, strict: true},
+  // Only published apps are documented here (decision 02.10.2026). When an app is published, remove
+  // its hashes in the same pull request that brings its pages back.
+  {token: 'unpublished app', pattern: UNPUBLISHED_APPS, strict: true},
 ];
 
 const SCAN_ROOTS = ['docs', 'help', 'i18n'];
@@ -248,8 +285,13 @@ switch (mode) {
   case 'ipBoundary':
     code = await ipBoundary();
     break;
+  case 'hash':
+    // Prints the value to put in UNPUBLISHED_NAME_HASHES or UNPUBLISHED_ROUTE_HASHES.
+    console.log(shortHash((process.argv[3] ?? '').trim().toLowerCase().replace(/ö/g, 'o').replace(/\s+/g, ' ')));
+    code = 0;
+    break;
   default:
-    console.error(`Unknown mode: ${mode}\nUsage: node tools/check-docs.mjs [ipBoundary]`);
+    console.error(`Unknown mode: ${mode}\nUsage: node tools/check-docs.mjs [ipBoundary | hash "<name or route>"]`);
     code = 2;
 }
 process.exit(code);

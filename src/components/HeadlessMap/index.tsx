@@ -15,7 +15,7 @@ export default function HeadlessMap(): ReactNode {
             <li>AI agents</li>
             <li>Integrations</li>
             <li>Other AL code</li>
-            <li>Orchestrator playbooks</li>
+            <li>Scheduled routines</li>
           </ul>
           <div className={styles.down} aria-hidden="true">↓</div>
           <div className={`${styles.box} ${styles.outside}`}>

@@ -176,16 +176,7 @@ const site = `${SITE_URL}${BASE_URL}`;
 const en = `${site}en-us/`;
 
 const appSections = [
-  ['foundation', 'Bifröst Foundation (the base app, always installed) — the standard Business Central capabilities'],
-  ['language-models', 'Bifröst Language Models (additional app) — chat in Business Central and language model providers'],
-  ['attachments', 'Bifröst Attachments (additional app) — Azure Blob, Azure File Share and SharePoint storage'],
-  ['orchestrator', 'Bifröst Orchestrator (additional app) — job queue supervision and playbooks that chain message types from any app'],
-  ['timesheets', 'Bifröst Timesheets (additional app) — time tracking'],
-  ['subscription-billing', 'Bifröst Subscription Billing (additional app) — recurring billing'],
-  ['inventory', 'Bifröst Inventory (additional app) — item attributes'],
-  ['iceland', 'Bifröst Iceland (additional app for Iceland) — Icelandic ERP message types'],
-  ['iceland-treasury', 'Bifröst Iceland Treasury (additional app for Iceland) — Icelandic bank connectors and payments'],
-  ['iceland-docex', 'Bifröst Iceland DocEx (additional app for Iceland) — electronic document exchange (Peppol/BIS 3.0)'],
+  ['foundation', 'Bifröst Foundation (the base app, always installed) — how Bifröst works, and the standard Business Central operations'],
 ];
 
 const llms = [
@@ -210,9 +201,8 @@ const llms = [
   'them and return the contract of one; over the API, `Help.MessageTypes.Get` and',
   '`Help.Implementation.Get` do the same.',
   '',
-  'If a user asks for something no installed message type does, check the apps below and tell the user',
-  'which one to install. If no app does it, suggest their Business Central partner or Origo, or building',
-  'it (see Building on Bifröst).',
+  'If a user asks for something no installed message type does, say so, and suggest their Business',
+  'Central partner or Origo, or building it (see Building on Bifröst).',
   `Explained for people: ${en}documentation/how-it-works/`,
   '',
   '## Setting it up and using it',

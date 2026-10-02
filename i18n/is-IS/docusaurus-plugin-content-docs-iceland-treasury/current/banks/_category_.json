@@ -1,9 +1,0 @@
-{
-  "label": "Bankar",
-  "position": 2,
-  "link": {
-    "type": "generated-index",
-    "slug": "/banks",
-    "description": "Ein síða fyrir hvern banka: hvað tengingin gerir fyrir bankann, hvað þarf að setja upp og hvað þú sérð í Business Central."
-  }
-}

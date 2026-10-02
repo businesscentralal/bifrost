@@ -26,19 +26,11 @@ creates both instances and both navbar entries.
 | `<app>` | Extension | Source repository |
 | --- | --- | --- |
 | `foundation` | Bifrost Foundation | `bc-origo-bifrost-core` |
-| `iceland` | Bifrost Iceland | `bc-origo-bifrost-iceland` |
-| `iceland-treasury` | Bifrost Iceland Treasury | `bc-origo-bifrost-iceland-treasury` |
-| `iceland-docex` | Bifrost Iceland DocEx | `bc-origo-bifrost-iceland-docex` |
-| `language-models` | Bifrost Language Models | `bc-origo-bifrost-language-models` |
-| `attachments` | Bifrost Attachments | `bc-origo-bifrost-attachments` |
-| `orchestrator` | Bifrost Orchestrator | `bc-origo-bifrost-orchestrator` |
-| `timesheets` | Bifrost Timesheets | `bc-origo-bifrost-timesheets` |
-| `subscription-billing` | Bifrost Subscription Billing | `bc-origo-bifrost-subscription-billing` |
-| `inventory` | Bifrost Inventory | `bc-origo-bifrost-inventory` |
 
-Every app has a docs instance. A help instance holds one page per Business
-Central page that carries `ContextSensitiveHelpPage`, so an app with no pages of
-its own — Subscription Billing — has an index page and nothing else.
+The site documents published apps only, so the list holds Foundation alone for now.
+An app joins it when it is published on AppSource. Every listed app has a docs
+instance; a help instance exists only for an app with help pages, one page per
+Business Central page that carries `ContextSensitiveHelpPage`, and no index page.
 
 On disk:
 
@@ -64,8 +56,8 @@ Docusaurus does not prefix its default locale, so the site is built once per
 locale as its own single-locale site with an explicit `baseUrl`. That gives:
 
 ```
-https://docs.bifrost.origo.is/en-us/help/attachments/storage-setup/
-https://docs.bifrost.origo.is/is-is/help/attachments/storage-setup/
+https://docs.bifrost.origo.is/en-us/help/foundation/bifrost-setup/
+https://docs.bifrost.origo.is/is-is/help/foundation/bifrost-setup/
 ```
 
 Each app therefore sets, in `app/app.json`:
@@ -79,7 +71,7 @@ Each app therefore sets, in `app/app.json`:
 and every page uses a kebab-case slug instead of a file name:
 
 ```al
-ContextSensitiveHelpPage = 'storage-setup';
+ContextSensitiveHelpPage = 'bifrost-setup';
 ```
 
 Every page or page extension carrying that property must have a matching help

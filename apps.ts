@@ -33,15 +33,6 @@ export type BifrostApp = {
 
 export const apps: BifrostApp[] = [
   {id: 'foundation', title: 'Foundation', appName: 'Bifrost Foundation', wave: 1, group: 'base'},
-  {id: 'iceland', title: 'Iceland', appName: 'Bifrost Iceland', wave: 1, group: 'iceland'},
-  {id: 'iceland-treasury', title: 'Iceland Treasury', appName: 'Bifrost Iceland Treasury', wave: 1, group: 'iceland'},
-  {id: 'iceland-docex', title: 'Iceland DocEx', appName: 'Bifrost Iceland DocEx', wave: 1, group: 'iceland'},
-  {id: 'language-models', title: 'Language Models', appName: 'Bifrost Language Models', wave: 1, group: 'addon'},
-  {id: 'attachments', title: 'Attachments', appName: 'Bifrost Attachments', wave: 1, group: 'addon'},
-  {id: 'orchestrator', title: 'Orchestrator', appName: 'Bifrost Orchestrator', wave: 1, group: 'addon'},
-  {id: 'timesheets', title: 'Timesheets', appName: 'Bifrost Timesheets', wave: 1, group: 'addon'},
-  {id: 'subscription-billing', title: 'Subscription Billing', appName: 'Bifrost Subscription Billing', wave: 1, group: 'addon'},
-  {id: 'inventory', title: 'Inventory', appName: 'Bifrost Inventory', wave: 1, group: 'addon'},
 ];
 
 /**
