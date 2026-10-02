@@ -189,27 +189,6 @@ const appSections = [
 ];
 
 /**
- * The capabilities of each app: the first part of the names of its message types, read off the
- * generated reference pages so the list follows the apps without anyone editing it. The `Help`
- * capability (the directory types) is left out; every app has one.
- */
-async function capabilitiesOf(id) {
-  const dir = path.join(root, 'docs', id, 'reference', 'message-types');
-  if (!(await exists(dir))) return [];
-  const found = new Set();
-  for (const file of (await readdir(dir)).filter((name) => name.endsWith('.md'))) {
-    const title = (await readFile(path.join(dir, file), 'utf8')).match(/^title:\s*"?([^"\r\n]+)/m)?.[1];
-    const capability = title?.split('.')[0];
-    if (capability && capability !== 'Help' && /^[A-Za-z]+$/.test(capability)) found.add(capability);
-  }
-  return [...found].sort();
-}
-
-const appCapabilities = Object.fromEntries(
-  await Promise.all(appSections.map(async ([id]) => [id, await capabilitiesOf(id)])),
-);
-
-/**
  * The skills, read off disk so a new reference file or a new app skill reaches
  * llms.txt without anyone remembering to add it here. A skill is a folder
  * holding SKILL.md and, optionally, references/ — an agent fetches the SKILL.md
@@ -259,17 +238,19 @@ const llms = [
        'Icelandic (`/is-is/`). The paths below are the English ones.']
     : ['This site holds all public documentation for those apps, in English (`/en-us/`).']),
   '',
-  '## Capabilities and apps',
+  '## Apps and message types',
   '',
-  'A message type is one operation an agent calls, such as `Customer.CreditLimit.Get`. The first',
-  'part of its name is its capability (`Customer`); the MCP server\'s tools call it a domain. An app is',
-  'what a company installs: it adds capabilities, or more message types to one that exists.',
-  'Foundation is always installed and brings the standard Business Central capabilities.',
+  'An app is what a company installs; Foundation is always installed and brings the standard',
+  'Business Central operations, and every other app adds operations of its own. The operations an',
+  'agent can call are message types. They are not listed here: read them from the environment, where',
+  'they follow the installed apps. The MCP tools `list_message_types` and `describe_message_type` list',
+  'them and return the contract of one; over the API, `Help.MessageTypes.Get` and',
+  '`Help.Implementation.Get` do the same.',
   '',
-  'If a user asks for something no installed message type does, check which app below has the',
-  'capability and tell the user to install it. If no app has it, say it does not exist yet and',
-  'suggest their Business Central partner or Origo, or building it (see Building on Bifröst).',
-  `Explained for people: ${en}documentation/how-it-works/#capabilities-and-message-types`,
+  'If a user asks for something no installed message type does, check the apps below and tell the user',
+  'which one to install. If no app does it, suggest their Business Central partner or Origo, or building',
+  'it (see Building on Bifröst).',
+  `Explained for people: ${en}documentation/how-it-works/`,
   '',
   '## Skills',
   '',
@@ -306,8 +287,7 @@ const llms = [
   '## Apps',
   '',
   ...appSections.map(([id, description]) =>
-    `- [${description}](${en}${id}/)` +
-    (appCapabilities[id].length ? `. Capabilities: ${appCapabilities[id].join(', ')}` : '')),
+    `- [${description}](${en}${id}/)`),
   `- [All apps built on Bifröst, including partners'](${en}apps/) and the machine-readable [apps.json](${site}apps.json)`,
   '',
   '## In-product help',

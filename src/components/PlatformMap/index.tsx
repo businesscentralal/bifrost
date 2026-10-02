@@ -47,7 +47,7 @@ export default function PlatformMap(): ReactNode {
         <Translate id="platformMap.add">Who adds capabilities</Translate>
       </div>
       <div className={styles.row}>
-        <Link className={styles.builtin} to="/foundation/message-types/">
+        <Link className={styles.builtin} to="/foundation/">
           <strong><Translate id="platformMap.builtin">Built into Foundation</Translate></strong>
           <span>
             <Translate id="platformMap.builtinBody">

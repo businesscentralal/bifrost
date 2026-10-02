@@ -13,10 +13,6 @@
  * Preview/deploy CI wiring is deferred until the GitHub token has the
  * `workflow` scope (`gh auth refresh -h github.com -s workflow`).
  *
- * tools/generate-message-type-docs.ps1 can overwrite generated message-type
- * pages until Foundation core#67 lands. This check is the safety net: exact
- * lines already present when site PR #17 merged are grandfathered, but changed
- * or newly generated lines are checked against the current vocabulary.
  */
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';

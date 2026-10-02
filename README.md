@@ -17,7 +17,7 @@ Built with [Docusaurus 3](https://docusaurus.io/) and deployed to GitHub Pages.
 
 | Route | Instance | Contents |
 | --- | --- | --- |
-| `/{locale}/<app>/` | one docs instance per app | Product documentation: overview, setup, message-type reference, AppSource scenarios, listing copy |
+| `/{locale}/<app>/` | one docs instance per app | Product documentation: overview, setup, AppSource scenarios, listing copy |
 | `/{locale}/help/<app>/` | one help instance per app | Context-sensitive help — one page per Business Central page |
 | `/{locale}/extensibility/` | `extensibility` | How to build a dependent app on Bifröst Foundation |
 | `/{locale}/skills/` | `skills` | Skills for AI agents using Bifröst through the Origo BC MCP server |
@@ -175,88 +175,16 @@ files.
 `generate-app-skills.mjs` reads the message-type pages under
 `docs/<app>/reference/message-types/`, so run it after regenerating those.
 
-## Generated message-type reference
+## Message types
 
-Message-type reference pages are generated from the apps' own help codeunits
-rather than written by hand, so they cannot drift from the product. There are two
-generators that write the same pages; the source-based one needs nothing but a
-checkout of the app.
+The site documents no message types: no per-type pages, no names, no parameters or examples. Readers
+and agents read them from the environment, where they follow the installed apps (`Help.MessageTypes.Get`
+and `Help.Implementation.Get`, or the MCP tools `list_message_types` and `describe_message_type`).
 
-### From AL source (offline, no credentials)
-
-```bash
-node tools/generate-message-type-docs-from-source.mjs --app attachments \
-     --source ../bc-origo-bifrost-attachments --version 28.0.0.36
-node tools/generate-message-type-docs-from-source.mjs --app orchestrator \
-     --source ../bc-origo-bifrost-orchestrator --list-only
-node tools/generate-message-type-docs-from-source.mjs --app attachments \
-     --source ../bc-origo-bifrost-attachments --version 28.0.0.36 --check
-```
-
-It reads the app's `app.json`, the values its enum extension adds to
-`Message Type ori` (each bound to the codeunit that implements `Msg Interface ori`),
-and evaluates that codeunit's `GetMessageHelpAsMarkdownDocument` with a small,
-side-effect-free AL interpreter (`tools/lib/al-source.mjs`). The pages it writes into
-`docs/<route>/reference/message-types/` are byte-for-byte what the API generator
-writes for the same source: same front matter, MDX escaping, sidebar order,
-`_category_.json` files and the shared *Errors and warnings* link that
-`Help.Implementation.Get` adds to every non-`Help.*` type. `--app` takes the route
-id, the title or the old codename; the type-to-app table is shared in
-`tools/lib/app-routes.mjs`. Pass `--version` with the released build, because AL-Go
-stamps the build number at build time and `app.json` only says `x.y.0.0`. Types whose
-help depends on runtime state (database rows, the installed-app catalogue, the
-caller's module) are reported with the file and line and the run exits non-zero;
-known help-text defects (literal `\u2192` escapes, `\` used as a line break, MCP
-tool names in help) are listed as warnings and left as they are. See
-[`tools/generate-message-type-docs-from-source.md`](tools/generate-message-type-docs-from-source.md)
-for what can and cannot be derived from source.
-
-The generator writes English only. Update the matching pages under
-`i18n/is-IS/docusaurus-plugin-content-docs-<route>/current/reference/message-types/`
-for new and changed types.
-
-`tools/check-context-help.mjs --app <route> --source <repo>` checks the same app's
-context-sensitive help from source: `contextSensitiveHelpUrl` in `app.json`, and
-every page's `ContextSensitiveHelpPage` against the pages under `help/<route>/`
-(and their is-IS translations). It exits non-zero when a link is missing or broken.
-
-### From a running environment (API)
-
-```powershell
-pwsh tools/generate-message-type-docs.ps1            # all mapped apps
-pwsh tools/generate-message-type-docs.ps1 -App orchestrator
-```
-
-The script calls the Bifröst queue API on the development container
-(`Help.MessageTypes.Get`, then `Help.Implementation.Get` per type), maps each
-type to its owning app, and writes one Markdown page per type into
-`docs/<app>/reference/message-types/`. Credentials come from the user-level
-environment variables `BC28IS_USER` and `BC28IS_PASSWORD` locally, or from the
-`BC_USER` / `BC_PASSWORD` repository secrets in CI. The API root comes from
-`BIFROST_DOCS_BASEURL` (environment variable locally, repository secret in CI); it
-is never committed. See the script header for the
-type-to-app mapping table.
-
-Calls go out strictly one at a time, and the script takes a lock file
-(`-LockFile`, `%TEMP%\bifrost-mcp.lock` by default) for the length of the run.
-A burst of parallel calls has taken the shared development container's queue
-endpoint down before, so if another process holds the lock, wait rather than
-delete it.
-
-The [`generate-docs.yml`](.github/workflows/generate-docs.yml) workflow runs it
-weekly and on demand, and opens a pull request when the output changes.
-
-**Repository secrets that must exist for that workflow** (not created by this
-repository — an administrator must add them under *Settings → Secrets and
-variables → Actions*):
-
-| Secret | Value |
-| --- | --- |
-| `BC_USER` | Business Central user name for the documentation container |
-| `BC_PASSWORD` | That user's web service access key or password |
-| `BIFROST_DOCS_BASEURL` | Bifröst API root of the documentation container, including the company segment |
-
-The workflow is skipped automatically when the secrets are absent.
+`tools/check-context-help.mjs --app <route> --source <repo>` checks an app's context-sensitive help
+from source: `contextSensitiveHelpUrl` in `app.json`, and every page's `ContextSensitiveHelpPage`
+against the pages under `help/<route>/` (and their is-IS translations). It exits non-zero when a link
+is missing or broken.
 
 ## Workflows
 
@@ -264,7 +192,6 @@ The workflow is skipped automatically when the secrets are absent.
 | --- | --- | --- |
 | `deploy.yml` | push to `main`, manual | Builds both locales and deploys to GitHub Pages |
 | `preview.yml` | pull request | Builds both locales and uploads the result as an artifact |
-| `generate-docs.yml` | weekly, manual | Regenerates message-type reference pages and opens a PR |
 
 ## Contributing
 
