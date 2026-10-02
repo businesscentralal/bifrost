@@ -64,7 +64,8 @@ What an app does at install and upgrade is in [Platform integration in START-HER
 | `Request Logger ori` (codeunit) | Write an entry for one of your outbound HTTP calls. |
 | `Request Log Reader ori` (codeunit) | Read an entry back. |
 | `Request Log Type ori` (extensible enum) | Classify your traffic; each value picks the masker. |
-| `Request Log Masker ori` (interface) | Decide what of the bodies, error text and URL is stored. |
+| `Request Log Masker ori` (interface) | Decide what of the bodies and error text is stored, and the base URL. |
+| `Request Log URL Masker ori` (interface) | Optional: decide what of the full URL and the operation text is stored. The default stores both as passed in. |
 
 ## Events
 
