@@ -1,8 +1,6 @@
 ---
 id: bifrost-message-editor
 title: "Bifrost Message Editor"
-sidebar_label: "Bifrost Message Editor"
-sidebar_position: 10
 ---
 
 The **Bifrost Message Editor** is a card-part page that lets you view and modify the incoming request data (payload) attached to a bifrost message. It is opened from the [Bifrost Messages](/help/foundation/bifrost-messages/) list via the _Edit_ action in the Request group.

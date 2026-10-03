@@ -1,8 +1,6 @@
 ---
 id: bifrost-queue-api
 title: "Bifrost Queue API"
-sidebar_label: "Bifrost Queue API"
-sidebar_position: 17
 ---
 
 Notaðu þessa API-síðu til að senda Bifröst skilaboð í ósamstillta vinnslu. Business Central vistar beiðnina, býr til bakgrunnsverk og skilar svarinu síðar í gegnum response-endapunkt eða vefkróka.

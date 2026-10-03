@@ -1,8 +1,6 @@
 ---
 id: rate-limit-configuration
 title: "Configure Rate Limit"
-sidebar_label: "Configure Rate Limit"
-sidebar_position: 44
 ---
 
 The **Configure Rate Limit** dialog chooses how many API calls per day the Bifröst MCP server allows

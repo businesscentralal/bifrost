@@ -1,8 +1,6 @@
 ---
 id: bifrost-translations
 title: "Bifrost Translations"
-sidebar_label: "Bifrost Translations"
-sidebar_position: 25
 ---
 
 The **Bifrost Translations** page lets administrators maintain translation entries. External systems can use these entries to retrieve translated text for a given message source, language, and English source text.

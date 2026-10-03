@@ -1,8 +1,6 @@
 ---
 id: bifrost-message-editor
 title: "Ritill Bifröst skilaboða"
-sidebar_label: "Ritill Bifröst skilaboða"
-sidebar_position: 10
 ---
 
 **Ritill Bifröst skilaboða** er kortahlutasíða sem gerir þér kleift að skoða og breyta komandi beiðnigögnum (gagnafarm) sem fylgja Bifröst skilaboðum. Hún er opnuð úr [Bifröst skilaboð](/help/foundation/bifrost-messages/) listanum með _Breyta_ aðgerðinni í Beiðni-hópnum.

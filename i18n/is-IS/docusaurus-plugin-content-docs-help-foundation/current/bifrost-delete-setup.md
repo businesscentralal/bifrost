@@ -1,8 +1,6 @@
 ---
 id: bifrost-delete-setup
 title: "Uppsetning eyðingarskráningar"
-sidebar_label: "Uppsetning eyðingarskráningar"
-sidebar_position: 5
 ---
 
 Síðan **Uppsetning eyðingarskráningar** stýrir því hvaða töflur í Business Central skrá eyddar færslur í [Bifröst eyðingaskrá](/help/foundation/bifrost-delete-log/). Hver lína tengir töflu við eyðingarskráningu og getur valfrjálst vistað fulla JSON-mynd af færslunni þegar henni er eytt.

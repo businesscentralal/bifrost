@@ -29,12 +29,6 @@ framkvæma ekki leyfisathuganir.
 | **Notandi** (User) | Skilaboðum sem unnin eru undir venjulegum notanda (gagnvirkt eða gegnum vefþjónustu). |
 | **Forritsskráning** (App Registration) | Skilaboðum sem Microsoft Entra forrit (þjónustuaðili) vinnur. |
 
-Skilaboðategund getur fengið að vita að kallað hafi verið á hana: `Msg Metering ori` er krókur sem
-Foundation kallar á eftir hvert árangursríkt kall sem er ekki undanþegið, svo gjaldtökulausn geti
-haldið eigið bókhald. Krókurinn hefur engin áhrif á talninguna. Sjá
-[mælingaviðmótið](/foundation/reference/metering-interface/) og
-[Mæling skilaboðategundar](/extensibility/metering).
-
 ## Hvers vegna kalli getur verið hafnað
 
 Athuganirnar eru gerðar í þessari röð; sú fyrsta sem á við svarar kallinu með `"status": "Error"`,
@@ -73,7 +67,6 @@ notkun), og dagleg samstilling geymir þær í skyndiminni.
 |-------|-------|
 | `true` (venjulega sjálfgefið) | Kallinu er hafnað með villunni um uppurinn kvóta hér að ofan. |
 | `false` | Kallið keyrir. Það er áfram talið og svarið ber áfram kvótaviðvörunina. |
-
 
 ### Mánaðarlegir kvótar
 

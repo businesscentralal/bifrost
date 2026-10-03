@@ -1,8 +1,6 @@
 ---
 id: active-tasks-fact-box
 title: "Active Background Tasks"
-sidebar_label: "Active Background Tasks"
-sidebar_position: 2
 ---
 
 The **Active Background Tasks** FactBox appears on the [Bifrost Setup](/help/foundation/bifrost-setup/) page. It lists all bifrost messages that currently have a running background task, showing entries up to 48 hours old. Use this panel to monitor and cancel in-progress processing tasks.

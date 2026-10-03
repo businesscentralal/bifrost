@@ -1,8 +1,6 @@
 ---
 id: bifrost-field-lookup
 title: "Velja svæði"
-sidebar_label: "Velja svæði"
-sidebar_position: 7
 ---
 
 Uppflettingarsíðan **Velja svæði** gerir þér kleift að finna og velja svæði úr Business Central töflu. Hún er notuð þegar svæðisaðgangstakmarkanir eru bætt við á síðunni [Bifröst svæðisaðgangar](/help/foundation/bifrost-field-accesses/) – eftir að tafla hefur verið valin er þessi uppfletting notuð til að velja nákvæmt svæði til að takmarka.

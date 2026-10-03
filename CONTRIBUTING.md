@@ -10,7 +10,6 @@ writes it.
 - setup, permissions and behaviour as administrators and users experience them;
 - licensing as customers experience it: license types, quotas, rate limits, their own usage, the
   Terms of Use and privacy;
-- the public extension surface of Bifrost Foundation and how a dependent app uses it;
 - one help page per Business Central page that opens help (no index pages).
 
 **Keep off the site:**
@@ -18,7 +17,8 @@ writes it.
 - message types: no names, parameters, examples or errors. Readers and agents read them from the
   environment, where they follow the installed apps (`Help.MessageTypes.Get` and
   `Help.Implementation.Get`, or the MCP tools `list_message_types` and `describe_message_type`);
-- the partner program (working as a Vendor or Partner) and agent skills;
+- the partner program (working as a Vendor or Partner), content for partners and ISVs building on
+  Bifröst, and agent skills;
 
 and how Origo runs and builds the product:
 
@@ -50,9 +50,6 @@ If you are unsure, leave it out and ask the maintainers.
 ## Where to make a change
 
 - **Everything on the site** is written here: open a pull request.
-- **Building on Bifröst** is documented in the partner reference repository
-  ([bc-bifrost-reference](https://github.com/businesscentralal/bc-bifrost-reference)). This site
-  explains the ideas and links there for the details.
 
 ## Before you open a pull request
 

@@ -1,8 +1,6 @@
 ---
 id: partner-management
 title: "Bifrost Partner Management"
-sidebar_label: "Partner Management"
-sidebar_position: 46
 ---
 
 On **Bifrost Partner Management** a Vendor invites and manages its Partners. It opens from **Partner

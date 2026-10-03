@@ -1,8 +1,6 @@
 ---
 id: pending-customer-invites
 title: "Pending Customer Invites"
-sidebar_label: "Pending Customer Invites"
-sidebar_position: 53
 ---
 
 **Pending Customer Invites** opens when you choose **Register as Customer** and more than one Partner

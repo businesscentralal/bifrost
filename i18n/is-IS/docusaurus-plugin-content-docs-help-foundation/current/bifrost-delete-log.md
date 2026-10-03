@@ -1,8 +1,6 @@
 ---
 id: bifrost-delete-log
 title: "Bifröst eyðingaskrá"
-sidebar_label: "Bifröst eyðingaskrá"
-sidebar_position: 4
 ---
 
 **Bifröst eyðingaskrá** er lesskráð eftirlitsskrá sem skráir allar eyðingar úr töflum sem raktar eru í [uppsetningu eyðingarskráningar](/help/foundation/bifrost-delete-setup/). Hver færsla greinir frá töflu, SystemId eyddu færslunnar, tíma eyðingar og notandanum sem framkvæmdi hana.

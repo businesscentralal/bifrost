@@ -1,8 +1,6 @@
 ---
 id: translation-src-lookup
 title: "Select Translation Source"
-sidebar_label: "Select Translation Source"
-sidebar_position: 37
 ---
 
 The **Select Translation Source** lookup page lists all source identifiers that currently have translation entries in Business Central. It is opened from the [Bifrost Translations](/help/foundation/bifrost-translations/) page when you use the lookup on the **Source** filter to choose which source's translations you want to view or edit.

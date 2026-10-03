@@ -1,8 +1,6 @@
 ---
 id: customer-management
 title: "Umsjón viðskiptavina Bifröst"
-sidebar_label: "Umsjón viðskiptavina"
-sidebar_position: 48
 ---
 
 **Umsjón viðskiptavina Bifröst** sýnir viðskiptavini samstarfsaðila ásamt þrepi álagsþaks og notkun

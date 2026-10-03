@@ -1,8 +1,6 @@
 ---
 id: bifrost-note-message
 title: "Note Message"
-sidebar_label: "Note Message"
-sidebar_position: 15
 ---
 
 The **Note Message** page displays a single notification in read-only mode. It is opened from the notification list or the Note Card, so the full message content can be read without risking accidental modifications.

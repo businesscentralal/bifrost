@@ -1,8 +1,6 @@
 ---
 id: company-name-lookup
 title: "Companies"
-sidebar_label: "Companies lookup"
-sidebar_position: 43
 ---
 
 The **Companies** lookup lists the companies you can filter the [Bifrost Usage Entries](/help/foundation/license-usage/)

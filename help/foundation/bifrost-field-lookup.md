@@ -1,8 +1,6 @@
 ---
 id: bifrost-field-lookup
 title: "Select Field"
-sidebar_label: "Select Field"
-sidebar_position: 7
 ---
 
 The **Select Field** lookup page lets you browse and pick a field from a Business Central table. It is used when adding field access restrictions on the [Bifrost Field Accesses](/help/foundation/bifrost-field-accesses/) page – after selecting a table, use this lookup to choose the exact field to restrict.

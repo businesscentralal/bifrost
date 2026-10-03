@@ -1,8 +1,6 @@
 ---
 id: bifrost-setup
 title: "Bifrost Setup"
-sidebar_label: "Setup"
-sidebar_position: 22
 ---
 
 The **Bifrost Setup** page is the central configuration point for Bifröst. Use it to select the implementation behind each business feature, set the default language and the monthly message quota, manage secrets and licensing, and - for Vendors and Partners - manage their Partners and Customers.
@@ -30,7 +28,7 @@ The partner-program notifications are shown only to users with licence administr
 
 | Field | Description |
 | --- | --- |
-| **Customer Credit Limit Type** | The implementation used when Bifröst reads a customer's credit limit. The default uses the standard Business Central credit-limit calculation. Other apps can add implementations by extending the enum. |
+| **Customer Credit Limit Type** | The implementation used when Bifröst reads a customer's credit limit. The default uses the standard Business Central credit-limit calculation. |
 | **Credit Limit Tolerance %** | A percentage (0–100) added on top of the customer's credit limit. With 10 % and a credit limit of 10,000 LCY, the customer may use up to 11,000 LCY before being flagged. |
 | **Customer Statement Type** | The implementation used when Bifröst produces a customer statement as a PDF file. |
 | **Item Price Calculation Type** | The implementation used when Bifröst calculates an item's sales price. The default reads active sales price list lines, including customer-specific and all-customer price lists, with VAT. |

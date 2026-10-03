@@ -8,7 +8,6 @@ sidebar_position: 2
 
 The Origo Bifrost extension provides API endpoints for managing and processing bifrost messages following the Bifrost specification. This document describes the API endpoints, the message envelope and the response shapes.
 
-**Namespace:** `Origo.Bifrost`  
 **API Publisher:** `origo`  
 **API Group:** `bifrost`  
 **API Version:** `v1.0`
@@ -294,11 +293,8 @@ message types and their contracts are read from Business Central itself: the MCP
 `subject`) returns the full request and response contract of one type. All built-in message types
 take their parameters as JSON in the `data` field.
 
-**Extensibility:** an app on top of Bifröst Foundation adds its own message types by implementing
-`Msg Interface ori`. See:
-
-- **[Extending Bifröst Setup](/extensibility/setup-and-secrets/)** - the one action a dependent app adds to the Bifröst Setup page
-- **[Secrets](/foundation/reference/secrets/)** - the unified secret store every application uses
+Other Bifröst apps add message types of their own to the same catalogue; they are listed and
+described the same way.
 
 ---
 
@@ -496,14 +492,3 @@ The response data is the Markdown help of the message type named in `subject`.
 5. **Date/Time Filtering:**
    - Use ISO 8601 format for date/time values
    - All times should be in UTC
-
----
-
-## Version History
-
-**Version 1.0.0.0** - Initial release
-
-- Bifrost Data API
-- Queue API ori
-- Task API ori
-- Message type discovery (`Help.MessageTypes.Get`, `Help.Implementation.Get`)

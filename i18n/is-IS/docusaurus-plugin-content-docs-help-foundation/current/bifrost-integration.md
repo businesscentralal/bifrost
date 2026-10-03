@@ -1,8 +1,6 @@
 ---
 id: bifrost-integration
 title: "Bifröst samþætting"
-sidebar_label: "Bifröst samþætting"
-sidebar_position: 8
 ---
 
 Síðan **Bifröst samþætting** er rekstrarleg atburðaskrá. Hún skráir upprunakerfi, Business Central töflu og tímastimpil fyrir hverja samþættingaraðgerð. Notaðu þessa síðu til að fylgjast með, fara yfir og stjórna samþættingaratburðum — til dæmis til að sjá hvaða ytra kerfi skrifaði í hvaða töflu á tilteknum tíma, eða til að merkja ranglega búnar færslur sem bakfærðar.

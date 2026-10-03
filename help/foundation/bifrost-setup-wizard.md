@@ -1,8 +1,6 @@
 ---
 id: bifrost-setup-wizard
 title: "Bifrost Setup Wizard"
-sidebar_label: "Setup Wizard"
-sidebar_position: 23
 ---
 
 The **Bifrost Setup Wizard** is the single destination for every Bifrost setup notification. No individual Bifröst application ever shows its own setup banner — when something needs attention (the licence agreement, outbound HTTP, credentials, the trial, the MCP server connection), [Bifrost Setup](/help/foundation/bifrost-setup/) points here, and the wizard walks through every application that is currently installed.
@@ -32,7 +30,7 @@ Outbound HTTP is required by most Bifröst applications — Bifröst Foundation 
 
 ### Credentials step
 
-Every installed Bifröst application can register the credentials it needs with the shared secret store (see [Secrets](/foundation/reference/secrets/)). The [Credentials](/help/foundation/wizard-credentials/) list shows all of them. Select a row and choose **Set value...** to enter one.
+Every installed Bifröst application can register the credentials it needs with the shared secret store (see [Bifrost App Secrets](/help/foundation/bifrost-app-secrets/)). The [Credentials](/help/foundation/wizard-credentials/) list shows all of them. Select a row and choose **Set value...** to enter one.
 
 Missing credentials are never an error here or on Bifrost Setup — a credential that is not set disables the message types that depend on it, and can be entered later from **Secrets** on Bifrost Setup.
 

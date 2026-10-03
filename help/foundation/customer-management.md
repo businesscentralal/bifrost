@@ -1,8 +1,6 @@
 ---
 id: customer-management
 title: "Bifrost Customer Management"
-sidebar_label: "Customer Management"
-sidebar_position: 48
 ---
 
 **Bifrost Customer Management** lists the Customers of a Partner with their rate-limit tier and

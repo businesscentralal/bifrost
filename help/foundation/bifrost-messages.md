@@ -1,8 +1,6 @@
 ---
 id: bifrost-messages
 title: "Bifrost Messages"
-sidebar_label: "Bifrost Messages"
-sidebar_position: 12
 ---
 
 The **Bifrost Messages** page displays all bifrost messages that have been received by the system. Messages are sorted by date/time in descending order (newest first). From this page you can monitor processing status, download request and response data, retry or cancel background tasks, and edit request payloads.

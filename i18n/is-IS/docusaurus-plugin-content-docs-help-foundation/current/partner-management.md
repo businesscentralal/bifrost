@@ -1,8 +1,6 @@
 ---
 id: partner-management
 title: "Umsjón samstarfsaðila Bifröst"
-sidebar_label: "Umsjón samstarfsaðila"
-sidebar_position: 46
 ---
 
 Á síðunni **Umsjón samstarfsaðila Bifröst** býður söluaðili samstarfsaðilum og heldur utan um þá. Hún

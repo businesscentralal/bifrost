@@ -1,8 +1,6 @@
 ---
 id: bg-sessions-fact-box
 title: "Bakgrunnslotur"
-sidebar_label: "Bakgrunnslotur"
-sidebar_position: 3
 ---
 
 Upplýsingareiturinn **Bakgrunnslotur** birtist á síðunni [Bifröst uppsetningu](/help/foundation/bifrost-setup/). Hann sýnir allar virkar bakgrunnslotur sem eru í gangi í kerfinu. Nota má þennan glugga til að hafa eftirlit með og stöðva einstakar bakgrunnslotur.

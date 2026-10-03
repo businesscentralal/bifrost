@@ -1,8 +1,6 @@
 ---
 id: changelog-guard-exceptions
 title: "Undanþágur breytingaskrárverndar"
-sidebar_label: "Undanþágur breytingaskrárverndar"
-sidebar_position: 56
 ---
 
 **Undanþágur breytingaskrárverndar** telur upp þær töflur og þau svæði sem almenn skrif færslna í Bifröst mega

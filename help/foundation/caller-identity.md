@@ -1,8 +1,6 @@
 ---
 id: caller-identity
 title: "Caller Identity"
-sidebar_label: "Caller Identity"
-sidebar_position: 31
 ---
 
 The **Caller Identity** FactBox displays information about who created a bifrost message. It resolves the system-level user ID into a readable name and identifies whether the caller is a user or an AAD application.

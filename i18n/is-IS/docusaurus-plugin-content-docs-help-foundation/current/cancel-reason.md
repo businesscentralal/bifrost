@@ -1,8 +1,6 @@
 ---
 id: cancel-reason
 title: "Uppsögn - ástæða"
-sidebar_label: "Ástæða uppsagnar"
-sidebar_position: 50
 ---
 
 Svarglugginn **Uppsögn - ástæða** opnast þegar þú segir upp samstarfsaðila eða viðskiptavini eða hafnar

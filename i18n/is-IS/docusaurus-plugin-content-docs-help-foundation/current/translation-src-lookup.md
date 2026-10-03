@@ -1,8 +1,6 @@
 ---
 id: translation-src-lookup
 title: "Velja upprunakerfi þýðingar"
-sidebar_label: "Velja upprunakerfi þýðingar"
-sidebar_position: 37
 ---
 
 Uppflettingarsíðan **Velja upprunakerfi þýðingar** sýnir öll upprunaauðkenni sem hafa þýðingafærslur í Business Central. Hún opnast af síðunni [Bifröst þýðingar](/help/foundation/bifrost-translations/) þegar notandi notar uppflettinguna á **Uppruna**\-síusviðinu til að velja hvaða upprunakerfi á að sía þýðingarnar eftir.

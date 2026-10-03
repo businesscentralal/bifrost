@@ -1,8 +1,6 @@
 ---
 id: bifrost-integration
 title: "Bifrost Integration"
-sidebar_label: "Integration"
-sidebar_position: 8
 ---
 
 The **Bifrost Integration** page is an operational event log. It records the source system, Business Central table, and timestamp for each bifrost integration activity. Use this page to monitor, review, and manage integration events — for example, to identify which external system wrote to which table at a given time, or to mark incorrectly created records as reversed.

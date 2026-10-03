@@ -1,8 +1,6 @@
 ---
 id: bifrost-user-setup-editor
 title: "Ritill notandauppsetningar"
-sidebar_label: "Ritill notandauppsetningar"
-sidebar_position: 27
 ---
 
 Í **Ritli notandauppsetningar** stillir þú hvern notanda Bifröst: gjaldfærslutegund,

@@ -1,8 +1,6 @@
 ---
 id: bifrost-request-log-entry
 title: "Færsla úr annál beiðna Bifröst"
-sidebar_label: "Færsla í annál beiðna"
-sidebar_position: 59
 ---
 
 Spjaldið **Færsla úr annál beiðna Bifröst** sýnir eina beiðni út á við úr [annál beiðna](/help/foundation/bifrost-request-log/).

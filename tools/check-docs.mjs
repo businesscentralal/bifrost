@@ -96,6 +96,8 @@ const FORBIDDEN = [
   {token: 'development container', pattern: /\bbc28-|\bCRONUS\b|\bAlpaca\b/, strict: true},
   {token: 'partner program page', pattern: /\/licensing\/(vendor|partner|customer|leaving-and-cancelling)\/|\]\(\.\/(vendor|partner|customer|leaving-and-cancelling)\.md/, strict: true},
   {token: 'skills page', pattern: /\]\(\/skills\/|static\/skills\//, strict: true},
+  // The site does not address partners and ISVs (decision 02.10.2026).
+  {token: 'partner/ISV page', pattern: /\]\(\/(?:extensibility|documentation\/partners)\/|register-your-app/, strict: true},
   // Only published apps are documented here (decision 02.10.2026). When an app is published, remove
   // its hashes in the same pull request that brings its pages back.
   {token: 'unpublished app', pattern: UNPUBLISHED_APPS, strict: true},

@@ -60,10 +60,8 @@ In the assistant's own tool list, capabilities are called *domains*. They have n
 Microsoft's **Copilot & AI Capabilities** page in Business Central, which turns Copilot features on
 and off.
 
-Every message type describes itself: what it does, what it needs, what it returns and what can go
-wrong. So a new one is usable as soon as its app is installed, set up and permitted; nothing has to
-be taught to the assistant first. How that description is built:
-[Build on Bifröst](/extensibility/#what-a-message-type-says-about-itself).
+Because every message type describes itself, a new one is usable as soon as its app is installed,
+set up and permitted; nothing has to be taught to the assistant first.
 
 ## Four things that make it different
 
@@ -73,7 +71,7 @@ be taught to the assistant first. How that description is built:
   as the app identity an integration was given. It reaches only what that identity is allowed to,
   and every call is logged in your Business Central. You decide what each identity may do; see
   [Administrators](/documentation/end-customers/administrators/).
-- **It grows without a release.** Any app, Origo's or a partner's, can add capabilities, and every
+- **It grows without a release.** Every Bifröst app you install adds capabilities, and every
   connected agent can use them the same day.
 - **You choose the AI.** Copilot, ChatGPT, Claude or any other assistant that supports MCP works
   the same way, so you are not tied to one provider, and you can use more than one.
@@ -132,7 +130,7 @@ The full statement: [Privacy](/licensing/privacy/).
 
 ## How far it goes
 
-From one answer to a chain of operations and your own app's capabilities: [Try it out](/try-it-out/#what-to-ask-first)
+From one answer to a chain of operations: [Try it out](/try-it-out/#what-to-ask-first)
 goes through the levels, with a question to try for each.
 
 ## What it covers, and how it grows
@@ -151,15 +149,10 @@ say so. That is the edge of what is installed, not a fault.
 
 ### Every app moves the edge
 
-Capabilities come from apps, and anyone can build one. They all join the same catalogue, behind the
-same permissions and the same log.
-
-- **Other Bifröst apps** add capabilities of their own. Each has its own setup page, reached from the
-  **Apps** group on Bifröst Setup, its own help, and keeps its credentials in the shared secret store;
-  see the [app list](/apps/).
-- **Partners and ISVs** add capabilities for their own apps and industries, and list them in the
-  [app registry](/apps/register-your-app/). See [Build on Bifröst](/extensibility/).
-- **Your own developers** can add a capability for your company's own processes, the same way.
+Capabilities come from apps, and they all join the same catalogue, behind the same permissions and
+the same log. Other Bifröst apps add capabilities of their own. Each has its own setup page, reached
+from the **Apps** group on Bifröst Setup, its own help, and keeps its credentials in the shared secret
+store; see the [app list](/apps/).
 
 The assistant combines capabilities from different apps in one conversation.
 
@@ -168,9 +161,8 @@ The assistant combines capabilities from different apps in one conversation.
 1. Ask the assistant: *"Which capabilities can you use here?"* It lists what your installation has.
 2. Look in the [app list](/apps/): it may be in an app you have not installed yet.
 3. If not, ask your Business Central partner or [Origo](https://www.origo.is/). It can be built,
-   either as a new app or as more message types in an app that exists; see
-   [Build on Bifröst](/extensibility/).
+   either as a new app or as more message types in an app that exists.
 
 **Next:** [Set it up](/setup/), or the page for your role:
 [Users](/documentation/end-customers/users/) · [Administrators](/documentation/end-customers/administrators/) ·
-[Developers](/documentation/end-customers/developers/) · [Partners](/documentation/partners/).
+[Developers](/documentation/end-customers/developers/).

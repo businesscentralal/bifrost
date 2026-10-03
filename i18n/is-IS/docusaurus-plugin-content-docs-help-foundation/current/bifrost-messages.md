@@ -1,8 +1,6 @@
 ---
 id: bifrost-messages
 title: "Bifröst skilaboð"
-sidebar_label: "Bifröst skilaboð"
-sidebar_position: 12
 ---
 
 Síðan **Bifröst skilaboð** sýnir öll Bifröst skilaboð sem kerfið hefur móttekið. Skilaboð eru raðuð eftir dagsetningu/tíma í lækkandi röð (nýjust fyrst). Héðan getur þú fylgst með vinnslustöðu, sótt beiðni- og svargögn, reynt aftur eða hætt við bakgrunnsverkefni og breytt gagnafarm beiðna.

@@ -1,8 +1,6 @@
 ---
 id: bifrost-user-setup-list
 title: "Bifrost User Setup"
-sidebar_label: "Bifrost User Setup"
-sidebar_position: 29
 ---
 
 The **Bifrost User Setup** page displays per-user configuration for the Bifrost extension. Each record stores a system prompt and optional linked-record overrides that control how an AI assistant resolves who the user is (the user profile it reads about the caller).

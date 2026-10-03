@@ -1,8 +1,6 @@
 ---
 id: bifrost-queue-api
 title: "Bifrost Queue API"
-sidebar_label: "Bifrost Queue API"
-sidebar_position: 17
 ---
 
 Use this API page to submit bifrost messages for asynchronous processing. Business Central stores the request, schedules a background task, and returns the response later through the response endpoint or webhook flow.

@@ -1,8 +1,6 @@
 ---
 id: bifrost-translations
 title: "Bifröst þýðingar"
-sidebar_label: "Bifröst þýðingar"
-sidebar_position: 25
 ---
 
 Síðan **Bifröst þýðingar** gerir stjórnendum kleift að viðhalda þýðingarfærslum. Ytri kerfi geta notað þessar færslur til að sækja þýddan texta fyrir tiltekinn skilaboðauppruna, tungumál og enskan upprunatexta.

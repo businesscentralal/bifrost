@@ -1,8 +1,6 @@
 ---
 id: license-fact-box
 title: "Leyfi"
-sidebar_label: "Upplýsingareitur leyfis"
-sidebar_position: 41
 ---
 
 Upplýsingareiturinn **Leyfi** á síðunni [Uppsetning Bifröst](/help/foundation/bifrost-setup/) sýnir stöðu

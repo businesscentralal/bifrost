@@ -1,8 +1,6 @@
 ---
 id: pending-customer-leave-requests
 title: "Pending Customer Leave Requests"
-sidebar_label: "Pending Customer Leave Requests"
-sidebar_position: 51
 ---
 
 **Pending Customer Leave Requests** lists the requests your customers sent with **Request to Leave

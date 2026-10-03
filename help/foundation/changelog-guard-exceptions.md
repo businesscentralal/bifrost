@@ -1,8 +1,6 @@
 ---
 id: changelog-guard-exceptions
 title: "ChangeLog Guard Exceptions"
-sidebar_label: "ChangeLog Guard Exceptions"
-sidebar_position: 56
 ---
 
 **ChangeLog Guard Exceptions** lists the tables and fields that Bifröst's general record write may write even when

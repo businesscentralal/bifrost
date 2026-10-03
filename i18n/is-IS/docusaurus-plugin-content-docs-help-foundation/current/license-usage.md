@@ -1,8 +1,6 @@
 ---
 id: license-usage
 title: "Notkunarfærslur Bifröst"
-sidebar_label: "Leyfisnotkun"
-sidebar_position: 42
 ---
 
 Síðan **Notkunarfærslur Bifröst** sýnir notkunina sem tilkynnt hefur verið til leyfisþjónustunnar: eina

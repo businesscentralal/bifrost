@@ -1,8 +1,6 @@
 ---
 id: active-tasks-fact-box
 title: "Virk bakgrunnsverkefni"
-sidebar_label: "Virk bakgrunnsverkefni"
-sidebar_position: 2
 ---
 
 Upplýsingareiturinn **Virk bakgrunnsverkefni** birtist á síðunni [Bifröst uppsetningu](/help/foundation/bifrost-setup/). Hann sýnir öll Bifröst skilaboð sem eru í vinnslu í bakgrunni og eru allt að 48 klukustundir gömul. Nota má þennan glugga til að fylgjast með og hætta við bakgrunnsvinnslu.

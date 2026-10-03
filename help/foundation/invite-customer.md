@@ -1,8 +1,6 @@
 ---
 id: invite-customer
 title: "Invite Customer"
-sidebar_label: "Invite Customer"
-sidebar_position: 49
 ---
 
 The **Invite Customer** dialog, opened from [Customer Management](/help/foundation/customer-management/),

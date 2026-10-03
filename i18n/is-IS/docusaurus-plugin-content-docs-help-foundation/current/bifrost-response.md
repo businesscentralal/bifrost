@@ -1,8 +1,6 @@
 ---
 id: bifrost-response
 title: "Bifröst svar"
-sidebar_label: "Bifröst svar"
-sidebar_position: 20
 ---
 
 Upplýsingareiturinn **Bifröst svar** birtist hægra megin á [Bifröst skilaboð](/help/foundation/bifrost-messages/) listanum. Hann sýnir svargögnin sem búin voru til eftir að unnið var úr völdum Bifröst skilaboðum. Innihaldið er skrifvarið.

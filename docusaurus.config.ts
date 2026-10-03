@@ -55,7 +55,7 @@ function ensureTrailingSlash(value: string): string {
 /**
  * An app's sidebar keeps two items on top, Overview and Capabilities, and folds everything else
  * (message type guides, the generated reference, listing and validation texts) into one collapsed
- * "For developers and partners" group. The pages and their addresses do not change.
+ * "Reference" group. The pages and their addresses do not change.
  */
 const groupAppSidebar: NonNullable<DocsOptions['sidebarItemsGenerator']> = async ({defaultSidebarItemsGenerator, ...args}) => {
   const items = await defaultSidebarItemsGenerator(args);
@@ -66,7 +66,7 @@ const groupAppSidebar: NonNullable<DocsOptions['sidebarItemsGenerator']> = async
     ...top,
     {
       type: 'category',
-      label: buildLocale === 'is-IS' ? 'Fyrir forritara og samstarfsaðila' : 'For developers and partners',
+      label: buildLocale === 'is-IS' ? 'Tilvísanir' : 'Reference',
       collapsed: true,
       collapsible: true,
       items: rest,
@@ -84,6 +84,24 @@ function docsInstance(id: string, routeBasePath: string, path: string, isApp = f
       sidebarPath: './sidebars.ts',
       showLastUpdateTime: true,
       ...(isApp ? {sidebarItemsGenerator: groupAppSidebar} : {}),
+    } satisfies DocsOptions,
+  ];
+}
+
+/**
+ * A help instance: one page per Business Central page, opened from that page's help icon and never
+ * browsed. No sidebar, so no list of pages, no breadcrumbs and no previous/next links.
+ */
+function helpInstance(id: string, routeBasePath: string, path: string): [string, DocsOptions] {
+  return [
+    '@docusaurus/plugin-content-docs',
+    {
+      id,
+      path,
+      routeBasePath,
+      sidebarPath: false,
+      breadcrumbs: false,
+      showLastUpdateTime: true,
     } satisfies DocsOptions,
   ];
 }
@@ -106,13 +124,6 @@ const slugRenames: Array<{from: string; to: string}> = [
   // Licensing, Terms of Use and Privacy moved out of Foundation into their own section.
   {from: '/foundation/eula', to: '/licensing/eula'},
   {from: '/foundation/privacy', to: '/licensing/privacy'},
-  // Build on Bifröst: the former internal developer pages now live in the partner reference repo.
-  {from: '/extensibility/conventions', to: '/extensibility/'},
-  {from: '/extensibility/message-types', to: '/extensibility/'},
-  {from: '/extensibility/help-codeunits', to: '/extensibility/'},
-  {from: '/extensibility/testing', to: '/extensibility/'},
-  {from: '/extensibility/install-and-upgrade', to: '/extensibility/'},
-  {from: '/extensibility/ip-boundary', to: '/extensibility/'},
 ];
 
 function withTrailingSlash(path: string): string {
@@ -128,7 +139,7 @@ const helpApps = apps.filter((app) =>
 
 const docsPlugins = [
   ...apps.map((app) => docsInstance(app.id, app.id, `docs/${app.id}`, true)),
-  ...helpApps.map((app) => docsInstance(`help-${app.id}`, `help/${app.id}`, `help/${app.id}`)),
+  ...helpApps.map((app) => helpInstance(`help-${app.id}`, `help/${app.id}`, `help/${app.id}`)),
   ...crossAppInstances.map((section) => docsInstance(section.id, section.id, `docs/${section.id}`)),
 ];
 
@@ -241,9 +252,6 @@ const config: Config = {
             {label: buildLocale === 'is-IS' ? 'Notendur' : 'Users', to: '/documentation/end-customers/users/'},
             {label: buildLocale === 'is-IS' ? 'Kerfisstjórar' : 'Administrators', to: '/documentation/end-customers/administrators/'},
             {label: buildLocale === 'is-IS' ? 'Forritarar' : 'Developers', to: '/documentation/end-customers/developers/'},
-            {type: 'html', value: `<span class="dropdownHeading">${buildLocale === 'is-IS' ? 'Samstarfsaðilar' : 'Partners and ISVs'}</span>`},
-            {label: buildLocale === 'is-IS' ? 'Yfirlit' : 'Overview', to: '/documentation/partners/'},
-            {label: buildLocale === 'is-IS' ? 'Byggðu á Bifröst' : 'Build on Bifröst', to: '/extensibility/'},
           ],
         },
         {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/', position: 'left'},
@@ -292,14 +300,10 @@ const config: Config = {
           ],
         },
         {
-          title: buildLocale === 'is-IS' ? 'Byggðu á Bifröst' : 'Build on Bifröst',
+          title: buildLocale === 'is-IS' ? 'Fyrir vélar' : 'For machines',
           items: [
-            {label: buildLocale === 'is-IS' ? 'Fyrir samstarfsaðila' : 'Partners and ISVs', to: '/documentation/partners/'},
-            {label: buildLocale === 'is-IS' ? 'Forritaskrá' : 'App registry', to: '/apps/'},
-            {label: buildLocale === 'is-IS' ? 'Byggðu á Bifröst' : 'Build on Bifröst', to: '/extensibility/'},
             {label: 'llms.txt', href: `${siteRoot}llms.txt`, target: '_self'},
             {label: 'apps.json', href: `${siteRoot}apps.json`, target: '_self'},
-            {label: buildLocale === 'is-IS' ? 'Tilvísunarkóði (GitHub)' : 'Partner reference repository', href: 'https://github.com/businesscentralal/bc-bifrost-reference'},
             {label: buildLocale === 'is-IS' ? 'Kóði þessarar síðu (GitHub)' : 'Site source (GitHub)', href: 'https://github.com/businesscentralal/bifrost'},
           ],
         },

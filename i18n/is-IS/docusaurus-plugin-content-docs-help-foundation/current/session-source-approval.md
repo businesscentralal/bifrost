@@ -1,8 +1,6 @@
 ---
 id: session-source-approval
 title: "Samþykkja uppruna setu"
-sidebar_label: "Samþykkja uppruna setu"
-sidebar_position: 64
 ---
 
 **Samþykkja uppruna setu** biður þig um að samþykkja uppruna skilaboða - til dæmis

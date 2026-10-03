@@ -1,8 +1,6 @@
 ---
 id: bifrost-user-setup-fact-box
 title: "User Setup Preview"
-sidebar_label: "User Setup Preview"
-sidebar_position: 28
 ---
 
 The **User Setup Preview** FactBox displays a quick summary of the current user's Bifrost configuration. It shows resolved display names (not just codes) for all linked records, making it easy to verify your settings at a glance.

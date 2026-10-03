@@ -1,8 +1,6 @@
 ---
 id: bifrost-request-log
 title: "Bifrost Request Log"
-sidebar_label: "Request Log"
-sidebar_position: 58
 ---
 
 The **Bifrost Request Log** lists the outbound HTTP requests Bifröst applications made on your

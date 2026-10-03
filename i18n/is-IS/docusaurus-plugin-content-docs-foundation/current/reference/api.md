@@ -8,7 +8,6 @@ sidebar_position: 2
 
 Origo Bifröst-endingurinn veitir API-endapunkta til að stjórna og vinna með skilaboð í samræmi við Bifröst-staðalinn. Þetta skjal lýsir API-endapunktunum, skilaboðaumslaginu og formi svaranna.
 
-**Nafnrými:** `Origo.Bifrost`  
 **API-útgefandi:** `origo`  
 **API-hópur:** `bifrost`  
 **API-útgáfa:** `v1.0`
@@ -17,7 +16,7 @@ Origo Bifröst-endingurinn veitir API-endapunkta til að stjórna og vinna með 
 
 ## API-endapunktar
 
-### 1. Bifröst Data API — Svarsgögn {#bifrst-data-api-svarsggn}
+### 1. Bifröst Data API — Svarsgögn {#bifrost-data-api-response-data}
 
 **Tilgangur:** Skilar svarsgagnasniðið fyrir tiltekin skilaboð.
 
@@ -233,7 +232,7 @@ og samningar þeirra eru lesnir úr Business Central sjálfu: MCP-tólin `list_m
 skilar fullum beiðni- og svarsamningi einnar tegundar. Allar innbyggðar skilaboðategundir taka
 færibreytur sínar sem JSON í `data` reitnum.
 
-**Stækkunarhæfni:** Forrit ofan á Bifröst Foundation bætir við eigin skilaboðategundum með því að útfæra `Msg Interface ori`.
+Önnur Bifröst-forrit bæta eigin skilaboðategundum í sama safn; þær eru taldar upp og þeim lýst á sama hátt.
 
 ---
 
@@ -269,7 +268,7 @@ Stilltu vefkrókáskriftir í gegnum **Event Subscriptions** síðu í Business 
 5. Stilltu endapunktsslóð og auðkenningu
 6. Virkjaðu áskrift
 
-Nákvæm skjöl um vefkrók stillingar, öryggissjónarmiðir og kóðadæmi er að finna í: **[Events_and_Webhooks.md](/foundation/reference/events-and-webhooks/)**
+Nánar um uppsetningu vefkróka, öryggi og kóðadæmi: **[Atburðir og vefkrókar](/foundation/reference/events-and-webhooks/)**
 
 ---
 
@@ -384,8 +383,6 @@ Svarsgögnin eru hjálp skilaboðategundarinnar sem nefnd er í `subject`, á Ma
 
 ## Tengd skjöl
 
-- **[Events_and_Webhooks.md](/foundation/reference/events-and-webhooks/)**: Vefkrókar og ytri viðskiptaviðburðir
-- **[Setup_Reference.md](/foundation/reference/setup/)**: Uppsetningarhandbók og útfærsluval
-- **[Field_Access_Restrictions.md](/foundation/reference/field-access-restrictions/)**: Reitarsniðangursheimildir og uppsetning
-- **[Secrets.md](/foundation/reference/secrets/)**: Sameiginleg leyndarmálageymsla forrita
-- **[Extending_Bifrost_Setup.md](/extensibility/setup-and-secrets/)**: Útvíkkunarpunkturinn Apps á uppsetningarsíðu Bifrastar
+- **[Atburðir og vefkrókar](/foundation/reference/events-and-webhooks/)**: vefkrókar og ytri viðskiptaatburðir
+- **[Uppsetningarviðmiðun](/foundation/reference/setup/)**: uppsetningarsíða Bifröst og stillingarnar að baki henni
+- **[Aðgangur að svæðum](/foundation/reference/field-access-restrictions/)**: takmarkanir á lestri og skrifum einstakra svæða

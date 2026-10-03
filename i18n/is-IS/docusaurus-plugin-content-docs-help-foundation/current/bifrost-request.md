@@ -1,8 +1,6 @@
 ---
 id: bifrost-request
 title: "Bifröst beiðni"
-sidebar_label: "Bifröst beiðni"
-sidebar_position: 18
 ---
 
 Upplýsingareiturinn **Bifröst beiðni** birtist hægra megin á [Bifröst skilaboð](/help/foundation/bifrost-messages/) listanum. Hann sýnir komandi beiðnigögn (gagnafarm) valins Bifröst skilaboðs. Innihaldið er skrifvarið í þessum upplýsingareit.

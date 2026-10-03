@@ -1,8 +1,6 @@
 ---
 id: bg-sessions-fact-box
 title: "Background Sessions"
-sidebar_label: "Background Sessions"
-sidebar_position: 3
 ---
 
 The **Background Sessions** FactBox appears on the [Bifrost Setup](/help/foundation/bifrost-setup/) page. It lists all active background sessions currently running in the system. Use this panel to monitor and stop individual background sessions when needed.

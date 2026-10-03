@@ -1,8 +1,6 @@
 ---
 id: rate-limit-configuration
 title: "Stilla álagsþak"
-sidebar_label: "Stilla álagsþak"
-sidebar_position: 44
 ---
 
 Í svarglugganum **Stilla álagsþak** velur þú hve mörg API-köll á dag Bifröst MCP-þjónninn leyfir fyrir

@@ -1,8 +1,6 @@
 ---
 id: bifrost-request-log-entry
 title: "Bifrost Request Log Entry"
-sidebar_label: "Request Log Entry"
-sidebar_position: 59
 ---
 
 The **Bifrost Request Log Entry** card shows one outbound request from the [Request Log](/help/foundation/bifrost-request-log/).

@@ -1,8 +1,6 @@
 ---
 id: registered-apps
 title: "Bifröst-forrit"
-sidebar_label: "Bifröst-forrit"
-sidebar_position: 60
 ---
 
 Listinn **Bifröst-forrit**, í HTTP-skrefi [Uppsetningarleiðsagnar Bifröst](/help/foundation/bifrost-setup-wizard/),

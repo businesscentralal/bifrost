@@ -1,8 +1,6 @@
 ---
 id: bifrost-message-type-list
 title: "Tiltækar skilaboðategundir"
-sidebar_label: "Tiltækar skilaboðategundir"
-sidebar_position: 11
 ---
 
 Undirsiðan **Tiltækar skilaboðategundir** birtist á síðunni [Bifröst uppsetning](/help/foundation/bifrost-setup/). Hún sýnir allar skilaboðategundir sem eru skráðar í kerfinu — bæði innbyggðar tegundir og tegundir sem bætt hefur verið við með viðbótarforritum. Nota má þennan glugga til að yfirfara tiltækar skilaboðategundir og hlaða niður hjálparskjölun þeirra.

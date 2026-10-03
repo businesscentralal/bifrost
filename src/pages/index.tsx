@@ -59,8 +59,8 @@ export default function Home(): ReactNode {
         </p>
         <p>
           <Translate id="home.onePlatform">
-            One platform. Other Bifröst apps add operations of their own, partners add theirs, and
-            your developers can add more. The assistant uses them all together.
+            One platform. Other Bifröst apps add operations of their own, and the assistant uses
+            them all together.
           </Translate>
         </p>
       </header>
@@ -174,50 +174,6 @@ export default function Home(): ReactNode {
           ))}
         </div>
       </main>
-      <section className="bifrostBand">
-        <div className="container">
-          <h2>
-            <Translate id="home.build.title">For partners and ISVs</Translate>
-          </h2>
-          <p className="bifrostBandLead">
-            <Translate id="home.build.lead">
-              Set Bifröst up for your customers, add your own app to the platform, or give an AI
-              agent what it needs to work with Business Central.
-            </Translate>
-          </p>
-          <div className="bifrostLinks">
-            <Link className="bifrostPath" to="/documentation/partners/">
-              <h3>
-                <Translate id="home.partners.title">Set it up for customers</Translate>
-              </h3>
-              <p>
-                <Translate id="home.partners.body">
-                  What to think about when you set up, support or resell Bifröst for the companies
-                  you work with.
-                </Translate>
-              </p>
-              <span className="bifrostPathCta">
-                <Translate id="home.partners.cta">For partners</Translate> <span aria-hidden="true">→</span>
-              </span>
-            </Link>
-            <Link className="bifrostPath" to="/extensibility/">
-              <h3>
-                <Translate id="home.extensibility.title">Build on Bifröst</Translate>
-              </h3>
-              <p>
-                <Translate id="home.extensibility.body">
-                  Give your app its own capabilities, and every assistant, integration and playbook
-                  can use them, behind Bifröst's permissions and log. The full guide lives in the
-                  partner reference repository.
-                </Translate>
-              </p>
-              <span className="bifrostPathCta">
-                <Translate id="home.extensibility.cta">Start building</Translate> <span aria-hidden="true">→</span>
-              </span>
-            </Link>
-          </div>
-        </div>
-      </section>
     </Layout>
   );
 }
