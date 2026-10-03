@@ -10,7 +10,7 @@ description: "Hver rukkar leigjandann þinn, hvernig notkun hans er tilkynnt og 
 | Tegund leyfis | Rukkað af | Byggir á |
 |---|---|---|
 | **Fyrirframgreitt** | Origo | Skilaboðakvótanum sem þú kaupir, fyrir hvern pott. |
-| **Áskrift** | **Samstarfsaðila** þínum hjá Bifröst | Skilaboðunum sem leigjandinn þinn notaði í mánuðinum, eftir [gjaldfærslutegund](./license-types.md#charge-types), auk þreps álagsþaks ofan við Frítt ef þú valdir slíkt - á því verði sem samið var um við samstarfsaðilann. |
+| **Áskrift** | **Samstarfsaðila** þínum hjá Bifröst | Skilaboðunum sem leigjandinn þinn notaði í mánuðinum, eftir [gjaldfærslutegund](./license-types.md#charge-types), auk þreps álagsþaks ofan við Frítt fyrir sandkassanotkun á opinbera MCP-þjóninum ef þú valdir slíkt - á því verði sem samið var um við samstarfsaðilann. |
 
 ## Hvernig notkun er tilkynnt
 

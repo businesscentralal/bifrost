@@ -94,7 +94,8 @@ viðskiptavinir samstarfsaðila.
 - **Lokun.** Tæmdur pottur hafnar köllum með villunni um uppurinn kvóta - nema leyfissamningur
   leigjandans kveði á um að potturinn skuli halda áfram. Þá halda köllin áfram, eru áfram talin og
   skila áfram viðvöruninni. Gildandi stilling birtist sem `blockOnMissingQuota` í leyfisstöðunni.
-- **Álagsþak.** Alltaf fría þrepið, 1.000 köll á dag. Sjá [Álagsþak](./rate-limits.md).
+- **Álagsþak.** Notkun í framleiðsluumhverfi ber ekkert álagsþak. Sandkassanotkun á opinbera Bifröst
+  MCP-þjóninum er alltaf á fría þrepinu, 1.000 skilaboð á 24 klukkustundum. Sjá [Álagsþak](./rate-limits.md).
 
 ## Áskrift {#subscription}
 
@@ -105,11 +106,13 @@ leigjandann: öll fyrirtæki hans eru á áskrift, líka fyrirtæki sem byrja a�
 - **Reikningsfærsla.** Samstarfsaðilinn rukkar viðskiptavininn fyrir skilaboðin sem hann notaði í
   hverjum mánuði. Enginn kvóti er keyptur: pottarnir eru taldir en ekki takmarkaðir.
   [Mánaðarlegu kvótarnir](#monthly-quotas) eru leið viðskiptavinarins til að setja þak á reikninginn.
-- **Álagsþak.** Fría þrepið sjálfgefið; viðskiptavinurinn getur valið hærra þrep í
-  framleiðsluumhverfi. Sjá [Álagsþak](./rate-limits.md).
+- **Álagsþak.** Notkun í framleiðsluumhverfi ber ekkert álagsþak. Sandkassanotkun á opinbera Bifröst
+  MCP-þjóninum er sjálfgefið á fría þrepinu (1.000 skilaboð á 24 klukkustundum); viðskiptavinurinn getur
+  hækkað það með því að velja hærra þrep úr framleiðsluumhverfinu, á verði samstarfsaðilans. Sjá
+  [Álagsþak](./rate-limits.md).
 
 Þegar sambandinu við samstarfsaðilann lýkur fer leigjandinn aftur á **fyrirframgreitt leyfi** og
-álagsþak hans aftur á fría þrepið. Breytingin tekur gildi þegar leyfisstjóri velur **Samstilla** á
+sandkassaþak hans aftur á fría þrepið. Breytingin tekur gildi þegar leyfisstjóri velur **Samstilla** á
 síðunni Uppsetning Bifröst.
 
 ## Mánaðarlegir kvótar {#monthly-quotas}
@@ -146,10 +149,11 @@ notar mánaðarlegu kvótana.
 - Bifröst hafnar ekki köllum vegna kvóta: pottum og mánaðarlegum kvóta er ekki framfylgt og ekkert
   prufuleyfi þarf.
 - Notkun er samt skráð og tilkynnt, aðskilin frá framleiðsluumhverfi.
-- Álagsþakið er alltaf fría þrepið, 1.000 köll á dag, óháð því hvaða þrep framleiðsluleigjandinn
-  hefur valið.
+- Á opinbera Bifröst MCP-þjóninum ber sandkassanotkun álagsþak: 1.000 skilaboð á 24 klukkustundum á
+  hvern Microsoft Entra leigjanda (fría þrepið), nema viðskiptavinur á áskrift hafi valið hærra þrep.
+  Bifröst sjálft hefur engin skilaboðatakmörk.
 
-Til að prófa án takmarkana á móti eigin sandkassa skaltu keyra staðbundna MCP-þjóninn úr
+Fyrir ótakmarkaða sandkassanotkun skaltu keyra staðbundna MCP-þjóninn úr
 [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
 
 ## Uppsetningar á staðnum

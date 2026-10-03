@@ -58,7 +58,7 @@ The page also lists the **Available Message Types** and, for licence administrat
 | Licensing | **Sync** | Reports pending usage to the licensing service, refreshes the licence status, and applies cancellations and leave-request outcomes. It is the only thing that offers onboarding: the Register as Vendor, Register as Partner and Register as Customer notifications and the **Onboard as Vendor** action appear only after a Sync. The daily background task only reports usage. |
 | | **Revoke EULA Approval** | Withdraws the licence agreement approval for this company; calls are refused until the wizard is run again. |
 | | **License Usage** | The usage entries of your tenant - see [Bifrost Usage Entries](/help/foundation/license-usage/). |
-| | **Configure Rate Limit** | Subscription tenants, production only - see [Configure Rate Limit](/help/foundation/rate-limit-configuration/). |
+| | **Configure Rate Limit** | Subscription tenants, production only. Raises the rate limit on sandbox usage through the public Bifröst MCP server - see [Configure Rate Limit](/help/foundation/rate-limit-configuration/). |
 | | **Onboard as Vendor** | After a Sync, for a tenant approved as a Vendor that is not registered yet - see [Vendor Onboarding](/help/foundation/vendor-onboarding-wizard/). |
 | | **Partner Management**, **Pending Partner Leave Requests**, **Deregister as Vendor** | Vendors - see [Partner Management](/help/foundation/partner-management/) and [Pending Partner Leave Requests](/help/foundation/pending-partner-leave-requests/). **Deregister as Vendor** ends the Vendor registration. |
 | | **Customer Management** | Partners only - see [Customer Management](/help/foundation/customer-management/). |

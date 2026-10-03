@@ -92,7 +92,8 @@ of a Partner.
   licensing agreement for the tenant says the pool should keep running, in which case calls
   continue, are still counted, and keep returning the warning. The effective setting is reported as
   `blockOnMissingQuota` in the licence status.
-- **Rate limit.** Always the Free tier, 1,000 calls per day. See [Rate limits](./rate-limits.md).
+- **Rate limit.** Production usage is not rate-limited. Sandbox usage on the public Bifröst MCP server
+  is always the Free tier, 1,000 messages per 24 hours. See [Rate limits](./rate-limits.md).
 
 ## Subscription
 
@@ -103,11 +104,12 @@ company of the tenant is on Subscription, including companies that start using B
 - **Invoicing.** The Partner invoices the Customer for the messages it used each month. There is no
   purchased quota: the pools are counted, not limited. The [monthly quotas](#monthly-quotas) are the
   Customer's way to cap its bill.
-- **Rate limit.** The Free tier by default; the Customer can choose a higher tier in production.
-  See [Rate limits](./rate-limits.md).
+- **Rate limit.** Production usage is not rate-limited. Sandbox usage on the public Bifröst MCP server
+  has the Free tier by default (1,000 messages per 24 hours); the Customer can raise it by choosing a
+  higher tier from its production environment, priced by its Partner. See [Rate limits](./rate-limits.md).
 
-When the relationship with the Partner ends, the tenant returns to **Prepaid** and its rate limit
-returns to the Free tier. The change takes effect when a licence administrator chooses **Sync** on
+When the relationship with the Partner ends, the tenant returns to **Prepaid** and its sandbox
+rate limit returns to the Free tier. The change takes effect when a licence administrator chooses **Sync** on
 Bifrost Setup.
 
 ## Monthly quotas
@@ -140,9 +142,11 @@ In a Business Central online **sandbox**:
 
 - Bifröst does not block on quota: pools and monthly quotas are not enforced, and no trial is needed.
 - Usage is still recorded and reported, separately from production.
-- The rate limit is always the Free tier, 1,000 calls per day, whatever the production tenant has chosen.
+- On the public Bifröst MCP server, sandbox usage is rate-limited: 1,000 messages per 24 hours per
+  Microsoft Entra tenant (the Free tier), unless a Subscription Customer has chosen a higher tier. Bifröst
+  itself has no message limit.
 
-For unlimited testing against your own sandbox, run the local MCP server from
+For unlimited sandbox usage, run the Local MCP server from
 [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
 
 ## On-premises installations
