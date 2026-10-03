@@ -57,9 +57,3 @@ Settu **Bifrost Foundation** upp frá AppSource eða í gegnum samstarfsaðila �
 - **Verð og leyfi:** [Verð](/price/) (á ensku í bili) og [Leyfi](/licensing/).
 - **Síða í Business Central:** hver Foundation-síða hefur sína eigin hjálparsíðu.
 
-## Fyrir forritara og kerfisstjóra
-
-- [API-viðmiðun](./reference/api/): endapunktar, skilaboðaumslagið og form svara
-- [Villur](./reference/errors/), [Atburðir og vefkrókar](./reference/events-and-webhooks/),
-  [Aðgangur að svæðum](./reference/field-access-restrictions/)
-- [Uppsetningarviðmiðun](./reference/setup/): uppsetningarsíða Bifröst og stillingarnar að baki henni

@@ -236,28 +236,15 @@ const config: Config = {
     navbar: {
       title: 'Bifröst',
       items: [
-        // Left to right: how it works, set it up, try it, the guide for your role, the price,
-        // licensing and terms, and the in-product help. The apps sit on the right.
-        {label: buildLocale === 'is-IS' ? 'Hvernig það virkar' : 'How it works', to: '/documentation/how-it-works/', position: 'left'},
+        // Left to right: the guides (how it works, then one guide per role), set it up, try it, the
+        // price, and licensing and terms. The apps sit on the right.
+        {label: buildLocale === 'is-IS' ? 'Leiðbeiningar' : 'Guides', to: '/documentation/', position: 'left', activeBasePath: '/documentation/'},
         {label: buildLocale === 'is-IS' ? 'Uppsetning' : 'Set it up', to: '/setup/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/', position: 'left'},
-        {
-          type: 'dropdown',
-          label: buildLocale === 'is-IS' ? 'Leiðbeiningar' : 'Guides',
-          to: '/documentation/',
-          position: 'left',
-          items: [
-            {label: buildLocale === 'is-IS' ? 'Allar leiðbeiningar' : 'All guides', to: '/documentation/'},
-            {type: 'html', value: `<span class="dropdownHeading">${buildLocale === 'is-IS' ? 'Viðskiptavinir' : 'End customers'}</span>`},
-            {label: buildLocale === 'is-IS' ? 'Notendur' : 'Users', to: '/documentation/end-customers/users/'},
-            {label: buildLocale === 'is-IS' ? 'Kerfisstjórar' : 'Administrators', to: '/documentation/end-customers/administrators/'},
-            {label: buildLocale === 'is-IS' ? 'Forritarar' : 'Developers', to: '/documentation/end-customers/developers/'},
-          ],
-        },
         {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Leyfi' : 'Licensing', to: '/licensing/', position: 'left'},
         // On the right, set apart: the apps. Only published apps are shown (Foundation for now), then the
-        // registry of apps built on Bifröst. The label and the items share one framed group (.navApps).
+        // list of all apps. The label and the items share one framed group (.navApps).
         {type: 'html', position: 'right', value: `<span class="navAppsLabel">${buildLocale === 'is-IS' ? 'Forrit' : 'Apps'}</span>`, className: 'navApps'},
         {label: 'Foundation', to: '/foundation/', position: 'right', activeBasePath: '/foundation/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/', position: 'right', className: 'navApps navAppsItem'},

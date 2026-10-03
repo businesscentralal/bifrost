@@ -56,9 +56,3 @@ each saying who is needed.
 - **Price and licensing:** [Price](/price/) and [Licensing](/licensing/).
 - **A page in Business Central:** each Foundation page has its own help page.
 
-## For developers and administrators
-
-- [API reference](./reference/api/): endpoints, the message envelope and response shapes
-- [Errors](./reference/errors/), [Events and webhooks](./reference/events-and-webhooks/),
-  [Field access](./reference/field-access-restrictions/)
-- [Setup reference](./reference/setup/): the Bifrost Setup page and the settings behind it

@@ -45,9 +45,6 @@ sequenceDiagram
   B-->>S: The answer
 ```
 
-- [API reference](/foundation/reference/api/): endpoints, the message envelope and response shapes
-- [Errors](/foundation/reference/errors/): what an error answer contains
-- [Events and webhooks](/foundation/reference/events-and-webhooks/): being told instead of polling
 - [INTEGRATING guide](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/INTEGRATING.md):
   calling Bifröst from another system, worked end to end
 
@@ -73,4 +70,4 @@ An integration's calls count in the **App Registration** pool, apart from people
 counts as a message: [Usage and limits](/documentation/end-customers/administrators/#usage-and-limits).
 See also [Licensing](/licensing/).
 
-**Next:** the [API reference](/foundation/reference/api/).
+**Next:** [Connect your AI](/setup/connect-your-ai/).

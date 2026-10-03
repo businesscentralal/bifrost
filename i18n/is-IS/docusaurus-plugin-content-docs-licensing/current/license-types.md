@@ -167,4 +167,3 @@ staðnum, og keypti kvótinn virkar eins og lýst er undir [Fyrirframgreitt leyf
   mánuði, í gegnum Bifröst. Uppsettar skilaboðategundir og samningar þeirra eru lesnir úr Business
   Central sjálfu: með MCP-tólunum `list_message_types` og `describe_message_type` eða á síðunni
   Bifrost Message Types.
-- Villurnar og viðvaranirnar sem kallendur sjá eru í [Tilvísun um leyfisveitingar](/foundation/reference/licensing/).

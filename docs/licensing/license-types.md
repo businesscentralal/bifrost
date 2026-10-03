@@ -159,4 +159,3 @@ described under [Prepaid](#prepaid).
 - An AI assistant can read the same status, and the tenant's usage in the current month, through
   Bifröst. The installed message types and their contracts are read from Business Central itself:
   the MCP tools `list_message_types` and `describe_message_type`, or the Bifrost Message Types page.
-- The error and warning shapes callers see are in the [Licensing reference](/foundation/reference/licensing/).

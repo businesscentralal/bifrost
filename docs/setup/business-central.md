@@ -52,7 +52,6 @@ Both get their permissions in Business Central, on **Users** or **Microsoft Entr
 - a **posting gate** for each ledger they may post to. A posting gate is a separate permission set,
   not part of the general Bifröst ones: `BIFROST GL Post ori`, `BIFROST ItemPost ori`,
   `BIFROST FA Post ori`, `BIFROST Job Post ori` and `BIFROST Res Post ori`.
-  Which posting each one allows: [Posting gates](/foundation/reference/setup/#posting-gates-bifrost-gl--item--fa--job--resource-posting).
 
 A typical setup:
 

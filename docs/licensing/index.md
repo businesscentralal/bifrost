@@ -51,4 +51,3 @@ A change to the tenant's Partner relationship takes effect when a licence admini
 - [Rate limits](./rate-limits.md) - the tiers and how to choose one
 - [Terms of Use](./eula.md) and [Privacy](./privacy.md)
 - [Usage and billing](./usage-and-billing.md) - how your usage is reported and where you see it
-- [Licensing reference](/foundation/reference/licensing/) - the contract callers see: pools, warnings and errors
