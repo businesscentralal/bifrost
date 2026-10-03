@@ -22,7 +22,7 @@ The **View** field at the top shows whose customers are listed.
 | **Company Name** | The customer company. |
 | **Environment Name** | The Business Central environment of the company. |
 | **Approved At** / **Approved By User Id** | When and by whom the customer accepted the Partner relationship. |
-| **Rate Limit Tier** / **Rate Limit Per Day** | The tier the customer chose and its API calls per day. Free is the default 1,000 calls per day. |
+| **Rate Limit Tier** / **Rate Limit Per Day** | The tier the customer chose and the messages per 24 hours it allows for the customer's sandbox usage on the public Bifröst MCP server. Free, 1,000 messages, is the default. Production usage is not rate-limited. |
 | **Above Free Tier** | The customer chose a tier above Free. |
 | **User Msgs MTD** / **App Msgs MTD** | User and App Registration messages used this month. |
 | **Internal Messages MTD** | Messages this month by people in this customer when it is your own tenant. Reported separately from customer usage. |

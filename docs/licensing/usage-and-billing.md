@@ -10,7 +10,7 @@ description: "Who invoices your tenant, how its usage is reported, and where you
 | License type | Invoiced by | Based on |
 |---|---|---|
 | **Prepaid** | Origo | The message quota you buy, per pool. |
-| **Subscription** | Your Bifröst **Partner** | The messages your tenant used in the month, per [charge type](./license-types.md#charge-types), plus a rate-limit tier above Free if you chose one - at the prices agreed with your Partner. |
+| **Subscription** | Your Bifröst **Partner** | The messages your tenant used in the month, per [charge type](./license-types.md#charge-types), plus a rate-limit tier above Free for sandbox usage on the public MCP server if you chose one - at the prices agreed with your Partner. |
 
 ## How usage is reported
 

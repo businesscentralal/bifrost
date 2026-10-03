@@ -18,7 +18,7 @@ leigjandinn er í viðskiptum við **samstarfsaðila** Bifröst.
 | Hver | Allir leigjendur þegar Bifröst Foundation er sett upp, og allir leigjendur sem hafa engan samstarfsaðila | Leigjandi sem hefur samþykkt boð frá samstarfsaðila Bifröst (*viðskiptavinur*) |
 | Hvernig er greitt | Þú kaupir skilaboðakvóta fyrir fram og notar hann þar til hann klárast | Samstarfsaðilinn rukkar þig í hverjum mánuði fyrir skilaboðin sem þú notaðir |
 | Takmörk | Keyptur kvóti, fyrir hvern [pott](./license-types.md#two-pools), og valfrjáls **mánaðarlegur kvóti** sem þú setur sjálfur | Valfrjáls **mánaðarlegur kvóti** fyrir fyrirtæki og notendur, sem þú setur sjálfur - enginn kvóti er keyptur |
-| Álagsþak | Fría þrepið, 1.000 köll á dag - ekki hægt að breyta því | Fría þrepið sjálfgefið; þú getur valið hærra þrep, sem samstarfsaðilinn getur rukkað fyrir |
+| Álagsþak | Ekkert álagsþak í framleiðsluumhverfi. Sandkassanotkun á opinbera MCP-þjóninum: fría þrepið, 1.000 skilaboð á 24 klukkustundum - ekki hægt að breyta því | Ekkert álagsþak í framleiðsluumhverfi. Sandkassanotkun á opinbera MCP-þjóninum: fría þrepið sjálfgefið; þú getur valið hærra þrep, sem samstarfsaðilinn verðleggur |
 | Prufuleyfi | 1.000 notendaskilaboð + 1.000 forritsskráningarskilaboð, einu sinni fyrir hvern leigjanda | Óþarft - prufuleyfið var notað á meðan leigjandinn var á fyrirframgreiddu leyfi |
 
 Ný uppsetning byrjar alltaf á **fyrirframgreiddu leyfi**: kerfisstjórinn samþykkir
@@ -51,6 +51,6 @@ Breyting á sambandi leigjandans við samstarfsaðila tekur gildi þegar leyfiss
 ## Í þessum hluta
 
 - [Tegundir leyfa](./license-types.md) - fyrirframgreitt leyfi, áskrift, sandkassi og uppsetning á staðnum í smáatriðum
-- [Álagsþak](./rate-limits.md) - þrepin og hvernig þrep er valið
+- [Álagsþak](./rate-limits.md) - sandkassaþakið á opinbera MCP-þjóninum, þrepin og hvernig það er hækkað
 - [Notkunarskilmálar](./eula.md) og [Persónuvernd](./privacy.md)
 - [Notkun og reikningsfærsla](./usage-and-billing.md) - hvernig notkun þín er tilkynnt og hvar þú sérð hana
