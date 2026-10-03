@@ -54,4 +54,3 @@ Breyting á sambandi leigjandans við samstarfsaðila tekur gildi þegar leyfiss
 - [Álagsþak](./rate-limits.md) - þrepin og hvernig þrep er valið
 - [Notkunarskilmálar](./eula.md) og [Persónuvernd](./privacy.md)
 - [Notkun og reikningsfærsla](./usage-and-billing.md) - hvernig notkun þín er tilkynnt og hvar þú sérð hana
-- [Tilvísun um leyfisveitingar](/foundation/reference/licensing/) - samningurinn sem kallendur sjá: pottar, viðvaranir og villur

@@ -180,18 +180,6 @@ a.bifrostCard:focus-visible {
   margin: 0.5rem 0 1rem;
 }
 
-/* Group headings inside a navbar dropdown (Documentation: End customers / Partners). */
-.dropdownHeading {
-  display: block;
-  padding: 0.5rem 0.75rem 0.15rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  opacity: 0.6;
-}
-
 /* The apps group on the right of the navbar: a small "Apps" label, then Foundation and the
    additional apps, each in its own frame. */
 .navAppsLabel {

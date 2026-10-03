@@ -98,6 +98,8 @@ const FORBIDDEN = [
   {token: 'skills page', pattern: /\]\(\/skills\/|static\/skills\//, strict: true},
   // The site does not address partners and ISVs (decision 02.10.2026).
   {token: 'partner/ISV page', pattern: /\]\(\/(?:extensibility|documentation\/partners)\/|register-your-app/, strict: true},
+  // The Foundation reference waits in the support scratchpad (decision 03.10.2026).
+  {token: 'Foundation reference page', pattern: /\/foundation\/reference\/|\]\(\.\.?\/reference\//, strict: true},
   // Only published apps are documented here (decision 02.10.2026). When an app is published, remove
   // its hashes in the same pull request that brings its pages back.
   {token: 'unpublished app', pattern: UNPUBLISHED_APPS, strict: true},
