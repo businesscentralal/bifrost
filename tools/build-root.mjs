@@ -11,7 +11,7 @@
  *                      per-locale /en-us/apps.json and /is-is/apps.json that
  *                      tools/copy-apps-json.mjs publishes via static/
  *
- * While Icelandic is not published (`npm run build` builds English only), it
+ * When Icelandic is not built (`npm run build:en-only`), it
  * also writes `build/is-is/<path>/index.html` for every English page: a small
  * page that forwards to the same path under /en-us/. Business Central's help
  * button and old bookmarks use /is-is/... links, and they keep working.
@@ -60,8 +60,8 @@ const page = (title, script) => `<!doctype html>
 const exists = (p) => access(p, constants.F_OK).then(() => true).catch(() => false);
 
 /**
- * Icelandic is published when `build/is-is` was built (`npm run build:all`).
- * `npm run build` builds English only until the new chapters are translated;
+ * Icelandic is published when `build/is-is` was built (`npm run build`, both locales).
+ * `npm run build:en-only` builds English alone, for a quick check;
  * the Icelandic source files stay in i18n/is-IS and are kept up to date.
  */
 const FORWARD_MARK = '<meta name="bifrost-forward" content="en-us">';
