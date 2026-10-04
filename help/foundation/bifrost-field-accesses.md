@@ -1,59 +1,83 @@
 ---
 id: bifrost-field-accesses
-title: "Bifrost Field Accesses"
+title: "Bifrost Field Access"
 ---
 
-The **Bifrost Field Accesses** page allows administrators to define field-level access restrictions for individual users and Entra ID (AAD) applications. These restrictions control which fields can be read or written through Bifröst's general record read and write.
+Field Access lets an administrator decide, per user or Microsoft Entra application, which tables and fields Bifröst may
+read and change for them. It applies only to what Bifröst reads and writes; the Business Central client is not affected.
+This help covers three pages: **Bifrost Field Access Overview**, **Bifrost Field Accesses** (the lines of one user) and
+**Bifrost Field Sensitivities**. For the whole picture, with examples, see
+[Control what agents read and change](/documentation/end-customers/data-access/).
 
-Restrictions are user-specific and field-specific, providing fine-grained data protection without modifying existing security roles or permissions. Only fields that have explicit restrictions are affected – all other fields continue to behave normally.
+## Bifrost Field Access Overview {#overview}
 
-## Page Layout
-
-### User Filter
-
-At the top of the page is a **User Name** filter. Select the user or application whose restrictions you want to view or manage. The list below is then filtered to show only that user's restrictions. Use the lookup button (…) to browse available users and applications. When no user is selected, the restrictions list is read-only.
-
-### Restrictions List
-
-Displays every field restriction defined for the selected user. Each row identifies one restricted field on a specific table and defines what kind of access is blocked.
-
-## Fields
+**Field Access** on [Bifrost Setup](/help/foundation/bifrost-setup/) opens this page: every Field Access line of every
+user and application in the company, read-only. All columns can be sorted and filtered.
 
 | Field | Description |
 | --- | --- |
-| **User Name** | The name of the user or Entra ID application whose restrictions are being managed. Use the lookup to select a different user or application. |
-| **Table No.** | The number of the Business Central table to which the restriction applies. Use the lookup to browse all available tables. |
-| **Table Name** | The name of the table (read-only, populated automatically from Table No.). |
-| **Field No.** | The number of the field within the table. Use the lookup to browse available fields for the selected table. |
-| **Field Name** | The name of the field (read-only, populated automatically from Field No.). |
-| **Restriction Type** | Specifies what kind of access is restricted:
--   **Both** – The field is excluded from read responses and cannot be modified. Most restrictive option.
--   **Read** – The field is excluded from read responses but can still be modified through the general record write.
--   **Write** – The field appears in read responses but cannot be modified through the general record write.
--   **Bypass** – The field is excluded from restriction checks entirely. The ChangeLog Write Guard will allow writes to this field regardless of Change Log coverage. This entry does not block read or write access; it only affects the Write Guard evaluation.
-
- |
-
-## Actions
+| **User Name** / **Full Name** | The user or application the line applies to. For an application, **Full Name** is its description. |
+| **Source Type** | **User** or **AAD Application**. |
+| **Table No.** / **Table Name** | The table. **0** means all tables. |
+| **Field No.** / **Field Name** | The field. **0** means all fields of the table. |
+| **Restriction Type** | See [Restriction types](#restriction-types). |
 
 | Action | Description |
 | --- | --- |
-| **Delete All for User** | Removes all field access restrictions for the currently selected user. A confirmation dialog is shown before proceeding. |
-| **Delete All for Table** | Removes all field access restrictions that apply to the table of the currently selected line. A confirmation dialog is shown before proceeding. |
+| **Edit** | Opens the lines of the user on the selected line, to change them. The overview is refreshed when you close it. |
+| **New for User...** | Choose a user or application and open its lines, to add new ones. |
 
-## How to Add a Restriction
+## Bifrost Field Accesses {#lines-of-one-user}
 
-1.  Select a user or application using the **User Name** lookup at the top of the page.
-2.  Click **New** (or press F3) to add a new line in the restrictions list.
-3.  Enter or look up a **Table No.** to identify the table containing the field.
-4.  Enter or look up a **Field No.** to identify the specific field within that table.
-5.  Select the appropriate **Restriction Type**: _Both_, _Read_, _Write_, or _Bypass_. Use _Bypass_ to allow the ChangeLog Write Guard to pass writes for this field even without Change Log coverage.
-6.  The record is saved automatically when you move to the next line or close the page.
+The lines of one user or application. The **User Name** at the top shows whose lines they are.
 
-## Tips
+| Field | Description |
+| --- | --- |
+| **Table No.** / **Table Name** | The table. **0** means all tables. |
+| **Field No.** / **Field Name** | The field. **0** means all fields of the table. |
+| **Restriction Type** | See [Restriction types](#restriction-types). |
 
--   The restrictions list is only editable when a user or application is selected in the **User Name** filter at the top.
--   A restriction is uniquely identified by the combination of User, Table No., and Field No. – duplicate entries are not allowed.
--   Restrictions take effect immediately for subsequent API calls; no restart is required.
--   These restrictions apply only to the Bifrost API and do not affect standard Business Central UI access or existing permission sets.
--   Fields without a restriction entry behave normally and are fully accessible through the API.
+| Action | Description |
+| --- | --- |
+| **Apply Recommended Template...** | Choose one or more users or applications. Bifröst adds **Read** lines for the phone numbers, e-mail addresses, registration numbers and bank account fields of customers, vendors, contacts, sales documents and bank accounts. A line that already exists is never changed, and a user who has a line for a whole table or for all tables is left alone for that scope. Safe to run again. |
+| **Delete All for User** | Deletes every line of the user, after a confirmation. |
+| **Delete All for Table** | Deletes every line for the table of the selected line, after a confirmation. |
+
+## Restriction types {#restriction-types}
+
+| Restriction Type | Read | Change | ChangeLog Write Guard |
+| --- | --- | --- | --- |
+| **Both** | No | No | - |
+| **Read** | No | Yes | Applies |
+| **Write** | Yes | No | - |
+| **None** | Yes | Yes | Applies |
+| **Bypass** | Yes | Yes | Skipped for this user |
+
+- **The most specific line decides.** A line for the field wins over a line for the table, which wins over a line for
+  all tables. Only that one line is used, so a **None** line on a table opens it again under a **Write** line for all
+  tables.
+- **None** also opens, for that user, the fields Bifröst hides or closes by default (bank details, employee personal
+  data, and fields hidden by **Respect Data Sensitivity**). **Bypass** opens the fields closed by default for changes.
+  Neither opens what Bifröst always protects.
+- A user with any **Read** or **Both** line gets no FlowField values through Bifröst, because Bifröst cannot see which
+  fields a FlowField reads.
+- Lines take effect immediately for the next request.
+
+## Bifrost Field Sensitivities {#field-sensitivities}
+
+**Field Sensitivities** on Bifrost Setup opens the company's own classification of fields. Each line marks a field
+**Sensitive** or **Personal**. When **Respect Data Sensitivity** on Bifrost Setup is **Sensitive**, the Sensitive fields
+are hidden from every user; with **Sensitive + Personal**, the Personal fields are hidden too. With **Off** (the default)
+nothing is hidden. A **None** line on Bifrost Field Accesses opens a hidden field for one user.
+
+| Field | Description |
+| --- | --- |
+| **Table No.** / **Table Name** | The table of the field. |
+| **Field No.** / **Field Name** | The field. |
+| **Sensitivity** | **Sensitive** or **Personal**. |
+
+| Action | Description |
+| --- | --- |
+| **Apply Recommended Classification** | Adds the recommended Sensitive employee fields, and the phone, mobile phone, e-mail and registration number of customers, vendors and contacts as Personal. A field that already has a line keeps it. |
+
+The list is changed on this page only, never through Bifröst itself.

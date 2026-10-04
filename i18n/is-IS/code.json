@@ -1,0 +1,505 @@
+{
+  "home.title": {
+    "message": "Bifröst leiðbeiningar"
+  },
+  "home.description": {
+    "message": "Láttu gervigreindaraðstoðarmenn vinna raunveruleg verk í Business Central, sem þú og innan heimilda þinna. Leiðbeiningar fyrir Bifröst frá Origo."
+  },
+  "home.eyebrow": {
+    "message": "Bifröst frá Origo, fyrir Microsoft Dynamics 365 Business Central"
+  },
+  "home.headline": {
+    "message": "Spurðu Business Central. Það finnur út hvernig."
+  },
+  "home.tagline": {
+    "message": "Með Bifröst vinna gervigreindaraðstoðarmenn og önnur kerfi raunveruleg verk í Business Central, ekki bara svara spurningum um það. Þau svara út frá lifandi gögnum, framkvæma verk og keyra heilu ferlin, sem þú og innan heimilda þinna."
+  },
+  "home.setUp": {
+    "message": "Settu það upp"
+  },
+  "home.tryIt": {
+    "message": "Prófaðu"
+  },
+  "home.onePlatform": {
+    "message": "Einn grunnur. Önnur Bifröst forrit bæta við eigin aðgerðum, og aðstoðarmaðurinn notar þær allar saman."
+  },
+  "home.examples.title": {
+    "message": "Svona lítur það út"
+  },
+  "home.examples.ask1": {
+    "message": "„Hve mikið af vöru 1896-S getum við enn lofað í þessari viku, og hvar er það?“"
+  },
+  "home.examples.do1": {
+    "message": "Aðstoðarmaðurinn finnur réttu aðgerðina, les lifandi framboð eftir birgðageymslum og svarar með tölunum."
+  },
+  "home.examples.ask2": {
+    "message": "„Breyttu tilboði SQ-1042 í pöntun og sýndu mér hvað bókun hennar myndi gera.“"
+  },
+  "home.examples.do2": {
+    "message": "Hann stofnar pöntunina og forskoðar bókunina, án þess að bóka neitt, svo þú sérð niðurstöðuna fyrst."
+  },
+  "home.examples.ask3": {
+    "message": "„Hvaða viðskiptamenn eru yfir lánamörkum, og hve mikið af því er gjaldfallið?“"
+  },
+  "home.examples.do3": {
+    "message": "Hann les stöður, lánamörk og opnar færslur, og svarar með lista sem þú getur borið saman við Business Central."
+  },
+  "home.how.title": {
+    "message": "Hvernig það virkar"
+  },
+  "home.how.ask.title": {
+    "message": "Þú spyrð"
+  },
+  "home.how.ask.body": {
+    "message": "Í Copilot, ChatGPT, Claude eða öðrum aðstoðarmanni, með eigin orðum, eða úr öðru kerfi."
+  },
+  "home.how.gate.title": {
+    "message": "Bifröst finnur út hvernig"
+  },
+  "home.how.gate.body": {
+    "message": "Aðstoðarmaðurinn finnur réttu aðgerðirnar, les hvernig á að kalla í þær, og kallar í þær sem þú. Bifröst athugar heimildir þínar og skráir hvert kall."
+  },
+  "home.how.bc.title": {
+    "message": "Business Central vinnur verkið"
+  },
+  "home.how.bc.body": {
+    "message": "Með eigin reglum, athugunum og færslum, í þínu eigin umhverfi, og svarið kemur til baka á venjulegu máli."
+  },
+  "home.how.reach": {
+    "message": "Hann getur lesið flest í Business Central og framkvæmt verkin á sviðum sínum: sölu, innkaupum, fjármálum, birgðum og fleiru. Hvert forrit sem byggir á Bifröst bætir við nýjum."
+  },
+  "home.how.reach.link": {
+    "message": "Hvað það nær yfir"
+  },
+  "home.how.more": {
+    "message": "Meira um hvernig Bifröst virkar"
+  },
+  "home.roles.title": {
+    "message": "Finndu þína leið"
+  },
+  "home.roles.users.title": {
+    "message": "Ég nota Business Central"
+  },
+  "home.roles.users.body": {
+    "message": "Hvað þú getur spurt um, hvað hann gerir ekki, og hvað þú gerir þegar hann segir nei."
+  },
+  "home.roles.users.cta": {
+    "message": "Fyrir notendur"
+  },
+  "home.roles.admins.title": {
+    "message": "Ég sé um Business Central"
+  },
+  "home.roles.admins.body": {
+    "message": "Heimildir, hvað fulltrúar mega sjá, annálar og notkun, og hvað þú berð ábyrgð á."
+  },
+  "home.roles.admins.cta": {
+    "message": "Fyrir kerfisstjóra"
+  },
+  "home.roles.devs.title": {
+    "message": "Ég tengi önnur kerfi"
+  },
+  "home.roles.devs.body": {
+    "message": "Eitt API fyrir hverja aðgerð: sendu skilaboð, lestu svarið, fáðu að vita þegar því er lokið."
+  },
+  "home.roles.devs.cta": {
+    "message": "Fyrir forritara"
+  },
+  "home.apps.title": {
+    "message": "Forritin"
+  },
+  "home.apps.more": {
+    "message": "Bættu við fleiru: bönkum, rafrænum reikningum, geymslu, tímaáætlunum og fleiru"
+  },
+  "platformMap.ask": {
+    "message": "Hver spyr"
+  },
+  "platformMap.agents": {
+    "message": "Gervigreindaraðstoðarmenn"
+  },
+  "platformMap.systems": {
+    "message": "Önnur kerfi"
+  },
+  "platformMap.extensions": {
+    "message": "Aðrar viðbætur"
+  },
+  "platformMap.gate": {
+    "message": "Eitt hlið: skrá, hjálp, heimildir, leyfi og annáll yfir hvert kall"
+  },
+  "platformMap.add": {
+    "message": "Hver bætir við sviðum"
+  },
+  "platformMap.builtin": {
+    "message": "Innbyggt í Foundation"
+  },
+  "platformMap.builtinBody": {
+    "message": "Viðskiptamenn, sala, innkaup, fjármál, birgðir, verk, gögn og fleira"
+  },
+  "platformMap.others": {
+    "message": "Önnur Bifröst forrit"
+  },
+  "platformMap.caption": {
+    "message": "Hvert forrit bætir eigin sviðum við sömu skrá, svo allir sem kalla geta notað þau."
+  },
+  "theme.ErrorPageContent.title": {
+    "message": "Síðan hrundi.",
+    "description": "The title of the fallback page when the page crashed"
+  },
+  "theme.BackToTopButton.buttonAriaLabel": {
+    "message": "Skruna efst",
+    "description": "The ARIA label for the back to top button"
+  },
+  "theme.blog.archive.title": {
+    "message": "Skjalasafn",
+    "description": "The page & hero title of the blog archive page"
+  },
+  "theme.blog.archive.description": {
+    "message": "Skjalasafn",
+    "description": "The page & hero description of the blog archive page"
+  },
+  "theme.blog.paginator.navAriaLabel": {
+    "message": "Blogg listsíðu yfirlit",
+    "description": "The ARIA label for the blog pagination"
+  },
+  "theme.blog.paginator.newerEntries": {
+    "message": "Nýrri færslur",
+    "description": "The label used to navigate to the newer blog posts page (previous page)"
+  },
+  "theme.blog.paginator.olderEntries": {
+    "message": "Eldri færslur",
+    "description": "The label used to navigate to the older blog posts page (next page)"
+  },
+  "theme.blog.post.paginator.navAriaLabel": {
+    "message": "Blogg færslu síðu yfirlit",
+    "description": "The ARIA label for the blog posts pagination"
+  },
+  "theme.blog.post.paginator.newerPost": {
+    "message": "Nýrri færsla",
+    "description": "The blog post button label to navigate to the newer/previous post"
+  },
+  "theme.blog.post.paginator.olderPost": {
+    "message": "Eldri færsla",
+    "description": "The blog post button label to navigate to the older/next post"
+  },
+  "theme.tags.tagsPageLink": {
+    "message": "Skoða Öll Merki",
+    "description": "The label of the link targeting the tag list page"
+  },
+  "theme.colorToggle.ariaLabel.mode.system": {
+    "message": "system mode",
+    "description": "The name for the system color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.light": {
+    "message": "björt stilling",
+    "description": "The name for the light color mode"
+  },
+  "theme.colorToggle.ariaLabel.mode.dark": {
+    "message": "rökkur stilling",
+    "description": "The name for the dark color mode"
+  },
+  "theme.colorToggle.ariaLabel": {
+    "message": "Skiptu á milli rökkur stillingar og bjartar stillingar (núna {mode})",
+    "description": "The ARIA label for the color mode toggle"
+  },
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "Brauðteningar",
+    "description": "The ARIA label for the breadcrumbs"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "Skjala síður",
+    "description": "The ARIA label for the docs pagination"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "Fyrra",
+    "description": "The label used to navigate to the previous doc"
+  },
+  "theme.docs.paginator.next": {
+    "message": "Næsta",
+    "description": "The label used to navigate to the next doc"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "Útgáfa: {versionLabel}"
+  },
+  "theme.docs.tagDocListPageTitle.nDocsTagged": {
+    "message": "Eitt skjal merkt|{count} skjöl merkt",
+    "description": "Pluralized label for \"{count} docs tagged\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.docs.tagDocListPageTitle": {
+    "message": "{nDocsTagged} með \"{tagName}\"",
+    "description": "The title of the page for a docs tag"
+  },
+  "theme.docs.versions.unreleasedVersionLabel": {
+    "message": "Þetta er óútgefin skjölun fyrir {siteTitle} {versionLabel} útgáfa.",
+    "description": "The label used to tell the user that he's browsing an unreleased doc version"
+  },
+  "theme.docs.versions.unmaintainedVersionLabel": {
+    "message": "Þetta er skjölun fyrir {siteTitle} {versionLabel}, sem ekki er lengur viðhaldið.",
+    "description": "The label used to tell the user that he's browsing an unmaintained doc version"
+  },
+  "theme.docs.versions.latestVersionSuggestionLabel": {
+    "message": "Fyrir uppfærða skjölun, skoðið {latestVersionLink} ({versionLabel}).",
+    "description": "The label used to tell the user to check the latest version"
+  },
+  "theme.docs.versions.latestVersionLinkLabel": {
+    "message": "nýjasta útgáfa",
+    "description": "The label used for the latest version suggestion link label"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "Beinn hlekkur að {heading}",
+    "description": "Title for link to heading"
+  },
+  "theme.common.editThisPage": {
+    "message": "Breyttu þessari síðu",
+    "description": "The link label to edit the current page"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": " þann {date}",
+    "description": "The words used to describe on which date a page has been last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": " af {user}",
+    "description": "The words used to describe by who the page has been last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "Seinast uppfært{atDate}{byUser}",
+    "description": "The sentence used to display when a page has been last updated, and by who"
+  },
+  "theme.navbar.mobileVersionsDropdown.label": {
+    "message": "Útgáfur",
+    "description": "The label for the navbar versions dropdown on mobile view"
+  },
+  "theme.NotFound.title": {
+    "message": "Síða fannst ekki",
+    "description": "The title of the 404 page"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "Merki:",
+    "description": "The label alongside a tag list"
+  },
+  "theme.admonition.caution": {
+    "message": "varúð",
+    "description": "The default label used for the Caution admonition (:::caution)"
+  },
+  "theme.admonition.danger": {
+    "message": "hætta",
+    "description": "The default label used for the Danger admonition (:::danger)"
+  },
+  "theme.admonition.info": {
+    "message": "upplýsingar",
+    "description": "The default label used for the Info admonition (:::info)"
+  },
+  "theme.admonition.note": {
+    "message": "athugasemd",
+    "description": "The default label used for the Note admonition (:::note)"
+  },
+  "theme.admonition.tip": {
+    "message": "ábending",
+    "description": "The default label used for the Tip admonition (:::tip)"
+  },
+  "theme.admonition.warning": {
+    "message": "aðvörun",
+    "description": "The default label used for the Warning admonition (:::warning)"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "Loka",
+    "description": "The ARIA label for close button of announcement bar"
+  },
+  "theme.blog.sidebar.navAriaLabel": {
+    "message": "Yfirlit fyrir nýlegar blogg færslur",
+    "description": "The ARIA label for recent posts in the blog sidebar"
+  },
+  "theme.DocSidebarItem.expandCategoryAriaLabel": {
+    "message": "Víkka spássíu flokk '{label}'",
+    "description": "The ARIA label to expand the sidebar category"
+  },
+  "theme.DocSidebarItem.collapseCategoryAriaLabel": {
+    "message": "Fella saman spássíu flokk '{label}'",
+    "description": "The ARIA label to collapse the sidebar category"
+  },
+  "theme.IconExternalLink.ariaLabel": {
+    "message": "(opens in new tab)",
+    "description": "The ARIA label for the external link icon"
+  },
+  "theme.NavBar.navAriaLabel": {
+    "message": "Aðal",
+    "description": "The ARIA label for the main navigation"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "Tungumál",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.NotFound.p1": {
+    "message": "Við fundum ekki það sem þú leitaðir að.",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.p2": {
+    "message": "Vinsamlegast hafðu samband við eiganda síðunnar sem sendi þig hingað og láttu hann vita að hlekkurinn er brotinn.",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "Á þessari síðu",
+    "description": "The label used by the button on the collapsible TOC component"
+  },
+  "theme.blog.post.readMore": {
+    "message": "Lesa Meira",
+    "description": "The label used in blog post item excerpts to link to full blog posts"
+  },
+  "theme.blog.post.readMoreLabel": {
+    "message": "Lesa meira um {title}",
+    "description": "The ARIA label for the link to full blog posts from excerpts"
+  },
+  "theme.CodeBlock.copy": {
+    "message": "Afrita",
+    "description": "The copy button label on code blocks"
+  },
+  "theme.CodeBlock.copied": {
+    "message": "Afritað",
+    "description": "The copied button label on code blocks"
+  },
+  "theme.CodeBlock.copyButtonAriaLabel": {
+    "message": "Afrita kóða á klemmuspjald",
+    "description": "The ARIA label for copy code blocks button"
+  },
+  "theme.blog.post.readingTime.plurals": {
+    "message": "Einnar mínútu lestur|{readingTime} mínútu lestur",
+    "description": "Pluralized label for \"{readingTime} min read\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.CodeBlock.wordWrapToggle": {
+    "message": "Víxla orðahlaupi",
+    "description": "The title attribute for toggle word wrapping button of code block lines"
+  },
+  "theme.docs.breadcrumbs.home": {
+    "message": "Heimasíða",
+    "description": "The ARIA label for the home page in the breadcrumbs"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "Loka spássíu",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.collapseButtonAriaLabel": {
+    "message": "Loka spássíu",
+    "description": "The title attribute for collapse button of doc sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "Skjala spássía",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.docs.sidebar.closeSidebarButtonAriaLabel": {
+    "message": "Loka yfirlits borða",
+    "description": "The ARIA label for close button of mobile sidebar"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← Til baka á aðal valmynd",
+    "description": "The label of the back button to return to main menu, inside the mobile navbar sidebar secondary menu (notably used to display the docs sidebar)"
+  },
+  "theme.docs.sidebar.toggleSidebarButtonAriaLabel": {
+    "message": "Víxsla yfirlits borða",
+    "description": "The ARIA label for hamburger menu button of mobile navigation"
+  },
+  "theme.navbar.mobileDropdown.collapseButton.expandAriaLabel": {
+    "message": "Expand the dropdown",
+    "description": "The ARIA label of the button to expand the mobile dropdown navbar item"
+  },
+  "theme.navbar.mobileDropdown.collapseButton.collapseAriaLabel": {
+    "message": "Collapse the dropdown",
+    "description": "The ARIA label of the button to collapse the mobile dropdown navbar item"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "Opna spássíu",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.docs.sidebar.expandButtonAriaLabel": {
+    "message": "Opna spássíu",
+    "description": "The ARIA label and title attribute for expand button of doc sidebar"
+  },
+  "theme.SearchBar.noResultsText": {
+    "message": "No results"
+  },
+  "theme.SearchBar.seeAllOutsideContext": {
+    "message": "See all results outside \"{context}\""
+  },
+  "theme.SearchBar.searchInContext": {
+    "message": "See all results within \"{context}\""
+  },
+  "theme.SearchBar.seeAll": {
+    "message": "See all results"
+  },
+  "theme.SearchBar.label": {
+    "message": "Search",
+    "description": "The ARIA label and placeholder for search button"
+  },
+  "theme.SearchPage.existingResultsTitle": {
+    "message": "Search results for \"{query}\"",
+    "description": "The search page title for non-empty query"
+  },
+  "theme.SearchPage.emptyResultsTitle": {
+    "message": "Search the documentation",
+    "description": "The search page title for empty query"
+  },
+  "theme.SearchPage.searchContext.everywhere": {
+    "message": "Everywhere"
+  },
+  "theme.SearchPage.documentsFound.plurals": {
+    "message": "1 document found|{count} documents found",
+    "description": "Pluralized label for \"{count} documents found\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.SearchPage.noResultsText": {
+    "message": "No documents were found",
+    "description": "The paragraph for empty search result"
+  },
+  "theme.blog.post.plurals": {
+    "message": "Ein færsla|{count} færslur",
+    "description": "Pluralized label for \"{count} posts\". Use as much plural forms (separated by \"|\") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)"
+  },
+  "theme.blog.tagTitle": {
+    "message": "{nPosts} merkt með \"{tagName}\"",
+    "description": "The title of the page for a blog tag"
+  },
+  "theme.blog.author.pageTitle": {
+    "message": "{authorName} - {nPosts}",
+    "description": "The title of the page for a blog author"
+  },
+  "theme.blog.authorsList.pageTitle": {
+    "message": "Authors",
+    "description": "The title of the authors page"
+  },
+  "theme.blog.authorsList.viewAll": {
+    "message": "View All Authors",
+    "description": "The label of the link targeting the blog authors page"
+  },
+  "theme.blog.author.noPosts": {
+    "message": "This author has not written any posts yet.",
+    "description": "The text for authors with 0 blog post"
+  },
+  "theme.contentVisibility.unlistedBanner.title": {
+    "message": "Óskráð síða",
+    "description": "The unlisted content banner title"
+  },
+  "theme.contentVisibility.unlistedBanner.message": {
+    "message": "Þessi síða er ólistuð. Leitarvélar munu ekki skrá hana, eingöngu notendur með beinan hlekk geta opnað hana.",
+    "description": "The unlisted content banner message"
+  },
+  "theme.contentVisibility.draftBanner.title": {
+    "message": "Draft page",
+    "description": "The draft content banner title"
+  },
+  "theme.contentVisibility.draftBanner.message": {
+    "message": "This page is a draft. It will only be visible in dev and be excluded from the production build.",
+    "description": "The draft content banner message"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "1 item|{count} items",
+    "description": "The default description for a category card in the generated index about how many items this category includes"
+  },
+  "theme.ErrorPageContent.tryAgain": {
+    "message": "Reyndu aftur",
+    "description": "The label of the button to try again rendering when the React error boundary captures an error"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "Hoppa yfir á aðal efni",
+    "description": "The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "Merki",
+    "description": "The title of the tag list page"
+  }
+}

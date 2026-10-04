@@ -1,20 +1,20 @@
 ---
 id: bifrost-field-lookup
-title: "Velja svæði"
+title: "Velja reit"
 ---
 
-Uppflettingarsíðan **Velja svæði** gerir þér kleift að finna og velja svæði úr Business Central töflu. Hún er notuð þegar svæðisaðgangstakmarkanir eru bætt við á síðunni [Bifröst svæðisaðgangar](/help/foundation/bifrost-field-accesses/) – eftir að tafla hefur verið valin er þessi uppfletting notuð til að velja nákvæmt svæði til að takmarka.
+Uppflettingarsíðan **Velja reit** gerir þér kleift að finna og velja reit úr Business Central töflu. Hún er notuð þegar línum er bætt við á síðunni [Reitaaðgangar Bifröst](/help/foundation/bifrost-field-accesses/) – eftir að tafla hefur verið valin er þessi uppfletting notuð til að velja reitinn.
 
 ## Dálkar
 
 | Dálkur | Lýsing |
 | --- | --- |
-| **Nr.** | Innra svæðisnúmerið sem Business Central notar til að auðkenna svæðið í töflunni. |
-| **Svæðisheiti** | Innra forritunarheiti svæðisins eins og það er skilgreint í töfluhlutinum. |
-| **Svæðisfyrirsögn** | Birtingafyrirsögn svæðisins eins og hún birtist í Business Central notendaviðmótinu. |
-| **Tegund** | Gagnategund svæðisins (til dæmis: Text, Integer, Decimal, Boolean, Date, Code). |
-| **Flokkur** | Flokkur svæðisins: _Normal_ (geymt), _FlowField_ (reiknað) eða _FlowFilter_ (síubreyta fyrir FlowFields). |
+| **Nr.** | Númerið sem Business Central notar til að auðkenna reitinn í töflunni. |
+| **Heiti reits** | Forritunarheiti reitsins eins og það er skilgreint í töflunni. |
+| **Fyrirsögn reits** | Fyrirsögn reitsins eins og hún birtist í Business Central notendaviðmótinu. |
+| **Tegund** | Gagnategund reitsins (til dæmis: Text, Integer, Decimal, Boolean, Date, Code). |
+| **Flokkur** | Flokkur reitsins: _Normal_ (geymdur), _FlowField_ (reiknaður) eða _FlowFilter_ (síubreyta fyrir FlowField-reiti). |
 
 ## Notkun
 
-Veldu línuna fyrir svæðið sem þú vilt takmarka og veldu **Í lagi**. Svæðisnúmerið er skrifað aftur í dálkinn **Svæðisnúmer** í takmarkanalistanum og **Svæðisheitið** er fyllst út sjálfkrafa.
+Veldu línu reitsins og veldu **Í lagi**. Númer reitsins er skrifað í dálkinn **Reitur nr.** og **Heiti reits** er fyllt út sjálfkrafa.

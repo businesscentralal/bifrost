@@ -4,7 +4,7 @@
  * `build/en-us` (and, when Icelandic is published, `build/is-is`) are produced
  * by separate Docusaurus builds. This script adds the files that live above them:
  *
- *   build/index.html   picks a locale from the browser's language list
+ *   build/index.html   forwards to the English site
  *   build/404.html     catches everything else, including unknown locale
  *                      prefixes such as /da-dk/help/foundation/
  *   build/apps.json    a locale-agnostic copy of data/apps.json, alongside the
@@ -71,20 +71,11 @@ const isIndex = path.join(buildDir, 'is-is', 'index.html');
 const OFFER_ICELANDIC = (await exists(isIndex)) && !(await readFile(isIndex, 'utf8')).includes(FORWARD_MARK);
 
 /**
- * Chooses is-is only when Icelandic is offered and is the reader's stated
- * preference; everything else, including an empty language list, gets English.
+ * The site root always opens English, whatever the browser's language list says.
+ * Icelandic readers switch with the language menu, and Business Central's help
+ * button links to /is-is/ directly.
  */
-const chooseLocale = OFFER_ICELANDIC ? `
-  var base = ${JSON.stringify(BASE_URL)};
-  var langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en']);
-  var wantsIcelandic = false;
-  for (var i = 0; i < langs.length; i++) {
-    var tag = String(langs[i]).toLowerCase();
-    if (tag === 'is' || tag.indexOf('is-') === 0) { wantsIcelandic = true; break; }
-    if (tag === 'en' || tag.indexOf('en-') === 0) { break; }
-  }
-  location.replace(base + (wantsIcelandic ? 'is-is/' : 'en-us/'));
-` : `
+const chooseLocale = `
   location.replace(${JSON.stringify(BASE_URL)} + 'en-us/');
 `;
 

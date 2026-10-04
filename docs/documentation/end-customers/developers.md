@@ -2,7 +2,7 @@
 id: developers
 title: "Connecting to Bifröst"
 sidebar_label: "Developers"
-sidebar_position: 3
+sidebar_position: 5
 description: "For developers at a Business Central customer: connect another system, drive Bifröst from an agent, and find what each message type does."
 ---
 
