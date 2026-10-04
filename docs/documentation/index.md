@@ -17,7 +17,9 @@ it and connecting to it. Start with the page for your role.
 | You are … | Read | For |
 |---|---|---|
 | **A user** | [Users](/documentation/end-customers/users/) | What you can ask, what it will not do, and what to do when it says no |
-| **An administrator** | [Administrators](/documentation/end-customers/administrators/) | Permissions, what agents may see, logs, usage, and what you are responsible for |
+| **An administrator** | [Administrators](/documentation/end-customers/administrators/) | Users, logs, secrets, the settings, usage, and what you are responsible for |
+| | [What agents read and change](/documentation/end-customers/data-access/) | The ChangeLog Write Guard, Field Access, sensitive fields, and the data Bifröst always protects |
+| | [Permission sets and gates](/documentation/end-customers/permissions/) | Which permission sets to give whom, and how the gates work on top of a user's own permissions |
 | **A developer** | [Developers](/documentation/end-customers/developers/) | Connecting another system, driving it from an agent, and the reference |
 
 ## For everyone

@@ -77,11 +77,42 @@ import AskOrAct from '@site/src/components/AskOrAct';
 - **Do a sequence.** *"Create a sales invoice for the September hours on the Adatum project and send
   it."* Several operations in a row, the result of one feeding the next. If a step fails, the
   assistant can tell you which one and why.
-- **Use what other apps add.** Other Bifröst apps your company installs add operations of their
-  own, and the assistant can combine them with Foundation's in the same conversation; see the
-  [app list](/apps/).
+- **Use what other apps add.** Each Bifröst app your company installs adds operations of its own,
+  and the assistant can combine them in the same conversation; see the [app list](/apps/).
 - **Ask what is possible.** *"What can you do with purchase orders?"* The assistant looks it up
   in Bifröst and tells you.
+
+## Check what the assistant did
+
+- **Open the record.** Ask for a link to it, and open it in Business Central, as above.
+- **See every call.** Every call an assistant makes for you is kept on **Bifrost Messages**
+  (**Bifrost Setup › Messages › Bifrost Messages**). Each line is one call: what was done, whether it succeeded,
+  and which tool called. Select a line to see its request and answer. If a call failed, its answer says what went
+  wrong in plain words.
+
+## What the assistant remembers
+
+Assistants forget everything between chats. Bifröst gives them a memory in Business Central that they can read the
+next time:
+
+- **Company memory**, shared by everyone in the company: conventions such as *Our fiscal year starts on 1 July*.
+- **User memory**, only yours: how you like things, such as *Show amounts without decimals*.
+
+Ask the assistant to remember something (*"Remember that our fiscal year starts on 1 July"*), or to forget it. You
+see the memories in Business Central on **Bifrost Setup › Related › Memory**.
+
+![Company memory](/img/guides/en-us/company-memory.png)
+
+![User memory](/img/guides/en-us/user-memory.png)
+
+Changing the company memory needs a permission your administrator gives (`BIFROST CoMem ori`). Do not put
+passwords or personal data in a memory: everyone in the company can read the company memory.
+
+## Approving a new assistant
+
+Your company may require that each new assistant or tool is approved once before it can act for you. The first time
+you use it, the assistant then gives you a link. Open it in Business Central and approve the tool, or send the link to
+your administrator. After that it works as usual.
 
 ## Who can use it
 
@@ -114,11 +145,22 @@ misunderstand you: say *"show me first"*, and read what it proposes before you s
 | Part of the answer is missing | Those fields are restricted for you. | Your administrator, if you need them |
 | The tool must be approved first, with a link | Your company requires new assistants to be approved once. Open the link, or send it to your administrator. | You, or your administrator |
 | The allowance is used up | Your company can limit how much the assistant does each month, for everyone or for you, and that limit is reached. | Your administrator |
+| Bifröst refuses calls for the company | The setup wizard has not been finished in this company. | Your administrator |
 | Something was posted that should not have been | The assistant did what it was asked, with your rights. Reverse it in Business Central as you would any posting and tell your administrator; every request and answer is logged, so it can be traced. | Your administrator |
 
 If the assistant fails with what looks like a technical error, ask it to show you the error text.
 Bifröst's answer says what went wrong in plain words. Your administrator can also see every call
 the assistant made on your behalf, on the **Bifrost Messages** page in Business Central.
+
+## Good habits
+
+- **Start each chat with the Connection Prompt** your administrator gives you, and check the company in the first
+  answer.
+- **Say "show me first"** before anything that posts, sends or deletes.
+- **Ask for links** and open the records when the answer matters.
+- **Keep chats to one task**: a long chat makes it easier for the assistant to mix things up.
+- **Tell your administrator** when the assistant does something unexpected. Bifrost Messages shows exactly what
+  happened.
 
 ## Next
 

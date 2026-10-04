@@ -19,41 +19,47 @@ leyndarmálageymslan, heimildirnar, leyfismálin, skilaboðaskráin og hjálpin 
 virka eins fyrir öll Bifröst-forrit. Önnur Bifröst-forrit byggja á Foundation og bæta við eigin
 aðgerðum.
 
-## Hvað þú getur gert með því
+## Svið {#capabilities}
 
-Foundation kemur með hefðbundin
-[svið](/documentation/how-it-works/#capabilities-and-message-types) Business Central (á ensku í
-bili), til dæmis:
+Foundation kemur með hefðbundin svið Business Central, flokkuð eftir léni:
 
-- **Sala:** tilboð, pantanir og reikningar, frá stofnun til bókunar, og hvað viðskiptamaður skuldar.
-- **Innkaup:** innkaupaskjöl og lánardrottnar, og bókun innkaupareiknings.
-- **Fjármál:** færslubækur, bókun og afstemming bankareikninga.
-- **Birgðir:** hvað er til, hverju má lofa, og birgðafærslubækur.
-- **Verk og forði:** verkfærslubækur, reikningsfærsla úr verki, og forði.
-- **Samþykktir, móttekin skjöl og breytingaskrá:** samþykkja eða hafna, skrá móttekna reikninga og
-  sjá hver breytti hverju.
-- **Lestur gagna:** flestar töflur í Business Central, innan þinna heimilda.
+| Lén | Svið |
+|---|---|
+| **Sales** | Tilboð, pantanir, reikningar og kreditreikningar, frá fyrstu línu til bókunar og sendingar |
+| **Purchase** | Innkaupatilboð, pantanir og reikningar, frá fyrstu línu til bókunar |
+| **Customer** | Hámarksskuld, sölusaga, yfirlit og jöfnun greiðslna |
+| **Vendor** | Jöfnun greiðslna á lánardrottnafærslur |
+| **Item** | Framboð, birgðir og verð |
+| **Finance** | Færslubækur, bankaafstemming, gengi og fjárhagsskýrslur |
+| **Inventory** | Birgðabækur |
+| **Projects** | Verkbækur, og reikningar úr verkum |
+| **Resources** | Forðabækur |
+| **Document** | Samþykktir skjala |
+| **Incoming** | Innkomin skjöl og viðhengi þeirra |
+| **Data** | Lestur flestra gagna þinna, og breytingar eftir varinni leið |
+| **CSV** og **Deleted** | Gagnaútdráttur, og hvað var eytt, fyrir kerfi sem halda afriti |
+| **ChangeLog** | Hver breytti hverju, og endurheimt fyrri gilda |
+| **Field** | Þýðingar |
+| **Memory** | Það sem aðstoðarmenn muna milli samtala |
+| **User** | Tilkynningar milli notenda |
+| **Email** | Drög að tölvupósti |
+| **Webhook** | Vefkrókar frá öðrum kerfum |
+| **Help** | Hvað er uppsett og hvað hver hluti gerir |
+| **Bifrost** | Staða leyfis og notkun |
 
-Uppsettar skilaboðagerðir og samningar þeirra eru lesnir úr Business Central sjálfu: MCP-tólin
-`list_message_types` og `describe_message_type`, eða síðan Bifrost Message Types.
+**Hvar það stoppar.** Foundation getur lesið flest gögnin þín, en vinnur aðeins þau verk sem það var smíðað fyrir.
+Önnur Bifröst forrit bæta við eigin lénum; sjá
+[Hvað það nær yfir](/documentation/how-it-works/#what-it-covers-and-how-it-grows).
 
-**Hvar það endar.** Foundation getur lesið flest gögnin þín, en getur aðeins framkvæmt verk sem hafa
-skilaboðagerð. Önnur Bifröst-forrit bæta við eigin aðgerðum; sjá
-[Hvað það nær yfir](/documentation/how-it-works/#what-it-covers-and-how-it-grows) (á ensku í bili).
-
-## Náðu í það og settu það upp
+## Náðu í það og settu það upp {#get-it-and-set-it-up}
 
 Settu **Bifrost Foundation** upp frá AppSource eða í gegnum samstarfsaðila þinn í Business Central.
 Það þarf Business Central 28.0 eða nýrra, Essentials eða Premium. Fylgdu svo
-[Uppsetningu](/setup/) (á ensku í bili): fimm skref, og hvert segir hvern þarf til.
+[Uppsetningu](/setup/): fimm skref, og hvert segir hvern þarf til.
 
-## Gott að vita
+## Gott að vita {#good-to-know}
 
-- **Það vinnur sem þú.** Aðstoðarmaður getur í mesta lagi gert það sem þú getur gert í Business
-  Central; sjá [Heimildir](/documentation/end-customers/administrators/#permissions) (á ensku í bili).
-- **Hvert kall er skráð** í þínu eigin Business Central, á síðunni **Bifrost Messages**.
-- **Gögnin þín:** [Hvert gögnin þín fara](/documentation/how-it-works/#where-your-data-goes) (á
-  ensku í bili) og [Persónuvernd](/licensing/privacy/).
-- **Verð og leyfi:** [Verð](/price/) (á ensku í bili) og [Leyfi](/licensing/).
-- **Síða í Business Central:** hver Foundation-síða hefur sína eigin hjálparsíðu.
-
+- **Síður þess í Business Central** (Bifrost Setup, Bifrost Messages, Reitaaðgangur og hinar) hafa hver sína eigin
+  hjálparsíðu.
+- **Annað er eins fyrir öll Bifröst forrit:** hvernig það virkar, notkun, rekstur og heimildir eru í
+  [Leiðbeiningum](/documentation/); leyfi í [Leyfi](/licensing/) og [Verð](/price/).

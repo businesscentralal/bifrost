@@ -31,9 +31,9 @@ import SetupFlow from '@site/src/components/SetupFlow';
 
 ## Do I need a partner?
 
-No. Every step can be done by your own administrators. If you work with a Business Central partner,
-or buy Bifröst through a Bifröst partner (a reseller), they can do the Business Central steps for you. The consent in step 3 is
-given by an administrator of your organisation's Microsoft Entra ID.
+No. Every step can be done by your own administrators. If you work with a Business Central partner, they can do the
+Business Central steps for you. The consent in step 3 is given by an administrator of your organisation's Microsoft Entra
+ID.
 
 ## Sandbox, production and companies
 

@@ -140,9 +140,9 @@ has been built for it, and that is a lot:
 
 | | How far it reaches | How |
 |---|---|---|
-| **Read** | Most of your data | A general read reaches any table that is not restricted, within your permissions and [Field Access](/documentation/end-customers/administrators/#field-access). Most questions can be answered. |
+| **Read** | Most of your data | A general read reaches any table that is not restricted, within your permissions and [Field Access](/documentation/end-customers/data-access/#field-access). Most questions can be answered. |
 | **Do** | What has a message type | Creating, converting, releasing and posting each need their own message type. Foundation's capabilities cover sales, purchasing, finance, inventory and projects, among others. Not every task in Business Central has one yet. |
-| **Change a field** | A narrow, guarded path | A general write can change fields in a record, by default only the fields the change log covers ([ChangeLog Write Guard](/documentation/end-customers/administrators/#the-setup-page)). It does not replace an operation with Business Central's own logic. |
+| **Change a field** | A narrow, guarded path | A general write can change fields in a record, by default only the fields the change log covers ([ChangeLog Write Guard](/documentation/end-customers/data-access/#the-changelog-write-guard)). It does not replace an operation with Business Central's own logic. |
 
 When there is no message type for a task, the assistant cannot do it through Bifröst, and it should
 say so. That is the edge of what is installed, not a fault.

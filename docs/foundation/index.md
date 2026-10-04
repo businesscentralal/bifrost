@@ -19,25 +19,36 @@ secret store, the permissions, licensing, the message log and the help described
 the same way for every Bifröst app. Other Bifröst apps depend on Foundation and add operations of
 their own.
 
-## What you can do with it
+## Capabilities
 
-Foundation brings the standard Business Central
-[capabilities](/documentation/how-it-works/#capabilities-and-message-types), for example:
+Foundation brings the standard Business Central capabilities, grouped by domain:
 
-- **Sales:** quotes, orders and invoices, from creating them to posting, and what a customer owes.
-- **Purchasing:** purchase documents and vendors, and posting a purchase invoice.
-- **Finance:** journals, posting, and bank reconciliation.
-- **Inventory:** what you have, what you can promise, and item journals.
-- **Projects and resources:** project journals, invoicing from a project, and resources.
-- **Approvals, incoming documents and the change log:** approve or reject, register incoming
-  invoices, see who changed what.
-- **Reading data:** most tables in Business Central, within your permissions.
+| Domain | Capabilities |
+|---|---|
+| **Sales** | Quotes, orders, invoices and credit memos, from the first line to posting and sending |
+| **Purchase** | Purchase quotes, orders and invoices, from the first line to posting |
+| **Customer** | Credit, sales history, statements and applying payments |
+| **Vendor** | Applying payments to vendor entries |
+| **Item** | Availability, inventory and prices |
+| **Finance** | Journals, bank reconciliation, exchange rates and financial reports |
+| **Inventory** | Item journals |
+| **Projects** | Project journals, and invoicing from a project |
+| **Resources** | Resource journals |
+| **Document** | Approvals of documents |
+| **Incoming** | Incoming documents and their attachments |
+| **Data** | Reading most of your data, and changing it through a guarded path |
+| **CSV** and **Deleted** | Data exports, and what was deleted, for systems that keep a copy |
+| **ChangeLog** | Who changed what, and restoring earlier values |
+| **Field** | Translations |
+| **Memory** | What assistants remember between conversations |
+| **User** | Notifications between users |
+| **Email** | E-mail drafts |
+| **Webhook** | Webhooks from other systems |
+| **Help** | Finding out what is installed and what each part does |
+| **Bifrost** | License status and usage |
 
-The installed message types and their contracts are read from Business Central itself: the MCP
-tools `list_message_types` and `describe_message_type`, or the Bifrost Message Types page.
-
-**Where it stops.** Foundation can read most of your data, but it can only carry out tasks that have
-a message type. Other Bifröst apps add operations of their own; see
+**Where it stops.** Foundation can read most of your data, but it carries out only the tasks it was built for. Other
+Bifröst apps add domains of their own; see
 [What it covers](/documentation/how-it-works/#what-it-covers-and-how-it-grows).
 
 ## Get it and set it up
@@ -48,11 +59,7 @@ each saying who is needed.
 
 ## Good to know
 
-- **It acts as you.** An assistant can do at most what you can do in Business Central; see
-  [Permissions](/documentation/end-customers/administrators/#permissions).
-- **Every call is logged** in your own Business Central, on **Bifrost Messages**.
-- **Your data:** [Where your data goes](/documentation/how-it-works/#where-your-data-goes) and
-  [Privacy](/licensing/privacy/).
-- **Price and licensing:** [Price](/price/) and [Licensing](/licensing/).
-- **A page in Business Central:** each Foundation page has its own help page.
-
+- **Its pages in Business Central** (Bifrost Setup, Bifrost Messages, Field Access and the others) each have their
+  own help page.
+- **The rest is the same for every Bifröst app:** how it works, using it, running it and its permissions are in the
+  [Guides](/documentation/); licensing in [Licensing](/licensing/) and [Price](/price/).

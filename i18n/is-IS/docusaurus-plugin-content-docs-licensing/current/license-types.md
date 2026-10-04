@@ -5,7 +5,7 @@ sidebar_position: 2
 description: "Fyrirframgreitt leyfi og áskriftarleyfi, prufuleyfið, skilaboðapottarnir tveir, vikmörk, lokun og mánaðarlegur kvóti, og hvernig leyfismálum sandkassa og uppsetninga á staðnum er háttað."
 ---
 
-## Hvað er talið
+## Hvað er talið {#what-is-counted}
 
 Kall telst sem **ein skilaboð** þegar hvort tveggja á við:
 
@@ -142,7 +142,7 @@ mánuðinum lýkur.
 Geymdu Bifröst-skilaboð í minnst 31 dag ef þú
 notar mánaðarlegu kvótana.
 
-## Sandkassaumhverfi
+## Sandkassaumhverfi {#sandbox-environments}
 
 Í **sandkassa** Business Central online:
 
@@ -156,13 +156,13 @@ notar mánaðarlegu kvótana.
 Fyrir ótakmarkaða sandkassanotkun skaltu keyra staðbundna MCP-þjóninn úr
 [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
 
-## Uppsetningar á staðnum
+## Uppsetningar á staðnum {#on-premises-installations}
 
 Uppsetningar á staðnum (í eigin umhverfi) eru **eingöngu með fyrirframgreitt leyfi**. Þar er ekkert
 prufuleyfi; Origo afhendir tenginguna við leyfisþjónustuna ásamt leyfinu fyrir uppsetningu á
 staðnum, og keypti kvótinn virkar eins og lýst er undir [Fyrirframgreitt leyfi](#prepaid).
 
-## Staða leyfisins skoðuð
+## Staða leyfisins skoðuð {#checking-the-licence}
 
 - Upplýsingareiturinn **Leyfi** á síðunni Uppsetning Bifröst sýnir tegund leyfis, eftirstöðvar
   kvóta og gildi hvors potts, skilaboð sem enn hafa ekki verið tilkynnt og dagsetningu síðustu

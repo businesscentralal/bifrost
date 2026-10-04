@@ -27,7 +27,7 @@ Online, step 5 of the setup wizard gives you:
 ![Step 5 of the wizard: the MCP server address (hidden in this picture), the authorization page and the connector stores](/img/setup/wizard-5-mcp.png)
 
 If step 5 shows no server address or consent link, or an address that does not look right,
-contact your partner or Origo.
+contact your Business Central partner.
 
 Need the address or the links again later? Open the setup wizard again from **Bifrost Setup** and
 go to step 5; close it with **X** if you do not want to finish it again.
@@ -36,6 +36,10 @@ go to step 5; close it with **X** if you do not want to finish it again.
 
 The same steps apply to the administrator now and to each user later. Each person signs in as
 themselves, so the assistant works with exactly that user's permissions.
+
+The **Connectors** group on Bifrost Setup opens the Bifröst connector in each assistant's store.
+
+![The Connectors group](/img/guides/en-us/menu-connectors.png)
 
 ### Microsoft Copilot
 

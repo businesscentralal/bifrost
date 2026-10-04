@@ -1,59 +1,83 @@
 ---
 id: bifrost-field-accesses
-title: "Bifröst svæðisaðgangar"
+title: "Reitaaðgangur Bifröst"
 ---
 
-Síðan **Bifröst svæðisaðgangar** gerir kerfisstjórum kleift að skilgreina aðgangstakmarkanir á svæðastigi fyrir einstaka notendur og Entra ID (AAD) forrit. Þessar takmarkanir stjórna því hvaða svæði er hægt að lesa eða skrifa með almennum lestri og skrifum færslna í Bifröst.
+Með reitaaðgangi ákveður kerfisstjóri, fyrir hvern notanda eða Microsoft Entra forrit, hvaða töflur og reiti Bifröst má
+lesa og breyta fyrir hann. Hann gildir aðeins um það sem Bifröst les og skrifar; Business Central biðlarinn verður ekki
+fyrir áhrifum. Þessi hjálp nær yfir þrjár síður: **Yfirlit reitaaðgangs Bifröst**, **Reitaaðgangar Bifröst** (línur eins
+notanda) og **Næmi reita Bifröst**. Heildarmyndina, með dæmum, finnurðu í
+[Stjórnaðu því hvað fulltrúar lesa og breyta](/documentation/end-customers/data-access/).
 
-Takmarkanir eru notanda- og svæðissértækar og veita nákvæma gagnavernd án þess að breyta fyrirliggjandi hlutverkaheimildum. Aðeins svæði með skráðar takmarkanir verða fyrir áhrifum – öll önnur svæði haga sér eðlilega.
+## Yfirlit reitaaðgangs Bifröst {#overview}
 
-## Uppbygging síðu
-
-### Notandasía
-
-Efst á síðunni er síureitur fyrir **Notandanafn**. Veldu notandann eða forritið sem á að skoða eða stjórna takmörkunum fyrir. Listinn fyrir neðan er þá síaður til að sýna aðeins takmarkanir þess notanda. Notaðu uppflettingartakkann (…) til að finna tiltæka notendur og forrit. Þegar enginn notandi er valinn er takmarkanalisti aðeins lesanlegur.
-
-### Takmarkanalisti
-
-Sýnir allar svæðistakmarkanir sem eru skilgreindar fyrir valinn notanda. Hver lína auðkennir eitt takmarkað svæði á tiltekinni töflu og skilgreinir hvaða tegund aðgangs er lokuð.
-
-## Reitir
+**Reitaaðgangur** á [Uppsetningu Bifröst](/help/foundation/bifrost-setup/) opnar þessa síðu: allar línur reitaaðgangs
+allra notenda og forrita í fyrirtækinu, aðeins til lestrar. Hægt er að raða og sía eftir öllum dálkum.
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Notandanafn** | Nafn notandans eða Entra ID forritsins sem verið er að stjórna takmörkunum fyrir. Notaðu uppflettinguna til að velja annan notanda eða forrit. |
-| **Töflunúmer** | Númer Business Central töflunnar sem takmarkanin á við um. Notaðu uppflettinguna til að finna allar tiltækar töflur. |
-| **Töfluheiti** | Heiti töflunnar (lesaðeins, fyllt út sjálfkrafa út frá töflunúmerinu). |
-| **Svæðisnúmer** | Númer svæðisins innan töflunnar. Notaðu uppflettinguna til að finna tiltæk svæði fyrir valda töflu. |
-| **Svæðisheiti** | Heiti svæðisins (lesaðeins, fyllt út sjálfkrafa út frá svæðisnúmerinu). |
-| **Tegund takmarkana** | Tilgreinir hvaða tegund aðgangs er takmörkuð:
--   **Bæði** – Svæðið er útilokað úr lesvörum og er ekki hægt að breyta því. Strangar takmarkanir.
--   **Lesa** – Svæðið er útilokað úr lesvörum en er enn hægt að breyta með almennum skrifum færslna.
--   **Skrifa** – Svæðið kemur fram í lesvörum en er ekki hægt að breyta með almennum skrifum færslna.
--   **Framhjá** – Svæðið er undanskilið öllum takmörkunarprófunum. ChangeLog Write Guard leyfir skrif á þetta svæði án tillits til Breytingaskrárdekkunar. Þessi færsla lokar ekki fyrir lese- eða skrifaheimildir; hún hefur einvörðungu áhrif á mat Write Guard.
-
- |
-
-## Aðgerðir
+| **Notandanafn** / **Fullt nafn** | Notandinn eða forritið sem línan á við um. Fyrir forrit er **Fullt nafn** lýsing þess. |
+| **Tegund uppruna** | **Notandi** eða **Microsoft Entra forrit**. |
+| **Töflunúmer** / **Heiti töflu** | Taflan. **0** þýðir allar töflur. |
+| **Reitur nr.** / **Heiti reits** | Reiturinn. **0** þýðir allir reitir töflunnar. |
+| **Tegund takmarkana** | Sjá [Tegundir takmarkana](#restriction-types). |
 
 | Aðgerð | Lýsing |
 | --- | --- |
-| **Eyða öllu fyrir notanda** | Fjarlægir allar svæðisaðgangstakmarkanir fyrir valinn notanda. Staðfestingarglugginn birtist áður en haldið er áfram. |
-| **Eyða öllu fyrir töflu** | Fjarlægir allar svæðisaðgangstakmarkanir sem gilda um töflu valinnar línu. Staðfestingarglugginn birtist áður en haldið er áfram. |
+| **Breyta** | Opnar línur notandans á völdu línunni til að breyta þeim. Yfirlitið uppfærist þegar þú lokar. |
+| **Nýtt fyrir notanda...** | Veldu notanda eða forrit og opnaðu línur þess til að bæta við nýjum. |
 
-## Hvernig bæti ég við takmörkun
+## Reitaaðgangar Bifröst {#lines-of-one-user}
 
-1.  Veldu notanda eða forrit með uppflettinguna á **Notandanafni** efst á síðunni.
-2.  Smelltu á **Nýtt** (eða ýttu á F3) til að bæta við nýrri línu í takmarkanalistann.
-3.  Sláðu inn eða flettu upp **Töflunúmer** til að auðkenna töfluna með svæðið.
-4.  Sláðu inn eða flettu upp **Svæðisnúmer** til að auðkenna tiltekið svæði í þeirri töflu.
-5.  Veldu viðeigandi **Tegund takmarkana**: _Bæði_, _Lesa_, _Skrifa_ eða _Framhjá_. Notaðu _Framhjá_ til að leyfa Write Guard að leyfa skrif á þetta svæði jafnvel án Breytingaskrárdekkunar.
-6.  Færslan er vistuð sjálfkrafa þegar þú ferð á næstu línu eða lokar síðunni.
+Línur eins notanda eða forrits. **Notandanafn** efst sýnir hvers línurnar eru.
 
-## Ábendingar
+| Reitur | Lýsing |
+| --- | --- |
+| **Töflunúmer** / **Heiti töflu** | Taflan. **0** þýðir allar töflur. |
+| **Reitur nr.** / **Heiti reits** | Reiturinn. **0** þýðir allir reitir töflunnar. |
+| **Tegund takmarkana** | Sjá [Tegundir takmarkana](#restriction-types). |
 
--   Takmarkanalisti er aðeins breytanlegur þegar notandi eða forrit er valið í síunum efst á síðunni.
--   Takmörkun er auðþekkjanleg með samsetningu notanda, töflunúmers og svæðisnúmers – tvíteknar færslur eru ekki leyfðar.
--   Takmarkanir taka gildi strax fyrir síðari API-köll; enginn endurræsing er nauðsynleg.
--   Þessar takmarkanir gilda aðeins um Bifröst API og hafa ekki áhrif á hefðbundið Business Central viðmótsaðgengi eða heimildarhlutverkahópa.
--   Svæði án takmarkanafærslna haga sér eðlilega og eru aðgengileg í gegnum API.
+| Aðgerð | Lýsing |
+| --- | --- |
+| **Beita ráðlögðu sniðmáti...** | Veldu einn eða fleiri notendur eða forrit. Bifröst bætir við **Lesa**-línum fyrir símanúmer, netföng, kennitölur og bankareikningsreiti viðskiptamanna, lánardrottna, tengiliða, söluskjala og bankareikninga. Línu sem er til er aldrei breytt, og notandi með línu fyrir heila töflu eða allar töflur er látinn í friði fyrir það svið. Óhætt að keyra aftur. |
+| **Eyða öllu fyrir notanda** | Eyðir öllum línum notandans, að fenginni staðfestingu. |
+| **Eyða öllu fyrir töflu** | Eyðir öllum línum fyrir töflu valinnar línu, að fenginni staðfestingu. |
+
+## Tegundir takmarkana {#restriction-types}
+
+| Tegund takmarkana | Lesa | Breyta | Breytingaskrárvernd |
+| --- | --- | --- | --- |
+| **Bæði** | Nei | Nei | - |
+| **Lesa** | Nei | Já | Gildir |
+| **Skrifa** | Já | Nei | - |
+| **Engin** | Já | Já | Gildir |
+| **Framhjá** | Já | Já | Sleppt fyrir þennan notanda |
+
+- **Nákvæmasta línan ræður.** Lína fyrir reitinn gengur framar línu fyrir töfluna, sem gengur framar línu fyrir allar
+  töflur. Aðeins sú eina lína er notuð, svo **Engin**-lína á töflu opnar hana aftur undir **Skrifa**-línu fyrir allar
+  töflur.
+- **Engin** opnar líka, fyrir þann notanda, reitina sem Bifröst felur eða lokar sjálfgefið (bankaupplýsingar,
+  persónuupplýsingar starfsmanna og reiti sem **Virða næmi gagna** felur). **Framhjá** opnar sjálfgefið lokaða reiti
+  fyrir breytingum. Hvorug opnar það sem Bifröst ver alltaf.
+- Notandi með einhverja **Lesa**- eða **Bæði**-línu fær engin FlowField-gildi í gegnum Bifröst, því Bifröst getur ekki
+  séð hvaða reiti FlowField les.
+- Línur taka gildi strax fyrir næstu beiðni.
+
+## Næmi reita Bifröst {#field-sensitivities}
+
+**Næmi reita** á Uppsetningu Bifröst opnar eigin flokkun fyrirtækisins á reitum. Hver lína merkir reit **Viðkvæmt** eða
+**Persónulegt**. Þegar **Virða næmi gagna** á Uppsetningu Bifröst er **Viðkvæmt** eru viðkvæmu reitirnir faldir fyrir
+öllum notendum; með **Viðkvæmt + Persónulegt** eru persónulegu reitirnir líka faldir. Með **Slökkt** (sjálfgefið) er
+ekkert falið. **Engin**-lína á Reitaaðgöngum Bifröst opnar falinn reit fyrir einn notanda.
+
+| Reitur | Lýsing |
+| --- | --- |
+| **Töflunúmer** / **Heiti töflu** | Tafla reitsins. |
+| **Reitur nr.** / **Heiti reits** | Reiturinn. |
+| **Næmi** | **Viðkvæmt** eða **Persónulegt**. |
+
+| Aðgerð | Lýsing |
+| --- | --- |
+| **Beita ráðlagðri flokkun** | Bætir við ráðlögðum viðkvæmum reitum starfsmanna, og síma, farsíma, netfangi og kennitölu viðskiptamanna, lánardrottna og tengiliða sem persónulegum. Reitur sem er þegar með línu heldur henni. |
+
+Listanum er aðeins breytt á þessari síðu, aldrei í gegnum Bifröst sjálft.
