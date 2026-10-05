@@ -30,7 +30,8 @@ viðbótarforrit ofan á [Bifröst Foundation](/foundation/). Nýr í Bifröst? 
   sannreyna þær í Business Central eða segja að hann geti það ekki.
 - **Verið áfram í Business Central.** Spjallið, **Spjalla með Bifröst**, er í upplýsingareitasvæði
   viðskiptamanna-, lánardrottna- og vörusíðna, sölu- og innkaupaskjala og lista þeirra, færslusíðna og
-  innkominna skjala. **Fókus** opnar það á heilli síðu.
+  innkominna skjala. **Fókus** opnar það á heilli síðu. Sjá
+  [Spjalla með Bifröst í Business Central](/language-models/chat/).
 - **Valið líkan fyrir hvern hóp.** Hvert mállíkan ber veitanda sinn, stillingar og hæfni: leiðbeiningar
   sem móta hvernig aðstoðarmaðurinn svarar. Söluteymi og fjármálateymi geta hvort um sig spjallað við
   líkan sem er sett upp fyrir þeirra vinnu.
@@ -66,6 +67,9 @@ spjallið.
 | 5 | Úthlutaðu heimildasamstæðunum (hér fyrir neðan) og veldu **Kóða mállíkans** sem hver og einn spjallar við í notandauppsetningu Bifröst. | Kerfisstjóri Business Central |
 | 6 | Opnaðu viðskiptamann, vöru eða sölupöntun: **Spjalla með Bifröst** birtist í upplýsingareitasvæðinu. | Hver notandi |
 
+Hvernig á að spjalla, hvað hver og einn þarf fyrst og hvað á að gera þegar spjallið svarar ekki:
+[Spjalla með Bifröst í Business Central](/language-models/chat/).
+
 Hjálp hverrar síðu segir nánar frá:
 [Uppsetning Bifröst mállíkana](/help/language-models/language-models-setup/),
 [Bifröst mállíkan](/help/language-models/bifrost-lang-model-card/) og
@@ -92,7 +96,8 @@ Hjálp hverrar síðu segir nánar frá:
   [Notkun og reikningsfærsla](/licensing/usage-and-billing/)).
 - **Ekkert spjall fyrr en þrennt er til staðar:** heimildasamstæðan `BIFROST Chat ori`, mállíkan valið í
   notandauppsetningu Bifröst og líkan sem getur svarað (API-lykill, eða kveikt á Copilot). Fram að því
-  birtist spjallið ekki og engin villuboð koma.
+  birtist spjallið ekki á færslusíðunum; í notandauppsetningu Bifröst birtist það með
+  skilaboðum um að það sé óvirkt.
 - **API-lyklar eru í leyndarmálageymslu Bifröst**, aldrei á síðu eða í töflu. Líkan hefur sameiginlegan
   lykil fyrir fyrirtækið og, ef vill, persónulegan lykil fyrir hvern notanda. Copilot keyrir á auðlindum
   sem Microsoft rekur og þarf engan lykil.

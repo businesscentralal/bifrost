@@ -30,7 +30,8 @@ additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start wi
   say that it cannot.
 - **Stay in Business Central.** The chat, **Chat via Bifrost**, sits in the FactBox pane of the customer,
   vendor and item pages, the sales and purchase documents and their lists, the ledger entry pages and
-  incoming documents. **Focus** opens it on a full page.
+  incoming documents. **Focus** opens it on a full page. See
+  [Bifrost Chat in Business Central](/language-models/chat/).
 - **Choose a model per group of people.** Each language model carries its provider, its settings and a
   skill: instructions that shape how the assistant answers. A sales team and a finance team can each
   chat with a model set up for their work.
@@ -66,6 +67,9 @@ provides it.
 | 5 | Assign the permission sets (below), and on each person's Bifröst user setup choose the **Language Model Code** they chat with. | Business Central administrator |
 | 6 | Open a customer, item or sales order: **Chat via Bifrost** appears in the FactBox pane. | Each user |
 
+How to chat, what each person needs first and what to do when the chat does not answer:
+[Bifrost Chat in Business Central](/language-models/chat/).
+
 The help of each page has the details:
 [Bifrost Language Models Setup](/help/language-models/language-models-setup/),
 [Bifrost Language Model](/help/language-models/bifrost-lang-model-card/) and
@@ -91,7 +95,8 @@ People who chat also need the Bifröst sets they use Bifröst with; see
   **Bifrost Messages** and counted like any other (see [Usage and billing](/licensing/usage-and-billing/)).
 - **No chat until three things are in place:** the `BIFROST Chat ori` permission set, a language model
   chosen on your Bifröst user setup, and a model that can answer (an API key, or Copilot turned on). Until
-  then the chat does not appear, and there is no error message.
+  then the chat does not appear on the record pages; your Bifröst user setup shows it with a message that it is
+  disabled.
 - **API keys stay in Bifröst's secret store**, never on a page or in a table. A model has a shared key for
   the company and, if you want, a personal key per user. Copilot runs on resources Microsoft manages and
   needs no key.

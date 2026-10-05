@@ -28,13 +28,13 @@ When you move to another record, the chat follows it.
 
 | Action | Description |
 | --- | --- |
-| **Focus** | Opens the conversation on a full page, with the same record. Close the page to return; the conversation comes back with you. |
+| **Focus** | Opens the chat on a full page, for the same record. Close the page to return to the record. |
 | **User Setup** | Opens your [Bifröst user setup](/help/foundation/bifrost-user-setup-editor/), where you choose your language model and write your own instructions for the assistant. |
 
 ## Before you can chat {#prerequisites}
 
 The chat appears only when all of these are in place. If one is missing, it does not appear, and there is
-no error message.
+no error message, except on your Bifröst user setup: there the chat always shows, and says when it is disabled.
 
 | Requirement | Who sees to it |
 | --- | --- |
@@ -61,7 +61,7 @@ device. The chat shows which tool it is calling while it works, and one question
 ## Common tasks
 
 - **Ask about the current record:** open the document and type your question.
-- **Work in a larger window:** choose **Focus**, carry on, and close the page to return.
+- **Work in a larger window:** choose **Focus**, ask your question there, and close the page to return.
 - **Change assistant:** choose **User Setup**, pick another **Language Model Code**, and open the page
   again.
 - **Give the assistant standing instructions:** write them in the system prompt on your Bifröst user setup.
@@ -77,5 +77,6 @@ device. The chat shows which tool it is calling while it works, and one question
 
 ## See also
 
+- [Bifrost Chat in Business Central](/language-models/chat/): getting started, asking questions and what to do when something goes wrong
 - [Bifrost Language Model](/help/language-models/bifrost-lang-model-card/): provider, model, key and skill
 - [Bifröst Language Models](/language-models/): what the app does and how to set it up

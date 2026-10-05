@@ -55,11 +55,12 @@ function ensureTrailingSlash(value: string): string {
 /**
  * An app's sidebar keeps two items on top, Overview and Capabilities, and folds everything else
  * (message type guides, the generated reference, listing and validation texts) into one collapsed
- * "Reference" group. The pages and their addresses do not change.
+ * "Reference" group. The pages and their addresses do not change. A guide page that belongs on top
+ * as well sets `sidebar_custom_props: {top: true}` in its front matter.
  */
 const groupAppSidebar: NonNullable<DocsOptions['sidebarItemsGenerator']> = async ({defaultSidebarItemsGenerator, ...args}) => {
   const items = await defaultSidebarItemsGenerator(args);
-  const top = items.filter((item) => item.type === 'doc' && ['index', 'capabilities'].includes(item.id));
+  const top = items.filter((item) => item.type === 'doc' && (['index', 'capabilities'].includes(item.id) || item.customProps?.top === true));
   const rest = items.filter((item) => !top.includes(item));
   if (!rest.length) return items;
   return [

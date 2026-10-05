@@ -29,13 +29,13 @@ slá inn númerið. Þegar þú ferð í aðra færslu fylgir spjallið henni.
 
 | Aðgerð | Lýsing |
 | --- | --- |
-| **Fókus** | Opnar samtalið á heilli síðu, með sömu færslu. Lokaðu síðunni til að fara til baka; samtalið fylgir þér. |
+| **Fókus** | Opnar spjallið á heilli síðu, fyrir sömu færslu. Lokaðu síðunni til að fara aftur í færsluna. |
 | **Notandauppsetning** | Opnar [notandauppsetningu Bifröst](/help/foundation/bifrost-user-setup-editor/) fyrir þig, þar sem þú velur mállíkanið þitt og skrifar eigin leiðbeiningar til aðstoðarmannsins. |
 
 ## Áður en þú getur spjallað {#prerequisites}
 
 Spjallið birtist aðeins þegar allt þetta er til staðar. Ef eitthvað vantar birtist það ekki og engin
-villuboð koma.
+villuboð koma, nema í notandauppsetningu Bifröst hjá þér: þar birtist spjallið alltaf og segir þegar það er óvirkt.
 
 | Skilyrði | Hver sér um það |
 | --- | --- |
@@ -63,7 +63,7 @@ skref.
 ## Algeng verk {#common-tasks}
 
 - **Spyrja um færsluna sem er opin:** opnaðu skjalið og skrifaðu spurninguna.
-- **Vinna í stærri glugga:** veldu **Fókus**, haltu áfram og lokaðu síðunni til að fara til baka.
+- **Vinna í stærri glugga:** veldu **Fókus**, spurðu þar og lokaðu síðunni til að fara til baka.
 - **Skipta um aðstoðarmann:** veldu **Notandauppsetning**, veldu annan **Kóða mállíkans** og opnaðu
   síðuna aftur.
 - **Gefa aðstoðarmanninum föst fyrirmæli:** skrifaðu þau í kerfisleiðbeiningarnar í notandauppsetningu
@@ -79,5 +79,6 @@ skref.
 
 ## Sjá einnig {#see-also}
 
+- [Spjalla með Bifröst í Business Central](/language-models/chat/): fyrstu skref, spurningar og hvað á að gera þegar eitthvað fer úrskeiðis
 - [Bifröst mállíkan](/help/language-models/bifrost-lang-model-card/): veita, líkan, lykill og hæfni
 - [Bifröst mállíkön](/language-models/): hvað forritið gerir og hvernig það er sett upp
