@@ -21,14 +21,14 @@ ber hæfni, leiðbeiningarnar sem eru sendar með hverju spjalli. Opnaðu líkan
 
 | Aðgerð | Lýsing |
 | --- | --- |
-| **Frumstilla Copilot sjálfgildi** | Skráir **Bifröst Copilot** á **Copilot & AI Capabilities**, sem Microsoft innheimtir fyrir, býr til mállíkanið `COPILOT` ef það er ekki til og fyllir það með sjálfgefinni hæfni. Spyr fyrst. |
+| **Frumstilla Copilot sjálfgildi** | Skráir **Bifröst Copilot** á síðunni **Copilot og eiginleikar fulltrúa**, sem Microsoft innheimtir fyrir, býr til mállíkanið `COPILOT` ef það er ekki til og fyllir það með sjálfgefinni hæfni. Spyr fyrst. |
 
 ## Algeng verk {#common-tasks}
 
 - **Búa til mállíkan:** veldu **Nýtt**, skráðu kóða, lýsingu og veitu, og skrifaðu síðan hæfnina eða
   notaðu **Flytja inn sjálfgildi** á spjaldinu.
 - **Byrja með Copilot:** veldu **Frumstilla Copilot sjálfgildi** og athugaðu að **Bifröst Copilot** sé
-  virkt á **Copilot & AI Capabilities**.
+  virkt á síðunni **Copilot og eiginleikar fulltrúa**.
 - **Úthluta notanda líkani:** veldu það í **Kóði mállíkans** í
   [notandauppsetningu Bifröst](/help/foundation/bifrost-user-setup-editor/) notandans.
 

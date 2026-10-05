@@ -4,9 +4,7 @@ title: "Chat via Bifrost"
 ---
 
 **Chat via Bifrost** is an AI assistant in the FactBox pane of the page you are on. Ask in plain language;
-the assistant reads live Business Central data to answer and works as you, within your permissions. This
-help opens from the pages that show the chat. For the page itself, see Microsoft's Business Central
-documentation.
+the assistant reads live Business Central data to answer and works as you, within your permissions. Business Central adds this help to the pages that show the chat, next to the help of the page itself.
 
 ## Where you find it
 

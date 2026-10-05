@@ -5,8 +5,7 @@ title: "Spjalla með Bifröst"
 
 **Spjalla með Bifröst** er gervigreindaraðstoðarmaður í upplýsingareitasvæði síðunnar sem þú ert á.
 Spurðu á venjulegu máli; aðstoðarmaðurinn les lifandi gögn úr Business Central til að svara og vinnur
-sem þú, innan þinna heimilda. Þessi hjálp opnast af síðunum sem sýna spjallið. Um síðuna sjálfa, sjá
-skjölun Microsoft um Business Central.
+sem þú, innan þinna heimilda. Business Central bætir þessari hjálp við síðurnar sem sýna spjallið, við hlið hjálpar síðunnar sjálfrar.
 
 ## Hvar þú finnur það {#where-you-find-it}
 
