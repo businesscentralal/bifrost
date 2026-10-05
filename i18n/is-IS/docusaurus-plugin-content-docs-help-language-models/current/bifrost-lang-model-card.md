@@ -28,7 +28,7 @@ Copilot keyrir á auðlindum sem Microsoft rekur, svo þessir reitir eru ekki no
 | **Samhengistákn** | Hversu mikið samtal líkanið getur tekið við í einu, samhengisgluggi þess, í tókum. Bifröst notar það til að ákveða hversu mikið af fyrra samtali er sent með hverri spurningu; núverandi spurning er alltaf send. Autt (`0`) notar sjálfgildi veitunnar: 32.000 tók fyrir sérsniðið LLM, 128.000 fyrir OpenAI, Azure OpenAI, xAI og Google Gemini, og 200.000 fyrir Anthropic. Stilltu það á samhengisglugga líkansins þegar þú notar líkan með minni eða stærri glugga en það, til dæmis líkan sem þú keyrir sjálf(ur). |
 | **Spjallslóð** | Slóð spjallendapunktsins, fyrir veitur sem þurfa hana (Azure OpenAI og sérsniðið LLM). Skildu hana eftir auða fyrir `/v1/chat/completions`. |
 | **Líkanaslóð** | Slóðin sem telur upp líkön veitunnar, fyrir veitur sem þurfa hana. Skildu hana eftir auða fyrir `/v1/models`. |
-| **Líkan** | Líkan veitunnar sem á að nota. Skildu það eftir autt fyrir sjálfgefið líkan veitunnar. Fyrir veitur sem geta talið upp líkön sín sýnir uppflettingin þau. |
+| **Líkan** | Líkan veitunnar sem á að nota. Skildu það eftir autt fyrir sjálfgefið líkan veitunnar. Fyrir veitur sem geta talið upp líkön sín opnar uppflettingin **Tiltæk líkön**, líkönin sem veitan býður; veldu eitt til að fylla reitinn út. |
 
 Grunnslóð, spjallslóð og líkanaslóð ráða því hvert beiðnir, og API-lykillinn, eru sendar. Þeim er
 aðeins hægt að breyta hér á spjaldinu, eða af einhverjum sem vinnur í Business Central.
