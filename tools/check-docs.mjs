@@ -46,13 +46,13 @@ const ALLOWED_TYPE_NAMES = new Set(['Help.MessageTypes.Get', 'Help.Implementatio
 // words, and over each docs route. `node tools/check-docs.mjs hash "<name or route>"` prints the value to
 // add. When an app is published, remove its hashes in the same pull request that brings its pages back.
 const UNPUBLISHED_NAME_HASHES = new Set([
-  'd94df5d992169251', 'fe99523a77b777ec', 'a046c4f0a310ac2f', 'a0a446ad370b830c', '17214a07d5b7578b',
+  'd94df5d992169251', 'a046c4f0a310ac2f', 'a0a446ad370b830c', '17214a07d5b7578b',
   '1b797f6e6728ad2b', '4e335a9a47a11647', '3381590a4e4bd9ff', 'a6ad3891ba67c714', '63874763be005259',
   'e3fb45974f88dc34', '6f3e4d7fd1f5e471', 'b0dd3a2d68522b2d', '2756636f5ac88609', '90a45c6dcbb66d38',
   '9a91356d3b648e62',
 ]);
 const UNPUBLISHED_ROUTE_HASHES = new Set([
-  '9eb5c59d70089e53', '97a37556dc257040', 'b25920b5f0013a9f', 'a43a82a5e0b2fb98', '3930e671c9e40dee',
+  '9eb5c59d70089e53', '97a37556dc257040', 'b25920b5f0013a9f', '3930e671c9e40dee',
   '11376b7e2acf0c93', 'dc0d200aaebbf548', 'c2750447ccba4184', 'b11a85b296a90afc',
 ]);
 const shortHash = (value) => createHash('sha256').update(value).digest('hex').slice(0, 16);

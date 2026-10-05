@@ -5,7 +5,8 @@ title: "Chat via Bifrost"
 
 The **Chat via Bifrost** fact box lets you chat with Bifröst about the record you are looking at. It
 shows a chat when an app that provides one is installed and set up; until then it stays empty. That
-app also decides where the answers come from.
+app also decides where the answers come from. [Bifröst Language Models](/language-models/) is that app: see
+[Chat via Bifrost](/help/language-models/bifrost-chat/) for what you can ask and what the chat needs.
 
 | Action | Description |
 | --- | --- |

@@ -58,7 +58,7 @@ On **Permission Sets**, search for *BIFROST* to see them all.
 | `BIFROST LicAdm ori` | The licensing actions on Bifrost Setup, and usage |
 | `BIFROST Force ori` | Forcing a change past the ChangeLog Write Guard when it is set to **Via force**, and, in every guard setting, changing the [company configuration fields](/documentation/end-customers/data-access/#company-configuration-fields) while a company is set up. Only for the people who set up companies |
 | `BIFROST Webhook ori` | Receiving inbound webhooks: for the identity that forwards them into Business Central |
-| `BIFROST Chat ori` | Opening Bifröst chat |
+| `BIFROST Chat ori` | Opening Bifröst chat, which [Bifröst Language Models](/language-models/#permission-sets) provides |
 | `BIFROST SrcApOwn ori` | Approving a tool (session source) for oneself |
 | `BIFROST SrcApAdm ori` | Approving tools for any user |
 | `BIFROST SrcApCfg ori` | Changing a user's **Approval Type** |
