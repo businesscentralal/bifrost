@@ -53,7 +53,7 @@ Once the first answer works, let it do more. Each level builds on the one before
 | Level | Try asking | What you should see |
 |---|---|---|
 | **Answer** | *"Which customers have the highest balance due?"* | Figures from live data |
-| **Find out** | *"Which capabilities can you use here?"*, then *"What can you do with sales quotes?"* | The capabilities you have, then what you can do in one of them |
+| **Find out** | *"Which domains can you work in here?"*, then *"What can you do with sales quotes?"* | The domains you have, then what you can do in one of them |
 | **Act, safely** | *"Release the newest open sales order and show me what posting it would do."* | A released order, and a posting preview. Nothing posted |
 | **Chain** | *"Which sales orders are past their shipment date? Group them by customer, with the amount outstanding."* | Several operations, one answer |
 

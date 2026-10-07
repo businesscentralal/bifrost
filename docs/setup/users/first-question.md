@@ -13,9 +13,11 @@ description: "For each user: tell the assistant which company to work in, ask wh
 
 ## Tell the assistant where to work
 
-**Bifrost Setup** in Business Central has a **Connection Prompt**, in its *Environment* section, with
-the tenant, environment and company. Copy it, paste it into the chat and send it, so the assistant
-knows where to work. If you cannot open Bifrost Setup, ask your administrator for the text.
+Your administrator sends you the **Connection Prompt**: a short text with the tenant, environment and
+company. Paste it into the chat and send it, so the assistant knows where to work.
+
+If you can open **Bifrost Setup** in Business Central, you can also copy the **Connection Prompt**
+yourself, from its *Environment* section.
 
 Each company has its own prompt. To switch company, paste the prompt of the other one, or ask the
 assistant to list your companies and switch.
@@ -34,6 +36,13 @@ environment too: if it is your production environment, be careful with anything 
 - **The user is wrong:** stop, and tell your administrator.
 - **The assistant has no Business Central tools:** the connector is not switched on in this chat;
   see [Connect your assistant](/setup/connect-your-ai/#claude).
+- **The assistant gives you an approval link:** your company approves each new assistant once. Open
+  the link, or send it to your administrator; see
+  [Approving a new assistant](/documentation/end-customers/users/#approving-a-new-assistant).
+- **No environments or companies appear:** the one-time consent for your organisation is missing.
+  Tell your administrator; see [Consent once](/setup/consent/).
+- **Calls are refused for the company:** the setup wizard has not been finished in that company.
+  Tell your administrator.
 
 ## What next
 

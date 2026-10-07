@@ -35,7 +35,7 @@ messages were used) and the **reporting date** (the day the entry was reported).
 | [License Usage](/help/foundation/license-usage/) | The usage entries of your own companies |
 | [License fact box](/help/foundation/license-fact-box/) on Bifrost Setup | The license type, the remaining quota of each pool, the messages not yet reported and the last sync |
 
-Both require licence administration permission (the `BIFROST LicAdm ori` permission set). An AI
+Both require license administration permission (the `BIFROST LicAdm ori` permission set). An AI
 assistant can read the same figures through Bifröst; the installed message types and their
 contracts are read from Business Central itself: the MCP tools `list_message_types` and
 `describe_message_type`, or the Bifrost Message Types page.

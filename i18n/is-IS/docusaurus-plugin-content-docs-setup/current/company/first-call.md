@@ -23,6 +23,8 @@ description: "Prófaðu uppsetninguna með einni spurningu, og sendu síðan not
      [skrefi 3](/setup/consent/#what-you-get-from-the-setup-wizard);
    - tengilinn á [Fyrir hvern notanda](/setup/pick-your-assistant/), þar sem hann tengir aðstoðarmanninn og spyr
      fyrstu spurningarinnar;
+   - **Biðja um Tengingu** (tengitextann) af Uppsetningu Bifröst (hlutanum *Umhverfi*) fyrir hvert fyrirtæki sem hann
+     vinnur í. Notendur sem hafa aðeins `BIFROST API ori` komast hugsanlega ekki sjálfir í Uppsetningu Bifröst;
    - [Notkun Bifröst](/documentation/end-customers/users/): hvað hann getur spurt um, hvað það gerir ekki, og hvað á
      að gera þegar það segir nei.
 

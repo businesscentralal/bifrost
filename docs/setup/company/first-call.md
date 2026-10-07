@@ -24,6 +24,8 @@ description: "Check the setup with one question, then send your users their part
      [step 3](/setup/consent/#what-you-get-from-the-setup-wizard);
    - the link to [For each user](/setup/pick-your-assistant/), where they connect their assistant
      and ask their first question;
+   - the **Connection Prompt** from Bifrost Setup (*Environment* section) for each company they work in.
+     Users with only `BIFROST API ori` may not be able to open Bifrost Setup themselves;
    - [Using Bifröst](/documentation/end-customers/users/): what they can ask, what it will not do,
      and what to do when it says no.
 

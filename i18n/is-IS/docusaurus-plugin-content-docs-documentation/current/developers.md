@@ -21,7 +21,9 @@ Kerfisstjóri þarf fyrst að hafa gert tvennt, í [skrefi 2 í Settu það upp]
   heimildasamstæðunni `BIFROST API ori`, heimildum Business Central fyrir gögnin hennar, og bókunarhliði fyrir hverja
   höfuðbók sem hún bókar í.
 
-Skref 3, tenging gervigreindaraðstoðarmanns, þarf ekki fyrir samþættingu: hún skráir sig inn með eigin Entra forriti.
+Samþætting þarf hvorki [skref 3, Samþykktu einu sinni](/setup/consent/), né skrefin
+[Fyrir hvern notanda](/setup/pick-your-assistant/): þau eru fyrir gervigreindaraðstoðarmenn. Hún skráir sig inn með eigin
+Entra forriti.
 
 ## Tengdu annað kerfi {#connect-another-system}
 
@@ -87,4 +89,4 @@ líka.
 Köll samþættingar eru talin í pottinum **App Registration**, aðskilið frá köllum fólks. Hvað telst sem skilaboð:
 [Notkun og mörk](/documentation/end-customers/administrators/#usage-and-limits). Sjá líka [Leyfi](/licensing/).
 
-**Næst:** [Tengdu aðstoðarmanninn](/setup/connect-your-ai/).
+**Næst:** [Heimildasamstæður og hlið](/documentation/end-customers/permissions/), fyrir samstæðurnar sem samþættingin þarf.

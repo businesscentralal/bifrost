@@ -34,7 +34,7 @@ export default function PlatformMap(): ReactNode {
         <strong>Bifröst Foundation</strong>
         <span>
           <Translate id="platformMap.gate">
-            One gate: catalogue, help, permissions, licence and a log of every call
+            One gate: catalogue, help, permissions, license and a log of every call
           </Translate>
         </span>
       </Link>

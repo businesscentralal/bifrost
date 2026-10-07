@@ -43,14 +43,14 @@ On **Permission Sets**, search for *BIFROST* to see them all.
 | Set | For | What it gives |
 |---|---|---|
 | `BIFROST API ori` | Every person or integration that calls Bifröst | Calling Bifröst, the user's own messages, memory and notes, and the setup Bifröst reads to answer (currencies, prices, VAT posting setup). No business data beyond that |
-| `BIFROST Read ori` | Support staff | Looking at Bifröst's pages, messages and logs, changing nothing |
-| `BIFROST Full ori` | Bifröst administrators | All of Bifröst's own data and pages, including every user's messages. Not the gates below: an administrator assigns those explicitly, also to themselves |
+| `BIFROST Read ori` | Support staff | Looking at Bifröst's pages and logs, and the user's own messages. It changes no settings |
+| `BIFROST Full ori` | Bifröst administrators | All of Bifröst's own data and pages, including every user's messages. Not the posting, approval, licensing, force, chat or session-source gates: an administrator assigns those explicitly, also to themselves. It does include the inbound-webhook gate |
 
 **Gates**: each opens one kind of action. They hold no data.
 
 | Set | Opens |
 |---|---|
-| `BIFROST GL Post ori` | Posting that ends in the general ledger: general journals, sales and purchase documents, bank reconciliations, VAT settlement, applying and unapplying customer and vendor entries, reversing registers and transactions |
+| `BIFROST GL Post ori` | Posting that ends in the general ledger: general journals, sales and purchase documents, correcting and cancelling posted invoices, bank reconciliations, adjusting exchange rates, applying and unapplying customer and vendor entries, and reversing registers and transactions |
 | `BIFROST ItemPost ori` | Posting item journals |
 | `BIFROST FA Post ori` | Posting fixed asset journals |
 | `BIFROST Job Post ori` | Posting project journals and invoicing from project ledger entries |
@@ -62,7 +62,7 @@ On **Permission Sets**, search for *BIFROST* to see them all.
 | `BIFROST Chat ori` | Opening Bifröst chat |
 | `BIFROST SrcApOwn ori` | Approving a tool (session source) for oneself |
 | `BIFROST SrcApAdm ori` | Approving tools for any user |
-| `BIFROST SrcApCfg ori` | Changing a user's **Approval Type** |
+| `BIFROST SrcApCfg ori` | Shows a user's **Approval Type** to users without `BIFROST Full ori`. A holder of `BIFROST Full ori` can change it without this set |
 | `BIFROST ReqLgAdm ori` | Turning **Request Debug Mode** on and off |
 
 **Data sets**: extra access to one area of Bifröst data.
@@ -89,8 +89,10 @@ What follows from this:
 - **SUPER passes every gate.** Keep SUPER away from users and integrations that work through Bifröst.
 - **A gate adds no data permission.** Posting a sales invoice through Bifröst needs the user's Business Central
   permission to post sales documents *and* `BIFROST GL Post ori`. Previewing a posting needs the gate too.
-- **Gates work through security groups** like any permission set: assign the gate to the group.
-- **`BIFROST Full ori` opens no gate.** An administrator who posts through Bifröst needs the posting gates too.
+- **Gates work through security groups** like any permission set: assign the gate to the group. Except
+  `BIFROST ReqLgAdm ori`: assign it to the user directly.
+- **`BIFROST Full ori` opens no posting gate** (only the inbound-webhook gate). An administrator who posts through
+  Bifröst needs the posting gates too.
 
 ## Which gate opens what
 

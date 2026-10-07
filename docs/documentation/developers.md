@@ -22,8 +22,8 @@ An administrator has to have done two things first, in [step 2 of Set it up](/se
   Business Central, with the permission set `BIFROST API ori`, the Business Central permissions for
   its data, and a posting gate for each ledger it posts to.
 
-Step 3, connecting an AI assistant, is not needed for an integration: it signs in with its own Entra
-application.
+An integration does not need [step 3, Consent once](/setup/consent/), or the steps
+[For each user](/setup/pick-your-assistant/): those are for AI assistants. It signs in with its own Entra application.
 
 ## Connect another system
 
@@ -93,4 +93,4 @@ An integration's calls count in the **App Registration** pool, apart from people
 counts as a message: [Usage and limits](/documentation/end-customers/administrators/#usage-and-limits).
 See also [Licensing](/licensing/).
 
-**Next:** [Connect your AI](/setup/connect-your-ai/).
+**Next:** [Permission sets and gates](/documentation/end-customers/permissions/), for the sets your integration needs.

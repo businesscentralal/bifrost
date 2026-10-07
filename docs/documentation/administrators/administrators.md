@@ -95,8 +95,9 @@ request log. Turn it on only while troubleshooting, and off again afterwards. Ch
 - **Retention is yours to set.** Use **Setup › Retention Policies**. **Bifrost Messages has no retention period
   until you set one**, so messages are kept until you do.
 - **Keep at least 31 days** of Bifrost Messages if you use monthly message quotas.
-- **Access is yours to set.** Anyone with `BIFROST Read ori` or `BIFROST Full ori` can open every
-  message on Bifrost Messages, so give those sets only to the people who need them.
+- **Access is yours to set.** Anyone with `BIFROST Full ori` (or SUPER) can open every message on Bifrost
+  Messages. A holder of `BIFROST Read ori` sees only their own messages. Give `BIFROST Full ori` only to the people
+  who need it.
 :::
 
 ## Secrets
@@ -107,8 +108,8 @@ Values are stored for the company (or the company and user), never shown again, 
 
 ![Bifrost App Secrets](/img/guides/en-us/secrets.png)
 
-The list fills when you install Bifröst apps that connect to other systems; the setup wizard asks for their secrets
-in one optional step.
+The list fills when you install Bifröst apps that connect to other systems. On-premises, the setup wizard asks for
+their secrets in one optional step. Online, set them on **Setup › Secrets**.
 
 ## The other settings on Bifrost Setup
 
@@ -151,8 +152,9 @@ Each Bifröst app adds capabilities of its own. Once installed, each adds an act
 
 ![The Apps group](/img/guides/en-us/menu-apps.png)
 
-**After installing an app, run the setup wizard again** (**Licensing › Setup Wizard**). It turns on outbound HTTP for
-the new app and asks for any credentials it needs.
+**After installing an app, run the setup wizard again** (**Licensing › Setup Wizard**). It shows whether outbound HTTP
+is on for the new app (choose **Enable HTTP for all apps** in step 2), and on-premises it asks for the credentials.
+Online, enter them on **Setup › Secrets**.
 
 ## The license agreement and the wizard
 
@@ -170,10 +172,8 @@ it does it.
 Bifröst counts **messages**: one for each successful call that does work. The help, memory, session, webhook
 and change-log calls of Bifröst are not counted.
 
-- **Limits you can set.** A monthly message quota per company on Bifrost Setup, and per user on
-  Bifrost User Setup, stop usage at a level you choose. Empty means no limit. When a limit is reached, further calls
-  are refused until the next calendar month, and the agent says so. The user limit is checked before the company
-  limit.
+- **Limits you can set.** A monthly message quota per company and per user stops usage at a level you choose.
+  The fields, what `0` means and what happens when a quota is reached: [Monthly quotas](/licensing/license-types/#monthly-quotas).
 - **See what is used** on **Actions › License Usage**, per company, day and type. **Licensing › Sync** refreshes the
   figures at once; a background task does the same every day.
 

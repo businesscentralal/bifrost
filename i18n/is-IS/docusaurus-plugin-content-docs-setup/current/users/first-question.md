@@ -13,9 +13,11 @@ description: "Fyrir hvern notanda: segðu aðstoðarmanninum í hvaða fyrirtæk
 
 ## Segðu aðstoðarmanninum hvar hann á að vinna {#tell-the-assistant-where-to-work}
 
-**Uppsetning Bifröst** í Business Central hefur **Biðja um Tengingu**, í hlutanum *Umhverfi*, með leigjandanum,
-umhverfinu og fyrirtækinu. Afritaðu textann, límdu hann inn í spjallið og sendu, svo aðstoðarmaðurinn viti hvar hann á
-að vinna. Ef þú kemst ekki í Uppsetningu Bifröst, biddu kerfisstjórann um textann.
+Kerfisstjórinn sendir þér tengitextann (**Biðja um Tengingu**): stuttan texta með leigjandanum, umhverfinu og
+fyrirtækinu. Límdu hann inn í spjallið og sendu, svo aðstoðarmaðurinn viti hvar hann á að vinna.
+
+Ef þú kemst í **Uppsetningu Bifröst** í Business Central geturðu líka afritað **Biðja um Tengingu** sjálf(ur), úr
+hlutanum *Umhverfi*.
 
 Hvert fyrirtæki hefur sinn eigin texta. Til að skipta um fyrirtæki límirðu inn texta hins fyrirtækisins, eða biður
 aðstoðarmanninn að telja upp fyrirtækin þín og skipta.
@@ -34,6 +36,13 @@ er raunumhverfið, farðu varlega í allt sem breytir gögnum.
 - **Notandinn er rangur:** hættu, og láttu kerfisstjórann vita.
 - **Aðstoðarmaðurinn hefur engin Business Central verkfæri:** ekki er kveikt á tengingunni í þessu spjalli; sjá
   [Tengdu aðstoðarmanninn](/setup/connect-your-ai/#claude).
+- **Aðstoðarmaðurinn gefur þér tengil til samþykktar:** fyrirtækið þitt samþykkir hvern nýjan aðstoðarmann einu sinni.
+  Opnaðu tengilinn, eða sendu kerfisstjóranum hann; sjá
+  [Samþykki nýs aðstoðarmanns](/documentation/end-customers/users/#approving-a-new-assistant).
+- **Engin umhverfi eða fyrirtæki birtast:** samþykkið sem fyrirtækið gefur einu sinni vantar. Láttu kerfisstjórann vita;
+  sjá [Samþykktu einu sinni](/setup/consent/).
+- **Köllum fyrir fyrirtækið er hafnað:** uppsetningarleiðsögninni hefur ekki verið lokið í því fyrirtæki. Láttu
+  kerfisstjórann vita.
 
 ## Hvað svo {#what-next}
 

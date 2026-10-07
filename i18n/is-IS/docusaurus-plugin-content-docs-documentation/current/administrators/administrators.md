@@ -96,8 +96,9 @@ annál beiðna. Kveiktu aðeins á henni meðan villuleitað er, og slökktu aft
 - **Varðveislan er þín að stilla.** Notaðu **Uppsetning › Varðveislureglur**. **Bifröst skilaboð hafa ekkert
   varðveislutímabil fyrr en þú setur það**, svo skilaboð eru geymd þangað til.
 - **Geymdu að minnsta kosti 31 dag** af Bifröst skilaboðum ef þú notar mánaðarlega skilaboðakvóta.
-- **Aðgangurinn er þinn að stilla.** Hver sem hefur `BIFROST Read ori` eða `BIFROST Full ori` getur opnað öll skilaboð á
-  Bifröst skilaboðum, svo gefðu þær samstæður aðeins þeim sem þurfa.
+- **Aðgangurinn er þinn að stilla.** Hver sem hefur `BIFROST Full ori` (eða SUPER) getur opnað öll skilaboð á Bifröst
+  skilaboðum. Sá sem hefur `BIFROST Read ori` sér aðeins eigin skilaboð. Gefðu `BIFROST Full ori` aðeins þeim sem
+  þurfa.
 :::
 
 ## Leyndarmál {#secrets}
@@ -109,8 +110,8 @@ aldrei afrituð milli fyrirtækja.
 
 ![Leyndarmál forrita Bifröst](/img/guides/is-is/secrets.png)
 
-Listinn fyllist þegar þú setur upp Bifröst forrit sem tengjast öðrum kerfum; uppsetningarleiðsögnin biður um leyndarmál
-þeirra í einu valfrjálsu skrefi.
+Listinn fyllist þegar þú setur upp Bifröst forrit sem tengjast öðrum kerfum. Í staðbundinni uppsetningu biður
+uppsetningarleiðsögnin um leyndarmál þeirra í einu valfrjálsu skrefi. Í skýinu skráirðu þau á **Uppsetning › Leyndarmál**.
 
 ## Hinar stillingarnar á Uppsetningu Bifröst {#the-other-settings-on-bifrost-setup}
 
@@ -153,8 +154,9 @@ Uppsetningu Bifröst, sem opnar eigin uppsetningarsíðu þess. **Forrit › Fin
 
 ![Flokkurinn Forrit](/img/guides/is-is/menu-apps.png)
 
-**Eftir að forrit er sett upp skaltu keyra uppsetningarleiðsögnina aftur** (**Leyfi › Uppsetningarleiðsögn**). Hún kveikir
-á útleið HTTP fyrir nýja forritið og biður um auðkenni sem það þarf.
+**Eftir að forrit er sett upp skaltu keyra uppsetningarleiðsögnina aftur** (**Leyfi › Uppsetningarleiðsögn**). Hún sýnir
+hvort útleið HTTP sé virk fyrir nýja forritið (veldu **Virkja HTTP fyrir öll forrit** í skrefi 2), og í staðbundinni
+uppsetningu biður hún um auðkennin. Í skýinu skráirðu þau á **Uppsetning › Leyndarmál**.
 
 ## Notendaleyfissamningurinn og leiðsögnin {#the-license-agreement-and-the-wizard}
 
@@ -172,10 +174,8 @@ Central spyr áður en það gerir það.
 Bifröst telur **skilaboð**: ein fyrir hvert vel heppnað kall sem vinnur verk. Hjálpar-, minnis-, setu-, vefkróka- og
 breytingaskrárköll Bifröst eru ekki talin.
 
-- **Mörk sem þú getur sett.** Mánaðarlegur skilaboðakvóti fyrir hvert fyrirtæki á Uppsetningu Bifröst, og fyrir hvern
-  notanda á Uppsetningu notenda, stöðva notkun við mörk sem þú velur. Autt þýðir engin mörk. Þegar mörkum er náð er frekari
-  köllum hafnað fram að næsta almanaksmánuði, og fulltrúinn segir það. Mörk notandans eru athuguð á undan mörkum
-  fyrirtækisins.
+- **Mörk sem þú getur sett.** Mánaðarlegur skilaboðakvóti fyrir hvert fyrirtæki og hvern notanda stöðvar notkun við mörk
+  sem þú velur. Reitirnir, hvað `0` þýðir og hvað gerist þegar kvóta er náð: [Mánaðarlegir kvótar](/licensing/license-types/#monthly-quotas).
 - **Sjáðu hvað er notað** á **Aðgerðir › Leyfisnotkun**, eftir fyrirtæki, degi og tegund. **Leyfi › Samstilla** uppfærir
   tölurnar strax; bakgrunnsverk gerir það sama daglega.
 
