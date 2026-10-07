@@ -30,10 +30,10 @@ consent.
    Bifröst needs; otherwise give it `BIFROST API ori`, and `BIFROST GL Post ori` for posting
    previews. See [step 2](/setup/business-central/).
 4. **Consent once.** Your Entra administrator opens the consent link from wizard step 5. See
-   [step 3](/setup/connect-your-ai/#consent-once-for-your-organisation).
+   [step 3](/setup/consent/).
 5. **Connect your assistant.** In Claude, for example: add Bifröst as a connector, sign in with
    your work account, and switch it on in a chat. Other assistants work the same way. See
-   [Add Bifröst to the assistant](/setup/connect-your-ai/#add-bifröst-to-the-assistant).
+   [Connect your assistant](/setup/connect-your-ai/).
 
    ![Bifröst Origo switched on for a chat in Claude](/img/setup/claude-connector-in-chat.png)
 
@@ -53,7 +53,7 @@ Once the first answer works, let it do more. Each level builds on the one before
 | Level | Try asking | What you should see |
 |---|---|---|
 | **Answer** | *"Which customers have the highest balance due?"* | Figures from live data |
-| **Find out** | *"Which capabilities can you use here?"*, then *"What can you do with sales quotes?"* | The capabilities you have, then what you can do in one of them |
+| **Find out** | *"Which domains can you work in here?"*, then *"What can you do with sales quotes?"* | The domains you have, then what you can do in one of them |
 | **Act, safely** | *"Release the newest open sales order and show me what posting it would do."* | A released order, and a posting preview. Nothing posted |
 | **Chain** | *"Which sales orders are past their shipment date? Group them by customer, with the amount outstanding."* | Several operations, one answer |
 

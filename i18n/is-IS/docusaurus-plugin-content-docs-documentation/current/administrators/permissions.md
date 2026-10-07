@@ -1,8 +1,9 @@
 ---
 id: permissions
+sidebar_position: 2
+slug: /end-customers/permissions
 title: "Heimildasamstæður og hlið"
 sidebar_label: "Heimildasamstæður og hlið"
-sidebar_position: 4
 description: "Fyrir kerfisstjóra: heimildasamstæður Bifröst, og hvernig hliðin meðal þeirra virka ofan á eigin heimildir hvers notanda í Business Central."
 ---
 
@@ -41,14 +42,14 @@ bókunarhliðsins, og hliðið eitt bókar ekkert fyrir notanda sem má ekki bó
 | Samstæða | Fyrir | Hvað hún veitir |
 |---|---|---|
 | `BIFROST API ori` | Hvern þann einstakling eða samþættingu sem kallar í Bifröst | Að kalla í Bifröst, eigin skilaboð notandans, minni og athugasemdir, og uppsetninguna sem Bifröst les til að svara (gjaldmiðlar, verð, VSK-bókunargrunnur). Engin viðskiptagögn umfram það |
-| `BIFROST Read ori` | Þjónustufólk | Að skoða síður, skilaboð og annála Bifröst án þess að breyta neinu |
-| `BIFROST Full ori` | Umsjónarmenn Bifröst | Öll eigin gögn og síður Bifröst, þar á meðal skilaboð allra notenda. Ekki hliðin hér á eftir: umsjónarmaður úthlutar þeim sérstaklega, líka sjálfum sér |
+| `BIFROST Read ori` | Þjónustufólk | Að skoða síður og annála Bifröst, og eigin skilaboð notandans. Hún breytir engum stillingum |
+| `BIFROST Full ori` | Umsjónarmenn Bifröst | Öll eigin gögn og síður Bifröst, þar á meðal skilaboð allra notenda. Ekki bókunar-, samþykktar-, leyfis-, þvingunar-, spjall- eða upprunahliðin: umsjónarmaður úthlutar þeim sérstaklega, líka sjálfum sér. Hún inniheldur þó hliðið fyrir innkomna vefkróka |
 
 **Hlið**: hvert opnar eina tegund aðgerða. Þau geyma engin gögn.
 
 | Samstæða | Opnar |
 |---|---|
-| `BIFROST GL Post ori` | Bókun sem endar í fjárhag: færslubækur fjárhags, sölu- og innkaupaskjöl, bankaafstemmingar, VSK-uppgjör, jöfnun og afturköllun jöfnunar viðskiptamanna- og lánardrottnafærslna, bakfærslu bókunarfærslna og færslna |
+| `BIFROST GL Post ori` | Bókun sem endar í fjárhag: færslubækur fjárhags, sölu- og innkaupaskjöl, leiðrétting og ógilding bókaðra reikninga, bankaafstemmingar, leiðrétting gengis, jöfnun og afturköllun jöfnunar viðskiptamanna- og lánardrottnafærslna, og bakfærsla bókunarfærslna og færslna |
 | `BIFROST ItemPost ori` | Bókun birgðabóka |
 | `BIFROST FA Post ori` | Bókun eignabóka |
 | `BIFROST Job Post ori` | Bókun verkbóka og reikningsgerð úr verkfærslum |
@@ -60,7 +61,7 @@ bókunarhliðsins, og hliðið eitt bókar ekkert fyrir notanda sem má ekki bó
 | `BIFROST Chat ori` | Að opna spjall Bifröst |
 | `BIFROST SrcApOwn ori` | Að samþykkja verkfæri (uppruna setu) fyrir sjálfan sig |
 | `BIFROST SrcApAdm ori` | Að samþykkja verkfæri fyrir hvaða notanda sem er |
-| `BIFROST SrcApCfg ori` | Að breyta **Tegund samþykktar** notanda |
+| `BIFROST SrcApCfg ori` | Sýnir **Tegund samþykktar** notanda þeim sem hafa ekki `BIFROST Full ori`. Sá sem hefur `BIFROST Full ori` getur breytt henni án þessarar samstæðu |
 | `BIFROST ReqLgAdm ori` | Að kveikja og slökkva á **Villuleitarstilling beiðna** |
 
 **Gagnasamstæður**: aukinn aðgangur að einu svæði gagna Bifröst.
@@ -87,8 +88,10 @@ Af þessu leiðir:
 - **SUPER kemst í gegnum öll hlið.** Haltu SUPER frá notendum og samþættingum sem vinna í gegnum Bifröst.
 - **Hlið bætir engri gagnaheimild við.** Til að bóka sölureikning í gegnum Bifröst þarf notandinn heimild Business Central
   til að bóka söluskjöl *og* `BIFROST GL Post ori`. Forskoðun bókunar þarf líka hliðið.
-- **Hlið virka í gegnum öryggishópa** eins og hver önnur heimildasamstæða: úthlutaðu hliðinu á hópinn.
-- **`BIFROST Full ori` opnar ekkert hlið.** Umsjónarmaður sem bókar í gegnum Bifröst þarf líka bókunarhliðin.
+- **Hlið virka í gegnum öryggishópa** eins og hver önnur heimildasamstæða: úthlutaðu hliðinu á hópinn. Nema
+  `BIFROST ReqLgAdm ori`: úthlutaðu henni beint á notandann.
+- **`BIFROST Full ori` opnar ekkert bókunarhlið** (aðeins hliðið fyrir innkomna vefkróka). Umsjónarmaður sem bókar í
+  gegnum Bifröst þarf líka bókunarhliðin.
 
 ## Hvaða hlið opnar hvað {#which-gate-opens-what}
 

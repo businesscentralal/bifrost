@@ -29,7 +29,7 @@ import {fileURLToPath} from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const buildDir = path.join(root, 'build');
 
-const BASE_URL = (process.env.BASE_URL ?? '/bifrost/').replace(/\/?$/, '/');
+const BASE_URL = (process.env.BASE_URL ?? '/').replace(/\/?$/, '/');
 
 const page = (title, script) => `<!doctype html>
 <html lang="en">
@@ -162,7 +162,7 @@ if (!OFFER_ICELANDIC) {
  * It is written at the site root (not inside a locale) and carries absolute
  * URLs, so it is only correct once SITE_URL and BASE_URL are known: build time.
  */
-const SITE_URL = (process.env.SITE_URL ?? 'https://businesscentralal.github.io').replace(/\/$/, '');
+const SITE_URL = (process.env.SITE_URL ?? 'https://docs.bifrost.origo.is').replace(/\/$/, '');
 const site = `${SITE_URL}${BASE_URL}`;
 const en = `${site}en-us/`;
 
@@ -188,21 +188,24 @@ const llms = [
   'An app is what a company installs; Foundation is always installed and brings the standard',
   'Business Central operations, and every other app adds operations of its own. The operations an',
   'agent can call are message types. They are not listed here: read them from the environment, where',
-  'they follow the installed apps. The MCP tools `list_message_types` and `describe_message_type` list',
-  'them and return the contract of one; over the API, `Help.MessageTypes.Get` and',
+  'they follow the installed apps. Over MCP, start with `list_domains` and `describe_domains`, then',
+  '`describe_message_type` returns the contract of one; over the API, `Help.MessageTypes.Get` and',
   '`Help.Implementation.Get` do the same.',
   '',
   'If a user asks for something no installed message type does, say so, and suggest their Business',
-  'Central partner or Origo, or building it (see Building on Bifröst).',
+  'Central partner or Origo.',
   `Explained for people: ${en}documentation/how-it-works/`,
   '',
   '## Setting it up and using it',
   '',
   'For helping a person rather than calling the API yourself.',
   '',
-  `- [Set it up](${en}setup/): the setup steps in order, and who is needed for each one.`,
-  `- [How Bifröst works](${en}documentation/how-it-works/): the concepts, once.`,
-  `- [Documentation](${en}documentation/): pages for users, administrators and developers.`,
+  `- [Set it up](${en}setup/): the company's one-time steps and each user's steps, and who does what.`,
+  `- [Consent once](${en}setup/consent/): the MCP server address and the one-time Entra consent.`,
+  `- [Connect your assistant](${en}setup/connect-your-ai/): adding Bifröst to Claude, Copilot, ChatGPT or another assistant.`,
+  `- [Ask your first question](${en}setup/first-question/): the Connection Prompt that tells the assistant which company to work in.`,
+  `- [How Bifröst works](${en}documentation/how-it-works/): the concepts, once: domains and operations.`,
+  `- [For users](${en}documentation/end-customers/users/), [for administrators](${en}documentation/end-customers/administrators/) and [for developers](${en}documentation/end-customers/developers/).`,
   `- [Try it out](${en}try-it-out/): trying it in a sandbox, with first questions to ask.`,
   '',
   '## Apps',

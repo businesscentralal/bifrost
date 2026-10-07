@@ -76,37 +76,27 @@ page in `help/<app>/`. Locale folders are lower-case (`en-us`, `is-is`) because
 that is the casing Business Central substitutes into `{0}`, and GitHub Pages
 paths are case-sensitive.
 
-## Deployment target — switching to the custom domain
+## Deployment target
 
 The site never hard-codes its own address. Two environment variables decide
-where a build is rooted, and the deploy workflow passes them in:
+where a build is rooted; the deploy and preview workflows pass them in, and the
+same values are the defaults for local builds:
 
-| Variable | GitHub Pages (today) | Custom domain (after DNS) |
-| --- | --- | --- |
-| `SITE_URL` | `https://businesscentralal.github.io` | `https://docs.bifrost.origo.is` |
-| `BASE_URL` | `/bifrost/` | `/` |
+| Variable | Value |
+| --- | --- |
+| `SITE_URL` | `https://docs.bifrost.origo.is` |
+| `BASE_URL` | `/` |
 
-Today the site is live at <https://businesscentralal.github.io/bifrost/>.
+The site is live at <https://docs.bifrost.origo.is/>. The DNS `CNAME` record
+points `docs.bifrost.origo.is` at `businesscentralal.github.io`, and the custom
+domain and **Enforce HTTPS** are set under **Settings → Pages**. GitHub writes
+the `CNAME` file into the published site itself, so it is not committed here.
 
-**To switch to `https://docs.bifrost.origo.is`:**
-
-1. Add a DNS `CNAME` record for `docs.bifrost.origo.is` pointing at
-   `businesscentralal.github.io`.
-2. In this repository: **Settings → Pages → Custom domain**, enter
-   `docs.bifrost.origo.is` and wait for the DNS check to pass, then tick
-   **Enforce HTTPS**. GitHub writes the `CNAME` file into the published site
-   itself; it is deliberately **not** committed here, so the site keeps working
-   on the `github.io` address until DNS actually exists.
-3. In [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), change the
-   two values under `env:` to `SITE_URL: https://docs.bifrost.origo.is` and
-   `BASE_URL: /`, then push.
-4. Leave the apps' `app.json` links (`help`, `contextSensitiveHelpUrl`,
-   `privacyStatement`, `EULA`) on the `github.io` address for now. Once the custom
-   domain is set, GitHub Pages redirects `https://businesscentralal.github.io/bifrost/...`
-   to `https://docs.bifrost.origo.is/...`, so published apps keep working. Move the
-   apps to the new address in a later release.
-
-Do the DNS record and the workflow change together.
+GitHub Pages redirects the old address,
+`https://businesscentralal.github.io/bifrost/...`, to
+`https://docs.bifrost.origo.is/...`, so apps whose `app.json` links (`help`,
+`contextSensitiveHelpUrl`, `privacyStatement`, `EULA`) still use the `github.io`
+address keep working. Move the apps to the new address in a later release.
 
 ## Local development
 

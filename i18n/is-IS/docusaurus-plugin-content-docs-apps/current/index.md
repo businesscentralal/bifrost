@@ -12,7 +12,7 @@ import AppRegistry from '@site/src/components/AppRegistry';
 # Forrit byggð á Bifröst
 
 Hvert forrit hér að neðan er Business Central viðbót sem byggir á
-[Bifröst Foundation](/foundation/) og bætir við eigin skilaboðagerðum,
+[Bifröst Foundation](/foundation/) og bætir við eigin aðgerðum,
 hjálparsíðum og uppsetningu.
 
 **Flest forrit eru uppsetning og stutt uppsetningarleiðsögn.** Sum þurfa líka samning eða
@@ -22,7 +22,7 @@ hvern þarf til og hvaða heimildasöfnum á að úthluta.
 
 Leitaðu eftir nafni eða lýsingu, eða síaðu eftir flokki, til að finna forritið sem þú þarft. (Þessir
 flokkar eiga aðeins við þennan lista; þeir eru ekki
-[sviðin](/documentation/how-it-works/#capabilities-and-message-types) sem aðstoðarmaður vinnur með.)
+[lénin](/documentation/how-it-works/#domains-and-operations) sem aðstoðarmaður vinnur með.)
 
 ## Forrit og hjálp: hver er munurinn
 
@@ -34,7 +34,7 @@ Hvert forrit hefur tvenns konar síður á þessum vef:
 | **Hver les** | Þau sem velja forrit, kerfisstjórar og forritarar | Notandi á síðunni, sem opnar hjálpina úr Business Central með hjálparhnappnum |
 | **Hvar það finnst** | Valmyndin **Forrit** | Úr hjálpartákninu á hverri Bifröst-síðu í Business Central |
 
-Gervigreindarþjónn þarf hvorugt: hann spyr Bifröst hvaða skilaboðagerðir eru til og les hjálp þeirra
+Gervigreindarþjónn þarf hvorugt: hann spyr Bifröst hvaða aðgerðir eru til og les hjálp þeirra
 beint.
 
 <AppRegistry />

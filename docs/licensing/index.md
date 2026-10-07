@@ -21,7 +21,7 @@ served by a Bifröst **Partner**.
 | Rate limit | Production is not rate-limited. Sandbox usage on the public MCP server: Free tier, 1,000 messages per 24 hours - cannot be changed | Production is not rate-limited. Sandbox usage on the public MCP server: Free tier by default; you can choose a higher tier, which your Partner prices |
 | Trial | 1,000 User + 1,000 App Registration messages, once per tenant | Not needed - the trial was used while the tenant was on Prepaid |
 
-A new installation always starts on **Prepaid**: the administrator approves the licence agreement
+A new installation always starts on **Prepaid**: the administrator approves the license agreement
 (EULA) and activates the trial in the [Setup Wizard](/help/foundation/bifrost-setup-wizard/). A
 tenant only becomes a Subscription customer later, when a Partner invites it and it accepts.
 
@@ -42,7 +42,7 @@ stateDiagram-v2
     Subscription --> Prepaid: the relationship with the Partner ends
 ```
 
-A change to the tenant's Partner relationship takes effect when a licence administrator chooses
+A change to the tenant's Partner relationship takes effect when a license administrator chooses
 **Sync** on the Bifrost Setup page.
 
 ## In this section

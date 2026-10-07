@@ -5,8 +5,8 @@ on:
     branches: [main]
 
 env:
-  SITE_URL: https://businesscentralal.github.io
-  BASE_URL: /bifrost/
+  SITE_URL: https://docs.bifrost.origo.is
+  BASE_URL: /
 
 permissions:
   contents: read
@@ -38,6 +38,9 @@ jobs:
 
       - name: Links between pages
         run: npm run check:links
+
+      - name: Agreed structure (menu, setup for the company and for each user, a page per role)
+        run: npm run check:structure
 
       - name: Build both locales
         run: npm run build

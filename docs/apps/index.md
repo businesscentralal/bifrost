@@ -12,16 +12,16 @@ import AppRegistry from '@site/src/components/AppRegistry';
 # Apps built on Bifröst
 
 Every app on this page is a Business Central extension that depends on
-[Bifröst Foundation](/foundation/) and adds its own message types, help pages
+[Bifröst Foundation](/foundation/) and adds its own operations, help pages
 and setup.
 
 **Most apps are an install and a short setup wizard.** Some also need an agreement or credentials
-from an outside service; each app's page says so. Its capabilities join the
+from an outside service; each app's page says so. Its operations join the
 same catalogue, run with the same permissions and are logged on Bifrost Messages. Each app's page
 says who is needed and which permission sets to assign.
 
 Search by name or summary, or filter by category, to find the app you need. (These categories are
-for this list only; they are not the [capabilities](/documentation/how-it-works/#capabilities-and-message-types)
+for this list only; they are not the [domains](/documentation/how-it-works/#domains-and-operations)
 an assistant works with.)
 
 ## Apps and help: what is the difference
@@ -34,7 +34,7 @@ Each app has two kinds of pages on this site:
 | **Who reads it** | Anyone choosing apps, administrators and developers | A user on that page, who opens it from Business Central with the help button |
 | **Find it** | **Apps** on the right of the menu (Foundation and All apps) | From the help icon on each Bifröst page in Business Central |
 
-An agent does not need either: it asks Bifröst which message types exist and reads their help
+An agent does not need either: it asks Bifröst which operations exist and reads their help
 directly.
 
 <AppRegistry />

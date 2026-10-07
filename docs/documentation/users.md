@@ -1,8 +1,9 @@
 ---
 id: users
+slug: /end-customers/users
+sidebar_position: 2
 title: "Using Bifröst"
 sidebar_label: "Users"
-sidebar_position: 1
 description: "What you can ask an AI assistant to do in Business Central through Bifröst, what it will not do, and what to do when it says no."
 ---
 
@@ -17,7 +18,7 @@ request into something Business Central does. This page is what that means for y
 - **Where to ask.** In the AI assistant your company connected, for example Microsoft Copilot or
   Claude. Your administrator tells you which one, and how to open it.
 - **Connect once.** Add Bifröst to your assistant and sign in with your work account; the steps are
-  in [Connect your AI assistant](/setup/connect-your-ai/#add-bifröst-to-the-assistant).
+  in [For each user](/setup/pick-your-assistant/).
 - **The first time**, Bifröst may give you a link to approve the assistant before it can act for
   you. Open it, or send it to your administrator. The assistant itself may also ask before it uses
   a Bifröst tool, as Claude does with **Allow once**: allow it when you recognise the request.
@@ -140,6 +141,7 @@ misunderstand you: say *"show me first"*, and read what it proposes before you s
 
 | The assistant says | What it means | Who to ask |
 | --- | --- | --- |
+| It has no Business Central tools, or answers as if Bifröst were not there | The connector is not switched on in this chat. Switch it on (in Claude: **+**, then **Connectors**) and ask again. | You |
 | The operation is not available | It is switched off in your company, or the app that provides it is not installed. | Your administrator |
 | It cannot do that yet | There is no operation for that task in the apps you have. It is not a fault: another app may have it, or it can be built; see [Missing something?](/documentation/how-it-works/#what-it-covers-and-how-it-grows). | Your administrator or partner |
 | You do not have permission | You do not have that permission in Business Central, and the assistant has exactly your rights. | Your administrator |

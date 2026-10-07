@@ -1,8 +1,9 @@
 ---
 id: business-central
+sidebar_position: 2
+slug: /business-central
 title: "Step 2: Set up Business Central"
 sidebar_label: "2. Set up Business Central"
-sidebar_position: 3
 description: "Run the setup wizard once per company, give people and apps permission, and decide which tools may act for a user."
 ---
 
@@ -34,10 +35,11 @@ not had one yet. A sandbox needs no trial. On-premises,
 the connection to the licensing service is verified first.
 
 The wizard has six steps. Steps 1, 2, 4 and 6 are for you. Step 3, credentials, appears only
-on-premises. Online, wizard step 5 gives the consent link for [setup step 3](/setup/connect-your-ai/); you can
+on-premises. Online, wizard step 5 gives the consent link for [setup step 3](/setup/consent/); you can
 finish the wizard first and send the link to your Entra administrator.
 
-Nothing is saved until you choose **Finish**, so you can go back and forth with **Back** and **Next**.
+The agreement is approved, and the trial started, only when you choose **Finish**, so you can go back and forth with
+**Back** and **Next**. Outbound HTTP (step 2) and credentials (step 3) are saved as soon as you set them.
 
 **Step 1: Welcome.** The page shows the one-way hash of your Microsoft Entra tenant ID that Origo stores for
 licensing, and what else is stored: configuration and usage counts, never the content of your messages or your
@@ -47,7 +49,8 @@ until you do.
 ![Step 1 of the wizard, with the agreement accepted](/img/guides/en-us/wizard-1.png)
 
 **Step 2: Enable HTTP Client Requests.** The list shows each installed Bifröst app and whether outbound HTTP is on for
-it. The wizard turns it on for all of them when you finish.
+it. Choose **Enable HTTP for all apps** to turn it on for every app that does not have it yet; **Next** stays
+unavailable until it is on for all of them. Turning it on needs SUPER (or write permission on NAV App Setting).
 
 ![Step 2: outbound HTTP for each Bifröst app](/img/guides/en-us/wizard-2.png)
 
@@ -112,7 +115,7 @@ A typical setup:
 | A person using an assistant, who only asks and prepares | `BIFROST API ori` | Their ordinary Business Central permissions. A posting preview also needs the posting gate |
 | A person who may also post through Bifröst | `BIFROST API ori` and the posting gate for each ledger, for example `BIFROST GL Post ori` for sales and purchase documents | The same |
 | An integration (Entra application) | `BIFROST API ori`, and posting gates only if it posts | Permissions for the data it works with |
-| Support staff who read the logs | `BIFROST Read ori` | – |
+| Support staff who look at the setup and the logs | `BIFROST Read ori` | On Bifrost Messages they see only their own calls; to see everyone's calls they need `BIFROST Full ori` |
 | Bifröst administrators | `BIFROST Full ori` | – |
 
 On **Permission Sets**, search for *BIFROST* to see them all. For a typical setup you need only the sets named here.
@@ -135,4 +138,4 @@ approval is the safer choice when people may connect assistants you have not cho
 
 See [Approve session source](/help/foundation/session-source-approval/).
 
-**Next:** [Step 3: Connect your AI assistant](/setup/connect-your-ai/)
+**Next:** [Step 3: Consent once for your organisation](/setup/consent/)

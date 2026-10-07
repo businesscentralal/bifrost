@@ -1,8 +1,9 @@
 ---
 id: data-setup
+sidebar_position: 4
+slug: /data-setup
 title: "Step 4: Set up your data"
 sidebar_label: "4. Set up your data"
-sidebar_position: 5
 description: "Choose which fields agents should not get, go through the setup page, and set how long logs are kept."
 ---
 
@@ -39,4 +40,4 @@ with **Bifrost Messages**. Before you choose:
 
 ![Retention Policies](/img/guides/en-us/retention-policies.png)
 
-**Next:** [Step 5: Make the first call](/setup/first-call/)
+**Next:** [Step 5: Check it and invite your users](/setup/first-call/)

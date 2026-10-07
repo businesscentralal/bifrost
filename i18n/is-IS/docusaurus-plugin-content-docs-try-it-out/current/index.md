@@ -28,10 +28,10 @@ engan prufutíma.
    það sem Bifröst þarf; annars gefurðu honum `BIFROST API ori`, og `BIFROST GL Post ori` fyrir forskoðun
    bókana. Sjá [skref 2](/setup/business-central/).
 4. **Samþykktu einu sinni.** Entra kerfisstjórinn þinn opnar samþykkistengilinn úr skrefi 5 í leiðsögninni.
-   Sjá [skref 3](/setup/connect-your-ai/#consent-once-for-your-organisation).
+   Sjá [skref 3](/setup/consent/).
 5. **Tengdu aðstoðarmanninn.** Í Claude, til dæmis: bættu Bifröst við sem tengingu, skráðu þig inn með
    vinnureikningnum og kveiktu á henni í spjalli. Aðrir aðstoðarmenn virka eins. Sjá
-   [Bættu Bifröst við aðstoðarmanninn](/setup/connect-your-ai/#add-bifröst-to-the-assistant).
+   [Tengdu aðstoðarmanninn](/setup/connect-your-ai/).
 
    ![Kveikt á Bifröst Origo fyrir spjall í Claude](/img/setup/claude-connector-in-chat.png)
 
@@ -51,7 +51,7 @@ Gerðu það áður en þú notar raunveruleg gögn.
 | Stig | Prófaðu að spyrja | Það sem þú ættir að sjá |
 |---|---|---|
 | **Svara** | *„Hvaða viðskiptamenn eiga hæstu gjaldfallnu stöðuna?“* | Tölur úr lifandi gögnum |
-| **Kanna** | *„Hvaða svið geturðu notað hér?“*, svo *„Hvað geturðu gert með sölutilboð?“* | Sviðin sem þú hefur, svo hvað þú getur gert í einu þeirra |
+| **Kanna** | *„Í hvaða lénum geturðu unnið hér?“*, svo *„Hvað geturðu gert með sölutilboð?“* | Lénin sem þú hefur, svo hvað þú getur gert í einu þeirra |
 | **Framkvæma, örugglega** | *„Gefðu út nýjustu opnu sölupöntunina og sýndu mér hvað bókun hennar myndi gera.“* | Útgefin pöntun og forskoðun bókunar. Ekkert bókað |
 | **Tengja saman** | *„Hvaða sölupantanir eru komnar fram yfir afhendingardag? Flokkaðu þær eftir viðskiptamanni, með útistandandi upphæð.“* | Margar aðgerðir, eitt svar |
 
