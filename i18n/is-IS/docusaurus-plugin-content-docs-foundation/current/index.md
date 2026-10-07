@@ -61,5 +61,5 @@ Settu **Bifrost Foundation** upp frá AppSource eða í gegnum samstarfsaðila �
 
 - **Síður þess í Business Central** (Bifrost Setup, Bifrost Messages, Reitaaðgangur og hinar) hafa hver sína eigin
   hjálparsíðu.
-- **Annað er eins fyrir öll Bifröst forrit:** hvernig það virkar, notkun, rekstur og heimildir eru í
-  [Leiðbeiningum](/documentation/); leyfi í [Leyfi](/licensing/) og [Verð](/price/).
+- **Annað er eins fyrir öll Bifröst forrit:** hvernig það virkar, notkun, rekstur og heimildir eru undir
+  [Hvernig það virkar](/documentation/how-it-works/); leyfi í [Leyfi](/licensing/) og [Verð](/price/).

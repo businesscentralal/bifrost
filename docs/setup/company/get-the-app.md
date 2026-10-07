@@ -1,8 +1,9 @@
 ---
 id: get-the-app
+sidebar_position: 1
+slug: /get-the-app
 title: "Step 1: Get the app"
 sidebar_label: "1. Get the app"
-sidebar_position: 2
 description: "Where to find Bifröst, which apps to install, and who can install them."
 ---
 

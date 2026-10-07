@@ -1,8 +1,9 @@
 ---
 id: data-setup
+sidebar_position: 4
+slug: /data-setup
 title: "Skref 4: Settu upp gögnin þín"
 sidebar_label: "4. Settu upp gögnin þín"
-sidebar_position: 5
 description: "Veldu hvaða reiti fulltrúar eiga ekki að fá, farðu yfir uppsetningarsíðuna, og ákveddu hve lengi annálar eru geymdir."
 ---
 
@@ -39,4 +40,4 @@ breytingaskráin nær til, svo kveiktu á breytingaskránni, á **Uppsetning ›
 
 ![Varðveislureglur](/img/guides/is-is/retention-policies.png)
 
-**Næst:** [Skref 5: Gerðu fyrsta kallið](/setup/first-call/)
+**Næst:** [Skref 5: Prófaðu og bjóddu notendunum](/setup/first-call/)

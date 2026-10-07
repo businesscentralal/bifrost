@@ -1,8 +1,9 @@
 ---
 id: business-central
+sidebar_position: 2
+slug: /business-central
 title: "Skref 2: Settu upp Business Central"
 sidebar_label: "2. Settu upp Business Central"
-sidebar_position: 3
 description: "Keyrðu uppsetningarleiðsögnina einu sinni í hverju fyrirtæki, veittu fólki og forritum heimildir, og ákveddu hvaða verkfæri mega starfa fyrir notanda."
 ---
 
@@ -35,7 +36,7 @@ staðfest fyrst.
 
 Leiðsögnin er í sex skrefum. Skref 1, 2, 4 og 6 eru fyrir þig. Skref 3, auðkenni, birtist aðeins í staðbundinni
 uppsetningu. Í skýinu gefur skref 5 tengilinn til að samþykkja forritið fyrir
-[uppsetningarskref 3](/setup/connect-your-ai/); þú getur lokið leiðsögninni fyrst og sent Entra-kerfisstjóranum
+[uppsetningarskref 3](/setup/consent/); þú getur lokið leiðsögninni fyrst og sent Entra-kerfisstjóranum
 tengilinn.
 
 Ekkert er vistað fyrr en þú velur **Ljúka**, svo þú getur farið fram og til baka með **Til baka** og **Áfram**.
@@ -135,4 +136,4 @@ fólk getur tengt aðstoðarmenn sem þú hefur ekki valið. Opnaðu notanda til
 
 Sjá [Samþykkja uppruna setu](/help/foundation/session-source-approval/).
 
-**Næst:** [Skref 3: Tengdu gervigreindaraðstoðarmanninn](/setup/connect-your-ai/)
+**Næst:** [Skref 3: Samþykktu einu sinni fyrir fyrirtækið](/setup/consent/)

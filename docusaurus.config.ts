@@ -124,6 +124,8 @@ const slugRenames: Array<{from: string; to: string}> = [
   // Licensing, Terms of Use and Privacy moved out of Foundation into their own section.
   {from: '/foundation/eula', to: '/licensing/eula'},
   {from: '/foundation/privacy', to: '/licensing/privacy'},
+  // The Guides overview page gave way to How it works, which leads to the page for each role.
+  {from: '/documentation', to: '/documentation/how-it-works'},
 ];
 
 function withTrailingSlash(path: string): string {
@@ -236,15 +238,12 @@ const config: Config = {
     navbar: {
       title: 'Bifröst',
       items: [
-        // Left to right, the reader's journey: set it up and try it, then one page per role (users,
-        // administrators, developers), the concepts once, the price, and licensing and terms. The apps
-        // sit on the right. Roles are in the menu; the topics of a role sit under it in the sidebar.
+        // Left to right, the reader's journey: set it up (the company's steps, then each user's), try
+        // it, how it works (the concepts, then a page per role), the price, and licensing and terms.
+        // The apps sit on the right.
         {label: buildLocale === 'is-IS' ? 'Uppsetning' : 'Set it up', to: '/setup/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/', position: 'left'},
-        {label: buildLocale === 'is-IS' ? 'Notendur' : 'Users', to: '/documentation/end-customers/users/', position: 'left'},
-        {label: buildLocale === 'is-IS' ? 'Kerfisstjórar' : 'Administrators', to: '/documentation/end-customers/administrators/', position: 'left'},
-        {label: buildLocale === 'is-IS' ? 'Forritarar' : 'Developers', to: '/documentation/end-customers/developers/', position: 'left'},
-        {label: buildLocale === 'is-IS' ? 'Hvernig það virkar' : 'How it works', to: '/documentation/how-it-works/', position: 'left'},
+        {label: buildLocale === 'is-IS' ? 'Hvernig það virkar' : 'How it works', to: '/documentation/how-it-works/', position: 'left', activeBasePath: '/documentation/'},
         {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Leyfi' : 'Licensing', to: '/licensing/', position: 'left'},
         // On the right, set apart: the apps. Only published apps are shown (Foundation for now), then the
@@ -278,7 +277,7 @@ const config: Config = {
             {label: buildLocale === 'is-IS' ? 'Uppsetning' : 'Set it up', to: '/setup/'},
             {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/'},
             {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/'},
-            {label: buildLocale === 'is-IS' ? 'Leiðbeiningar' : 'Guides', to: '/documentation/'},
+            {label: buildLocale === 'is-IS' ? 'Hvernig það virkar' : 'How it works', to: '/documentation/how-it-works/'},
             {label: buildLocale === 'is-IS' ? 'Persónuvernd' : 'Privacy', to: '/licensing/privacy/'},
             {label: buildLocale === 'is-IS' ? 'Notkunarskilmálar' : 'Terms of Use', to: '/licensing/eula/'},
           ],

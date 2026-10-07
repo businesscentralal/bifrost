@@ -195,7 +195,7 @@ Hvernig leyfismálum er háttað, og hvað gerist þegar kvóti klárast: [Leyfi
 | Það sem þú sérð | Hvað á að athuga |
 |---|---|
 | Aðstoðarmaðurinn sýnir engin Business Central verkfæri | Ekki er kveikt á tengingunni í þessu spjalli; sjá [Tengdu aðstoðarmanninn](/setup/connect-your-ai/#claude) |
-| Engin umhverfi eða fyrirtæki birtast þegar aðstoðarmaðurinn tengist | Samþykkið sem gefið er einu sinni í Microsoft Entra ID vantar; sjá [Samþykktu einu sinni fyrir fyrirtækið](/setup/connect-your-ai/#consent-once-for-your-organisation) |
+| Engin umhverfi eða fyrirtæki birtast þegar aðstoðarmaðurinn tengist | Samþykkið sem gefið er einu sinni í Microsoft Entra ID vantar; sjá [Samþykktu einu sinni fyrir fyrirtækið](/setup/consent/) |
 | Innskráningarleiðirnar finnast ekki þegar tengingunni er bætt við, eða innskráning mistekst | Athugaðu slóð MCP-þjónsins úr skrefi 5 í leiðsögninni. Sé hún rétt, hafðu samband við samstarfsaðilann og sendu villuboðin óbreytt |
 | Öllum köllum frá fyrirtækinu er hafnað | Er notendaleyfissamningurinn samþykktur? Keyrðu uppsetningarleiðsögnina |
 | Köllum er hafnað undir lok mánaðar | Mánaðarleg mörk notanda eða fyrirtækis; [Notkun og mörk](#usage-and-limits) |

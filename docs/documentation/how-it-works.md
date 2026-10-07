@@ -2,7 +2,7 @@
 id: how-it-works
 title: "How Bifröst works"
 sidebar_label: "How Bifröst works"
-sidebar_position: 2
+sidebar_position: 1
 description: "The ideas behind Bifröst, explained once: operations that describe themselves, the one gate every call goes through, and how an agent finds and calls the right one."
 ---
 

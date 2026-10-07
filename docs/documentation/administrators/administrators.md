@@ -193,8 +193,8 @@ Prices: [Price](/price/).
 
 | What you see | What to check |
 |---|---|
-| The assistant shows no Business Central tools at all | The connector is not switched on in that chat; see [Connect your AI assistant](/setup/connect-your-ai/#claude) |
-| No environments or companies appear when the assistant connects | The one-time consent in your Microsoft Entra ID is missing; see [Consent once for your organisation](/setup/connect-your-ai/#consent-once-for-your-organisation) |
+| The assistant shows no Business Central tools at all | The connector is not switched on in that chat; see [Connect your assistant](/setup/connect-your-ai/#claude) |
+| No environments or companies appear when the assistant connects | The one-time consent in your Microsoft Entra ID is missing; see [Consent once for your organisation](/setup/consent/) |
 | Adding the connector does not detect the sign-in options, or sign-in fails | Check the MCP server address from wizard step 5. If it is right, contact your partner and pass on the exact error |
 | All calls from the company are refused | Is the license agreement approved? Run the setup wizard |
 | Calls are refused near the end of the month | A user or company monthly limit; [Usage and limits](#usage-and-limits) |

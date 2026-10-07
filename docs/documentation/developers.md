@@ -1,8 +1,9 @@
 ---
 id: developers
+slug: /end-customers/developers
+sidebar_position: 4
 title: "Connecting to Bifröst"
 sidebar_label: "Developers"
-sidebar_position: 5
 description: "For developers at a Business Central customer: connect another system, get told when a call is done, drive Bifröst from an agent, and find what each operation does."
 ---
 

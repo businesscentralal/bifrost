@@ -1,5 +1,6 @@
 ---
 id: users
+slug: /end-customers/users
 sidebar_position: 2
 title: "Notkun Bifröst"
 sidebar_label: "Notendur"
@@ -17,7 +18,7 @@ Central gerir. Þessi síða segir hvað það þýðir fyrir þig.
 - **Hvar á að spyrja.** Í gervigreindaraðstoðarmanninum sem fyrirtækið þitt tengdi, til dæmis Microsoft Copilot eða
   Claude. Kerfisstjórinn segir þér hver það er og hvernig hann er opnaður.
 - **Tengstu einu sinni.** Bættu Bifröst við aðstoðarmanninn og skráðu þig inn með vinnureikningnum þínum; skrefin eru í
-  [Tengdu gervigreindaraðstoðarmanninn](/setup/connect-your-ai/#add-bifröst-to-the-assistant).
+  [Fyrir hvern notanda](/setup/pick-your-assistant/).
 - **Í fyrsta sinn** gæti Bifröst gefið þér tengil til að samþykkja aðstoðarmanninn áður en hann getur starfað fyrir þig.
   Opnaðu hann, eða sendu kerfisstjóranum. Aðstoðarmaðurinn sjálfur gæti líka spurt áður en hann notar Bifröst-verkfæri,
   eins og Claude gerir með **Allow once**: leyfðu það þegar þú þekkir beiðnina.

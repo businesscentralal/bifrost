@@ -1,0 +1,10 @@
+{
+  "sidebar.default.category.For your company": {
+    "message": "Fyrir fyrirtækið",
+    "description": "The label for category 'For your company' in sidebar 'default'"
+  },
+  "sidebar.default.category.For each user": {
+    "message": "Fyrir hvern notanda",
+    "description": "The label for category 'For each user' in sidebar 'default'"
+  }
+}

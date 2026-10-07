@@ -2,7 +2,7 @@
 id: how-it-works
 title: "Hvernig Bifröst virkar"
 sidebar_label: "Hvernig Bifröst virkar"
-sidebar_position: 2
+sidebar_position: 1
 description: "Hugmyndirnar á bak við Bifröst, útskýrðar einu sinni: aðgerðir sem lýsa sér sjálfar, hliðið eina sem hvert kall fer í gegnum, og hvernig fulltrúi finnur og kallar á rétta aðgerð."
 ---
 

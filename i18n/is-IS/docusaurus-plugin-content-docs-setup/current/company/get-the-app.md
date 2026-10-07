@@ -1,8 +1,9 @@
 ---
 id: get-the-app
+sidebar_position: 1
+slug: /get-the-app
 title: "Skref 1: Náðu í forritið"
 sidebar_label: "1. Náðu í forritið"
-sidebar_position: 2
 description: "Hvar Bifröst fæst, hvaða forrit á að setja upp, og hver getur sett þau upp."
 ---
 

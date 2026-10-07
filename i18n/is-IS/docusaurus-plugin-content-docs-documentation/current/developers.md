@@ -1,8 +1,9 @@
 ---
 id: developers
+slug: /end-customers/developers
+sidebar_position: 4
 title: "Tenging við Bifröst"
 sidebar_label: "Forritarar"
-sidebar_position: 5
 description: "Fyrir forritara hjá fyrirtæki sem notar Business Central: tengdu annað kerfi, fáðu að vita þegar kalli er lokið, stýrðu Bifröst frá fulltrúa, og finndu hvað hver aðgerð gerir."
 ---
 

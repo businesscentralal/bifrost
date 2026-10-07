@@ -28,10 +28,10 @@ engan prufutíma.
    það sem Bifröst þarf; annars gefurðu honum `BIFROST API ori`, og `BIFROST GL Post ori` fyrir forskoðun
    bókana. Sjá [skref 2](/setup/business-central/).
 4. **Samþykktu einu sinni.** Entra kerfisstjórinn þinn opnar samþykkistengilinn úr skrefi 5 í leiðsögninni.
-   Sjá [skref 3](/setup/connect-your-ai/#consent-once-for-your-organisation).
+   Sjá [skref 3](/setup/consent/).
 5. **Tengdu aðstoðarmanninn.** Í Claude, til dæmis: bættu Bifröst við sem tengingu, skráðu þig inn með
    vinnureikningnum og kveiktu á henni í spjalli. Aðrir aðstoðarmenn virka eins. Sjá
-   [Bættu Bifröst við aðstoðarmanninn](/setup/connect-your-ai/#add-bifröst-to-the-assistant).
+   [Tengdu aðstoðarmanninn](/setup/connect-your-ai/).
 
    ![Kveikt á Bifröst Origo fyrir spjall í Claude](/img/setup/claude-connector-in-chat.png)
 

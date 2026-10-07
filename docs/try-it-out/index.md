@@ -30,10 +30,10 @@ consent.
    Bifröst needs; otherwise give it `BIFROST API ori`, and `BIFROST GL Post ori` for posting
    previews. See [step 2](/setup/business-central/).
 4. **Consent once.** Your Entra administrator opens the consent link from wizard step 5. See
-   [step 3](/setup/connect-your-ai/#consent-once-for-your-organisation).
+   [step 3](/setup/consent/).
 5. **Connect your assistant.** In Claude, for example: add Bifröst as a connector, sign in with
    your work account, and switch it on in a chat. Other assistants work the same way. See
-   [Add Bifröst to the assistant](/setup/connect-your-ai/#add-bifröst-to-the-assistant).
+   [Connect your assistant](/setup/connect-your-ai/).
 
    ![Bifröst Origo switched on for a chat in Claude](/img/setup/claude-connector-in-chat.png)
 

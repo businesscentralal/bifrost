@@ -1,8 +1,9 @@
 ---
 id: business-central
+sidebar_position: 2
+slug: /business-central
 title: "Step 2: Set up Business Central"
 sidebar_label: "2. Set up Business Central"
-sidebar_position: 3
 description: "Run the setup wizard once per company, give people and apps permission, and decide which tools may act for a user."
 ---
 
@@ -34,7 +35,7 @@ not had one yet. A sandbox needs no trial. On-premises,
 the connection to the licensing service is verified first.
 
 The wizard has six steps. Steps 1, 2, 4 and 6 are for you. Step 3, credentials, appears only
-on-premises. Online, wizard step 5 gives the consent link for [setup step 3](/setup/connect-your-ai/); you can
+on-premises. Online, wizard step 5 gives the consent link for [setup step 3](/setup/consent/); you can
 finish the wizard first and send the link to your Entra administrator.
 
 Nothing is saved until you choose **Finish**, so you can go back and forth with **Back** and **Next**.
@@ -135,4 +136,4 @@ approval is the safer choice when people may connect assistants you have not cho
 
 See [Approve session source](/help/foundation/session-source-approval/).
 
-**Next:** [Step 3: Connect your AI assistant](/setup/connect-your-ai/)
+**Next:** [Step 3: Consent once for your organisation](/setup/consent/)

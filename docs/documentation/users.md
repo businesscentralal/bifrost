@@ -1,5 +1,6 @@
 ---
 id: users
+slug: /end-customers/users
 sidebar_position: 2
 title: "Using Bifröst"
 sidebar_label: "Users"
@@ -17,7 +18,7 @@ request into something Business Central does. This page is what that means for y
 - **Where to ask.** In the AI assistant your company connected, for example Microsoft Copilot or
   Claude. Your administrator tells you which one, and how to open it.
 - **Connect once.** Add Bifröst to your assistant and sign in with your work account; the steps are
-  in [Connect your AI assistant](/setup/connect-your-ai/#add-bifröst-to-the-assistant).
+  in [For each user](/setup/pick-your-assistant/).
 - **The first time**, Bifröst may give you a link to approve the assistant before it can act for
   you. Open it, or send it to your administrator. The assistant itself may also ask before it uses
   a Bifröst tool, as Claude does with **Allow once**: allow it when you recognise the request.
