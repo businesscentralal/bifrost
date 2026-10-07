@@ -9,8 +9,8 @@ on:
 # rooted. Switching to the custom domain is a two-line change here plus the DNS
 # record and the Pages setting — see README.md.
 env:
-  SITE_URL: https://businesscentralal.github.io
-  BASE_URL: /bifrost/
+  SITE_URL: https://docs.bifrost.origo.is
+  BASE_URL: /
 
 permissions:
   contents: read
