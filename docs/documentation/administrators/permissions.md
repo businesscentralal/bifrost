@@ -151,12 +151,8 @@ example **BIFROST GL Post ori**). When **Modify Permission** is *Yes*, the gate 
 
 ## Troubleshooting
 
-| The agent says | Why | What to do |
-|---|---|---|
-| *Posting denied: missing '...' permission set* | The user lacks the posting gate | Assign the set it names |
-| *You do not have the following permissions on ...* | The user lacks the Business Central permission itself | Assign the ordinary Business Central permission set |
-| It cannot call Bifröst at all | No `BIFROST API ori` | Assign it |
-| Approval requests cannot be sent | No `BIFROST ApprAdm ori` | Assign it |
-| A field is missing or cannot be changed | Not a permission set: Field Access or a built-in protection | [Control what agents read and change](/documentation/end-customers/data-access/) |
+What an agent says when a permission set or a gate is missing, and what to do, is in the one
+[troubleshooting table for administrators](/documentation/end-customers/administrators/#troubleshooting), with the other
+refusals users report.
 
 **Next:** [Control what agents read and change](/documentation/end-customers/data-access/)

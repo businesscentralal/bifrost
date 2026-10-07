@@ -11,8 +11,8 @@ import AppRegistry from '@site/src/components/AppRegistry';
 
 # Apps built on Bifröst
 
-Every app on this page is a Business Central extension that depends on
-[Bifröst Foundation](/foundation/) and adds its own operations, help pages
+Each app on this page gives your assistant more it can do in Business Central. Technically, each one is a Business Central
+extension that depends on [Bifröst Foundation](/foundation/) and adds its own operations, help pages
 and setup.
 
 **Most apps are an install and a short setup wizard.** Some also need an agreement or credentials

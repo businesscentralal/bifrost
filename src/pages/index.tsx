@@ -33,20 +33,20 @@ export default function Home(): ReactNode {
       description={translate({
         id: 'home.description',
         message:
-          'Let AI assistants do real work in Business Central, as you and within your permissions. Documentation for Bifröst by Origo.',
+          'Use Business Central from the AI assistant you already use: Copilot, ChatGPT, Claude or another system. Answers from live data and real work, as you and within your permissions. Documentation for Bifröst by Origo.',
       })}>
       <header className="bifrostHero">
         <p style={{textTransform: 'uppercase', letterSpacing: '0.08em', fontSize: '0.85rem', opacity: 0.75, marginBottom: '0.5rem'}}>
           <Translate id="home.eyebrow">Bifröst by Origo, for Microsoft Dynamics 365 Business Central</Translate>
         </p>
         <h1>
-          <Translate id="home.headline">Ask Business Central. It works out how.</Translate>
+          <Translate id="home.headline">Business Central, in the AI assistant you already use.</Translate>
         </h1>
         <p>
           <Translate id="home.tagline">
-            Bifröst lets AI assistants and other systems do real work in Business Central, not just
-            answer questions about it. They answer from live data, carry out tasks and run whole
-            routines, as you and within your permissions.
+            Bifröst takes Business Central out to the AI assistant you already use: Copilot, ChatGPT,
+            Claude or another system. There it answers from live data and does real work, as you and
+            within your permissions.
           </Translate>
         </p>
         <p>
@@ -165,7 +165,7 @@ export default function Home(): ReactNode {
         </h2>
         <p>
           <Link to="/apps/">
-            <Translate id="home.apps.more">Add more: banks, electronic invoices, storage, schedules and more</Translate> <span aria-hidden="true">→</span>
+            <Translate id="home.apps.more">Add more: the apps built on Bifröst</Translate> <span aria-hidden="true">→</span>
           </Link>
         </p>
         <div className="bifrostGrid">

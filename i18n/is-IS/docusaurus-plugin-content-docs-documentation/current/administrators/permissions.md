@@ -152,12 +152,8 @@ dæmis **BIFROST GL Post ori**). Þegar **Breyta heimild** er *Já* er hliðið 
 
 ## Úrræðaleit {#troubleshooting}
 
-| Fulltrúinn segir | Af hverju | Hvað á að gera |
-|---|---|---|
-| *Bókun hafnað: vantar '...' heimildasamstæðu* | Notandann vantar bókunarhliðið | Úthlutaðu samstæðunni sem er nefnd |
-| Að hann hafi ekki heimildir á tiltekinni töflu | Notandann vantar sjálfa heimild Business Central | Úthlutaðu venjulegri heimildasamstæðu Business Central |
-| Að hann geti alls ekki kallað í Bifröst | Ekkert `BIFROST API ori` | Úthlutaðu henni |
-| Að ekki sé hægt að senda samþykktarbeiðnir | Ekkert `BIFROST ApprAdm ori` | Úthlutaðu henni |
-| Að reit vanti eða ekki sé hægt að breyta honum | Ekki heimildasamstæða: reitaaðgangur eða innbyggð vernd | [Stjórnaðu því hvað fulltrúar lesa og breyta](/documentation/end-customers/data-access/) |
+Hvað fulltrúi segir þegar heimildasamstæðu eða hlið vantar, og hvað á að gera, er í eina
+[úrræðaleitartöflunni fyrir kerfisstjóra](/documentation/end-customers/administrators/#troubleshooting), ásamt öðrum
+höfnunum sem notendur segja frá.
 
 **Næst:** [Stjórnaðu því hvað fulltrúar lesa og breyta](/documentation/end-customers/data-access/)

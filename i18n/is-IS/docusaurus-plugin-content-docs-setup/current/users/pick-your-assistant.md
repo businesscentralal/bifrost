@@ -18,9 +18,9 @@ Bifröst virkar með gervigreindaraðstoðarmanninum sem þú notar þegar. Fyri
 
 | Aðstoðarmaður | Hvernig hann tengist |
 |---|---|
-| **Claude** (á vefnum eða Claude Desktop) | Tenging sem þú bætir við sjálf(ur); skref fyrir skref í [Tengdu aðstoðarmanninn](/setup/connect-your-ai/#claude) |
-| **Microsoft Copilot** | Bifröst-tengingin úr verslun hans |
-| **ChatGPT** | Bifröst-tengingin úr verslun hans |
+| **Claude** (á vefnum eða [Claude Desktop](https://claude.ai/download)) | Tenging sem þú bætir við sjálf(ur); skref fyrir skref í [Tengdu aðstoðarmanninn](/setup/connect-your-ai/#claude) |
+| **Microsoft Copilot** | Ekki enn í verslun hans; þangað til sem fjartengdur MCP-þjónn þar sem Copilot hjá þér leyfir það ([hvernig](/setup/connect-your-ai/#microsoft-copilot)) |
+| **ChatGPT** | Ekki enn í verslun hans; þangað til sem fjartengdur MCP-þjónn þar sem ChatGPT hjá þér leyfir það ([hvernig](/setup/connect-your-ai/#chatgpt)) |
 | **Annar aðstoðarmaður** | Hver sá aðstoðarmaður sem styður fjartengda MCP-þjóna |
 
 ## Það sem þú þarft fyrst {#what-you-need-first}

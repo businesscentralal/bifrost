@@ -19,9 +19,9 @@ Bifröst works with the AI assistant you already use. Your company usually decid
 
 | Assistant | How it connects |
 |---|---|
-| **Claude** (on the web or Claude Desktop) | A connector you add yourself; step by step in [Connect your assistant](/setup/connect-your-ai/#claude) |
-| **Microsoft Copilot** | The Bifröst connector from its store |
-| **ChatGPT** | The Bifröst connector from its store |
+| **Claude** (on the web or [Claude Desktop](https://claude.ai/download)) | A connector you add yourself; step by step in [Connect your assistant](/setup/connect-your-ai/#claude) |
+| **Microsoft Copilot** | Not in its store yet; until then, as a remote MCP server where your Copilot allows it ([how](/setup/connect-your-ai/#microsoft-copilot)) |
+| **ChatGPT** | Not in its store yet; until then, as a remote MCP server where your ChatGPT allows it ([how](/setup/connect-your-ai/#chatgpt)) |
 | **Another assistant** | Any assistant that supports remote MCP servers |
 
 ## What you need first

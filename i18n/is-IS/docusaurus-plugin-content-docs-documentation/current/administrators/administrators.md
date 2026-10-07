@@ -42,29 +42,14 @@ import PermissionLayers from '@site/src/components/PermissionLayers';
 
 ## Hvað fulltrúar mega sjá og breyta {#what-agents-may-see-and-change}
 
-**Reitaaðgangur** (**Uppsetning › Reitaaðgangur**) telur upp reiti sem einn notandi eða eitt forrit á ekki að fá
-(**Lesa**), ekki breyta (**Skrifa**), eða hvorugt (**Bæði**) í gegnum Bifröst. Ekkert breytist í Business Central
-biðlaranum.
+**Reitaaðgangur** (**Uppsetning › Reitaaðgangur**) heldur völdum reitum frá einum notanda eða forriti í gegnum Bifröst,
+til dæmis bankareikningsnúmerum starfsmanna; ekkert breytist í Business Central biðlaranum. **Breytingaskrárvernd** á
+Uppsetningu Bifröst ræður hvort breytingar í gegnum Bifröst verði að skilja eftir slóð í breytingaskrá. Ef þú notar Bifröst
+með bókhaldi, ákveddu þetta með það í huga: bókhaldsskyldur þínar eru áfram þínar, og annálar Bifröst koma ekki í stað
+þinna eigin gagna.
 
-**Dæmi.** Sigga notar aðstoðarmann, en fulltrúar eiga aldrei að sjá bankareikningsnúmer starfsmanna. Veldu
-**Nýtt fyrir notanda...**, veldu notanda Siggu, og bættu síðan við töflunni *Starfsmaður*, reitnum *Númer bankareiknings*
-og takmörkuninni **Bæði**. Upp frá því, þegar aðstoðarmaðurinn hennar telur upp starfsmenn, kemur svarið án
-bankareikningsnúmera, og aðstoðarmaðurinn getur ekki breytt þeim. Sigga sjálf sér þau áfram í Business Central.
-
-![Yfirlit reitaaðgangs Bifröst](/img/guides/is-is/field-access-overview.png)
-
-Reitaaðgangur hefur tvær tegundir í viðbót. **Engin** takmarkar ekkert og gengur framar víðari línu, til dæmis til að opna
-eina töflu fyrir notanda sem má annars engu breyta. **Framhjá** leyfir **aðeins þeim notanda eða forriti** að breyta
-reitnum án slóðar í breytingaskrá.
-
-**Breytingaskrárvernd** á Uppsetningu Bifröst ræður hvort breytingar á færslum í gegnum Bifröst verði að skilja eftir slóð í
-breytingaskrá. Hún er **Lokað** sjálfgefið: aðeins reitum sem breytingaskráin nær til er hægt að breyta, svo kveiktu á
-breytingaskránni fyrir reitina sem þú vilt að fulltrúar breyti. Ef þú notar Bifröst með bókhaldi, ákveddu þetta með það í
-huga: bókhaldsskyldur þínar eru áfram þínar, og annálar Bifröst koma ekki í stað þinna eigin gagna.
-
-**Virða næmi gagna** (undir *Sýna meira*) felur reitina sem fyrirtækið þitt flokkar sem viðkvæma.
-
-Allt þetta, með algengu uppsetningunni *loka öllum breytingum og opna svo eina töflu* og gögnunum sem Bifröst ver alltaf:
+Tegundir lína í reitaaðgangi, stillingar verndarinnar og sjálfgefna stillingin, viðkvæmir reitir, algenga uppsetningin
+*loka öllum breytingum og opna svo eina töflu* og gögnin sem Bifröst ver alltaf:
 [Stjórnaðu því hvað fulltrúar lesa og breyta](/documentation/end-customers/data-access/).
 
 ## Annálar og varðveisla {#logs-and-retention}
@@ -161,8 +146,8 @@ uppsetningu biður hún um auðkennin. Í skýinu skráirðu þau á **Uppsetnin
 
 ## Notendaleyfissamningurinn og leiðsögnin {#the-license-agreement-and-the-wizard}
 
-**Leyfi › Uppsetningarleiðsögn** má keyra aftur hvenær sem er, til dæmis til að lesa slóð MCP-þjónsins eða
-samþykkistengilinn í skrefi 5. Lokaðu henni með **X** ef þú vilt ekki ljúka henni aftur.
+**Leyfi › Uppsetningarleiðsögn** má keyra aftur hvenær sem er, til dæmis til að lesa slóð Bifröst MCP-þjónsins eða
+samþykkistengilinn í skrefi 5 í leiðsögninni. Lokaðu henni með **X** ef þú vilt ekki ljúka henni aftur.
 
 **Leyfi › Afturkalla samþykki notendaleyfissamnings** dregur samþykki fyrirtækisins á [notkunarskilmálunum](/licensing/eula/)
 til baka. Öllum Bifröst köllum frá fyrirtækinu er þá hafnað þar til uppsetningarleiðsögninni er lokið aftur. Business
@@ -193,20 +178,37 @@ Hvernig leyfismálum er háttað, og hvað gerist þegar kvóti klárast: [Leyfi
 
 ## Úrræðaleit {#troubleshooting}
 
-| Það sem þú sérð | Hvað á að athuga |
-|---|---|
-| Aðstoðarmaðurinn sýnir engin Business Central verkfæri | Ekki er kveikt á tengingunni í þessu spjalli; sjá [Tengdu aðstoðarmanninn](/setup/connect-your-ai/#claude) |
-| Engin umhverfi eða fyrirtæki birtast þegar aðstoðarmaðurinn tengist | Samþykkið sem gefið er einu sinni í Microsoft Entra ID vantar; sjá [Samþykktu einu sinni fyrir fyrirtækið](/setup/consent/) |
-| Innskráningarleiðirnar finnast ekki þegar tengingunni er bætt við, eða innskráning mistekst | Athugaðu slóð MCP-þjónsins úr skrefi 5 í leiðsögninni. Sé hún rétt, hafðu samband við samstarfsaðilann og sendu villuboðin óbreytt |
-| Öllum köllum frá fyrirtækinu er hafnað | Er notendaleyfissamningurinn samþykktur? Keyrðu uppsetningarleiðsögnina |
-| Köllum er hafnað undir lok mánaðar | Mánaðarleg mörk notanda eða fyrirtækis; [Notkun og mörk](#usage-and-limits) |
-| Köllum er hafnað og svæðið Leyfi sýnir engin skilaboð eftir | Fyrirframgreiddu skilaboðin eru uppurin; sjá [Leyfi](/licensing/) |
-| Svæðið Leyfi virðist úrelt | **Leyfi › Samstilla**, síðan **Leyfi › Tengingastaða** |
-| Fulltrúi getur ekki breytt reit | Breytingaskrárverndin, uppsetning breytingaskrár, reitaaðgangur; [Stjórnaðu því hvað fulltrúar lesa og breyta](/documentation/end-customers/data-access/) |
-| Reit vantar í svör | Reitaaðgangur eða Virða næmi gagna; sama síða |
-| Bókun er hafnað | Bókunarhlið; [Heimildasamstæður og hlið](/documentation/end-customers/permissions/) |
-| Nýtt Bifröst forrit virkar ekki | Keyrðu uppsetningarleiðsögnina aftur; athugaðu **Leyndarmál** |
-| Þú þarft að sjá nákvæmlega hvað fulltrúi gerði | **Bifröst skilaboð**: beiðnin, svarið og kallandinn í hverju kalli |
+Hér er eini staðurinn til að leita þegar einhverju er hafnað. Línurnar fylgja því sem notendur segja frá, með orðunum úr
+[Þegar hann segir nei](/documentation/end-customers/users/#when-it-says-no); síðustu línurnar eru það sem þú sérð sjálfur.
+Til að finna kall opnarðu **Bifröst skilaboð** og síar á notandann og tímann.
+
+| Það sem þú heyrir eða sérð | Af hverju | Hvað á að gera |
+|---|---|---|
+| Aðstoðarmaðurinn hefur alls engin Business Central verkfæri | Ekki er kveikt á Bifröst-tengingunni í þessu spjalli | Notandinn kveikir á henni; sjá [Tengdu aðstoðarmanninn](/setup/connect-your-ai/#claude) |
+| Engin umhverfi eða fyrirtæki birtast þegar aðstoðarmaðurinn tengist | Samþykkið fyrir fyrirtækjaforritið *Origo Bifrost*, sem gefið er einu sinni í Microsoft Entra ID, vantar | [Skref 3: Samþykktu einu sinni](/setup/consent/) |
+| Innskráningarleiðirnar finnast ekki þegar tengingunni er bætt við, eða innskráning mistekst | Slóð Bifröst MCP-þjónsins er röng, eða innskráningin sjálf mistekst | Athugaðu slóðina úr skrefi 5 í leiðsögninni. Sé hún rétt, hafðu samband við Business Central samstarfsaðilann þinn og sendu villuboðin óbreytt |
+| *Hver er ég?* svarar með öðrum notanda | Notandinn skráði sig inn í tenginguna með öðrum reikningi | Í tengingunni velur notandinn **Disconnect** og tengist svo aftur með Business Central reikningnum sínum |
+| Það þarf fyrst að samþykkja verkfærið, með tengli | **Tegund samþykktar** notandans krefst þess að hvert nýtt verkfæri (uppruni setu) sé samþykkt einu sinni | Notandinn opnar tengilinn og samþykkir (með `BIFROST SrcApOwn ori`), eða sendir þér hann og þú samþykkir á sömu síðu (með `BIFROST SrcApAdm ori`); sjá [Samþykkja uppruna setu](/help/foundation/session-source-approval/). Stillingin: [Ákveddu hvaða verkfæri mega starfa fyrir notanda](/setup/business-central/#decide-which-tools-may-act-for-a-user) |
+| *Aðgerðin er ekki í boði* | Forritið sem býður hana er ekki uppsett í þessu fyrirtæki, leyndarmál sem hún þarf er ekki skráð, eða slökkt er á henni fyrir þennan notanda: Bifröst býður aðgerð aðeins notanda sem hefur heimildirnar sem hún þarf | Settu forritið upp af [forritalistanum](/apps/) og keyrðu uppsetningarleiðsögnina aftur; skráðu leyndarmálið á **Uppsetning › Leyndarmál**; athugaðu heimildasamstæður notandans ([Heimildasamstæður og hlið](/documentation/end-customers/permissions/)) |
+| Hann getur það ekki enn | Ekkert uppsett forrit hefur aðgerð fyrir það verk | Skoðaðu [forritalistann](/apps/), eða sjá [Vantar eitthvað?](/documentation/how-it-works/#what-it-covers-and-how-it-grows) |
+| Hann getur alls ekki kallað í Bifröst | Notandinn hefur ekki `BIFROST API ori` | Úthlutaðu henni; sjá [Úthluta og athuga](/documentation/end-customers/permissions/#assign-and-check) |
+| *Bókun hafnað: vantar '...' heimildasamstæðu* | Notandann vantar bókunarhliðið sem er nefnt | Úthlutaðu þeirri samstæðu; sjá [Hvaða hlið opnar hvað](/documentation/end-customers/permissions/#which-gate-opens-what) |
+| Að hann hafi ekki heimildir á tiltekinni töflu | Notandann vantar sjálfa heimild Business Central | Úthlutaðu venjulegri heimildasamstæðu Business Central, eins og fyrir biðlarann |
+| Ekki er hægt að senda samþykktarbeiðnir | Notandinn hefur ekki `BIFROST ApprAdm ori` | Úthlutaðu henni |
+| Hluta svarsins vantar | Lína í reitaaðgangi sem felur reitinn fyrir notandanum, sjálfgefið falinn reitur, eða **Virða næmi gagna** | Skoðaðu línur notandans á **Yfirliti reitaaðgangs Bifröst**; sjá [Reitaaðgangur](/documentation/end-customers/data-access/#field-access) og [Viðkvæmir reitir](/documentation/end-customers/data-access/#sensitive-fields) |
+| *Breytingaskrárverndin lokar reitnum* | Breytingaskráin skráir ekki breytingar á reitnum | Skráðu reitinn í **Uppsetningu breytingaskrár**, bættu við undanþágu, eða gefðu notandanum línu sem fer framhjá verndinni; sjá [Breytingaskrárverndin](/documentation/end-customers/data-access/#the-changelog-write-guard) |
+| *Reiturinn er lokaður fyrir skrifum eða ekki leyfður* | Lína í reitaaðgangi sem lokar reitnum, sjálfgefin vernd, eða gögn sem Bifröst ver alltaf | Skoðaðu línur notandans á **Yfirliti reitaaðgangs Bifröst**; sjá [Reitaaðgangur](/documentation/end-customers/data-access/#field-access) og [Viðkvæmir reitir](/documentation/end-customers/data-access/#sensitive-fields) |
+| *Reiturinn tilheyrir grunnstillingu fyrirtækisins* | Einn af [grunnstillingarreitum fyrirtækisins](/documentation/end-customers/data-access/#company-configuration-fields) | Settu fyrirtækið upp sem notandi með `BIFROST Force ori` og biddu fulltrúann að þvinga breytinguna |
+| Ekki er hægt að lesa eða breyta töflunni | Ein af [töflunum sem Bifröst ver alltaf](/documentation/end-customers/data-access/#what-bifröst-always-protects), eða notandinn hefur ekki heimild á hana í Business Central | Notaðu síðu Business Central í staðinn, eða veittu heimildina |
+| Bifröst hafnar köllum fyrir fyrirtækið | Uppsetningarleiðsögninni hefur ekki verið lokið í þessu fyrirtæki, eða samþykki notendaleyfissamningsins var afturkallað | Keyrðu uppsetningarleiðsögnina (**Leyfi › Uppsetningarleiðsögn**) og veldu **Ljúka**; sjá [Keyrðu uppsetningarleiðsögnina](/setup/business-central/#run-the-setup-wizard) |
+| *Prufuleyfi Bifröst hefur ekki verið virkjað* | Í framleiðsluumhverfi í skýinu er prufuleyfið virkjað þegar uppsetningarleiðsögninni lýkur | Ljúktu uppsetningarleiðsögninni, eða veldu **Leyfi › Samstilla**; sjá [Fyrirframgreitt leyfi](/licensing/license-types/#prepaid) |
+| Heimildin er uppurin | Mánaðarlegum skilaboðakvóta notandans eða fyrirtækisins er náð | Hækkaðu kvótann, eða bíddu næsta almanaksmánaðar; sjá [Mánaðarlegir kvótar](/licensing/license-types/#monthly-quotas) |
+| Köllum er hafnað, og svæðið Leyfi sýnir engin skilaboð eftir | Fyrirframgreiddu skilaboðin eru uppurin | Hafðu samband við Business Central samstarfsaðilann þinn; sjá [Fyrirframgreitt leyfi](/licensing/license-types/#prepaid) |
+| Í sandkassa er köllum hafnað eftir mörg köll á einum degi | Álagsþak sandkassa á Bifröst MCP-þjóninum | Sjá [Álagsþak](/licensing/rate-limits/) |
+| Svör bera viðvörun um kvótann, eða Uppsetning Bifröst segir að leyfiskvótinn sé að klárast | Mánaðarlegur kvóti eða fyrirframgreiddur pottur er að verða búinn | Skoðaðu svæðið Leyfi og **Leyfisnotkun**; sjá [Mánaðarlegir kvótar](/licensing/license-types/#monthly-quotas) og [Fyrirframgreitt leyfi](/licensing/license-types/#prepaid) |
+| Eitthvað var bókað sem hefði ekki átt að bóka, eða kall mistókst með tæknilegri villu | - | Finndu kallið á **Bifröst skilaboðum**: beiðnina, svarið og kallandann. Svar kalls sem mistókst segir hvað fór úrskeiðis |
+| Svæðið Leyfi virðist úrelt | - | **Leyfi › Samstilla**, síðan **Leyfi › Tengingastaða** |
+| Nýtt Bifröst forrit virkar ekki | Útleið HTTP er ekki virk fyrir það, eða leyndarmál þess eru ekki skráð | Keyrðu uppsetningarleiðsögnina aftur; athugaðu **Uppsetning › Leyndarmál** |
 
 ## Það sem þú berð ábyrgð á {#what-you-are-responsible-for}
 

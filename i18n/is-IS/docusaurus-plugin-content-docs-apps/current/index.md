@@ -11,9 +11,8 @@ import AppRegistry from '@site/src/components/AppRegistry';
 
 # Forrit byggð á Bifröst
 
-Hvert forrit hér að neðan er Business Central viðbót sem byggir á
-[Bifröst Foundation](/foundation/) og bætir við eigin aðgerðum,
-hjálparsíðum og uppsetningu.
+Hvert forrit hér að neðan gefur aðstoðarmanninum þínum fleira að gera í Business Central. Tæknilega er hvert þeirra Business Central viðbót sem byggir á
+[Bifröst Foundation](/foundation/) og bætir við eigin aðgerðum, hjálparsíðum og uppsetningu.
 
 **Flest forrit eru uppsetning og stutt uppsetningarleiðsögn.** Sum þurfa líka samning eða
 aðgangsupplýsingar frá utanaðkomandi þjónustu; síða hvers forrits segir frá því. Aðgerðir þess bætast

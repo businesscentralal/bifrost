@@ -96,6 +96,11 @@ allra notenda og forrita í fyrirtækinu. Veldu **Nýtt fyrir notanda...** til a
 
 ![Yfirlit reitaaðgangs Bifröst](/img/guides/is-is/field-access-overview.png)
 
+**Dæmi.** Sigga notar aðstoðarmann, en fulltrúar eiga aldrei að sjá bankareikningsnúmer starfsmanna. Veldu
+**Nýtt fyrir notanda...**, veldu notanda Siggu, og bættu síðan við töflunni *Starfsmaður*, reitnum *Númer bankareiknings*
+og takmörkuninni **Bæði**. Upp frá því, þegar aðstoðarmaðurinn hennar telur upp starfsmenn, kemur svarið án
+bankareikningsnúmera, og aðstoðarmaðurinn getur ekki breytt þeim. Sigga sjálf sér þau áfram í Business Central.
+
 Lína nefnir notanda (eða forrit), töflu og reit. **Töflunúmer 0** þýðir *allar töflur* og **Reitur nr. 0** þýðir *allir
 reitir töflunnar*. Þegar fleiri en ein lína gæti átt við **ræður sú nákvæmasta**: línan fyrir reitinn, svo línan fyrir
 töfluna, svo línan fyrir allar töflur. Aðeins sú eina lína er notuð.
@@ -249,16 +254,8 @@ stofnuð og honum er aldrei breytt í gegnum Bifröst eftir það.
 
 ## Úrræðaleit {#troubleshooting}
 
-| Fulltrúinn segir | Af hverju | Hvað á að gera |
-|---|---|---|
-| Að breytingaskrárverndin loki reitnum | Breytingaskráin skráir ekki breytingar á reitnum | Skráðu reitinn í **Uppsetningu breytingaskrár**, bættu við undanþágu, eða gefðu notandanum **Framhjá**-línu |
-| Að reiturinn sé lokaður fyrir skrifum eða ekki leyfður | **Skrifa**- eða **Bæði**-lína, sjálfgefin vernd, eða gögn sem Bifröst ver alltaf | Skoðaðu línur notandans á **Yfirliti reitaaðgangs Bifröst**; opnaðu sjálfgefna vernd með **Engin** |
-| Að reiturinn tilheyri grunnstillingu fyrirtækisins | Einn af [grunnstillingarreitum fyrirtækisins](#company-configuration-fields) | Settu fyrirtækið upp sem notandi með `BIFROST Force ori` og biddu fulltrúann að þvinga breytinguna |
-| Að reit vanti í svarið | **Lesa**- eða **Bæði**-lína, sjálfgefið falinn reitur, eða **Virða næmi gagna** | Eins og að ofan |
-| Að ekki sé hægt að lesa eða breyta töflunni | Ein af töflunum sem Bifröst ver alltaf, eða notandann vantar heimild á hana í Business Central | Notaðu síðu Business Central í staðinn, eða veittu heimildina |
-| Að bókun sé hafnað | Bókunarhlið vantar | [Heimildasamstæður og hlið](/documentation/end-customers/permissions/) |
-
-Spurðu fulltrúann hvaða reiti töflu hann má lesa og breyta: svarið tekur þegar tillit til lína notandans í reitaaðgangi og
+Hvað fulltrúi segir þegar reitur eða tafla er lokuð honum, og hvað á að gera, er í eina
+[úrræðaleitartöflunni fyrir kerfisstjóra](/documentation/end-customers/administrators/#troubleshooting). Spurðu fulltrúann hvaða reiti töflu hann má lesa og breyta: svarið tekur þegar tillit til lína notandans í reitaaðgangi og
 verndarinnar.
 
 **Næst:** [Heimildasamstæður og hlið](/documentation/end-customers/permissions/)

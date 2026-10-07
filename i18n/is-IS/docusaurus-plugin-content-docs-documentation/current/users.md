@@ -138,19 +138,20 @@ misskilið þig: segðu *„sýndu mér fyrst"*, og lestu það sem hann leggur 
 
 | Aðstoðarmaðurinn segir | Það þýðir | Hvern á að spyrja |
 | --- | --- | --- |
-| Hann hefur engin Business Central verkfæri, eða svarar eins og Bifröst sé ekki til | Ekki er kveikt á tengingunni í þessu spjalli. Kveiktu á henni (í Claude: **+**, síðan **Connectors**) og spurðu aftur. | Þú |
-| Aðgerðin er ekki í boði | Slökkt er á henni í fyrirtækinu þínu, eða forritið sem býður hana er ekki uppsett. | Kerfisstjórann |
+| Hann hefur engin Business Central verkfæri, eða svarar eins og Bifröst sé ekki til | Ekki er kveikt á Bifröst-tengingunni í þessu spjalli. Kveiktu á henni (í Claude: **+**, síðan **Connectors**) og spurðu aftur. | Þú |
+| Aðgerðin er ekki í boði | Forritið sem býður hana er ekki uppsett, það er ekki fullsett upp, eða hún þarf heimild sem þú hefur ekki. | Kerfisstjórann |
 | Hann getur það ekki enn | Engin aðgerð er til fyrir þetta verk í forritunum sem þú hefur. Það er ekki villa: annað forrit gæti haft hana, eða það er hægt að smíða hana; sjá [Vantar eitthvað?](/documentation/how-it-works/#what-it-covers-and-how-it-grows). | Kerfisstjórann eða samstarfsaðilann |
 | Þú hefur ekki heimild | Þú hefur ekki þá heimild í Business Central, og aðstoðarmaðurinn hefur nákvæmlega þín réttindi. | Kerfisstjórann |
 | Hluta svarsins vantar | Þeir reitir eru takmarkaðir fyrir þig. | Kerfisstjórann, ef þú þarft þá |
 | Það þarf fyrst að samþykkja verkfærið, með tengli | Fyrirtækið þitt krefst þess að ný aðstoðarverkfæri séu samþykkt einu sinni. Opnaðu tengilinn, eða sendu kerfisstjóranum hann. | Þú, eða kerfisstjórinn |
-| Heimildin er uppurin | Fyrirtækið þitt getur takmarkað hve mikið aðstoðarmaðurinn gerir í hverjum mánuði, fyrir alla eða fyrir þig, og þeim mörkum er náð. | Kerfisstjórann |
-| Bifröst hafnar köllum fyrir fyrirtækið | Uppsetningarleiðsögninni hefur ekki verið lokið í þessu fyrirtæki. | Kerfisstjórann |
+| Heimildin er uppurin | Mörkum er náð: þínum eigin eða mánaðarlegum mörkum fyrirtækisins (þau byrja aftur 1. næsta mánaðar), skilaboðunum sem fyrirtækið hefur keypt, eða, í sandkassa, daglegu mörkunum. | Kerfisstjórann |
+| Bifröst hafnar köllum fyrir fyrirtækið | Uppsetningarleiðsögninni hefur ekki verið lokið í þessu fyrirtæki, eða prufuleyfið er ekki enn virkt. | Kerfisstjórann |
 | Eitthvað var bókað sem hefði ekki átt að bóka | Aðstoðarmaðurinn gerði það sem hann var beðinn um, með þínum réttindum. Bakfærðu það í Business Central eins og hverja aðra bókun og láttu kerfisstjórann vita; hver beiðni og hvert svar er skráð, svo það má rekja. | Kerfisstjórann |
 
 Ef aðstoðarmaðurinn bregst með því sem lítur út fyrir að vera tæknileg villa, biddu hann að sýna þér villutextann. Svar
-Bifröst segir hvað fór úrskeiðis á mæltu máli. Kerfisstjórinn getur líka séð hvert kall sem aðstoðarmaðurinn gerði fyrir
-þig, á síðunni **Bifröst skilaboð** í Business Central.
+Bifröst segir hvað fór úrskeiðis á mæltu máli. Sendu kerfisstjóranum þann texta, með tímanum: hann getur fundið kallið á
+síðunni **Bifröst skilaboð** í Business Central. (Kerfisstjórar: orsakirnar og lausnirnar fyrir hverja línu hér að ofan
+eru í [Úrræðaleit](/documentation/end-customers/administrators/#troubleshooting).)
 
 ## Góðar venjur {#good-habits}
 
