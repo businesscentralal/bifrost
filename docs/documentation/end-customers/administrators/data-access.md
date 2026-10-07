@@ -1,8 +1,9 @@
 ---
 id: data-access
+sidebar_position: 3
+slug: /end-customers/data-access
 title: "Control what agents read and change"
 sidebar_label: "What agents read and change"
-sidebar_position: 3
 description: "For administrators: the ChangeLog Write Guard, Field Access, sensitive fields and the data Bifröst always protects."
 ---
 

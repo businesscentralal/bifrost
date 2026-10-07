@@ -236,11 +236,15 @@ const config: Config = {
     navbar: {
       title: 'Bifröst',
       items: [
-        // Left to right: the guides (how it works, then one guide per role), set it up, try it, the
-        // price, and licensing and terms. The apps sit on the right.
-        {label: buildLocale === 'is-IS' ? 'Leiðbeiningar' : 'Guides', to: '/documentation/', position: 'left', activeBasePath: '/documentation/'},
+        // Left to right, the reader's journey: set it up and try it, then one page per role (users,
+        // administrators, developers), the concepts once, the price, and licensing and terms. The apps
+        // sit on the right. Roles are in the menu; the topics of a role sit under it in the sidebar.
         {label: buildLocale === 'is-IS' ? 'Uppsetning' : 'Set it up', to: '/setup/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/', position: 'left'},
+        {label: buildLocale === 'is-IS' ? 'Notendur' : 'Users', to: '/documentation/end-customers/users/', position: 'left'},
+        {label: buildLocale === 'is-IS' ? 'Kerfisstjórar' : 'Administrators', to: '/documentation/end-customers/administrators/', position: 'left'},
+        {label: buildLocale === 'is-IS' ? 'Forritarar' : 'Developers', to: '/documentation/end-customers/developers/', position: 'left'},
+        {label: buildLocale === 'is-IS' ? 'Hvernig það virkar' : 'How it works', to: '/documentation/how-it-works/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Leyfi' : 'Licensing', to: '/licensing/', position: 'left'},
         // On the right, set apart: the apps. Only published apps are shown (Foundation for now), then the

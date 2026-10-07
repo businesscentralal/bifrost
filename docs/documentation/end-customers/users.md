@@ -1,8 +1,8 @@
 ---
 id: users
+sidebar_position: 2
 title: "Using Bifröst"
 sidebar_label: "Users"
-sidebar_position: 1
 description: "What you can ask an AI assistant to do in Business Central through Bifröst, what it will not do, and what to do when it says no."
 ---
 
@@ -140,6 +140,7 @@ misunderstand you: say *"show me first"*, and read what it proposes before you s
 
 | The assistant says | What it means | Who to ask |
 | --- | --- | --- |
+| It has no Business Central tools, or answers as if Bifröst were not there | The connector is not switched on in this chat. Switch it on (in Claude: **+**, then **Connectors**) and ask again. | You |
 | The operation is not available | It is switched off in your company, or the app that provides it is not installed. | Your administrator |
 | It cannot do that yet | There is no operation for that task in the apps you have. It is not a fault: another app may have it, or it can be built; see [Missing something?](/documentation/how-it-works/#what-it-covers-and-how-it-grows). | Your administrator or partner |
 | You do not have permission | You do not have that permission in Business Central, and the assistant has exactly your rights. | Your administrator |

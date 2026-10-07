@@ -35,6 +35,17 @@ No. Every step can be done by your own administrators. If you work with a Busine
 Business Central steps for you. The consent in step 3 is given by an administrator of your organisation's Microsoft Entra
 ID.
 
+## Who does what
+
+| Task | Who |
+|---|---|
+| Install the app from AppSource | Your Business Central administrator, or your partner |
+| Accept the Terms of Use and run the setup wizard (step 2) | Someone who may accept terms on your company's behalf |
+| Give the one-time consent in Microsoft Entra ID (step 3) | A Global Administrator or Application Administrator |
+| Give people and apps their permission sets (step 2) | Your Business Central administrator |
+| Decide which fields agents must not get (step 4) | Your company: you know your data. Your partner can set it up |
+| Connect the assistant | Each user, signed in as themselves |
+
 ## Sandbox, production and companies
 
 - **Each environment** (sandbox, production) gets the apps installed separately.

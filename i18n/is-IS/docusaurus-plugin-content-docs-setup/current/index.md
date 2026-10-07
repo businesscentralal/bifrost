@@ -33,6 +33,17 @@ import SetupFlow from '@site/src/components/SetupFlow';
 Nei. Kerfisstjórarnir þínir geta tekið hvert skref. Ef þú vinnur með Business Central samstarfsaðila getur hann tekið
 Business Central skrefin fyrir þig. Samþykkið í skrefi 3 gefur kerfisstjóri Microsoft Entra ID fyrirtækisins.
 
+## Hver gerir hvað {#who-does-what}
+
+| Verk | Hver |
+|---|---|
+| Setja forritið upp úr AppSource | Kerfisstjóri Business Central, eða samstarfsaðilinn þinn |
+| Samþykkja notkunarskilmálana og keyra uppsetningarleiðsögnina (skref 2) | Sá sem má samþykkja skilmála fyrir hönd fyrirtækisins |
+| Veita samþykkið í Microsoft Entra ID, einu sinni (skref 3) | Altækur kerfisstjóri (Global Administrator) eða forritsstjóri (Application Administrator) |
+| Gefa fólki og forritum heimildasamstæður (skref 2) | Kerfisstjóri Business Central |
+| Ákveða hvaða reiti fulltrúar mega ekki fá (skref 4) | Fyrirtækið sjálft: þið þekkið gögnin. Samstarfsaðilinn getur sett það upp |
+| Tengja aðstoðarmanninn | Hver notandi, innskráður sem hann sjálfur |
+
 ## Sandkassi, framleiðsluumhverfi og fyrirtæki {#sandbox-production-and-companies}
 
 - **Hvert umhverfi** (sandkassi, framleiðsluumhverfi) fær forritin uppsett sérstaklega.

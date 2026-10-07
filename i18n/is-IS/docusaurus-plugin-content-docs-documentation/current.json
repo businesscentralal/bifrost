@@ -2,5 +2,9 @@
   "sidebar.default.category.By role": {
     "message": "Eftir hlutverki",
     "description": "The label for category 'By role' in sidebar 'default'"
+  },
+  "sidebar.default.category.Administrators": {
+    "message": "Kerfisstjórar",
+    "description": "The label for category 'Administrators' in sidebar 'default'"
   }
 }

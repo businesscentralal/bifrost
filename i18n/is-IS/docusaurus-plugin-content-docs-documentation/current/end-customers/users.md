@@ -1,8 +1,8 @@
 ---
 id: users
+sidebar_position: 2
 title: "Notkun Bifröst"
 sidebar_label: "Notendur"
-sidebar_position: 1
 description: "Hvað þú getur beðið gervigreindaraðstoðarmann að gera í Business Central í gegnum Bifröst, hvað hann gerir ekki, og hvað á að gera þegar hann segir nei."
 ---
 
@@ -137,6 +137,7 @@ misskilið þig: segðu *„sýndu mér fyrst"*, og lestu það sem hann leggur 
 
 | Aðstoðarmaðurinn segir | Það þýðir | Hvern á að spyrja |
 | --- | --- | --- |
+| Hann hefur engin Business Central verkfæri, eða svarar eins og Bifröst sé ekki til | Ekki er kveikt á tengingunni í þessu spjalli. Kveiktu á henni (í Claude: **+**, síðan **Connectors**) og spurðu aftur. | Þú |
 | Aðgerðin er ekki í boði | Slökkt er á henni í fyrirtækinu þínu, eða forritið sem býður hana er ekki uppsett. | Kerfisstjórann |
 | Hann getur það ekki enn | Engin aðgerð er til fyrir þetta verk í forritunum sem þú hefur. Það er ekki villa: annað forrit gæti haft hana, eða það er hægt að smíða hana; sjá [Vantar eitthvað?](/documentation/how-it-works/#what-it-covers-and-how-it-grows). | Kerfisstjórann eða samstarfsaðilann |
 | Þú hefur ekki heimild | Þú hefur ekki þá heimild í Business Central, og aðstoðarmaðurinn hefur nákvæmlega þín réttindi. | Kerfisstjórann |

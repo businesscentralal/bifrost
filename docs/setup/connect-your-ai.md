@@ -53,14 +53,21 @@ Add the Bifröst connector from its store. On **Bifrost Setup**, the **OpenAI Ch
 
 ### Claude
 
-In Claude, the connector is called **Bifröst Origo**.
+In Claude, the connector is called **Bifröst Origo**. The steps are the same on the web and in Claude Desktop.
 
-1. **Add the connector.** In Claude, open **Customize** and then **Connectors**. Until Bifröst is in
-   Claude's connector directory, add it as a **custom connector** with the MCP server address from
-   wizard step 5. In a Claude Team or Enterprise organisation, an owner adds it once for everyone.
-   Once it is listed, the **Anthropic Claude** action under *Connectors* on **Bifrost Setup** opens it.
-2. **Sign in** with your work account, the one you use for Business Central, when Claude asks. The connector then shows as
-   connected.
+1. **Add the connector.** In Claude, open **Customize** and then **Connectors** (in older versions of
+   Claude Desktop: **Settings › Connectors**), and choose **+ Add**. Until Bifröst is in Claude's
+   connector directory, choose **Add custom connector**: give it a name and paste the MCP server
+   address from wizard step 5. Leave the options marked *Detected* as they are and choose **Add**. They
+   mean that each person signs in as themselves, and that no client ID or secret is needed; if they are
+   not detected, check the address. In a Claude Team or Enterprise organisation, an owner adds it once
+   for everyone, and the owner may have to allow custom connectors first. Once it is listed, the
+   **Anthropic Claude** action under *Connectors* on **Bifrost Setup** opens it.
+2. **Sign in.** Choose **Connect** and sign in with the account that has access to Business Central;
+   if you have more than one, pick that one. Microsoft shows what the connector asks for: it acts on
+   your behalf, so it reaches only what you can reach yourself. Choose **Accept**. Leave *Consent on
+   behalf of your organization* alone unless you are the administrator giving consent for everyone.
+   The connector is connected when it shows **Disconnect**.
 
    ![Claude's list of connectors, with Bifröst Origo connected](/img/setup/claude-connector.png)
 
@@ -69,7 +76,8 @@ In Claude, the connector is called **Bifröst Origo**.
    ![Switching Bifröst Origo on for a chat](/img/setup/claude-connector-in-chat.png)
 
 4. **Approve its tools.** The first time Claude wants to use a Bifröst tool, it asks. **Allow once**
-   lets you check each call; **Always allow** stops asking for that tool.
+   lets you check each call; **Always allow** stops asking for that tool. Start with **Allow once**, so
+   you see what is called; in the connector's settings you can later choose which tools always ask.
 
    ![Claude asks before it uses a Bifröst tool for the first time](/img/setup/claude-allow-tool.png)
 

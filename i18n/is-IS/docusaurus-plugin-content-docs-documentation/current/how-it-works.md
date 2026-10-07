@@ -3,7 +3,7 @@ id: how-it-works
 title: "Hvernig Bifröst virkar"
 sidebar_label: "Hvernig Bifröst virkar"
 sidebar_position: 2
-description: "Hugmyndirnar á bak við Bifröst, útskýrðar einu sinni: skilaboðategundir, hliðið eina sem hvert kall fer í gegnum, og hvernig fulltrúi finnur og kallar á rétta aðgerð."
+description: "Hugmyndirnar á bak við Bifröst, útskýrðar einu sinni: aðgerðir sem lýsa sér sjálfar, hliðið eina sem hvert kall fer í gegnum, og hvernig fulltrúi finnur og kallar á rétta aðgerð."
 ---
 
 # Hvernig Bifröst virkar
@@ -15,34 +15,34 @@ með fjárhagsáætlun og biðröð. Bifröst fjarlægir það skref. Þú spyr�
 gervigreindaraðstoðarmanni, og **fulltrúi** vinnur verkið í Business Central. (Á þessari síðu þýðir *fulltrúi*
 gervigreindin, eða annað kerfi, sem vinnur fyrir þig.)
 
-Það getur gert það vegna þess að aðgerðirnar sem Bifröst býður eru birtar sem **skilaboðategundir**. Hver skilaboðategund
-gerir eitt, til dæmis að athuga framboð vöru, breyta tilboði í pöntun eða bóka skjal, og hver þeirra lýsir sér sjálf:
-hvað hún gerir, hvað hún þarf, hverju hún skilar og hvað getur farið úrskeiðis. Fulltrúinn les þessar lýsingar, velur
-réttu aðgerðirnar og kallar á þær.
+Það getur gert það vegna þess að hver aðgerð sem Bifröst býður lýsir sér sjálf. Aðgerð gerir eitt, til dæmis að athuga
+framboð vöru, breyta tilboði í pöntun eða bóka skjal, og hún segir hvað hún gerir, hvað hún þarf, hverju hún skilar og
+hvað getur farið úrskeiðis. Fulltrúinn les þessar lýsingar, velur réttu aðgerðirnar og kallar á þær. (Forritarar þekkja
+aðgerð sem *skilaboðategund*; það er eini staðurinn þar sem orðið skiptir máli.)
 
-## Svið og skilaboðategundir {#capabilities-and-message-types}
+## Lén og aðgerðir {#domains-and-operations}
 
-Skilaboðategundum er skipt í **svið**. Fyrsti hluti heitis skilaboðategundar segir hvaða sviði hún tilheyrir. Til dæmis:
+Aðgerðunum er skipt í **lén**, til dæmis Customer, Sales eða Item. Til dæmis:
 
-| Svið | Skilaboðategund í því |
+| Lén | Aðgerð í því |
 |---|---|
 | **Customer** | Athugar lánstraust viðskiptamanns: stöðu, gjaldfallna upphæð, opnar pantanir og hvað er eftir |
 | **Sales** | Bókar söluskjal |
 | **Item** | Reiknar út hve mikið af vöru þú getur lofað |
 
-- **Skilaboðategund** er ein aðgerð, og það er hún sem fulltrúi kallar á. Hver þeirra lýsir sér sjálf.
-
-- **Svið** er hópur skilaboðategunda um sama hlut, til dæmis viðskiptamenn eða söluskjöl. Fulltrúi skoðar sviðin fyrst og
-  velur síðan skilaboðategund innan rétta sviðsins.
-- **Forrit** er það sem þú setur upp. Það bætir við einu eða fleiri sviðum, eða fleiri skilaboðategundum í svið sem er
-  til: Foundation kemur með hefðbundnu svið Business Central, og hvert annað forrit bætir við sínum.
+- **Aðgerð** gerir eitt, og það er hún sem fulltrúi kallar á. Hver þeirra lýsir sér sjálf.
+- **Lén** er hópur aðgerða um sama hlut, til dæmis viðskiptamenn eða söluskjöl. Fulltrúi skoðar lénin fyrst og velur
+  síðan aðgerð innan rétta lénsins.
+- **Forrit** er það sem þú setur upp. Það bætir við lénum, eða fleiri aðgerðum í lén sem er til: Foundation kemur með
+  hefðbundin lén Business Central (sjá [hvað Foundation nær yfir](/foundation/#capabilities)), og hvert annað forrit
+  bætir við sínum.
 
 ```mermaid
 flowchart LR
-  F["Forrit: Foundation"] --> C1["Svið: Customer"]
-  F --> C2["Svið: Sales"]
-  F --> C3["Svið: Finance"]
-  T["Forrit: annað Bifröst forrit"] --> C4["Svið: þess eigið"]
+  F["Forrit: Foundation"] --> C1["Lén: Customer"]
+  F --> C2["Lén: Sales"]
+  F --> C3["Lén: Finance"]
+  T["Forrit: annað Bifröst forrit"] --> C4["Lén: þess eigið"]
   C1 --> M1["Athuga hámarksskuld"]
   C1 --> M2["Viðskiptamannayfirlit sem PDF"]
   C2 --> M3["Bóka söluskjal"]
@@ -50,15 +50,12 @@ flowchart LR
   C4 --> M5["Þess eigin aðgerðir"]
 ```
 
-*Í orðum: forrit bætir við sviðum, og hvert svið geymir skilaboðategundir. Foundation bætir meðal annars við Customer,
-Sales og Finance; annað Bifröst forrit bætir við sínu eigin sviði. Að athuga hámarksskuld og prenta viðskiptamannayfirlit
-tilheyra bæði Customer.*
+*Í orðum: forrit bætir við lénum, og hvert lén geymir aðgerðir. Foundation bætir meðal annars við Customer, Sales og
+Finance; annað Bifröst forrit bætir við sínu eigin léni. Að athuga hámarksskuld og prenta viðskiptamannayfirlit tilheyra
+bæði Customer.*
 
-Í verkfæralista aðstoðarmannsins heita sviðin *domains* (lén). Þau hafa ekkert að gera með síðuna **Copilot & AI
-Capabilities** í Business Central, sem kveikir og slekkur á eiginleikum Copilot.
-
-Vegna þess að hver skilaboðategund lýsir sér sjálf er ný tegund nothæf um leið og forrit hennar er uppsett, uppsetningu
-þess lokið og heimild veitt; það þarf ekkert að kenna aðstoðarmanninum fyrst.
+Vegna þess að hver aðgerð lýsir sér sjálf er ný aðgerð nothæf um leið og forrit hennar er uppsett, uppsetningu þess lokið
+og heimild veitt; það þarf ekkert að kenna aðstoðarmanninum fyrst.
 
 ## Fjögur atriði sem gera það ólíkt {#four-things-that-make-it-different}
 
@@ -68,8 +65,8 @@ Vegna þess að hver skilaboðategund lýsir sér sjálf er ný tegund nothæf u
   forritsauðkennið sem samþætting fékk. Það nær aðeins til þess sem auðkennið hefur leyfi til, og hvert kall er skráð í
   Business Central hjá þér. Þú ákveður hvað hvert auðkenni má; sjá
   [Kerfisstjórar](/documentation/end-customers/administrators/).
-- **Það vex án nýrrar útgáfu.** Hvert Bifröst forrit sem þú setur upp bætir við sviðum, og hver tengdur fulltrúi getur
-  notað þau sama dag.
+- **Það vex án nýrrar útgáfu.** Hvert Bifröst forrit sem þú setur upp bætir við aðgerðum, og hver tengdur fulltrúi getur
+  notað þær sama dag.
 - **Þú velur gervigreindina.** Copilot, ChatGPT, Claude eða hver annar aðstoðarmaður sem styður MCP virkar eins, svo þú
   ert ekki bundinn einum þjónustuaðila, og þú getur notað fleiri en einn.
 
@@ -79,9 +76,9 @@ import PlatformMap from '@site/src/components/PlatformMap';
 
 <PlatformMap />
 
-[Bifröst Foundation](/foundation/) er hliðið eina. Það geymir skrána yfir skilaboðategundir, afhendir hjálp þeirra,
-athugar heimildir og leyfi, og skráir hvert kall. Allt annað í fjölskyldunni eru forrit sem bæta eigin sviðum við sömu
-skrá. [Forritalistinn](/apps/) sýnir forritin sem eru í boði.
+[Bifröst Foundation](/foundation/) er hliðið eina. Það geymir skrána yfir aðgerðir, afhendir hjálp þeirra, athugar
+heimildir og leyfi, og skráir hvert kall. Allt annað í fjölskyldunni eru forrit sem bæta eigin aðgerðum við sömu skrá.
+[Forritalistinn](/apps/) sýnir forritin sem eru í boði.
 
 ## Hvað gerist þegar þú spyrð {#what-happens-when-you-ask}
 
@@ -91,7 +88,7 @@ skrá. [Forritalistinn](/apps/) sýnir forritin sem eru í boði.
 2. **Hann velur** eftir einnar línu lýsingum þeirra. Framboðsaðgerðin skilar útreiknuðu framboði eftir birgðageymslu,
    með fráteknu magni og væntanlegum móttökum, sem er það sem spurningin snýst um; birgðastaðan ein og sér svaraði henni
    ekki.
-3. **Hann les hjálpina** fyrir þá skilaboðategund: hvernig á að nefna vöruna, hvað kemur til baka.
+3. **Hann les hjálpina** fyrir þá aðgerð: hvernig á að nefna vöruna, hvað kemur til baka.
 4. **Hann kallar á hana.** Foundation athugar að þú megir það, keyrir hana sem þú og skráir kallið.
 5. **Hann svarar** á mæltu máli, með tölunum eftir birgðageymslu.
 
@@ -116,8 +113,8 @@ Nánar:
 
 - **Origo** geymir hvorki efni skilaboða né viðskiptagögnin þín, og þau eru ekki notuð til að þjálfa gervigreindarlíkön.
   Leyfisþjónusta Origo geymir Bifröst stillingarnar þínar (auðkenningu fyrirtækis, heiti umhverfis og tengiupplýsingar),
-  fjölda notkunar með tímum og heitum skilaboðategunda, og tætt kenni leigjandans; forritin senda henni líka tæknileg
-  greiningargögn (fjarmælingar). Uppsetningarleiðsögnin sýnir hvað leyfisþjónustan geymir áður en þú samþykkir.
+  fjölda notkunar með tímum og heitum aðgerðanna sem kallað var á, og tætt kenni leigjandans; forritin senda henni líka
+  tæknileg greiningargögn (fjarmælingar). Uppsetningarleiðsögnin sýnir hvað leyfisþjónustan geymir áður en þú samþykkir.
 - **Bifröst skilaboð** í Business Central hjá þér geyma hvert kall með gögnunum sem það skilaði, eins lengi og þú
   ákveður; sjá [Annálar og varðveisla](/documentation/end-customers/administrators/#logs-and-retention).
 
@@ -136,26 +133,27 @@ fyrir það, og það er mikið:
 | | Hve langt það nær | Hvernig |
 |---|---|---|
 | **Lesa** | Flest gögnin þín | Almennur lestur nær til hverrar töflu sem er ekki takmörkuð, innan heimilda þinna og [reitaaðgangs](/documentation/end-customers/data-access/#field-access). Flestum spurningum er hægt að svara. |
-| **Gera** | Það sem hefur skilaboðategund | Stofnun, umbreyting, útgáfa og bókun þurfa hver sína skilaboðategund. Svið Foundation ná meðal annars yfir sölu, innkaup, fjármál, birgðir og verk. Ekki hvert verk í Business Central hefur slíka tegund enn. |
+| **Gera** | Það sem hefur aðgerð | Stofnun, umbreyting, útgáfa og bókun þurfa hver sína aðgerð. Lén Foundation ná meðal annars yfir sölu, innkaup, fjármál, birgðir og verk. Ekki hvert verk í Business Central hefur slíka aðgerð enn. |
 | **Breyta reit** | Þröng, varin leið | Almenn skrif geta breytt reitum færslu, sjálfgefið aðeins reitum sem breytingaskráin nær til ([breytingaskrárvernd](/documentation/end-customers/data-access/#the-changelog-write-guard)). Þau koma ekki í stað aðgerðar með eigin rökum Business Central. |
 
-Þegar engin skilaboðategund er til fyrir verk getur aðstoðarmaðurinn ekki unnið það í gegnum Bifröst, og hann ætti að
-segja það. Það eru mörk þess sem er uppsett, ekki villa.
+Þegar engin aðgerð er til fyrir verk getur aðstoðarmaðurinn ekki unnið það í gegnum Bifröst, og hann ætti að segja það.
+Það eru mörk þess sem er uppsett, ekki villa.
 
 ### Hvert forrit færir mörkin {#every-app-moves-the-edge}
 
-Svið koma úr forritum, og þau sameinast öll í sömu skrá, á bak við sömu heimildir og sama annál. Önnur Bifröst forrit
-bæta við eigin sviðum. Hvert þeirra hefur sína eigin uppsetningarsíðu, sem er opnuð úr flokknum **Forrit** á Uppsetningu
-Bifröst, sína eigin hjálp, og geymir auðkenni sín í sameiginlegu leyndarmálageymslunni; sjá [forritalistann](/apps/).
+Aðgerðir koma úr forritum, og þær sameinast allar í sömu skrá, á bak við sömu heimildir og sama annál. Önnur Bifröst
+forrit bæta við eigin lénum. Hvert þeirra hefur sína eigin uppsetningarsíðu, sem er opnuð úr flokknum **Forrit** á
+Uppsetningu Bifröst, sína eigin hjálp, og geymir auðkenni sín í sameiginlegu leyndarmálageymslunni; sjá
+[forritalistann](/apps/).
 
-Aðstoðarmaðurinn sameinar svið úr mismunandi forritum í einu samtali.
+Aðstoðarmaðurinn sameinar aðgerðir úr mismunandi forritum í einu samtali.
 
 **Vantar eitthvað?**
 
-1. Spurðu aðstoðarmanninn: *„Hvaða svið geturðu notað hér?"* Hann telur upp það sem uppsetningin þín hefur.
+1. Spurðu aðstoðarmanninn: *„Hvað geturðu gert hér?"* Hann telur upp það sem uppsetningin þín hefur.
 2. Skoðaðu [forritalistann](/apps/): það gæti verið í forriti sem þú hefur ekki sett upp enn.
 3. Ef ekki, spurðu Business Central samstarfsaðilann þinn eða [Origo](https://www.origo.is/). Það er hægt að smíða það,
-   annaðhvort sem nýtt forrit eða sem fleiri skilaboðategundir í forriti sem er til.
+   annaðhvort sem nýtt forrit eða sem fleiri aðgerðir í forriti sem er til.
 
 **Næst:** [Settu það upp](/setup/), eða síðan fyrir þitt hlutverk:
 [Notendur](/documentation/end-customers/users/) · [Kerfisstjórar](/documentation/end-customers/administrators/) ·

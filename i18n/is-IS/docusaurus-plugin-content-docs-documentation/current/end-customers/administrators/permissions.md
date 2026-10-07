@@ -1,8 +1,9 @@
 ---
 id: permissions
+sidebar_position: 2
+slug: /end-customers/permissions
 title: "Heimildasamstæður og hlið"
 sidebar_label: "Heimildasamstæður og hlið"
-sidebar_position: 4
 description: "Fyrir kerfisstjóra: heimildasamstæður Bifröst, og hvernig hliðin meðal þeirra virka ofan á eigin heimildir hvers notanda í Business Central."
 ---
 

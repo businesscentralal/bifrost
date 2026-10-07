@@ -54,14 +54,19 @@ Bættu Bifröst-tengingunni við úr verslun hennar. Á **Uppsetningu Bifröst**
 
 ### Claude {#claude}
 
-Í Claude heitir tengingin **Bifröst Origo**.
+Í Claude heitir tengingin **Bifröst Origo**. Skrefin eru þau sömu á vefnum og í Claude Desktop.
 
-1. **Bættu tengingunni við.** Í Claude opnarðu **Customize** og síðan **Connectors**. Þar til Bifröst er komið í
-   tengingaskrá Claude bætirðu því við sem **custom connector** með slóð MCP-þjónsins úr skrefi 5 í leiðsögninni. Í
-   Claude Team eða Enterprise bætir eigandi henni við einu sinni fyrir alla. Þegar hún er komin á skrá opnar aðgerðin
-   **Anthropic Claude** undir *Tengingar* á **Uppsetningu Bifröst** hana.
-2. **Skráðu þig inn** með vinnureikningnum þínum, þeim sem þú notar fyrir Business Central, þegar Claude biður um það.
-   Tengingin birtist þá sem tengd.
+1. **Bættu tengingunni við.** Í Claude opnarðu **Customize** og síðan **Connectors** (í eldri útgáfum af Claude
+   Desktop: **Settings › Connectors**) og velur **+ Add**. Þar til Bifröst er komið í tengingaskrá Claude velurðu
+   **Add custom connector**: gefðu tengingunni nafn og límdu inn slóð MCP-þjónsins úr skrefi 5 í leiðsögninni.
+   Láttu valkostina sem eru merktir *Detected* standa og veldu **Add**. Þeir þýða að hver og einn skráir sig inn
+   sjálfur og að ekkert biðlarakenni eða leyndarmál þarf; finnist þeir ekki, athugaðu slóðina. Í Claude Team eða
+   Enterprise bætir eigandi henni við einu sinni fyrir alla, og eigandinn gæti þurft að leyfa eigin tengingar fyrst.
+   Þegar hún er komin á skrá opnar aðgerðin **Anthropic Claude** undir *Tengingar* á **Uppsetningu Bifröst** hana.
+2. **Skráðu þig inn.** Veldu **Connect** og skráðu þig inn með aðganginum sem hefur aðgang að Business Central; sértu
+   með fleiri en einn, veldu þann. Microsoft sýnir hvað tengingin biður um: hún vinnur í umboði þínu og kemst því
+   aðeins í það sem þú kemst sjálf(ur) í. Veldu **Accept**. Láttu *Consent on behalf of your organization* eiga sig
+   nema þú sért kerfisstjórinn sem veitir samþykki fyrir alla. Tengingin er komin á þegar **Disconnect** sést.
 
    ![Tengingalisti Claude, með Bifröst Origo tengt](/img/setup/claude-connector.png)
 
@@ -70,7 +75,8 @@ Bættu Bifröst-tengingunni við úr verslun hennar. Á **Uppsetningu Bifröst**
    ![Kveikt á Bifröst Origo fyrir spjall](/img/setup/claude-connector-in-chat.png)
 
 4. **Leyfðu verkfæri hennar.** Í fyrsta sinn sem Claude vill nota Bifröst-verkfæri spyr það. **Allow once** leyfir þér
-   að skoða hvert kall; **Always allow** hættir að spyrja um það verkfæri.
+   að skoða hvert kall; **Always allow** hættir að spyrja um það verkfæri. Byrjaðu á **Allow once** svo þú sjáir hvað
+   er kallað á; í stillingum tengingarinnar geturðu síðar valið hvaða verkfæri spyrja alltaf.
 
    ![Claude spyr áður en það notar Bifröst-verkfæri í fyrsta sinn](/img/setup/claude-allow-tool.png)
 

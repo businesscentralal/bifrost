@@ -3,13 +3,13 @@ id: developers
 title: "Connecting to Bifröst"
 sidebar_label: "Developers"
 sidebar_position: 5
-description: "For developers at a Business Central customer: connect another system, drive Bifröst from an agent, and find what each message type does."
+description: "For developers at a Business Central customer: connect another system, get told when a call is done, drive Bifröst from an agent, and find what each operation does."
 ---
 
 # Connecting to Bifröst: for developers
 
 Everything an assistant can do through Bifröst, your own systems can do too, through the same
-message types. This page points you to the right reference; the ideas are in
+operations. This page points you to the right reference; the ideas are in
 [How Bifröst works](/documentation/how-it-works/).
 
 ## Before you start
@@ -28,14 +28,15 @@ application.
 
 An integration calls Bifröst as a **Microsoft Entra application** with its own permissions in
 Business Central (see [Step 2](/setup/business-central/#give-people-and-apps-permission)). It
-sends a message naming a message type and reads the answer, or is told when it is done.
+sends a message that names the operation, its *message type*, and reads the answer, or is told
+when it is done.
 
 ```mermaid
 sequenceDiagram
   participant S as Your system
   participant B as Bifröst in Business Central
   Note over S,B: Right away
-  S->>B: POST /tasks: a message naming a message type
+  S->>B: POST /tasks: a message naming an operation
   B-->>S: The answer
   Note over S,B: In the background
   S->>B: POST /queues: a message, with your own id if you like
@@ -48,21 +49,42 @@ sequenceDiagram
 - [INTEGRATING guide](https://github.com/businesscentralal/bc-bifrost-reference/blob/main/INTEGRATING.md):
   calling Bifröst from another system, worked end to end
 
+## Get told when it is done
+
+A message sent to `/queues` runs in the background. Instead of asking again and again, your system
+can subscribe to two business events in Business Central, in the category **Origo Bifrost**:
+
+| Event | Raised when |
+|---|---|
+| **Bifrost Message Completed** | A queued message has finished |
+| **Bifrost Message Failed** | A queued message has failed |
+
+Each notification carries the message id, the operation's name, a link to the answer and the time.
+Read the answer from `/responses` with that link, as the same identity that sent the message: each
+caller sees only its own messages. A message sent to `/tasks` raises no event, because the answer
+is ready when the call returns.
+
+You subscribe the same way as to any Business Central business event: with the business events
+API, which posts to a URL you give, or with a Power Automate flow. See Microsoft's
+[Business events on Business Central](https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/developer/business-events-overview).
+The subscribing identity needs the **Ext. Events – Subscr** permission set and read access to
+Bifröst's messages.
+
 ## Drive it from an AI agent
 
 Connect an AI assistant through the Origo BC MCP server: see [Connect your AI](/setup/connect-your-ai/).
-The assistant reads the installed message types and their contracts from Business Central itself.
+The assistant reads the installed operations and their descriptions from Business Central itself.
 
-## Find what a message type does
+## Find what an operation does
 
-Message types are grouped into [capabilities](/documentation/how-it-works/#capabilities-and-message-types):
-the first part of a message type's name, such as `Customer`. In the MCP server's tools a capability
-is called a *domain* (`list_domains`, `describe_domains`).
+Operations are grouped into [domains](/documentation/how-it-works/#domains-and-operations), such as
+Customer or Sales. The MCP server's tools use the same word (`list_domains`, `describe_domains`).
 
-The catalogue is live: an agent or system asks Bifröst which message types exist
-(`Help.MessageTypes.Get`) and reads each one's contract (`Help.Implementation.Get`). That answer is
-always current for your environment. The same list is on the Bifrost Message Types page in Business
-Central, and the MCP tools `list_message_types` and `describe_message_type` read it too.
+The catalogue is live: an agent or system asks Bifröst which operations exist
+(`Help.MessageTypes.Get`) and reads each one's description and contract (`Help.Implementation.Get`).
+That answer is always current for your environment. The same list is on the **Bifrost Message
+Types** page in Business Central, and the MCP tools `list_message_types` and
+`describe_message_type` read it too.
 
 ## What it counts
 

@@ -1,8 +1,9 @@
 ---
 id: data-access
+sidebar_position: 3
+slug: /end-customers/data-access
 title: "Stjórnaðu því hvað fulltrúar lesa og breyta"
 sidebar_label: "Hvað fulltrúar lesa og breyta"
-sidebar_position: 3
 description: "Fyrir kerfisstjóra: breytingaskrárverndin, reitaaðgangur, viðkvæmir reitir og gögnin sem Bifröst ver alltaf."
 ---
 

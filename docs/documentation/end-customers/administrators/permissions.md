@@ -1,8 +1,9 @@
 ---
 id: permissions
+sidebar_position: 2
+slug: /end-customers/permissions
 title: "Permission sets and gates"
 sidebar_label: "Permission sets and gates"
-sidebar_position: 4
 description: "For administrators: the Bifröst permission sets, and how the gates among them work on top of each user's own Business Central permissions."
 ---
 
