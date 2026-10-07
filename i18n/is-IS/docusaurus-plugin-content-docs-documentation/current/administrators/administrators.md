@@ -16,8 +16,9 @@ krefjast líka `BIFROST LicAdm ori`. Hverri Bifröst-síðu í Business Central 
 ## Heimildir {#permissions}
 
 Gervigreindarfulltrúi getur í mesta lagi gert það sem auðkennið sem hann keyrir sem getur gert í Business Central, og oft
-minna. Bifröst gefur kallanda aldrei meira en Business Central leyfir þegar, og reitaaðgangur, breytingaskrárverndin og
-bókunarheimildasamstæðurnar geta þrengt það enn frekar.
+minna. Bifröst gefur kallanda aldrei meira en Business Central leyfir þegar, fyrir utan lestur nokkurra
+uppsetningartafla ([hverra, og hvers vegna](/documentation/end-customers/permissions/#does-a-bifröst-permission-set-give-a-user-more-rights)),
+og reitaaðgangur, breytingaskrárverndin og bókunarheimildasamstæðurnar geta þrengt það enn frekar.
 
 import PermissionLayers from '@site/src/components/PermissionLayers';
 

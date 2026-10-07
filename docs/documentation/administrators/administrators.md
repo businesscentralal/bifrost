@@ -17,8 +17,9 @@ in the in-product help.
 ## Permissions
 
 An AI agent can do at most what the identity it runs as can do in Business Central, and often less.
-Bifröst never gives a caller more than Business Central already allows, and Field Access, the
-ChangeLog Write Guard and the posting permission sets can narrow it further.
+Bifröst never gives a caller more than Business Central already allows, apart from reading a few setup
+tables ([which, and why](/documentation/end-customers/permissions/#does-a-bifröst-permission-set-give-a-user-more-rights)),
+and Field Access, the ChangeLog Write Guard and the posting permission sets can narrow it further.
 
 import PermissionLayers from '@site/src/components/PermissionLayers';
 

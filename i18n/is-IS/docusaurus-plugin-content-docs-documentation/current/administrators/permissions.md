@@ -24,12 +24,30 @@ Hver beiðni keyrir með heimildum þess auðkennis, svo fulltrúi getur aldrei 
 biðlaranum. Tvö lög ráða því hvað hann má:
 
 1. **Heimildir Business Central**, eins og í biðlaranum: venjulegar heimildasamstæður notandans ráða hvaða gögn hann má
-   lesa, breyta og bóka. Bifröst bætir engu við þær.
+   lesa, breyta og bóka. Bifröst víkkar þær ekki, með einni lítilli undantekningu, hér að neðan.
 2. **Heimildasamstæður Bifröst**: `BIFROST API ori` leyfir auðkenninu að kalla í Bifröst yfirleitt, og **hlið** opnar
    hverja aðgerð sem Bifröst heldur lokaðri jafnvel fyrir notanda sem gæti framkvæmt hana í biðlaranum, til dæmis bókun.
 
 Bæði lögin verða að leyfa aðgerð. Notandi sem má bóka sölureikninga í biðlaranum getur ekki bókað þá í gegnum Bifröst án
 bókunarhliðsins, og hliðið eitt bókar ekkert fyrir notanda sem má ekki bóka í biðlaranum.
+
+### Fær notandi meiri réttindi með heimildasamstæðum Bifröst? {#does-a-bifröst-permission-set-give-a-user-more-rights}
+
+Nei, fyrir utan nokkrar uppsetningartöflur. Notandi með þröngar heimildir í Business Central er áfram þröngur, sama
+hve mörgum heimildasamstæðum Bifröst þú bætir við:
+
+- **Heimildasamstæður Bifröst ná yfir síður og gögn Bifröst sjálfs**: skilaboðin, uppsetninguna, minnið og annálana.
+  Þær opna ekki viðskiptamenn, vörur, fylgiskjöl eða færslur.
+- **Hliðin þrengja; þau víkka aldrei.** Bókunarhlið er aukaathugun ofan á eigin bókunarheimild notandans. Án
+  þeirrar heimildar í Business Central bókar hliðið ekkert.
+- **Kóði Bifröst fylgir reglum Business Central.** Þar sem hann skrifar í færslubókarlínur eða fylgiskjalahausa fer
+  hann í gegnum eigin (óbeinar) heimildir notandans, eins og bókun Business Central sjálfs.
+- **`BIFROST Force ori`** hleypir breytingu framhjá reitatakmörkunum Bifröst sjálfs (reitaaðgangi). Hún fer aldrei
+  framhjá heimildum Business Central.
+- **Undantekningin: `BIFROST API ori` getur lesið nokkrar uppsetningartöflur** sem svör um verð og framboð þurfa:
+  gjaldmiðla og gengi, VSK-bókunargrunna, fjárhagsgrunn, sölu- og viðskiptakröfugrunn, uppsetningartöflur verðs og
+  afsláttar, mælieiningar vara og lista yfir reiti. Notandi með `BIFROST API ori` getur lesið þær þótt hans eigin
+  heimildir nái ekki til þeirra. Ekkert annað, og engu má breyta.
 
 ## Heimildasamstæður Bifröst {#the-bifröst-permission-sets}
 
