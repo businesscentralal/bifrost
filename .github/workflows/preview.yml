@@ -5,8 +5,8 @@ on:
     branches: [main]
 
 env:
-  SITE_URL: https://businesscentralal.github.io
-  BASE_URL: /bifrost/
+  SITE_URL: https://docs.bifrost.origo.is
+  BASE_URL: /
 
 permissions:
   contents: read
