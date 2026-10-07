@@ -53,7 +53,7 @@ Bifröst apps add domains of their own; see
 
 ## Get it and set it up
 
-Install **Bifrost Foundation** from AppSource or through your Business Central partner. It needs
+Install **Bifrost Foundation** from [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_foundation%7CPAPPID.7505e808-6e52-4b96-a328-82573391297a) or through your Business Central partner. It needs
 Business Central 28.0 or later, Essentials or Premium. Then follow [Set it up](/setup/): five steps,
 each saying who is needed.
 

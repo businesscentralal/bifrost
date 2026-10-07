@@ -23,7 +23,7 @@ engan prufutíma.
 útleiðandi HTTP í uppsetningarleiðsögninni), og Entra kerfisstjóra fyrir samþykkið sem gefið er einu sinni.
 
 1. **Stofnaðu sandkassa** með sýnigögnum í stjórnstöð Business Central, eða notaðu einn sem þú átt.
-2. **Settu Bifröst Foundation upp** úr Extension Marketplace. Sjá [skref 1](/setup/get-the-app/).
+2. **Settu Bifröst Foundation upp** frá [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_foundation%7CPAPPID.7505e808-6e52-4b96-a328-82573391297a). Sjá [skref 1](/setup/get-the-app/).
 3. **Keyrðu uppsetningarleiðsögnina** af Uppsetningu Bifröst. Ef notandinn þinn hefur SUPER hefur hann þegar
    það sem Bifröst þarf; annars gefurðu honum `BIFROST API ori`, og `BIFROST GL Post ori` fyrir forskoðun
    bókana. Sjá [skref 2](/setup/business-central/).
