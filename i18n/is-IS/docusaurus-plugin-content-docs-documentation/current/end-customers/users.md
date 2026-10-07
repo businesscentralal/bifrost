@@ -43,13 +43,14 @@ Central gerir. Þessi síða segir hvað það þýðir fyrir þig.
 
 Hér er raunverulegt svar, í Claude, við spurningu um birgðir:
 
-![Raunverulegt svar í Claude, með tenginguna undir tímabundnu heiti: hve mikið af vöru 1896-S er hægt að lofa í þessari viku](/img/setup/claude-answer-availability.png)
+![Raunverulegt svar í Claude: hve mikið af vöru 1896-S er hægt að lofa í þessari viku](/img/setup/claude-answer-availability.png)
 
-Talan 511 inniheldur 7 einingar sem þegar eru pantaðar en ekki komnar; aðstoðarmaðurinn segir það.
+Talan 510 gerir ráð fyrir 7 einingum sem eru í pöntun og eiga að koma í vikunni; aðstoðarmaðurinn segir það, og gefur
+örugga tölu, 503, ef þær tefjast.
 
 **Athugaðu það sjálf(ur).** Biddu um tengil á færsluna, og opnaðu hana í Business Central:
 
-![Claude beðinn um tengil á vöruna. Leigjandinn er falinn á myndinni.](/img/setup/claude-answer-link.png)
+![Claude fær tengil á vöruna frá Business Central. Leigjandinn er falinn á myndinni.](/img/setup/claude-answer-link.png)
 
 Tengillinn opnar síðuna í Business Central með þínum eigin réttindum, svo þú sérð sömu tölur og svarið byggði á:
 

@@ -35,7 +35,7 @@ consent.
    your work account, and switch it on in a chat. Other assistants work the same way. See
    [Add Bifröst to the assistant](/setup/connect-your-ai/#add-bifröst-to-the-assistant).
 
-   ![Bifröst switched on for a chat in Claude (under its temporary name)](/img/setup/claude-connector-in-chat.png)
+   ![Bifröst Origo switched on for a chat in Claude](/img/setup/claude-connector-in-chat.png)
 
 6. **Point it at the sandbox.** Paste the **Connection Prompt** from Bifrost Setup into the chat,
    so the assistant works in the sandbox company.
@@ -53,11 +53,19 @@ Once the first answer works, let it do more. Each level builds on the one before
 | Level | Try asking | What you should see |
 |---|---|---|
 | **Answer** | *"Which customers have the highest balance due?"* | Figures from live data |
-| **Find out** | *"Which capabilities can you use here?"*, then *"What can you do with sales quotes?"* | The capabilities you have, then the message types in one of them |
+| **Find out** | *"Which capabilities can you use here?"*, then *"What can you do with sales quotes?"* | The capabilities you have, then what you can do in one of them |
 | **Act, safely** | *"Release the newest open sales order and show me what posting it would do."* | A released order, and a posting preview. Nothing posted |
 | **Chain** | *"Which sales orders are past their shipment date? Group them by customer, with the amount outstanding."* | Several operations, one answer |
 
 Then try your own questions: the ones you would normally need a report for.
+
+Asking what it can do, in plain words:
+
+![Claude's answer to "What can you do for me in this Business Central?", grouped by area](/img/setup/claude-what-can-you-do.png)
+
+A posting preview: what posting a sales order would create, before anything is posted:
+
+![Claude's preview of posting a sales order: the entries it would create, and nothing posted](/img/setup/claude-posting-preview.png)
 
 ## What to look at
 
@@ -65,7 +73,7 @@ Then try your own questions: the ones you would normally need a report for.
   and the answer. It is the quickest way to see how the assistant worked out your question.
 - **The record itself.** Ask for a link to it and open it in Business Central; see
   [Check it yourself](/documentation/end-customers/users/#what-a-conversation-looks-like).
-- **Where it stops.** Some tasks have no message type yet, and the assistant should say so. That
+- **Where it stops.** Some tasks have no operation yet, and the assistant should say so. That
   is the edge of what is installed; [What it covers](/documentation/how-it-works/#what-it-covers-and-how-it-grows)
   explains it, how apps add more, and who to ask.
 - **When it says no**, the answer says why. [Using Bifröst](/documentation/end-customers/users/#when-it-says-no)

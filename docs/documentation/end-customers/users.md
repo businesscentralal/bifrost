@@ -43,13 +43,14 @@ request into something Business Central does. This page is what that means for y
 
 Here is a real answer, in Claude, to a question about stock:
 
-![A real answer in Claude, with the connector under its temporary name: how many of item 1896-S can be promised this week](/img/setup/claude-answer-availability.png)
+![A real answer in Claude: how many of item 1896-S can be promised this week](/img/setup/claude-answer-availability.png)
 
-The 511 includes 7 units already ordered but not yet received; the assistant says so.
+The figure of 510 counts on 7 units that are on order and due this week; the assistant says so, and gives the safe
+figure, 503, in case they arrive late.
 
 **Check it yourself.** Ask for a link to the record, and open it in Business Central:
 
-![Asking Claude for a link to the item. The tenant is hidden in this picture.](/img/setup/claude-answer-link.png)
+![Claude gets a link to the item from Business Central. The tenant is hidden in this picture.](/img/setup/claude-answer-link.png)
 
 The link opens the page in Business Central with your own rights, so you see the same figures the
 answer was built from:

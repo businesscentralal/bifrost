@@ -33,7 +33,7 @@ engan prufutíma.
    vinnureikningnum og kveiktu á henni í spjalli. Aðrir aðstoðarmenn virka eins. Sjá
    [Bættu Bifröst við aðstoðarmanninn](/setup/connect-your-ai/#add-bifröst-to-the-assistant).
 
-   ![Kveikt á Bifröst fyrir spjall í Claude (undir bráðabirgðaheiti)](/img/setup/claude-connector-in-chat.png)
+   ![Kveikt á Bifröst Origo fyrir spjall í Claude](/img/setup/claude-connector-in-chat.png)
 
 6. **Beindu honum að sandkassanum.** Límdu **Biðja um Tengingu** af Uppsetningu Bifröst inn í spjallið, svo
    aðstoðarmaðurinn vinni í fyrirtæki sandkassans.
@@ -51,11 +51,19 @@ Gerðu það áður en þú notar raunveruleg gögn.
 | Stig | Prófaðu að spyrja | Það sem þú ættir að sjá |
 |---|---|---|
 | **Svara** | *„Hvaða viðskiptamenn eiga hæstu gjaldfallnu stöðuna?“* | Tölur úr lifandi gögnum |
-| **Kanna** | *„Hvaða svið geturðu notað hér?“*, svo *„Hvað geturðu gert með sölutilboð?“* | Sviðin sem þú hefur, svo skilaboðategundirnar í einu þeirra |
+| **Kanna** | *„Hvaða svið geturðu notað hér?“*, svo *„Hvað geturðu gert með sölutilboð?“* | Sviðin sem þú hefur, svo hvað þú getur gert í einu þeirra |
 | **Framkvæma, örugglega** | *„Gefðu út nýjustu opnu sölupöntunina og sýndu mér hvað bókun hennar myndi gera.“* | Útgefin pöntun og forskoðun bókunar. Ekkert bókað |
 | **Tengja saman** | *„Hvaða sölupantanir eru komnar fram yfir afhendingardag? Flokkaðu þær eftir viðskiptamanni, með útistandandi upphæð.“* | Margar aðgerðir, eitt svar |
 
 Prófaðu svo eigin spurningar: þær sem þú þyrftir venjulega skýrslu fyrir.
+
+Spurt hvað hann getur gert, á mæltu máli:
+
+![Svar Claude við „What can you do for me in this Business Central?“, flokkað eftir sviðum](/img/setup/claude-what-can-you-do.png)
+
+Forskoðun bókunar: hvað bókun sölupöntunar myndi stofna, áður en nokkuð er bókað:
+
+![Forskoðun Claude á bókun sölupöntunar: færslurnar sem hún myndi stofna, og ekkert bókað](/img/setup/claude-posting-preview.png)
 
 ## Hvað á að skoða {#what-to-look-at}
 
@@ -63,7 +71,7 @@ Prófaðu svo eigin spurningar: þær sem þú þyrftir venjulega skýrslu fyrir
   svarinu. Það er fljótlegasta leiðin til að sjá hvernig aðstoðarmaðurinn vann úr spurningunni þinni.
 - **Færslan sjálf.** Biddu um tengil á hana og opnaðu hana í Business Central; sjá
   [Athugaðu það sjálf](/documentation/end-customers/users/#what-a-conversation-looks-like).
-- **Hvar hann stoppar.** Sum verk hafa enga skilaboðategund enn, og aðstoðarmaðurinn á að segja það. Það eru
+- **Hvar hann stoppar.** Sum verk hafa enga aðgerð enn, og aðstoðarmaðurinn á að segja það. Það eru
   mörk þess sem er uppsett; [Hvað það nær yfir](/documentation/how-it-works/#what-it-covers-and-how-it-grows)
   útskýrir það, hvernig forrit bæta við, og hvern á að spyrja.
 - **Þegar hann segir nei** segir svarið af hverju. [Notkun Bifröst](/documentation/end-customers/users/#when-it-says-no)

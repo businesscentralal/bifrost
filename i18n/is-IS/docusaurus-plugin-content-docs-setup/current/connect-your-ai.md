@@ -54,10 +54,7 @@ Bættu Bifröst-tengingunni við úr verslun hennar. Á **Uppsetningu Bifröst**
 
 ### Claude {#claude}
 
-:::caution Tímabundið heiti
-
-Tengingin heitir **Staging Bifröst** á myndunum hér að neðan. Það er heiti hennar áður en hún er birt; það breytist.
-:::
+Í Claude heitir tengingin **Bifröst Origo**.
 
 1. **Bættu tengingunni við.** Í Claude opnarðu **Customize** og síðan **Connectors**. Þar til Bifröst er komið í
    tengingaskrá Claude bætirðu því við sem **custom connector** með slóð MCP-þjónsins úr skrefi 5 í leiðsögninni. Í
@@ -66,14 +63,16 @@ Tengingin heitir **Staging Bifröst** á myndunum hér að neðan. Það er heit
 2. **Skráðu þig inn** með vinnureikningnum þínum, þeim sem þú notar fyrir Business Central, þegar Claude biður um það.
    Tengingin birtist þá sem tengd.
 
-   ![Tengingalisti Claude, með Bifröst tengt (undir tímabundnu heiti)](/img/setup/claude-connector.png)
+   ![Tengingalisti Claude, með Bifröst Origo tengt](/img/setup/claude-connector.png)
 
-3. **Kveiktu á henni í spjalli.** Veldu **+**, síðan **Connectors**, og gættu þess að kveikt sé á Bifröst.
+3. **Kveiktu á henni í spjalli.** Veldu **+**, síðan **Connectors**, og gættu þess að kveikt sé á Bifröst Origo.
 
-   ![Kveikt á Bifröst-tengingunni fyrir spjall (undir tímabundnu heiti)](/img/setup/claude-connector-in-chat.png)
+   ![Kveikt á Bifröst Origo fyrir spjall](/img/setup/claude-connector-in-chat.png)
 
 4. **Leyfðu verkfæri hennar.** Í fyrsta sinn sem Claude vill nota Bifröst-verkfæri spyr það. **Allow once** leyfir þér
    að skoða hvert kall; **Always allow** hættir að spyrja um það verkfæri.
+
+   ![Claude spyr áður en það notar Bifröst-verkfæri í fyrsta sinn](/img/setup/claude-allow-tool.png)
 
 5. **Spurðu fyrstu spurningarinnar**, eins og í [skrefi 5](/setup/first-call/).
 

@@ -53,11 +53,7 @@ Add the Bifröst connector from its store. On **Bifrost Setup**, the **OpenAI Ch
 
 ### Claude
 
-:::caution Temporary name
-
-The connector is called **Staging Bifröst** in the pictures below. That is its name before it is
-published; it will change.
-:::
+In Claude, the connector is called **Bifröst Origo**.
 
 1. **Add the connector.** In Claude, open **Customize** and then **Connectors**. Until Bifröst is in
    Claude's connector directory, add it as a **custom connector** with the MCP server address from
@@ -66,14 +62,16 @@ published; it will change.
 2. **Sign in** with your work account, the one you use for Business Central, when Claude asks. The connector then shows as
    connected.
 
-   ![Claude's list of connectors, with Bifröst connected (under its temporary name)](/img/setup/claude-connector.png)
+   ![Claude's list of connectors, with Bifröst Origo connected](/img/setup/claude-connector.png)
 
-3. **Turn it on in a chat.** Choose **+**, then **Connectors**, and make sure Bifröst is switched on.
+3. **Turn it on in a chat.** Choose **+**, then **Connectors**, and make sure Bifröst Origo is switched on.
 
-   ![Switching the Bifröst connector on for a chat (under its temporary name)](/img/setup/claude-connector-in-chat.png)
+   ![Switching Bifröst Origo on for a chat](/img/setup/claude-connector-in-chat.png)
 
 4. **Approve its tools.** The first time Claude wants to use a Bifröst tool, it asks. **Allow once**
    lets you check each call; **Always allow** stops asking for that tool.
+
+   ![Claude asks before it uses a Bifröst tool for the first time](/img/setup/claude-allow-tool.png)
 
 5. **Ask the first question**, as in [step 5](/setup/first-call/).
 
