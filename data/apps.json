@@ -10,9 +10,9 @@
         "integration"
       ],
       "foundationMinVersion": "28.0.0.0",
-      "status": "coming-soon",
+      "status": "available",
       "links": {
-        "appSource": null,
+        "appSource": "https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_foundation%7CPAPPID.7505e808-6e52-4b96-a328-82573391297a",
         "docs": "https://docs.bifrost.origo.is/en-us/foundation/",
         "repository": null,
         "support": "https://www.origo.is/",

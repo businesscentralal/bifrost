@@ -53,7 +53,7 @@ Foundation kemur með hefðbundin svið Business Central, flokkuð eftir léni:
 
 ## Náðu í það og settu það upp {#get-it-and-set-it-up}
 
-Settu **Bifrost Foundation** upp frá AppSource eða í gegnum samstarfsaðila þinn í Business Central.
+Settu **Bifrost Foundation** upp frá [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_foundation%7CPAPPID.7505e808-6e52-4b96-a328-82573391297a) eða í gegnum samstarfsaðila þinn í Business Central.
 Það þarf Business Central 28.0 eða nýrra, Essentials eða Premium. Fylgdu svo
 [Uppsetningu](/setup/): fimm skref, og hvert segir hvern þarf til.
 
