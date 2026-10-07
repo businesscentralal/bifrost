@@ -17,7 +17,10 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 
 ## Claude {#claude}
 
-Í Claude heitir tengingin **Bifröst Origo**. Skrefin eru þau sömu á vefnum og í Claude Desktop.
+Í Claude heitir tengingin **Bifröst Origo**. Skrefin eru þau sömu á vefnum og í
+[Claude Desktop](https://claude.ai/download). Hjálp Claude lýsir þeim í
+[Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
+(á ensku).
 
 1. **Bættu tengingunni við.** Í Claude opnarðu **Customize** og síðan **Connectors** (í eldri útgáfum af Claude
    Desktop: **Settings › Connectors**) og velur **+ Add**. Þar til Bifröst er komið í tengingaskrá Claude velurðu
@@ -47,13 +50,21 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 
 ## Microsoft Copilot {#microsoft-copilot}
 
-Bættu Bifröst-tengingunni við úr verslun hennar. Á **Uppsetningu Bifröst** opnar aðgerðin **Microsoft Copilot** undir
-*Tengingar* hana.
+Bifröst-tengingin er ekki enn komin í verslun Microsoft. Þangað til opnar aðgerðin **Microsoft Copilot** undir
+*Tengingar* á **Uppsetningu Bifröst** opinberan vörulista verslunarinnar, án Bifröst.
+
+Á meðan, ef Copilot hjá þér leyfir að bæta við fjartengdum MCP-þjóni eða sérsniðinni tengingu, bættu Bifröst við
+þannig: sjá [Aðrir aðstoðarmenn](#other-assistants). Hvort það er hægt fer eftir Copilot hjá þér og stillingum
+fyrirtækisins; spurðu kerfisstjórann.
 
 ## ChatGPT {#chatgpt}
 
-Bættu Bifröst-tengingunni við úr verslun hennar. Á **Uppsetningu Bifröst** opnar aðgerðin **OpenAI ChatGPT** undir
-*Tengingar* hana.
+Bifröst-tengingin er ekki enn komin í verslun OpenAI. Þangað til opnar aðgerðin **OpenAI ChatGPT** undir *Tengingar* á
+**Uppsetningu Bifröst** opinberan vörulista verslunarinnar, án Bifröst.
+
+Á meðan, ef ChatGPT-vinnusvæðið þitt leyfir að bæta við fjartengdum MCP-þjóni eða sérsniðinni tengingu, bættu Bifröst
+við þannig: sjá [Aðrir aðstoðarmenn](#other-assistants). Hvort það er hægt fer eftir áskriftinni og stillingum
+fyrirtækisins; spurðu kerfisstjórann.
 
 ## Aðrir aðstoðarmenn {#other-assistants}
 
@@ -61,6 +72,7 @@ Skrefin fylgja sama mynstri og fyrir Claude: bættu tengingunni við, skráðu �
 hennar, spurðu.
 
 Aðstoðarmaður sem styður fjartengda MCP-þjóna getur líka tengst: bættu slóð Bifröst MCP-þjónsins við sem fjartengdum
-MCP-þjóni eða sérsniðinni tengingu í stillingum hans, og skráðu þig inn með vinnureikningnum þínum.
+MCP-þjóni eða sérsniðinni tengingu í stillingum hans, og skráðu þig inn með vinnureikningnum þínum. Hvar sú stilling
+er kemur fram í hjálp aðstoðarmannsins sjálfs.
 
 **Næst:** [Spurðu fyrstu spurningarinnar](/setup/first-question/)

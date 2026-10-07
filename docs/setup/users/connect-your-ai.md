@@ -17,7 +17,9 @@ Business Central.
 
 ## Claude
 
-In Claude, the connector is called **Bifröst Origo**. The steps are the same on the web and in Claude Desktop.
+In Claude, the connector is called **Bifröst Origo**. The steps are the same on the web and in
+[Claude Desktop](https://claude.ai/download). Claude's own help describes them in
+[Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp).
 
 1. **Add the connector.** In Claude, open **Customize** and then **Connectors** (in older versions of
    Claude Desktop: **Settings › Connectors**), and choose **+ Add**. Until Bifröst is in Claude's
@@ -49,13 +51,21 @@ In Claude, the connector is called **Bifröst Origo**. The steps are the same on
 
 ## Microsoft Copilot
 
-Add the Bifröst connector from its store. On **Bifrost Setup**, the **Microsoft Copilot** action
-under *Connectors* opens it.
+The Bifröst connector is not in Microsoft's store yet. Until it is, the **Microsoft Copilot** action under
+*Connectors* on **Bifrost Setup** opens the store's public catalogue, without Bifröst in it.
+
+Meanwhile, if your Copilot lets you add a remote MCP server or a custom connector, add Bifröst that way: see
+[Other assistants](#other-assistants). Whether it can depends on your Copilot and your organisation's settings; ask
+your administrator.
 
 ## ChatGPT
 
-Add the Bifröst connector from its store. On **Bifrost Setup**, the **OpenAI ChatGPT** action under
-*Connectors* opens it.
+The Bifröst connector is not in OpenAI's store yet. Until it is, the **OpenAI ChatGPT** action under *Connectors* on
+**Bifrost Setup** opens the store's public catalogue, without Bifröst in it.
+
+Meanwhile, if your ChatGPT workspace lets you add a remote MCP server or a custom connector, add Bifröst that way:
+see [Other assistants](#other-assistants). Whether it can depends on your plan and your organisation's settings; ask
+your administrator.
 
 ## Other assistants
 
@@ -63,6 +73,7 @@ The steps follow the same pattern as for Claude: add the connector, sign in, tur
 its tools, ask.
 
 An assistant that supports remote MCP servers can connect too: add the Bifröst MCP server address
-as a remote MCP server or custom connector in its settings, and sign in with your work account.
+as a remote MCP server or custom connector in its settings, and sign in with your work account. Where to find that
+setting is in the assistant's own help.
 
 **Next:** [Ask your first question](/setup/first-question/)

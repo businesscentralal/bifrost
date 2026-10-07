@@ -26,7 +26,7 @@ on Bifrost Setup and described in that app's help.
 ![Bifrost Setup before the wizard has run](/img/guides/en-us/setup-first-run.png)
 
 The wizard takes you through the license agreement, outbound HTTP for every installed Bifröst
-app, licensing, and, online, the connection to the MCP server. On-premises it also asks for the
+app, licensing, and, online, the connection to the Bifröst MCP server. On-premises it also asks for the
 credentials the apps need.
 **Every company runs it once: until it is finished, Bifröst refuses calls for that company.**
 
@@ -100,30 +100,13 @@ Bifrost Setup is the home of Bifröst in each company. Its action bar groups:
 
 People use Bifröst through an assistant as themselves. An integration uses it as a
 **Microsoft Entra application**: an app identity of its own, registered in your Microsoft Entra ID.
-Both get their permissions in Business Central, on **Users** or **Microsoft Entra Applications**:
+Both get their permissions in Business Central, on **Users** or **Microsoft Entra Applications**. A typical user needs
+`BIFROST API ori` (the permission set that lets an identity call Bifröst), their ordinary Business Central permissions
+for the data they work with, and a **posting gate** for each ledger they post to through Bifröst, for example
+`BIFROST GL Post ori` for sales and purchase documents.
 
-- **`BIFROST API ori`**, the permission set that lets an identity call Bifröst;
-- the ordinary Business Central permissions for the data they work with;
-- a **posting gate** for each ledger they may post to. A posting gate is a separate permission set,
-  not part of the general Bifröst ones: `BIFROST GL Post ori`, `BIFROST ItemPost ori`,
-  `BIFROST FA Post ori`, `BIFROST Job Post ori` and `BIFROST Res Post ori`.
-
-A typical setup:
-
-| Who | Bifröst permission sets | Plus |
-|---|---|---|
-| A person using an assistant, who only asks and prepares | `BIFROST API ori` | Their ordinary Business Central permissions. A posting preview also needs the posting gate |
-| A person who may also post through Bifröst | `BIFROST API ori` and the posting gate for each ledger, for example `BIFROST GL Post ori` for sales and purchase documents | The same |
-| An integration (Entra application) | `BIFROST API ori`, and posting gates only if it posts | Permissions for the data it works with |
-| Support staff who look at the setup and the logs | `BIFROST Read ori` | On Bifrost Messages they see only their own calls; to see everyone's calls they need `BIFROST Full ori` |
-| Bifröst administrators | `BIFROST Full ori` | – |
-
-On **Permission Sets**, search for *BIFROST* to see them all. For a typical setup you need only the sets named here.
-
-![The Bifröst permission sets](/img/guides/en-us/permission-sets.png)
-
-Every set, and how the posting gates work on top of a user's own permissions:
-[Permission sets and gates](/documentation/end-customers/permissions/).
+Every set, the typical combinations for integrations, support staff and administrators, and how the gates work on top
+of a user's own permissions: [Permission sets and gates](/documentation/end-customers/permissions/).
 
 ## Decide which tools may act for a user
 

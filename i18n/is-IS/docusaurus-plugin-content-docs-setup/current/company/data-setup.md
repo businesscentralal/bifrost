@@ -16,19 +16,17 @@ Hverri stillingu hér að neðan er breytt á mínútu. Hvað á að vega áður
 
 ## Takmarkaðu reiti sem fulltrúar eiga ekki að fá {#restrict-fields-agents-should-not-get}
 
-Á **Uppsetningu Bifröst** velurðu **Uppsetning › Reitaaðgangur**. **Nýtt fyrir notanda...** bætir við línum fyrir notanda
-eða Entra forrit: töfluna, reitinn, og **Bæði**, **Lesa** eða **Skrifa**. Takmarkanir taka gildi strax.
-Nánar: [Reitaaðgangar Bifröst](/help/foundation/bifrost-field-accesses/). Áður en þú velur:
-[Stjórnaðu því hvað fulltrúar lesa og breyta](/documentation/end-customers/data-access/#field-access).
+Á **Uppsetningu Bifröst** velurðu **Uppsetning › Reitaaðgangur**, síðan **Nýtt fyrir notanda...** til að bæta við línum
+fyrir notanda eða Entra forrit. Hvaða tegund línu á að velja, og hvað hver gerir:
+[Reitaaðgangur](/documentation/end-customers/data-access/#field-access).
 
 ![Yfirlit reitaaðgangs Bifröst](/img/guides/is-is/field-access-overview.png)
 
 ## Farðu yfir uppsetningarsíðuna {#go-through-the-setup-page}
 
 Hverjum reit á **Uppsetningu Bifröst** er lýst í [Uppsetning Bifröst](/help/foundation/bifrost-setup/).
-Ákveddu **Breytingaskrárvernd** af yfirvegun: **Lokað** (sjálfgefið) leyfir fulltrúum aðeins að breyta reitum sem
-breytingaskráin nær til, svo kveiktu á breytingaskránni, á **Uppsetning › Uppsetning breytingaskrár**, fyrir reitina sem
-þú vilt að fulltrúar breyti. Sjá [Breytingaskrárverndin](/documentation/end-customers/data-access/#the-changelog-write-guard).
+Ákveddu **Breytingaskrárvernd** af yfirvegun, ásamt breytingaskránni (**Uppsetning › Uppsetning breytingaskrár**): sjá
+[Breytingaskrárverndin](/documentation/end-customers/data-access/#the-changelog-write-guard).
 
 ![Hlutinn Almennt á Uppsetningu Bifröst](/img/guides/is-is/setup-general.png)
 

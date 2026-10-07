@@ -19,14 +19,14 @@ Every chargeable call costs exactly one message, whatever it does.
 
 These calls are never counted and never refused for quota:
 
-- discovery and self-description - the list of message types, a type's contract, who am I;
+- discovery and self-description - the list of operations, what an operation does, who am I;
 - reading and writing memory records;
 - session handling, such as approving a session source;
 - incoming webhook calls;
 - reading change-log history and restoring field values.
 
-They are free only when they belong to a Bifröst application from Origo. A message type that
-another publisher adds is chargeable whatever it does. Free calls still need the approved EULA -
+They are free only when they belong to a Bifröst application from Origo. An operation that
+another publisher's app adds is chargeable whatever it does. Free calls still need the approved EULA -
 see [Before the first call](#before-the-first-call).
 
 ### Two pools
@@ -79,21 +79,19 @@ checks talk to the licensing service.
 Prepaid is the license type of every new installation and of every tenant that is not the Customer
 of a Partner.
 
-- **Trial.** A trial of **1,000 User + 1,000 App Registration messages** is activated once per
+- **Trial.** A trial ([its size](/setup/business-central/#run-the-setup-wizard)) is activated once per
   Microsoft Entra tenant, when the Setup Wizard finishes in a SaaS production environment, or on the
   next **Sync** on Bifrost Setup. Until it is activated, chargeable calls are answered with
   a *trial has not been started* error.
-- **Purchased quota.** After the trial you buy more messages per pool from [Origo](https://www.origo.is/), or from your
-  Business Central partner. Bifrost Setup
+- **Purchased quota.** After the trial you buy more messages per pool: contact your Business Central partner. Bifrost Setup
   shows a notification when either pool drops below 200 messages.
 - **Grace.** When a pool reaches zero, a grace of **100 messages** still runs; the responses carry a
   warning. When the grace is used up, the pool is exhausted.
 - **Blocking.** An exhausted pool refuses calls with the quota-exhausted error - unless the
   licensing agreement for the tenant says the pool should keep running, in which case calls
-  continue, are still counted, and keep returning the warning. The effective setting is reported as
-  `blockOnMissingQuota` in the license status.
-- **Rate limit.** Production usage is not rate-limited. Sandbox usage on the public Bifröst MCP server
-  is always the Free tier, 1,000 messages per 24 hours. See [Rate limits](./rate-limits.md).
+  continue, are still counted, and keep returning the warning.
+- **Rate limit.** Production usage is not rate-limited. Sandbox usage on the Bifröst MCP server
+  always has the Free tier. See [Rate limits](./rate-limits.md).
 
 ## Subscription
 
@@ -104,9 +102,9 @@ company of the tenant is on Subscription, including companies that start using B
 - **Invoicing.** The Partner invoices the Customer for the messages it used each month. There is no
   purchased quota: the pools are counted, not limited. The [monthly quotas](#monthly-quotas) are the
   Customer's way to cap its bill.
-- **Rate limit.** Production usage is not rate-limited. Sandbox usage on the public Bifröst MCP server
-  has the Free tier by default (1,000 messages per 24 hours); the Customer can raise it by choosing a
-  higher tier from its production environment, priced by its Partner. See [Rate limits](./rate-limits.md).
+- **Rate limit.** Production usage is not rate-limited. Sandbox usage on the Bifröst MCP server
+  has the Free tier by default; the Customer can raise it by choosing a higher tier from its
+  production environment, priced by its Partner. See [Rate limits](./rate-limits.md).
 
 When the relationship with the Partner ends, the tenant returns to **Prepaid** and its sandbox
 rate limit returns to the Free tier. The change takes effect when a license administrator chooses **Sync** on
@@ -142,9 +140,8 @@ In a Business Central online **sandbox**:
 
 - Bifröst does not block on quota: pools and monthly quotas are not enforced, and no trial is needed.
 - Usage is still recorded and reported, separately from production.
-- On the public Bifröst MCP server, sandbox usage is rate-limited: 1,000 messages per 24 hours per
-  Microsoft Entra tenant (the Free tier), unless a Subscription Customer has chosen a higher tier. Bifröst
-  itself has no message limit.
+- On the Bifröst MCP server, sandbox usage is rate-limited per Microsoft Entra tenant; see
+  [Rate limits](./rate-limits.md). Bifröst itself has no message limit.
 
 For unlimited sandbox usage, run the Local MCP server from
 [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
@@ -161,5 +158,4 @@ described under [Prepaid](#prepaid).
   validity of each pool, the messages not yet reported, and the date of the last sync. See
   [License fact box](/help/foundation/license-fact-box/).
 - An AI assistant can read the same status, and the tenant's usage in the current month, through
-  Bifröst. The installed message types and their contracts are read from Business Central itself:
-  the MCP tools `list_message_types` and `describe_message_type`, or the Bifrost Message Types page.
+  Bifröst.

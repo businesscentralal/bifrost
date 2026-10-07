@@ -10,7 +10,7 @@ description: "Who invoices your tenant, how its usage is reported, and where you
 | License type | Invoiced by | Based on |
 |---|---|---|
 | **Prepaid** | Origo | The message quota you buy, per pool. |
-| **Subscription** | Your Bifröst **Partner** | The messages your tenant used in the month, per [charge type](./license-types.md#charge-types), plus a rate-limit tier above Free for sandbox usage on the public MCP server if you chose one - at the prices agreed with your Partner. |
+| **Subscription** | Your Bifröst **Partner** | The messages your tenant used in the month, per [charge type](./license-types.md#charge-types), plus a rate-limit tier above Free for sandbox usage on the Bifröst MCP server if you chose one - at the prices agreed with your Partner. |
 
 ## How usage is reported
 
@@ -36,6 +36,4 @@ messages were used) and the **reporting date** (the day the entry was reported).
 | [License fact box](/help/foundation/license-fact-box/) on Bifrost Setup | The license type, the remaining quota of each pool, the messages not yet reported and the last sync |
 
 Both require license administration permission (the `BIFROST LicAdm ori` permission set). An AI
-assistant can read the same figures through Bifröst; the installed message types and their
-contracts are read from Business Central itself: the MCP tools `list_message_types` and
-`describe_message_type`, or the Bifrost Message Types page.
+assistant can read the same figures through Bifröst.

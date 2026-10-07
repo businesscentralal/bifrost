@@ -25,12 +25,30 @@ request runs with that identity's permissions, so an agent can never do more tha
 layers decide what it may do:
 
 1. **Business Central permissions**, as in the client: the user's ordinary permission sets decide which data they may
-   read, change and post. Bifröst adds nothing to them.
+   read, change and post. Bifröst does not widen them, with one small exception, below.
 2. **Bifröst permission sets**: `BIFROST API ori` lets the identity call Bifröst at all, and a **gate** opens each
    action that Bifröst keeps closed even for a user who could do it in the client, such as posting.
 
 Both layers must allow an action. A user who may post sales invoices in the client cannot post them through Bifröst
 without the posting gate, and the gate alone posts nothing for a user who may not post in the client.
+
+### Does a Bifröst permission set give a user more rights?
+
+No, apart from a few setup tables. A user with narrow permissions in Business Central stays narrow, however
+many Bifröst permission sets you add:
+
+- **The Bifröst permission sets cover Bifröst's own pages and data**: the messages, the setup, the memory and the
+  logs. They do not open customers, items, documents or ledger entries.
+- **The gates narrow; they never widen.** A posting gate is an extra check on top of the user's own posting
+  permission. Without that permission in Business Central, the gate posts nothing.
+- **Bifröst's code follows Business Central's rules.** Where it writes to journal lines or document headers, it
+  goes through the user's own (indirect) permissions, the same way Business Central's own posting does.
+- **`BIFROST Force ori`** lets a change past Bifröst's own field restrictions (Field Access). It never goes past
+  Business Central's permissions.
+- **The exception: `BIFROST API ori` can read a few setup tables** that price and availability answers need:
+  currencies and exchange rates, VAT posting setup, general ledger setup, sales and receivables setup, the price
+  and discount setup tables, item units of measure, and the list of fields. A user with `BIFROST API ori` can read
+  these even if their own permissions do not include them. Nothing else, and nothing to change.
 
 ## The Bifröst permission sets
 
@@ -133,12 +151,8 @@ example **BIFROST GL Post ori**). When **Modify Permission** is *Yes*, the gate 
 
 ## Troubleshooting
 
-| The agent says | Why | What to do |
-|---|---|---|
-| *Posting denied: missing '...' permission set* | The user lacks the posting gate | Assign the set it names |
-| *You do not have the following permissions on ...* | The user lacks the Business Central permission itself | Assign the ordinary Business Central permission set |
-| It cannot call Bifröst at all | No `BIFROST API ori` | Assign it |
-| Approval requests cannot be sent | No `BIFROST ApprAdm ori` | Assign it |
-| A field is missing or cannot be changed | Not a permission set: Field Access or a built-in protection | [Control what agents read and change](/documentation/end-customers/data-access/) |
+What an agent says when a permission set or a gate is missing, and what to do, is in the one
+[troubleshooting table for administrators](/documentation/end-customers/administrators/#troubleshooting), with the other
+refusals users report.
 
 **Next:** [Control what agents read and change](/documentation/end-customers/data-access/)

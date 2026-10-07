@@ -9,7 +9,8 @@ description: "Getting Bifröst running in two parts: the company's one-time setu
 
 # Set it up
 
-Setting up Bifröst has two parts. **Your company** sets it up once in Business Central. Then
+When this is done, each person uses Business Central from their own AI assistant, within their own
+permissions. Getting there has two parts. **Your company** sets it up once in Business Central. Then
 **each user** connects the AI assistant they use, and signs in as themselves.
 
 | | For your company | For each user |

@@ -17,8 +17,9 @@ in the in-product help.
 ## Permissions
 
 An AI agent can do at most what the identity it runs as can do in Business Central, and often less.
-Bifröst never gives a caller more than Business Central already allows, and Field Access, the
-ChangeLog Write Guard and the posting permission sets can narrow it further.
+Bifröst never gives a caller more than Business Central already allows, apart from reading a few setup
+tables ([which, and why](/documentation/end-customers/permissions/#does-a-bifröst-permission-set-give-a-user-more-rights)),
+and Field Access, the ChangeLog Write Guard and the posting permission sets can narrow it further.
 
 import PermissionLayers from '@site/src/components/PermissionLayers';
 
@@ -42,29 +43,14 @@ import PermissionLayers from '@site/src/components/PermissionLayers';
 
 ## What agents may see and change
 
-**Field Access** (**Setup › Field Access**) lists fields that one user or app should not get (**Read**), not change
-(**Write**), or neither (**Both**) through Bifröst. Nothing changes in the Business Central client.
+**Field Access** (**Setup › Field Access**) keeps chosen fields from one user or app through Bifröst, for example
+employees' bank account numbers; nothing changes in the Business Central client. The **ChangeLog Write Guard** on
+Bifrost Setup decides whether changes through Bifröst must leave a change-log trail. If you use Bifröst with
+bookkeeping, decide it with that in mind: your bookkeeping obligations stay yours, and Bifröst's logs do not replace
+your own records.
 
-**An example.** Sigga uses an assistant, but agents should never see employees' bank account
-numbers. Choose **New for User...**, pick Sigga's user, then add the table *Employee*, the field
-*Bank Account No.* and the restriction **Both**. From then on, when her assistant lists employees,
-the answer comes without bank account numbers, and the assistant cannot change them. Sigga herself
-still sees them in Business Central.
-
-![Bifrost Field Access Overview](/img/guides/en-us/field-access-overview.png)
-
-Field Access has two more types. **None** restricts nothing and overrides a broader row, for example to open one table
-for a user whose other changes are blocked. **Bypass** lets **that user or app only** change the field without a
-change-log trail.
-
-**ChangeLog Write Guard** on Bifrost Setup decides whether record changes through Bifröst must leave a change-log
-trail. It is **Blocked** by default: only fields the change log covers can be changed, so turn on the change log for
-the fields you want agents to change. If you use Bifröst with bookkeeping, decide it with that in mind: your
-bookkeeping obligations stay yours, and Bifröst's logs do not replace your own records.
-
-**Respect Data Sensitivity** (under *Show more*) hides the fields your company classifies as sensitive.
-
-All of it, with the common *block every change, then open one table* setup and the data Bifröst always protects:
+The kinds of Field Access row, the guard's settings and its default, sensitive fields, the common *block every change,
+then open one table* setup and the data Bifröst always protects:
 [Control what agents read and change](/documentation/end-customers/data-access/).
 
 ## Logs and retention
@@ -158,8 +144,8 @@ Online, enter them on **Setup › Secrets**.
 
 ## The license agreement and the wizard
 
-**Licensing › Setup Wizard** can be run again at any time, for example to read the MCP server address or the consent
-link in step 5. Close it with **X** if you do not want to finish it again.
+**Licensing › Setup Wizard** can be run again at any time, for example to read the Bifröst MCP server address or the
+consent link in wizard step 5. Close it with **X** if you do not want to finish it again.
 
 **Licensing › Revoke EULA Approval** withdraws the company's approval of the [Terms of Use](/licensing/eula/). Every
 Bifröst call from the company is then refused until the setup wizard is completed again. Business Central asks before
@@ -191,20 +177,37 @@ Prices: [Price](/price/).
 
 ## Troubleshooting
 
-| What you see | What to check |
-|---|---|
-| The assistant shows no Business Central tools at all | The connector is not switched on in that chat; see [Connect your assistant](/setup/connect-your-ai/#claude) |
-| No environments or companies appear when the assistant connects | The one-time consent in your Microsoft Entra ID is missing; see [Consent once for your organisation](/setup/consent/) |
-| Adding the connector does not detect the sign-in options, or sign-in fails | Check the MCP server address from wizard step 5. If it is right, contact your partner and pass on the exact error |
-| All calls from the company are refused | Is the license agreement approved? Run the setup wizard |
-| Calls are refused near the end of the month | A user or company monthly limit; [Usage and limits](#usage-and-limits) |
-| Calls are refused and the License pane shows no messages left | The prepaid messages are used up; see [Licensing](/licensing/) |
-| The License pane looks out of date | **Licensing › Sync**, then **Licensing › Connection Status** |
-| An agent cannot change a field | The ChangeLog Write Guard, Change Log Setup, Field Access; [Control what agents read and change](/documentation/end-customers/data-access/) |
-| A field is missing from answers | Field Access or Respect Data Sensitivity; same page |
-| Posting is refused | A posting gate; [Permission sets and gates](/documentation/end-customers/permissions/) |
-| A new Bifröst app does not work | Run the setup wizard again; check **Secrets** |
-| You need to see exactly what an agent did | **Bifrost Messages**: the request, the answer and the caller of every call |
+This is the one place to look when something is refused. The rows follow what users report, in the words of
+[When it says no](/documentation/end-customers/users/#when-it-says-no); the last rows are what you see yourself. To
+find a call, open **Bifrost Messages** and filter on the user and the time.
+
+| What you hear or see | Why | What to do |
+|---|---|---|
+| The assistant has no Business Central tools at all | The Bifröst connector is not switched on in that chat | The user switches it on; see [Connect your assistant](/setup/connect-your-ai/#claude) |
+| No environments or companies appear when the assistant connects | The one-time consent for the *Origo Bifrost* enterprise application in your Microsoft Entra ID is missing | [Step 3: Consent once for your organisation](/setup/consent/) |
+| Adding the connector does not find the sign-in options, or sign-in fails | The Bifröst MCP server address is wrong, or the sign-in itself fails | Check the address from wizard step 5. If it is right, contact your Business Central partner and pass on the exact error |
+| *Who am I?* answers with another user | The user signed in to the connector with another account | In the connector, the user chooses **Disconnect**, then connects again with their Business Central account |
+| The tool must be approved first, with a link | The user's **Approval Type** requires each new tool (session source) to be approved once | The user opens the link and approves it (with `BIFROST SrcApOwn ori`), or sends it to you and you approve it on the same page (with `BIFROST SrcApAdm ori`); see [Approve Session Source](/help/foundation/session-source-approval/). The setting: [Decide which tools may act for a user](/setup/business-central/#decide-which-tools-may-act-for-a-user) |
+| *The operation is not available* | The app that provides it is not installed in this company, a secret it needs is not set, or it is switched off for this user: Bifröst offers an operation only to a user with the permissions it needs | Install the app from the [list of apps](/apps/) and run the setup wizard again; set the secret on **Setup › Secrets**; check the user's permission sets ([Permission sets and gates](/documentation/end-customers/permissions/)) |
+| It cannot do that yet | No installed app has an operation for that task | Look in the [list of apps](/apps/), or see [Missing something?](/documentation/how-it-works/#what-it-covers-and-how-it-grows) |
+| It cannot call Bifröst at all | The user has no `BIFROST API ori` | Assign it; see [Assign and check](/documentation/end-customers/permissions/#assign-and-check) |
+| *Posting denied: missing '...' permission set* | The user lacks the posting gate it names | Assign that set; see [Which gate opens what](/documentation/end-customers/permissions/#which-gate-opens-what) |
+| *You do not have the following permissions on ...* | The user lacks the Business Central permission itself | Assign the ordinary Business Central permission set, as for the client |
+| Approval requests cannot be sent | The user has no `BIFROST ApprAdm ori` | Assign it |
+| Part of the answer is missing | A Field Access row that hides the field from the user, a field hidden by default, or **Respect Data Sensitivity** | Check the user's rows on **Bifrost Field Access Overview**; see [Field Access](/documentation/end-customers/data-access/#field-access) and [Sensitive fields](/documentation/end-customers/data-access/#sensitive-fields) |
+| *The field is blocked by the ChangeLog Write Guard* | The change log does not log changes to the field | Log the field in **Change Log Setup**, add a guard exception, or give the user a row that skips the guard; see [The ChangeLog Write Guard](/documentation/end-customers/data-access/#the-changelog-write-guard) |
+| *The field is write-restricted or not permitted* | A Field Access row that closes the field, a default protection, or data Bifröst always protects | Check the user's rows on **Bifrost Field Access Overview**; see [Field Access](/documentation/end-customers/data-access/#field-access) and [Sensitive fields](/documentation/end-customers/data-access/#sensitive-fields) |
+| *The field belongs to the company configuration* | One of the [company configuration fields](/documentation/end-customers/data-access/#company-configuration-fields) | Set up the company as a user with `BIFROST Force ori`, and ask the agent to force the change |
+| The table cannot be read or changed | One of the [tables Bifröst always protects](/documentation/end-customers/data-access/#what-bifröst-always-protects), or the user has no permission to it in Business Central | Use the Business Central page instead, or give the permission |
+| Bifröst refuses calls for the company | The setup wizard has not been finished in this company, or the license agreement was revoked | Run the setup wizard (**Licensing › Setup Wizard**) and choose **Finish**; see [Run the setup wizard](/setup/business-central/#run-the-setup-wizard) |
+| *Bifrost trial has not been started* | Online in production, the trial starts when the setup wizard is finished | Finish the setup wizard, or choose **Licensing › Sync**; see [Prepaid](/licensing/license-types/#prepaid) |
+| The allowance is used up | The user's or the company's monthly message quota is reached | Raise the quota, or wait for the next calendar month; see [Monthly quotas](/licensing/license-types/#monthly-quotas) |
+| Calls are refused, and the License pane shows no messages left | The prepaid messages are used up | Contact your Business Central partner; see [Prepaid](/licensing/license-types/#prepaid) |
+| In a sandbox, calls are refused after many calls in one day | The sandbox rate limit on the Bifröst MCP server | See [Rate limits](/licensing/rate-limits/) |
+| Answers carry a warning about the quota, or Bifrost Setup says the license quota is running low | A monthly quota or a prepaid pool is close to its end | Look at the License pane and **License Usage**; see [Monthly quotas](/licensing/license-types/#monthly-quotas) and [Prepaid](/licensing/license-types/#prepaid) |
+| Something was posted that should not have been, or a call failed with a technical error | - | Find the call on **Bifrost Messages**: the request, the answer and the caller. A failed call's answer says what went wrong |
+| The License pane looks out of date | - | **Licensing › Sync**, then **Licensing › Connection Status** |
+| A new Bifröst app does not work | Outbound HTTP is off for it, or its secrets are not set | Run the setup wizard again; check **Setup › Secrets** |
 
 ## What you are responsible for
 

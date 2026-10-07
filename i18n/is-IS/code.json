@@ -3,16 +3,16 @@
     "message": "Bifröst leiðbeiningar"
   },
   "home.description": {
-    "message": "Láttu gervigreindaraðstoðarmenn vinna raunveruleg verk í Business Central, sem þú og innan heimilda þinna. Leiðbeiningar fyrir Bifröst frá Origo."
+    "message": "Notaðu Business Central úr gervigreindaraðstoðarmanninum sem þú notar nú þegar: Copilot, ChatGPT, Claude eða öðru kerfi. Svör út frá lifandi gögnum og raunveruleg verk, sem þú og innan heimilda þinna. Leiðbeiningar fyrir Bifröst frá Origo."
   },
   "home.eyebrow": {
     "message": "Bifröst frá Origo, fyrir Microsoft Dynamics 365 Business Central"
   },
   "home.headline": {
-    "message": "Spurðu Business Central. Það finnur út hvernig."
+    "message": "Business Central, í aðstoðarmanninum sem þú notar nú þegar."
   },
   "home.tagline": {
-    "message": "Með Bifröst vinna gervigreindaraðstoðarmenn og önnur kerfi raunveruleg verk í Business Central, ekki bara svara spurningum um það. Þau svara út frá lifandi gögnum, framkvæma verk og keyra heilu ferlin, sem þú og innan heimilda þinna."
+    "message": "Bifröst færir Business Central út í gervigreindaraðstoðarmanninn sem þú notar nú þegar: Copilot, ChatGPT, Claude eða annað kerfi. Þar svarar það út frá lifandi gögnum og vinnur raunveruleg verk, sem þú og innan heimilda þinna."
   },
   "home.setUp": {
     "message": "Settu það upp"
@@ -108,7 +108,7 @@
     "message": "Forritin"
   },
   "home.apps.more": {
-    "message": "Bættu við fleiru: bönkum, rafrænum reikningum, geymslu, tímaáætlunum og fleiru"
+    "message": "Bættu við: forritin sem byggja á Bifröst"
   },
   "platformMap.ask": {
     "message": "Hver spyr"
@@ -139,6 +139,214 @@
   },
   "platformMap.caption": {
     "message": "Hvert forrit bætir eigin sviðum við sömu skrá, svo allir sem kalla geta notað þau."
+  },
+  "setupFlow.place.assistant": {
+    "message": "Gervigreindaraðstoðarmaður",
+    "description": "SetupFlow: where a step happens"
+  },
+  "setupFlow.where": {
+    "message": "Hvar:",
+    "description": "SetupFlow: screen-reader label before the places"
+  },
+  "setupFlow.who": {
+    "message": "Hver:",
+    "description": "SetupFlow: label before who is needed"
+  },
+  "setupFlow.step1.title": {
+    "message": "Náðu í forritið",
+    "description": "SetupFlow: step 1 title"
+  },
+  "setupFlow.step1.what": {
+    "message": "Settu upp Bifröst Foundation og þau Bifröst forrit sem þú vilt.",
+    "description": "SetupFlow: step 1, what happens"
+  },
+  "setupFlow.step1.who": {
+    "message": "Notandi í Business Central með D365 EXTENSION MGT eða SUPER",
+    "description": "SetupFlow: step 1, who is needed"
+  },
+  "setupFlow.step2.title": {
+    "message": "Settu upp Business Central",
+    "description": "SetupFlow: step 2 title"
+  },
+  "setupFlow.step2.what": {
+    "message": "Keyrðu uppsetningarleiðsögnina einu sinni í hverju fyrirtæki, og veittu fólki og forritum heimildir.",
+    "description": "SetupFlow: step 2, what happens"
+  },
+  "setupFlow.step2.who": {
+    "message": "Kerfisstjóri Business Central (SUPER fyrir útleið HTTP, SECURITY eða SUPER fyrir heimildir), og einhver sem hefur umboð til að samþykkja skilmála fyrir fyrirtækið",
+    "description": "SetupFlow: step 2, who is needed"
+  },
+  "setupFlow.step3.title": {
+    "message": "Samþykktu einu sinni",
+    "description": "SetupFlow: step 3 title"
+  },
+  "setupFlow.step3.what": {
+    "message": "Veittu Bifröst MCP-þjóninum samþykki einu sinni, svo aðstoðarmenn geti skráð notendurna þína inn.",
+    "description": "SetupFlow: step 3, what happens"
+  },
+  "setupFlow.step3.who": {
+    "message": "Global Administrator eða Application Administrator í Microsoft Entra ID, einu sinni fyrir allt fyrirtækið",
+    "description": "SetupFlow: step 3, who is needed"
+  },
+  "setupFlow.step4.title": {
+    "message": "Settu upp gögnin þín",
+    "description": "SetupFlow: step 4 title"
+  },
+  "setupFlow.step4.what": {
+    "message": "Veldu hvaða reiti fulltrúar eiga ekki að fá, og hve lengi annálar eru geymdir.",
+    "description": "SetupFlow: step 4, what happens"
+  },
+  "setupFlow.step4.who": {
+    "message": "Kerfisstjóri Business Central, ásamt þeim sem á gögnin",
+    "description": "SetupFlow: step 4, who is needed"
+  },
+  "setupFlow.step5.title": {
+    "message": "Prófaðu og bjóddu notendunum",
+    "description": "SetupFlow: step 5 title"
+  },
+  "setupFlow.step5.what": {
+    "message": "Tengstu fyrst sjálf(ur) og spurðu einnar spurningar, og sendu síðan notendunum þeirra hluta uppsetningarinnar.",
+    "description": "SetupFlow: step 5, what happens"
+  },
+  "setupFlow.step5.who": {
+    "message": "Kerfisstjóri Business Central",
+    "description": "SetupFlow: step 5, who is needed"
+  },
+  "setupFlow.caption": {
+    "message": "Uppsetningarskref fyrirtækisins: hvað gerist, hvar, og hvern þarf. Taktu þau fyrst í sandkassa, og síðan aftur í framleiðsluumhverfi. Síðan tengir hver notandi sinn eigin aðstoðarmann.",
+    "description": "SetupFlow: caption"
+  },
+  "askOrAct.youAsk": {
+    "message": "Þú spyrð",
+    "description": "AskOrAct: first step in both lanes"
+  },
+  "askOrAct.lookUp.title": {
+    "message": "Flettu einhverju upp",
+    "description": "AskOrAct: read lane title"
+  },
+  "askOrAct.lookUp.reads": {
+    "message": "Aðstoðarmaðurinn les úr Business Central, sem þú",
+    "description": "AskOrAct: read lane"
+  },
+  "askOrAct.lookUp.answer": {
+    "message": "Þú færð svarið. Engu er breytt",
+    "description": "AskOrAct: read lane end"
+  },
+  "askOrAct.change.title": {
+    "message": "Breyttu einhverju",
+    "description": "AskOrAct: change lane title"
+  },
+  "askOrAct.change.proposes": {
+    "message": "Aðstoðarmaðurinn leggur til hvað hann ætlar að gera",
+    "description": "AskOrAct: change lane"
+  },
+  "askOrAct.change.preview": {
+    "message": "Segðu {phrase} til að sjá hvað bókunin myndi gera",
+    "description": "AskOrAct: change lane; {phrase} is askOrAct.change.previewPhrase"
+  },
+  "askOrAct.change.previewPhrase": {
+    "message": "„sýndu mér fyrst“",
+    "description": "AskOrAct: what the user says to preview"
+  },
+  "askOrAct.change.confirm": {
+    "message": "Þú segir já (flestir aðstoðarmenn spyrja fyrst; ef þinn gerir það ekki, segðu honum að gera það)",
+    "description": "AskOrAct: change lane"
+  },
+  "askOrAct.change.done": {
+    "message": "Business Central gerir það, með þínum réttindum, og skráir það",
+    "description": "AskOrAct: change lane end"
+  },
+  "askOrAct.caption": {
+    "message": "Spurning les aðeins; breyting bíður eftir jái frá þér.",
+    "description": "AskOrAct: caption"
+  },
+  "dataFlow.assistant.title": {
+    "message": "Gervigreindaraðstoðarmaðurinn þinn",
+    "description": "DataFlow: assistant box"
+  },
+  "dataFlow.assistant.body": {
+    "message": "Copilot, ChatGPT, Claude eða annar",
+    "description": "DataFlow: assistant box"
+  },
+  "dataFlow.assistant.keeps": {
+    "message": "Geymir: það sem samningur þinn við þjónustuveitandann segir",
+    "description": "DataFlow: assistant box"
+  },
+  "dataFlow.origo.body": {
+    "message": "Bifröst MCP-þjónninn kemur beiðnum og svörum áfram",
+    "description": "DataFlow: Origo box"
+  },
+  "dataFlow.origo.keeps": {
+    "message": "Geymir: stillingar, fjölda notkunar, tætt kenni leigjandans og tæknileg greiningargögn. Ekkert efni skilaboða",
+    "description": "DataFlow: Origo box"
+  },
+  "dataFlow.bc.title": {
+    "message": "Business Central hjá þér",
+    "description": "DataFlow: Business Central box"
+  },
+  "dataFlow.bc.body": {
+    "message": "Bifröst Foundation athugar heimildir þínar og vinnur verkið sem þú",
+    "description": "DataFlow: Business Central box"
+  },
+  "dataFlow.bc.keeps": {
+    "message": "Geymir: hvert kall á Bifröst skilaboðum, eins lengi og þú ákveður",
+    "description": "DataFlow: Business Central box"
+  },
+  "dataFlow.caption": {
+    "message": "Viðskiptagögnin þín eru geymd í þínu eigin Business Central og hjá aðstoðarmanninum sem þú valdir, og hjá hverri utanaðkomandi þjónustu sem uppsett forrit tengist, til dæmis bankanum þínum.",
+    "description": "DataFlow: caption"
+  },
+  "permissionLayers.ask": {
+    "message": "Sigga biður aðstoðarmanninn sinn: {request} Áður en Business Central bókar nokkuð athugar Bifröst:",
+    "description": "PermissionLayers: intro; {request} is permissionLayers.request"
+  },
+  "permissionLayers.request": {
+    "message": "„Bókaðu sölureikninginn fyrir Adatum.“",
+    "description": "PermissionLayers: the example request"
+  },
+  "permissionLayers.check1.q": {
+    "message": "Má Sigga nota Bifröst yfirleitt?",
+    "description": "PermissionLayers: check 1"
+  },
+  "permissionLayers.check1.how": {
+    "message": "Hún hefur heimildasamstæðuna BIFROST API ori",
+    "description": "PermissionLayers: check 1"
+  },
+  "permissionLayers.check1.no": {
+    "message": "Kallinu er hafnað",
+    "description": "PermissionLayers: check 1, if not"
+  },
+  "permissionLayers.check2.q": {
+    "message": "Má Sigga gera þetta í Business Central?",
+    "description": "PermissionLayers: check 2"
+  },
+  "permissionLayers.check2.how": {
+    "message": "Venjulegar heimildir hennar í Business Central leyfa bókun sölureikninga",
+    "description": "PermissionLayers: check 2"
+  },
+  "permissionLayers.check2.no": {
+    "message": "Hafnað: hún hefur ekki þá heimild",
+    "description": "PermissionLayers: check 2, if not"
+  },
+  "permissionLayers.check3.q": {
+    "message": "Má hún bóka í gegnum Bifröst?",
+    "description": "PermissionLayers: check 3"
+  },
+  "permissionLayers.check3.how": {
+    "message": "Hún hefur bókunarhliðið BIFROST GL Post ori, sem nær yfir sölu- og innkaupaskjöl og líka færslubækur",
+    "description": "PermissionLayers: check 3"
+  },
+  "permissionLayers.check3.no": {
+    "message": "Hafnað: bókun, og forskoðun bókunar, krefjast þeirrar heimildasamstæðu. Lestur og undirbúningur virka áfram",
+    "description": "PermissionLayers: check 3, if not"
+  },
+  "permissionLayers.ifNot": {
+    "message": "Ef ekki:",
+    "description": "PermissionLayers: label before what happens on failure"
+  },
+  "permissionLayers.caption": {
+    "message": "Hver athugun verður að standast; hver þeirra getur ein og sér hafnað kallinu.",
+    "description": "PermissionLayers: caption"
   },
   "theme.ErrorPageContent.title": {
     "message": "Síðan hrundi.",

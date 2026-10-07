@@ -27,7 +27,7 @@ forritsins.
 ![Uppsetning Bifröst áður en leiðsögnin hefur verið keyrð](/img/guides/is-is/setup-first-run.png)
 
 Leiðsögnin fer með þér í gegnum notendaleyfissamninginn, útleið HTTP fyrir öll uppsett Bifröst forrit, leyfismál og,
-í skýinu, tenginguna við MCP-þjóninn. Í staðbundinni uppsetningu biður hún líka um auðkennin sem forritin þurfa.
+í skýinu, tenginguna við Bifröst MCP-þjóninn. Í staðbundinni uppsetningu biður hún líka um auðkennin sem forritin þurfa.
 **Hvert fyrirtæki keyrir hana einu sinni: þar til henni er lokið hafnar Bifröst köllum fyrir það fyrirtæki.**
 
 Í framleiðsluumhverfi í skýinu virkjar leiðsögnin prufuleyfið þegar henni lýkur, hafi Microsoft Entra leigjandinn þinn
@@ -100,31 +100,12 @@ Uppsetning Bifröst er heimili Bifröst í hverju fyrirtæki. Flokkarnir á aðg
 
 Fólk notar Bifröst í gegnum aðstoðarmann sem það sjálft. Samþætting notar það sem **Microsoft Entra forrit**: eigið
 forritsauðkenni, skráð í Microsoft Entra ID fyrirtækisins. Bæði fá heimildir sínar í Business Central, á **Notendur**
-eða **Microsoft Entra forrit**:
+eða **Microsoft Entra forrit**. Venjulegur notandi þarf `BIFROST API ori` (heimildasamstæðuna sem leyfir auðkenni að kalla í
+Bifröst), venjulegar heimildir sínar í Business Central fyrir gögnin sem hann vinnur með, og **bókunarhlið** fyrir hverja
+höfuðbók sem hann bókar í í gegnum Bifröst, til dæmis `BIFROST GL Post ori` fyrir sölu- og innkaupaskjöl.
 
-- **`BIFROST API ori`**, heimildasamstæðan sem leyfir auðkenni að kalla í Bifröst;
-- venjulegar heimildir Business Central fyrir gögnin sem unnið er með;
-- **bókunarhlið** fyrir hverja höfuðbók sem má bóka í. Bókunarhlið er sérstök heimildasamstæða, ekki hluti af almennu
-  Bifröst samstæðunum: `BIFROST GL Post ori`, `BIFROST ItemPost ori`, `BIFROST FA Post ori`, `BIFROST Job Post ori`
-  og `BIFROST Res Post ori`.
-
-Algeng uppsetning:
-
-| Hver | Heimildasamstæður Bifröst | Auk þess |
-|---|---|---|
-| Sá sem notar aðstoðarmann og spyr og undirbýr, án þess að bóka | `BIFROST API ori` | Venjulegar heimildir hans í Business Central. Forskoðun bókunar þarf líka bókunarhliðið |
-| Sá sem má líka bóka í gegnum Bifröst | `BIFROST API ori` og bókunarhlið hverrar höfuðbókar, til dæmis `BIFROST GL Post ori` fyrir sölu- og innkaupaskjöl | Það sama |
-| Samþætting (Entra forrit) | `BIFROST API ori`, og bókunarhlið aðeins ef hún bókar | Heimildir fyrir gögnin sem hún vinnur með |
-| Þjónustufólk sem skoðar uppsetningu og annála | `BIFROST Read ori` | Á Bifröst skilaboðum sér það aðeins eigin köll; til að sjá köll allra þarf `BIFROST Full ori` |
-| Umsjónarmenn Bifröst | `BIFROST Full ori` | – |
-
-Á **Heimildasamstæður** leitarðu að *BIFROST* til að sjá þær allar. Í algengri uppsetningu þarftu aðeins samstæðurnar
-sem eru nefndar hér.
-
-![Heimildasamstæður Bifröst](/img/guides/is-is/permission-sets.png)
-
-Allar samstæðurnar, og hvernig bókunarhliðin virka ofan á eigin heimildir notanda:
-[Heimildasamstæður og hlið](/documentation/end-customers/permissions/).
+Allar samstæðurnar, algengar samsetningar fyrir samþættingar, þjónustufólk og kerfisstjóra, og hvernig hliðin virka ofan á
+eigin heimildir notanda: [Heimildasamstæður og hlið](/documentation/end-customers/permissions/).
 
 ## Ákveddu hvaða verkfæri mega starfa fyrir notanda {#decide-which-tools-may-act-for-a-user}
 

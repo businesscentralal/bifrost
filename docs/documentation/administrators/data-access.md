@@ -95,6 +95,11 @@ the selected user. Rows take effect at once. Details: [Bifrost Field Accesses](/
 
 ![Bifrost Field Access Overview](/img/guides/en-us/field-access-overview.png)
 
+**An example.** Sigga uses an assistant, but agents should never see employees' bank account numbers. Choose
+**New for User...**, pick Sigga's user, then add the table *Employee*, the field *Bank Account No.* and the restriction
+**Both**. From then on, when her assistant lists employees, the answer comes without bank account numbers, and the
+assistant cannot change them. Sigga herself still sees them in Business Central.
+
 A row names a user (or application), a table and a field. **Table No. 0** means *all tables*, and **Field No. 0**
 means *all fields of the table*. When several rows could apply, **the most specific row wins**: the row for the field,
 then the row for the table, then the row for all tables. Only that one row is used.
@@ -247,16 +252,8 @@ is created and is never changed through Bifröst afterwards.
 
 ## Troubleshooting
 
-| The agent says | Why | What to do |
-|---|---|---|
-| The field is blocked by the ChangeLog Write Guard | The change log does not log changes to the field | Log the field in **Change Log Setup**, add a guard exception, or give the user a **Bypass** row |
-| The field is write-restricted or not permitted | A **Write** or **Both** row, a default protection, or data Bifröst always protects | Check the user's rows on **Bifrost Field Access Overview**; open a default protection with **None** |
-| The field belongs to the company configuration | One of the [company configuration fields](#company-configuration-fields) | Set up the company as a user with `BIFROST Force ori`, and ask the agent to force the change |
-| A field is missing from the answer | A **Read** or **Both** row, a default-hidden field, or **Respect Data Sensitivity** | As above |
-| The table cannot be read or changed | One of the tables Bifröst always protects, or the user lacks permission to it in Business Central | Use the Business Central page instead, or give the permission |
-| Posting is denied | A missing posting gate | [Permission sets and gates](/documentation/end-customers/permissions/) |
-
-Ask the agent which fields of a table it may read and change: the answer already takes the user's Field Access rows
+What an agent says when a field or a table is closed to it, and what to do, is in the one
+[troubleshooting table for administrators](/documentation/end-customers/administrators/#troubleshooting). Ask the agent which fields of a table it may read and change: the answer already takes the user's Field Access rows
 and the protections into account.
 
 **Next:** [Permission sets and gates](/documentation/end-customers/permissions/)

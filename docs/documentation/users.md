@@ -141,19 +141,20 @@ misunderstand you: say *"show me first"*, and read what it proposes before you s
 
 | The assistant says | What it means | Who to ask |
 | --- | --- | --- |
-| It has no Business Central tools, or answers as if Bifröst were not there | The connector is not switched on in this chat. Switch it on (in Claude: **+**, then **Connectors**) and ask again. | You |
-| The operation is not available | It is switched off in your company, or the app that provides it is not installed. | Your administrator |
+| It has no Business Central tools, or answers as if Bifröst were not there | The Bifröst connector is not switched on in this chat. Switch it on (in Claude: **+**, then **Connectors**) and ask again. | You |
+| The operation is not available | The app that provides it is not installed, it is not fully set up, or it needs a permission you do not have. | Your administrator |
 | It cannot do that yet | There is no operation for that task in the apps you have. It is not a fault: another app may have it, or it can be built; see [Missing something?](/documentation/how-it-works/#what-it-covers-and-how-it-grows). | Your administrator or partner |
 | You do not have permission | You do not have that permission in Business Central, and the assistant has exactly your rights. | Your administrator |
 | Part of the answer is missing | Those fields are restricted for you. | Your administrator, if you need them |
 | The tool must be approved first, with a link | Your company requires new assistants to be approved once. Open the link, or send it to your administrator. | You, or your administrator |
-| The allowance is used up | Your company can limit how much the assistant does each month, for everyone or for you, and that limit is reached. | Your administrator |
-| Bifröst refuses calls for the company | The setup wizard has not been finished in this company. | Your administrator |
+| The allowance is used up | A limit is reached: your own or the company's monthly limit (it starts again on the 1st of next month), the messages your company has bought, or, in a sandbox, the daily limit. | Your administrator |
+| Bifröst refuses calls for the company | The setup wizard has not been finished in this company, or the trial is not active yet. | Your administrator |
 | Something was posted that should not have been | The assistant did what it was asked, with your rights. Reverse it in Business Central as you would any posting and tell your administrator; every request and answer is logged, so it can be traced. | Your administrator |
 
 If the assistant fails with what looks like a technical error, ask it to show you the error text.
-Bifröst's answer says what went wrong in plain words. Your administrator can also see every call
-the assistant made on your behalf, on the **Bifrost Messages** page in Business Central.
+Bifröst's answer says what went wrong in plain words. Send that text, with the time, to your administrator: they can
+find the call on the **Bifrost Messages** page in Business Central. (Administrators: the causes and fixes for each row
+above are in [Troubleshooting](/documentation/end-customers/administrators/#troubleshooting).)
 
 ## Good habits
 

@@ -9,7 +9,8 @@ description: "Bifröst sett upp í tveimur hlutum: uppsetning fyrirtækisins ein
 
 # Settu það upp
 
-Uppsetning Bifröst er í tveimur hlutum. **Fyrirtækið** setur það upp einu sinni í Business Central. Síðan tengir
+Þegar þessu er lokið notar hver og einn Business Central úr sínum eigin gervigreindaraðstoðarmanni, innan eigin
+heimilda. Uppsetningin er í tveimur hlutum. **Fyrirtækið** setur það upp einu sinni í Business Central. Síðan tengir
 **hver notandi** gervigreindaraðstoðarmanninn sem hann notar, og skráir sig inn sem hann sjálfur.
 
 | | Fyrir fyrirtækið | Fyrir hvern notanda |

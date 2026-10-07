@@ -16,18 +16,16 @@ Each setting below takes a minute to change. What to weigh before you choose is 
 
 ## Restrict fields agents should not get
 
-On **Bifrost Setup**, choose **Setup › Field Access**. **New for User...** adds rows for a user or Entra application:
-the table, the field, and **Both**, **Read** or **Write**. Restrictions take effect immediately.
-Details: [Bifrost Field Accesses](/help/foundation/bifrost-field-accesses/). Before you choose:
-[Control what agents read and change](/documentation/end-customers/data-access/#field-access).
+On **Bifrost Setup**, choose **Setup › Field Access**, then **New for User...** to add rows for a user or Entra
+application. Which kind of row to choose, and what each does:
+[Field Access](/documentation/end-customers/data-access/#field-access).
 
 ![Bifrost Field Access Overview](/img/guides/en-us/field-access-overview.png)
 
 ## Go through the setup page
 
 Every field on **Bifrost Setup** is described in [Bifrost Setup](/help/foundation/bifrost-setup/).
-Decide **ChangeLog Write Guard** deliberately: **Blocked** (the default) lets agents change only the fields the change
-log covers, so turn on the change log, on **Setup › Change Log Setup**, for the fields you want agents to change. See
+Decide **ChangeLog Write Guard** deliberately, together with the change log (**Setup › Change Log Setup**): see
 [The ChangeLog Write Guard](/documentation/end-customers/data-access/#the-changelog-write-guard).
 
 ![The General section of Bifrost Setup](/img/guides/en-us/setup-general.png)

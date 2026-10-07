@@ -86,8 +86,7 @@ viðskiptavinir samstarfsaðila.
   virkjað einu sinni fyrir hvern Microsoft Entra leigjanda, þegar uppsetningarleiðsögninni lýkur í
   SaaS-framleiðsluumhverfi (eða úr tilkynningunni um að virkja prufuleyfið). Þar til það hefur
   verið virkjað er gjaldskyldum köllum svarað með villu um að *prufuleyfið hafi ekki verið virkjað*.
-- **Keyptur kvóti.** Að prufuleyfinu loknu kaupir þú fleiri skilaboð í hvorn pott frá [Origo](https://www.origo.is/), eða frá
-  samstarfsaðila þínum í Business Central.
+- **Keyptur kvóti.** Að prufuleyfinu loknu kaupir þú fleiri skilaboð í hvorn pott: hafðu samband við Business Central samstarfsaðilann þinn.
   Uppsetning Bifröst sýnir tilkynningu þegar annar hvor potturinn fer undir 200 skilaboð.
 - **Vikmörk.** Þegar pottur nær núlli er enn hægt að nota **100 skilaboð** í vikmörk; svörin bera þá
   viðvörun. Þegar vikmörkin eru líka uppurin er potturinn tæmdur.

@@ -18,8 +18,8 @@ served by a Bifröst **Partner**.
 | Who | Every tenant when Bifröst Foundation is installed, and every tenant without a Partner | A tenant that has accepted an invitation from a Bifröst Partner (a *Customer*) |
 | How you pay | You buy message quota up front and use it until it runs out | Your Partner invoices you every month for the messages you used |
 | Limits | The purchased quota, per [pool](./license-types.md#two-pools), and optional **monthly quotas** you set yourself | Optional company and user **monthly quotas** you set yourself - there is no purchased quota |
-| Rate limit | Production is not rate-limited. Sandbox usage on the public MCP server: Free tier, 1,000 messages per 24 hours - cannot be changed | Production is not rate-limited. Sandbox usage on the public MCP server: Free tier by default; you can choose a higher tier, which your Partner prices |
-| Trial | 1,000 User + 1,000 App Registration messages, once per tenant | Not needed - the trial was used while the tenant was on Prepaid |
+| Rate limit | Production is not rate-limited. Sandbox usage on the Bifröst MCP server has the Free tier, which cannot be changed; see [Rate limits](./rate-limits.md) | Production is not rate-limited. Sandbox usage on the Bifröst MCP server has the Free tier by default; you can choose a higher tier, which your Partner prices |
+| Trial | Once per tenant; its size is in [Run the setup wizard](/setup/business-central/#run-the-setup-wizard) | Not needed - the trial was used while the tenant was on Prepaid |
 
 A new installation always starts on **Prepaid**: the administrator approves the license agreement
 (EULA) and activates the trial in the [Setup Wizard](/help/foundation/bifrost-setup-wizard/). A
@@ -48,6 +48,6 @@ A change to the tenant's Partner relationship takes effect when a license admini
 ## In this section
 
 - [License types](./license-types.md) - Prepaid, Subscription, sandbox and on-premises in detail
-- [Rate limits](./rate-limits.md) - the sandbox limit on the public MCP server, the tiers and how to raise it
+- [Rate limits](./rate-limits.md) - the sandbox limit on the Bifröst MCP server, the tiers and how to raise it
 - [Terms of Use](./eula.md) and [Privacy](./privacy.md)
 - [Usage and billing](./usage-and-billing.md) - how your usage is reported and where you see it
