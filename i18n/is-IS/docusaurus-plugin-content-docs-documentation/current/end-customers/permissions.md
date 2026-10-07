@@ -57,7 +57,7 @@ bókunarhliðsins, og hliðið eitt bókar ekkert fyrir notanda sem má ekki bó
 | `BIFROST LicAdm ori` | Leyfisaðgerðirnar á Uppsetningu Bifröst, og notkun |
 | `BIFROST Force ori` | Að þvinga breytingu framhjá breytingaskrárvernd þegar hún er stillt á **Með þvingunarheimild**, og, í öllum stillingum verndarinnar, að breyta [grunnstillingarreitum fyrirtækisins](/documentation/end-customers/data-access/#company-configuration-fields) meðan það er sett upp. Aðeins fyrir þá sem setja upp fyrirtæki |
 | `BIFROST Webhook ori` | Að taka á móti vefkrókum: fyrir auðkennið sem framsendir þá inn í Business Central |
-| `BIFROST Chat ori` | Að opna spjall Bifröst |
+| `BIFROST Chat ori` | Að opna spjall Bifröst, sem [Bifröst mállíkön](/language-models/#permission-sets) bjóða |
 | `BIFROST SrcApOwn ori` | Að samþykkja verkfæri (uppruna setu) fyrir sjálfan sig |
 | `BIFROST SrcApAdm ori` | Að samþykkja verkfæri fyrir hvaða notanda sem er |
 | `BIFROST SrcApCfg ori` | Að breyta **Tegund samþykktar** notanda |

@@ -55,11 +55,12 @@ function ensureTrailingSlash(value: string): string {
 /**
  * An app's sidebar keeps two items on top, Overview and Capabilities, and folds everything else
  * (message type guides, the generated reference, listing and validation texts) into one collapsed
- * "Reference" group. The pages and their addresses do not change.
+ * "Reference" group. The pages and their addresses do not change. A guide page that belongs on top
+ * as well sets `sidebar_custom_props: {top: true}` in its front matter.
  */
 const groupAppSidebar: NonNullable<DocsOptions['sidebarItemsGenerator']> = async ({defaultSidebarItemsGenerator, ...args}) => {
   const items = await defaultSidebarItemsGenerator(args);
-  const top = items.filter((item) => item.type === 'doc' && ['index', 'capabilities'].includes(item.id));
+  const top = items.filter((item) => item.type === 'doc' && (['index', 'capabilities'].includes(item.id) || item.customProps?.top === true));
   const rest = items.filter((item) => !top.includes(item));
   if (!rest.length) return items;
   return [
@@ -243,10 +244,11 @@ const config: Config = {
         {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Leyfi' : 'Licensing', to: '/licensing/', position: 'left'},
-        // On the right, set apart: the apps. Only published apps are shown (Foundation for now), then the
+        // On the right, set apart: the apps. Only published apps are shown, then the
         // list of all apps. The label and the items share one framed group (.navApps).
         {type: 'html', position: 'right', value: `<span class="navAppsLabel">${buildLocale === 'is-IS' ? 'Forrit' : 'Apps'}</span>`, className: 'navApps'},
         {label: 'Foundation', to: '/foundation/', position: 'right', activeBasePath: '/foundation/', className: 'navApps navAppsItem'},
+        {label: buildLocale === 'is-IS' ? 'Mállíkön' : 'Language Models', to: '/language-models/', position: 'right', activeBasePath: '/language-models/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/', position: 'right', className: 'navApps navAppsItem'},
         // The Icelandic site is not offered from the English one until the new chapters are
         // translated; the Icelandic build keeps the switcher so its readers can reach English.

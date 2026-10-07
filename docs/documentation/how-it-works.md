@@ -57,7 +57,7 @@ Customer, Sales and Finance, among others; another Bifröst app adds a capabilit
 a credit limit and printing a customer statement both belong to Customer.*
 
 In the assistant's own tool list, capabilities are called *domains*. They have nothing to do with
-Microsoft's **Copilot & AI Capabilities** page in Business Central, which turns Copilot features on
+Microsoft's **Copilot & agent capabilities** page in Business Central, which turns Copilot features on
 and off.
 
 Because every message type describes itself, a new one is usable as soon as its app is installed,

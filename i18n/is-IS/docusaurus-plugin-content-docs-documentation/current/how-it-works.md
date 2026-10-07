@@ -54,8 +54,7 @@ flowchart LR
 Sales og Finance; annað Bifröst forrit bætir við sínu eigin sviði. Að athuga hámarksskuld og prenta viðskiptamannayfirlit
 tilheyra bæði Customer.*
 
-Í verkfæralista aðstoðarmannsins heita sviðin *domains* (lén). Þau hafa ekkert að gera með síðuna **Copilot & AI
-Capabilities** í Business Central, sem kveikir og slekkur á eiginleikum Copilot.
+Í verkfæralista aðstoðarmannsins heita sviðin *domains* (lén). Þau hafa ekkert að gera með síðuna **Copilot og eiginleikar fulltrúa** í Business Central, sem kveikir og slekkur á eiginleikum Copilot.
 
 Vegna þess að hver skilaboðategund lýsir sér sjálf er ný tegund nothæf um leið og forrit hennar er uppsett, uppsetningu
 þess lokið og heimild veitt; það þarf ekkert að kenna aðstoðarmanninum fyrst.
