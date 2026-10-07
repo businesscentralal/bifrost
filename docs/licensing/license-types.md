@@ -83,8 +83,7 @@ of a Partner.
   Microsoft Entra tenant, when the Setup Wizard finishes in a SaaS production environment, or on the
   next **Sync** on Bifrost Setup. Until it is activated, chargeable calls are answered with
   a *trial has not been started* error.
-- **Purchased quota.** After the trial you buy more messages per pool from [Origo](https://www.origo.is/), or from your
-  Business Central partner. Bifrost Setup
+- **Purchased quota.** After the trial you buy more messages per pool: contact your Business Central partner. Bifrost Setup
   shows a notification when either pool drops below 200 messages.
 - **Grace.** When a pool reaches zero, a grace of **100 messages** still runs; the responses carry a
   warning. When the grace is used up, the pool is exhausted.
