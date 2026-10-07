@@ -17,14 +17,14 @@ import {apps, crossAppInstances} from './apps';
  *   DOCUSAURUS_LOCALE=en-US  ->  baseUrl = ${BASE_URL}en-us/
  *   DOCUSAURUS_LOCALE=is-IS  ->  baseUrl = ${BASE_URL}is-is/
  *
- * Deployment target is controlled entirely by two environment variables so the
- * same commit deploys to GitHub Pages today and to the custom domain later:
+ * Deployment target is controlled entirely by two environment variables. They
+ * default to the custom domain, which serves the site from its root:
  *
- *   SITE_URL   https://businesscentralal.github.io   |  https://docs.bifrost.origo.is
- *   BASE_URL   /bifrost/                             |  /
+ *   SITE_URL   https://docs.bifrost.origo.is
+ *   BASE_URL   /
  */
-const SITE_URL = process.env.SITE_URL ?? 'https://businesscentralal.github.io';
-const BASE_URL = ensureTrailingSlash(process.env.BASE_URL ?? '/bifrost/');
+const SITE_URL = process.env.SITE_URL ?? 'https://docs.bifrost.origo.is';
+const BASE_URL = ensureTrailingSlash(process.env.BASE_URL ?? '/');
 
 const LOCALE_DIRS: Record<string, string> = {'en-US': 'en-us', 'is-IS': 'is-is'};
 const buildLocale = process.env.DOCUSAURUS_LOCALE;

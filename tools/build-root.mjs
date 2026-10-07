@@ -29,7 +29,7 @@ import {fileURLToPath} from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const buildDir = path.join(root, 'build');
 
-const BASE_URL = (process.env.BASE_URL ?? '/bifrost/').replace(/\/?$/, '/');
+const BASE_URL = (process.env.BASE_URL ?? '/').replace(/\/?$/, '/');
 
 const page = (title, script) => `<!doctype html>
 <html lang="en">
@@ -162,7 +162,7 @@ if (!OFFER_ICELANDIC) {
  * It is written at the site root (not inside a locale) and carries absolute
  * URLs, so it is only correct once SITE_URL and BASE_URL are known: build time.
  */
-const SITE_URL = (process.env.SITE_URL ?? 'https://businesscentralal.github.io').replace(/\/$/, '');
+const SITE_URL = (process.env.SITE_URL ?? 'https://docs.bifrost.origo.is').replace(/\/$/, '');
 const site = `${SITE_URL}${BASE_URL}`;
 const en = `${site}en-us/`;
 
