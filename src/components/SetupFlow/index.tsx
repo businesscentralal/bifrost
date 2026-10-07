@@ -36,11 +36,11 @@ const steps: Step[] = [
   },
   {
     n: 3,
-    title: 'Connect your AI assistant',
-    to: '/setup/connect-your-ai/',
-    what: 'Consent once for the organisation, then connect an assistant to test with.',
-    where: ['entra', 'assistant'],
-    who: 'A Global or Application Administrator in Microsoft Entra ID, once, after step 2; then the Business Central administrator',
+    title: 'Consent once',
+    to: '/setup/consent/',
+    what: 'Give the Bifröst MCP server consent once, so assistants can sign your users in.',
+    where: ['entra'],
+    who: 'A Global or Application Administrator in Microsoft Entra ID, once for the organisation',
   },
   {
     n: 4,
@@ -52,11 +52,11 @@ const steps: Step[] = [
   },
   {
     n: 5,
-    title: 'Make the first call',
+    title: 'Check it and invite your users',
     to: '/setup/first-call/',
-    what: 'Check the setup with one question, then let your users connect.',
+    what: 'Connect yourself first and ask one question, then send your users their part of the setup.',
     where: ['assistant', 'bc'],
-    who: 'The administrator, then each user',
+    who: 'The Business Central administrator',
   },
 ];
 
@@ -90,8 +90,8 @@ export default function SetupFlow(): ReactNode {
         ))}
       </ol>
       <figcaption className={styles.caption}>
-        The setup steps: what happens, where, and who is needed. Do them in a sandbox first, then
-        again in production.
+        The company's setup steps: what happens, where, and who is needed. Do them in a sandbox first,
+        then again in production. Each user then connects their own assistant.
       </figcaption>
     </figure>
   );

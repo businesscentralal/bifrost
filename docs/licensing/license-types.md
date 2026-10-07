@@ -19,8 +19,7 @@ Every chargeable call costs exactly one message, whatever it does.
 
 These calls are never counted and never refused for quota:
 
-- discovery and self-description - the list of message types, a type's contract, who am I, licence
-  status;
+- discovery and self-description - the list of message types, a type's contract, who am I;
 - reading and writing memory records;
 - session handling, such as approving a session source;
 - incoming webhook calls;
@@ -72,7 +71,7 @@ Until then every call - including discovery calls - is answered with an `EULA_RE
 to the wizard. An administrator can withdraw the approval with **Revoke EULA Approval** on the
 Bifrost Setup page; calls are then refused again until the wizard is completed.
 
-Outbound HTTP must also be allowed for Bifröst Foundation (the wizard does this): the licence
+Outbound HTTP must also be allowed for Bifröst Foundation (the wizard does this): the license
 checks talk to the licensing service.
 
 ## Prepaid
@@ -84,14 +83,15 @@ of a Partner.
   Microsoft Entra tenant, when the Setup Wizard finishes in a SaaS production environment, or on the
   next **Sync** on Bifrost Setup. Until it is activated, chargeable calls are answered with
   a *trial has not been started* error.
-- **Purchased quota.** After the trial you buy more messages per pool from Origo. Bifrost Setup
+- **Purchased quota.** After the trial you buy more messages per pool from [Origo](https://www.origo.is/), or from your
+  Business Central partner. Bifrost Setup
   shows a notification when either pool drops below 200 messages.
 - **Grace.** When a pool reaches zero, a grace of **100 messages** still runs; the responses carry a
   warning. When the grace is used up, the pool is exhausted.
 - **Blocking.** An exhausted pool refuses calls with the quota-exhausted error - unless the
   licensing agreement for the tenant says the pool should keep running, in which case calls
   continue, are still counted, and keep returning the warning. The effective setting is reported as
-  `blockOnMissingQuota` in the licence status.
+  `blockOnMissingQuota` in the license status.
 - **Rate limit.** Production usage is not rate-limited. Sandbox usage on the public Bifröst MCP server
   is always the Free tier, 1,000 messages per 24 hours. See [Rate limits](./rate-limits.md).
 
@@ -109,7 +109,7 @@ company of the tenant is on Subscription, including companies that start using B
   higher tier from its production environment, priced by its Partner. See [Rate limits](./rate-limits.md).
 
 When the relationship with the Partner ends, the tenant returns to **Prepaid** and its sandbox
-rate limit returns to the Free tier. The change takes effect when a licence administrator chooses **Sync** on
+rate limit returns to the Free tier. The change takes effect when a license administrator chooses **Sync** on
 Bifrost Setup.
 
 ## Monthly quotas
@@ -119,7 +119,7 @@ Both license types can cap their own monthly usage:
 - **Company Monthly Message Quota** on the Bifrost Setup page - the chargeable messages of the company
   in the calendar month. On Subscription it counts every charge type except **App Registration**, so
   service-to-service calls never stop your users; on Prepaid it counts both pools;
-- **Monthly Msg Quota** on each user's Bifrost User Setup - that user's chargeable messages in the
+- **User Monthly Message Quota** on each user's Bifrost User Setup - that user's chargeable messages in the
   calendar month, whatever their charge type.
 
 `0` (the default) means no limit. When a quota is reached, calls are refused with a
@@ -152,10 +152,10 @@ For unlimited sandbox usage, run the Local MCP server from
 ## On-premises installations
 
 On-premises installations are **Prepaid only**. There is no trial; Origo supplies the connection to
-the licensing service together with the on-premises licence, and the purchased quota works as
+the licensing service together with the on-premises license, and the purchased quota works as
 described under [Prepaid](#prepaid).
 
-## Checking the licence
+## Checking the license {#checking-the-licence}
 
 - The **License** fact box on the Bifrost Setup page shows the license type, the remaining quota and
   validity of each pool, the messages not yet reported, and the date of the last sync. See

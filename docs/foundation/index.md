@@ -62,4 +62,4 @@ each saying who is needed.
 - **Its pages in Business Central** (Bifrost Setup, Bifrost Messages, Field Access and the others) each have their
   own help page.
 - **The rest is the same for every Bifröst app:** how it works, using it, running it and its permissions are in the
-  [Guides](/documentation/); licensing in [Licensing](/licensing/) and [Price](/price/).
+  [How it works](/documentation/how-it-works/); licensing in [Licensing](/licensing/) and [Price](/price/).

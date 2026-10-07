@@ -229,3 +229,15 @@ a.bifrostCard:focus-visible,
   outline: 2px solid var(--ifm-color-primary);
   outline-offset: 2px;
 }
+
+/* The menu holds one item per role; keep each label on one line ("Set it up", "How it works")
+   and tighten the spacing a little so the items fit next to the apps group. */
+.navbar__items .navbar__link {
+  white-space: nowrap;
+}
+@media (min-width: 997px) {
+  .navbar__items:not(.navbar__items--right) .navbar__item {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
