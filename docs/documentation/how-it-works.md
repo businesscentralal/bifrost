@@ -165,7 +165,7 @@ The assistant combines operations from different apps in one conversation.
 
 1. Ask the assistant: *"What can you do here?"* It lists what your installation has.
 2. Look in the [app list](/apps/): it may be in an app you have not installed yet.
-3. If not, ask your Business Central partner or [Origo](https://www.origo.is/). It can be built,
+3. If not, ask your Business Central partner. It can be built,
    either as a new app or as more operations in an app that exists.
 
 **Next:** [Set it up](/setup/), or the page for your role:

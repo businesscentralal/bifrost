@@ -162,7 +162,7 @@ Aðstoðarmaðurinn sameinar aðgerðir úr mismunandi forritum í einu samtali.
 
 1. Spurðu aðstoðarmanninn: *„Hvað geturðu gert hér?"* Hann telur upp það sem uppsetningin þín hefur.
 2. Skoðaðu [forritalistann](/apps/): það gæti verið í forriti sem þú hefur ekki sett upp enn.
-3. Ef ekki, spurðu Business Central samstarfsaðilann þinn eða [Origo](https://www.origo.is/). Það er hægt að smíða það,
+3. Ef ekki, spurðu Business Central samstarfsaðilann þinn. Það er hægt að smíða það,
    annaðhvort sem nýtt forrit eða sem fleiri aðgerðir í forriti sem er til.
 
 **Næst:** [Settu það upp](/setup/), eða síðan fyrir þitt hlutverk:

@@ -193,7 +193,7 @@ const llms = [
   '`Help.Implementation.Get` do the same.',
   '',
   'If a user asks for something no installed message type does, say so, and suggest their Business',
-  'Central partner or Origo.',
+  'Central partner.',
   `Explained for people: ${en}documentation/how-it-works/`,
   '',
   '## Why Bifröst',
