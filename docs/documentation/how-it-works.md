@@ -21,6 +21,29 @@ and it says what it does, what it needs, what it returns and what can go wrong. 
 those descriptions, picks the right operations and calls them. (Developers know an operation as a
 *message type*; that is the only place the word matters.)
 
+## Why Bifröst {#why-bifrost}
+
+With Bifröst, your AI assistant does the work in Business Central, under your control.
+
+1. **It does the work.** Each operation is a finished Business Central task, from
+   checking a customer's credit to turning a quote into an order or posting a document. It uses Business
+   Central's own logic, the same as when a person does it in the client. Nothing has to be built, or
+   maintained, for each new question.
+2. **You see the result before anything changes.** The agent can preview a posting: the entries it would
+   create, without posting anything. And an agent posts only for a user you have opened the posting gate
+   for, even if that user may post in Business Central.
+3. **You decide what agents may touch.** On top of each user's own permissions, you can hide fields from
+   agents, make sure every field an agent changes is traced in the change log, set a monthly limit per
+   user and for the company, and see every call in your own Business Central. See
+   [Permission sets and gates](/documentation/end-customers/permissions/) and
+   [What agents read and change](/documentation/end-customers/data-access/).
+4. **It fits how you already work.** Copilot, ChatGPT, Claude or any other assistant that supports MCP,
+   so you are not tied to one provider. Your integrations call the same operations, also in the
+   background, and Business Central tells them when the work is done. Online and on-premises.
+
+Every Bifröst app adds operations to the same catalogue, behind the same controls, and every connected
+assistant can use them the same day.
+
 ## Domains and operations
 
 The operations are grouped into **domains**, such as Customer, Sales or Item. For example:
@@ -57,19 +80,6 @@ printing a customer statement both belong to Customer.*
 
 Because every operation describes itself, a new one is usable as soon as its app is installed, set
 up and permitted; nothing has to be taught to the assistant first.
-
-## Four things that make it different
-
-- **Nothing is built for your question.** The operations describe themselves, so an agent can
-  combine them, including for questions nobody planned for.
-- **It runs as you.** Every call runs as your own Business Central user, with your permissions, or
-  as the app identity an integration was given. It reaches only what that identity is allowed to,
-  and every call is logged in your Business Central. You decide what each identity may do; see
-  [Administrators](/documentation/end-customers/administrators/).
-- **It grows without a release.** Every Bifröst app you install adds operations, and every
-  connected agent can use them the same day.
-- **You choose the AI.** Copilot, ChatGPT, Claude or any other assistant that supports MCP works
-  the same way, so you are not tied to one provider, and you can use more than one.
 
 ## How it fits together
 

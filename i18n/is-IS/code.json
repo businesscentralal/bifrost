@@ -44,6 +44,30 @@
   "home.examples.do3": {
     "message": "Hann les stöður, lánamörk og opnar færslur, og svarar með lista sem þú getur borið saman við Business Central."
   },
+  "home.why.title": {
+    "message": "Af hverju Bifröst"
+  },
+  "home.why.work.title": {
+    "message": "Það vinnur verkið"
+  },
+  "home.why.work.body": {
+    "message": "Fullbúin verk í Business Central, allt frá athugun á lánstrausti til bókunar skjals, með eigin rökfræði Business Central. Ekkert þarf að smíða fyrir hverja nýja spurningu."
+  },
+  "home.why.first.title": {
+    "message": "Þú sérð það fyrst"
+  },
+  "home.why.first.body": {
+    "message": "Fulltrúinn forskoðar bókun áður en nokkuð er bókað, og bókar aðeins fyrir notendur sem þú hefur leyft það."
+  },
+  "home.why.control.title": {
+    "message": "Þú ræður ferðinni"
+  },
+  "home.why.control.body": {
+    "message": "Eigin heimildir hvers notanda, reitir faldir fyrir fulltrúum, mánaðarleg mörk, og hvert kall skráð í Business Central hjá þér. Með hvaða aðstoðarmanni sem er."
+  },
+  "home.why.more": {
+    "message": "Af hverju Bifröst, í heild"
+  },
   "home.how.title": {
     "message": "Hvernig það virkar"
   },
