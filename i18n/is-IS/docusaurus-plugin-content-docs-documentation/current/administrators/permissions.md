@@ -33,21 +33,29 @@ bókunarhliðsins, og hliðið eitt bókar ekkert fyrir notanda sem má ekki bó
 
 ### Fær notandi meiri réttindi með heimildasamstæðum Bifröst? {#does-a-bifröst-permission-set-give-a-user-more-rights}
 
-Nei, fyrir utan nokkrar uppsetningartöflur. Notandi með þröngar heimildir í Business Central er áfram þröngur, sama
-hve mörgum heimildasamstæðum Bifröst þú bætir við:
+Nei, með tveimur undantekningum, báðum frá `BIFROST API ori`: lestri breytingaskrárinnar, og lestri á hluta
+uppsetningar ásamt réttinum til að reikna söluverð og afslætti. Annars er notandi með þröngar heimildir í Business
+Central áfram þröngur, sama hve mörgum heimildasamstæðum Bifröst þú bætir við:
 
 - **Heimildasamstæður Bifröst ná yfir síður og gögn Bifröst sjálfs**: skilaboðin, uppsetninguna, minnið og annálana.
-  Þær opna ekki viðskiptamenn, vörur, fylgiskjöl eða færslur.
+  Þær opna ekki sjálfar viðskiptamenn, vörur, fylgiskjöl eða færslur, en sjá breytingaskrána hér fyrir neðan.
 - **Hliðin þrengja; þau víkka aldrei.** Bókunarhlið er aukaathugun ofan á eigin bókunarheimild notandans. Án
   þeirrar heimildar í Business Central bókar hliðið ekkert.
 - **Kóði Bifröst fylgir reglum Business Central.** Þar sem hann skrifar í færslubókarlínur eða fylgiskjalahausa fer
   hann í gegnum eigin (óbeinar) heimildir notandans, eins og bókun Business Central sjálfs.
-- **`BIFROST Force ori`** hleypir breytingu framhjá reitatakmörkunum Bifröst sjálfs (reitaaðgangi). Hún fer aldrei
-  framhjá heimildum Business Central.
-- **Undantekningin: `BIFROST API ori` getur lesið nokkrar uppsetningartöflur** sem svör um verð og framboð þurfa:
-  gjaldmiðla og gengi, VSK-bókunargrunna, fjárhagsgrunn, sölu- og viðskiptakröfugrunn, uppsetningartöflur verðs og
-  afsláttar, mælieiningar vara og lista yfir reiti. Notandi með `BIFROST API ori` getur lesið þær þótt hans eigin
-  heimildir nái ekki til þeirra. Ekkert annað, og engu má breyta.
+- **`BIFROST Force ori`** hleypir breytingu framhjá takmörkunum Bifröst sjálfs: reitaaðgangi, og breytingaskrárvernd
+  þegar hún er stillt á **Með þvingunarheimild**. Hún fer aldrei framhjá heimildum Business Central.
+- **Undantekning 1: `BIFROST API ori` inniheldur heimildasamstæðu Business Central *View Change Log Entries***
+  (Changelog - Read). Með henni getur notandinn lesið breytingaskrárfærslurnar, sem sýna gamla og nýja gildi hvers
+  skráðs reits, í hverri töflu sem breytingaskráin nær til, til dæmis viðskiptamönnum, lánardrottnum, vörum og
+  bankareikningum. Þetta gildir líka í Business Central biðlaranum, þótt eigin heimildir notandans nái ekki til
+  þeirra taflna. Aðgerðir Bifröst sjálfs lesa aldrei breytingaskrárfærslurnar; sjá
+  [Hvað fulltrúar lesa og breyta](/documentation/end-customers/data-access/).
+- **Undantekning 2: `BIFROST API ori` getur lesið hluta uppsetningar sem svör um verð og framboð þurfa**: gjaldmiðla
+  og gengi, VSK-bókunargrunna, fjárhagsgrunn, sölu- og viðskiptakröfugrunn, verðútreikningsgrunn, verð- og
+  afsláttarflokka viðskiptamanna, afsláttarflokka vara, mælieiningar vara og lista yfir reiti, og hefur réttinn til
+  að reikna söluverð og afslætti. Notandi með `BIFROST API ori` hefur þetta þótt hans eigin heimildir nái ekki til
+  þess. Hann getur engu af því breytt.
 
 ## Heimildasamstæður Bifröst {#the-bifröst-permission-sets}
 
@@ -59,7 +67,7 @@ hve mörgum heimildasamstæðum Bifröst þú bætir við:
 
 | Samstæða | Fyrir | Hvað hún veitir |
 |---|---|---|
-| `BIFROST API ori` | Hvern þann einstakling eða samþættingu sem kallar í Bifröst | Að kalla í Bifröst, eigin skilaboð notandans, minni og athugasemdir, og uppsetninguna sem Bifröst les til að svara (gjaldmiðlar, verð, VSK-bókunargrunnur). Engin viðskiptagögn umfram það |
+| `BIFROST API ori` | Hvern þann einstakling eða samþættingu sem kallar í Bifröst | Að kalla í Bifröst, eigin skilaboð notandans, minni og athugasemdir, og uppsetninguna sem Bifröst les til að svara (gjaldmiðlar, verð, VSK-bókunargrunnur). Hún veitir líka lestur breytingaskrárfærslna ([sjá ofar](#does-a-bifröst-permission-set-give-a-user-more-rights)). Engin önnur viðskiptagögn |
 | `BIFROST Read ori` | Þjónustufólk | Að skoða síður og annála Bifröst, og eigin skilaboð notandans. Hún breytir engum stillingum |
 | `BIFROST Full ori` | Umsjónarmenn Bifröst | Öll eigin gögn og síður Bifröst, þar á meðal skilaboð allra notenda. Ekki bókunar-, samþykktar-, leyfis-, þvingunar-, spjall- eða upprunahliðin: umsjónarmaður úthlutar þeim sérstaklega, líka sjálfum sér. Hún inniheldur þó hliðið fyrir innkomna vefkróka |
 

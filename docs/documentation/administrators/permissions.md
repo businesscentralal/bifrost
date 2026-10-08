@@ -34,21 +34,29 @@ without the posting gate, and the gate alone posts nothing for a user who may no
 
 ### Does a Bifröst permission set give a user more rights?
 
-No, apart from a few setup tables. A user with narrow permissions in Business Central stays narrow, however
-many Bifröst permission sets you add:
+No, with two exceptions, both from `BIFROST API ori`: reading the change log, and reading some setup and the
+right to calculate sales prices and discounts. A user with narrow permissions in Business Central otherwise stays
+narrow, however many Bifröst permission sets you add:
 
 - **The Bifröst permission sets cover Bifröst's own pages and data**: the messages, the setup, the memory and the
-  logs. They do not open customers, items, documents or ledger entries.
+  logs. They do not open customers, items, documents or ledger entries themselves, but see the change log below.
 - **The gates narrow; they never widen.** A posting gate is an extra check on top of the user's own posting
   permission. Without that permission in Business Central, the gate posts nothing.
 - **Bifröst's code follows Business Central's rules.** Where it writes to journal lines or document headers, it
   goes through the user's own (indirect) permissions, the same way Business Central's own posting does.
-- **`BIFROST Force ori`** lets a change past Bifröst's own field restrictions (Field Access). It never goes past
-  Business Central's permissions.
-- **The exception: `BIFROST API ori` can read a few setup tables** that price and availability answers need:
-  currencies and exchange rates, VAT posting setup, general ledger setup, sales and receivables setup, the price
-  and discount setup tables, item units of measure, and the list of fields. A user with `BIFROST API ori` can read
-  these even if their own permissions do not include them. Nothing else, and nothing to change.
+- **`BIFROST Force ori`** lets a change past Bifröst's own restrictions: Field Access, and the ChangeLog Write Guard
+  when it is set to **Via force**. It never goes past Business Central's permissions.
+- **Exception 1: `BIFROST API ori` includes Business Central's *View Change Log Entries* permission set**
+  (Changelog - Read). It lets the user read the change log entries, which show the old and new values of every
+  logged field, on any table the change log covers, such as customers, vendors, items and bank accounts. This
+  applies in the Business Central client too, even if the user's own permissions do not include those tables.
+  Bifröst's own operations never read the change log entries; see
+  [What agents read and change](/documentation/end-customers/data-access/).
+- **Exception 2: `BIFROST API ori` can read some setup that price and availability answers need**: currencies and
+  exchange rates, VAT posting setup, general ledger setup, sales and receivables setup, price calculation setup,
+  the customer price and discount groups, item discount groups, item units of measure and the list of fields, and
+  it has the right to calculate sales prices and discounts. A user with `BIFROST API ori` has these even if their
+  own permissions do not include them. It can change none of them.
 
 ## The Bifröst permission sets
 
@@ -60,7 +68,7 @@ On **Permission Sets**, search for *BIFROST* to see them all.
 
 | Set | For | What it gives |
 |---|---|---|
-| `BIFROST API ori` | Every person or integration that calls Bifröst | Calling Bifröst, the user's own messages, memory and notes, and the setup Bifröst reads to answer (currencies, prices, VAT posting setup). No business data beyond that |
+| `BIFROST API ori` | Every person or integration that calls Bifröst | Calling Bifröst, the user's own messages, memory and notes, and the setup Bifröst reads to answer (currencies, prices, VAT posting setup). It also includes reading the change log entries ([see above](#does-a-bifröst-permission-set-give-a-user-more-rights)). No other business data |
 | `BIFROST Read ori` | Support staff | Looking at Bifröst's pages and logs, and the user's own messages. It changes no settings |
 | `BIFROST Full ori` | Bifröst administrators | All of Bifröst's own data and pages, including every user's messages. Not the posting, approval, licensing, force, chat or session-source gates: an administrator assigns those explicitly, also to themselves. It does include the inbound-webhook gate |
 
