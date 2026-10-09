@@ -132,7 +132,7 @@ Customer or Sales. The MCP server's tools use the same word (`list_domains`, `de
 The catalogue is live: an agent or system asks Bifröst which operations exist
 (`Help.MessageTypes.Get`) and reads each one's description and contract (`Help.Implementation.Get`).
 That answer is always current for your environment. The same list is on the **Bifrost Message
-Types** page in Business Central, and the MCP tools `list_message_types` and
+Types** page in Business Central, and the MCP tools `describe_domains` and
 `describe_message_type` read it too.
 
 ## What it counts

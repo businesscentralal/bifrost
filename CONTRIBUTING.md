@@ -16,7 +16,7 @@ writes it.
 
 - message types: no names, parameters, examples or errors. Readers and agents read them from the
   environment, where they follow the installed apps (`Help.MessageTypes.Get` and
-  `Help.Implementation.Get`, or the MCP tools `list_message_types` and `describe_message_type`);
+  `Help.Implementation.Get`, or the MCP tools `describe_domains` and `describe_message_type`);
 - the partner program (working as a Vendor or Partner), content for partners and ISVs building on
   Bifröst, and agent skills;
 
