@@ -20,6 +20,29 @@ framboð vöru, breyta tilboði í pöntun eða bóka skjal, og hún segir hvað
 hvað getur farið úrskeiðis. Fulltrúinn les þessar lýsingar, velur réttu aðgerðirnar og kallar á þær. (Forritarar þekkja
 aðgerð sem *skilaboðategund*; það er eini staðurinn þar sem orðið skiptir máli.)
 
+## Af hverju Bifröst {#why-bifrost}
+
+Með Bifröst vinnur gervigreindaraðstoðarmaðurinn þinn verkið í Business Central, undir þinni stjórn.
+
+1. **Það vinnur verkið.** Hver aðgerð er fullbúið verk í Business Central, allt frá því að athuga
+   lánstraust viðskiptamanns til þess að breyta tilboði í pöntun eða bóka skjal. Hún notar eigin rökfræði Business
+   Central, þá sömu og þegar manneskja gerir það í biðlaranum. Það þarf ekkert að smíða, eða viðhalda, fyrir hverja nýja
+   spurningu.
+2. **Þú sérð bókun áður en hún er bókuð.** Fulltrúinn getur forskoðað bókun: færslurnar sem hún myndi búa til,
+   án þess að bóka neitt. Og fulltrúi bókar aðeins fyrir notanda sem þú hefur opnað bókunarhliðið fyrir, jafnvel þótt sá
+   notandi megi bóka í Business Central.
+3. **Þú ákveður hvað fulltrúar mega snerta.** Ofan á eigin heimildir hvers notanda geturðu falið reiti fyrir
+   fulltrúum, krafist þess að hver reitur sem fulltrúi breytir sé rakinn í breytingaskránni, sett mánaðarleg mörk á hvern
+   notanda og fyrir fyrirtækið, og séð hvert kall í þínu eigin Business Central. Sjá
+   [Heimildasamstæður og hlið](/documentation/end-customers/permissions/) og
+   [Hvað fulltrúar lesa og breyta](/documentation/end-customers/data-access/).
+4. **Það passar við hvernig þú vinnur nú þegar.** Copilot, ChatGPT, Claude eða hver annar aðstoðarmaður sem styður MCP,
+   svo þú ert ekki bundinn einum þjónustuaðila. Samþættingarnar þínar kalla á sömu aðgerðir, líka í bakgrunni, og
+   Business Central lætur þær vita þegar verkinu er lokið. Í skýinu og á eigin netþjónum.
+
+Hvert Bifröst forrit bætir aðgerðum í sama safnið, á bak við sömu stýringar, og hver tengdur aðstoðarmaður getur notað
+þær sama dag.
+
 ## Lén og aðgerðir {#domains-and-operations}
 
 Aðgerðunum er skipt í **lén**, til dæmis Customer, Sales eða Item. Til dæmis:
@@ -56,19 +79,6 @@ bæði Customer.*
 
 Vegna þess að hver aðgerð lýsir sér sjálf er ný aðgerð nothæf um leið og forrit hennar er uppsett, uppsetningu þess lokið
 og heimild veitt; það þarf ekkert að kenna aðstoðarmanninum fyrst.
-
-## Fjögur atriði sem gera það ólíkt {#four-things-that-make-it-different}
-
-- **Ekkert er smíðað fyrir spurninguna þína.** Aðgerðirnar lýsa sér sjálfar, svo fulltrúi getur sett þær saman, líka
-  fyrir spurningar sem enginn sá fyrir.
-- **Það keyrir sem þú.** Hvert kall keyrir sem þinn eigin notandi í Business Central, með þínum heimildum, eða sem
-  forritsauðkennið sem samþætting fékk. Það nær aðeins til þess sem auðkennið hefur leyfi til, og hvert kall er skráð í
-  Business Central hjá þér. Þú ákveður hvað hvert auðkenni má; sjá
-  [Kerfisstjórar](/documentation/end-customers/administrators/).
-- **Það vex án nýrrar útgáfu.** Hvert Bifröst forrit sem þú setur upp bætir við aðgerðum, og hver tengdur fulltrúi getur
-  notað þær sama dag.
-- **Þú velur gervigreindina.** Copilot, ChatGPT, Claude eða hver annar aðstoðarmaður sem styður MCP virkar eins, svo þú
-  ert ekki bundinn einum þjónustuaðila, og þú getur notað fleiri en einn.
 
 ## Hvernig það hangir saman {#how-it-fits-together}
 
@@ -152,7 +162,7 @@ Aðstoðarmaðurinn sameinar aðgerðir úr mismunandi forritum í einu samtali.
 
 1. Spurðu aðstoðarmanninn: *„Hvað geturðu gert hér?"* Hann telur upp það sem uppsetningin þín hefur.
 2. Skoðaðu [forritalistann](/apps/): það gæti verið í forriti sem þú hefur ekki sett upp enn.
-3. Ef ekki, spurðu Business Central samstarfsaðilann þinn eða [Origo](https://www.origo.is/). Það er hægt að smíða það,
+3. Ef ekki, spurðu Business Central samstarfsaðilann þinn. Það er hægt að smíða það,
    annaðhvort sem nýtt forrit eða sem fleiri aðgerðir í forriti sem er til.
 
 **Næst:** [Settu það upp](/setup/), eða síðan fyrir þitt hlutverk:

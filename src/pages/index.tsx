@@ -83,6 +83,43 @@ export default function Home(): ReactNode {
           </Link>
         </div>
         <h2>
+          <Translate id="home.why.title">Why Bifröst</Translate>
+        </h2>
+        <div className="bifrostSteps">
+          <div className="bifrostStep">
+            <h3><Translate id="home.why.work.title">It does the work</Translate></h3>
+            <p>
+              <Translate id="home.why.work.body">
+                Finished Business Central tasks, from a credit check to posting a document, with
+                Business Central's own logic. Nothing to build for each new question.
+              </Translate>
+            </p>
+          </div>
+          <div className="bifrostStep">
+            <h3><Translate id="home.why.first.title">You see it first</Translate></h3>
+            <p>
+              <Translate id="home.why.first.body">
+                The agent previews a posting before anything is posted, and posts only for users
+                you have allowed to.
+              </Translate>
+            </p>
+          </div>
+          <div className="bifrostStep">
+            <h3><Translate id="home.why.control.title">You stay in control</Translate></h3>
+            <p>
+              <Translate id="home.why.control.body">
+                Each user's own permissions, fields hidden from agents, monthly limits, and every
+                call logged in your Business Central. With any assistant.
+              </Translate>
+            </p>
+          </div>
+        </div>
+        <p>
+          <Link to="/documentation/how-it-works/#why-bifrost">
+            <Translate id="home.why.more">Why Bifröst, in full</Translate> <span aria-hidden="true">→</span>
+          </Link>
+        </p>
+        <h2>
           <Translate id="home.how.title">How it works</Translate>
         </h2>
         <div className="bifrostSteps">
