@@ -29,11 +29,11 @@ With Bifröst, your AI assistant does the work in Business Central, under your c
    checking a customer's credit to turning a quote into an order or posting a document. It uses Business
    Central's own logic, the same as when a person does it in the client. Nothing has to be built, or
    maintained, for each new question.
-2. **You see the result before anything changes.** The agent can preview a posting: the entries it would
+2. **You see a posting before it is posted.** The agent can preview a posting: the entries it would
    create, without posting anything. And an agent posts only for a user you have opened the posting gate
    for, even if that user may post in Business Central.
 3. **You decide what agents may touch.** On top of each user's own permissions, you can hide fields from
-   agents, make sure every field an agent changes is traced in the change log, set a monthly limit per
+   agents, require that every field an agent changes is traced in the change log, set a monthly limit per
    user and for the company, and see every call in your own Business Central. See
    [Permission sets and gates](/documentation/end-customers/permissions/) and
    [What agents read and change](/documentation/end-customers/data-access/).

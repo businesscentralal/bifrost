@@ -24,7 +24,7 @@ Hver beiðni keyrir með heimildum þess auðkennis, svo fulltrúi getur aldrei 
 biðlaranum. Tvö lög ráða því hvað hann má:
 
 1. **Heimildir Business Central**, eins og í biðlaranum: venjulegar heimildasamstæður notandans ráða hvaða gögn hann má
-   lesa, breyta og bóka. Bifröst víkkar þær ekki, með einni lítilli undantekningu, hér að neðan.
+   lesa, breyta og bóka. Bifröst víkkar þær ekki, með tveimur undantekningum, hér að neðan.
 2. **Heimildasamstæður Bifröst**: `BIFROST API ori` leyfir auðkenninu að kalla í Bifröst yfirleitt, og **hlið** opnar
    hverja aðgerð sem Bifröst heldur lokaðri jafnvel fyrir notanda sem gæti framkvæmt hana í biðlaranum, til dæmis bókun.
 
@@ -49,7 +49,8 @@ Central áfram þröngur, sama hve mörgum heimildasamstæðum Bifröst þú bæ
   (Changelog - Read). Með henni getur notandinn lesið breytingaskrárfærslurnar, sem sýna gamla og nýja gildi hvers
   skráðs reits, í hverri töflu sem breytingaskráin nær til, til dæmis viðskiptamönnum, lánardrottnum, vörum og
   bankareikningum. Þetta gildir líka í Business Central biðlaranum, þótt eigin heimildir notandans nái ekki til
-  þeirra taflna. Aðgerðir Bifröst sjálfs lesa aldrei breytingaskrárfærslurnar; sjá
+  þeirra taflna. Í gegnum Bifröst lesa þær aðeins breytingaskráraðgerðirnar (saga reits, endurheimt fyrra gildis), og
+  aðeins fyrir töflur sem notandinn má lesa; almennur lestur skilar þeim aldrei. Sjá
   [Hvað fulltrúar lesa og breyta](/documentation/end-customers/data-access/).
 - **Undantekning 2: `BIFROST API ori` getur lesið hluta uppsetningar sem svör um verð og framboð þurfa**: gjaldmiðla
   og gengi, VSK-bókunargrunna, fjárhagsgrunn, sölu- og viðskiptakröfugrunn, verðútreikningsgrunn, verð- og

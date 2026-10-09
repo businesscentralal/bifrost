@@ -25,7 +25,7 @@ request runs with that identity's permissions, so an agent can never do more tha
 layers decide what it may do:
 
 1. **Business Central permissions**, as in the client: the user's ordinary permission sets decide which data they may
-   read, change and post. Bifröst does not widen them, with one small exception, below.
+   read, change and post. Bifröst does not widen them, with two exceptions, below.
 2. **Bifröst permission sets**: `BIFROST API ori` lets the identity call Bifröst at all, and a **gate** opens each
    action that Bifröst keeps closed even for a user who could do it in the client, such as posting.
 
@@ -50,7 +50,8 @@ narrow, however many Bifröst permission sets you add:
   (Changelog - Read). It lets the user read the change log entries, which show the old and new values of every
   logged field, on any table the change log covers, such as customers, vendors, items and bank accounts. This
   applies in the Business Central client too, even if the user's own permissions do not include those tables.
-  Bifröst's own operations never read the change log entries; see
+  Through Bifröst, only the change-log operations (field history, restoring an earlier value) read them, and only
+  for tables the user may read; a general read never returns them. See
   [What agents read and change](/documentation/end-customers/data-access/).
 - **Exception 2: `BIFROST API ori` can read some setup that price and availability answers need**: currencies and
   exchange rates, VAT posting setup, general ledger setup, sales and receivables setup, price calculation setup,

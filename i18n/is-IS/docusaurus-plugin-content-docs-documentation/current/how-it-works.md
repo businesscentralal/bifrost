@@ -28,11 +28,11 @@ Með Bifröst vinnur gervigreindaraðstoðarmaðurinn þinn verkið í Business 
    lánstraust viðskiptamanns til þess að breyta tilboði í pöntun eða bóka skjal. Hún notar eigin rökfræði Business
    Central, þá sömu og þegar manneskja gerir það í biðlaranum. Það þarf ekkert að smíða, eða viðhalda, fyrir hverja nýja
    spurningu.
-2. **Þú sérð niðurstöðuna áður en nokkru er breytt.** Fulltrúinn getur forskoðað bókun: færslurnar sem hún myndi búa til,
+2. **Þú sérð bókun áður en hún er bókuð.** Fulltrúinn getur forskoðað bókun: færslurnar sem hún myndi búa til,
    án þess að bóka neitt. Og fulltrúi bókar aðeins fyrir notanda sem þú hefur opnað bókunarhliðið fyrir, jafnvel þótt sá
    notandi megi bóka í Business Central.
 3. **Þú ákveður hvað fulltrúar mega snerta.** Ofan á eigin heimildir hvers notanda geturðu falið reiti fyrir
-   fulltrúum, tryggt að hver reitur sem fulltrúi breytir sé rakinn í breytingaskránni, sett mánaðarleg mörk á hvern
+   fulltrúum, krafist þess að hver reitur sem fulltrúi breytir sé rakinn í breytingaskránni, sett mánaðarleg mörk á hvern
    notanda og fyrir fyrirtækið, og séð hvert kall í þínu eigin Business Central. Sjá
    [Heimildasamstæður og hlið](/documentation/end-customers/permissions/) og
    [Hvað fulltrúar lesa og breyta](/documentation/end-customers/data-access/).
