@@ -250,6 +250,19 @@ these fields.
 Other Bifröst apps can add their own protections, and can declare a field *write-once*: it can be set when the record
 is created and is never changed through Bifröst afterwards.
 
+## Agents that read emails and documents
+
+An assistant that reads content from outside, such as an email, an attachment or a web page, can find text in it
+that tries to tell it what to do. Bifröst cannot stop an assistant from being misled, but it limits what a misled
+assistant can do:
+
+- It can still do only what its user may do in Business Central.
+- Posting, approvals and the other gated actions need gates you give on purpose. Give users whose assistant reads
+  outside content only the gates they need.
+- Fields you close with Field Access or the default protections stay closed, and the ChangeLog Write Guard keeps
+  field changes to fields the change log traces.
+- Ask for a posting preview before posting, and look at **Bifrost Messages** to see every call that was made.
+
 ## Troubleshooting
 
 What an agent says when a field or a table is closed to it, and what to do, is in the one

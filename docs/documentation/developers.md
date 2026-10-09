@@ -141,4 +141,9 @@ An integration's calls count in the **App Registration** pool, apart from people
 counts as a message: [Usage and limits](/documentation/end-customers/administrators/#usage-and-limits).
 See also [Licensing](/licensing/).
 
+## Getting help
+
+Your Business Central partner supports Bifröst. When you ask about a call, send the time and the text of its answer:
+the call can be found on **Bifrost Messages**.
+
 **Next:** [Permission sets and gates](/documentation/end-customers/permissions/), for the sets your integration needs.

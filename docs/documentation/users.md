@@ -75,7 +75,8 @@ import AskOrAct from '@site/src/components/AskOrAct';
   orders are past their shipment date?"* These only read.
 - **Do one thing.** *"Release order 1023." · "Post the purchase invoice from Fabrikam."* Assistants
   usually ask before they change anything; if yours does not, tell it to. For posting, it can show
-  you first what posting would do.
+  you first what posting would do. Other changes, such as turning a quote into an order, happen
+  when you say yes, so ask what it will do first.
 - **Do a sequence.** *"Create a sales invoice for the September hours on the Adatum project and send
   it."* Several operations in a row, the result of one feeding the next. If a step fails, the
   assistant can tell you which one and why.
@@ -88,7 +89,8 @@ import AskOrAct from '@site/src/components/AskOrAct';
 
 - **Open the record.** Ask for a link to it, and open it in Business Central, as above.
 - **See every call.** Every call an assistant makes for you is kept on **Bifrost Messages**
-  (**Bifrost Setup › Messages › Bifrost Messages**). Each line is one call: what was done, whether it succeeded,
+  (**Bifrost Setup › Messages › Bifrost Messages**), where you see your own calls. If you cannot open Bifrost Setup,
+  ask your administrator. Each line is one call: what was done, whether it succeeded,
   and which tool called. Select a line to see its request and answer. If a call failed, its answer says what went
   wrong in plain words.
 
@@ -121,7 +123,7 @@ your administrator. After that it works as usual.
 Anyone whose Business Central user has been given the Bifröst permissions by an administrator. The
 assistant then works with exactly that user's rights. There is no separate Bifröst login and nothing
 to install; you only add Bifröst to your assistant once. If the assistant cannot reach Business Central at all, ask your
-administrator.
+administrator. Your administrator helps you first; your company's Business Central partner supports Bifröst.
 
 ## What it will not do
 
@@ -145,6 +147,7 @@ misunderstand you: say *"show me first"*, and read what it proposes before you s
 | The operation is not available | The app that provides it is not installed, it is not fully set up, or it needs a permission you do not have. | Your administrator |
 | It cannot do that yet | There is no operation for that task in the apps you have. It is not a fault: another app may have it, or it can be built; see [Missing something?](/documentation/how-it-works/#what-it-covers-and-how-it-grows). | Your administrator or partner |
 | You do not have permission | You do not have that permission in Business Central, and the assistant has exactly your rights. | Your administrator |
+| Posting is refused, although you can post in Business Central | Posting through an assistant needs its own permission, which your administrator gives separately. Showing what posting would do needs it too. Until then, post it yourself in Business Central. | Your administrator |
 | Part of the answer is missing | Those fields are restricted for you. | Your administrator, if you need them |
 | The tool must be approved first, with a link | Your company requires new assistants to be approved once. Open the link, or send it to your administrator. | You, or your administrator |
 | The allowance is used up | A limit is reached: your own or the company's monthly limit (it starts again on the 1st of next month), the messages your company has bought, or, in a sandbox, the daily limit. | Your administrator |

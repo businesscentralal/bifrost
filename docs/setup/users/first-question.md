@@ -48,5 +48,6 @@ environment too: if it is your production environment, be careful with anything 
 
 - [Using Bifröst](/documentation/end-customers/users/): what you can ask, what it will not do, and
   what to do when it says no.
-- [Try it out](/try-it-out/#what-to-ask-first): questions to try, from a simple lookup to a change you
-  preview first.
+- [What you can ask](/documentation/end-customers/users/#what-you-can-ask): examples, from a lookup to a
+  change you see first. You are working in your company's real data: say *"show me first"* before
+  anything that changes it.
