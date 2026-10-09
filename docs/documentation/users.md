@@ -88,8 +88,9 @@ import AskOrAct from '@site/src/components/AskOrAct';
 ## Check what the assistant did
 
 - **Open the record.** Ask for a link to it, and open it in Business Central, as above.
-- **See every call.** Every call an assistant makes for you is kept on **Bifrost Messages**: search for
-  *Bifrost Messages* in Business Central, where you see your own calls. Each line is one call: what was done, whether it succeeded,
+- **See every call.** Every call an assistant makes for you is kept on **Bifrost Messages**
+  (**Bifrost Setup › Messages › Bifrost Messages**), where you see your own calls. If you cannot open Bifrost Setup,
+  ask your administrator. Each line is one call: what was done, whether it succeeded,
   and which tool called. Select a line to see its request and answer. If a call failed, its answer says what went
   wrong in plain words.
 
