@@ -48,5 +48,5 @@ er raunumhverfið, farðu varlega í allt sem breytir gögnum.
 
 - [Notkun Bifröst](/documentation/end-customers/users/): hvað þú getur spurt um, hvað það gerir ekki, og hvað á að gera
   þegar það segir nei.
-- [Hvað þú getur spurt um](/documentation/end-customers/users/#what-you-can-ask): dæmi, frá uppflettingu að breytingu
-  sem þú sérð fyrst. Þú vinnur í raungögnum fyrirtækisins: segðu *„sýndu mér fyrst“* á undan öllu sem breytir þeim.
+- [Prófaðu](/try-it-out/#what-to-ask-first): spurningar til að prófa, frá einfaldri uppflettingu að breytingu sem þú
+  forskoðar fyrst.

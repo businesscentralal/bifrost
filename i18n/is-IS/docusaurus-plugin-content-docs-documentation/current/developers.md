@@ -138,9 +138,4 @@ líka.
 Köll samþættingar eru talin í pottinum **App Registration**, aðskilið frá köllum fólks. Hvað telst sem skilaboð:
 [Notkun og mörk](/documentation/end-customers/administrators/#usage-and-limits). Sjá líka [Leyfi](/licensing/).
 
-## Aðstoð {#getting-help}
-
-Business Central samstarfsaðilinn þinn styður Bifröst. Þegar þú spyrð um kall, sendu tímann og texta svarsins: kallið
-finnst á **Bifröst skilaboðum**.
-
 **Næst:** [Heimildasamstæður og hlið](/documentation/end-customers/permissions/), fyrir samstæðurnar sem samþættingin þarf.

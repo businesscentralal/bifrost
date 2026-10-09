@@ -31,8 +31,4 @@ Bifröst virkar með gervigreindaraðstoðarmanninum sem þú notar þegar. Fyri
   vinnur sem þú, með nákvæmlega þín réttindi.
 - **Slóð MCP-þjónsins**, frá kerfisstjóranum. Þú límir hana inn þegar þú bætir tengingunni við.
 
-Tvennt að vita: aðstoðarmaðurinn þarf sitt eigið leyfi frá sínum þjónustuaðila, eins og í dag; og það sem
-aðstoðarmaðurinn les úr Business Central fer til þess þjónustuaðila, samkvæmt samningi fyrirtækisins við hann. Sjá
-[Hvert gögnin þín fara](/documentation/how-it-works/#where-your-data-goes).
-
 **Næst:** [Tengdu aðstoðarmanninn](/setup/connect-your-ai/)

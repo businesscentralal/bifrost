@@ -252,19 +252,6 @@ breytingaskráin er sett upp. Án beiðni um þvingun haldast þeir lokaðir og 
 Önnur Bifröst forrit geta bætt við eigin vernd og lýst reit *skrifanlegan einu sinni*: hann má setja þegar færslan er
 stofnuð og honum er aldrei breytt í gegnum Bifröst eftir það.
 
-## Fulltrúar sem lesa tölvupósta og skjöl {#agents-that-read-emails-and-documents}
-
-Aðstoðarmaður sem les efni utan frá, til dæmis tölvupóst, viðhengi eða vefsíðu, getur rekist á texta sem reynir að
-segja honum fyrir verkum. Bifröst getur ekki komið í veg fyrir að aðstoðarmaður sé blekktur, en takmarkar hvað
-blekktur aðstoðarmaður getur gert:
-
-- Hann getur samt aðeins gert það sem notandi hans má gera í Business Central.
-- Bókun, samþykktir og aðrar aðgerðir á bak við hlið þurfa hlið sem þú veitir viljandi. Gefðu notendum sem láta
-  aðstoðarmann lesa efni utan frá aðeins þau hlið sem þeir þurfa.
-- Reitir sem þú lokar með reitaaðgangi eða sjálfgefinni vernd haldast lokaðir, og breytingaskrárverndin heldur
-  breytingum við reiti sem breytingaskráin rekur.
-- Biddu um forskoðun á bókun áður en bókað er, og skoðaðu **Bifröst skilaboð** til að sjá hvert kall sem var gert.
-
 ## Úrræðaleit {#troubleshooting}
 
 Hvað fulltrúi segir þegar reitur eða tafla er lokuð honum, og hvað á að gera, er í eina
