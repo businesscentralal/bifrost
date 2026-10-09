@@ -130,7 +130,7 @@ MCP-þjónsins nota sama orð (`list_domains`, `describe_domains`).
 
 Skráin er lifandi: fulltrúi eða kerfi spyr Bifröst hvaða aðgerðir eru til (`Help.MessageTypes.Get`) og les lýsingu og
 samning hverrar þeirrar (`Help.Implementation.Get`). Það svar er alltaf rétt fyrir þitt umhverfi. Sami listi er á síðunni
-**Bifrost Message Types** í Business Central, og MCP-verkfærin `list_message_types` og `describe_message_type` lesa hann
+**Bifrost Message Types** í Business Central, og MCP-verkfærin `describe_domains` og `describe_message_type` lesa hann
 líka.
 
 ## Hvað það telur {#what-it-counts}

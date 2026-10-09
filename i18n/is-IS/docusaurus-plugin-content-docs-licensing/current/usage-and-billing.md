@@ -38,5 +38,5 @@ skilaboðin voru notuð) og **skráningardag** (daginn sem færslan var tilkynnt
 
 Hvort tveggja krefst heimildar til leyfisstjórnunar (heimildasafnið `BIFROST LicAdm ori`).
 Gervigreindaraðstoðarmaður getur lesið sömu tölur í gegnum Bifröst; uppsettar skilaboðategundir og
-samningar þeirra eru lesnir úr Business Central sjálfu: með MCP-tólunum `list_message_types` og
+samningar þeirra eru lesnir úr Business Central sjálfu: með MCP-tólunum `describe_domains` og
 `describe_message_type` eða á síðunni Bifrost Message Types.
