@@ -74,7 +74,8 @@ import AskOrAct from '@site/src/components/AskOrAct';
   fram yfir afhendingardag?"* Þetta les aðeins.
 - **Gerðu eitt.** *„Gefðu út pöntun 1023." · „Bókaðu innkaupareikninginn frá Fabrikam."* Aðstoðarmenn spyrja yfirleitt
   áður en þeir breyta einhverju; ef þinn gerir það ekki, segðu honum að gera það. Fyrir bókun getur hann sýnt þér fyrst
-  hvað bókunin myndi gera.
+  hvað bókunin myndi gera. Aðrar breytingar, til dæmis að breyta tilboði í pöntun, gerast þegar þú segir já, svo spurðu
+  fyrst hvað hann ætlar að gera.
 - **Gerðu röð af hlutum.** *„Stofnaðu sölureikning fyrir septembertímana í Adatum-verkinu og sendu hann."* Nokkrar
   aðgerðir í röð, þar sem niðurstaða einnar nærir þá næstu. Ef skref mistekst getur aðstoðarmaðurinn sagt þér hvert og af
   hverju.
@@ -86,8 +87,8 @@ import AskOrAct from '@site/src/components/AskOrAct';
 ## Athugaðu hvað aðstoðarmaðurinn gerði {#check-what-the-assistant-did}
 
 - **Opnaðu færsluna.** Biddu um tengil á hana og opnaðu hana í Business Central, eins og að ofan.
-- **Sjáðu hvert kall.** Hvert kall sem aðstoðarmaður gerir fyrir þig er geymt á **Bifröst skilaboðum**
-  (**Uppsetning Bifröst › Skilaboð › Bifröst skilaboð**). Hver lína er eitt kall: hvað var gert, hvort það tókst, og hvaða
+- **Sjáðu hvert kall.** Hvert kall sem aðstoðarmaður gerir fyrir þig er geymt á **Bifröst skilaboðum**: leitaðu að
+  *Bifröst skilaboð* í Business Central, þar sérðu þín eigin köll. Hver lína er eitt kall: hvað var gert, hvort það tókst, og hvaða
   verkfæri kallaði. Veldu línu til að sjá beiðnina og svarið. Ef kall mistókst segir svarið hvað fór úrskeiðis á mæltu
   máli.
 
@@ -119,7 +120,7 @@ samþykktu verkfærið, eða sendu kerfisstjóranum tengilinn. Eftir það virka
 Hver sá sem kerfisstjóri hefur veitt Bifröst-heimildirnar fyrir notanda sinn í Business Central. Aðstoðarmaðurinn vinnur
 þá með nákvæmlega réttindi þess notanda. Það er engin sérstök innskráning í Bifröst og ekkert að setja upp; þú bætir
 Bifröst aðeins einu sinni við aðstoðarmanninn. Ef aðstoðarmaðurinn nær alls ekki í Business Central, spurðu
-kerfisstjórann.
+kerfisstjórann. Kerfisstjórinn hjálpar þér fyrst; Business Central samstarfsaðili fyrirtækisins styður Bifröst.
 
 ## Hvað það gerir ekki {#what-it-will-not-do}
 
@@ -142,6 +143,7 @@ misskilið þig: segðu *„sýndu mér fyrst"*, og lestu það sem hann leggur 
 | Aðgerðin er ekki í boði | Forritið sem býður hana er ekki uppsett, það er ekki fullsett upp, eða hún þarf heimild sem þú hefur ekki. | Kerfisstjórann |
 | Hann getur það ekki enn | Engin aðgerð er til fyrir þetta verk í forritunum sem þú hefur. Það er ekki villa: annað forrit gæti haft hana, eða það er hægt að smíða hana; sjá [Vantar eitthvað?](/documentation/how-it-works/#what-it-covers-and-how-it-grows). | Kerfisstjórann eða samstarfsaðilann |
 | Þú hefur ekki heimild | Þú hefur ekki þá heimild í Business Central, og aðstoðarmaðurinn hefur nákvæmlega þín réttindi. | Kerfisstjórann |
+| Bókun er hafnað, þótt þú megir bóka í Business Central | Bókun í gegnum aðstoðarmann þarf sína eigin heimild, sem kerfisstjórinn veitir sérstaklega. Hún þarf líka til að sýna hvað bókun myndi gera. Þangað til geturðu bókað í Business Central eins og venjulega. | Kerfisstjórann |
 | Hluta svarsins vantar | Þeir reitir eru takmarkaðir fyrir þig. | Kerfisstjórann, ef þú þarft þá |
 | Það þarf fyrst að samþykkja verkfærið, með tengli | Fyrirtækið þitt krefst þess að ný aðstoðarverkfæri séu samþykkt einu sinni. Opnaðu tengilinn, eða sendu kerfisstjóranum hann. | Þú, eða kerfisstjórinn |
 | Heimildin er uppurin | Mörkum er náð: þínum eigin eða mánaðarlegum mörkum fyrirtækisins (þau byrja aftur 1. næsta mánaðar), skilaboðunum sem fyrirtækið hefur keypt, eða, í sandkassa, daglegu mörkunum. | Kerfisstjórann |

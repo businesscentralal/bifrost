@@ -28,5 +28,9 @@ description: "Prófaðu uppsetninguna með einni spurningu, og sendu síðan not
    - [Notkun Bifröst](/documentation/end-customers/users/): hvað hann getur spurt um, hvað það gerir ekki, og hvað á
      að gera þegar það segir nei.
 
+**Byrjaðu smátt.** Bjóddu fyrst fáum notendum, aðeins með `BIFROST API ori`, svo aðstoðarmaðurinn geti svarað og
+undirbúið en ekki bókað. Skoðaðu **Bifröst skilaboð** eftir viku, gefðu svo bókunarhlið þeim fáu sem eiga að bóka í
+gegnum aðstoðarmann, og bjóddu hinum.
+
 Þar með er uppsetningu fyrirtækisins lokið. Héðan í frá, sjá
 [Rekstur Bifröst: fyrir kerfisstjóra](/documentation/end-customers/administrators/).
