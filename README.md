@@ -122,7 +122,7 @@ absolute URLs and is only correct once `SITE_URL` and `BASE_URL` are known.
 
 The site documents no message types: no per-type pages, no names, no parameters or examples. Readers
 and agents read them from the environment, where they follow the installed apps (`Help.MessageTypes.Get`
-and `Help.Implementation.Get`, or the MCP tools `list_message_types` and `describe_message_type`).
+and `Help.Implementation.Get`, or the MCP tools `describe_domains` and `describe_message_type`).
 
 `tools/check-context-help.mjs --app <route> --source <repo>` checks an app's context-sensitive help
 from source: `contextSensitiveHelpUrl` in `app.json`, and every page's `ContextSensitiveHelpPage`

@@ -168,5 +168,5 @@ staðnum, og keypti kvótinn virkar eins og lýst er undir [Fyrirframgreitt leyf
   samstillingar. Sjá [Upplýsingareitinn Leyfi](/help/foundation/license-fact-box/).
 - Gervigreindaraðstoðarmaður getur lesið sömu stöðu, og notkun leigjandans í yfirstandandi
   mánuði, í gegnum Bifröst. Uppsettar skilaboðategundir og samningar þeirra eru lesnir úr Business
-  Central sjálfu: með MCP-tólunum `list_message_types` og `describe_message_type` eða á síðunni
+  Central sjálfu: með MCP-tólunum `describe_domains` og `describe_message_type` eða á síðunni
   Bifrost Message Types.
