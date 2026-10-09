@@ -32,4 +32,8 @@ Bifröst works with the AI assistant you already use. Your company usually decid
   The assistant works as you, with exactly your rights.
 - **The MCP server address**, from your administrator. You paste it in when you add the connector.
 
+Two things to know: the assistant needs its own license from its provider, as it does today; and what the
+assistant reads from Business Central goes to that provider, under your company's agreement with it. See
+[Where your data goes](/documentation/how-it-works/#where-your-data-goes).
+
 **Next:** [Connect your assistant](/setup/connect-your-ai/)

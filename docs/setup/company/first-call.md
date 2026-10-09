@@ -29,5 +29,9 @@ description: "Check the setup with one question, then send your users their part
    - [Using Bifröst](/documentation/end-customers/users/): what they can ask, what it will not do,
      and what to do when it says no.
 
+**Start small.** Invite a few users first, with `BIFROST API ori` only, so the assistant can answer and prepare
+but not post. Look at **Bifrost Messages** after a week, then give posting gates to the few who should post through
+an assistant, and invite the rest.
+
 That is the company's setup done. From here on, see
 [Running Bifröst: for administrators](/documentation/end-customers/administrators/).
