@@ -8,7 +8,8 @@
  *
  * It fails (exit 1) when the structure changes: a menu item added, removed or moved, a page of the
  * agreed structure missing in English or Icelandic, the "By role" level or the Guides overview
- * coming back, "message type" on a customer page, or "licence" spelled the British way. It warns
+ * coming back, "message type" on a customer page, "licence" spelled the British way, or the price
+ * page saying anything other than what was decided on 08.10.2026. It warns
  * (exit 0) when a fact that has one owner page is written out somewhere else, so drift is visible
  * before it is a problem.
  *
@@ -83,7 +84,36 @@ for (const p of mdFiles('docs').filter((f) => !f.endsWith('eula.md'))) {
   });
 }
 
-// 5. One owner per fact: warn when an owned fact is written out on another page.
+// 5. The price page says exactly what was decided on 08.10.2026 (bifrost-support DOCUMENTATION-RULES), in both languages:
+//    no price, customers go to their partner, partners go to The App Channel. It flipped four times
+//    between 03.10 and 07.10; changing it now means changing these lines in the same pull request.
+const priceAgreed = {
+  'docs/price/index.md': [
+    'Contact your Business Central partner.',
+    '**Business Central partners:** contact [The App Channel](https://www.theappchannel.com/).',
+  ],
+  [`${IS('price')}/index.md`]: [
+    'Hafðu samband við Business Central samstarfsaðilann þinn.',
+    '**Business Central samstarfsaðilar:** hafið samband við [The App Channel](https://www.theappchannel.com/).',
+  ],
+};
+for (const [p, lines] of Object.entries(priceAgreed)) {
+  if (!existsSync(p)) { errors.push(`Missing price page: ${p}`); continue; }
+  const body = read(p);
+  for (const line of lines) if (!body.includes(line)) errors.push(`${p}: the agreed price line is missing or changed: "${line}"`);
+  if (/origo\.is|\b\d[\d.,]*\s*(kr|ISK|EUR|USD|\$|€)/i.test(body.replace(/^---[\s\S]*?---/, ''))) {
+    errors.push(`${p}: names Origo as seller or a price; the agreed page names neither.`);
+  }
+}
+for (const p of mdFiles('docs').filter((f) => !/price|licensing/.test(f.replace(/\\/g, '/')))) {
+  read(p).split('\n').forEach((line, i) => {
+    if (/(contact|buy from|prices?)[^.]*\[Origo\]/i.test(line)) {
+      errors.push(`${p}:${i + 1}: sends readers to Origo for prices or buying; the price page owns this.`);
+    }
+  });
+}
+
+// 6. One owner per fact: warn when an owned fact is written out on another page.
 const owned = [
   {fact: 'sandbox rate-limit numbers', re: /\b(5,000|10,000|50,000|100,000)\b.*(24 hours|per day)/i, owner: 'docs/licensing/rate-limits.md'},
   {fact: 'trial size', re: /1,000 user messages and 1,000 app/i, owner: 'docs/setup/company/business-central.md'},
