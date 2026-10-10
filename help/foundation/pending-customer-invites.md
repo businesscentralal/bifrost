@@ -3,8 +3,10 @@ id: pending-customer-invites
 title: "Pending Customer Invites"
 ---
 
-**Pending Customer Invites** opens when you choose **Register as Customer** and more than one Partner
-has invited your tenant. Choose the Partner you want to work with.
+**Pending Customer Invites** lists the invitations of more than one Partner to your tenant. The
+**Register as Customer** notification now opens the
+[Bifrost Customer Registration](/help/foundation/customer-registration-wizard/) wizard, whose Partner step lists
+the same invitations. Choose the Partner you want to work with.
 
 | Field | Description |
 | --- | --- |
