@@ -22,6 +22,7 @@ export type BifrostApp = {
 
 export const apps: BifrostApp[] = [
   {id: 'foundation', title: 'Foundation', appName: 'Bifrost Foundation'},
+  {id: 'language-models', title: 'Language Models', appName: 'Bifrost Language Models'},
 ];
 
 /**

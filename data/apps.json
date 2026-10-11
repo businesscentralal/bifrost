@@ -18,6 +18,25 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/foundation.png"
       }
+    },
+    {
+      "appId": "f1722684-0c24-4022-a2e0-0f63154aca76",
+      "name": "Bifrost Language Models",
+      "publisher": "Origo",
+      "summary": "Chat with Business Central beside the record you have open, with Copilot, OpenAI, Azure OpenAI, Anthropic, Google Gemini, xAI or your own model.",
+      "summary_is": "Spjallaðu við Business Central við hlið færslunnar sem þú ert með opna, með Copilot, OpenAI, Azure OpenAI, Anthropic, Google Gemini, xAI eða eigin líkani.",
+      "domains": [
+        "ai"
+      ],
+      "foundationMinVersion": "28.0.0.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/language-models/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/language-models.png"
+      }
     }
   ]
 }
