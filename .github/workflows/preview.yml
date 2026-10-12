@@ -1,27 +1,35 @@
-name: Build preview
+name: Build and deploy preview
 
 on:
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, closed]
 
 env:
-  SITE_URL: https://docs.bifrost.origo.is
+  # Azure's PR environment URL is stable for the lifetime of the PR.
+  # Keep language switches and absolute links inside the preview.
+  SITE_URL: >-
+    https://lemon-coast-038b86303-${{
+      github.event.pull_request.number }}.westeurope.1.azurestaticapps.net
   BASE_URL: /
 
 permissions:
   contents: read
 
 concurrency:
-  group: preview-${{ github.ref }}
-  cancel-in-progress: true
+  group: preview-${{ github.event.pull_request.number }}
+  # Let uploads finish before a close event removes the environment.
+  cancel-in-progress: false
 
 jobs:
   build:
+    if: github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - uses: actions/setup-node@v4
         with:
@@ -33,21 +41,74 @@ jobs:
       - name: Type-check
         run: npm run typecheck
 
-      - name: Public-site boundary (no message types, internals or removed pages)
+      - name: Public-site boundary
         run: npm run check:ip-boundary
 
       - name: Links between pages
         run: npm run check:links
 
-      - name: Agreed structure (menu, setup for the company and for each user, a page per role)
+      - name: Agreed documentation structure
         run: npm run check:structure
 
       - name: Build both locales
         run: npm run build
 
-      # The artifact is the review copy: download it, unzip, open index.html.
+      - name: Configure Azure preview hosting
+        # Preserve custom 404/locale rescue; don't use an SPA fallback.
+        # Keep public preview content out of search engine indexes.
+        run: |
+          node --input-type=module <<'NODE'
+          import {writeFileSync} from 'node:fs';
+          writeFileSync('build/staticwebapp.config.json', JSON.stringify({
+            responseOverrides: {'404': {rewrite: '/404.html', statusCode: 404}},
+            globalHeaders: {'X-Robots-Tag': 'noindex, nofollow'},
+          }, null, 2));
+          NODE
+
       - uses: actions/upload-artifact@v4
         with:
           name: bifrost-site-${{ github.event.pull_request.number }}
           path: build
           retention-days: 14
+
+  deploy:
+    needs: build
+    # Fork and Dependabot PRs do not receive deployment secrets.
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      # Deploy only the built files; do not execute PR code in this job.
+      - uses: actions/download-artifact@v4
+        with:
+          name: bifrost-site-${{ github.event.pull_request.number }}
+          path: build
+
+      - name: Deploy preview and comment its URL on the PR
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.SWA_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: upload
+          production_branch: main
+          app_location: build
+          output_location: ''
+          skip_app_build: true
+          skip_api_build: true
+
+  close:
+    if: >-
+      github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove the PR preview environment
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.SWA_API_TOKEN }}
+          action: close
