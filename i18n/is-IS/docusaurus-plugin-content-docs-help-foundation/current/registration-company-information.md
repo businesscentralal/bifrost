@@ -7,7 +7,8 @@ Skrefið **Fyrirtækisupplýsingar** er sameiginlegt þremur skráningarleiðsö
 [Bifröst söluaðilaskráning](/help/foundation/vendor-onboarding-wizard/),
 [Bifröst samstarfsaðilaskráning](/help/foundation/partner-registration-wizard/) og
 [Bifröst skráning viðskiptavinar](/help/foundation/customer-registration-wizard/). Það sýnir þær
-fyrirtækisupplýsingar sem skráningin notar, lesnar úr **Fyrirtækisupplýsingar**, og þú getur leiðrétt þær þar.
+fyrirtækisupplýsingar sem skráningin sendir til Bifröst. Þær eru fylltar út úr **Fyrirtækisupplýsingar** og þú
+getur leiðrétt þær þar.
 
 | Reitur | Lýsing |
 | --- | --- |
@@ -18,7 +19,16 @@ fyrirtækisupplýsingar sem skráningin notar, lesnar úr **Fyrirtækisupplýsin
 | **Símanúmer**, **Netfang** | Hvernig ná má í fyrirtækið. |
 | **Virðisaukaskattsnúmer** | Virðisaukaskattsnúmer fyrirtækisins. |
 
-Ekkert er vistað á meðan þú breytir. Þegar þú velur **Ljúka** eru breytingarnar fyrst vistaðar í
-**Fyrirtækisupplýsingar**, með þínum eigin heimildum, og skráningin er síðan skrifuð úr vistuðu gildunum. Ef
-vistunin mistekst, til dæmis af því að þú mátt ekki breyta fyrirtækisupplýsingum, er leiðsögnin áfram opin með
-villuboðunum og ekkert er skráð. Ef þú hættir við breytast fyrirtækisupplýsingarnar ekki.
+Breytingarnar fara aðeins í skráninguna. **Fyrirtækisupplýsingum er ekki breytt**, hvorki á meðan þú breytir né
+þegar þú velur **Ljúka**. Til að breyta upplýsingum fyrirtækisins sjálfs skaltu breyta síðunni
+**Fyrirtækisupplýsingar**.
+
+Þegar þú velur **Ljúka** sendir skráningin upplýsingarnar eins og þær eru í þessu skrefi:
+
+- **Söluaðili** og **samstarfsaðili**: þær eru skráning söluaðilans eða samstarfsaðilans, sem samstarfsaðilar
+  þínir, söluaðilinn þinn og Origo sjá.
+- **Viðskiptavinur**: þær eru vistaðar með skráningu fyrirtækisins sem þú keyrir leiðsögnina í. Önnur fyrirtæki
+  leigjandans eru skráð án þeirra.
+
+Ef þú velur **Ljúka** aftur síðar (hægt er að keyra söluaðilaleiðsögnina aftur) eru upplýsingarnar úr þeirri
+keyrslu sendar. Ef þú hættir við er ekkert skráð.

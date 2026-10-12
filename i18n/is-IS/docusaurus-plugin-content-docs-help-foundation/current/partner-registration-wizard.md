@@ -14,9 +14,10 @@ aðeins þegar nákvæmlega eitt samstarfsaðilaboð bíður. Prófunarumhverfi 
 
 | Skref | Hvað gerist |
 | --- | --- |
-| **1. Yfirfara og breyta fyrirtækisupplýsingum** | [Fyrirtækjaskrefið](/help/foundation/registration-company-information/): nafn, heimilisfang, póstnúmer, staður, sýsla, land/svæði, símanúmer, netfang og virðisaukaskattsnúmer úr **Fyrirtækisupplýsingar** - það sem söluaðilinn þinn og Origo sjá um samstarfsaðilann. Leiðréttu þær hér; nafnið er skylt. |
+| **1. Yfirfara og breyta fyrirtækisupplýsingum** | [Fyrirtækjaskrefið](/help/foundation/registration-company-information/): nafn, heimilisfang, póstnúmer, staður, sýsla, land/svæði, símanúmer, netfang og virðisaukaskattsnúmer, fyllt út úr **Fyrirtækisupplýsingar** - það sem söluaðilinn þinn og Origo sjá um samstarfsaðilann. Leiðréttu þær hér; nafnið er skylt. |
 | **2. Staðfesta skráningu samstarfsaðila** | Nefnir söluaðilann sem bauð leigjandanum, með skráðu fyrirtækjaheiti hans, og fyrirtækið sem þú skráir. |
 
-Veldu **Ljúka** til að vista breytingarnar í fyrirtækisupplýsingum og skrá síðan: boðið er samþykkt og allur
-leigjandinn verður samstarfsaðili þess söluaðila. **Umsjón viðskiptavina** birtist þá á Uppsetning Bifröst. Ef
-vistunin mistekst er ekkert skráð og leiðsögnin er áfram opin. **Hætta við** breytir ekki fyrirtækisupplýsingum.
+Veldu **Ljúka** til að skrá með upplýsingunum í fyrirtækjaskrefinu: boðið er samþykkt og allur leigjandinn
+verður samstarfsaðili þess söluaðila. Breytingarnar fara aðeins í skráningu samstarfsaðilans og
+fyrirtækisupplýsingum er ekki breytt. **Umsjón viðskiptavina** birtist þá á Uppsetning Bifröst. **Hætta við**
+skráir ekkert.

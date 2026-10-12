@@ -14,12 +14,12 @@ invitation is pending. A sandbox cannot register.
 
 | Step | What happens |
 | --- | --- |
-| **1. Review and edit company information** | The [company step](/help/foundation/registration-company-information/): name, address, post code, city, county, country/region, phone number, email and VAT registration number from **Company Information**. Correct them here; the name is required. |
+| **1. Review and edit company information** | The [company step](/help/foundation/registration-company-information/): name, address, post code, city, county, country/region, phone number, email and VAT registration number, filled in from **Company Information**. Correct them here; the name is required. |
 | **2. Choose the Partner** | Lists the pending invitations by the registered company name of each inviting Partner, with the time each was sent. With one invitation it is selected; with several, select the Partner you want to work with. |
 
-Choose **Finish** to save your changes to Company Information and then accept the selected invitation. The
-tenant's Bifröst configuration is linked to that Partner and the tenant moves to the **Subscription** license,
-which the Partner invoices. If the save fails, nothing is accepted and the wizard stays open. **Cancel** leaves
-Company Information unchanged.
+Choose **Finish** to accept the selected invitation. The tenant's Bifröst configuration is linked to that Partner
+and the tenant moves to the **Subscription** license, which the Partner invoices. The details of the company step
+are stored with the registration of this company; Company Information is not changed. **Cancel** accepts
+nothing.
 
 See [License types](/licensing/license-types/#subscription).

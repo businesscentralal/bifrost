@@ -14,12 +14,11 @@ aðeins á meðan boð bíður. Prófunarumhverfi (sandbox) getur ekki skráð s
 
 | Skref | Hvað gerist |
 | --- | --- |
-| **1. Yfirfara og breyta fyrirtækisupplýsingum** | [Fyrirtækjaskrefið](/help/foundation/registration-company-information/): nafn, heimilisfang, póstnúmer, staður, sýsla, land/svæði, símanúmer, netfang og virðisaukaskattsnúmer úr **Fyrirtækisupplýsingar**. Leiðréttu þær hér; nafnið er skylt. |
+| **1. Yfirfara og breyta fyrirtækisupplýsingum** | [Fyrirtækjaskrefið](/help/foundation/registration-company-information/): nafn, heimilisfang, póstnúmer, staður, sýsla, land/svæði, símanúmer, netfang og virðisaukaskattsnúmer, fyllt út úr **Fyrirtækisupplýsingar**. Leiðréttu þær hér; nafnið er skylt. |
 | **2. Velja samstarfsaðila** | Sýnir óafgreidd boð með skráðu fyrirtækjaheiti hvers samstarfsaðila og hvenær hvert þeirra var sent. Sé boðið eitt er það valið; séu þau fleiri velur þú samstarfsaðilann sem þú vilt starfa með. |
 
-Veldu **Ljúka** til að vista breytingarnar í fyrirtækisupplýsingum og samþykkja síðan valið boð. Bifröst-stillingar
-leigjandans tengjast þá þeim samstarfsaðila og leigjandinn fer á **áskriftarleyfi** sem samstarfsaðilinn rukkar
-fyrir. Ef vistunin mistekst er ekkert samþykkt og leiðsögnin er áfram opin. **Hætta við** breytir ekki
-fyrirtækisupplýsingum.
+Veldu **Ljúka** til að samþykkja valið boð. Bifröst-stillingar leigjandans tengjast þá þeim samstarfsaðila og
+leigjandinn fer á **áskriftarleyfi** sem samstarfsaðilinn rukkar fyrir. Upplýsingarnar í fyrirtækjaskrefinu eru
+vistaðar með skráningu þessa fyrirtækis; fyrirtækisupplýsingum er ekki breytt. **Hætta við** samþykkir ekkert.
 
 Sjá [Tegundir leyfa](/licensing/license-types/#subscription).

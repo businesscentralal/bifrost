@@ -7,7 +7,8 @@ The **Company Information** step is shared by the three Bifröst registration wi
 [Bifrost Vendor Onboarding](/help/foundation/vendor-onboarding-wizard/),
 [Bifrost Partner Registration](/help/foundation/partner-registration-wizard/) and
 [Bifrost Customer Registration](/help/foundation/customer-registration-wizard/). It shows the company details
-the registration uses, read from **Company Information**, and you can correct them right there.
+the registration sends to Bifröst. They are filled in from **Company Information**, and you can correct them
+right there.
 
 | Field | Description |
 | --- | --- |
@@ -18,7 +19,15 @@ the registration uses, read from **Company Information**, and you can correct th
 | **Phone No.**, **Email** | How the company can be reached. |
 | **VAT Registration No.** | The company's VAT registration number. |
 
-Nothing is saved while you edit. When you choose **Finish**, your changes are saved to **Company
-Information** first, with your own permissions, and the registration is then written from the saved values.
-If the save fails, for example because you may not change Company Information, the wizard stays open with the
-error and nothing is registered. If you cancel, Company Information stays as it was.
+Your changes go only into the registration. **Company Information is not changed**, neither while you edit
+nor when you choose **Finish**. To change the company's own details, edit the **Company Information** page.
+
+When you choose **Finish**, the registration sends the details as they are on this step:
+
+- **Vendor** and **Partner**: they are your Vendor or Partner registration, which your Partners, your Vendor and
+  Origo see.
+- **Customer**: they are stored with the registration of the company you run the wizard in. The tenant's
+  other companies are registered without them.
+
+Choosing **Finish** again later (the Vendor wizard can be run again) sends the details of that run. If you
+cancel, nothing is registered.
