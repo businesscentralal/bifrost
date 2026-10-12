@@ -117,6 +117,19 @@ root `index.html` (redirects by browser language, defaulting to English), a
 `llms.txt` — the machine-readable index for AI agents, written at the site root
 and inside each locale. `llms.txt` is generated, not committed: it carries
 absolute URLs and is only correct once `SITE_URL` and `BASE_URL` are known.
+The language menu links to both English and Icelandic from either version.
+
+If a local build fails in `DocItem` with `Cannot read properties of undefined
+(reading 'id')`, stale Docusaurus/webpack cache can be the cause. Clear the
+cache and generated output, then rebuild **both** locales:
+
+```bash
+npm run clear
+npm run build
+```
+
+For local testing of the language menu, build with `SITE_URL=http://localhost:3000`
+so its absolute links stay on the local server rather than going to production.
 
 ## Message types
 
@@ -134,7 +147,33 @@ is missing or broken.
 | Workflow | Trigger | What it does |
 | --- | --- | --- |
 | `deploy.yml` | push to `main`, manual | Builds both locales and deploys to GitHub Pages |
-| `preview.yml` | pull request | Builds both locales and uploads the result as an artifact |
+| `preview.yml` | pull request to `main` | Builds both locales, uploads an artifact, and deploys an Azure preview with a PR comment; removes the preview when the PR closes |
+
+### Pull request previews
+
+For PRs from branches in this repository, `preview.yml` deploys the full site to
+Azure Static Web Apps using the repository Actions secret `SWA_API_TOKEN`.
+The Azure deployment action comments the preview URL on the PR. Each PR keeps
+its own address as new commits are pushed:
+
+```text
+https://lemon-coast-038b86303-<PR-number>.1.azurestaticapps.net
+```
+
+Both `/en-us/` and `/is-is/` are published. The build uses the preview origin so
+language links stay on the preview, and previews send a `noindex` header.
+Closing or merging a PR removes its Azure preview. Production remains on
+GitHub Pages via `deploy.yml`.
+
+Fork and Dependabot PRs still run the build checks and upload an artifact, but
+are not deployed because GitHub does not provide them with deployment secrets.
+The deploy job needs `pull-requests: write` permission for the URL comment.
+
+Preview URLs are publicly accessible, even for private repositories. Azure's
+hosting plan limits the number of simultaneous preview environments (three on
+the Free plan); further deployments fail if all slots are occupied. If the
+Static Web App changes, update both `SWA_API_TOKEN` and the `SITE_URL` hostname
+in `preview.yml`.
 
 ## Contributing
 

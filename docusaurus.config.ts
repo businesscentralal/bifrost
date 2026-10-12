@@ -251,21 +251,16 @@ const config: Config = {
         {type: 'html', position: 'right', value: `<span class="navAppsLabel">${buildLocale === 'is-IS' ? 'Forrit' : 'Apps'}</span>`, className: 'navApps'},
         {label: 'Foundation', to: '/foundation/', position: 'right', activeBasePath: '/foundation/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/', position: 'right', className: 'navApps navAppsItem'},
-        // The Icelandic site is not offered from the English one until the new chapters are
-        // translated; the Icelandic build keeps the switcher so its readers can reach English.
-        ...(buildLocale === 'is-IS'
-          ? [
-            {
-              type: 'dropdown' as const,
-              label: 'Íslenska',
-              position: 'right' as const,
-              items: [
-                {label: 'English', href: `${siteRoot}en-us/`, target: '_self'},
-                {label: 'Íslenska', href: `${siteRoot}is-is/`, target: '_self'},
-              ],
-            },
-          ]
-          : []),
+        // Both locale builds are published; offer the switcher from either one.
+        {
+          type: 'dropdown',
+          label: buildLocale === 'is-IS' ? 'Íslenska' : 'English',
+          position: 'right',
+          items: [
+            {label: 'English', href: `${siteRoot}en-us/`, target: '_self'},
+            {label: 'Íslenska', href: `${siteRoot}is-is/`, target: '_self'},
+          ],
+        },
       ],
     },
     footer: {
