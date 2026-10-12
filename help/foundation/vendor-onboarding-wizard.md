@@ -14,8 +14,9 @@ which appears after the Sync. Opened any other way, for example by URL, the wiza
 | Step | What happens |
 | --- | --- |
 | **1. Vendor onboarding** | Shows your Microsoft Entra tenant ID and whether the tenant is already registered. |
-| **2. Review Company Information** | Shows the name, address, city, country/region, phone number, email and VAT registration number from **Company Information** - what your Partners and Origo see for the Vendor. Correct Company Information first if needed. |
+| **2. Review and edit company information** | The [company step](/help/foundation/registration-company-information/): name, address, post code, city, county, country/region, phone number, email and VAT registration number, filled in from **Company Information** - what your Partners and Origo see for the Vendor. Correct them here; the name is required. |
 
-Choose **Finish** to register. **Partner Management**, **Pending Partner Leave Requests** and
-**Deregister as Vendor** then appear on Bifröst Setup. **Customer Management** is a Partner function:
+Choose **Finish** to register with the details of the company step; your changes go only into the Vendor
+registration, and Company Information is not changed. **Cancel** registers nothing. After registering,
+**Partner Management**, **Pending Partner Leave Requests** and **Deregister as Vendor** appear on Bifröst Setup. **Customer Management** is a Partner function:
 a Vendor sees its Partners' customers read-only through **View Customers** on Partner Management.

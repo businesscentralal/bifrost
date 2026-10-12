@@ -3,8 +3,10 @@ id: pending-customer-invites
 title: "Óafgreidd boð viðskiptavinar"
 ---
 
-**Óafgreidd boð viðskiptavinar** opnast þegar þú velur **Skrá sem viðskiptavinur** og fleiri en einn
-samstarfsaðili hefur boðið leigjandanum þínum. Veldu samstarfsaðilann sem þú vilt starfa með.
+**Óafgreidd boð viðskiptavinar** sýnir boð fleiri en eins samstarfsaðila til leigjandans þíns. Tilkynningin
+**Skrá sem viðskiptavinur** opnar nú leiðsögnina
+[Bifröst skráning viðskiptavinar](/help/foundation/customer-registration-wizard/), en samstarfsaðilaskref hennar
+sýnir sömu boð. Veldu samstarfsaðilann sem þú vilt starfa með.
 
 | Reitur | Lýsing |
 | --- | --- |
