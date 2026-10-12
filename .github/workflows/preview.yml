@@ -10,7 +10,7 @@ env:
   # Keep language switches and absolute links inside the preview.
   SITE_URL: >-
     https://lemon-coast-038b86303-${{
-      github.event.pull_request.number }}.1.azurestaticapps.net
+      github.event.pull_request.number }}.westeurope.1.azurestaticapps.net
   BASE_URL: /
 
 permissions:

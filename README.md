@@ -117,7 +117,9 @@ root `index.html` (redirects by browser language, defaulting to English), a
 `llms.txt` — the machine-readable index for AI agents, written at the site root
 and inside each locale. `llms.txt` is generated, not committed: it carries
 absolute URLs and is only correct once `SITE_URL` and `BASE_URL` are known.
-The language menu links to both English and Icelandic from either version.
+Both English (`/en-us/`) and Icelandic (`/is-is/`) are built. The English site
+keeps its language menu hidden; the existing Icelandic menu still links back
+to English.
 
 If a local build fails in `DocItem` with `Cannot read properties of undefined
 (reading 'id')`, stale Docusaurus/webpack cache can be the cause. Clear the
@@ -128,8 +130,8 @@ npm run clear
 npm run build
 ```
 
-For local testing of the language menu, build with `SITE_URL=http://localhost:3000`
-so its absolute links stay on the local server rather than going to production.
+For local testing, build with `SITE_URL=http://localhost:3000` so absolute links
+stay on the local server rather than going to production.
 
 ## Message types
 
@@ -157,7 +159,7 @@ The Azure deployment action comments the preview URL on the PR. Each PR keeps
 its own address as new commits are pushed:
 
 ```text
-https://lemon-coast-038b86303-<PR-number>.1.azurestaticapps.net
+https://lemon-coast-038b86303-<PR-number>.westeurope.1.azurestaticapps.net
 ```
 
 Both `/en-us/` and `/is-is/` are published. The build uses the preview origin so
