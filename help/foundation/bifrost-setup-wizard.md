@@ -39,12 +39,12 @@ Missing credentials are never an error here or on Bifrost Setup — a credential
 | Environment | What the step shows |
 | --- | --- |
 | **Production (online)** | The trial: **1,000 User + 1,000 App Registration messages**, activated once per Microsoft Entra tenant. **Finish** activates it if the tenant has no trial yet. On Prepaid, the step also explains how the Subscription license starts: when your Bifröst Partner invites the tenant as a Customer and you accept. |
-| **Sandbox** | **Sandbox Licensing**: Bifrost licenses are not activated. The public MCP server allows 1,000 messages per 24 hours per Microsoft Entra tenant by default, or more if a higher tier was chosen with **Configure Rate Limit** in production. For unlimited sandbox messages, use the Local MCP server from [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp). |
+| **Sandbox** | **Sandbox Licensing**: Bifrost licenses are not activated. The public MCP server allows 1,000 messages per 24 hours per Microsoft Entra tenant by default, or more if a higher tier was chosen with **Configure Rate Limit** in any production environment in the same Microsoft Entra tenant. The sandbox shows the default minimum tier and does not access production data. For unlimited sandbox messages, use the Local MCP server from [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp). |
 | **On-premises** | How to set up the Local MCP server next to your installation, and **Verify Connection** for the licensing-service connection Origo supplied with your on-premises licence. You cannot continue until the connection is verified. |
 
 In production, there is no monthly message limit unless an administrator sets **Company Monthly Message Quota** in Bifröst Setup or **User Monthly Message Quota** in Bifröst User Setup. Your partner sets the price of a higher tier.
 
-The sandbox License FactBox shows the default when it cannot read your tenant’s tier; your actual tier may be higher.
+The sandbox License FactBox shows the default minimum instead of reading your tenant’s production tier; your actual tier may be higher.
 
 See [Licensing](/licensing/) for the licence model.
 

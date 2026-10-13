@@ -39,14 +39,14 @@ Auðkenni sem vantar eru aldrei villa, hvorki hér né á Uppsetning Bifröst �
 | Umhverfi | Hvað skrefið sýnir |
 | --- | --- |
 | **Framleiðsluumhverfi (í skýinu)** | Prufuleyfið: **1.000 notendaskilaboð + 1.000 forritsskráningarskilaboð**, virkjað einu sinni fyrir hvern Microsoft Entra leigjanda. **Ljúka** virkjar það ef leigjandinn hefur ekki fengið prufuleyfi. Á fyrirframgreiddu leyfi útskýrir skrefið einnig hvernig áskriftarleyfið hefst: þegar Bifröst samstarfsaðili þinn býður leigjandanum sem viðskiptavin og þú samþykkir. |
-| **Sandkassi** | **Sandkassaleyfi**: leyfi Bifröst eru ekki virkjuð. Opinberi MCP-þjónninn leyfir sjálfgefið 1.000 skilaboð á 24 klukkustundum fyrir hvern Microsoft Entra leigjanda, eða fleiri ef hærra þrep var valið með **Stilla álagsþak** í framleiðsluumhverfi. Fyrir ótakmörkuð skilaboð í sandkassa skaltu nota staðbundna MCP-þjóninn úr [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp). |
+| **Sandkassi** | **Sandkassaleyfi**: leyfi Bifröst eru ekki virkjuð. Opinberi MCP-þjónninn leyfir sjálfgefið 1.000 skilaboð á 24 klukkustundum fyrir hvern Microsoft Entra leigjanda, eða fleiri ef hærra þrep var valið með **Stilla álagsþak** í hvaða framleiðsluumhverfi sem er hjá sama Microsoft Entra leigjanda. Sandkassinn sýnir sjálfgefið lágmarksþrep og hefur ekki aðgang að framleiðslugögnum. Fyrir ótakmörkuð skilaboð í sandkassa skaltu nota staðbundna MCP-þjóninn úr [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp). |
 | **Á staðnum** | Hvernig staðbundni MCP-þjónninn er settur upp við hlið uppsetningarinnar og **Staðfesta tengingu** fyrir tenginguna við leyfisþjónustuna sem Origo lét fylgja leyfinu á staðnum. Ekki er hægt að halda áfram fyrr en tengingin hefur verið staðfest. |
 
 Sjá [Leyfi](/licensing/) um leyfislíkanið.
 
 Í framleiðsluumhverfi er ekkert mánaðarlegt skilaboðatakmark nema stjórnandi stilli **Mánaðarlegur skilaboðakvóti fyrirtækis** í Bifröst uppsetningu eða **Mánaðarlegur skilaboðakvóti notanda** í Bifröst notandauppsetningu. Samstarfsaðilinn þinn ákveður verð hærra þreps.
 
-Leyfisstaðreyndakassinn í sandkassa sýnir sjálfgefið gildi þegar ekki er hægt að lesa þrep leigjandans; raunverulegt þrep þitt gæti verið hærra.
+Leyfisstaðreyndakassinn í sandkassa sýnir sjálfgefið lágmark í stað þess að lesa þrep leigjandans í framleiðsluumhverfi; raunverulegt þrep þitt gæti verið hærra.
 
 ## Ábendingar
 
