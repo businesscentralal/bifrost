@@ -8,6 +8,7 @@
 /** Owner id -> docs route id (the apps.ts plugin id) and display title. */
 export const APP_ROUTES = {
   'foundation': {route: 'foundation', title: 'Foundation'},
+  'language-models': {route: 'language-models', title: 'Language Models'},
 };
 
 /**

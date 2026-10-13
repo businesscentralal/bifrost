@@ -11,6 +11,7 @@ The **User Setup Editor** allows you to configure per-user settings for Bifröst
 | --- | --- |
 | **Charge Type** | Read-only. What this user's messages are charged as: **User**, **App Registration**, and on Subscription **Internal**, **Demo** or **Support**. Set when the user is set up and updated by **Sync** on Bifröst Setup and by the daily usage sync. See [Charge types on Subscription](/licensing/license-types/#charge-types). |
 | **Approval Type** | Whether message sources are accepted automatically or need approval for this user. When approval is required, a new source must be approved on [Approve Session Source](/help/foundation/session-source-approval/) before its messages are accepted. |
+| **Language Model Code** | Shown when [Bifröst Language Models](/language-models/) is installed: the language model this user chats with in [Chat via Bifrost](/help/language-models/bifrost-chat/). When it is empty, the chat is not available to this user. |
 
 ## Monthly Quota
 
@@ -35,7 +36,7 @@ These fields link your user to specific business entities, enabling the system t
 
 ## System Prompt
 
-A custom markdown text that gives the AI additional instructions in chat conversations, when an app that provides a chat is installed and set up. Use this to tailor the AI's behavior, add company-specific context, or restrict responses to certain domains.
+A custom markdown text that gives the AI additional instructions in chat conversations, when an app that provides a chat, such as [Bifröst Language Models](/language-models/), is installed and set up. Use this to tailor the AI's behavior, add company-specific context, or restrict responses to certain domains.
 
 ## See Also
 
