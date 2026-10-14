@@ -168,6 +168,7 @@ const en = `${site}en-us/`;
 
 const appSections = [
   ['attachments', 'Bifröst Attachments — file account connections, storage setup and data exchange'],
+  ['subscription-billing', 'Bifröst Subscription Billing — contracts, the billing run, usage data, deferrals and migration'],
   ['foundation', 'Bifröst Foundation (the base app, always installed) — how Bifröst works, and the standard Business Central operations'],
 ];
 

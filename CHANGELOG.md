@@ -4,6 +4,7 @@
 
 ### Added
 
+- English and Icelandic Bifröst Subscription Billing documentation and a catalogue entry marked Coming soon.
 - English and Icelandic Attachments documentation and context-sensitive help for setup, storage connections and file account selection.
 - An Attachments catalogue entry with its documentation link and an explicit unpublished status.
 
