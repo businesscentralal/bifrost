@@ -45,6 +45,7 @@ const ALLOWED_TYPE_NAMES = new Set(['Help.MessageTypes.Get', 'Help.Implementatio
 // as hashes: the first 16 hex digits of SHA-256 over the lower-cased name (ö written as o), one to three
 // words, and over each docs route. `node tools/check-docs.mjs hash "<name or route>"` prints the value to
 // add. When an app is published, remove its hashes in the same pull request that brings its pages back.
+// Attachments has explicit permission to be documented before publication; its hashes remain below.
 const UNPUBLISHED_NAME_HASHES = new Set([
   'd94df5d992169251', 'a046c4f0a310ac2f', 'a0a446ad370b830c', '17214a07d5b7578b',
   '1b797f6e6728ad2b', '4e335a9a47a11647', '3381590a4e4bd9ff', 'a6ad3891ba67c714', '63874763be005259',
@@ -57,18 +58,27 @@ const UNPUBLISHED_ROUTE_HASHES = new Set([
 ]);
 const shortHash = (value) => createHash('sha256').update(value).digest('hex').slice(0, 16);
 
-/** A pattern-like object: true when a line names an unpublished app or links to one of its routes. */
+// Narrow documentation permission, independent of AppSource publication. Do not exempt a whole
+// line or page: other unpublished apps and every other public-site restriction still apply.
+const DOCUMENTATION_NAME_EXCEPTIONS = new Set(
+  ['attachments', 'bifrost attachments'].map(shortHash),
+);
+const DOCUMENTATION_ROUTE_EXCEPTIONS = new Set([shortHash('attachments')]);
+
+/** A pattern-like object: true when a line names a blocked unpublished app or links to its route. */
 const UNPUBLISHED_APPS = {
   global: false,
   test(line) {
     const words = line.toLowerCase().replace(/ö/g, 'o').match(/[a-z0-9]+/g) ?? [];
     for (let i = 0; i < words.length; i++) {
       for (let n = 1; n <= 3 && i + n <= words.length; n++) {
-        if (UNPUBLISHED_NAME_HASHES.has(shortHash(words.slice(i, i + n).join(' ')))) return true;
+        const hash = shortHash(words.slice(i, i + n).join(' '));
+        if (UNPUBLISHED_NAME_HASHES.has(hash) && !DOCUMENTATION_NAME_EXCEPTIONS.has(hash)) return true;
       }
     }
     for (const m of line.matchAll(/\]\(\/(?:help\/)?([a-z-]+)\//g)) {
-      if (UNPUBLISHED_ROUTE_HASHES.has(shortHash(m[1]))) return true;
+      const hash = shortHash(m[1]);
+      if (UNPUBLISHED_ROUTE_HASHES.has(hash) && !DOCUMENTATION_ROUTE_EXCEPTIONS.has(hash)) return true;
     }
     return false;
   },
@@ -100,7 +110,7 @@ const FORBIDDEN = [
   {token: 'partner/ISV page', pattern: /\]\(\/(?:extensibility|documentation\/partners)\/|register-your-app/, strict: true},
   // The Foundation reference waits in the support scratchpad (decision 03.10.2026).
   {token: 'Foundation reference page', pattern: /\/foundation\/reference\/|\]\(\.\.?\/reference\//, strict: true},
-  // Only published apps are documented here (decision 02.10.2026). When an app is published, remove
+  // Published apps and the Attachments documentation exception are allowed here. When an app is published, remove
   // its hashes in the same pull request that brings its pages back.
   {token: 'unpublished app', pattern: UNPUBLISHED_APPS, strict: true},
 ];
