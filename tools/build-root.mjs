@@ -167,6 +167,7 @@ const site = `${SITE_URL}${BASE_URL}`;
 const en = `${site}en-us/`;
 
 const appSections = [
+  ['attachments', 'Bifröst Attachments — file account connections, storage setup and data exchange'],
   ['foundation', 'Bifröst Foundation (the base app, always installed) — how Bifröst works, and the standard Business Central operations'],
 ];
 
