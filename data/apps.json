@@ -37,6 +37,26 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/language-models.png"
       }
+    },
+    {
+      "appId": "672df32a-a0c5-4a22-b591-0efa38023e95",
+      "name": "Bifrost Attachments",
+      "publisher": "Origo",
+      "summary": "Connect configured Business Central file accounts to Bifrost for file operations and data exchange.",
+      "summary_is": "Tengdu uppsetta skráareikninga Business Central við Bifröst fyrir skráaraðgerðir og gagnaskipti.",
+      "domains": [
+        "documents",
+        "integration"
+      ],
+      "foundationMinVersion": "28.0.1.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/attachments/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/attachments.png"
+      }
     }
   ]
 }

@@ -1,14 +1,14 @@
 /**
  * App -> docs route mapping for the source-based tools (tools/check-context-help.mjs).
  *
- * Lists the published apps only, like apps.ts: an app is added here when it is
- * published and its pages move to this site.
+ * Matches apps.ts: published apps and the explicitly permitted Attachments documentation.
  */
 
 /** Owner id -> docs route id (the apps.ts plugin id) and display title. */
 export const APP_ROUTES = {
   'foundation': {route: 'foundation', title: 'Foundation'},
   'language-models': {route: 'language-models', title: 'Language Models'},
+  'attachments': {route: 'attachments', title: 'Attachments'},
 };
 
 /**
