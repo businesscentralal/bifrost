@@ -2,7 +2,8 @@ name: Build and deploy preview
 
 on:
   pull_request:
-    branches: [main]
+    # PRs into staging get a preview too, so a change is reviewed before it reaches staging.
+    branches: [main, staging]
     types: [opened, synchronize, reopened, closed]
 
 env:
