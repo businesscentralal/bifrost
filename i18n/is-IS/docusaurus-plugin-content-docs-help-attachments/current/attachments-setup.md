@@ -15,9 +15,9 @@ Business Central. Opnaðu [Uppsetning Bifröst geymslu](/help/attachments/storag
 | Aðgerð | Hlutverk |
 | --- | --- |
 | **Leiðsagnarforrit geymsluuppsetningar** | Opnar leiðsögn Business Central fyrir nýjan skráargeymslureikning. |
-| **Uppsetning geymslu** | Opnar skráða skráareikninga. Auðkenni þeirra eru viðhaldin í reikningsuppsetningu Business Central. |
+| **Uppsetning geymslu** | Opnar skráða skráareikninga. Aðgangsupplýsingar þeirra eru viðhaldar í reikningsuppsetningu Business Central. |
 | **Uppsetning Bifröst geymslu** | Opnar lista forritsins yfir geymslutengingar. |
-| **Uppsetningarleiðsögn** | Opnar Bifröst leiðsögn sem leyfir HTTP-beiðnir fyrir uppsett Bifröst forrit og leiðir í gegnum uppsetningu auðkenna. |
+| **Uppsetningarleiðsögn** | Opnar Bifröst leiðsögn sem leyfir HTTP-beiðnir fyrir uppsett Bifröst forrit og leiðir í gegnum uppsetningu aðgangsupplýsinga. |
 | **Hreinsa upphleðslulotur** | Fjarlægir yfirgefnar upphleðslulotur og geymda búta þeirra. |
 
 Notaðu **Hreinsa upphleðslulotur** þegar hreinsa þarf yfirgefnar upphleðslur. Aðgerðin eyðir

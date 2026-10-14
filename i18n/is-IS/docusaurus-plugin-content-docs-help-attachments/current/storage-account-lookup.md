@@ -11,4 +11,4 @@ Veldu reikninginn og staðfestu. Heiti hans birtist þá á tengingarspjaldinu. 
 
 Ef enginn reikningur birtist, athugaðu hvort réttur tengill sé valinn og skráðu samsvarandi reikning
 með **Leiðsagnarforriti geymsluuppsetningar** á [Uppsetningu Bifröst viðhengja](/help/attachments/attachments-setup/).
-Auðkenni reikningsins eru stillt í skráareikningsuppsetningu Business Central, ekki á tengingarspjaldinu.
+Aðgangsupplýsingar reikningsins eru stilltar í skráareikningsuppsetningu Business Central, ekki á tengingarspjaldinu.

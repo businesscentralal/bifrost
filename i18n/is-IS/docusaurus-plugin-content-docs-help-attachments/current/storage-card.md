@@ -12,10 +12,10 @@ frá [Uppsetningu Bifröst geymslu](/help/attachments/storage-setup/).
 | **Kóði** | Auðkenni tengingarinnar. Veldu kóða sem verkferlar hennar þekkja. |
 | **Lýsing** | Tilgangur tengingarinnar. |
 | **Virk** | Leyfir notkun tengingarinnar. |
-| **Tegund geymslu** | Velur geymsluútfærslu. |
+| **Geymslutegund** | Velur geymsluútfærslu. |
 | **Tengill** | Velur tegund skráareiknings Business Central. |
 | **Heiti skráareiknings** | Reikningurinn sem valinn er með **Velja skráareikning** eða uppflettingu reitsins. |
-| **Grunnslóð** | Valfrjálst forskeyti sem bætt er framan við slóðir tengingarinnar. Auttið vísar á rót reikningsins. |
+| **Grunnslóð** | Valfrjálst forskeyti sem bætt er framan við slóðir tengingarinnar. Sé reiturinn auður er rót reikningsins notuð. |
 
 Veldu tengil fyrst og síðan **Velja skráareikning**.
 [Reikningsuppflettingin](/help/attachments/storage-account-lookup/) sýnir reikninga fyrir þann tengil.
