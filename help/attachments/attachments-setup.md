@@ -7,7 +7,7 @@ Use **Bifrost Attachments Setup** to manage the storage connections used by Bifr
 
 ## Manage storage connections
 
-The **Storage Connections** section lists connections and whether they are enabled. Choose **Bifrost Storage Setup** to open the [connection list](storage-setup).
+The **Storage Connections** section lists connections and whether they are enabled. Choose **Bifrost Storage Setup** to open the [connection list](/help/attachments/storage-setup/).
 
 ## Actions
 
@@ -17,4 +17,4 @@ The **Storage Connections** section lists connections and whether they are enabl
 - **Purge Upload Sessions** removes abandoned upload sessions and their chunks. Review your unfinished uploads before using this action.
 - **Setup Wizard** opens the Bifröst setup wizard.
 
-After registering an account, [configure a connection](storage-card).
+After registering an account, [configure a connection](/help/attachments/storage-card/).

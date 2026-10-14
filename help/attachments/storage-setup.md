@@ -3,7 +3,7 @@ id: storage-setup
 title: "Bifrost Storage Setup"
 ---
 
-Use **Bifrost Storage Setup** to review the connections that route Bifröst file operations to registered file accounts. Open it with **Bifrost Storage Setup** on [Bifrost Attachments Setup](attachments-setup).
+Use **Bifrost Storage Setup** to review the connections that route Bifröst file operations to registered file accounts. Open it with **Bifrost Storage Setup** on [Bifrost Attachments Setup](/help/attachments/attachments-setup/).
 
 ## Review a connection
 
@@ -15,7 +15,7 @@ Use **Bifrost Storage Setup** to review the connections that route Bifröst file
 | File Account Name | The registered account selected for the connection. |
 | Enabled | Whether this connection is available for use. |
 
-The list is read-only. Open a row to edit it on the [connection card](storage-card). The **Base Path** column is hidden by default; the card shows it.
+The list is read-only. Open a row to edit it on the [connection card](/help/attachments/storage-card/). The **Base Path** column is hidden by default; the card shows it.
 
 ## Add a connection
 

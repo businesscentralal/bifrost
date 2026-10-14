@@ -7,7 +7,7 @@ title: "Uppsetning Bifröst viðhengja"
 
 ## Stjórna geymslutengingum
 
-Í hlutanum **Geymslutengingar** sjást tengingar og hvort þær séu virkar. Veldu **Uppsetning Bifröst geymslu** til að opna [tengingarlistann](storage-setup).
+Í hlutanum **Geymslutengingar** sjást tengingar og hvort þær séu virkar. Veldu **Uppsetning Bifröst geymslu** til að opna [tengingarlistann](/help/attachments/storage-setup/).
 
 ## Aðgerðir
 
@@ -17,4 +17,4 @@ title: "Uppsetning Bifröst viðhengja"
 - **Hreinsa upphleðslulotur** eyðir yfirgefnum upphleðslulotum og bitum þeirra. Farðu yfir óloknar upphleðslur áður en aðgerðin er notuð.
 - **Uppsetningarleiðsögn** opnar uppsetningarleiðsögn Bifrastar.
 
-Þegar reikningur hefur verið skráður skaltu [setja upp tengingu](storage-card).
+Þegar reikningur hefur verið skráður skaltu [setja upp tengingu](/help/attachments/storage-card/).

@@ -3,7 +3,7 @@ id: storage-setup
 title: "Uppsetning Bifröst geymslu"
 ---
 
-Á síðunni **Uppsetning Bifröst geymslu** sérðu tengingar sem beina skráaraðgerðum Bifrastar að skráðum skráareikningum. Opnaðu hana með **Uppsetning Bifröst geymslu** á [uppsetningarsíðu viðhengja](attachments-setup).
+Á síðunni **Uppsetning Bifröst geymslu** sérðu tengingar sem beina skráaraðgerðum Bifrastar að skráðum skráareikningum. Opnaðu hana með **Uppsetning Bifröst geymslu** á [uppsetningarsíðu viðhengja](/help/attachments/attachments-setup/).
 
 ## Fara yfir tengingu
 
@@ -15,7 +15,7 @@ title: "Uppsetning Bifröst geymslu"
 | Heiti skráareiknings | Skráði reikningurinn sem hefur verið valinn. |
 | Virkt | Hvort hægt sé að nota tenginguna. |
 
-Listinn er skrifvarinn. Opnaðu línu til að breyta henni á [tengingarspjaldinu](storage-card). Dálkurinn **Grunnslóð** er falinn sjálfgefið en birtist á spjaldinu.
+Listinn er skrifvarinn. Opnaðu línu til að breyta henni á [tengingarspjaldinu](/help/attachments/storage-card/). Dálkurinn **Grunnslóð** er falinn sjálfgefið en birtist á spjaldinu.
 
 ## Bæta við tengingu
 
