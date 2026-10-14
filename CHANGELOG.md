@@ -14,6 +14,7 @@
 ### Fixed
 
 - Correct Icelandic wording for storage connection fields and account credentials in Attachments help.
+- Correct the Icelandic feminine plural agreement in the Attachments setup account-credentials description.
 
 ### Tests
 
