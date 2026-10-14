@@ -16,11 +16,12 @@
     "write-translations": "docusaurus write-translations --locale is-IS",
     "validate:apps": "node tools/validate-apps.mjs",
     "typecheck": "tsc",
-    "check:ip-boundary": "node tools/check-docs.mjs ipBoundary",
+    "check:ip-boundary": "npm run test:ip-boundary && node tools/check-docs.mjs ipBoundary",
     "check:docs": "node tools/check-docs.mjs",
     "check:links": "node tools/check-links.mjs",
     "check:structure": "node tools/check-structure.mjs",
-    "check:live": "node tools/check-live.mjs"
+    "check:live": "node tools/check-live.mjs",
+    "test:ip-boundary": "node --test tools/check-docs.test.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",

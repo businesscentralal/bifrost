@@ -1,5 +1,5 @@
 /**
- * Single source of truth for the apps documented on this site: published apps only.
+ * Single source of truth for the apps documented on this site: published apps and the Attachments documentation exception.
  *
  * Every entry produces:
  *   - a docs plugin instance  `<id>`        served at  /{locale}/<id>/
@@ -23,6 +23,7 @@ export type BifrostApp = {
 export const apps: BifrostApp[] = [
   {id: 'foundation', title: 'Foundation', appName: 'Bifrost Foundation'},
   {id: 'language-models', title: 'Language Models', appName: 'Bifrost Language Models'},
+  {id: 'attachments', title: 'Attachments', appName: 'Bifrost Attachments'},
 ];
 
 /**
