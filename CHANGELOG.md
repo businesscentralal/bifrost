@@ -4,6 +4,7 @@
 
 ### Added
 
+- An unlisted Bifröst logo page at `/logo/`, marked `noindex, nofollow` and excluded from the sitemap and site search.
 - English and Icelandic Attachments documentation and context-sensitive help for setup, storage connections and file account selection.
 - An Attachments catalogue entry with its documentation link and an explicit unpublished status.
 
