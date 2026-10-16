@@ -62,6 +62,22 @@ Review the diff with the rules above in mind, including files the checker does n
 commit messages and pull request descriptions as brief as the change allows; send sensitive
 context to the maintainers privately.
 
+## How a change is reviewed
+
+Nothing reaches `main` before someone other than the author has seen it in a browser.
+
+1. Make each change on its own branch and open a pull request **into `staging`**, using the template: what
+   changed, the pages to look at with direct links, and questions for the reviewer.
+2. The pull request gets its own preview; the address is in the bot's comment on it. Link the pages to review
+   from that address. The reviewer opens them, then approves or comments in the pull request.
+3. When it is approved, it is merged into `staging`. `staging` has one draft pull request into `main`, whose
+   preview shows the whole next release.
+4. When the batch is approved, `staging` is merged into `main` and the site is published.
+
+Previews are public but not indexed, so nothing goes into a pull request that may not be read before release.
+Only a few previews can exist at the same time; close pull requests you are not working on. Pull requests
+straight into `main` are for urgent fixes.
+
 ## Languages
 
 English pages live under `docs/` and `help/`; Icelandic under `i18n/is-IS/`. A change that removes
