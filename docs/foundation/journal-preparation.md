@@ -25,4 +25,4 @@ Use this workflow when an assistant prepares a general, item or project journal 
 
 Removing or renumbering lines does not post the journal and is not a way to change arbitrary line fields. Business Central permissions and journal rules still apply. If a revision is rejected, review the error and the batch before retrying; do not assume that only part of the requested revision succeeded.
 
-The operations available to your assistant depend on the installed app. Ask it to read the environment's live catalogue and help before preparing a request. See [How it works](/documentation/how-it-works/) and [Permissions](/documentation/administrators/permissions/).
+The operations available to your assistant depend on the installed app. Ask it to read the environment's live catalogue and help before preparing a request. See [How it works](/documentation/how-it-works/) and [Permissions](/documentation/end-customers/permissions/).

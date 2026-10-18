@@ -25,4 +25,4 @@ Notaðu þetta verklag þegar aðstoðarmaður undirbýr almenna færslubók, bi
 
 Eyðing eða endurnúmerun lína bókar ekki færslubókina og er ekki leið til að breyta hvaða reit sem er í línunum. Heimildir og færslubókarreglur Business Central gilda áfram. Ef breytingu er hafnað skaltu yfirfara villuna og bókarkeyrsluflokkinn áður en þú reynir aftur. Ekki gera ráð fyrir að aðeins hluti umbeðinnar breytingar hafi tekist.
 
-Aðgerðirnar sem aðstoðarmaðurinn getur notað ráðast af uppsettu forriti. Biddu hann að lesa yfirlit og hjálp úr umhverfinu áður en beiðni er undirbúin. Sjá [Hvernig það virkar](/documentation/how-it-works/) og [Heimildir](/documentation/administrators/permissions/).
+Aðgerðirnar sem aðstoðarmaðurinn getur notað ráðast af uppsettu forriti. Biddu hann að lesa yfirlit og hjálp úr umhverfinu áður en beiðni er undirbúin. Sjá [Hvernig það virkar](/documentation/how-it-works/) og [Heimildir](/documentation/end-customers/permissions/).
