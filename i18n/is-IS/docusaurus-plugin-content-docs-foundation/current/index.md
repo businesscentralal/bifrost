@@ -59,6 +59,7 @@ Settu **Bifrost Foundation** upp frá [AppSource](https://marketplace.microsoft.
 
 ## Gott að vita {#good-to-know}
 
+- **Undirbúningur færslubóka:** fylgdu [Undirbúa og yfirfara færslubækur](./journal-preparation.md) áður en almenn færslubók, birgðabók eða verkbók er bókuð.
 - **Síður þess í Business Central** (Bifrost Setup, Bifrost Messages, Reitaaðgangur og hinar) hafa hver sína eigin
   hjálparsíðu.
 - **Annað er eins fyrir öll Bifröst forrit:** hvernig það virkar, notkun, rekstur og heimildir eru undir
