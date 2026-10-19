@@ -10,13 +10,13 @@ const source = readFileSync(new URL('./check-docs.mjs', import.meta.url), 'utf8'
 const hash = (value) => createHash('sha256').update(value).digest('hex').slice(0, 16);
 const protectedNames = [
   'd94df5d992169251', 'a046c4f0a310ac2f', '17214a07d5b7578b',
-  '1b797f6e6728ad2b', '4e335a9a47a11647', '3381590a4e4bd9ff', 'a6ad3891ba67c714', '63874763be005259',
+  '1b797f6e6728ad2b', '3381590a4e4bd9ff', 'a6ad3891ba67c714', '63874763be005259',
   'e3fb45974f88dc34', '6f3e4d7fd1f5e471', 'b0dd3a2d68522b2d', '2756636f5ac88609', '90a45c6dcbb66d38',
   '9a91356d3b648e62',
 ];
 const protectedRoutes = [
   '9eb5c59d70089e53', '97a37556dc257040', 'b25920b5f0013a9f', '3930e671c9e40dee',
-  'dc0d200aaebbf548', 'c2750447ccba4184', 'b11a85b296a90afc',
+  'dc0d200aaebbf548', 'c2750447ccba4184',
 ];
 
 // Run the actual CLI against isolated content; fixtures never enter the public docs tree.

@@ -4,6 +4,7 @@
 
 ### Added
 
+- English and Icelandic Bifröst Inventory documentation, context-sensitive help for Inventory Setup, and a catalogue entry marked coming soon.
 - Publish the Bifrost Orchestrator documentation for its AppSource preparation: the app page, listing copy and user scenarios, and context-sensitive help for every Orchestrator page, in English and Icelandic. Orchestrator is listed in the app catalogue as coming soon.
 
 - English and Icelandic Attachments documentation and context-sensitive help for setup, storage connections and file account selection.

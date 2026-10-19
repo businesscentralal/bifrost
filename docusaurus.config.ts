@@ -252,6 +252,7 @@ const config: Config = {
         {type: 'html', position: 'right', value: `<span class="navAppsLabel">${buildLocale === 'is-IS' ? 'Forrit' : 'Apps'}</span>`, className: 'navApps'},
         {label: 'Foundation', to: '/foundation/', position: 'right', activeBasePath: '/foundation/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Viðhengi' : 'Attachments', to: '/attachments/', position: 'right', activeBasePath: '/attachments/', className: 'navApps navAppsItem'},
+        {label: buildLocale === 'is-IS' ? 'Birgðir' : 'Inventory', to: '/inventory/', position: 'right', activeBasePath: '/inventory/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Mállíkön' : 'Language Models', to: '/language-models/', position: 'right', activeBasePath: '/language-models/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Stjórnandi' : 'Orchestrator', to: '/orchestrator/', position: 'right', activeBasePath: '/orchestrator/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/', position: 'right', className: 'navApps navAppsItem'},

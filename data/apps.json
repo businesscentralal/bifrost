@@ -77,6 +77,25 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/orchestrator.png"
       }
+    },
+    {
+      "appId": "02701c94-c962-4825-92c7-ef9f70311a2b",
+      "name": "Bifrost Inventory",
+      "publisher": "Origo",
+      "summary": "Run inventory work from an assistant or integration: transfers, assembly, item tracking, reservations, counts, costing and inventory periods.",
+      "summary_is": "Vinndu birgðaverk úr aðstoð eða samþættingu: flutninga, samsetningu, vörurakningu, frátektir, talningar, kostnað og birgðatímabil.",
+      "domains": [
+        "inventory"
+      ],
+      "foundationMinVersion": "28.0.3.530",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/inventory/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/inventory.png"
+      }
     }
   ]
 }
