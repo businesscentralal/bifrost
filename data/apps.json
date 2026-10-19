@@ -48,7 +48,7 @@
         "documents",
         "integration"
       ],
-      "foundationMinVersion": "28.0.1.0",
+      "foundationMinVersion": "28.0.3.530",
       "status": "coming-soon",
       "links": {
         "appSource": null,
@@ -59,15 +59,35 @@
       }
     },
     {
+      "appId": "7da3f512-5c19-47cd-bbe4-4c2bc713f1db",
+      "name": "Bifrost Orchestrator",
+      "publisher": "Origo",
+      "summary": "Supervise Business Central job queue entries with automatic restart and failure notifications, and run playbooks that chain Bifrost operations on a schedule.",
+      "summary_is": "Hafðu eftirlit með verkröðum Business Central með sjálfvirkri endurræsingu og tilkynningum um villur, og keyrðu keðjur sem tengja saman Bifröst aðgerðir eftir tímaáætlun.",
+      "domains": [
+        "integration",
+        "other"
+      ],
+      "foundationMinVersion": "28.0.4.554",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/orchestrator/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/orchestrator.png"
+      }
+    },
+    {
       "appId": "dd7b8bd8-f93e-4ac4-a251-1a132a14ef3d",
       "name": "Bifrost Subscription Billing",
       "publisher": "Origo",
       "summary": "Run recurring billing from an assistant or integration: contracts, billing runs, usage data and deferrals in Microsoft's Subscription Billing app.",
-      "summary_is": "Keyrðu reglulega reikningagerð úr aðstoð eða samþættingu: samninga, reikningskeyrslur, notkunargögn og frestanir í Subscription Billing appi Microsoft.",
+      "summary_is": "Keyrðu reglulega reikningagerð úr aðstoð eða samþættingu: samninga, reikningskeyrslur, notkunargögn og frestanir í Subscription Billing-forriti Microsoft.",
       "domains": [
         "finance"
       ],
-      "foundationMinVersion": "28.0.1.0",
+      "foundationMinVersion": "28.0.5.590",
       "status": "coming-soon",
       "links": {
         "appSource": null,

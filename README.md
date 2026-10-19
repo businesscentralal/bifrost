@@ -27,6 +27,7 @@ creates both instances and both navbar entries.
 | `language-models` | Bifrost Language Models | `bc-origo-bifrost-language-models` |
 | `attachments` | Bifrost Attachments | `bc-origo-bifrost-attachments` |
 | `subscription-billing` | Bifrost Subscription Billing | `bc-origo-bifrost-subscription-billing` |
+| `orchestrator` | Bifrost Orchestrator | `bc-origo-bifrost-orchestrator` |
 
 The site documents published apps and the apps being prepared for AppSource (Attachments and
 Subscription Billing are listed as coming soon). Every other unpublished app remains blocked.

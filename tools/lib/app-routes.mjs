@@ -10,6 +10,7 @@ export const APP_ROUTES = {
   'language-models': {route: 'language-models', title: 'Language Models'},
   'attachments': {route: 'attachments', title: 'Attachments'},
   'subscription-billing': {route: 'subscription-billing', title: 'Subscription Billing'},
+  'orchestrator': {route: 'orchestrator', title: 'Orchestrator'},
 };
 
 /**
