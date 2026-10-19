@@ -4,6 +4,8 @@
 
 ### Added
 
+- Publish the Bifrost Orchestrator documentation for its AppSource preparation: the app page, listing copy and user scenarios, and context-sensitive help for every Orchestrator page, in English and Icelandic. Orchestrator is listed in the app catalogue as coming soon.
+
 - English and Icelandic Attachments documentation and context-sensitive help for setup, storage connections and file account selection.
 - An Attachments catalogue entry with its documentation link and an explicit unpublished status.
 

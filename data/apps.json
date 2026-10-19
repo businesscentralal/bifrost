@@ -57,6 +57,26 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/attachments.png"
       }
+    },
+    {
+      "appId": "7da3f512-5c19-47cd-bbe4-4c2bc713f1db",
+      "name": "Bifrost Orchestrator",
+      "publisher": "Origo",
+      "summary": "Supervise Business Central job queue entries with automatic restart and failure notifications, and run playbooks that chain Bifrost operations on a schedule.",
+      "summary_is": "Hafðu eftirlit með verkröðum Business Central með sjálfvirkri endurræsingu og tilkynningum um villur, og keyrðu keðjur sem tengja saman Bifröst aðgerðir eftir tímaáætlun.",
+      "domains": [
+        "integration",
+        "other"
+      ],
+      "foundationMinVersion": "28.0.4.554",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/orchestrator/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/orchestrator.png"
+      }
     }
   ]
 }

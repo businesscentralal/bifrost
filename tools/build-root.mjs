@@ -168,6 +168,7 @@ const en = `${site}en-us/`;
 
 const appSections = [
   ['attachments', 'Bifröst Attachments — file account connections, storage setup and data exchange'],
+  ['orchestrator', 'Bifröst Orchestrator — supervised scheduled jobs with restart and notifications, and playbooks that chain operations'],
   ['foundation', 'Bifröst Foundation (the base app, always installed) — how Bifröst works, and the standard Business Central operations'],
 ];
 
