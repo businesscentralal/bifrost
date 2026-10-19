@@ -25,6 +25,7 @@ export const apps: BifrostApp[] = [
   {id: 'language-models', title: 'Language Models', appName: 'Bifrost Language Models'},
   {id: 'attachments', title: 'Attachments', appName: 'Bifrost Attachments'},
   {id: 'orchestrator', title: 'Orchestrator', appName: 'Bifrost Orchestrator'},
+  {id: 'warehouse', title: 'Warehouse', appName: 'Bifrost Warehouse'},
 ];
 
 /**

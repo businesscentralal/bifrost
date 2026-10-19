@@ -27,9 +27,10 @@ creates both instances and both navbar entries.
 | `language-models` | Bifrost Language Models | `bc-origo-bifrost-language-models` |
 | `attachments` | Bifrost Attachments | `bc-origo-bifrost-attachments` |
 | `orchestrator` | Bifrost Orchestrator | `bc-origo-bifrost-orchestrator` |
+| `warehouse` | Bifrost Warehouse | `bc-origo-bifrost-warehouse` |
 
-The site documents published apps, with an explicit exception allowing Attachments
-documentation before AppSource publication. Every other unpublished app remains blocked.
+The site documents published apps and the apps being prepared for AppSource (Attachments,
+Orchestrator and Warehouse are listed as coming soon). Every other unpublished app remains blocked.
 Every listed app has a docs instance; a help instance exists only for an app with help pages, one page per
 Business Central page that carries `ContextSensitiveHelpPage`, and no index page.
 
