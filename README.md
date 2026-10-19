@@ -26,6 +26,7 @@ creates both instances and both navbar entries.
 | `foundation` | Bifrost Foundation | `bc-origo-bifrost-core` |
 | `language-models` | Bifrost Language Models | `bc-origo-bifrost-language-models` |
 | `attachments` | Bifrost Attachments | `bc-origo-bifrost-attachments` |
+| `orchestrator` | Bifrost Orchestrator | `bc-origo-bifrost-orchestrator` |
 
 The site documents published apps, with an explicit exception allowing Attachments
 documentation before AppSource publication. Every other unpublished app remains blocked.

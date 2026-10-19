@@ -253,6 +253,7 @@ const config: Config = {
         {label: 'Foundation', to: '/foundation/', position: 'right', activeBasePath: '/foundation/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Viðhengi' : 'Attachments', to: '/attachments/', position: 'right', activeBasePath: '/attachments/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Mállíkön' : 'Language Models', to: '/language-models/', position: 'right', activeBasePath: '/language-models/', className: 'navApps navAppsItem'},
+        {label: buildLocale === 'is-IS' ? 'Stjórnandi' : 'Orchestrator', to: '/orchestrator/', position: 'right', activeBasePath: '/orchestrator/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/', position: 'right', className: 'navApps navAppsItem'},
         // The Icelandic site is not offered from the English one until the new chapters are
         // translated; the Icelandic build keeps the switcher so its readers can reach English.
