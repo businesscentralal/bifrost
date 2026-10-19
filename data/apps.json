@@ -87,7 +87,7 @@
       "domains": [
         "finance"
       ],
-      "foundationMinVersion": "28.0.5.590",
+      "foundationMinVersion": "28.0.3.530",
       "status": "coming-soon",
       "links": {
         "appSource": null,
