@@ -59,6 +59,7 @@ each saying who is needed.
 
 ## Good to know
 
+- **Preparing journals:** follow [Prepare and revise journals](./journal-preparation.md) before posting general, item or project journals.
 - **Its pages in Business Central** (Bifrost Setup, Bifrost Messages, Field Access and the others) each have their
   own help page.
 - **The rest is the same for every Bifröst app:** how it works, using it, running it and its permissions are in the
