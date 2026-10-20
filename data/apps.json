@@ -115,6 +115,25 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/subscription-billing.png"
       }
+    },
+    {
+      "appId": "47acac54-3873-496f-9e88-157f36413e89",
+      "name": "Bifrost Warehouse",
+      "publisher": "Origo",
+      "summary": "Run warehouse work from an assistant or integration: receipts, put-aways, picks and shipments, with bin content and open warehouse activities.",
+      "summary_is": "Vinndu vöruhúsaverk úr aðstoð eða samþættingu: móttökur, frágang, tínslu og afhendingar, ásamt innihaldi hólfa og opnum vöruhúsaaðgerðum.",
+      "domains": [
+        "inventory"
+      ],
+      "foundationMinVersion": "28.0.3.530",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/warehouse/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/warehouse.png"
+      }
     }
   ]
 }

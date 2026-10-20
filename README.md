@@ -29,9 +29,10 @@ creates both instances and both navbar entries.
 | `inventory` | Bifrost Inventory | `bc-origo-bifrost-inventory` |
 | `subscription-billing` | Bifrost Subscription Billing | `bc-origo-bifrost-subscription-billing` |
 | `orchestrator` | Bifrost Orchestrator | `bc-origo-bifrost-orchestrator` |
+| `warehouse` | Bifrost Warehouse | `bc-origo-bifrost-warehouse` |
 
 The site documents published apps and the apps being prepared for AppSource (Attachments, Orchestrator,
-Inventory and Subscription Billing are listed as coming soon). Every other unpublished app remains blocked.
+Inventory, Subscription Billing and Warehouse are listed as coming soon). Every other unpublished app remains blocked.
 Every listed app has a docs instance; a help instance exists only for an app with help pages, one page per
 Business Central page that carries `ContextSensitiveHelpPage`, and no index page.
 

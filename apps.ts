@@ -27,6 +27,7 @@ export const apps: BifrostApp[] = [
   {id: 'inventory', title: 'Inventory', appName: 'Bifrost Inventory'},
   {id: 'subscription-billing', title: 'Subscription Billing', appName: 'Bifrost Subscription Billing'},
   {id: 'orchestrator', title: 'Orchestrator', appName: 'Bifrost Orchestrator'},
+  {id: 'warehouse', title: 'Warehouse', appName: 'Bifrost Warehouse'},
 ];
 
 /**
