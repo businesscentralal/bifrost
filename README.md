@@ -155,7 +155,7 @@ is missing or broken.
 | Workflow | Trigger | What it does |
 | --- | --- | --- |
 | `deploy.yml` | push to `main`, manual | Builds both locales and deploys to GitHub Pages |
-| `preview.yml` | pull request to `main` | Builds both locales, uploads an artifact, and deploys an Azure preview with a PR comment; removes the preview when the PR closes |
+| `preview.yml` | pull request to `main` or `staging` | Builds both locales, uploads an artifact, and deploys an Azure preview with a PR comment; removes the preview when the PR closes |
 
 ### Pull request previews
 
