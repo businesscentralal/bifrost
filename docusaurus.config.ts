@@ -181,7 +181,8 @@ const config: Config = {
         docs: false,
         blog: false,
         theme: {customCss: './src/css/custom.css'},
-        sitemap: {lastmod: 'date', changefreq: 'weekly'},
+        // The logo page (src/pages/logo.tsx) is unlisted, so it stays out of the sitemap.
+        sitemap: {lastmod: 'date', changefreq: 'weekly', ignorePatterns: ['**/logo/**']},
       } satisfies Preset.Options,
     ],
   ],
@@ -197,6 +198,8 @@ const config: Config = {
         docsPluginIdForPreferredVersion: 'foundation',
         indexBlog: false,
         indexPages: true,
+        // The logo page is unlisted, so the site search leaves it out too.
+        ignoreFiles: ['logo'],
         docsRouteBasePath: [
           ...apps.map((app) => app.id),
           ...helpApps.map((app) => `help/${app.id}`),
