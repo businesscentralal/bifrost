@@ -252,6 +252,8 @@ const config: Config = {
         {type: 'html', position: 'right', value: `<span class="navAppsLabel">${buildLocale === 'is-IS' ? 'Forrit' : 'Apps'}</span>`, className: 'navApps'},
         {label: 'Foundation', to: '/foundation/', position: 'right', activeBasePath: '/foundation/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Viðhengi' : 'Attachments', to: '/attachments/', position: 'right', activeBasePath: '/attachments/', className: 'navApps navAppsItem'},
+        {label: buildLocale === 'is-IS' ? 'Birgðir' : 'Inventory', to: '/inventory/', position: 'right', activeBasePath: '/inventory/', className: 'navApps navAppsItem'},
+        {label: buildLocale === 'is-IS' ? 'Áskriftarreikningagerð' : 'Subscription Billing', to: '/subscription-billing/', position: 'right', activeBasePath: '/subscription-billing/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Mállíkön' : 'Language Models', to: '/language-models/', position: 'right', activeBasePath: '/language-models/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Stjórnandi' : 'Orchestrator', to: '/orchestrator/', position: 'right', activeBasePath: '/orchestrator/', className: 'navApps navAppsItem'},
         {label: buildLocale === 'is-IS' ? 'Vöruhús' : 'Warehouse', to: '/warehouse/', position: 'right', activeBasePath: '/warehouse/', className: 'navApps navAppsItem'},
