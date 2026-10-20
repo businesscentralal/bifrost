@@ -48,7 +48,7 @@
         "documents",
         "integration"
       ],
-      "foundationMinVersion": "28.0.1.0",
+      "foundationMinVersion": "28.0.3.530",
       "status": "coming-soon",
       "links": {
         "appSource": null,
@@ -76,6 +76,25 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/orchestrator.png"
+      }
+    },
+    {
+      "appId": "dd7b8bd8-f93e-4ac4-a251-1a132a14ef3d",
+      "name": "Bifrost Subscription Billing",
+      "publisher": "Origo",
+      "summary": "Run recurring billing from an assistant or integration: contracts, billing runs, usage data and deferrals in Microsoft's Subscription Billing app.",
+      "summary_is": "Keyrðu reglulega reikningagerð úr aðstoð eða samþættingu: samninga, reikningskeyrslur, notkunargögn og frestanir í Subscription Billing-forriti Microsoft.",
+      "domains": [
+        "finance"
+      ],
+      "foundationMinVersion": "28.0.3.530",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/subscription-billing/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/subscription-billing.png"
       }
     },
     {
