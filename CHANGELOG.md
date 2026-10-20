@@ -4,11 +4,7 @@
 
 ### Added
 
-<<<<<<< HEAD
 - English and Icelandic Bifröst Inventory documentation for release 28.3.0: the app page (transfers, assembly, item tracking reads, reservations and order tracking, availability by period, item references, item charges, item categories, counts, costing and periods) and context-sensitive help for Inventory Setup with all 15 areas, including the note that the four newest areas stay off on existing companies. The catalogue entry is marked coming soon until the AppSource listing is live.
-=======
-- English and Icelandic Bifröst Inventory documentation, context-sensitive help for Inventory Setup, and a catalogue entry marked coming soon.
->>>>>>> origin/docs/publish-inventory
 - English and Icelandic Bifröst Subscription Billing documentation and a catalogue entry marked Coming soon.
 - Publish the Bifrost Orchestrator documentation for its AppSource preparation: the app page, listing copy and user scenarios, and context-sensitive help for every Orchestrator page, in English and Icelandic. Orchestrator is listed in the app catalogue as coming soon.
 
