@@ -53,6 +53,16 @@ test('published Orchestrator names and routes are allowed', () => {
   }
 });
 
+test('Inventory and Subscription Billing publication changes coexist', () => {
+  for (const app of ['inventory', 'subscription-billing']) {
+    for (const file of [`docs/${app}/fixture.md`, `help/${app}/fixture.md`,
+      `i18n/is-IS/docusaurus-plugin-content-docs-${app}/current/fixture.md`]) {
+      const name = app === 'inventory' ? 'Bifrost Inventory' : 'Bifrost Subscription Billing';
+      assert.equal(check(`${name} [Overview](/${app}/) [Help](/help/${app}/setup/)`, file).status, 0, file);
+    }
+  }
+});
+
 test('the complete unpublished hash inventory is retained', () => {
   const values = (name) => [...source.match(new RegExp('const ' + name + ' = new Set\\((\\[[\\s\\S]*?\\])\\);'))[1].matchAll(/'([a-f0-9]{16})'/g)].map((m) => m[1]);
   assert.deepEqual(values('UNPUBLISHED_NAME_HASHES'), protectedNames);
