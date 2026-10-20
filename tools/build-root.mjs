@@ -168,6 +168,7 @@ const en = `${site}en-us/`;
 
 const appSections = [
   ['attachments', 'Bifröst Attachments — file account connections, storage setup and data exchange'],
+  ['inventory', 'Bifröst Inventory — transfers, assembly, item tracking reads, reservations and order tracking, availability, item references, item charges, item categories, physical inventory, costing and inventory periods'],
   ['subscription-billing', 'Bifröst Subscription Billing — contracts, the billing run, usage data, deferrals and migration'],
   ['orchestrator', 'Bifröst Orchestrator — supervised scheduled jobs with restart and notifications, and playbooks that chain operations'],
   ['foundation', 'Bifröst Foundation (the base app, always installed) — how Bifröst works, and the standard Business Central operations'],
