@@ -48,7 +48,7 @@
         "documents",
         "integration"
       ],
-      "foundationMinVersion": "28.0.1.0",
+      "foundationMinVersion": "28.0.3.530",
       "status": "coming-soon",
       "links": {
         "appSource": null,
@@ -82,8 +82,8 @@
       "appId": "02701c94-c962-4825-92c7-ef9f70311a2b",
       "name": "Bifrost Inventory",
       "publisher": "Origo",
-      "summary": "Run inventory work from an assistant or integration: transfers, assembly, item tracking, reservations, counts, costing and inventory periods.",
-      "summary_is": "Vinndu birgðaverk úr aðstoð eða samþættingu: flutninga, samsetningu, vörurakningu, frátektir, talningar, kostnað og birgðatímabil.",
+      "summary": "Run inventory work from an assistant or integration: transfers, assembly, reservations, availability, item references, categories, charges, counts, costing and inventory periods.",
+      "summary_is": "Vinndu birgðaverk úr aðstoð eða samþættingu: flutninga, samsetningu, frátektir, framboð, vörutilvísanir, vöruflokka, kostnaðarauka, talningar, kostnað og birgðatímabil.",
       "domains": [
         "inventory"
       ],
@@ -95,6 +95,25 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/inventory.png"
+      }
+    },
+    {
+      "appId": "dd7b8bd8-f93e-4ac4-a251-1a132a14ef3d",
+      "name": "Bifrost Subscription Billing",
+      "publisher": "Origo",
+      "summary": "Run recurring billing from an assistant or integration: contracts, billing runs, usage data and deferrals in Microsoft's Subscription Billing app.",
+      "summary_is": "Keyrðu reglulega reikningagerð úr aðstoð eða samþættingu: samninga, reikningskeyrslur, notkunargögn og frestanir í Subscription Billing-forriti Microsoft.",
+      "domains": [
+        "finance"
+      ],
+      "foundationMinVersion": "28.0.3.530",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/subscription-billing/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/subscription-billing.png"
       }
     }
   ]
