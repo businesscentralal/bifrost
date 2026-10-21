@@ -75,6 +75,10 @@ Peppol-kóðalistarnir krefjast einskis slíks.
 | 5 | Ef þú tekur á móti reikningum: veldu **Uppfæra BII gagnaskiptaskilgreiningar**, skráðu kennitölu hvers lánardrottins í **Kennitala**, og ákveddu hvernig línur bókast: **Vörpun texta á reikning** í Business Central, **VSK fjárhagsreikn.vörpun** og **BIS30 kóðavörpun**. Veldu **Bókunaraðferð skjala á innleið** hjá lánardrottnum sem eiga að fá færslubókarlínur. | Bókari eða Business Central samstarfsaðili |
 | 6 | Veittu þeim sem senda eða taka á móti skjölum `BIFROST Full ori`. | Kerfisstjóri Business Central |
 
+![Uppsetning skjalaskipta með flokkunum Advania og Unimaze, þar sem umhverfið er Prófun og innskráningarupplýsingar eru geymdar](/img/iceland-docex/is-is/docex-setup.png)
+
+![Flipinn Reikningsfærsla á lánardrottnaspjaldi, þar sem Bókunaraðferð skjala á innleið er Innkaupaskjal](/img/iceland-docex/is-is/vendor-posting-mode.png)
+
 Hjálp hverrar síðu segir nánar frá: [Uppsetning skjalaskipta](/help/iceland-docex/docex-setup/),
 [BIS30 kóðavörpun](/help/iceland-docex/bis30-code-map/) og
 [VSK fjárhagsreikn.vörpun lánardrottins](/help/iceland-docex/vend-vat-gl-map/).

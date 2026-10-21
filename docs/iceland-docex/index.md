@@ -72,6 +72,10 @@ need none.
 | 5 | If you receive invoices: choose **Update BII Data Exchange Definitions**, give each vendor its kennitala in **Registration No.**, and decide how lines are posted: Business Central's **Text-to-Account Mapping**, the **VAT G/L Account Map** and the **BIS30 Code Map**. Choose **Incoming Doc. Posting Mode** on vendors whose invoices should become journal lines. | Accountant or Business Central partner |
 | 6 | Give the people and services that send or receive documents `BIFROST Full ori`. | Business Central administrator |
 
+![Document Exchange Setup with the Advania and Unimaze groups, each with its environment set to Test and the credentials stored](/img/iceland-docex/en-us/docex-setup.png)
+
+![The Invoicing FastTab of a vendor card, with Incoming Doc. Posting Mode set to Purchase Document](/img/iceland-docex/en-us/vendor-posting-mode.png)
+
 The help of each page has the details: [Document Exchange Setup](/help/iceland-docex/docex-setup/),
 [BIS30 Code Map](/help/iceland-docex/bis30-code-map/) and
 [Vendor VAT G/L Account Map](/help/iceland-docex/vend-vat-gl-map/).

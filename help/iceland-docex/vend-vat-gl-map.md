@@ -34,3 +34,5 @@ or from the vendor card, the vendor list and the incoming documents, where it op
   refuses the document.
 - Whether a vendor's documents become a purchase invoice or general journal lines is set in
   **Incoming Doc. Posting Mode** on the vendor card.
+
+![The Invoicing FastTab of a vendor card, with Incoming Doc. Posting Mode set to Purchase Document](/img/iceland-docex/en-us/vendor-posting-mode.png)

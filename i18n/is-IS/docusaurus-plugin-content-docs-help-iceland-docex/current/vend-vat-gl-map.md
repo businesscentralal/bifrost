@@ -37,3 +37,5 @@ lánardrottininn.
   Central skjalinu.
 - Hvort skjöl lánardrottins verða að innkaupareikningi eða færslubókarlínum er stillt í **Bókunaraðferð
   skjala á innleið** á lánardrottnaspjaldinu.
+
+![Flipinn Reikningsfærsla á lánardrottnaspjaldi, þar sem Bókunaraðferð skjala á innleið er Innkaupaskjal](/img/iceland-docex/is-is/vendor-posting-mode.png)

@@ -15,6 +15,8 @@ enga færslu helst óbreyttur, svo hann virkar aðeins ef sami kóði er til í 
 
 Opnaðu síðuna með aðgerðinni **BIS30 kóðavörpun** á [Uppsetning skjalaskipta](/help/iceland-docex/docex-setup/).
 
+![BIS30 kóðavörpun með mælieiningunum C62 og H87 varpað á STYKKI](/img/iceland-docex/is-is/bis30-code-map.png)
+
 ## Reitir {#fields}
 
 | Reitur | Lýsing |

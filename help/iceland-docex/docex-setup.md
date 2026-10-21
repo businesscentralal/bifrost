@@ -14,6 +14,8 @@ setup per company; it is created the first time the page opens.
 
 ## Networks
 
+![Document Exchange Setup with the Advania and Unimaze groups, each with its environment set to Test and the credentials stored](/img/iceland-docex/en-us/docex-setup.png)
+
 Each network has its own group with an **Environment** field and a read-only **Credentials** status.
 
 | Group | Fields |
@@ -41,6 +43,8 @@ Bifröst secret store and never shown again.
 Credentials are not copied from an earlier app or an upgrade. Enter them again after installing.
 
 ## Actions
+
+![Document Exchange Setup with the Unimaze actions open: Set Username, Set Password or API Key and Clear Credentials, and Test Unimaze Connection in the action bar](/img/iceland-docex/en-us/docex-setup-actions.png)
 
 | Group | Action | What it does |
 | --- | --- | --- |

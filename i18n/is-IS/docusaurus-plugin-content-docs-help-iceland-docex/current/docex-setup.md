@@ -14,6 +14,8 @@ uppsetning er til fyrir hvert fyrirtæki; hún verður til þegar síðan er opn
 
 ## Skjalaskiptanet {#networks}
 
+![Uppsetning skjalaskipta með flokkunum Advania og Unimaze, þar sem umhverfið er Prófun og innskráningarupplýsingar eru geymdar](/img/iceland-docex/is-is/docex-setup.png)
+
 Hvert net hefur eigin flokk með reit fyrir umhverfi og stöðunni **Innskráningarupplýsingar**, sem ekki er
 hægt að breyta.
 
@@ -44,6 +46,8 @@ Innskráningarupplýsingar eru ekki afritaðar úr eldra forriti eða við uppf�
 eftir uppsetningu.
 
 ## Aðgerðir {#actions}
+
+![Uppsetning skjalaskipta með aðgerðir Unimaze opnar: Skrá notandanafn, Skrá lykilorð eða API lykil og Hreinsa innskráningarupplýsingar, og Prófa Unimaze tengingu á aðgerðastikunni](/img/iceland-docex/is-is/docex-setup-actions.png)
 
 | Flokkur | Aðgerð | Hvað hún gerir |
 | --- | --- | --- |

@@ -14,6 +14,8 @@ code with no entry is kept as it is, so it works only if the same code exists in
 
 Open the page from the **BIS30 Code Map** action on [Document Exchange Setup](/help/iceland-docex/docex-setup/).
 
+![BIS30 Code Map with the Unit of Measure entries C62 and H87 mapped to STYKKI](/img/iceland-docex/en-us/bis30-code-map.png)
+
 ## Fields
 
 | Field | Description |
