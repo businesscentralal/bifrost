@@ -40,7 +40,8 @@ Byrjaðu á [Hvernig Bifröst virkar](/documentation/how-it-works/).*
 - **Tekið inn reikninga á pappír, í PDF og á mynd.** Reikningur sem berst sem PDF-skjal, skönnun eða
   ljósmynd fer inn í Business Central sem skjal á innleið. Aðstoðin les hann og breytir honum í rafrænan
   reikning á sama skjali á innleið, og upprunalega skráin fylgir áfram, svo Business Central gerir úr honum
-  innkaupareikning nákvæmlega eins og úr reikningi sem barst um skjalaskiptanet.
+  innkaupareikning nákvæmlega eins og úr reikningi sem barst um skjalaskiptanet. Sjá
+  [Skjöl á innleið frá upphafi til enda](/iceland-docex/incoming-documents/).
 - **Búið til XML fyrir rafræna reikninga.** Búðu til Peppol BIS 3.0 XML (UBL) fyrir reikninga,
   kreditreikninga, pantanir, afhendingarseðla og yfirlit, og geymdu það sem viðhengi við skjal eða sem skjal
   á innleið.

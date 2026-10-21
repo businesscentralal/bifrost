@@ -39,7 +39,8 @@ with [How Bifröst works](/documentation/how-it-works/).*
 - **Bring in paper, PDF and photographed invoices too.** An invoice that arrives as a PDF, a scan or a
   photo goes into Business Central as an incoming document. Your assistant reads it and turns it into an
   e-invoice on the same incoming document, with the original file kept, so Business Central makes it a
-  purchase invoice exactly like one received through a network.
+  purchase invoice exactly like one received through a network. See
+  [Incoming documents from start to finish](/iceland-docex/incoming-documents/).
 - **Create e-invoice XML.** Create Peppol BIS 3.0 XML (UBL) for invoices, credit notes, orders, despatch
   advices and statements, and keep it as an attachment on a document or as an incoming document.
 - **Answer the supplier.** Tell a supplier through Unimaze that an invoice has been paid, or reject it with
