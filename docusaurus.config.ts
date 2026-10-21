@@ -250,18 +250,25 @@ const config: Config = {
         {label: buildLocale === 'is-IS' ? 'Hvernig það virkar' : 'How it works', to: '/documentation/how-it-works/', position: 'left', activeBasePath: '/documentation/'},
         {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Leyfi' : 'Licensing', to: '/licensing/', position: 'left'},
-        // On the right, set apart: permitted app documentation (including Attachments), then the
-        // list of all apps. The label and the items share one framed group (.navApps).
-        {type: 'html', position: 'right', value: `<span class="navAppsLabel">${buildLocale === 'is-IS' ? 'Forrit' : 'Apps'}</span>`, className: 'navApps'},
-        {label: 'Foundation', to: '/foundation/', position: 'right', activeBasePath: '/foundation/', className: 'navApps navAppsItem'},
-        {label: buildLocale === 'is-IS' ? 'Viðhengi' : 'Attachments', to: '/attachments/', position: 'right', activeBasePath: '/attachments/', className: 'navApps navAppsItem'},
-        {label: buildLocale === 'is-IS' ? 'Birgðir' : 'Inventory', to: '/inventory/', position: 'right', activeBasePath: '/inventory/', className: 'navApps navAppsItem'},
-        {label: buildLocale === 'is-IS' ? 'Áskriftarreikningagerð' : 'Subscription Billing', to: '/subscription-billing/', position: 'right', activeBasePath: '/subscription-billing/', className: 'navApps navAppsItem'},
-        {label: buildLocale === 'is-IS' ? 'Mállíkön' : 'Language Models', to: '/language-models/', position: 'right', activeBasePath: '/language-models/', className: 'navApps navAppsItem'},
-        {label: buildLocale === 'is-IS' ? 'Stjórnandi' : 'Orchestrator', to: '/orchestrator/', position: 'right', activeBasePath: '/orchestrator/', className: 'navApps navAppsItem'},
-        {label: buildLocale === 'is-IS' ? 'Vöruhús' : 'Warehouse', to: '/warehouse/', position: 'right', activeBasePath: '/warehouse/', className: 'navApps navAppsItem'},
-        {label: buildLocale === 'is-IS' ? 'Ísland' : 'Iceland', to: '/iceland/', position: 'right', activeBasePath: '/iceland/', className: 'navApps navAppsItem'},
-        {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/', position: 'right', className: 'navApps navAppsItem'},
+        // On the right, set apart: one Apps menu with Foundation, each additional app and the list
+        // of all apps. One menu keeps the navbar on one line however many apps are published.
+        {
+          type: 'dropdown',
+          label: buildLocale === 'is-IS' ? 'Forrit' : 'Apps',
+          position: 'right',
+          className: 'navAppsMenu',
+          items: [
+            {label: 'Foundation', to: '/foundation/', activeBasePath: '/foundation/'},
+            {label: buildLocale === 'is-IS' ? 'Viðhengi' : 'Attachments', to: '/attachments/', activeBasePath: '/attachments/'},
+            {label: buildLocale === 'is-IS' ? 'Birgðir' : 'Inventory', to: '/inventory/', activeBasePath: '/inventory/'},
+            {label: buildLocale === 'is-IS' ? 'Áskriftarreikningagerð' : 'Subscription Billing', to: '/subscription-billing/', activeBasePath: '/subscription-billing/'},
+            {label: buildLocale === 'is-IS' ? 'Mállíkön' : 'Language Models', to: '/language-models/', activeBasePath: '/language-models/'},
+            {label: buildLocale === 'is-IS' ? 'Stjórnandi' : 'Orchestrator', to: '/orchestrator/', activeBasePath: '/orchestrator/'},
+            {label: buildLocale === 'is-IS' ? 'Vöruhús' : 'Warehouse', to: '/warehouse/', activeBasePath: '/warehouse/'},
+            {label: buildLocale === 'is-IS' ? 'Ísland' : 'Iceland', to: '/iceland/', activeBasePath: '/iceland/'},
+            {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/'},
+          ],
+        },
         // The Icelandic site is not offered from the English one until the new chapters are
         // translated; the Icelandic build keeps the switcher so its readers can reach English.
         ...(buildLocale === 'is-IS'

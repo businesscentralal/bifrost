@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- The top navigation no longer overlaps on desktop screens: Foundation and the apps are now one Apps menu instead of a row of buttons, so the bar stays on one line as more apps are published. Same in English and Icelandic.
+
 ### Added
 
 - Publish Bifröst Iceland for its 28.1.0 AppSource release: the app page (national registry, VAT, payroll and capital income tax returns, central bank rates, Skilagrein, island.is lookups, SMS, setup and permissions) and context-sensitive help for Bifrost Iceland Setup, Skilagrein Collectors and National Registry Entries, in English and Icelandic. The catalogue entry is marked coming soon until the AppSource listing is live.

@@ -241,3 +241,12 @@ a.bifrostCard:focus-visible,
     padding-right: 0.5rem;
   }
 }
+
+/* The Apps menu on the right of the navbar: one framed button that opens Foundation and the apps. */
+@media (min-width: 997px) {
+  .navbar__item.dropdown.navAppsMenu > .navbar__link {
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 8px;
+    padding: 0.3rem 0.75rem;
+  }
+}
