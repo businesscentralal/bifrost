@@ -134,6 +134,26 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/warehouse.png"
       }
+    },
+    {
+      "appId": "e1276ba8-3405-4589-ba68-51d725992ef6",
+      "name": "Bifrost Iceland",
+      "publisher": "Origo",
+      "summary": "Use Icelandic services from an assistant or integration: the national registry, VAT, payroll and capital income tax returns, central bank rates, Skilagrein, island.is lookups and SMS.",
+      "summary_is": "Notaðu íslenska þjónustu úr aðstoð eða samþættingu: þjóðskrá, skil á VSK, staðgreiðslu og fjármagnstekjuskatti, gengi og vexti Seðlabankans, Skilagrein, island.is og SMS.",
+      "domains": [
+        "finance",
+        "integration"
+      ],
+      "foundationMinVersion": "28.0.2.523",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/iceland/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/iceland.png"
+      }
     }
   ]
 }
