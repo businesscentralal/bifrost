@@ -251,21 +251,19 @@ const config: Config = {
         {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Leyfi' : 'Licensing', to: '/licensing/', position: 'left'},
         // On the right, set apart: one Apps menu with Foundation, each additional app and the list
-        // of all apps. One menu keeps the navbar on one line however many apps are published.
+        // of all apps. It is built from apps.ts, so a new app appears here when it is added there,
+        // and the bar stays on one line however many apps are published (check:structure guards it).
         {
           type: 'dropdown',
           label: buildLocale === 'is-IS' ? 'Forrit' : 'Apps',
           position: 'right',
           className: 'navAppsMenu',
           items: [
-            {label: 'Foundation', to: '/foundation/', activeBasePath: '/foundation/'},
-            {label: buildLocale === 'is-IS' ? 'Viðhengi' : 'Attachments', to: '/attachments/', activeBasePath: '/attachments/'},
-            {label: buildLocale === 'is-IS' ? 'Birgðir' : 'Inventory', to: '/inventory/', activeBasePath: '/inventory/'},
-            {label: buildLocale === 'is-IS' ? 'Áskriftarreikningagerð' : 'Subscription Billing', to: '/subscription-billing/', activeBasePath: '/subscription-billing/'},
-            {label: buildLocale === 'is-IS' ? 'Mállíkön' : 'Language Models', to: '/language-models/', activeBasePath: '/language-models/'},
-            {label: buildLocale === 'is-IS' ? 'Stjórnandi' : 'Orchestrator', to: '/orchestrator/', activeBasePath: '/orchestrator/'},
-            {label: buildLocale === 'is-IS' ? 'Vöruhús' : 'Warehouse', to: '/warehouse/', activeBasePath: '/warehouse/'},
-            {label: buildLocale === 'is-IS' ? 'Ísland' : 'Iceland', to: '/iceland/', activeBasePath: '/iceland/'},
+            ...apps.map((app) => ({
+              label: buildLocale === 'is-IS' ? (app.titleIs ?? app.title) : app.title,
+              to: `/${app.id}/`,
+              activeBasePath: `/${app.id}/`,
+            })),
             {label: buildLocale === 'is-IS' ? 'Öll forrit' : 'All apps', to: '/apps/'},
           ],
         },

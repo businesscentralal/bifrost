@@ -4,7 +4,7 @@
 
 ### Fixed
 
-- The top navigation no longer overlaps on desktop screens: Foundation and the apps are now one Apps menu instead of a row of buttons, so the bar stays on one line as more apps are published. Same in English and Icelandic.
+- The top navigation no longer overlaps on desktop screens: Foundation and the apps are now one Apps menu instead of a row of buttons, built from apps.ts so a new app appears there without a navbar change, and check:structure fails if app buttons come back on the bar. Same in English and Icelandic.
 
 ### Added
 

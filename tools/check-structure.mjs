@@ -33,6 +33,21 @@ if (leftLabels.join(' | ') !== menu.join(' | ')) {
   errors.push(`Menu (left) is "${leftLabels.join(' | ')}", agreed: "${menu.join(' | ')}" (docusaurus.config.ts navbar).`);
 }
 
+// 1b. The apps: one Apps menu built from apps.ts, never a button per app on the bar (with more
+//     than a few apps the buttons no longer fit and are drawn over the menu, 21.10.2026).
+const rightAppLinks = [...navbar.matchAll(/to: ['`]\/([a-z-]+)\/['`][^}]*position: 'right'/g)].map((m) => m[1]);
+if (rightAppLinks.length) {
+  errors.push(`Navbar: app links on the bar outside the Apps menu (${rightAppLinks.join(', ')}). Add a new app to apps.ts; the Apps menu lists it.`);
+}
+if (!/type: 'dropdown'[\s\S]*?className: 'navAppsMenu'[\s\S]*?\.\.\.apps\.map\(/.test(navbar)) {
+  errors.push('Navbar: the Apps menu (className navAppsMenu) must be built from apps.ts with ...apps.map(...).');
+}
+const appsTs = read('apps.ts');
+const appsSource = appsTs.slice(appsTs.indexOf('export const apps'), appsTs.indexOf('export const crossAppInstances'));
+for (const m of appsSource.matchAll(/\{id: '([a-z-]+)', title: '([^']+)', appName: '[^']+'(, titleIs: '[^']+')?/g)) {
+  if (!m[3] && m[1] !== 'foundation') warnings.push(`apps.ts: ${m[1]} has no titleIs, so the Icelandic Apps menu shows "${m[2]}".`);
+}
+
 // 2. The pages of the agreed structure, in both languages.
 const pages = {
   setup: ['index.md', 'company/_category_.json', 'company/get-the-app.md', 'company/business-central.md',
