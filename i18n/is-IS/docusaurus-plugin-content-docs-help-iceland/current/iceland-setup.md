@@ -15,7 +15,7 @@ síða lýsir henni líka. Leiðsögnin tekur ekki við lykilorðum: sláðu þa
 Bifröst.
 
 Innskráningarupplýsingar birtast aldrei. Hver **Skrá**-aðgerð opnar faldan glugga, gildið fer beint í
-verndaða geymslu og síðan segir aðeins hvort gildi er **Geymt** eða **Ekki geymt**. Útsendar
+verndaða geymslu og síðan segir aðeins hvort gildi er **Geymt** eða **Ekki skráð**. Útsendar
 HTTP-beiðnir forritsins, og innskráningarupplýsingar allra Bifröst forrita, eru einnig stjórnað í
 [Uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/). Ekkert fer til utanaðkomandi
 þjónustu fyrr en HTTP-beiðnir eru leyfðar þar.

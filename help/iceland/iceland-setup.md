@@ -14,7 +14,7 @@ Umsjá license and the sender ID), so this page describes it too. The guide take
 here or in the Bifrost Setup Wizard.
 
 Credentials are never shown. Each **Set** action opens a masked dialog, the value goes straight to
-protected storage, and the page only reports whether a value is **Stored** or **Not stored**. Outgoing HTTP
+protected storage, and the page only reports whether a value is **Stored** or **Not set**. Outgoing HTTP
 requests for the app, and the credentials of every Bifröst app, are also managed in the
 [Bifrost Setup Wizard](/help/foundation/bifrost-setup-wizard/). Nothing reaches an outside service until
 HTTP requests are allowed there.
