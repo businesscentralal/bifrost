@@ -4,6 +4,8 @@
 
 ### Added
 
+- English and Icelandic Bifröst Iceland overview and context-sensitive help for service setup, national registry information and Skilagrein reference lists.
+
 - Publish the Bifrost Warehouse documentation for its AppSource preparation: the app page in English and Icelandic and a catalogue entry marked coming soon. Warehouse has no Business Central pages of its own, so it has no help pages.
 - English and Icelandic Bifröst Inventory documentation for release 28.3.0: the app page (transfers, assembly, item tracking reads, reservations and order tracking, availability by period, item references, item charges, item categories, counts, costing and periods) and context-sensitive help for Inventory Setup with all 15 areas, including the note that the four newest areas stay off on existing companies. The catalogue entry is marked coming soon until the AppSource listing is live.
 - English and Icelandic Bifröst Subscription Billing documentation and a catalogue entry marked Coming soon.

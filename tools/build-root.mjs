@@ -167,6 +167,7 @@ const site = `${SITE_URL}${BASE_URL}`;
 const en = `${site}en-us/`;
 
 const appSections = [
+  ['iceland', 'Bifröst Iceland — Icelandic registry, tax and contribution services, exchange rates, reference data and SMS'],
   ['attachments', 'Bifröst Attachments — file account connections, storage setup and data exchange'],
   ['inventory', 'Bifröst Inventory — transfers, assembly, item tracking reads, reservations and order tracking, availability, item references, item charges, item categories, physical inventory, costing and inventory periods'],
   ['subscription-billing', 'Bifröst Subscription Billing — contracts, the billing run, usage data, deferrals and migration'],

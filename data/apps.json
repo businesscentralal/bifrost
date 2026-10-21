@@ -134,6 +134,27 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/warehouse.png"
       }
+    },
+    {
+      "appId": "e1276ba8-3405-4589-ba68-51d725992ef6",
+      "name": "Bifrost Iceland",
+      "publisher": "Origo",
+      "summary": "Work with Icelandic registry, tax and contribution services, exchange rates, reference data and SMS from Business Central.",
+      "summary_is": "Vinndu með íslenskar skrár, skatta- og skilagreinaþjónustu, gengi, viðmiðunargögn og SMS úr Business Central.",
+      "domains": [
+        "finance",
+        "hr-payroll",
+        "integration"
+      ],
+      "foundationMinVersion": "28.0.2.523",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/iceland/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/iceland.png"
+      }
     }
   ]
 }

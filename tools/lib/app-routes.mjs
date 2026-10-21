@@ -13,6 +13,7 @@ export const APP_ROUTES = {
   'subscription-billing': {route: 'subscription-billing', title: 'Subscription Billing'},
   'orchestrator': {route: 'orchestrator', title: 'Orchestrator'},
   'warehouse': {route: 'warehouse', title: 'Warehouse'},
+  'iceland': {route: 'iceland', title: 'Iceland'},
 };
 
 /**
