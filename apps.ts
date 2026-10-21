@@ -16,19 +16,21 @@ export type BifrostApp = {
   id: string;
   /** Display name used in the navbar and sidebar headings. */
   title: string;
+  /** Icelandic name in the Apps menu; leave out when the name is the same in Icelandic (Foundation). */
+  titleIs?: string;
   /** AppSource / app.json name of the extension. */
   appName: string;
 };
 
 export const apps: BifrostApp[] = [
   {id: 'foundation', title: 'Foundation', appName: 'Bifrost Foundation'},
-  {id: 'language-models', title: 'Language Models', appName: 'Bifrost Language Models'},
-  {id: 'attachments', title: 'Attachments', appName: 'Bifrost Attachments'},
-  {id: 'inventory', title: 'Inventory', appName: 'Bifrost Inventory'},
-  {id: 'subscription-billing', title: 'Subscription Billing', appName: 'Bifrost Subscription Billing'},
-  {id: 'orchestrator', title: 'Orchestrator', appName: 'Bifrost Orchestrator'},
-  {id: 'warehouse', title: 'Warehouse', appName: 'Bifrost Warehouse'},
-  {id: 'iceland', title: 'Iceland', appName: 'Bifrost Iceland'},
+  {id: 'language-models', title: 'Language Models', appName: 'Bifrost Language Models', titleIs: 'Mállíkön'},
+  {id: 'attachments', title: 'Attachments', appName: 'Bifrost Attachments', titleIs: 'Viðhengi'},
+  {id: 'inventory', title: 'Inventory', appName: 'Bifrost Inventory', titleIs: 'Birgðir'},
+  {id: 'subscription-billing', title: 'Subscription Billing', appName: 'Bifrost Subscription Billing', titleIs: 'Áskriftarreikningagerð'},
+  {id: 'orchestrator', title: 'Orchestrator', appName: 'Bifrost Orchestrator', titleIs: 'Stjórnandi'},
+  {id: 'warehouse', title: 'Warehouse', appName: 'Bifrost Warehouse', titleIs: 'Vöruhús'},
+  {id: 'iceland', title: 'Iceland', appName: 'Bifrost Iceland', titleIs: 'Ísland'},
 ];
 
 /**
