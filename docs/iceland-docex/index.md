@@ -36,6 +36,12 @@ with [How Bifröst works](/documentation/how-it-works/).*
   kennitala, Peppol codes are translated into your own codes, lines are posted to the accounts you
   decide, and the total matches the amount the supplier asks to be paid. For each vendor you choose
   between a purchase invoice and general journal lines.
+- **Bring in paper, PDF and photographed invoices too.** An invoice that arrives as a PDF, a scan or a
+  photo goes into Business Central as an incoming document. Your assistant reads it and turns it into an
+  e-invoice on the same incoming document, with the original file kept, so Business Central makes it a
+  purchase invoice exactly like one received through a network.
+- **Create e-invoice XML.** Create Peppol BIS 3.0 XML (UBL) for invoices, credit notes, orders, despatch
+  advices and statements, and keep it as an attachment on a document or as an incoming document.
 - **Answer the supplier.** Tell a supplier through Unimaze that an invoice has been paid, or reject it with
   a reason and what the supplier should do.
 - **Check a recipient before you send.** See whether a customer can receive e-invoices on the network,
@@ -48,8 +54,8 @@ with [How Bifröst works](/documentation/how-it-works/).*
 | Domain | Capabilities |
 |---|---|
 | **Sales** | Send posted sales invoices and credit memos as e-invoices, keep their delivery status on the posted documents, check that a customer can receive e-invoices |
-| **Purchase** | Receive e-invoices and credit notes as incoming documents with their files, create purchase invoices, credit memos or general journal lines from them, tell the supplier an invoice is paid or rejected |
-| **Integration** | Electronic document exchange through Advania and Unimaze, Peppol BIS 3.0 e-invoices and reference data |
+| **Purchase** | Receive e-invoices and credit notes as incoming documents with their files, turn a PDF, scan or photo of an invoice into an e-invoice, create purchase invoices, credit memos or general journal lines from them, tell the supplier an invoice is paid or rejected |
+| **Integration** | Electronic document exchange through Advania and Unimaze, Peppol BIS 3.0 e-invoices and reference data, UBL XML for invoices, credit notes, orders, despatch advices and statements |
 
 ## Get it
 

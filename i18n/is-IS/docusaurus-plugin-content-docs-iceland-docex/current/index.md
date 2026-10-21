@@ -37,6 +37,13 @@ Byrjaðu á [Hvernig Bifröst virkar](/documentation/how-it-works/).*
   kennitölu, Peppol-kóðum er varpað yfir í þína kóða, línur eru bókaðar á reikningana sem þú ákveður, og
   upphæðin stemmir við þá upphæð sem birgirinn biður um að fá greidda. Fyrir hvern lánardrottin velur þú
   á milli innkaupareiknings og færslubókarlína.
+- **Tekið inn reikninga á pappír, í PDF og á mynd.** Reikningur sem berst sem PDF-skjal, skönnun eða
+  ljósmynd fer inn í Business Central sem skjal á innleið. Aðstoðin les hann og breytir honum í rafrænan
+  reikning á sama skjali á innleið, og upprunalega skráin fylgir áfram, svo Business Central gerir úr honum
+  innkaupareikning nákvæmlega eins og úr reikningi sem barst um skjalaskiptanet.
+- **Búið til XML fyrir rafræna reikninga.** Búðu til Peppol BIS 3.0 XML (UBL) fyrir reikninga,
+  kreditreikninga, pantanir, afhendingarseðla og yfirlit, og geymdu það sem viðhengi við skjal eða sem skjal
+  á innleið.
 - **Svarað birgjanum.** Láttu birgi vita í gegnum Unimaze að reikningur hafi verið greiddur, eða hafnaðu
   honum með ástæðu og því sem birgirinn á að gera.
 - **Athugað viðtakanda áður en þú sendir.** Sjáðu hvort viðskiptamaður getur tekið á móti rafrænum
@@ -50,8 +57,8 @@ Byrjaðu á [Hvernig Bifröst virkar](/documentation/how-it-works/).*
 | Lén | Svið |
 |---|---|
 | **Sales** | Senda bókaða sölureikninga og kreditreikninga sem rafræna reikninga, halda afhendingarstöðu þeirra á bókuðu skjölunum, athuga hvort viðskiptamaður getur tekið á móti rafrænum reikningum |
-| **Purchase** | Taka á móti rafrænum reikningum og kreditreikningum sem skjölum á innleið með viðhengjum, gera úr þeim innkaupareikninga, kreditreikninga eða færslubókarlínur, láta birgi vita að reikningur sé greiddur eða hafnað |
-| **Integration** | Rafræn skjalaskipti í gegnum Advania og Unimaze, rafrænir reikningar og viðmiðunargögn Peppol BIS 3.0 |
+| **Purchase** | Taka á móti rafrænum reikningum og kreditreikningum sem skjölum á innleið með viðhengjum, breyta PDF-skjali, skönnun eða ljósmynd af reikningi í rafrænan reikning, gera úr þeim innkaupareikninga, kreditreikninga eða færslubókarlínur, láta birgi vita að reikningur sé greiddur eða hafnað |
+| **Integration** | Rafræn skjalaskipti í gegnum Advania og Unimaze, rafrænir reikningar og viðmiðunargögn Peppol BIS 3.0, UBL XML fyrir reikninga, kreditreikninga, pantanir, afhendingarseðla og yfirlit |
 
 ## Sæktu forritið {#get-it}
 
