@@ -53,11 +53,11 @@ test('published Orchestrator names and routes are allowed', () => {
   }
 });
 
-test('Inventory, Subscription Billing and Warehouse publication changes coexist', () => {
-  for (const app of ['inventory', 'subscription-billing', 'warehouse']) {
+test('Inventory, Subscription Billing, Warehouse and Iceland publication changes coexist', () => {
+  for (const app of ['inventory', 'subscription-billing', 'warehouse', 'iceland']) {
     for (const file of [`docs/${app}/fixture.md`, `help/${app}/fixture.md`,
       `i18n/is-IS/docusaurus-plugin-content-docs-${app}/current/fixture.md`]) {
-      const name = {'inventory': 'Bifrost Inventory', 'subscription-billing': 'Bifrost Subscription Billing', 'warehouse': 'Bifrost Warehouse'}[app];
+      const name = {'inventory': 'Bifrost Inventory', 'subscription-billing': 'Bifrost Subscription Billing', 'warehouse': 'Bifrost Warehouse', 'iceland': 'Bifrost Iceland'}[app];
       assert.equal(check(`${name} [Overview](/${app}/) [Help](/help/${app}/setup/)`, file).status, 0, file);
     }
   }

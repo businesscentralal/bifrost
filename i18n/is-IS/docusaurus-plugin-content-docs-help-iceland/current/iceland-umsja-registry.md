@@ -1,37 +1,65 @@
 ---
 id: iceland-umsja-registry
 title: "Einingar þjóðskrár"
+sidebar_position: 3
 ---
 
-Notaðu **Einingar þjóðskrár** til að yfirfara þjóðskrárupplýsingar sem hafa verið sóttar í Umsjá.
-Opnaðu síðuna með **Einingar þjóðskrár** á **Uppsetning Bifröst Ísland**.
+**Einingar þjóðskrár** sýnir staðbundið afrit af íslenskri þjóðskrá (Þjóðskrá Íslands) sem Bifröst
+Ísland heldur í Business Central. Síðan er fyrir kerfisstjóra eða bókara sem þarf að sjá hvað hefur
+verið hlaðið frá Umsjá, eða að tæma afritið áður en það er hlaðið aftur.
 
-## Upplýsingar á síðunni {#information-on-the-page}
+Opnaðu hana með **Einingar þjóðskrár** á [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/), eða
+leitaðu að henni. Afritið er **sameiginlegt öllum fyrirtækjum í umhverfinu**, svo hvert fyrirtæki sér
+sömu færslur. Listinn fyllist þegar þjóðskrá er hlaðið frá Umsjá, sem krefst Umsjár-leyfisins og
+innskráningarupplýsinganna af [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/) og
+heimildasafnsins `BIFROST NatReg ori`.
 
-Listinn sýnir kennitölu, nafn og heimilisfang hverrar færslu ásamt þeim þjóðskrárupplýsingum sem eru
-til staðar, svo sem tegund færslu, fjölskylduupplýsingum og skráningarstöðu. Síaðu listann á þær
-upplýsingar sem verkefnið krefst.
+Full hleðsla sækir mjög stóra skrá og tekur nokkrar mínútur, svo hún er ræst í gegnum biðröð Bifröst en
+ekki sem bein köll. Mánaðarlegar breytingar eru hlaðnar á sama hátt.
 
-Listinn **Ástæður útfalls** sýnir kóða og lýsingu sem skýra útfallsstöðu færslu. Hann er viðmiðunarlisti,
-ekki skráningarform til að breyta þjóðskrárupplýsingum.
+Hver lína er einstaklingur eða fyrirtæki, svo listinn geymir **persónuupplýsingar**. Veittu aðgang að
+síðunni aðeins þeim sem þurfa hann.
 
-## Endurnýjun afritsins {#refreshing-the-copy}
+## Reitir {#fields}
 
-Uppflettingar og samstilling þjóðskrár sækja upplýsingar í þá Umsjárþjónustu sem er stillt.
-Stjórnandi stillir þjónustuna á **Uppsetning Bifröst Ísland**. Fylgdu lýsingu aðgerðarinnar sem
-aðstoðarmaðurinn hefur aðgang að þegar beðið er um uppflettingu eða samstillingu.
+| Reitur | Lýsing |
+| --- | --- |
+| **Kennitala** | Kennitalan, 10 stafir. |
+| **Tegund færslu** | Hvort línan er einstaklingur eða fyrirtæki. |
+| **Nafn** | Fullt nafn einstaklingsins eða fyrirtækisins. |
+| **Gömul kennitala** | Fyrri kennitala, ef hún hefur breyst. |
+| **Fjölskyldunúmer** | Auðkenni fjölskylduhópsins. |
+| **Sveitarfélag** | Kóði sveitarfélagsins. |
+| **Götuheiti** | Götukóði. |
+| **Húsnúmer** | Húsnúmerakóði. |
+| **Heimilisfang** | Heimilisfangstextinn. |
+| **Póstnúmer** | Póstnúmerið. |
+| **Fæðingardagur** | Fæðingardagurinn. |
+| **Kyn** | Skráð kyn. |
+| **Hjúskaparstaða** | Hjúskaparstaðan. |
+| **Maki** | Kennitala maka, ef í hjúskap. |
+| **Ríkisskip** | Kóði ríkisfangs. |
+| **Fæðingarstaður** | Kóði fæðingarstaðar. |
+| **Heimilisfang breytt** | Dagsetning síðustu heimilisfangsbreytingar. |
+| **Skráð** | Skráningardagurinn. |
+| **Síðasta þekkta sveitarfélag**, **Síðasta þekkta götuheiti**, **Síðasta þekkta húsnúmer** | Síðustu þekktu kóðar sveitarfélags, götu og húsnúmers. |
+| **Umboðsmaður** | Kennitala umboðsmanns. |
+| **Heimilisfangsnúmer** | Athugasemd við heimilisfang. |
+| **Útfall** | Útfallskóðinn, fyrir færslu sem er fallin úr skránni. Ástæðan er skráð á síðunni með útfallsástæðum. |
+| **Dagsetning útfalls** | Dagsetning útfallsins. |
+| **Bannað** | Hvort aðgangur að færslunni er bannaður. |
 
-## Eyða öllu {#delete-all}
+## Aðgerðir {#actions}
 
-**Eyða öllu** biður um staðfestingu og hreinsar geymda þjóðskrárafritið. Afritið er sameiginlegt öllum
-fyrirtækjum í sama Business Central umhverfi: aðgerðin hefur áhrif á þau öll. Hafðu samráð við
-stjórnendur þeirra áður en þú staðfestir. Hún breytir ekki þjóðskrá hjá Umsjá.
+| Aðgerð | Lýsing |
+| --- | --- |
+| **Eyða öllu** | Eyðir, eftir að þú hefur staðfest, öllum færslum **fyrir öll fyrirtæki** í umhverfinu. Notaðu það fyrir fulla hleðslu þegar skipta á út öllu afritinu. |
 
-Til að sækja upplýsingar aftur eftir hreinsun skal keyra viðeigandi heimilaða sókn þjóðskrárgagna.
+## Gott að vita {#good-to-know}
 
-## Aðgangur og persónuupplýsingar {#access-and-personal-data}
-
-Þjóðskrárgögn geta innihaldið persónuupplýsingar. Takmarkaðu aðgang og varðveittu aðeins gögn sem eru
-nauðsynleg fyrir lögmæt verkefni fyrirtækisins. Fylgdu leiðbeiningum um
-[reitaaðgang](/documentation/end-customers/data-access/) og
-[heimildir](/documentation/end-customers/permissions/) við veitingu aðgangs.
+- **Eyða öllu** verður ekki afturkallað og tæmir þjóðskrána fyrir öll fyrirtæki, ekki aðeins það sem þú ert
+  í. Hladdu þjóðskrána aftur á eftir.
+- Listinn yfir útfallsástæður (**Ástæður útfalls**), sem útskýrir **Útfall** kóðana, sýnir **Kóða** og
+  **Lýsingu** hverrar ástæðu og notar þessa hjálparsíðu líka.
+- Færslurnar eru gögn frá Umsjá. Meðhöndlaðu þær eins og aðrar persónuupplýsingar í Business Central, og
+  sjáðu [persónuverndaryfirlýsinguna](/licensing/privacy/).

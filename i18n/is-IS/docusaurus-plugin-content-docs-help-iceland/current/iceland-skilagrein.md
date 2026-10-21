@@ -1,39 +1,52 @@
 ---
 id: iceland-skilagrein
-title: "Grunngögn skilagreinar"
+title: "Innheimtuaðilar skilagreinar"
+sidebar_position: 2
 ---
 
-Notaðu skilagreinallistana til að finna upplýsingar um innheimtuaðila og sjóði þegar skilagreinar eru
-undirbúnar. Opnaðu **Innheimtuaðilar skilagreinar** frá **Uppsetning Bifröst Ísland**. Tengdir
-sjóðalistar lýsa viðmiðunarupplýsingum sem þjónustan notar.
+**Innheimtuaðilar skilagreinar** sýnir innheimtuaðila sem taka við skilagreinum í gegnum skilagrein.is.
+Síðan er fyrir bókara eða kerfisstjóra sem setur upp tenginguna við hvern innheimtuaðila sem fyrirtækið
+sendir skilagreinar til.
 
-## Viðmiðunarlistar {#reference-lists}
+Opnaðu hana með **Innheimtuaðilar** á [Uppsetning Bifröst Ísland](/help/iceland/iceland-setup/). Listinn
+er lesinn frá skilagrein.is í hvert sinn sem síðan opnast og er ekki geymdur í Business Central; síðunni
+er ekki hægt að breyta. Lífeyrissjóðir, stéttarfélög, endurhæfingarsjóðir og lífeyrisaukar hafa lista af
+sama tagi: þeir sýna **Númer**, **Nafn**, **Kennitala**, **Númer innheimtuaðila**, **Staður**,
+**Símanúmer** og **Tölvupóstur**, og hafa aðgerðina **Endurnýja**.
 
-| Síða | Upplýsingar |
-|---|---|
-| **Innheimtuaðilar skilagreinar** | Innheimtuaðilar og samskiptaupplýsingar þeirra ásamt aðgerðum fyrir lykilorð. |
-| **Lífeyrissjóðir skilagreinar** | Lífeyrissjóðir og upplýsingar um innheimtuaðila þeirra. |
-| **Stéttarfélög skilagreinar** | Stéttarfélög og upplýsingar um innheimtuaðila þeirra. |
-| **Endurhæfingarsjóðir skilagreinar** | Endurhæfingarsjóðir og upplýsingar um innheimtuaðila þeirra. |
-| **Lífeyrisaukar skilagreinar** | Lífeyrisaukar og upplýsingar um innheimtuaðila þeirra. |
+## Reitir {#fields}
 
-Listarnir sækja upplýsingar í valda skilagreinaþjónustu þegar þeir eru opnaðir. Veldu **Endurnýja** til
-að sækja þær aftur. Þetta eru viðmiðunarlistar sem eru ekki breytanlegir: breytingar á grunngögnum
-þjónustunnar eru gerðar í samráði við þjónustuaðilann.
+| Reitur | Lýsing |
+| --- | --- |
+| **Númer** | Númer innheimtuaðilans. |
+| **Nafn** | Nafn innheimtuaðilans. |
+| **Kennitala** | Kennitala innheimtuaðilans. |
+| **Vefþjónusta virk** | Hvort vefþjónusta innheimtuaðilans er virk. |
+| **Vefþjónusta krefst auðkenningar** | Hvort vefþjónustan krefst lykilorðs. |
+| **Lykilorð skráð** | Hvort lykilorð er geymt fyrir innheimtuaðilann í varinni geymslu Bifröst. |
+| **Staður** | Staður innheimtuaðilans. |
+| **Símanúmer** | Símanúmer innheimtuaðilans. |
+| **Tölvupóstur** | Netfang innheimtuaðilans. |
 
-## Innskráningarupplýsingar innheimtuaðila {#collector-credentials}
+## Aðgerðir {#actions}
 
-Veldu innheimtuaðilann á **Innheimtuaðilar skilagreinar** og síðan **Skrá lykilorð vefþjónustu** til að
-skrá lykilorð hans. **Eyða lykilorði vefþjónustu** biður um staðfestingu áður en geymdu lykilorði
-viðkomandi aðila er eytt. **Leyndarmál forrits** opnar sameiginlega síðu innskráningarupplýsinga fyrir
-þetta forrit.
+| Aðgerð | Lýsing |
+| --- | --- |
+| **Endurnýja** | Hleður listann aftur frá skilagrein.is. |
+| **Skrá lykilorð vefþjónustu** | Opnar faldan glugga og vistar lykilorð vefþjónustu valins innheimtuaðila. Gildið birtist aldrei aftur. |
+| **Eyða lykilorði vefþjónustu** | Fjarlægir geymt lykilorð valins innheimtuaðila eftir að þú hefur staðfest. Í boði þegar lykilorð er geymt. |
+| **Leyndarmál forrits** | Opnar [Leyndarmál forrita Bifröst](/help/foundation/bifrost-app-secrets/) síuð á þetta forrit, til að sjá hvaða innskráningarupplýsingar eru geymdar. |
 
-Stjórnandi útvegar þjónustuaðgang innheimtuaðilans. Skráðu lykilorð aðeins í þar til gerðan glugga,
-ekki í samtal við aðstoðarmann eða lýsingu skilagreinar.
+## Algeng verk {#common-tasks}
 
-## Áður en skilagrein er send {#before-sending-a-statement}
+**Tengja innheimtuaðila.** Finndu innheimtuaðilann, veldu **Skrá lykilorð vefþjónustu** og sláðu inn
+lykilorðið sem innheimtuaðilinn gaf þér. Þá er kveikt á **Lykilorð skráð** fyrir hann.
 
-Yfirfarðu innheimtuaðilann og fyrirtæki og tímabil skilagreinarinnar. Notandinn þarf sínar Business
-Central heimildir og viðeigandi heimildasafn fyrir íslensku þjónustuna. Sjá sameiginlegu reglurnar í
-[Heimildasöfn og hlið](/documentation/end-customers/permissions/) og fylgdu síðan lýsingu
-aðgerðarinnar sem aðstoðarmaðurinn hefur aðgang að til að undirbúa og senda skilagreinina.
+**Skipta um lykilorð.** Veldu **Skrá lykilorð vefþjónustu** aftur; nýja gildið kemur í stað þess gamla.
+
+## Gott að vita {#good-to-know}
+
+- Sá sem sendir skilagrein þarf að hafa `BIFROST Collect ori`; sjá [Heimildir](/iceland/#permissions).
+- Lykilorð er aldrei sent í beiðninni sjálfri. Forritið notar það sem er geymt hér og hafnar beiðni sem
+  ber lykilorð.
+- Yfirfarðu skilagreinina áður en þú sendir hana. Hún er þín skilagrein til innheimtuaðilans.

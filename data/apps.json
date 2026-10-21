@@ -139,11 +139,10 @@
       "appId": "e1276ba8-3405-4589-ba68-51d725992ef6",
       "name": "Bifrost Iceland",
       "publisher": "Origo",
-      "summary": "Work with Icelandic registry, tax and contribution services, exchange rates, reference data and SMS from Business Central.",
-      "summary_is": "Vinndu með íslenskar skrár, skatta- og skilagreinaþjónustu, gengi, viðmiðunargögn og SMS úr Business Central.",
+      "summary": "Use Icelandic services from an assistant or integration: the national registry, VAT, payroll and capital income tax returns, central bank rates, Skilagrein, island.is lookups and SMS.",
+      "summary_is": "Notaðu íslenska þjónustu úr aðstoð eða samþættingu: þjóðskrá, skil á VSK, staðgreiðslu og fjármagnstekjuskatti, gengi og vexti Seðlabankans, Skilagrein, island.is og SMS.",
       "domains": [
         "finance",
-        "hr-payroll",
         "integration"
       ],
       "foundationMinVersion": "28.0.2.523",
