@@ -9,7 +9,7 @@ notar og slær inn innskráningarupplýsingarnar sem þjónusturnar þurfa. Allt
 og Skilagrein er á þessari einu síðu.
 
 Opnaðu hana úr lista uppsettra forrita á [Uppsetning Bifröst](/help/foundation/bifrost-setup/). Ein uppsetningarfærsla er til fyrir hvert fyrirtæki.
-Leiðsögnin **Uppsetning tenginga Bifröst Ísland**, sem ræst er úr **Aðstoð við uppsetningu**, sýnir
+Leiðsögnin **Uppsetning tenginga Bifröst Ísland**, sem ræst er úr **Uppsetning með hjálp**, sýnir
 valkosti þessarar síðu skref fyrir skref (gerðir biðlara, Umsjár-leyfið og sendandanúmerið), svo þessi
 síða lýsir henni líka. Leiðsögnin tekur ekki við lykilorðum: sláðu þau inn hér eða í Uppsetningarleiðsögn
 Bifröst.

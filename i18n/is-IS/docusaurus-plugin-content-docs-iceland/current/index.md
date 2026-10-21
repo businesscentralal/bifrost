@@ -64,7 +64,7 @@ Seðlabanka Íslands, uppflettingar á island.is og viðmiðunargögnin krefjast
 
 | Skref | Hvað | Hver |
 |---|---|---|
-| 1 | Settu upp Bifröst Foundation og ljúktu uppsetningu þess, og settu síðan upp **Bifrost Iceland**. Uppsetningarleiðsögnin opnast ekki sjálfkrafa; ræstu hana úr **Aðstoð við uppsetningu** eða úr **Uppsetning Bifröst**. | Kerfisstjóri Business Central |
+| 1 | Settu upp Bifröst Foundation og ljúktu uppsetningu þess, og settu síðan upp **Bifrost Iceland**. Uppsetningarleiðsögnin opnast ekki sjálfkrafa; ræstu hana úr **Uppsetning með hjálp** eða úr **Uppsetning Bifröst**. | Kerfisstjóri Business Central |
 | 2 | Leyfðu útsendar HTTP-beiðnir fyrir forritið í [Uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/) og sláðu inn innskráningarupplýsingarnar sem þú hefur. Ekkert fer til utanaðkomandi þjónustu fyrr en HTTP-beiðnir eru leyfðar. | Kerfisstjóri Business Central |
 | 3 | Opnaðu **Uppsetning Bifröst Ísland** (úr **Uppsetning Bifröst**), veldu **Prófun** eða **Raun** hjá Skattinum, sláðu inn Umsjár-leyfisnúmerið og sendandanúmer Símans. | Kerfisstjóri Business Central |
 | 4 | Gakktu úr skugga um að **Kennitala** í **Fyrirtækjaupplýsingum** sé kennitala fyrirtækisins. Skatturinn les hana þaðan. | Bókari eða kerfisstjóri |
