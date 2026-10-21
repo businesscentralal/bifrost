@@ -8,14 +8,13 @@ sidebar_position: 1
 uses and enters the credentials the services need. Everything for Umsjá, Síminn, Skatturinn and
 Skilagrein is on this one page.
 
-Open it from the list of installed apps on [Bifrost Setup](/help/foundation/bifrost-setup/), or search for
-**Bifrost Iceland Setup**. There is one setup record per company. The **Bifrost Iceland Connector Setup**
+Open it from the list of installed apps on [Bifrost Setup](/help/foundation/bifrost-setup/). There is one setup record per company. The **Bifrost Iceland Connector Setup**
 guide, started from **Assisted Setup**, shows the choices of this page step by step (the client types, the
 Umsjá license and the sender ID), so this page describes it too. The guide takes no passwords: enter them
 here or in the Bifrost Setup Wizard.
 
 Credentials are never shown. Each **Set** action opens a masked dialog, the value goes straight to
-protected storage, and the page only reports whether a value is **Stored** or **Not stored**. Outgoing HTTP
+protected storage, and the page only reports whether a value is **Stored** or **Not set**. Outgoing HTTP
 requests for the app, and the credentials of every Bifröst app, are also managed in the
 [Bifrost Setup Wizard](/help/foundation/bifrost-setup-wizard/). Nothing reaches an outside service until
 HTTP requests are allowed there.
@@ -70,7 +69,7 @@ Password** on the collector; see [Skilagrein Collectors](/help/iceland/iceland-s
 | **App Secrets** | Opens [Bifrost App Secrets](/help/foundation/bifrost-app-secrets/) filtered to this app, to see which credentials are stored, when they were entered and by whom. |
 | **Setup Wizard** | Opens the Bifrost Setup Wizard. |
 | **Skilagrein Collectors** | Opens the list of collectors. |
-| **National Registry Entries** | Opens the local copy of the national registry; see [National Registry Entries](/help/iceland/iceland-umsja-registry/). |
+| **National Registry Entries** | Shown when the Umsjá client is enabled. Opens the local copy of the national registry; see [National Registry Entries](/help/iceland/iceland-umsja-registry/). |
 
 ## Good to know
 

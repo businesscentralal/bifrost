@@ -63,6 +63,14 @@ test('Inventory, Subscription Billing, Warehouse and Iceland publication changes
   }
 });
 
+test('Iceland overview and actual context-help routes are permitted in both languages', () => {
+  for (const file of ['docs/iceland/fixture.md', 'help/iceland/iceland-setup.md',
+    'i18n/is-IS/docusaurus-plugin-content-docs-iceland/current/fixture.md',
+    'i18n/is-IS/docusaurus-plugin-content-docs-help-iceland/current/iceland-setup.md']) {
+    assert.equal(check('Bifrost Iceland · Bifröst Iceland [Overview](/iceland/) [Setup](/help/iceland/iceland-setup/)', file).status, 0, file);
+  }
+});
+
 test('the complete unpublished hash inventory is retained', () => {
   const values = (name) => [...source.match(new RegExp('const ' + name + ' = new Set\\((\\[[\\s\\S]*?\\])\\);'))[1].matchAll(/'([a-f0-9]{16})'/g)].map((m) => m[1]);
   assert.deepEqual(values('UNPUBLISHED_NAME_HASHES'), protectedNames);

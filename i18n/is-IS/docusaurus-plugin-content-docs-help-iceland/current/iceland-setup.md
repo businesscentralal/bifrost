@@ -8,15 +8,14 @@ sidebar_position: 1
 notar og slær inn innskráningarupplýsingarnar sem þjónusturnar þurfa. Allt fyrir Umsjá, Símann, Skattinn
 og Skilagrein er á þessari einu síðu.
 
-Opnaðu hana úr lista uppsettra forrita á [Uppsetning Bifröst](/help/foundation/bifrost-setup/), eða
-leitaðu að **Uppsetning Bifröst Ísland**. Ein uppsetningarfærsla er til fyrir hvert fyrirtæki.
-Leiðsögnin **Uppsetning tenginga Bifröst Ísland**, sem ræst er úr **Aðstoð við uppsetningu**, sýnir
+Opnaðu hana úr lista uppsettra forrita á [Uppsetning Bifröst](/help/foundation/bifrost-setup/). Ein uppsetningarfærsla er til fyrir hvert fyrirtæki.
+Leiðsögnin **Uppsetning tenginga Bifröst Ísland**, sem ræst er úr **Uppsetning með hjálp**, sýnir
 valkosti þessarar síðu skref fyrir skref (gerðir biðlara, Umsjár-leyfið og sendandanúmerið), svo þessi
 síða lýsir henni líka. Leiðsögnin tekur ekki við lykilorðum: sláðu þau inn hér eða í Uppsetningarleiðsögn
 Bifröst.
 
 Innskráningarupplýsingar birtast aldrei. Hver **Skrá**-aðgerð opnar faldan glugga, gildið fer beint í
-verndaða geymslu og síðan segir aðeins hvort gildi er **Geymt** eða **Ekki geymt**. Útsendar
+verndaða geymslu og síðan segir aðeins hvort gildi er **Geymt** eða **Ekki skráð**. Útsendar
 HTTP-beiðnir forritsins, og innskráningarupplýsingar allra Bifröst forrita, eru einnig stjórnað í
 [Uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/). Ekkert fer til utanaðkomandi
 þjónustu fyrr en HTTP-beiðnir eru leyfðar þar.
@@ -72,7 +71,7 @@ Hver innheimtuaðili hefur sitt eigið lykilorð fyrir vefþjónustu. Opnaðu **
 | **Leyndarmál forrits** | Opnar [Leyndarmál forrita Bifröst](/help/foundation/bifrost-app-secrets/) síuð á þetta forrit, til að sjá hvaða innskráningarupplýsingar eru geymdar, hvenær þær voru færðar inn og af hverjum. |
 | **Uppsetningarleiðsögn** | Opnar Uppsetningarleiðsögn Bifröst. |
 | **Innheimtuaðilar** | Opnar lista innheimtuaðila. |
-| **Einingar þjóðskrár** | Opnar staðbundið afrit af þjóðskrá; sjá [Einingar þjóðskrár](/help/iceland/iceland-umsja-registry/). |
+| **Einingar þjóðskrár** | Birtist þegar biðlari Umsjár er virkur. Opnar staðbundið afrit af þjóðskrá; sjá [Einingar þjóðskrár](/help/iceland/iceland-umsja-registry/). |
 
 ## Gott að vita {#good-to-know}
 
