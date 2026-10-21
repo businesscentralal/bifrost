@@ -9,13 +9,13 @@ import {spawnSync} from 'node:child_process';
 const source = readFileSync(new URL('./check-docs.mjs', import.meta.url), 'utf8');
 const hash = (value) => createHash('sha256').update(value).digest('hex').slice(0, 16);
 const protectedNames = [
-  'd94df5d992169251', 'a046c4f0a310ac2f', '17214a07d5b7578b',
+  'a046c4f0a310ac2f', '17214a07d5b7578b',
   'a6ad3891ba67c714', '63874763be005259',
   'e3fb45974f88dc34', '6f3e4d7fd1f5e471', 'b0dd3a2d68522b2d', '2756636f5ac88609', '90a45c6dcbb66d38',
   '9a91356d3b648e62',
 ];
 const protectedRoutes = [
-  '9eb5c59d70089e53', '97a37556dc257040', 'b25920b5f0013a9f', '3930e671c9e40dee',
+  '97a37556dc257040', 'b25920b5f0013a9f', '3930e671c9e40dee',
   'dc0d200aaebbf548',
 ];
 
@@ -53,11 +53,11 @@ test('published Orchestrator names and routes are allowed', () => {
   }
 });
 
-test('Inventory, Subscription Billing and Warehouse publication changes coexist', () => {
-  for (const app of ['inventory', 'subscription-billing', 'warehouse']) {
+test('Inventory, Subscription Billing, Warehouse and Iceland publication changes coexist', () => {
+  for (const app of ['inventory', 'subscription-billing', 'warehouse', 'iceland']) {
     for (const file of [`docs/${app}/fixture.md`, `help/${app}/fixture.md`,
       `i18n/is-IS/docusaurus-plugin-content-docs-${app}/current/fixture.md`]) {
-      const name = {'inventory': 'Bifrost Inventory', 'subscription-billing': 'Bifrost Subscription Billing', 'warehouse': 'Bifrost Warehouse'}[app];
+      const name = {'inventory': 'Bifrost Inventory', 'subscription-billing': 'Bifrost Subscription Billing', 'warehouse': 'Bifrost Warehouse', 'iceland': 'Bifrost Iceland'}[app];
       assert.equal(check(`${name} [Overview](/${app}/) [Help](/help/${app}/setup/)`, file).status, 0, file);
     }
   }

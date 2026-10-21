@@ -171,6 +171,7 @@ const appSections = [
   ['inventory', 'Bifröst Inventory — transfers, assembly, item tracking reads, reservations and order tracking, availability, item references, item charges, item categories, physical inventory, costing and inventory periods'],
   ['subscription-billing', 'Bifröst Subscription Billing — contracts, the billing run, usage data, deferrals and migration'],
   ['orchestrator', 'Bifröst Orchestrator — supervised scheduled jobs with restart and notifications, and playbooks that chain operations'],
+  ['iceland', 'Bifröst Iceland — the national registry, VAT, payroll and capital income tax returns, central bank rates, Skilagrein, island.is lookups and SMS'],
   ['warehouse', 'Bifröst Warehouse — warehouse receipts, put-aways, picks and shipments, bin content and open warehouse activities'],
   ['foundation', 'Bifröst Foundation (the base app, always installed) — how Bifröst works, and the standard Business Central operations'],
 ];
