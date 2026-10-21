@@ -61,6 +61,8 @@ Credentials are not copied from an earlier app or an upgrade. Enter them again a
 | | **BIS30 Code Map** | Opens the [BIS30 Code Map](/help/iceland-docex/bis30-code-map/). |
 | | **VAT G/L Account Map** | Opens the [Vendor VAT G/L Account Map](/help/iceland-docex/vend-vat-gl-map/). |
 
+![The message after Test Unimaze Connection: connected to the Unimaze Test environment as the company's party, with the number of messages in the inbox and how many are not yet in Business Central](/img/iceland-docex/en-us/test-unimaze-connection.png)
+
 ## Outgoing HTTP requests
 
 Every network is reached over HTTP. Until HTTP requests are allowed for the Bifröst apps, no call to a

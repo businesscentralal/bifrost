@@ -64,6 +64,8 @@ eftir uppsetningu.
 | | **BIS30 kóðavörpun** | Opnar [BIS30 kóðavörpun](/help/iceland-docex/bis30-code-map/). |
 | | **VSK fjárhagsreikn.vörpun** | Opnar [VSK fjárhagsreikn.vörpun lánardrottins](/help/iceland-docex/vend-vat-gl-map/). |
 
+![Skilaboðin eftir Prófa Unimaze tengingu: tengt við prófunarumhverfi Unimaze sem aðili fyrirtækisins, með fjölda skeyta í innhólfinu og hve mörg hafa ekki verið sótt í Business Central](/img/iceland-docex/is-is/test-unimaze-connection.png)
+
 ## Útsendar HTTP-beiðnir {#outgoing-http-requests}
 
 Öll net eru sótt um HTTP. Þar til HTTP-beiðnir eru leyfðar fyrir Bifröst-forritin tekst ekkert kall til
