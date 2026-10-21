@@ -49,11 +49,11 @@ const ALLOWED_TYPE_NAMES = new Set(['Help.MessageTypes.Get', 'Help.Implementatio
 const UNPUBLISHED_NAME_HASHES = new Set([
   'a046c4f0a310ac2f', '17214a07d5b7578b',
   'a6ad3891ba67c714', '63874763be005259',
-  'e3fb45974f88dc34', '6f3e4d7fd1f5e471', 'b0dd3a2d68522b2d', '2756636f5ac88609', '90a45c6dcbb66d38',
+  'e3fb45974f88dc34', '2756636f5ac88609', '90a45c6dcbb66d38',
   '9a91356d3b648e62',
 ]);
 const UNPUBLISHED_ROUTE_HASHES = new Set([
-  '97a37556dc257040', 'b25920b5f0013a9f', '3930e671c9e40dee',
+  '97a37556dc257040', '3930e671c9e40dee',
   'dc0d200aaebbf548',
 ]);
 const shortHash = (value) => createHash('sha256').update(value).digest('hex').slice(0, 16);

@@ -11,11 +11,11 @@ const hash = (value) => createHash('sha256').update(value).digest('hex').slice(0
 const protectedNames = [
   'a046c4f0a310ac2f', '17214a07d5b7578b',
   'a6ad3891ba67c714', '63874763be005259',
-  'e3fb45974f88dc34', '6f3e4d7fd1f5e471', 'b0dd3a2d68522b2d', '2756636f5ac88609', '90a45c6dcbb66d38',
+  'e3fb45974f88dc34', '2756636f5ac88609', '90a45c6dcbb66d38',
   '9a91356d3b648e62',
 ];
 const protectedRoutes = [
-  '97a37556dc257040', 'b25920b5f0013a9f', '3930e671c9e40dee',
+  '97a37556dc257040', '3930e671c9e40dee',
   'dc0d200aaebbf548',
 ];
 
@@ -64,6 +64,11 @@ test('Inventory, Subscription Billing, Warehouse and Iceland publication changes
 });
 
 test('Iceland overview and actual context-help routes are permitted in both languages', () => {
+  for (const file of ['docs/iceland-docex/fixture.md', 'help/iceland-docex/docex-setup.md',
+    'i18n/is-IS/docusaurus-plugin-content-docs-iceland-docex/current/fixture.md',
+    'i18n/is-IS/docusaurus-plugin-content-docs-help-iceland-docex/current/docex-setup.md']) {
+    assert.equal(check('Bifrost Iceland DocEx · Bifröst Ísland DocEx · DocEx [Overview](/iceland-docex/) [Setup](/help/iceland-docex/docex-setup/)', file).status, 0, file);
+  }
   for (const file of ['docs/iceland/fixture.md', 'help/iceland/iceland-setup.md',
     'i18n/is-IS/docusaurus-plugin-content-docs-iceland/current/fixture.md',
     'i18n/is-IS/docusaurus-plugin-content-docs-help-iceland/current/iceland-setup.md']) {

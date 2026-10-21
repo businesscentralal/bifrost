@@ -14,6 +14,7 @@ export const APP_ROUTES = {
   'orchestrator': {route: 'orchestrator', title: 'Orchestrator'},
   'warehouse': {route: 'warehouse', title: 'Warehouse'},
   'iceland': {route: 'iceland', title: 'Iceland'},
+  'iceland-docex': {route: 'iceland-docex', title: 'Iceland DocEx'},
 };
 
 /**

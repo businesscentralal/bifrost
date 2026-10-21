@@ -173,6 +173,7 @@ const appSections = [
   ['subscription-billing', 'Bifröst Subscription Billing — contracts, the billing run, usage data, deferrals and migration'],
   ['orchestrator', 'Bifröst Orchestrator — supervised scheduled jobs with restart and notifications, and playbooks that chain operations'],
   ['iceland', 'Bifröst Iceland — the national registry, VAT, payroll and capital income tax returns, central bank rates, Skilagrein, island.is lookups and SMS'],
+  ['iceland-docex', 'Bifröst Iceland DocEx — send and receive Peppol e-invoices through Advania and Unimaze, incoming documents into purchase invoices or journal lines, delivery status and the Peppol code lists'],
   ['warehouse', 'Bifröst Warehouse — warehouse receipts, put-aways, picks and shipments, bin content and open warehouse activities'],
   ['foundation', 'Bifröst Foundation (the base app, always installed) — how Bifröst works, and the standard Business Central operations'],
 ];

@@ -154,6 +154,26 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/iceland.png"
       }
+    },
+    {
+      "appId": "54d53040-b92f-4745-8980-89573b6b0463",
+      "name": "Bifrost Iceland DocEx",
+      "publisher": "Origo",
+      "summary": "Send and receive Peppol e-invoices through Advania and Unimaze from an assistant or integration: posted invoices out, received invoices in as purchase documents, with delivery status.",
+      "summary_is": "Sendu og taktu á móti rafrænum Peppol-reikningum í gegnum Advania og Unimaze úr aðstoð eða samþættingu: bókaða reikninga út, móttekna reikninga inn sem innkaupaskjöl, með afhendingarstöðu.",
+      "domains": [
+        "finance",
+        "documents"
+      ],
+      "foundationMinVersion": "28.0.0.186",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/iceland-docex/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/iceland-docex.png"
+      }
     }
   ]
 }
