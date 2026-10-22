@@ -1,0 +1,42 @@
+---
+id: release-notes
+title: "Release notes"
+sidebar_label: "Release notes"
+sidebar_position: 90
+description: "What changed in each version of Bifröst Orchestrator published on Microsoft AppSource."
+---
+
+# Bifröst Orchestrator release notes
+
+This page is for the people who decide on the app and run it. It lists the versions of Bifröst Orchestrator published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
+
+## 28.0.1 — 21 October 2026
+
+### Added
+
+- Check a playbook before you run it. The check reads the whole playbook, including disabled steps, and lists its findings. Each finding has a severity (error or warning), the step it concerns, a message and a suggested next step, in the language of your session (English or Icelandic).
+- The check catches broken playbooks early: an operation that does not exist or is not enabled, a next step that is missing, a reference to a step that has not run yet, a template that is not valid JSON, a check or action step without a success condition, and a language model role that does not exist.
+- The check also warns about a write step that runs for every item of a list without the per-item guard that the earlier check step needs. Without the guard, the write would also run for items the check rejected.
+- Run Now, running a playbook from an assistant or an integration, and scheduling a playbook now check it first. A playbook with an error, or with a warning you have not chosen to accept, is refused and nothing is written. The answer names the findings that block it.
+- The built-in help has a new chapter on building a playbook safely, from design to schedule, a table of the finding codes and three worked examples: a per-record decision followed by a write, a read-only report, and one example of what to avoid. An assistant that builds a playbook with you follows the same steps.
+
+### Changed
+
+- The Orchestrator documentation and the help for each page are published on docs.bifrost.origo.is, and the app's help, privacy statement and Terms of Use links point there.
+
+### Fixed
+
+- A check step that fails for a technical reason, such as an error from the operation it calls, is now logged as failed. Before, the error was read as the answer "no", the step was logged as cancelled with no error text, and the run could finish as successful. The step log now shows the error text, and a genuine answer of "no" is logged as "Check answered no."
+- The run summary counts failed check iterations separately from iterations that answered "no", so you can tell a broken check from a rejected item.
+- A playbook's last run, last status and last run time are now updated by every kind of run: Run Now, a run started by an assistant or an integration, a queued run and a scheduled run. A run that is interrupted stays marked as running instead of showing the earlier successful run.
+
+## 28.0.0 — 19 October 2026
+
+### First version on Microsoft AppSource
+
+- Chain Business Central operations into playbooks: a list of steps where the answer of one step feeds the next, with no code.
+- Run a playbook with **Run Now**, on a schedule through the job queue, or when an assistant or another system asks for it. An assistant can also build a playbook with you in a conversation.
+- Supervise job queue entries: Bifröst Orchestrator restarts failed entries and retries them by the rules you set.
+- Be told when a job fails or is restarted, by e-mail or by Telegram message.
+- See every playbook run step by step, with what each step sent and what it received.
+- Run reports on request and save them as PDF, Excel, Word or XML, with a layout chosen for that run only.
