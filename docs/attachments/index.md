@@ -14,8 +14,7 @@ configure in Business Central. Administrators choose the account, connector and 
 for each storage connection. The app also provides operations for Business Central data exchange
 definitions and entries.
 
-The app extends [Bifröst Foundation](/foundation/). This documentation describes its setup; it does
-not mean the app is available on AppSource. Ask your Business Central partner about availability.
+The app extends [Bifröst Foundation](/foundation/) and is available on Microsoft AppSource.
 
 ## Set it up
 

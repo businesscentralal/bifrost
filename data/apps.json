@@ -29,7 +29,7 @@
         "ai"
       ],
       "foundationMinVersion": "28.0.0.0",
-      "status": "coming-soon",
+      "status": "available",
       "links": {
         "appSource": null,
         "docs": "https://docs.bifrost.origo.is/en-us/language-models/",
@@ -49,7 +49,7 @@
         "integration"
       ],
       "foundationMinVersion": "28.0.3.530",
-      "status": "coming-soon",
+      "status": "available",
       "links": {
         "appSource": null,
         "docs": "https://docs.bifrost.origo.is/en-us/attachments/",
@@ -69,7 +69,7 @@
         "other"
       ],
       "foundationMinVersion": "28.0.4.554",
-      "status": "coming-soon",
+      "status": "available",
       "links": {
         "appSource": null,
         "docs": "https://docs.bifrost.origo.is/en-us/orchestrator/",
@@ -88,7 +88,7 @@
         "inventory"
       ],
       "foundationMinVersion": "28.0.3.530",
-      "status": "coming-soon",
+      "status": "available",
       "links": {
         "appSource": null,
         "docs": "https://docs.bifrost.origo.is/en-us/inventory/",
@@ -107,7 +107,7 @@
         "finance"
       ],
       "foundationMinVersion": "28.0.3.530",
-      "status": "coming-soon",
+      "status": "available",
       "links": {
         "appSource": null,
         "docs": "https://docs.bifrost.origo.is/en-us/subscription-billing/",
@@ -146,7 +146,7 @@
         "integration"
       ],
       "foundationMinVersion": "28.0.2.523",
-      "status": "coming-soon",
+      "status": "available",
       "links": {
         "appSource": null,
         "docs": "https://docs.bifrost.origo.is/en-us/iceland/",
