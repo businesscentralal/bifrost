@@ -58,7 +58,7 @@ item ledger entries and the item card.
 
 ## Get it
 
-Install **Bifrost Inventory** next to Bifröst Foundation, from AppSource or through your Business
+Install **Bifrost Inventory** next to Bifröst Foundation, from [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_inventory%7CPAPPID.02701c94-c962-4825-92c7-ef9f70311a2b) or through your Business
 Central partner. It needs Business Central 28.3 or later, Essentials or Premium, and Bifröst
 Foundation 28.0.3.530 or later. For the price, contact your Business Central partner.
 

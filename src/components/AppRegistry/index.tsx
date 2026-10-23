@@ -3,6 +3,7 @@ import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import registry from '@site/data/apps.json';
+import versionFile from '@site/data/versions.json';
 import styles from './styles.module.css';
 
 type Domain =
@@ -41,6 +42,32 @@ type RegistryApp = {
 
 const apps = (registry as {apps: RegistryApp[]}).apps;
 
+type ReleasedVersion = {
+  appId: string;
+  version: string;
+  released: string;
+  releaseNotes: string;
+};
+
+/** Latest AppSource version per app id, from data/versions.json (updated by the AppSource release process). */
+const latestVersions = new Map(
+  (versionFile as {apps: ReleasedVersion[]}).apps.map((v) => [v.appId.toLowerCase(), v]),
+);
+
+/** versions.json holds absolute en-us URLs; link the site path so the reader stays in their own language. */
+function releaseNotesPath(url: string): string {
+  try {
+    return new URL(url).pathname.replace(/^\/(en-us|is-is)(?=\/)/, '');
+  } catch {
+    return url;
+  }
+}
+
+function formatReleased(date: string, isIcelandic: boolean): string {
+  const [y, m, d] = date.split('-');
+  return isIcelandic ? `${d}.${m}.${y}` : new Date(`${date}T00:00:00Z`).toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'});
+}
+
 /** Fixed domain list and bilingual labels — keep in sync with data/apps.schema.json's enum. */
 const DOMAIN_LABELS: Record<Domain, {en: string; is: string}> = {
   finance: {en: 'Finance', is: 'Fjármál'},
@@ -71,6 +98,9 @@ const STRINGS = {
     docs: 'Docs',
     repository: 'Repository',
     comingSoonPill: 'Coming soon',
+    latestVersion: 'Latest version',
+    releasedOn: 'released',
+    releaseNotes: 'Release notes',
     noResults: 'No apps match your search.',
     resultCount: (n: number, total: number) => `Showing ${n} of ${total} apps`,
   },
@@ -83,6 +113,9 @@ const STRINGS = {
     docs: 'Skjölun',
     repository: 'Hugbúnaðarsafn',
     comingSoonPill: 'Væntanlegt',
+    latestVersion: 'Nýjasta útgáfa',
+    releasedOn: 'gefin út',
+    releaseNotes: 'Útgáfulýsing',
     noResults: 'Ekkert forrit passar við leitina.',
     resultCount: (n: number, total: number) => `Sýni ${n} af ${total} forritum`,
   },
@@ -99,6 +132,7 @@ function AppCard({app, isIcelandic}: {app: RegistryApp; isIcelandic: boolean}): 
   // Data stores repo-relative paths ("static/img/apps/x.png"); useBaseUrl wants
   // them relative to the static/ folder and prepends the site's own baseUrl.
   const logoSrc = useBaseUrl(app.links.logo.replace(/^static\//, ''));
+  const latest = latestVersions.get(app.appId.toLowerCase());
 
   return (
     <article className={styles.card}>
@@ -111,6 +145,13 @@ function AppCard({app, isIcelandic}: {app: RegistryApp; isIcelandic: boolean}): 
         <StatusBadge status={app.status} isIcelandic={isIcelandic} />
       </div>
       <p className={styles.summary}>{summary}</p>
+      {latest && (
+        <p className={styles.version}>
+          {t.latestVersion} <strong>{latest.version}</strong>, {t.releasedOn} {formatReleased(latest.released, isIcelandic)}
+          {' · '}
+          <Link to={releaseNotesPath(latest.releaseNotes)}>{t.releaseNotes}</Link>
+        </p>
+      )}
       <div className={styles.chips}>
         {app.domains.map((domain) => (
           <span key={domain} className={styles.chip}>

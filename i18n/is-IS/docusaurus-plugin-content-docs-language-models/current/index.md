@@ -49,7 +49,7 @@ er það sem Foundation og hin forritin bjóða.
 
 ## Sæktu forritið {#get-it}
 
-Settu **Bifrost Language Models** upp við hlið Bifröst Foundation, af AppSource eða í gegnum Business
+Settu **Bifrost Language Models** upp við hlið Bifröst Foundation, af [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_language_models%7CPAPPID.f1722684-0c24-4022-a2e0-0f63154aca76) eða í gegnum Business
 Central samstarfsaðilann þinn. Það þarf Business Central 28.0 eða nýrra. Um verð: hafðu samband við
 Business Central samstarfsaðilann þinn.
 

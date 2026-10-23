@@ -49,7 +49,7 @@ automation, and deal only with the exceptions.
 
 ## Get it
 
-Install **Bifrost Subscription Billing** next to Bifröst Foundation, from AppSource or through your
+Install **Bifrost Subscription Billing** next to Bifröst Foundation, from [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_subscription_billing%7CPAPPID.dd7b8bd8-f93e-4ac4-a251-1a132a14ef3d) or through your
 Business Central partner. It needs Business Central 28.3 or later, Essentials or Premium, and
 Microsoft's **Subscription Billing** app installed and set up. For the price, contact your Business
 Central partner.

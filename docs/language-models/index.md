@@ -49,7 +49,7 @@ and do is what Foundation and the other apps provide.
 
 ## Get it
 
-Install **Bifrost Language Models** next to Bifröst Foundation, from AppSource or through your Business
+Install **Bifrost Language Models** next to Bifröst Foundation, from [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_language_models%7CPAPPID.f1722684-0c24-4022-a2e0-0f63154aca76) or through your Business
 Central partner. It needs Business Central 28.0 or later. For the price, contact your Business Central
 partner.
 
