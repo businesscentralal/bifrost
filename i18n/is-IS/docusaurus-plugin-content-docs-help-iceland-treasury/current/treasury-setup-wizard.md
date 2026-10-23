@@ -20,7 +20,7 @@ eru leyfðar.
 
 **Velkomin.** Segir hvað leiðsögnin nær yfir og minnir þig á að leyfa HTTP-beiðnir út fyrst.
 
-**Eitt skref fyrir hvern banka.** Arion banki, Íslandsbanki og Landsbankinn, hver með sömu reitum:
+**Eitt skref fyrir hvern banka.** Landsbankinn, Arion banki, Íslandsbanki og Kvika banki, hver með sömu reitum:
 
 | Reitur | Lýsing |
 | --- | --- |

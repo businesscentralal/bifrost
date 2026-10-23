@@ -7,7 +7,7 @@ title: "Kröfubunkar í banka"
 niður kröfur, með stöðunni sem bankinn gaf síðast upp. Síðan er fyrir bókarann sem fylgir eftir kröfum
 sem eru sendar í bunkum.
 
-Hjá Arion banka og Íslandsbanka eru kröfur stofnaðar, þeim breytt og þær felldar niður í bunkum. Bankinn
+Hjá Arion banka, Íslandsbanka og Kviku banka eru kröfur stofnaðar, þeim breytt og þær felldar niður í bunkum. Bankinn
 tekur fyrst við bunkanum og tilkynnir svo niðurstöðu hverrar kröfu þegar niðurstaða bunkans er lesin.
 
 Opnaðu hana með aðgerðinni **Kröfubunkar í banka** í

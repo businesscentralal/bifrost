@@ -7,7 +7,7 @@ title: "Bank Claim Batches"
 claims, with the status the bank last reported. It is for the accountant who follows claims that are
 sent in batches.
 
-At Arion banki and Íslandsbanki claims are created, changed and cancelled in batches. The bank accepts
+At Arion banki, Íslandsbanki and Kvika banki claims are created, changed and cancelled in batches. The bank accepts
 the batch first and reports each claim's outcome afterwards, when the batch's result is read.
 
 Open it with **Bank Claim Batches** on

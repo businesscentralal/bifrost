@@ -23,7 +23,7 @@ leyfðar.
 | **Virkt** | Hvort kalla megi á bankann. Slökktu á reitnum til að stöðva allar aðgerðir bankans án þess að eyða stillingum hans. |
 | **Notandanafn** | Notandanafn fyrirtækisins í bankanum. Notandi sem hefur eigin innskráningu skráir hana á síðunni **Uppsetning notanda Bifröst**. |
 | **Leyndarmál** | **Fullskráð** þegar öll leyndarmál sem bankinn þarf eru vistuð, annars **Vantar**. Gildin eru aldrei sýnd. |
-| **SOAP-undirritari** | Aðeins fyrir Íslandsbanka: hvernig beiðnir eru undirritaðar. Hafðu reitinn auðan nema bankinn biðji um annað snið. |
+| **SOAP-undirritari** | Aðeins fyrir Íslandsbanka og Kviku banka: hvernig beiðnir eru undirritaðar. Hafðu reitinn auðan nema bankinn biðji um annað snið. |
 
 ## Skírteini {#certificate}
 
@@ -59,6 +59,7 @@ segir upplýsingareiturinn það.
 | --- | --- | --- | --- |
 | Arion banki | Já | Já | Nei |
 | Íslandsbanki | Já | Já | Nei |
+| Kvika banki | Já | Já | Nei |
 | Landsbankinn | Já | Já | Já |
 
 Aðgerðir sem eiga ekki við valinn banka eru ekki í boði. Sjá [Leyndarmál banka](/help/iceland-treasury/treasury-secrets/)
@@ -85,4 +86,5 @@ skaltu velja **Endurbyggja uppsetningargögn** á línu bankans.
 - Lykilorð, skírteini og lyklar eru í varinni geymslu og birtast aldrei aftur; sjá
   [Leyndarmál banka](/help/iceland-treasury/treasury-secrets/).
 - Hvað hver banki nær yfir: [Arion banki](/iceland-treasury/banks/arion/),
-  [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) og [Landsbankinn](/iceland-treasury/banks/landsbankinn/).
+  [Íslandsbanki](/iceland-treasury/banks/islandsbanki/), [Kvika banki](/iceland-treasury/banks/kvika/) og
+  [Landsbankinn](/iceland-treasury/banks/landsbankinn/).

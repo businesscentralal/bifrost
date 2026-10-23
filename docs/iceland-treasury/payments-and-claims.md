@@ -16,12 +16,14 @@ bank until it is paid, and where you see each step in Business Central.
 
 1. **Register the batch.** An assistant, an integration or a routine registers the batch at the bank:
    the account it is paid from, and each payment with its recipient, amount and reference. Domestic
-   (ISK) batches go to Arion banki or Landsbankinn, foreign payment batches to any of the banks.
+   (ISK) batches go to Arion banki, Kvika banki or Landsbankinn, foreign payment batches to Arion
+   banki, Íslandsbanki or Landsbankinn.
    Bifröst checks the batch before it calls the bank: a name that contains *STP* is refused, and so is a
    date of forward payment in the past. When no date is given, the batch is for today.
-2. **Approve and pay it at the bank.** The batch now waits in the bank's online banking. A person at
-   your company with the right to approve payments there approves it and the bank pays it. Bifröst
-   never approves, signs or pays a batch. Start the batch name with `*` so that this person sees it:
+2. **Approve and pay it at the bank.** At Arion banki and Landsbankinn the batch now waits in the bank's
+   online banking. A person at your company with the right to approve payments there approves it and the
+   bank pays it. At Kvika banki whether it waits depends on the rights the bank gives your web-service
+   user. Bifröst never approves or signs a batch. Start the batch name with `*` so that this person sees it:
    without it, the online bank shows the batch only to the web service user who registered it.
 3. **Follow the result.** Reading the batch's result at the bank updates its status in Business
    Central: awaiting approval, in progress, completed, completed with errors, cancelled. A payment the
@@ -63,8 +65,8 @@ bank until it is paid, and where you see each step in Business Central.
 2. **Create the claim.** An assistant, an integration or a routine creates the claim at the bank: the
    payer, amount, claim date and due date, and optionally the customer, the customer ledger entries it
    collects and the payment method. Bifröst checks the customer, the entries and the payment method
-   before it calls the bank. At Arion banki and Íslandsbanki claims are created, changed and cancelled in
-   batches: the bank accepts the batch first and reports each claim's outcome afterwards. At Landsbankinn
+   before it calls the bank. At Arion banki, Íslandsbanki and Kvika banki claims are created, changed and
+   cancelled in batches: the bank accepts the batch first and reports each claim's outcome afterwards. At Landsbankinn
    a claim is created under one of your claim templates and confirmed at once.
 3. **Follow it.** The claim and its ledger entries are kept in Business Central, and the customer ledger
    entry shows the claim's account, date and status in its FactBox. Changing or cancelling the claim at
@@ -92,5 +94,5 @@ find them.
 ## Next steps
 
 - The bank pages: [Arion banki](/iceland-treasury/banks/arion/) · [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) ·
-  [Landsbankinn](/iceland-treasury/banks/landsbankinn/)
+  [Kvika banki](/iceland-treasury/banks/kvika/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/)
 - [Permission sets](/iceland-treasury/#permissions) for payments and claims

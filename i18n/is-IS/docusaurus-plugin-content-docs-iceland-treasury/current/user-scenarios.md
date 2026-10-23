@@ -15,7 +15,7 @@ prófunarauðkenni fyrir einn banka og aðstoðarmann sem er tengdur við Bifrö
 
 ## Prófunarauðkenni {#test-credentials}
 
-Þessi viðbót kallar á vefþjónustur Arion banka, Íslandsbanka og Landsbankans.
+Þessi viðbót kallar á vefþjónustur Arion banka, Íslandsbanka, Kviku banka og Landsbankans.
 
 **Útvegið:** Origo lætur fylgja umsókninni notandanafn, lykilorð, biðlaraskírteini (`.pfx`) og lykilorð
 skírteinis fyrir einn banka, og reikningsnúmer prófunarreiknings í þeim banka. Þau eru skráð í **Bifröst
@@ -53,7 +53,7 @@ kall til banka er líka skráð á síðunni **Annáll beiðna Bifröst**, með 
 
 ### Væntar niðurstöður {#expected-results}
 - Viðbótin er sett upp án villna
-- „Bifröst Ísland Fjárstýring - uppsetning“ opnast með einni línu fyrir hvern banka: „Arion banki“, „Íslandsbanki“ og „Landsbankinn“
+- „Bifröst Ísland Fjárstýring - uppsetning“ opnast með einni línu fyrir hvern banka: „Landsbankinn“, „Arion banki“, „Íslandsbanki“ og „Kvika banki“
 - Hver lína er virk og sýnir „Vantar“ undir „Leyndarmál“
 
 ---
@@ -69,8 +69,8 @@ kall til banka er líka skráð á síðunni **Annáll beiðna Bifröst**, með 
 1. Opnið „Uppsetning með hjálp“ úr leitarstikunni
 2. Ræsið „Setja upp banka Bifröst Ísland Fjárstýringar“
 3. Veljið „Áfram“ í upphafsskrefinu
-4. Í skrefinu „Arion banki“, sláið inn notandanafn í „Notandanafn“
-5. Veljið „Áfram“ þar til komið er að skrefinu „Landsbankinn“ og veljið svo „Ljúka“
+4. Veljið „Áfram“ að skrefinu „Arion banki“ (öðru bankaskrefinu, á eftir „Landsbankinn“) og sláið inn notandanafn í „Notandanafn“
+5. Veljið „Áfram“ þar til komið er að skrefinu „Kvika banki“ og veljið svo „Ljúka“
 6. Opnið „Bifröst Ísland Fjárstýring - uppsetning“ aftur
 
 ### Væntar niðurstöður {#expected-results-1}

@@ -13,7 +13,7 @@ Opnaðu síðuna með því að leita að **Greiðsluhættir**.
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Kröfuauðkenni** | Kröfuauðkennið sem bankinn úthlutaði innheimtusamningnum. Hjá Íslandsbanka er það kóði kröfusniðmáts úr netbanka bankans. |
+| **Kröfuauðkenni** | Kröfuauðkennið sem bankinn úthlutaði innheimtusamningnum. Hjá Íslandsbanka er það kóði kröfusniðmáts úr netbanka bankans og hjá Kviku banka kóði kröfusniðmáts sem bankinn lætur þér í té. |
 | **Síðasta kröfunúmer** | Síðasta kröfunúmer sem notað var fyrir þennan samning. Næsta krafa fær næsta númer. |
 
 Kennitala kröfuhafans er ekki skráð hér: hún er lesin úr reitnum **Kennitala fyrirtækis** á síðunni
