@@ -7,6 +7,7 @@
  *   build/index.html   forwards to the English site
  *   build/404.html     catches everything else, including unknown locale
  *                      prefixes such as /da-dk/help/foundation/
+ *   build/versions.json  data/versions.json: the latest AppSource version per released app
  *   build/apps.json    a locale-agnostic copy of data/apps.json, alongside the
  *                      per-locale /en-us/apps.json and /is-is/apps.json that
  *                      tools/copy-apps-json.mjs publishes via static/
@@ -255,6 +256,9 @@ for (const dir of [buildDir, path.join(buildDir, 'en-us'), ...(OFFER_ICELANDIC ?
 }
 
 await writeFile(path.join(buildDir, 'apps.json'), await readFile(path.join(root, 'data', 'apps.json')));
+// versions.json: the latest AppSource version of each released app, read once a day by Bifrost Foundation
+// to tell administrators that an update is available. Updated by the AppSource release process.
+await writeFile(path.join(buildDir, 'versions.json'), await readFile(path.join(root, 'data', 'versions.json')));
 
-console.log(`build-root: wrote index.html, 404.html, llms.txt and apps.json for ${site}` +
+console.log(`build-root: wrote index.html, 404.html, llms.txt, apps.json and versions.json for ${site}` +
   (OFFER_ICELANDIC ? '' : `; Icelandic not published, ${forwarded} /is-is/ pages forward to English`));
