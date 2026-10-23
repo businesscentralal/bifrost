@@ -8,7 +8,7 @@ sidebar_position: 1
 sem setur forritið upp: hún sýnir hvað Vöruhús bætir við Bifröst, athugar að HTTP út á við sé leyft í
 gegnum grunnkerfið og útskýrir hvaða heimildasamstæður notendur þurfa.
 
-Opnaðu **Leiðsögn um uppsetningu** og veldu **Setja upp Bifröst vöruhús** undir **Viðbætur**. Þú getur
+Opnaðu **Aðstoðuð uppsetning** og veldu **Setja upp Bifröst vöruhús** undir **Viðbætur**. Þú getur
 keyrt leiðsögnina aftur hvenær sem er.
 
 ## Skref {#steps}
