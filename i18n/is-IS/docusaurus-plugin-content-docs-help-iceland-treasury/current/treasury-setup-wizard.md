@@ -4,12 +4,13 @@ title: "Bifröst Ísland Fjárstýring - Bankauppsetning"
 ---
 
 **Bifröst Ísland Fjárstýring - Bankauppsetning** er leiðsögnin sem tengir Business Central við íslensku
-bankana, einn banka í einu. Hún er fyrir kerfisstjórann sem setur forritið upp og krefst
+bankana, einn banka í einu. Hún er fyrir kerfisstjórann sem setur forritið upp, og hann þarf
 `BIFROST TAdmin ori`.
 
-Ræstu hana úr **Uppsetning með hjálp**, þar sem hún heitir **Setja upp banka Bifröst Ísland
+Ræstu hana af síðunni **Uppsetning með hjálp**, þar sem hún heitir **Setja upp banka Bifröst Ísland
 Fjárstýringar**. Þú getur sett upp einn banka núna og komið aftur fyrir hina: það sem þú hefur skráð
-helst þótt þú hættir fyrr, og ný keyrsla leiðsagnarinnar núllstillir aldrei banka sem þegar er uppsettur.
+helst þótt þú hættir fyrr, og þótt leiðsögnin sé keyrð aftur núllstillir hún aldrei banka sem þegar er
+uppsettur.
 
 Áður en þú byrjar skaltu leyfa HTTP-beiðnir út fyrir Bifröst-forrit í
 [Uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/). Ekkert berst til banka fyrr en þær
@@ -31,14 +32,14 @@ eru leyfðar.
 | **API-lykill** | Aðeins Landsbankinn. **Vistað** eða **Ekki vistað**. Notaðu **Skrá API-lykil** til að skrá hann. |
 
 Hver aðgerð opnar hulinn glugga sem nefnir bankann og leyndarmálið. Skírteini er opnað með lykilorði sínu
-áður en hvorugt er vistað, svo rangt lykilorð kemur strax í ljós.
+áður en nokkuð er vistað, svo rangt lykilorð kemur strax í ljós.
 
-**Ljúka.** Í síðasta bankanum vistar **Ljúka** bankann sem þú varst í, merkir leiðsögnina lokið og
-lokar henni.
+**Ljúka.** Í skrefi síðasta bankans vistar **Ljúka** bankann sem þú varst í, merkir uppsetninguna með
+hjálp lokna og lokar leiðsögninni.
 
 ## Eftir leiðsögnina {#after-the-guide}
 
 Öllu sem leiðsögnin stillir má breyta síðar í
 [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/), sem sýnir líka lokadag
-skírteinisins og opnar rakningarsíðurnar. Ef banki sýnir **Vantar** undir **Leyndarmál** þar, vantar
-lykilorð, skírteini eða API-lykil sem hann þarf.
+skírteinisins og opnar rakningarsíðurnar. Ef banki sýnir **Vantar** undir **Leyndarmál** þar hefur
+lykilorð, skírteini eða API-lykill sem hann þarf ekki verið skráður.

@@ -3,11 +3,11 @@ id: customer-ledger-factbox
 title: "Viðskiptamannafærsla — krafa"
 ---
 
-Bifröst Ísland Fjárstýring bætir kröfureitum við upplýsingareit **viðskiptamannafærslu**, svo þú sérð
-bankakröfuna sem innheimtir færslu án þess að fara af listanum sem þú ert að vinna í. Hann er fyrir alla
-sem fylgja eftir greiðslum viðskiptavina.
+Bifröst Ísland Fjárstýring bætir kröfureitum við upplýsingareitinn **Upplýsingar um viðskiptamannafærslu**,
+svo þú sérð bankakröfuna sem innheimtir færslu án þess að fara af listanum sem þú ert að vinna í. Þessi
+síða er fyrir alla sem fylgja eftir greiðslum viðskiptamanna.
 
-Upplýsingareiturinn birtist þar sem Business Central sýnir hann, til dæmis í **Viðskiptamannafærslum**.
+Upplýsingareiturinn birtist þar sem Business Central sýnir hann, til dæmis á síðunni **Viðskm.færslur**.
 
 ## Reitir {#fields}
 
@@ -24,4 +24,4 @@ Reitirnir eru auðir þegar engin krafa innheimtir færsluna. Þeir eru aðeins 
 - Krafa innheimtir færslu þegar færslan var tilgreind þegar krafan var stofnuð. Sama færsla er aldrei á
   tveimur virkum kröfum.
 - Þegar krafa er felld niður losna færslur hennar og ný krafa getur innheimt þær.
-- Krafan, færslur hennar og greiðslur eru í [Kröfur í banka](/help/iceland-treasury/bank-claims/).
+- Krafan, færslur hennar og greiðslur eru á síðunni [Kröfur í banka](/help/iceland-treasury/bank-claims/).

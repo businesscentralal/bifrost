@@ -5,9 +5,9 @@ title: "Bifröst Ísland Fjárstýring - uppsetning"
 
 Í **Bifröst Ísland Fjárstýring - uppsetning** tengir kerfisstjóri Business Central við íslensku bankana.
 Síðan sýnir eina línu fyrir hvern banka, svo þú sérð í einu vetfangi hvaða bankar eru virkir, hverjir hafa
-notandanafn og hvar leyndarmál vantar enn. Úr henni eru rakningarsíðurnar líka opnaðar.
+notandanafn og hjá hverjum leyndarmál vantar enn. Úr henni eru rakningarsíðurnar líka opnaðar.
 
-Opnaðu hana með **Ísland Fjárstýring** í flokknum **Forrit** á [Uppsetning Bifröst](/help/foundation/bifrost-setup/).
+Opnaðu hana með **Ísland Fjárstýring** í flokknum **Forrit** á síðunni [Uppsetning Bifröst](/help/foundation/bifrost-setup/).
 Aðeins handhafi `BIFROST TAdmin ori` getur breytt henni; fyrir aðra opnast hún aðeins til lestrar og
 aðgerðirnar sem vista eða hreinsa leyndarmál eru ekki í boði.
 
@@ -20,8 +20,8 @@ leyfðar.
 | Reitur | Lýsing |
 | --- | --- |
 | **Banki** | Bankinn sem línan stillir. |
-| **Virkt** | Hvort kalla megi á bankann. Slökktu á því til að stöðva allar aðgerðir bankans án þess að eyða stillingum hans. |
-| **Notandanafn** | Notandanafn fyrirtækisins í bankanum. Notandi sem hefur eigin innskráningu skráir hana í **Bifröst notandauppsetningu**. |
+| **Virkt** | Hvort kalla megi á bankann. Slökktu á reitnum til að stöðva allar aðgerðir bankans án þess að eyða stillingum hans. |
+| **Notandanafn** | Notandanafn fyrirtækisins í bankanum. Notandi sem hefur eigin innskráningu skráir hana á síðunni **Uppsetning notanda Bifröst**. |
 | **Leyndarmál** | **Fullskráð** þegar öll leyndarmál sem bankinn þarf eru vistuð, annars **Vantar**. Gildin eru aldrei sýnd. |
 | **SOAP-undirritari** | Aðeins fyrir Íslandsbanka: hvernig beiðnir eru undirritaðar. Hafðu reitinn auðan nema bankinn biðji um annað snið. |
 
@@ -38,11 +38,11 @@ segir upplýsingareiturinn það.
 | Aðgerð | Lýsing |
 | --- | --- |
 | **Skrá lykilorð fyrirtækis** | Opnar hulinn glugga og vistar lykilorð fyrirtækisins í völdum banka. |
-| **Skrá skírteini** | Hleður upp biðlaraskírteininu (`.pfx`-skjali) og biður um lykilorð þess. Skírteinið er opnað með lykilorðinu áður en hvorugt er vistað, svo rangt lykilorð kemur strax í ljós. |
+| **Skrá skírteini** | Hleður upp biðlaraskírteininu (`.pfx`-skjali) og biður um lykilorð þess. Skírteinið er opnað með lykilorðinu áður en nokkuð er vistað, svo rangt lykilorð kemur strax í ljós. |
 | **Skrá skírteini banka** | Aðeins Íslandsbanki. Hleður upp opinberu skírteini bankans. |
 | **Skrá API-lykil** | Aðeins Landsbankinn. Vistar API-lykil fyrirtækisins. |
 | **Hreinsa leyndarmál fyrirtækis** | Fjarlægir öll vistuð leyndarmál fyrirtækisins fyrir valinn banka, eftir að þú staðfestir. |
-| **Endurbyggja uppsetningargögn** | Stofnar innflutningssnið bankayfirlits bankans og inn- og útflutningsuppsetningu hans aftur þar sem þær vantar. Óhætt hvenær sem er. |
+| **Endurbyggja uppsetningargögn** | Stofnar innflutningssnið bankayfirlits bankans og inn- og útflutningsuppsetningu hans aftur ef þau vantar. Óhætt að keyra hvenær sem er. |
 | **Endurnýja stillingar bankayfirlits** | Eyðir og stofnar aftur innflutningssnið bankayfirlits bankans og inn- og útflutningsuppsetningu hans. |
 | **Greiðslubunkar í banka** | Opnar [Greiðslubunkar í banka](/help/iceland-treasury/bank-payment-batches/). |
 | **Kröfur í banka** | Opnar [Kröfur í banka](/help/iceland-treasury/bank-claims/). |
@@ -70,12 +70,12 @@ um hvar gildin eru geymd.
 **Skrá skírteini** og, fyrir Landsbankann, **Skrá API-lykil**. **Leyndarmál** verður **Fullskráð**.
 
 **Hætta að nota banka.** Slökktu á **Virkt**. Aðgerðir hans stöðvast en stillingarnar haldast, svo þú
-getur kveikt aftur síðar.
+getur kveikt á honum aftur síðar.
 
 **Endurnýja skírteini.** Veldu **Skrá skírteini** og hladdu upp nýja `.pfx`-skjalinu með lykilorði þess.
 Upplýsingareiturinn sýnir nýjan lokadag.
 
-**Lagfæra innflutning yfirlita.** Þegar innflutningur bankayfirlits finnur ekki innflutningssnið bankans
+**Lagfæra innflutning yfirlita.** Þegar **Flytja inn bankayfirlit** finnur ekki innflutningssnið bankans
 skaltu velja **Endurbyggja uppsetningargögn** á línu bankans.
 
 ## Gott að vita {#good-to-know}

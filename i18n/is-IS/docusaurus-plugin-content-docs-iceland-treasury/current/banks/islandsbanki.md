@@ -36,32 +36,32 @@ Bifröst skráir ekki bunka innlendra greiðslna (ISK) í Íslandsbanka. Skráð
    hafðu hana virka, skráðu notandanafn fyrirtækisins og notaðu svo **Skrá lykilorð fyrirtækis** og
    **Skrá skírteini**. **Leyndarmál** sýnir **Fullskráð** þegar hvort tveggja er vistað.
 3. **Eigin innskráningu, ef notendur þínir hafa sína eigin í bankanum.** Hver notandi skráir eigið
-   notandanafn og lykilorð í **Bifröst notandauppsetningu**; sjá
+   notandanafn og lykilorð á síðunni **Uppsetning notanda Bifröst**; sjá
    [Bankaaðgangur notanda](/help/iceland-treasury/bank-user-setup/).
-4. **Bankaafstemmingu.** Á bankareikningnum í Business Central skaltu setja reikningsnúmerið í
-   Íslandsbanka sem númer bankareiknings og innflutningssniðið `ISB-FEED-IN`.
+4. **Bankaafstemmingu.** Á bankareikningnum í Business Central skaltu setja **Númer bankareiknings** á
+   reikninginn í Íslandsbanka og **Innflutningssnið bankayfirlits** á `ISB-FEED-IN`.
 5. **Kröfur.** Krafa í Íslandsbanka er stofnuð undir kóða kröfusniðmáts úr netbanka bankans. Skráðu þann
-   kóða sem kröfuauðkenni, og síðasta kröfunúmer, á [greiðslumáta](/help/iceland-treasury/payment-methods/)
+   kóða sem kröfuauðkenni, og síðasta kröfunúmer, á greiðslumáta ([Greiðsluhættir](/help/iceland-treasury/payment-methods/))
    fyrir hvern innheimtusamning. Kröfureikningurinn er útibú sniðmátsins, höfuðbókin `66` og
    kröfunúmerið.
-6. **Heimildir.** Úthlutaðu [heimildasöfnunum](/iceland-treasury/#permissions) fyrir það sem hver notandi
-   má gera.
+6. **Heimildir.** Úthlutaðu [heimildasamstæðunum](/iceland-treasury/#permissions) fyrir það sem hver
+   notandi má gera.
 
 ## Hvað þú sérð í Business Central {#what-you-see-in-business-central}
 
-- Innflutningur bankayfirlits í afstemmingu bankareiknings sækir yfirlitið til Íslandsbanka. Tímabilið
+- **Flytja inn bankayfirlit** í afstemmingu bankareiknings sækir yfirlitið til Íslandsbanka. Tímabilið
   hefst daginn eftir síðasta bókaða yfirlit; í fyrsta sinn er spurt um
   [upphafsdagsetningu](/help/iceland-treasury/date-input-dialog/).
-  [Samantekt innfærslu yfirlits](/help/iceland-treasury/statement-import-summary/) sýnir síðan
+  [Innfærsla yfirlits — samantekt](/help/iceland-treasury/statement-import-summary/) sýnir síðan
   innfærðar línur og stöður, og varar við ef þær stemma ekki við bankann.
 - Bunkar erlendra greiðslna, kröfur, kröfubunkar og greiðslur krafna birtast á rakningarsíðunum sem
   opnaðar eru úr **Bifröst Ísland Fjárstýring - uppsetning**; sjá
   [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/).
-- Upplýsingareitur viðskiptamannafærslu sýnir kröfuna sem innheimtir færsluna.
-- Hvert kall til bankans er skráð í **Annál beiðna Bifröst**, með lykilorð falin.
+- Upplýsingareiturinn **Upplýsingar um viðskiptamannafærslu** sýnir kröfuna sem innheimtir færsluna.
+- Hvert kall til bankans er skráð á síðunni **Annáll beiðna Bifröst**, með lykilorðin falin.
 
 ## Næstu skref {#next-steps}
 
 - [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/)
 - [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/)
-- [Yfirlit Ísland Fjárstýringar](/iceland-treasury/)
+- [Yfirlit yfir Bifröst Ísland Fjárstýringu](/iceland-treasury/)

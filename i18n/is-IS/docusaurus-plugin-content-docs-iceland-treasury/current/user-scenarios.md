@@ -32,7 +32,7 @@ Sviðsmynd 7 er keyrð í gegnum aðstoðarmann (til dæmis Copilot, ChatGPT eð
 prófunarumhverfið í gegnum Bifröst MCP-þjóninn, eins og lýst er í
 [Tengdu aðstoðarmanninn](/setup/connect-your-ai/). Hver beiðni aðstoðarmannsins er skráð á síðunni
 **Bifröst skilaboð** í Business Central, þar sem prófandinn getur skoðað stöðu hennar og niðurstöðu. Hvert
-kall til banka er líka skráð í **Annál beiðna Bifröst**, með lykilorðin falin.
+kall til banka er líka skráð á síðunni **Annáll beiðna Bifröst**, með lykilorðin falin.
 
 ---
 
@@ -44,7 +44,7 @@ kall til banka er líka skráð í **Annál beiðna Bifröst**, með lykilorðin
 1. Byrjið með hreint Business Central prófunarumhverfi (sýnifyrirtæki)
 2. Setjið upp viðbótina „Bifrost Foundation“ (forsenda) og ljúkið uppsetningu hennar
 3. Setjið upp viðbótina „Bifrost Iceland Treasury“
-4. Úthlutið prófunarnotandanum heimildasafninu „BIFROST TAdmin ori“
+4. Úthlutið prófunarnotandanum heimildasamstæðunni „BIFROST TAdmin ori“
 
 ### Skref {#steps}
 1. Opnið síðuna „Uppsetning Bifröst“ úr leitarstikunni
@@ -53,7 +53,7 @@ kall til banka er líka skráð í **Annál beiðna Bifröst**, með lykilorðin
 
 ### Væntar niðurstöður {#expected-results}
 - Viðbótin er sett upp án villna
-- „Bifröst Ísland Fjárstýring - uppsetning“ opnast með einni línu hvor fyrir „Arion banki“, „Íslandsbanki“ og „Landsbankinn“
+- „Bifröst Ísland Fjárstýring - uppsetning“ opnast með einni línu fyrir hvern banka: „Arion banki“, „Íslandsbanki“ og „Landsbankinn“
 - Hver lína er virk og sýnir „Vantar“ undir „Leyndarmál“
 
 ---
@@ -103,7 +103,7 @@ kall til banka er líka skráð í **Annál beiðna Bifröst**, með lykilorðin
 
 ---
 
-## Sviðsmynd 4: Uppsetning er aðeins til lestrar án heimildasafns uppsetningar {#scenario-4-setup-is-read-only-without-the-setup-permission-set}
+## Sviðsmynd 4: Uppsetning er aðeins til lestrar án heimildasamstæðu uppsetningar {#scenario-4-setup-is-read-only-without-the-setup-permission-set}
 
 **Svið:** Heimildir
 
@@ -145,18 +145,18 @@ kall til banka er líka skráð í **Annál beiðna Bifröst**, með lykilorðin
 
 ### Undirbúningur {#setup-5}
 1. Ljúkið sviðsmynd 1, og vistið prófunarauðkennin úr „Prófunarauðkenni“ á línu bankans með „Skrá lykilorð fyrirtækis“ og „Skrá skírteini“, og notandanafnið í „Notandanafn“
-2. Á bankareikningi í Business Central, setjið prófunarreikningsnúmerið sem númer bankareiknings og innflutningssnið bankans sem innflutningssnið bankayfirlits: „ARION-FEED-IN“, „ISB-FEED-IN“ eða „LBI-FEED-IN“
+2. Á bankareikningi í Business Central, setjið „Númer bankareiknings“ á prófunarreikningsnúmerið og „Innflutningssnið bankayfirlits“ á snið bankans: „ARION-FEED-IN“, „ISB-FEED-IN“ eða „LBI-FEED-IN“
 
 ### Skref {#steps-5}
-1. Stofnið nýja afstemmingu fyrir bankareikninginn, með gærdaginn sem yfirlitsdag
-2. Veljið að flytja inn bankayfirlit
+1. Opnið „Afstemming bankareikninga“ og stofnið nýja afstemmingu fyrir bankareikninginn, með gærdaginn sem yfirlitsdag
+2. Veljið „Flytja inn bankayfirlit“
 3. Í „Veldu upphafsdagsetningu“, sláið inn dagsetningu mánuði aftur í tímann og veljið „Í lagi“
 
 ### Væntar niðurstöður {#expected-results-5}
 - Lína bankans sýnir „Fullskráð“ undir „Leyndarmál“ fyrir innflutninginn
 - „Innfærsla yfirlits — samantekt“ opnast og sýnir bankareikninginn, fjölda innfærðra lína og stöðurnar
 - Afstemmingin hefur línu fyrir hverja færslu tímabilsins
-- Kallið er skráð í „Annál beiðna Bifröst“ með lykilorðið falið
+- Kallið er skráð á síðunni „Annáll beiðna Bifröst“ með lykilorðið falið
 
 ---
 
@@ -175,11 +175,11 @@ kall til banka er líka skráð í **Annál beiðna Bifröst**, með lykilorðin
 ### Væntar niðurstöður {#expected-results-6}
 - Aðstoðarmaðurinn svarar með gengi bankans í dag
 - Aðstoðarmaðurinn svarar hvort reikningurinn sé til
-- Báðar beiðnirnar eru skráðar á „Bifröst skilaboð“ og hafa tekist
+- Báðar beiðnirnar eru skráðar á síðunni „Bifröst skilaboð“ með stöðuna „Vinnslu lokið“
 
 ---
 
-## Sviðsmynd 8: Banki án leyndarmála er ekki kallaður {#scenario-8-a-bank-without-secrets-is-not-called}
+## Sviðsmynd 8: Ekki er kallað á banka án leyndarmála {#scenario-8-a-bank-without-secrets-is-not-called}
 
 **Svið:** Villumeðhöndlun
 
@@ -187,8 +187,8 @@ kall til banka er líka skráð í **Annál beiðna Bifröst**, með lykilorðin
 1. Ljúkið sviðsmynd 1, án leyndarmála fyrir „Íslandsbanki“
 
 ### Skref {#steps-7}
-1. Á bankareikningi í Business Central, setjið hvaða 12 stafa reikningsnúmer sem er sem númer bankareiknings og „ISB-FEED-IN“ sem innflutningssnið bankayfirlits
-2. Stofnið afstemmingu fyrir hann og veljið að flytja inn bankayfirlit
+1. Á bankareikningi í Business Central, setjið „Númer bankareiknings“ á hvaða 12 stafa reikningsnúmer sem er og „Innflutningssnið bankayfirlits“ á „ISB-FEED-IN“
+2. Stofnið afstemmingu bankareiknings fyrir hann og veljið „Flytja inn bankayfirlit“
 
 ### Væntar niðurstöður {#expected-results-7}
 - Innflutningurinn stöðvast með villu sem nefnir Íslandsbanka og notandanafnið eða lykilorðið sem vantar

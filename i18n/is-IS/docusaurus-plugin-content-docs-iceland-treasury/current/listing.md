@@ -77,22 +77,22 @@ banka, Íslandsbanka og Landsbankans og virkar eins fyrir þá alla.
 
 ### Hvað það gerir {#what-it-does}
 
-- **Les yfirlit inn í bankaafstemmingu.** Hver banki hefur sitt innflutningssnið fyrir bankayfirlit:
+- **Flytur yfirlit inn í bankaafstemmingu.** Hver banki hefur sitt innflutningssnið fyrir bankayfirlit:
   innflutningur sækir yfirlitið til bankans, stofnar afstemmingarlínurnar og sýnir samantekt yfir
-  stöðurnar. Kortafærslur hjá Arion banka og Landsbankanum eru lesnar inn á sama hátt.
+  stöðurnar. Kortafærslur hjá Arion banka og Landsbankanum eru fluttar inn á sama hátt.
 - **Skráir greiðslubunka til samþykktar.** Bunkar innlendra greiðslna (ISK) hjá Arion banka og
   Landsbankanum, og bunkar erlendra greiðslna hjá öllum bönkunum, með þeim flokkunarlykli
   Seðlabankans sem hver banki tekur. Starfsmaður fyrirtækisins samþykkir og greiðir hvern bunka í
   bankanum.
 - **Veit hvenær greiðsla er greidd.** Hvert yfirlit sem er lesið eða flutt inn er borið saman við opnar
   greiðslur reikningsins, og greiðslurnar sem það sýnir eru merktar greiddar.
-- **Stofnar kröfur og fylgir þeim eftir.** Stofnaðu kröfur fyrir viðskiptamannafærslur, breyttu þeim eða
-  felldu niður, og skráðu greiðslurnar sem bankinn tilkynnir, svo hver krafa sýnir hvað er greitt og hvað
-  er opið.
+- **Stofnar kröfur og fylgir þeim eftir.** Kröfur eru stofnaðar fyrir viðskiptamannafærslur, þeim breytt
+  eða þær felldar niður, og greiðslurnar sem bankinn tilkynnir eru skráðar, svo hver krafa sýnir hvað er
+  greitt og hvað er opið.
 - **Fylgist með öllu í Business Central.** Greiðslubunkar, greiðslur og kostnaður, kröfur, kröfubunkar,
   greiðslur krafna og ferill allra aðgerða í banka, á síðum sem eru aðeins til lestrar, eins fyrir alla
   banka.
-- **Meira frá hverjum banka.** Reikningar og staðfesting reikninga, gengi, greiðsluseðlar og ógreiddir
+- **Meira frá hverjum banka.** Reikningar og staðfesting reikninga, gengi, seðlar og ógreiddir
   reikningar, kredit- og fyrirtækjakort, gjaldeyrisreikningar, og hjá Landsbankanum eignasöfn, rafræn
   skjöl og færsluhirðing.
 
@@ -106,10 +106,10 @@ heimildum notandans í Business Central og er skráð í fyrirtækinu.
 
 ### Stjórn {#control}
 
-- Bifrost samþykkir aldrei eða greiðir greiðslu: bunki bíður í bankanum eftir því að starfsmaður samþykki
+- Bifrost hvorki samþykkir né greiðir greiðslu: bunki bíður í bankanum eftir því að starfsmaður samþykki
   hann, og bunka sem nefndur er til beinnar greiðslu er hafnað.
-- Heimildasafn fyrir hverja tegund verka, eins fyrir alla banka: greiðslur og erlendar greiðslur eru
-  alltaf veittar af ásetningi, og aðeins kerfisstjóri með heimildasafn uppsetningar breytir uppsetningu
+- Heimildasamstæða fyrir hverja tegund verka, eins fyrir alla banka: greiðslur og erlendar greiðslur eru
+  alltaf veittar af ásetningi, og aðeins kerfisstjóri með heimildasamstæðu uppsetningar breytir uppsetningu
   bankanna.
 - Lykilorð, skírteini og API-lyklar eru geymd í varinni geymslu og birtast aldrei aftur. Notandi með
   eigin innskráningu í bankann skráir hana sjálfur.
@@ -122,4 +122,4 @@ heimildum notandans í Business Central og er skráð í fyrirtækinu.
 - Bifrost Foundation (fáanlegt sér á AppSource)
 - Samningur við hvern banka um vefþjónustur hans, með notandanafni, lykilorði og biðlaraskírteini sem
   bankinn gefur út (og API-lykli hjá Landsbankanum)
-- Hafðu samband við Business Central samstarfsaðilann þinn varðandi verð
+- Hafðu samband við samstarfsaðilann þinn fyrir Business Central varðandi verð

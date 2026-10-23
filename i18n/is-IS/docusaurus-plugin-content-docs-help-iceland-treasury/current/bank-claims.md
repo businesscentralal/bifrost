@@ -5,10 +5,10 @@ title: "Kröfur í banka"
 
 **Kröfur í banka** sýnir hverja kröfu sem Bifröst stofnaði í banka, með stöðu hennar, greiddri upphæð og
 bankareikningnum sem hún er greidd inn á. Undir listanum sýnir **Færslur** viðskiptamannafærslurnar sem
-valin krafa innheimtir og **Greiðslur kröfu** greiðslurnar sem bankinn gaf upp fyrir hana. Síðan er fyrir
-bókarann sem fylgir eftir því sem viðskiptavinir skulda.
+valin krafa innheimtir og **Greiðslur kröfu** greiðslurnar sem bankinn gaf upp vegna hennar. Síðan er
+fyrir bókarann sem fylgir eftir því sem viðskiptamenn skulda.
 
-Opnaðu hana með **Kröfur í banka** í [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/).
+Opnaðu hana með aðgerðinni **Kröfur í banka** í [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/).
 Síðan er aðeins til lestrar: Bifröst skrifar hana þegar krafa er stofnuð, henni breytt eða hún felld
 niður í bankanum, þegar krafan er lesin aftur og þegar greiðslur hennar eru skráðar.
 
@@ -16,7 +16,7 @@ niður í bankanum, þegar krafan er lesin aftur og þegar greiðslur hennar eru
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Banki** | Bankinn sem krafan er í. |
+| **Banki** | Bankinn sem krafan er hjá. |
 | **Kröfureikningur** | Reikningur kröfunnar í bankanum: banki, höfuðbók og kröfunúmer. |
 | **Kröfudagur**, **Eindagi** | Kröfudagurinn og eindaginn. |
 | **Viðskiptamannanúmer** | Viðskiptamaðurinn sem krafan innheimtir hjá. |
@@ -28,7 +28,7 @@ niður í bankanum, þegar krafan er lesin aftur og þegar greiðslur hennar eru
 | **Kennitala kröfuhafa** | Kennitala kröfuhafans. |
 | **Kröfunúmer**, **Auðkenni kröfu**, **Tilvísun**, **Reikningsnúmer**, **Auðkenni kröfu hjá banka** | Númer kröfunnar, kröfuauðkenni innheimtusamningsins, tilvísun og reikningsnúmer sem send voru til bankans, og auðkenni kröfunnar í bankanum. |
 | **Villuskilaboð** | Hvers vegna bankinn hafnaði kröfunni. |
-| **Pakkafærslunúmer** | Bunkinn sem krafan var send í, í [Kröfubunkar í banka](/help/iceland-treasury/bank-claim-batches/). |
+| **Pakkafærslunúmer** | Bunkinn sem krafan var send í, á síðunni [Kröfubunkar í banka](/help/iceland-treasury/bank-claim-batches/). |
 | **Stofnað**, **Síðast breytt**, **Síðast athuguð** | Hvenær krafan var stofnuð, síðast breytt og síðast lesin í bankanum. |
 
 ## Færslur {#ledger-entries}
@@ -39,13 +39,13 @@ Viðskiptamannafærslurnar sem krafan innheimtir: **Viðskiptamannafærsla nr.**
 
 ## Greiðslur kröfu {#claim-payments}
 
-Greiðslurnar sem bankinn gaf upp fyrir kröfuna, með sömu reitum og
+Greiðslurnar sem bankinn gaf upp vegna kröfunnar, með sömu reitum og síðan
 [Greiðslur krafna í banka](/help/iceland-treasury/bank-claim-payments/).
 
 ## Algeng verk {#common-tasks}
 
-**Sjá hvað er enn opið.** Síaðu **Staða** á **Staðfest** og **Greidd að hluta**. **Upphæð** að frádreginni
-**Greidd upphæð** er það sem bankinn hefur ekki gefið upp sem greitt.
+**Sjá hvað er enn opið.** Síaðu reitinn **Staða** á **Staðfest** og **Greidd að hluta**. Mismunurinn á
+**Upphæð** og **Greidd upphæð** er það sem bankinn hefur ekki gefið upp sem greitt.
 
 **Finna kröfuna fyrir reikning.** Veldu kröfuna, eða opnaðu viðskiptamannafærslu reikningsins:
 upplýsingareitur hennar sýnir kröfureikning, kröfudag og stöðu kröfunnar.
@@ -54,8 +54,8 @@ upplýsingareitur hennar sýnir kröfureikning, kröfudag og stöðu kröfunnar.
 
 - Krafa verður **Greidd að hluta** eða **Greidd** aðeins út frá greiðslunum sem eru skráðar á hana, og
   **Útrunnin** þegar niðurfellingardagur bankans er liðinn.
-- Niðurfelld krafa opnast aftur þegar bankinn segir hana opna, til dæmis eftir að hún var endurvakin í
-  netbankanum.
+- Niðurfelld krafa opnast aftur þegar bankinn gefur hana upp sem opna, til dæmis eftir að hún var
+  endurvakin í netbankanum.
 - Hver aðgerð á kröfu er líka í [Ferilskrá bankaaðgerða](/help/iceland-treasury/bank-tracking-log/).
 - Þegar forritið [Bifröst mállíkön](/language-models/) er sett upp svarar upplýsingareiturinn **Spjalla
   með Bifröst** til hægri spurningum um valda kröfu.

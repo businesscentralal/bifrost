@@ -4,8 +4,8 @@ title: "Veldu upphafsdagsetningu"
 ---
 
 **Veldu upphafsdagsetningu** opnast þegar þú flytur bankayfirlit inn í afstemmingu bankareiknings og
-Bifröst getur ekki séð hvar yfirlitið á að byrja. Glugginn er fyrir bókarann sem afstemmir
-bankareikninginn.
+Bifröst getur ekki ráðið hvar yfirlitið á að byrja. Glugginn er fyrir bókarann sem stemmir
+bankareikninginn af.
 
 Það gerist í fyrsta sinn sem þú flytur inn yfirlit fyrir bankareikning: ekkert bókað yfirlit er enn til
 að halda áfram frá. Eftir það hefst innflutningurinn daginn eftir síðasta bókaða yfirlit og þessi gluggi
@@ -19,11 +19,11 @@ opnast ekki.
 
 ## Val á dagsetningu {#choosing-a-date}
 
-Veldu daginn eftir síðustu færsluna sem þú hefur þegar afstemmt í Business Central.
+Veldu daginn eftir síðustu færsluna sem þú hefur þegar stemmt af í Business Central.
 
-- Of snemma, og færslur sem þegar eru í Business Central eru fluttar inn aftur sem óparaðar línur.
-- Of seint, og færslur vantar; opnunarstaðan stemmir þá ekki við bankann og
-  [samantekt innfærslu yfirlits](/help/iceland-treasury/statement-import-summary/) varar þig við.
+- Of snemma: færslur sem þegar eru í Business Central eru fluttar inn aftur sem óparaðar línur.
+- Of seint: færslur vantar, opnunarstaðan stemmir þá ekki við bankann og
+  [Innfærsla yfirlits — samantekt](/help/iceland-treasury/statement-import-summary/) varar þig við.
 
-Þegar innflutningurinn keyrir í bakgrunni, til dæmis úr tímasettri keyrslu, getur hann ekki spurt: hann
-byrjar einu ári fyrir yfirlitsdaginn.
+Þegar innflutningurinn keyrir í bakgrunni, til dæmis úr tímasettri keyrslu, getur hann ekki spurt: þá
+hefst hann einu ári fyrir yfirlitsdaginn.

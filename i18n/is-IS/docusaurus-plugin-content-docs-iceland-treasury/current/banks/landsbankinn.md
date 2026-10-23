@@ -44,36 +44,37 @@ Landsbankanum, hvað þú setur upp og hvað þú sérð í Business Central á 
    hafðu hana virka, skráðu notandanafn fyrirtækisins og notaðu svo **Skrá lykilorð fyrirtækis**, **Skrá
    skírteini** og **Skrá API-lykil**. **Leyndarmál** sýnir **Fullskráð** þegar allt er vistað.
 3. **Eigin innskráningu, ef notendur þínir hafa sína eigin í bankanum.** Hver notandi skráir eigið
-   notandanafn, lykilorð og API-lykil í **Bifröst notandauppsetningu**; sjá
+   notandanafn, lykilorð og API-lykil á síðunni **Uppsetning notanda Bifröst**; sjá
    [Bankaaðgangur notanda](/help/iceland-treasury/bank-user-setup/).
-4. **Bankaafstemmingu.** Á bankareikningnum í Business Central skaltu setja reikningsnúmerið í
-   Landsbankanum sem númer bankareiknings og innflutningssniðið `LBI-FEED-IN`. Fyrir fyrirtækjakort
-   notarðu bankareikning þar sem númer bankareiknings er auðkenni kortsins og sniðið `LBI-CARD-IN`.
+4. **Bankaafstemmingu.** Á bankareikningnum í Business Central skaltu setja **Númer bankareiknings** á
+   reikninginn í Landsbankanum og **Innflutningssnið bankayfirlits** á `LBI-FEED-IN`. Fyrir
+   fyrirtækjakort notarðu bankareikning þar sem **Númer bankareiknings** er auðkenni kortsins og sniðið
+   `LBI-CARD-IN`.
 5. **Kröfur.** Kröfuhafinn þarf að hafa samþykkt kröfuskilmála Landsbankans í netbankanum. Stofnaðu
    kröfusniðmát þar eða í gegnum Bifröst, og skráðu kröfuauðkennið og síðasta kröfunúmer á
-   [greiðslumáta](/help/iceland-treasury/payment-methods/) fyrir hvern innheimtusamning. Kennitala
-   kröfuhafans er lesin úr **Fyrirtækjaupplýsingum**.
-6. **Heimildir.** Úthlutaðu [heimildasöfnunum](/iceland-treasury/#permissions) fyrir það sem hver notandi
-   má gera.
+   greiðslumáta ([Greiðsluhættir](/help/iceland-treasury/payment-methods/)) fyrir hvern innheimtusamning. Kennitala
+   kröfuhafans er lesin af síðunni **Stofngögn**.
+6. **Heimildir.** Úthlutaðu [heimildasamstæðunum](/iceland-treasury/#permissions) fyrir það sem hver
+   notandi má gera.
 
 ## Hvað þú sérð í Business Central {#what-you-see-in-business-central}
 
-- Innflutningur bankayfirlits í afstemmingu bankareiknings sækir yfirlitið eða kortafærslurnar.
+- **Flytja inn bankayfirlit** í afstemmingu bankareiknings sækir yfirlitið eða kortafærslurnar.
   Tímabilið hefst daginn eftir síðasta bókaða yfirlit; í fyrsta sinn er spurt um
   [upphafsdagsetningu](/help/iceland-treasury/date-input-dialog/).
-  [Samantekt innfærslu yfirlits](/help/iceland-treasury/statement-import-summary/) sýnir síðan
+  [Innfærsla yfirlits — samantekt](/help/iceland-treasury/statement-import-summary/) sýnir síðan
   innfærðar línur og stöður, og varar við ef þær stemma ekki við bankann.
 - Greiðslubunkar, kröfur og greiðslur krafna birtast á rakningarsíðunum sem opnaðar eru úr **Bifröst
   Ísland Fjárstýring - uppsetning**; sjá [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/).
-- Upplýsingareitur viðskiptamannafærslu sýnir kröfuna sem innheimtir færsluna.
-- Hvert kall til bankans er skráð í **Annál beiðna Bifröst**, með lykilorð og lykla falin.
+- Upplýsingareiturinn **Upplýsingar um viðskiptamannafærslu** sýnir kröfuna sem innheimtir færsluna.
+- Hvert kall til bankans er skráð á síðunni **Annáll beiðna Bifröst**, með lykilorð og lykla falin.
 
-## Að færa þig frá eldra Landsbankaforriti Origo {#moving-from-origos-earlier-landsbankinn-app}
+## Flutningur úr eldra forriti Origo fyrir Landsbankann {#moving-from-origos-earlier-landsbankinn-app}
 
 Settu Bifröst Ísland Fjárstýringu upp við hlið eldra forritsins. Við uppsetningu tekur hún yfir gögn
 Landsbankans: kröfur og greiðslur krafna, kröfu- og greiðslubunka, kröfureitina á greiðslumátum,
-Landsbankastillingar notenda og heimildaúthlutanir þeirra, sem færast yfir á samsvarandi heimildasöfn
-þessa forrits. Síðan geturðu fjarlægt eldra forritið. Gögnum sem þegar eru í Bifröst Ísland Fjárstýringu
+Landsbankastillingar notenda og heimildaúthlutanir þeirra, sem færast yfir á samsvarandi
+heimildasamstæður þessa forrits. Síðan geturðu fjarlægt eldra forritið. Gögnum sem þegar eru í Bifröst Ísland Fjárstýringu
 er aldrei skrifað yfir.
 
 Lykilorð, skírteini og API-lyklar flytjast ekki. Skráðu þau einu sinni eftir skiptin.
@@ -82,4 +83,4 @@ Lykilorð, skírteini og API-lyklar flytjast ekki. Skráðu þau einu sinni efti
 
 - [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/)
 - [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/)
-- [Yfirlit Ísland Fjárstýringar](/iceland-treasury/)
+- [Yfirlit yfir Bifröst Ísland Fjárstýringu](/iceland-treasury/)
