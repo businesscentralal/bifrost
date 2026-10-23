@@ -15,6 +15,7 @@ export const APP_ROUTES = {
   'warehouse': {route: 'warehouse', title: 'Warehouse'},
   'iceland': {route: 'iceland', title: 'Iceland'},
   'iceland-docex': {route: 'iceland-docex', title: 'Iceland DocEx'},
+  'iceland-treasury': {route: 'iceland-treasury', title: 'Iceland Treasury'},
 };
 
 /**
