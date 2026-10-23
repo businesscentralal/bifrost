@@ -60,14 +60,14 @@ spjallið.
 
 ### Uppsetning með leiðsögn {#set-up-with-the-wizard}
 
-Fljótlegast er að nota leiðsögnina **Setja upp Bifröst mállíkön** í **Uppsetning með aðstoð**. Hún opnast líka með **Uppsetningarleiðsögn** á **Uppsetning Bifröst mállíkana**. Hún leiðir kerfisstjóra Business Central í gegnum skrefin hér fyrir neðan:
+Fljótlegast er að nota leiðsögnina **Setja upp Bifröst mállíkön** í **Uppsetning með aðstoð**. Hún opnast líka með **Uppsetningarleiðsögn** á **Uppsetning Bifröst mállíkana**. Hún leiðir kerfisstjóra Business Central í gegnum skrefin hér fyrir neðan, frá velkomusíðu til **Ljúka**:
 
-1. **Netaðgangur.** Leiðsögnin sýnir hvort forritið má ná í veiturnar um netið. Ef ekki, opnar **Virkja HTTP í Bifröst uppsetningu** uppsetningarleiðsögn Bifröst, sem kveikir á því fyrir öll Bifröst-forrit. Copilot þarf það ekki.
-2. **Mállíkan.** Veldu Copilot, sem mælt er með, eða aðra veitu. Fyrir Copilot útskýrir leiðsögnin hvernig kveikt er á **Bifröst Copilot** í **Copilot og getu umboðsaðila**, og **Frumstilla Copilot** býr til tilbúið líkan. Fyrir aðra veitu opnar hún mállíkönin og API-lykla þeirra.
-3. **Spjall.** Leiðsögnin gerir Bifröst mállíkön að forritinu sem svarar spjalli, nema annað forrit geri það þegar.
-4. **Notendur.** Veldu þau sem mega spjalla. Leiðsögnin gefur þeim heimildasamstæðurnar fyrir spjall og, ef þú vilt, mállíkanið sem þau spjalla við. Þetta skref krefst kerfisstjóra sem má úthluta heimildum.
+1. **HTTP fyrir þetta forrit.** Leiðsögnin sýnir hvort forritið má ná í veiturnar um netið. Ef ekki, opnar **Virkja HTTP í Bifröst uppsetningu** uppsetningarleiðsögn Bifröst, sem kveikir á því fyrir öll Bifröst-forrit. Copilot þarf það ekki.
+2. **Mállíkan.** Veldu Copilot, sem mælt er með, eða aðra veitu. Hér má líka velja **Sjálfgefið mállíkan**. Fyrir Copilot útskýrir leiðsögnin hvernig kveikt er á **Bifröst Copilot** í **Copilot og eiginleikar fulltrúa**, og **Frumstilla Copilot** býr til tilbúið líkan. Fyrir aðra veitu opnar hún mállíkönin og API-lykla þeirra.
+3. **Spjallveitandi.** Ef ekkert forrit svarar spjalli enn gerir **Nota Bifröst mállíkön fyrir spjall** þetta forrit að því sem svarar því. Ef annað forrit gerir það þegar nefnir skrefið það; kerfisstjóri getur breytt því í **Uppsetning Bifröst**.
+4. **Notendur.** Veldu þau sem mega spjalla. Leiðsögnin gefur þeim heimildasamstæðurnar fyrir spjall og, ef þú vilt, mállíkanið sem þau spjalla við. Til að veita heimildasamstæðurnar þarf kerfisstjóra sem má úthluta heimildum.
 
-Sleppa má hverju skrefi og ljúka því síðar. Þótt leiðsögninni sé lokað heldur það sem fyrri skref gerðu; hún telst aðeins lokið þegar þú velur **Ljúka**.
+Sleppa má hverju skrefi og ljúka því síðar. Þótt leiðsögninni sé lokað heldur það sem fyrri skref gerðu; hún telst aðeins lokið þegar þú velur **Ljúka**. Til að ljúka þarf að minnsta kosti eitt af þessu: HTTP, sjálfgefið mállíkan eða spjallveitanda.
 
 Einnig má setja forritið upp skref fyrir skref:
 

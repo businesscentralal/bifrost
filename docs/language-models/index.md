@@ -60,14 +60,14 @@ provides it.
 
 ### Set up with the wizard
 
-The quickest way is the **Set up Bifrost Language Models** wizard in **Assisted Setup**. You can also open it with **Setup Wizard** on **Bifrost Language Models Setup**. It walks a Business Central administrator through the steps below:
+The quickest way is the **Set up Bifrost Language Models** wizard in **Assisted Setup**. You can also open it with **Setup Wizard** on **Bifrost Language Models Setup**. It walks a Business Central administrator through the steps below, starting with a Welcome page and ending with **Finish**:
 
-1. **Internet access.** The wizard shows whether the app may reach the providers over the internet. If it may not, **Enable HTTP in Bifrost Setup** opens the Bifröst setup wizard, which turns it on for every Bifröst app. Copilot does not need it.
-2. **Language model.** Choose Copilot, the recommended choice, or another provider. For Copilot, the wizard explains how to turn on **Bifrost Copilot** in **Copilot & agent capabilities**, and **Initialize Copilot** creates a ready model. For another provider, it opens the language models and their API keys.
-3. **Chat.** The wizard makes Bifröst Language Models the app that answers chat, unless another app already does.
-4. **Users.** Select the people who may chat. The wizard gives them the chat permission sets and, if you choose, the language model they chat with. This step needs an administrator who may assign permissions.
+1. **HTTP for this app.** The wizard shows whether the app may reach the providers over the internet. If it may not, **Enable HTTP in Bifrost Setup** opens the Bifröst setup wizard, which turns it on for every Bifröst app. Copilot does not need it.
+2. **Language model.** Choose Copilot, the recommended choice, or another provider. You can also set the **Default Language Model** here. For Copilot, the wizard explains how to turn on **Bifrost Copilot** in **Copilot & agent capabilities**, and **Initialize Copilot** creates a ready model. For another provider, it opens the language models and their API keys.
+3. **Chat provider.** If no app answers chat yet, **Use Bifrost Language Models for chat** makes this app answer it. If another app already does, the step names it; an administrator can change it on **Bifrost Setup**.
+4. **Users.** Select the people who may chat. The wizard gives them the chat permission sets and, if you choose, the language model they chat with. Giving the permission sets needs an administrator who may assign permissions.
 
-Each step can be skipped and done later. Closing the wizard keeps what earlier steps already did; it is marked complete only when you choose **Finish**.
+Each step can be skipped and done later. Closing the wizard keeps what earlier steps already did; it is marked complete only when you choose **Finish**. Finish needs at least one of HTTP, a default language model or the chat provider.
 
 You can also set it up step by step:
 
