@@ -60,7 +60,7 @@ spjallið.
 
 ### Uppsetning með leiðsögn {#set-up-with-the-wizard}
 
-Fljótlegast er að nota leiðsögnina **Setja upp Bifröst mállíkön** í **Uppsetning með aðstoð**. Hún opnast líka með **Uppsetningarleiðsögn** á **Uppsetning Bifröst mállíkana**. Hún leiðir kerfisstjóra Business Central í gegnum skrefin hér fyrir neðan, frá velkomusíðu til **Ljúka**:
+Fljótlegast er að nota leiðsögnina **Setja upp Bifröst mállíkön** í **Aðstoðuð uppsetning**. Hún opnast líka með **Uppsetningarleiðsögn** á **Uppsetning Bifröst mállíkana**. Hún leiðir kerfisstjóra Business Central í gegnum skrefin hér fyrir neðan, frá velkomusíðu til **Ljúka**:
 
 1. **HTTP fyrir þetta forrit.** Leiðsögnin sýnir hvort forritið má ná í veiturnar um netið. Ef ekki, opnar **Virkja HTTP í Bifröst uppsetningu** uppsetningarleiðsögn Bifröst, sem kveikir á því fyrir öll Bifröst-forrit. Copilot þarf það ekki.
 2. **Mállíkan.** Veldu Copilot, sem mælt er með, eða aðra veitu. Hér má líka velja **Sjálfgefið mállíkan**. Fyrir Copilot útskýrir leiðsögnin hvernig kveikt er á **Bifröst Copilot** í **Copilot og eiginleikar fulltrúa**, og **Frumstilla Copilot** býr til tilbúið líkan. Fyrir aðra veitu opnar hún mállíkönin og API-lykla þeirra.
