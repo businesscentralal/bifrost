@@ -10,6 +10,14 @@ description: "What changed in each version of Bifröst Iceland published on Micr
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Iceland published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.1.1 — 23 October 2026
+
+### Changed
+
+- VAT, payroll withholding and capital income tax returns reach Skatturinn under the software name Origo Bifrost - Business Central, the name registered with Skatturinn.
+- Your AI assistant gets a fuller description of every Iceland operation: what it answers, the errors it can return and why, what it changes in Business Central, and examples. It picks the right operation more often and explains a refusal better.
+- Operations that change data can be started from every place that could start them before. Nothing that worked before stops working.
+
 ## 28.1.0 — 21 October 2026
 
 ### First version on Microsoft AppSource
