@@ -51,7 +51,7 @@ Byrjaðu á [Hvernig Bifröst virkar](/documentation/how-it-works/).*
 
 ## Sæktu forritið {#get-it}
 
-Settu **Bifrost Iceland** upp við hlið Bifröst Foundation, af AppSource eða í gegnum Business Central
+Settu **Bifrost Iceland** upp við hlið Bifröst Foundation, af [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_iceland%7CPAPPID.e1276ba8-3405-4589-ba68-51d725992ef6) eða í gegnum Business Central
 samstarfsaðilann þinn. Forritið er fyrir fyrirtæki á Íslandi. Það þarf Business Central 28.0 eða nýrra,
 Essentials eða Premium, íslenska staðfærslu Microsoft (IS Core) og Bifröst Foundation 28.0.2.523 eða
 nýrra. Hafðu samband við Business Central samstarfsaðilann þinn varðandi verð.

@@ -124,6 +124,13 @@
   flex-grow: 1;
 }
 
+.version {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+  font-variant-numeric: tabular-nums;
+}
+
 /* Domain chips ----------------------------------------------------------------------------------- */
 
 .chips {

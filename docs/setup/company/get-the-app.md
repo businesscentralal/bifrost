@@ -25,7 +25,8 @@ Each app depends on Foundation, so Business Central installs Foundation first.
 Bifröst Foundation is on [Microsoft Marketplace (AppSource)](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_foundation%7CPAPPID.7505e808-6e52-4b96-a328-82573391297a). Install it from there, or in
 Business Central: open **Extension Management**, choose **AppSource Gallery**, search for *Bifrost*
 and choose **Bifrost Foundation**; the publisher is Origo. The other Bifröst apps are found the same
-way.
+way. [Apps built on Bifröst](/apps/) lists every app with its AppSource link, its latest version
+and its release notes.
 
 ## The license
 

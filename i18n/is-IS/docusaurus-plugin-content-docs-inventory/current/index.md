@@ -59,7 +59,7 @@ samsetningarpöntunum, vörubókum, vörufærslum og vöruspjaldinu.
 
 ## Sæktu forritið {#get-it}
 
-Settu **Bifrost Inventory** upp við hlið Bifröst Foundation, af AppSource eða í gegnum Business
+Settu **Bifrost Inventory** upp við hlið Bifröst Foundation, af [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_inventory%7CPAPPID.02701c94-c962-4825-92c7-ef9f70311a2b) eða í gegnum Business
 Central samstarfsaðilann þinn. Það þarf Business Central 28.3 eða nýrra, Essentials eða Premium, og
 Bifröst Foundation 28.0.3.530 eða nýrra. Hafðu samband við Business Central samstarfsaðilann þinn
 varðandi verð.

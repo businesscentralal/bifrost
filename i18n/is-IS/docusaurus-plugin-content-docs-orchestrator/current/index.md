@@ -46,7 +46,7 @@ föstu ferlunum þínum meira að vinna með. Aðstoðarmaður getur líka smí�
 
 ## Sæktu forritið {#get-it}
 
-Settu **Bifrost Orchestrator** upp við hlið Bifröst Foundation, af AppSource eða í gegnum Business
+Settu **Bifrost Orchestrator** upp við hlið Bifröst Foundation, af [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_orchestrator%7CPAPPID.7da3f512-5c19-47cd-bbe4-4c2bc713f1db) eða í gegnum Business
 Central samstarfsaðilann þinn. Það þarf Business Central 28.0 eða nýrra. Um verð: hafðu samband við
 Business Central samstarfsaðilann þinn.
 

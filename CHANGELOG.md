@@ -21,6 +21,8 @@
 
 ### Changed
 
+- Bifrost Language Models, Attachments, Orchestrator, Inventory, Subscription Billing, Warehouse and Iceland are listed as available on Microsoft AppSource, with links to their listings on the Apps page and on each app's page, in English and Icelandic.
+- The Apps page shows the latest AppSource version of each released app, its release date and a link to its release notes, read from versions.json. Step 1 of the setup guide links to the Apps page for the apps built on Foundation.
 - Allow Attachments documentation before AppSource publication. Every other unpublished app remains blocked, and the existing public-content restrictions still apply.
 
 ### Fixed

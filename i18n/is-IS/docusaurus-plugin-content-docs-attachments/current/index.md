@@ -14,7 +14,7 @@ skráareikninga sem þú setur upp í Business Central. Stjórnendur velja reikn
 grunnslóð fyrir hverja geymslutengingu. Forritið býður einnig upp á aðgerðir fyrir skilgreiningar og
 færslur gagnaskipta í Business Central.
 
-Forritið byggir á [Bifröst Foundation](/foundation/) og fæst á Microsoft AppSource.
+Forritið byggir á [Bifröst Foundation](/foundation/) og fæst á [Microsoft AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_attachments%7CPAPPID.672df32a-a0c5-4a22-b591-0efa38023e95).
 
 ## Uppsetning
 
