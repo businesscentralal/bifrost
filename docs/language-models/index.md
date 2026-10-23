@@ -58,6 +58,19 @@ provides it.
 
 ## Set it up
 
+### Set up with the wizard
+
+The quickest way is the **Set up Bifrost Language Models** wizard in **Assisted Setup**. You can also open it with **Setup Wizard** on **Bifrost Language Models Setup**. It walks a Business Central administrator through the steps below:
+
+1. **Internet access.** The wizard shows whether the app may reach the providers over the internet. If it may not, **Enable HTTP in Bifrost Setup** opens the Bifröst setup wizard, which turns it on for every Bifröst app. Copilot does not need it.
+2. **Language model.** Choose Copilot, the recommended choice, or another provider. For Copilot, the wizard explains how to turn on **Bifrost Copilot** in **Copilot & agent capabilities**, and **Initialize Copilot** creates a ready model. For another provider, it opens the language models and their API keys.
+3. **Chat.** The wizard makes Bifröst Language Models the app that answers chat, unless another app already does.
+4. **Users.** Select the people who may chat. The wizard gives them the chat permission sets and, if you choose, the language model they chat with. This step needs an administrator who may assign permissions.
+
+Each step can be skipped and done later. Closing the wizard keeps what earlier steps already did; it is marked complete only when you choose **Finish**.
+
+You can also set it up step by step:
+
 | Step | What | Who |
 |---|---|---|
 | 1 | Choose a provider. Copilot needs nothing outside Business Central. For another provider, have its API key ready, and for Azure OpenAI or a model of your own its address. | Business Central administrator |

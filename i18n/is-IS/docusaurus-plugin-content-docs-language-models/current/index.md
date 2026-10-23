@@ -58,6 +58,19 @@ spjallið.
 
 ## Uppsetning {#set-it-up}
 
+### Uppsetning með leiðsögn {#set-up-with-the-wizard}
+
+Fljótlegast er að nota leiðsögnina **Setja upp Bifröst mállíkön** í **Uppsetning með aðstoð**. Hún opnast líka með **Uppsetningarleiðsögn** á **Uppsetning Bifröst mállíkana**. Hún leiðir kerfisstjóra Business Central í gegnum skrefin hér fyrir neðan:
+
+1. **Netaðgangur.** Leiðsögnin sýnir hvort forritið má ná í veiturnar um netið. Ef ekki, opnar **Virkja HTTP í Bifröst uppsetningu** uppsetningarleiðsögn Bifröst, sem kveikir á því fyrir öll Bifröst-forrit. Copilot þarf það ekki.
+2. **Mállíkan.** Veldu Copilot, sem mælt er með, eða aðra veitu. Fyrir Copilot útskýrir leiðsögnin hvernig kveikt er á **Bifröst Copilot** í **Copilot og getu umboðsaðila**, og **Frumstilla Copilot** býr til tilbúið líkan. Fyrir aðra veitu opnar hún mállíkönin og API-lykla þeirra.
+3. **Spjall.** Leiðsögnin gerir Bifröst mállíkön að forritinu sem svarar spjalli, nema annað forrit geri það þegar.
+4. **Notendur.** Veldu þau sem mega spjalla. Leiðsögnin gefur þeim heimildasamstæðurnar fyrir spjall og, ef þú vilt, mállíkanið sem þau spjalla við. Þetta skref krefst kerfisstjóra sem má úthluta heimildum.
+
+Sleppa má hverju skrefi og ljúka því síðar. Þótt leiðsögninni sé lokað heldur það sem fyrri skref gerðu; hún telst aðeins lokið þegar þú velur **Ljúka**.
+
+Einnig má setja forritið upp skref fyrir skref:
+
 | Skref | Hvað | Hver |
 |---|---|---|
 | 1 | Veldu veitu. Copilot þarf ekkert utan Business Central. Fyrir aðra veitu skaltu hafa API-lykil hennar tilbúinn, og fyrir Azure OpenAI eða eigið líkan slóð þess. | Kerfisstjóri Business Central |
