@@ -23,7 +23,7 @@ allowed.
 | **Enabled** | Whether the bank may be called. Turn it off to stop every operation of that bank without removing its settings. |
 | **Username** | The company's user name at the bank. A user who has their own login enters it on **Bifrost User Setup**. |
 | **Secrets** | **Complete** when every secret this bank needs is stored, **Missing** otherwise. The values are never shown. |
-| **SOAP Signer** | For Íslandsbanki only: how requests are signed. Leave it blank unless the bank asks for another profile. |
+| **SOAP Signer** | For Íslandsbanki and Kvika banki only: how requests are signed. Leave it blank unless the bank asks for another profile. |
 
 ## Certificate
 
@@ -59,6 +59,7 @@ password, the FactBox says so.
 | --- | --- | --- | --- |
 | Arion banki | Yes | Yes | No |
 | Íslandsbanki | Yes | Yes | No |
+| Kvika banki | Yes | Yes | No |
 | Landsbankinn | Yes | Yes | Yes |
 
 The actions that do not apply to the selected bank are not available. See
@@ -85,4 +86,5 @@ FactBox shows the new expiry date.
 - Passwords, certificates and keys stay in protected storage and are never shown again; see
   [Bank secrets](/help/iceland-treasury/treasury-secrets/).
 - What each bank covers: [Arion banki](/iceland-treasury/banks/arion/),
-  [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) and [Landsbankinn](/iceland-treasury/banks/landsbankinn/).
+  [Íslandsbanki](/iceland-treasury/banks/islandsbanki/), [Kvika banki](/iceland-treasury/banks/kvika/) and
+  [Landsbankinn](/iceland-treasury/banks/landsbankinn/).

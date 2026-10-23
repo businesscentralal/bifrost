@@ -2,7 +2,7 @@
 id: landsbankinn
 title: "Landsbankinn"
 sidebar_label: "Landsbankinn"
-sidebar_position: 3
+sidebar_position: 4
 description: "Hvað Bifröst Ísland Fjárstýring gerir með Landsbankanum: yfirlit og kortafærslur í bankaafstemmingu, reikningar, bunkar innlendra og erlendra greiðslna, kröfur og kröfusniðmát, fyrirtækjakort, eignasöfn, rafræn skjöl, færsluhirðing og gengi."
 ---
 

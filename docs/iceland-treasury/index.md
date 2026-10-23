@@ -4,16 +4,16 @@ title: "Bifröst Iceland Treasury"
 sidebar_label: "Overview"
 sidebar_position: 1
 slug: /
-description: "Your Icelandic banks in Business Central, from an assistant or an integration: statements and bank reconciliation, payment batches, foreign payments, claims (kröfur) and their payments, at Arion banki, Íslandsbanki and Landsbankinn."
+description: "Your Icelandic banks in Business Central, from an assistant or an integration: statements and bank reconciliation, payment batches, foreign payments, claims (kröfur) and their payments, at Arion banki, Íslandsbanki, Kvika banki and Landsbankinn."
 ---
 
 # Bifröst Iceland Treasury
 
 **Work with your Icelandic banks from Business Central, and from the assistant or system you already
 use.** Bifröst Iceland Treasury lets an integration, a scheduled routine or an AI assistant read
-statements into bank reconciliation, register payment batches for approval at the bank, create and
+statements into bank reconciliation, register payment batches at the bank, create and
 follow claims (*kröfur*), and confirm from the bank statement that a payment has been paid, at Arion
-banki, Íslandsbanki and Landsbankinn.
+banki, Íslandsbanki, Kvika banki and Landsbankinn.
 
 This page is for the finance team and the Business Central administrator who decide whether to use the
 app and set it up. Every bank works the same way through Bifröst, and you set up only the banks you use.
@@ -29,9 +29,10 @@ with [How Bifröst works](/documentation/how-it-works/).*
   are imported the same way.
 - **Read statements, accounts and rates.** Read a statement for any account and period, verify an
   account before you pay to it, and fetch the bank's currency rates.
-- **Register payment batches for approval.** Register domestic (ISK) payment batches at Arion banki and
-  Landsbankinn, and foreign payment batches at every bank. A person at your company approves and
-  pays each batch at the bank; Bifröst never pays.
+- **Register payment batches.** Register domestic (ISK) payment batches at Arion banki, Kvika banki and
+  Landsbankinn, and foreign payment batches at Arion banki, Íslandsbanki and Landsbankinn. At Arion banki
+  and Landsbankinn a person at your company approves and pays each batch in the online bank; at Kvika
+  banki that depends on the rights the bank gives your web-service user.
 - **Know when a payment is paid.** When the statement of the paying account shows the payment, Bifröst
   marks it paid. Every statement you read or import is checked this way.
 - **Create and follow claims (*kröfur*).** Create claims for open customer ledger entries, change or
@@ -50,6 +51,7 @@ with [How Bifröst works](/documentation/how-it-works/).*
 |---|---|
 | **Arionbanki** | Statements and bank reconciliation import, accounts and account verification, bills, credit cards and their transactions, domestic and foreign payment batches with their results and receipts, foreign-currency accounts and statements, claims created, changed and cancelled in batches, with their history and payments, currency rates |
 | **Islandsbanki** | Statements and bank reconciliation import, account verification, unpaid invoices, foreign payment batches with the bank's quote and result, claims created, changed and cancelled in batches, with their payments and reactivation, currency rates |
+| **Kvikabanki** | Statements and bank reconciliation import, domestic payment batches with their results, claims created, changed and cancelled in batches, with their payments, currency rates |
 | **Landsbankinn** | Accounts, transactions and end-of-day balances, statement and card transaction import, domestic and foreign payment batches, unpaid invoices and payment slips, claims and claim templates, claim batches and claim payments, corporate cards and card ledger keys, portfolios, electronic documents, card acquiring, currency and interest rates, fees and fund data |
 | **IcelandTreasury** | Payment batches, foreign payment batches and claims at every bank in one list each, with their status refreshed from the bank |
 
@@ -79,8 +81,8 @@ the [setup wizard](/help/iceland-treasury/treasury-setup-wizard/),
 [Bank credentials for your user](/help/iceland-treasury/bank-user-setup/) and
 [Payment Methods](/help/iceland-treasury/payment-methods/).
 
-What each bank covers and needs: [Arion banki](/iceland-treasury/banks/arion/), [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) and
-[Landsbankinn](/iceland-treasury/banks/landsbankinn/). How a payment and a claim are followed from start to finish:
+What each bank covers and needs: [Arion banki](/iceland-treasury/banks/arion/), [Íslandsbanki](/iceland-treasury/banks/islandsbanki/),
+[Kvika banki](/iceland-treasury/banks/kvika/) and [Landsbankinn](/iceland-treasury/banks/landsbankinn/). How a payment and a claim are followed from start to finish:
 [Payments and claims](/iceland-treasury/payments-and-claims/).
 
 ## Permissions
@@ -108,9 +110,10 @@ for everyone else it opens read-only. Users enter their own bank password and AP
 
 ## Good to know
 
-- **Bifröst never pays.** A payment batch is registered at the bank and waits there. A person approves
-  and pays it in the bank's online banking. A batch whose name contains *STP* is refused, so that no
-  batch is paid straight through without approval.
+- **Bifröst does not approve payments.** A payment batch is registered at the bank. At Arion banki and
+  Landsbankinn it waits there until a person approves and pays it in the bank's online banking; at Kvika
+  banki that depends on the rights the bank gives your web-service user. A batch whose name contains
+  *STP* is refused.
 - **Start the batch name with `*`.** The online bank shows a batch registered through the web service
   only to the web service user, unless its name starts with `*`. Then every user of the company's online
   bank sees it, including the person who approves payments. A batch cannot be renamed: register it again.
@@ -134,5 +137,5 @@ for everyone else it opens read-only. Users enter their own bank password and AP
 ## Next steps
 
 - [Payments and claims](/iceland-treasury/payments-and-claims/): how a payment and a claim are followed
-- [Arion banki](/iceland-treasury/banks/arion/) · [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/)
+- [Arion banki](/iceland-treasury/banks/arion/) · [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) · [Kvika banki](/iceland-treasury/banks/kvika/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/)
 - [AppSource user scenarios](/iceland-treasury/user-scenarios/) · [AppSource listing text](/iceland-treasury/listing/)

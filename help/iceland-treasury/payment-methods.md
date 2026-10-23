@@ -13,7 +13,7 @@ Open it by searching for **Payment Methods**.
 
 | Field | Description |
 | --- | --- |
-| **Claim Identifier** | The claim identifier the bank assigned to the collection agreement. At Íslandsbanki this is the claim template code from the bank's online banking. |
+| **Claim Identifier** | The claim identifier the bank assigned to the collection agreement. At Íslandsbanki this is the claim template code from the bank's online banking, and at Kvika banki the claim template code the bank gives you. |
 | **Last Claim No.** | The last claim number used for this agreement. The next claim gets the following number. |
 
 The claimant's kennitala is not set here: it is read from **Registration No.** on **Company Information**.

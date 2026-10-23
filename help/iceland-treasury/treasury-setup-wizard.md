@@ -19,7 +19,7 @@ allowed.
 
 **Welcome.** Says what the guide covers and reminds you to allow outgoing HTTP requests first.
 
-**One step per bank.** Arion banki, Íslandsbanki and Landsbankinn, each with the same fields:
+**One step per bank.** Landsbankinn, Arion banki, Íslandsbanki and Kvika banki, each with the same fields:
 
 | Field | Description |
 | --- | --- |

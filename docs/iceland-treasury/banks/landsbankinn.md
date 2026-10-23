@@ -2,7 +2,7 @@
 id: landsbankinn
 title: "Landsbankinn"
 sidebar_label: "Landsbankinn"
-sidebar_position: 3
+sidebar_position: 4
 description: "What Bifröst Iceland Treasury does with Landsbankinn: statements and card transactions into bank reconciliation, accounts, payment and foreign payment batches, claims and claim templates, corporate cards, portfolios, electronic documents, acquiring and rates."
 ---
 

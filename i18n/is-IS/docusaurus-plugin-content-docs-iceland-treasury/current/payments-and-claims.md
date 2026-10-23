@@ -16,13 +16,15 @@ bankans þar til hún er greidd, og hvar þú sérð hvert skref í Business Cen
 
 1. **Skráðu bunkann.** Aðstoðarmaður, samþætting eða tímasett keyrsla skráir bunkann í bankanum:
    reikninginn sem greitt er af og hverja greiðslu með viðtakanda, upphæð og tilvísun. Innlendir bunkar
-   (ISK) fara til Arion banka eða Landsbankans, bunkar erlendra greiðslna til hvaða banka sem er.
+   (ISK) fara til Arion banka, Kviku banka eða Landsbankans, bunkar erlendra greiðslna til Arion banka,
+   Íslandsbanka eða Landsbankans.
    Bifröst fer yfir bunkann áður en kallað er á bankann: bunka með *STP* í heitinu er hafnað, og
    sömuleiðis framvirkri greiðsludagsetningu sem er liðin. Ef engin dagsetning er gefin er bunkinn fyrir
    daginn í dag.
-2. **Samþykktu og greiddu hann í bankanum.** Bunkinn bíður nú í netbanka bankans. Starfsmaður
-   fyrirtækisins sem má samþykkja greiðslur þar samþykkir hann og bankinn greiðir. Bifröst hvorki
-   samþykkir, undirritar né greiðir bunka. Byrjaðu heiti bunkans á `*` svo sá starfsmaður sjái hann: án
+2. **Samþykktu og greiddu hann í bankanum.** Hjá Arion banka og Landsbankanum bíður bunkinn nú í
+   netbanka bankans. Starfsmaður fyrirtækisins sem má samþykkja greiðslur þar samþykkir hann og bankinn
+   greiðir. Hjá Kviku banka fer það eftir heimildunum sem bankinn veitir vefþjónustunotandanum þínum
+   hvort hann bíður. Bifröst hvorki samþykkir né undirritar bunka. Byrjaðu heiti bunkans á `*` svo sá starfsmaður sjái hann: án
    þess sýnir netbankinn bunkann aðeins vefþjónustunotandanum sem skráði hann.
 3. **Fylgstu með niðurstöðunni.** Þegar niðurstaða bunkans er lesin í bankanum uppfærist staða hans í
    Business Central: bíður samþykktar, í vinnslu, lokið, lokið með villum, eytt. Greiðsla sem bankinn
@@ -64,8 +66,8 @@ bankans þar til hún er greidd, og hvar þú sérð hvert skref í Business Cen
 2. **Stofnaðu kröfuna.** Aðstoðarmaður, samþætting eða tímasett keyrsla stofnar kröfuna í bankanum:
    greiðanda, upphæð, kröfudag og eindaga, og ef vill viðskiptamanninn, viðskiptamannafærslurnar sem hún
    innheimtir og greiðslumátann. Bifröst athugar viðskiptamanninn, færslurnar og greiðslumátann áður en
-   kallað er á bankann. Hjá Arion banka og Íslandsbanka eru kröfur stofnaðar, þeim breytt og þær felldar
-   niður í bunkum: bankinn tekur fyrst við bunkanum og tilkynnir svo niðurstöðu hverrar kröfu. Hjá
+   kallað er á bankann. Hjá Arion banka, Íslandsbanka og Kviku banka eru kröfur stofnaðar, þeim breytt og
+   þær felldar niður í bunkum: bankinn tekur fyrst við bunkanum og tilkynnir svo niðurstöðu hverrar kröfu. Hjá
    Landsbankanum er krafa stofnuð undir einu af kröfusniðmátum þínum og staðfest strax.
 3. **Fylgstu með henni.** Krafan og færslur hennar eru geymdar í Business Central, og viðskiptamannafærslan
    sýnir kröfureikning, kröfudag og stöðu kröfunnar í upplýsingareit sínum. Þegar kröfunni er breytt eða
@@ -94,5 +96,5 @@ eins og þú gerir í dag. Bankareikningurinn sem hver bunki er greiddur af, og 
 ## Næstu skref {#next-steps}
 
 - Síður bankanna: [Arion banki](/iceland-treasury/banks/arion/) · [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) ·
-  [Landsbankinn](/iceland-treasury/banks/landsbankinn/)
+  [Kvika banki](/iceland-treasury/banks/kvika/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/)
 - [Heimildasamstæður](/iceland-treasury/#permissions) fyrir greiðslur og kröfur

@@ -14,7 +14,7 @@ one bank and an AI assistant connected to Bifröst. See "Test Credentials" and "
 
 ## Test Credentials
 
-This extension calls the web services of Arion banki, Íslandsbanki and Landsbankinn.
+This extension calls the web services of Arion banki, Íslandsbanki, Kvika banki and Landsbankinn.
 
 **Provide:** Origo supplies, with the submission, a user name, password, client certificate (`.pfx`) and
 certificate password for one bank, and the account number of a test account at that bank. They are
@@ -52,7 +52,7 @@ Log**, with the passwords masked.
 
 ### Expected Results
 - The extension installs without errors
-- "Bifrost Iceland Treasury Setup" opens with one row each for "Arion banki", "Íslandsbanki" and "Landsbankinn"
+- "Bifrost Iceland Treasury Setup" opens with one row each for "Landsbankinn", "Arion banki", "Íslandsbanki" and "Kvika banki"
 - Each row is enabled and shows "Missing" under "Secrets"
 
 ---
@@ -68,8 +68,8 @@ Log**, with the passwords masked.
 1. Open "Assisted Setup" from the search bar
 2. Start "Set up Bifrost Iceland Treasury banks"
 3. Choose "Next" on the welcome step
-4. On the "Arion banki" step, enter a user name in "Username"
-5. Choose "Next" until the "Landsbankinn" step, then choose "Finish"
+4. Choose "Next" to the "Arion banki" step (the second bank step, after "Landsbankinn") and enter a user name in "Username"
+5. Choose "Next" until the "Kvika banki" step, then choose "Finish"
 6. Open "Bifrost Iceland Treasury Setup" again
 
 ### Expected Results
