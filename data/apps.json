@@ -6,6 +6,7 @@
       "name": "Bifrost Foundation",
       "publisher": "Origo",
       "summary": "The base app every other Bifrost app needs: the standard Business Central capabilities, a REST API, queue, setup page and secret store.",
+      "summary_is": "Grunnforritið sem öll önnur Bifröst-forrit þurfa: hefðbundnar aðgerðir Business Central, REST API, biðröð, uppsetningarsíða og leyndarmálageymsla.",
       "domains": [
         "integration"
       ],
