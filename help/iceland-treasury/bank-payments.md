@@ -6,9 +6,9 @@ title: "Bank Payments"
 **Bank Payments** lists single payments that Bifröst registered at a bank, each with its status and what
 it pays. It is for the accountant who looks up a payment from a posted document.
 
-**Navigate** opens it: when you navigate from a document, Business Central also looks for bank payments
-with the same document number and posting date and lists them here. The page is read-only and written by
-Bifröst.
+**Find entries** (Navigate) opens it: when you choose **Find entries** on a document, Business Central also
+looks for bank payments with the same document number and posting date and lists them here. The page is
+read-only and written by Bifröst.
 
 ## Fields
 

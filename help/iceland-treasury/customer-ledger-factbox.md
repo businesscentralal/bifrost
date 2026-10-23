@@ -3,7 +3,7 @@ id: customer-ledger-factbox
 title: "Customer ledger entry — claim"
 ---
 
-Bifröst Iceland Treasury adds the claim's fields to the **Customer Ledger Entry** FactBox, so you see the bank
+Bifröst Iceland Treasury adds the claim's fields to the **Customer Ledger Entry Details** FactBox, so you see the bank
 claim (*krafa*) that collects an entry without leaving the list you are working in. It is for anyone who
 follows up customer payments.
 

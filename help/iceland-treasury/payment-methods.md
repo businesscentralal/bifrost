@@ -33,6 +33,6 @@ A payment method without a claim identifier is not used for claims; nothing else
 ## Good to know
 
 - A claim created with this payment method shows on [Bank Claims](/help/iceland-treasury/bank-claims/)
-  and in the [customer ledger entry FactBox](/help/iceland-treasury/customer-ledger-factbox/).
+  and in the [Customer Ledger Entry Details FactBox](/help/iceland-treasury/customer-ledger-factbox/).
 - At Landsbankinn the claim is also created under a claim template; see
   [Landsbankinn](/iceland-treasury/banks/landsbankinn/).

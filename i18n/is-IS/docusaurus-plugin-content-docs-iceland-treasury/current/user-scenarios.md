@@ -175,7 +175,7 @@ kall til banka er líka skráð á síðunni **Annáll beiðna Bifröst**, með 
 ### Væntar niðurstöður {#expected-results-6}
 - Aðstoðarmaðurinn svarar með gengi bankans í dag
 - Aðstoðarmaðurinn svarar hvort reikningurinn sé til
-- Báðar beiðnirnar eru skráðar á síðunni „Bifröst skilaboð“ með stöðuna „Vinnslu lokið“
+- Báðar beiðnirnar eru skráðar á síðunni „Bifröst skilaboð“ með stöðuna „Bakgrunnsverkefni lokið“
 
 ---
 

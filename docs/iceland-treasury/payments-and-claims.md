@@ -51,7 +51,7 @@ bank until it is paid, and where you see each step in Business Central.
 
 - [Bank Payment Batches](/help/iceland-treasury/bank-payment-batches/): every batch Bifröst registered,
   its status at the bank, its payments and their charges.
-- [Bank Payments](/help/iceland-treasury/bank-payments/): single payments, opened from **Navigate**.
+- [Bank Payments](/help/iceland-treasury/bank-payments/): single payments, opened from **Find entries** (Navigate).
 - [Bank Tracking Log](/help/iceland-treasury/bank-tracking-log/): every action at a bank, with the
   status after it.
 
@@ -79,7 +79,7 @@ bank until it is paid, and where you see each step in Business Central.
 - [Bank Claims](/help/iceland-treasury/bank-claims/): every claim, with its ledger entries and payments.
 - [Bank Claim Batches](/help/iceland-treasury/bank-claim-batches/): every batch of claims sent to a bank.
 - [Bank Claim Payments](/help/iceland-treasury/bank-claim-payments/): every payment the banks reported.
-- The [customer ledger entry FactBox](/help/iceland-treasury/customer-ledger-factbox/).
+- The [Customer Ledger Entry Details FactBox](/help/iceland-treasury/customer-ledger-factbox/).
 
 ## Posting
 

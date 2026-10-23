@@ -81,7 +81,7 @@ bankans þar til hún er greidd, og hvar þú sérð hvert skref í Business Cen
 - [Kröfur í banka](/help/iceland-treasury/bank-claims/): hver krafa, með færslum hennar og greiðslum.
 - [Kröfubunkar í banka](/help/iceland-treasury/bank-claim-batches/): hver bunki krafna sem sendur var til banka.
 - [Greiðslur krafna í banka](/help/iceland-treasury/bank-claim-payments/): hver greiðsla sem bankarnir tilkynntu.
-- [Upplýsingareitur viðskiptamannafærslu](/help/iceland-treasury/customer-ledger-factbox/).
+- Upplýsingareiturinn [Upplýsingar um viðskiptamannafærslu](/help/iceland-treasury/customer-ledger-factbox/).
 
 ## Bókun {#posting}
 

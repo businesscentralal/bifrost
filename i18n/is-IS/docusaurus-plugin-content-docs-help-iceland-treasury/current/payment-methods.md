@@ -34,6 +34,6 @@ Greiðslumáti án kröfuauðkennis er ekki notaður fyrir kröfur; að öðru l
 ## Gott að vita {#good-to-know}
 
 - Krafa sem stofnuð er með þessum greiðslumáta birtist á síðunni [Kröfur í banka](/help/iceland-treasury/bank-claims/)
-  og í [upplýsingareitnum um viðskiptamannafærslu](/help/iceland-treasury/customer-ledger-factbox/).
+  og í upplýsingareitnum [Upplýsingar um viðskiptamannafærslu](/help/iceland-treasury/customer-ledger-factbox/).
 - Hjá Landsbankanum er krafan líka stofnuð undir kröfusniðmáti; sjá
   [Landsbankinn](/iceland-treasury/banks/landsbankinn/).

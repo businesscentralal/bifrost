@@ -34,6 +34,6 @@ read-only: Bifröst registers each payment once, when the claim payments are rea
 ## Good to know
 
 - Reading the same payments again never registers them twice.
-- **Navigate** from a document also finds the claim payments with its document number and posting date.
+- **Find entries** (Navigate) on a document also finds the claim payments with its document number and posting date.
 - When [Bifröst Language Models](/language-models/) is set up, the **Chat via Bifrost** FactBox on the right
   answers questions about the selected payment.

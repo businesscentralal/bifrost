@@ -15,7 +15,7 @@ Everything on it is read-only. Closing it does not undo the import.
 | --- | --- |
 | **Bank Account No.** | The Business Central bank account the statement was imported to. |
 | **Statement No.** | The reconciliation's statement number. |
-| **Lines Imported** | How many reconciliation lines the import created. |
+| **Lines imported** | How many reconciliation lines the import created. |
 
 ## Warning
 
@@ -28,14 +28,14 @@ import again for the right period if the balances are wrong.
 
 | Field | Description |
 | --- | --- |
-| **Calc Starting Balance** | The opening balance worked out from the statement: the balance of the first line less its amount. |
-| **Calc Ending Balance** | The closing balance worked out from the statement: the balance of the last line. |
+| **Computed starting balance** | The opening balance worked out from the statement: the balance of the first line less its amount. |
+| **Computed ending balance** | The closing balance worked out from the statement: the balance of the last line. |
 | **Bank-Reported Balance** | The closing balance the bank reported. |
-| **Available Amount** | The amount available on the account, as the bank reported it. |
+| **Available amount** | The amount available on the account, as the bank reported it. |
 | **Overdraft** | The overdraft facility on the account. |
-| **Total Amount Waiting** | The total of transactions waiting to be posted on the account. |
+| **Total amount waiting** | The total of transactions waiting to be posted on the account. |
 
-**Calc Ending Balance** and **Bank-Reported Balance** should agree. **Available Amount** can differ from
+**Computed ending balance** and **Bank-Reported Balance** should agree. **Available amount** can differ from
 the closing balance, because it counts the overdraft and the amounts waiting.
 
 ## Account

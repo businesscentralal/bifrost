@@ -59,7 +59,7 @@ what you set up, and what you see in Business Central afterwards.
   imported and the balances, and warns when they do not agree with the bank.
 - Payment batches, claims, claim batches and claim payments appear on the tracking pages reached from
   **Bifrost Iceland Treasury Setup**; see [Payments and claims](/iceland-treasury/payments-and-claims/).
-- The customer ledger entry FactBox shows the claim that collects an entry.
+- The **Customer Ledger Entry Details** FactBox shows the claim that collects an entry.
 - Every call to the bank is logged on the **Bifrost Request Log**, with passwords masked.
 
 ## Moving from Origo's earlier Arion banki app

@@ -174,7 +174,7 @@ Log**, with the passwords masked.
 ### Expected Results
 - The assistant answers with the bank's rates for today
 - The assistant answers whether the account exists
-- Both requests are logged on "Bifrost Messages" with status "Processed"
+- Both requests are logged on "Bifrost Messages" with status "Task completed"
 
 ---
 

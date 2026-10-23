@@ -17,7 +17,7 @@ Open **Bifrost User Setup**, then your own user.
 
 | Field | Description |
 | --- | --- |
-| **Username** | Your own user name at the bank. Leave it blank to use the company's. |
+| **... Username** | Your own user name at the bank, for example **Arion banki Username**. Leave it blank to use the company's. |
 | **User Password Stored** | Whether your own password is stored. The value is never shown. |
 | **User API Key Stored** | Landsbankinn only. Whether your own API key is stored. |
 
