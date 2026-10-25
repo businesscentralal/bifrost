@@ -14,7 +14,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 
 ### Added
 
-- Language Models has its own **assisted setup**. It checks whether HTTP access is on for the Bifröst apps and opens Foundation's setup to turn it on, shows whether Copilot is available and initialized, and keeps the chat provider you already use.
+- Language Models has its own **assisted setup**. It shows whether HTTP access is on for this app and opens Foundation's setup to turn it on for every Bifröst app, shows whether Copilot is available and initialized, and keeps the chat provider you already use.
 - The setup gives the people you choose the chat permissions for the company and a language model each. Choosing **Finish** completes the Assisted Setup step.
 - **Language Models Setup** opens the new setup, and the Foundation setup stays available from the same page.
 

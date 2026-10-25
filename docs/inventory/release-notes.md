@@ -15,8 +15,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 ### Changed
 
 - Your AI assistant gets a fuller description of every Inventory operation: what it answers, the errors it can return and why, and what it changes in Business Central.
-- Each description now says whether an operation only reads, changes data or cannot be undone, and gives a worked example and the steps to follow for anything that is not a plain read.
-- The descriptions of the 59 Inventory operations are also available in Icelandic.
+- Each description now says whether an operation only reads, changes data or cannot be undone, and gives worked examples and step-by-step guidance for most operations that change data.
 - No operation, permission or behaviour changed. Everything that worked in 28.3.0 works the same way.
 
 ## 28.3.0 — 20 October 2026

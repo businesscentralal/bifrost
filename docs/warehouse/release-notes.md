@@ -17,6 +17,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 - Your AI assistant gets a fuller description of every Warehouse operation: what it answers, the errors it can return and why, and what it changes in Business Central.
 - Notes, examples and step-by-step guidance are added across the operations, and the lines or entries that an operation takes are described one by one.
 - The descriptions now also cover the warnings returned when inventory picks and put-aways are created, and the refusals for assembly orders that are not released or have no location set for consumption.
+- When you create bins, movements or inventory movements, the keys inside each list of lines, entries, bins or source documents are now checked there. A key the operation doesn't know is reported with a clear warning. Valid requests work as before.
 
 ### Fixed
 
