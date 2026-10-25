@@ -42,7 +42,7 @@ innihaldi hólfa.
 
 ## Sæktu forritið {#get-it}
 
-Settu **Bifrost Warehouse** upp við hlið Bifröst Foundation, af AppSource eða í gegnum Business
+Settu **Bifrost Warehouse** upp við hlið Bifröst Foundation, af [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_warehouse%7CPAPPID.47acac54-3873-496f-9e88-157f36413e89) eða í gegnum Business
 Central samstarfsaðilann þinn. Það þarf Business Central 28.3 eða nýrra, Essentials eða Premium, og
 Bifröst Foundation 28.0.3.530 eða nýrra. Hafðu samband við Business Central samstarfsaðilann þinn
 varðandi verð.

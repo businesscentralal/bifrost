@@ -55,7 +55,7 @@ with [How Bifröst works](/documentation/how-it-works/).*
 
 ## Get it
 
-Install **Bifrost Iceland** next to Bifröst Foundation, from AppSource or through your Business Central
+Install **Bifrost Iceland** next to Bifröst Foundation, from [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_iceland%7CPAPPID.e1276ba8-3405-4589-ba68-51d725992ef6) or through your Business Central
 partner. It is for companies in Iceland. It needs Business Central 28.0 or later, Essentials or Premium,
 Microsoft's Icelandic localization (IS Core) and Bifröst Foundation 28.0.2.523 or later. For the price,
 contact your Business Central partner.

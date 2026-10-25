@@ -1,0 +1,6 @@
+{
+  "sidebar.default.category.Banks": {
+    "message": "Bankar",
+    "description": "The label for category 'Banks' in sidebar 'default'"
+  }
+}

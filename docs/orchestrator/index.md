@@ -45,7 +45,7 @@ routines more to work with. An assistant can also build a playbook with you in a
 
 ## Get it
 
-Install **Bifrost Orchestrator** next to Bifröst Foundation, from AppSource or through your Business
+Install **Bifrost Orchestrator** next to Bifröst Foundation, from [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_orchestrator%7CPAPPID.7da3f512-5c19-47cd-bbe4-4c2bc713f1db) or through your Business
 Central partner. It needs Business Central 28.0 or later. For the price, contact your Business Central
 partner.
 

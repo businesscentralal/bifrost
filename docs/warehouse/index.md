@@ -40,7 +40,7 @@ and put-aways, their registered and posted documents, and bin contents.
 
 ## Get it
 
-Install **Bifrost Warehouse** next to Bifröst Foundation, from AppSource or through your Business
+Install **Bifrost Warehouse** next to Bifröst Foundation, from [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_warehouse%7CPAPPID.47acac54-3873-496f-9e88-157f36413e89) or through your Business
 Central partner. It needs Business Central 28.3 or later, Essentials or Premium, and Bifröst
 Foundation 28.0.3.530 or later. For the price, contact your Business Central partner.
 

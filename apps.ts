@@ -32,6 +32,7 @@ export const apps: BifrostApp[] = [
   {id: 'warehouse', title: 'Warehouse', appName: 'Bifrost Warehouse', titleIs: 'Vöruhús'},
   {id: 'iceland', title: 'Iceland', appName: 'Bifrost Iceland', titleIs: 'Ísland'},
   {id: 'iceland-docex', title: 'Iceland DocEx', appName: 'Bifrost Iceland DocEx', titleIs: 'Ísland DocEx'},
+  {id: 'iceland-treasury', title: 'Iceland Treasury', appName: 'Bifrost Iceland Treasury', titleIs: 'Ísland Fjárstýring'},
 ];
 
 /**
