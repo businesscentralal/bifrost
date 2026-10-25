@@ -3,7 +3,7 @@ id: bank-claims
 title: "Bank Claims"
 ---
 
-**Bank Claims** lists every claim (*krafa*) Bifröst created at a bank, with its status, the amount paid
+**Bank Claims** lists every claim (*krafa*) Bifröst created at a bank or a claim collection agency, with its status, the amount paid
 and the bank account it is paid into. Below the list, **Ledger Entries** shows the customer ledger
 entries the selected claim collects and **Claim Payments** the payments the bank reported for it. It is
 for the accountant who follows up what customers owe.
@@ -16,8 +16,8 @@ the claim is read again, and when its payments are registered.
 
 | Field | Description |
 | --- | --- |
-| **Bank** | The bank the claim is at. |
-| **Claim Account** | The claim's account at the bank: bank, ledger and claim number. |
+| **Bank** | The bank or claim collection agency (Gjaldskil, InKasso) the claim is at. |
+| **Claim Account** | The claim's account at the bank: bank, ledger and claim number. At Gjaldskil it starts with `08`, at InKasso with `09`. |
 | **Claim Date**, **Due Date** | The claim date and the due date. |
 | **Customer No.** | The customer the claim collects from. |
 | **Amount**, **Amount Paid** | The claim's amount and how much of it the registered payments cover. |

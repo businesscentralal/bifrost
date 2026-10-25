@@ -15,7 +15,8 @@ prófunarauðkenni fyrir einn banka og aðstoðarmann sem er tengdur við Bifrö
 
 ## Prófunarauðkenni {#test-credentials}
 
-Þessi viðbót kallar á vefþjónustur Arion banka, Íslandsbanka, Kviku banka og Landsbankans.
+Þessi viðbót kallar á vefþjónustur Arion banka, Íslandsbanka, Kviku banka, Landsbankans og
+sparisjóðanna, og innheimtufyrirtækjanna Gjaldskila og InKasso.
 
 **Útvegið:** Origo lætur fylgja umsókninni notandanafn, lykilorð, biðlaraskírteini (`.pfx`) og lykilorð
 skírteinis fyrir einn banka, og reikningsnúmer prófunarreiknings í þeim banka. Þau eru skráð í **Bifröst
@@ -53,7 +54,7 @@ kall til banka er líka skráð á síðunni **Annáll beiðna Bifröst**, með 
 
 ### Væntar niðurstöður {#expected-results}
 - Viðbótin er sett upp án villna
-- „Bifröst Ísland Fjárstýring - uppsetning“ opnast með einni línu fyrir hvern banka: „Landsbankinn“, „Arion banki“, „Íslandsbanki“ og „Kvika banki“
+- „Bifröst Ísland Fjárstýring - uppsetning“ opnast með einni línu fyrir hvern banka og innheimtufyrirtæki: „Landsbankinn“, „Arion banki“, „Íslandsbanki“, „Kvika banki“, „Sparisjóðir“, „Gjaldskil“ og „InKasso“
 - Hver lína er virk og sýnir „Vantar“ undir „Leyndarmál“
 
 ---
@@ -70,11 +71,11 @@ kall til banka er líka skráð á síðunni **Annáll beiðna Bifröst**, með 
 2. Ræsið „Setja upp banka Bifröst Ísland Fjárstýringar“
 3. Veljið „Áfram“ í upphafsskrefinu
 4. Veljið „Áfram“ að skrefinu „Arion banki“ (öðru bankaskrefinu, á eftir „Landsbankinn“) og sláið inn notandanafn í „Notandanafn“
-5. Veljið „Áfram“ þar til komið er að skrefinu „Kvika banki“ og veljið svo „Ljúka“
+5. Veljið „Áfram“ þar til komið er að skrefinu „InKasso“ og veljið svo „Ljúka“
 6. Opnið „Bifröst Ísland Fjárstýring - uppsetning“ aftur
 
 ### Væntar niðurstöður {#expected-results-1}
-- Leiðsögnin sýnir eitt skref fyrir hvern banka, hvert með „Virkt“, „Notandanafn“, „Lykilorð fyrirtækis“ og „Skírteini“; aðeins skref Landsbankans sýnir „API-lykill“
+- Leiðsögnin sýnir eitt skref fyrir hvern banka og innheimtufyrirtæki, hvert með „Virkt“, „Notandanafn“ og „Lykilorð fyrirtækis“; hvert bankaskref sýnir einnig „Skírteini“, skrefin „Gjaldskil“ og „InKasso“ gera það ekki, og aðeins skref Landsbankans sýnir „API-lykill“
 - „Lykilorð fyrirtækis“ og „Skírteini“ sýna „Ekki vistað“
 - Eftir „Ljúka“ er leiðsögnin merkt lokið í „Uppsetning með hjálp“
 - Lína Arion banka sýnir notandanafnið sem slegið var inn í skrefi 4

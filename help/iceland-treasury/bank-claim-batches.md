@@ -3,12 +3,13 @@ id: bank-claim-batches
 title: "Bank Claim Batches"
 ---
 
-**Bank Claim Batches** lists every batch of claims Bifröst sent to a bank to create, change or cancel
+**Bank Claim Batches** lists every batch of claims Bifröst sent to a bank or claim collection agency to create, change or cancel
 claims, with the status the bank last reported. It is for the accountant who follows claims that are
 sent in batches.
 
-At Arion banki, Íslandsbanki and Kvika banki claims are created, changed and cancelled in batches. The bank accepts
-the batch first and reports each claim's outcome afterwards, when the batch's result is read.
+At Arion banki, Íslandsbanki, Kvika banki and the savings banks (Sparisjóðir), and at the claim collection
+agencies Gjaldskil and InKasso, claims are created, changed and cancelled in batches. The bank or agency
+accepts the batch first and reports each claim's outcome afterwards, when the batch's result is read.
 
 Open it with **Bank Claim Batches** on
 [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/). The page is read-only and
@@ -18,7 +19,7 @@ written by Bifröst.
 
 | Field | Description |
 | --- | --- |
-| **Bank** | The bank the batch was sent to. |
+| **Bank** | The bank or claim collection agency the batch was sent to. |
 | **Operation** | **Create**, **Alter** or **Cancel**. |
 | **Operation Id** | The batch's id at the bank, used to read its result. |
 | **Batch Status** | **In Progress**, **Completed**, **Completed With Errors**, **Not Confirmed**, **Cancelled** or **On Hold**. |

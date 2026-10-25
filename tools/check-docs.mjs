@@ -51,8 +51,6 @@ const UNPUBLISHED_NAME_HASHES = new Set([
   'a6ad3891ba67c714', '63874763be005259',
   '2756636f5ac88609', '90a45c6dcbb66d38',
   '9a91356d3b648e62',
-  // Bank connectors withdrawn from a published app (Iceland Treasury): not named until they are offered again.
-  'f2c71ad61fb6e8f3', '05784eee5264940d',
 ]);
 const UNPUBLISHED_ROUTE_HASHES = new Set([
   '3930e671c9e40dee',

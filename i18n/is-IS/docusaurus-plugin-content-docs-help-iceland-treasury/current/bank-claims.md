@@ -3,7 +3,7 @@ id: bank-claims
 title: "Kröfur í banka"
 ---
 
-**Kröfur í banka** sýnir hverja kröfu sem Bifröst stofnaði í banka, með stöðu hennar, greiddri upphæð og
+**Kröfur í banka** sýnir hverja kröfu sem Bifröst stofnaði í banka eða hjá innheimtufyrirtæki, með stöðu hennar, greiddri upphæð og
 bankareikningnum sem hún er greidd inn á. Undir listanum sýnir **Færslur** viðskiptamannafærslurnar sem
 valin krafa innheimtir og **Greiðslur kröfu** greiðslurnar sem bankinn gaf upp vegna hennar. Síðan er
 fyrir bókarann sem fylgir eftir því sem viðskiptamenn skulda.
@@ -16,8 +16,8 @@ niður í bankanum, þegar krafan er lesin aftur og þegar greiðslur hennar eru
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Banki** | Bankinn sem krafan er hjá. |
-| **Kröfureikningur** | Reikningur kröfunnar í bankanum: banki, höfuðbók og kröfunúmer. |
+| **Banki** | Bankinn eða innheimtufyrirtækið (Gjaldskil, InKasso) sem krafan er hjá. |
+| **Kröfureikningur** | Reikningur kröfunnar í bankanum: banki, höfuðbók og kröfunúmer. Hjá Gjaldskilum byrjar hann á `08`, hjá InKasso á `09`. |
 | **Kröfudagur**, **Eindagi** | Kröfudagurinn og eindaginn. |
 | **Viðskiptamannanúmer** | Viðskiptamaðurinn sem krafan innheimtir hjá. |
 | **Upphæð**, **Greidd upphæð** | Upphæð kröfunnar og hversu mikið af henni skráðar greiðslur ná yfir. |

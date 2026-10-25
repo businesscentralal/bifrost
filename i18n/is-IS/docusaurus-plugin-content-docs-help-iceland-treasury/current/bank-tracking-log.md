@@ -16,7 +16,7 @@ síðunni **Annáll beiðna Bifröst**.
 | Reitur | Lýsing |
 | --- | --- |
 | **Skráð** | Hvenær aðgerðin keyrði. |
-| **Banki** | Bankinn. |
+| **Banki** | Bankinn eða innheimtufyrirtækið. |
 | **Svið** | **Greiðsla**, **Erlend greiðsla** eða **Krafa**. |
 | **Aðgerð** | Hvað var gert, til dæmis **Skrá**, **Niðurstaða**, **Stofna**, **Breyta**, **Fella niður**, **Sækja greiðslur**, **Endurvekja** eða **Pörun við yfirlit**. |
 | **Staða greiðslubunka** | Staða greiðslubunkans eftir aðgerðina. Auð fyrir kröfur. |

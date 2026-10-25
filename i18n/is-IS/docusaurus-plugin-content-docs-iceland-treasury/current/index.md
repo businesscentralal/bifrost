@@ -4,7 +4,7 @@ title: "Bifröst Ísland Fjárstýring"
 sidebar_label: "Yfirlit"
 sidebar_position: 1
 slug: /
-description: "Íslensku bankarnir þínir í Business Central, úr aðstoð eða samþættingu: yfirlit og bankaafstemming, greiðslubunkar, erlendar greiðslur, kröfur og greiðslur þeirra, hjá Arion banka, Íslandsbanka, Kviku banka og Landsbankanum."
+description: "Íslensku bankarnir þínir í Business Central, úr aðstoð eða samþættingu: yfirlit og bankaafstemming, greiðslubunkar, erlendar greiðslur, kröfur og greiðslur þeirra, hjá Arion banka, Íslandsbanka, Kviku banka, Landsbankanum og sparisjóðunum, og kröfur hjá innheimtufyrirtækjunum Gjaldskilum og InKasso."
 ---
 
 # Bifröst Ísland Fjárstýring
@@ -13,11 +13,12 @@ description: "Íslensku bankarnir þínir í Business Central, úr aðstoð eða
 nú þegar.** Bifröst Ísland Fjárstýring gerir samþættingu, tímasettri keyrslu eða aðstoðarmanni kleift að
 lesa yfirlit inn í bankaafstemmingu, skrá greiðslubunka í bankanum, stofna kröfur og fylgja
 þeim eftir, og staðfesta út frá bankayfirliti að greiðsla hafi verið greidd, hjá Arion banka, Íslandsbanka,
-Kviku banka og Landsbankanum.
+Kviku banka, Landsbankanum og sparisjóðunum. Einnig er hægt að stofna kröfur og fylgja þeim eftir hjá
+innheimtufyrirtækjunum Gjaldskilum og InKasso.
 
 Þessi síða er fyrir fjármálasviðið og kerfisstjóra Business Central sem ákveða hvort nota eigi forritið
-og setja það upp. Allir bankarnir virka eins í gegnum Bifröst og þú setur aðeins upp þá banka sem þú
-notar.
+og setja það upp. Allir bankar og innheimtufyrirtæki virka eins í gegnum Bifröst og þú setur aðeins upp
+þá sem þú notar.
 
 *Viðbótarforrit ofan á [Bifröst Foundation](/foundation/), fyrir fyrirtæki á Íslandi. Nýr í Bifröst?
 Byrjaðu á [Hvernig Bifröst virkar](/documentation/how-it-works/).*
@@ -30,15 +31,16 @@ Byrjaðu á [Hvernig Bifröst virkar](/documentation/how-it-works/).*
   fluttar inn á sama hátt.
 - **Lesið yfirlit, reikninga og gengi.** Lestu yfirlit hvaða reiknings sem er fyrir hvaða tímabil sem
   er, staðfestu reikning áður en þú greiðir inn á hann og sæktu gengi bankans.
-- **Skráðu greiðslubunka.** Skráðu bunka innlendra greiðslna (ISK) hjá Arion banka, Kviku banka og
-  Landsbankanum, og bunka erlendra greiðslna hjá Arion banka, Íslandsbanka og Landsbankanum. Hjá Arion
-  banka og Landsbankanum samþykkir starfsmaður fyrirtækisins og greiðir hvern bunka í netbankanum; hjá
-  Kviku banka fer það eftir heimildunum sem bankinn veitir vefþjónustunotandanum þínum.
+- **Skráðu greiðslubunka.** Skráðu bunka innlendra greiðslna (ISK) hjá Arion banka, Kviku banka,
+  Landsbankanum og sparisjóðunum, og bunka erlendra greiðslna hjá Arion banka, Íslandsbanka og
+  Landsbankanum. Hjá Arion banka og Landsbankanum samþykkir starfsmaður fyrirtækisins og greiðir hvern
+  bunka í netbankanum; hjá Kviku banka og sparisjóðunum fer það eftir heimildunum sem bankinn veitir
+  vefþjónustunotandanum þínum.
 - **Séð hvenær greiðsla er greidd.** Þegar yfirlit reikningsins sem greitt er af sýnir greiðsluna merkir
   Bifröst hana greidda. Hvert yfirlit sem þú lest eða flytur inn er borið saman á þennan hátt.
 - **Stofnað kröfur og fylgt þeim eftir.** Stofnaðu kröfur fyrir opnar viðskiptamannafærslur, breyttu
   þeim eða felldu þær niður, og skráðu greiðslurnar sem bankinn tilkynnir, svo hver krafa sýnir hvað er
-  greitt og hvað er enn opið.
+  greitt og hvað er enn opið. Hjá innheimtufyrirtækjunum Gjaldskilum og InKasso er farið eins með kröfur.
 - **Fylgst með öllu á einum stað.** Greiðslubunkar, greiðslur og kostnaður þeirra, kröfur, kröfubunkar,
   greiðslur krafna og ferill allra aðgerða í banka eru geymd í Business Central, eins fyrir alla banka.
 - **Nýtt það sem hver banki býður.** Til dæmis kortafærslur og bókhaldslykla korta, eignasöfn, rafræn
@@ -52,8 +54,11 @@ Byrjaðu á [Hvernig Bifröst virkar](/documentation/how-it-works/).*
 | **Arionbanki** | Yfirlit og innflutningur í bankaafstemmingu, reikningar og staðfesting reikninga, seðlar, kreditkort og færslur þeirra, bunkar innlendra og erlendra greiðslna með niðurstöðum og kvittunum, gjaldeyrisreikningar og yfirlit þeirra, kröfur stofnaðar, breyttar og felldar niður í bunkum, með sögu og greiðslum, gengi |
 | **Islandsbanki** | Yfirlit og innflutningur í bankaafstemmingu, staðfesting reikninga, ógreiddir reikningar, bunkar erlendra greiðslna með tilboði bankans og niðurstöðu, kröfur stofnaðar, breyttar og felldar niður í bunkum, með greiðslum og endurvakningu, gengi |
 | **Kvikabanki** | Yfirlit og innflutningur í bankaafstemmingu, bunkar innlendra greiðslna með niðurstöðum, kröfur stofnaðar, breyttar og felldar niður í bunkum, með greiðslum, gengi |
+| **Sparisjodir** | Yfirlit og innflutningur í bankaafstemmingu, staðfesting reikninga, bunkar innlendra greiðslna með niðurstöðum, kröfur stofnaðar, breyttar og felldar niður í bunkum, með greiðslum, gengi |
+| **Gjaldskil** | Kröfur stofnaðar, breyttar og felldar niður í bunkum, með greiðslum |
+| **Inkasso** | Kröfur stofnaðar, breyttar og felldar niður í bunkum, með greiðslum |
 | **Landsbankinn** | Reikningar, færslur og dagslokastöður, innflutningur yfirlita og kortafærslna, bunkar innlendra og erlendra greiðslna, ógreiddir reikningar og greiðsluseðlar, kröfur og kröfusniðmát, kröfubunkar og greiðslur krafna, fyrirtækjakort og bókhaldslyklar korta, eignasöfn, rafræn skjöl, færsluhirðing, gengi og vextir, gjöld og sjóðir |
-| **IcelandTreasury** | Greiðslubunkar, erlendir greiðslubunkar og kröfur allra banka, hvert í einum lista, með stöðu sem er endurnýjuð frá bankanum |
+| **IcelandTreasury** | Greiðslubunkar, erlendir greiðslubunkar og kröfur allra banka og innheimtufyrirtækja, hvert í einum lista, með stöðu sem er endurnýjuð frá bankanum eða innheimtufyrirtækinu |
 
 ## Sæktu forritið {#get-it}
 
@@ -63,13 +68,14 @@ Business Central 28.0 eða nýrra, Essentials eða Premium, og Bifröst Foundati
 Hafðu samband við samstarfsaðilann þinn fyrir Business Central varðandi verð.
 
 Þú þarft einnig samning við hvern banka um vefþjónusturnar sem þú notar, og notandanafnið, lykilorðið og
-biðlaraskírteinið sem bankinn gefur út fyrir þær (og API-lykil hjá Landsbankanum).
+biðlaraskírteinið sem bankinn gefur út fyrir þær (og API-lykil hjá Landsbankanum). Innheimtufyrirtækin
+Gjaldskil og InKasso gefa aðeins út notandanafn og lykilorð.
 
 ## Uppsetning {#set-it-up}
 
 | Skref | Hvað | Hver |
 |---|---|---|
-| 1 | Gerðu samning við hvern banka um vefþjónustur hans og fáðu notandanafnið, lykilorðið, biðlaraskírteinið og lykilorð skírteinisins sem hann gefur út. Landsbankinn gefur einnig út API-lykil. | Fjármálasvið, með bankanum |
+| 1 | Gerðu samning við hvern banka um vefþjónustur hans og fáðu notandanafnið, lykilorðið, biðlaraskírteinið og lykilorð skírteinisins sem hann gefur út. Landsbankinn gefur einnig út API-lykil. Gjaldskil og InKasso gefa aðeins út notandanafn og lykilorð. | Fjármálasvið, með bankanum eða innheimtufyrirtækinu |
 | 2 | Settu upp Bifröst Foundation og ljúktu uppsetningu þess, settu svo upp **Bifrost Iceland Treasury**. Leyfðu HTTP-beiðnir út fyrir Bifröst-forrit í [Uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/). Ekkert berst til banka fyrr en þær eru leyfðar. | Kerfisstjóri Business Central |
 | 3 | Keyrðu **Bifröst Ísland Fjárstýring - Bankauppsetning** af síðunni **Uppsetning með hjálp**, eða opnaðu **Bifröst Ísland Fjárstýring - uppsetning** af síðunni **Uppsetning Bifröst**. Skráðu notandanafn og leyndarmál hvers banka sem þú notar og slökktu á bönkunum sem þú notar ekki. | Kerfisstjóri Business Central með `BIFROST TAdmin ori` |
 | 4 | Fyrir bankaafstemmingu: settu innflutningssnið bankans í **Innflutningssnið bankayfirlits** á hverjum bankareikningi í Business Central, og reikningsnúmerið í bankanum í **Númer bankareiknings**. | Bókari eða kerfisstjóri |
@@ -83,14 +89,16 @@ Hjálp hverrar síðu hefur nánari upplýsingar: [Bifröst Ísland Fjárstýrin
 [Greiðsluhættir](/help/iceland-treasury/payment-methods/).
 
 Hvað hver banki nær yfir og þarf: [Arion banki](/iceland-treasury/banks/arion/),
-[Íslandsbanki](/iceland-treasury/banks/islandsbanki/), [Kvika banki](/iceland-treasury/banks/kvika/) og
-[Landsbankinn](/iceland-treasury/banks/landsbankinn/).
+[Íslandsbanki](/iceland-treasury/banks/islandsbanki/), [Kvika banki](/iceland-treasury/banks/kvika/),
+[Landsbankinn](/iceland-treasury/banks/landsbankinn/) og [Sparisjóðir](/iceland-treasury/banks/sparisjodir/).
+Innheimtufyrirtækin: [Gjaldskil](/iceland-treasury/agencies/gjaldskil/) og
+[InKasso](/iceland-treasury/agencies/inkasso/).
 Hvernig greiðslu og kröfu er fylgt frá upphafi til enda:
 [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/).
 
 ## Heimildir {#permissions}
 
-Hver tegund verka hefur sína heimildasamstæðu, þá sömu fyrir alla banka, svo notandi getur lesið yfirlit
+Hver tegund verka hefur sína heimildasamstæðu, þá sömu fyrir alla banka og innheimtufyrirtæki, svo notandi getur lesið yfirlit
 án þess að mega greiða. Hver samstæða veitir lesaðgang að rakningarsíðunum. Gengi þarf enga sérstaka
 samstæðu.
 
@@ -116,7 +124,7 @@ API-lykil í banka án þeirrar samstæðu.
 
 - **Bifröst samþykkir ekki greiðslur.** Greiðslubunki er skráður í bankanum. Hjá Arion banka og
   Landsbankanum bíður hann þar uns starfsmaður samþykkir hann og greiðir í netbanka bankans; hjá Kviku
-  banka fer það eftir heimildunum sem bankinn veitir vefþjónustunotandanum þínum. Bunka með *STP* í
+  banka og sparisjóðunum fer það eftir heimildunum sem bankinn veitir vefþjónustunotandanum þínum. Bunka með *STP* í
   heitinu er hafnað.
 - **Byrjaðu heiti bunkans á `*`.** Netbankinn sýnir bunka sem skráður er í gegnum vefþjónustu aðeins
   vefþjónustunotandanum, nema heitið byrji á `*`. Þá sjá allir notendur netbanka fyrirtækisins hann,
@@ -142,5 +150,6 @@ API-lykil í banka án þeirrar samstæðu.
 ## Næstu skref {#next-steps}
 
 - [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/): hvernig greiðslu og kröfu er fylgt eftir
-- [Arion banki](/iceland-treasury/banks/arion/) · [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) · [Kvika banki](/iceland-treasury/banks/kvika/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/)
+- [Arion banki](/iceland-treasury/banks/arion/) · [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) · [Kvika banki](/iceland-treasury/banks/kvika/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/) · [Sparisjóðir](/iceland-treasury/banks/sparisjodir/)
+- Innheimtufyrirtæki: [Gjaldskil](/iceland-treasury/agencies/gjaldskil/) · [InKasso](/iceland-treasury/agencies/inkasso/)
 - [Notendasviðsmyndir fyrir AppSource](/iceland-treasury/user-scenarios/) · [Texti AppSource-skráningar](/iceland-treasury/listing/)

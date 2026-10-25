@@ -3,7 +3,8 @@ id: bank-claim-payments
 title: "Bank Claim Payments"
 ---
 
-**Bank Claim Payments** lists every payment against a claim (*krafa*) that a bank reported, with the
+**Bank Claim Payments** lists every payment against a claim (*krafa*) that a bank or claim collection
+agency reported, with the
 claim it pays and the bank account the money arrived on. It is for the accountant who matches customer
 payments.
 
@@ -16,7 +17,7 @@ read-only: Bifröst registers each payment once, when the claim payments are rea
 
 | Field | Description |
 | --- | --- |
-| **Bank** | The bank that reported the payment. |
+| **Bank** | The bank or claim collection agency that reported the payment. |
 | **Booking Date** | The day the bank booked the payment. |
 | **Claim Account**, **Claim Date** | The claim the payment is for. |
 | **Customer No.** | The customer of the claim. |

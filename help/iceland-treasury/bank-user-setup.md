@@ -3,9 +3,10 @@ id: bank-user-setup
 title: "Bank credentials for your user"
 ---
 
-Bifröst Iceland Treasury adds a group for each bank to the
+Bifröst Iceland Treasury adds a group for each bank and claim collection agency to the
 [User Setup Editor](/help/foundation/bifrost-user-setup-editor/) of **Bifrost User Setup**. This page is
-for a user who has their own login at a bank, and for the administrator who helps them.
+for a user who has their own login at a bank, at Gjaldskil or at InKasso, and for the administrator who
+helps them.
 
 By default every call to a bank uses the company's user name and password from
 [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/). When the bank has given you a
@@ -17,7 +18,7 @@ Open **Bifrost User Setup**, then your own user.
 
 | Field | Description |
 | --- | --- |
-| **... Username** | Your own user name at the bank, for example **Arion banki Username**. Leave it blank to use the company's. |
+| **... Username** | Your own user name at the bank or agency, for example **Arion banki Username**. Leave it blank to use the company's. The **Gjaldskil** and **InKasso** groups work the same way. |
 | **User Password Stored** | Whether your own password is stored. The value is never shown. |
 | **User API Key Stored** | Landsbankinn only. Whether your own API key is stored. |
 
@@ -25,8 +26,8 @@ Open **Bifrost User Setup**, then your own user.
 
 | Action | Description |
 | --- | --- |
-| **Set My ... Password** | Opens a masked dialog and stores your own password at that bank. |
-| **Clear My ... Password** | Removes your stored password at that bank. |
+| **Set My ... Password** | Opens a masked dialog and stores your own password at that bank or agency, for example **Set My Gjaldskil Password**. |
+| **Clear My ... Password** | Removes your stored password at that bank or agency, for example **Clear My InKasso Password**. |
 | **Set My Landsbankinn API Key** | Stores your own Landsbankinn API key. |
 | **Clear My Landsbankinn Secrets** | Removes both your Landsbankinn password and your Landsbankinn API key. |
 

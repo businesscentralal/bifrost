@@ -16,13 +16,13 @@ bank until it is paid, and where you see each step in Business Central.
 
 1. **Register the batch.** An assistant, an integration or a routine registers the batch at the bank:
    the account it is paid from, and each payment with its recipient, amount and reference. Domestic
-   (ISK) batches go to Arion banki, Kvika banki or Landsbankinn, foreign payment batches to Arion
-   banki, Íslandsbanki or Landsbankinn.
+   (ISK) batches go to Arion banki, Kvika banki, Landsbankinn or a savings bank (*sparisjóður*), foreign
+   payment batches to Arion banki, Íslandsbanki or Landsbankinn.
    Bifröst checks the batch before it calls the bank: a name that contains *STP* is refused, and so is a
    date of forward payment in the past. When no date is given, the batch is for today.
 2. **Approve and pay it at the bank.** At Arion banki and Landsbankinn the batch now waits in the bank's
    online banking. A person at your company with the right to approve payments there approves it and the
-   bank pays it. At Kvika banki whether it waits depends on the rights the bank gives your web-service
+   bank pays it. At Kvika banki and the savings banks whether it waits depends on the rights the bank gives your web-service
    user. Bifröst never approves or signs a batch. Start the batch name with `*` so that this person sees it:
    without it, the online bank shows the batch only to the web service user who registered it.
 3. **Follow the result.** Reading the batch's result at the bank updates its status in Business
@@ -59,14 +59,15 @@ bank until it is paid, and where you see each step in Business Central.
 
 ## A claim, start to finish
 
-1. **Set up the collection agreement.** Each collection agreement with a bank is a **Payment Method**
-   with the bank's claim identifier and the last claim number used. See
+1. **Set up the collection agreement.** Each collection agreement with a bank or a claim collection
+   agency is a **Payment Method** with its claim identifier and the last claim number used. See
    [Payment Methods](/help/iceland-treasury/payment-methods/).
 2. **Create the claim.** An assistant, an integration or a routine creates the claim at the bank: the
    payer, amount, claim date and due date, and optionally the customer, the customer ledger entries it
    collects and the payment method. Bifröst checks the customer, the entries and the payment method
-   before it calls the bank. At Arion banki, Íslandsbanki and Kvika banki claims are created, changed and
-   cancelled in batches: the bank accepts the batch first and reports each claim's outcome afterwards. At Landsbankinn
+   before it calls the bank. At Arion banki, Íslandsbanki, Kvika banki and the savings banks, and at the
+   claim collection agencies Gjaldskil and InKasso, claims are created, changed and cancelled in batches:
+   the bank or agency accepts the batch first and reports each claim's outcome afterwards. At Landsbankinn
    a claim is created under one of your claim templates and confirmed at once.
 3. **Follow it.** The claim and its ledger entries are kept in Business Central, and the customer ledger
    entry shows the claim's account, date and status in its FactBox. Changing or cancelling the claim at
@@ -76,11 +77,14 @@ bank until it is paid, and where you see each step in Business Central.
    it, and **Expired** when the bank's cancellation date has passed. When the bank reports a cancelled
    claim as open again, for example because it was reactivated in the online bank, the claim reopens.
 
+A claim collection agency handles claims the same way as a bank, and its claims show on the same pages,
+with the agency as the bank.
+
 ### Where you see it
 
 - [Bank Claims](/help/iceland-treasury/bank-claims/): every claim, with its ledger entries and payments.
 - [Bank Claim Batches](/help/iceland-treasury/bank-claim-batches/): every batch of claims sent to a bank.
-- [Bank Claim Payments](/help/iceland-treasury/bank-claim-payments/): every payment the banks reported.
+- [Bank Claim Payments](/help/iceland-treasury/bank-claim-payments/): every payment the banks and agencies reported.
 - The [Customer Ledger Entry Details FactBox](/help/iceland-treasury/customer-ledger-factbox/).
 
 ## Posting
@@ -94,5 +98,7 @@ find them.
 ## Next steps
 
 - The bank pages: [Arion banki](/iceland-treasury/banks/arion/) · [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) ·
-  [Kvika banki](/iceland-treasury/banks/kvika/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/)
+  [Kvika banki](/iceland-treasury/banks/kvika/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/) ·
+  [Sparisjóðir](/iceland-treasury/banks/sparisjodir/)
+- The claim collection agencies: [Gjaldskil](/iceland-treasury/agencies/gjaldskil/) · [InKasso](/iceland-treasury/agencies/inkasso/)
 - [Permission sets](/iceland-treasury/#permissions) for payments and claims

@@ -3,9 +3,10 @@ id: treasury-setup
 title: "Bifröst Ísland Fjárstýring - uppsetning"
 ---
 
-Í **Bifröst Ísland Fjárstýring - uppsetning** tengir kerfisstjóri Business Central við íslensku bankana.
-Síðan sýnir eina línu fyrir hvern banka, svo þú sérð í einu vetfangi hvaða bankar eru virkir, hverjir hafa
-notandanafn og hjá hverjum leyndarmál vantar enn. Úr henni eru rakningarsíðurnar líka opnaðar.
+Í **Bifröst Ísland Fjárstýring - uppsetning** tengir kerfisstjóri Business Central við íslensku bankana
+og við innheimtufyrirtækin Gjaldskil og InKasso. Síðan sýnir eina línu fyrir hvern banka eða
+innheimtufyrirtæki, svo þú sérð í einu vetfangi hverjir eru virkir, hverjir hafa notandanafn og hjá
+hverjum leyndarmál vantar enn. Úr henni eru rakningarsíðurnar líka opnaðar.
 
 Opnaðu hana með **Ísland Fjárstýring** í flokknum **Forrit** á síðunni [Uppsetning Bifröst](/help/foundation/bifrost-setup/).
 Aðeins handhafi `BIFROST TAdmin ori` getur breytt henni; fyrir aðra opnast hún aðeins til lestrar og
@@ -19,11 +20,11 @@ leyfðar.
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Banki** | Bankinn sem línan stillir. |
+| **Banki** | Bankinn eða innheimtufyrirtækið sem línan stillir. Sparisjóðirnir fjórir deila einni línu, **Sparisjóðir**. |
 | **Virkt** | Hvort kalla megi á bankann. Slökktu á reitnum til að stöðva allar aðgerðir bankans án þess að eyða stillingum hans. |
 | **Notandanafn** | Notandanafn fyrirtækisins í bankanum. Notandi sem hefur eigin innskráningu skráir hana á síðunni **Uppsetning notanda Bifröst**. |
 | **Leyndarmál** | **Fullskráð** þegar öll leyndarmál sem bankinn þarf eru vistuð, annars **Vantar**. Gildin eru aldrei sýnd. |
-| **SOAP-undirritari** | Aðeins fyrir Íslandsbanka og Kviku banka: hvernig beiðnir eru undirritaðar. Hafðu reitinn auðan nema bankinn biðji um annað snið. |
+| **SOAP-undirritari** | Aðeins fyrir Íslandsbanka, Kviku banka og sparisjóðina: hvernig beiðnir eru undirritaðar. Hafðu reitinn auðan nema bankinn biðji um annað snið. Auður reitur þýðir venjulegt snið bankans: WSE2 fyrir Íslandsbanka og Kviku banka, WSE3 fyrir sparisjóðina. |
 
 ## Skírteini {#certificate}
 
@@ -31,19 +32,19 @@ Upplýsingareiturinn **Skírteini** sýnir biðlaraskírteinið sem er vistað f
 **Útgefandi**, **Fingrafar**, **Gildir frá** og **Rennur út**. Endurnýjaðu skírteinið hjá bankanum áður en
 það rennur út og vistaðu það nýja með **Skrá skírteini**: bankinn hafnar beiðnum sem eru undirritaðar með
 útrunnu skírteini. Ef ekkert skírteini er vistað, eða ekki tekst að opna það vistaða með lykilorði þess,
-segir upplýsingareiturinn það.
+segir upplýsingareiturinn það. Gjaldskil og InKasso nota ekkert skírteini.
 
 ## Aðgerðir {#actions}
 
 | Aðgerð | Lýsing |
 | --- | --- |
 | **Skrá lykilorð fyrirtækis** | Opnar hulinn glugga og vistar lykilorð fyrirtækisins í völdum banka. |
-| **Skrá skírteini** | Hleður upp biðlaraskírteininu (`.pfx`-skjali) og biður um lykilorð þess. Skírteinið er opnað með lykilorðinu áður en nokkuð er vistað, svo rangt lykilorð kemur strax í ljós. |
+| **Skrá skírteini** | Hleður upp biðlaraskírteininu (`.pfx`-skjali) og biður um lykilorð þess. Skírteinið er opnað með lykilorðinu áður en nokkuð er vistað, svo rangt lykilorð kemur strax í ljós. Ekki í boði fyrir Gjaldskil og InKasso. |
 | **Skrá skírteini banka** | Aðeins Íslandsbanki. Hleður upp opinberu skírteini bankans. |
 | **Skrá API-lykil** | Aðeins Landsbankinn. Vistar API-lykil fyrirtækisins. |
 | **Hreinsa leyndarmál fyrirtækis** | Fjarlægir öll vistuð leyndarmál fyrirtækisins fyrir valinn banka, eftir að þú staðfestir. |
-| **Endurbyggja uppsetningargögn** | Stofnar innflutningssnið bankayfirlits bankans og inn- og útflutningsuppsetningu hans aftur ef þau vantar. Óhætt að keyra hvenær sem er. |
-| **Endurnýja stillingar bankayfirlits** | Eyðir og stofnar aftur innflutningssnið bankayfirlits bankans og inn- og útflutningsuppsetningu hans. |
+| **Endurbyggja uppsetningargögn** | Stofnar innflutningssnið bankayfirlits bankans og inn- og útflutningsuppsetningu hans aftur ef þau vantar. Óhætt að keyra hvenær sem er. Ekki í boði fyrir Gjaldskil og InKasso, sem hafa engin yfirlit. |
+| **Endurnýja stillingar bankayfirlits** | Eyðir og stofnar aftur innflutningssnið bankayfirlits bankans og inn- og útflutningsuppsetningu hans. Ekki í boði fyrir Gjaldskil og InKasso. |
 | **Greiðslubunkar í banka** | Opnar [Greiðslubunkar í banka](/help/iceland-treasury/bank-payment-batches/). |
 | **Kröfur í banka** | Opnar [Kröfur í banka](/help/iceland-treasury/bank-claims/). |
 | **Kröfubunkar í banka** | Opnar [Kröfubunkar í banka](/help/iceland-treasury/bank-claim-batches/). |
@@ -55,12 +56,15 @@ segir upplýsingareiturinn það.
 
 ## Hvað hver banki þarf {#what-each-bank-needs}
 
-| Banki | Lykilorð | Biðlaraskírteini | API-lykill |
+| Banki eða innheimtufyrirtæki | Lykilorð | Biðlaraskírteini | API-lykill |
 | --- | --- | --- | --- |
 | Arion banki | Já | Já | Nei |
 | Íslandsbanki | Já | Já | Nei |
 | Kvika banki | Já | Já | Nei |
 | Landsbankinn | Já | Já | Já |
+| Sparisjóðir | Já | Já | Nei |
+| Gjaldskil | Já | Nei | Nei |
+| InKasso | Já | Nei | Nei |
 
 Aðgerðir sem eiga ekki við valinn banka eru ekki í boði. Sjá [Leyndarmál banka](/help/iceland-treasury/treasury-secrets/)
 um hvar gildin eru geymd.
@@ -69,6 +73,7 @@ um hvar gildin eru geymd.
 
 **Tengja banka.** Veldu línu hans, skráðu **Notandanafn** og veldu svo **Skrá lykilorð fyrirtækis**,
 **Skrá skírteini** og, fyrir Landsbankann, **Skrá API-lykil**. **Leyndarmál** verður **Fullskráð**.
+Fyrir Gjaldskil og InKasso þarf aðeins lykilorð fyrirtækisins.
 
 **Hætta að nota banka.** Slökktu á **Virkt**. Aðgerðir hans stöðvast en stillingarnar haldast, svo þú
 getur kveikt á honum aftur síðar.
@@ -82,9 +87,11 @@ skaltu velja **Endurbyggja uppsetningargögn** á línu bankans.
 ## Gott að vita {#good-to-know}
 
 - Leiðsögnin [Bifröst Ísland Fjárstýring - Bankauppsetning](/help/iceland-treasury/treasury-setup-wizard/)
-  fer í gegnum sömu stillingar, einn banka í einu.
+  fer í gegnum sömu stillingar, einn banka eða innheimtufyrirtæki í einu.
 - Lykilorð, skírteini og lyklar eru í varinni geymslu og birtast aldrei aftur; sjá
   [Leyndarmál banka](/help/iceland-treasury/treasury-secrets/).
 - Hvað hver banki nær yfir: [Arion banki](/iceland-treasury/banks/arion/),
-  [Íslandsbanki](/iceland-treasury/banks/islandsbanki/), [Kvika banki](/iceland-treasury/banks/kvika/) og
-  [Landsbankinn](/iceland-treasury/banks/landsbankinn/).
+  [Íslandsbanki](/iceland-treasury/banks/islandsbanki/), [Kvika banki](/iceland-treasury/banks/kvika/),
+  [Landsbankinn](/iceland-treasury/banks/landsbankinn/) og [Sparisjóðir](/iceland-treasury/banks/sparisjodir/);
+  innheimtufyrirtækin: [Gjaldskil](/iceland-treasury/agencies/gjaldskil/) og
+  [InKasso](/iceland-treasury/agencies/inkasso/).

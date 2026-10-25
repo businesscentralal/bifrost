@@ -4,7 +4,7 @@ title: "Bifröst Ísland Fjárstýring - Bankauppsetning"
 ---
 
 **Bifröst Ísland Fjárstýring - Bankauppsetning** er leiðsögnin sem tengir Business Central við íslensku
-bankana, einn banka í einu. Hún er fyrir kerfisstjórann sem setur forritið upp, og hann þarf
+bankana og innheimtufyrirtækin Gjaldskil og InKasso, einn í einu. Hún er fyrir kerfisstjórann sem setur forritið upp, og hann þarf
 `BIFROST TAdmin ori`.
 
 Ræstu hana af síðunni **Uppsetning með hjálp**, þar sem hún heitir **Setja upp banka Bifröst Ísland
@@ -20,21 +20,22 @@ eru leyfðar.
 
 **Velkomin.** Segir hvað leiðsögnin nær yfir og minnir þig á að leyfa HTTP-beiðnir út fyrst.
 
-**Eitt skref fyrir hvern banka.** Landsbankinn, Arion banki, Íslandsbanki og Kvika banki, hver með sömu reitum:
+**Eitt skref fyrir hvern banka eða innheimtufyrirtæki.** Landsbankinn, Arion banki, Íslandsbanki, Kvika
+banki, Sparisjóðir, Gjaldskil og InKasso, hvert með sömu reitum:
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Banki** | Bankinn sem skrefið setur upp. |
+| **Banki** | Bankinn eða innheimtufyrirtækið sem skrefið setur upp. |
 | **Virkt** | Hafðu kveikt á banka sem þú notar; slökktu á banka sem þú notar ekki. |
 | **Notandanafn** | Notandanafn fyrirtækisins í bankanum. |
 | **Lykilorð fyrirtækis** | **Vistað** eða **Ekki vistað**. Notaðu **Skrá lykilorð fyrirtækis** til að skrá það. |
-| **Skírteini** | **Vistað** eða **Ekki vistað**. Notaðu **Skrá skírteini** til að hlaða upp `.pfx`-skjalinu og skrá lykilorð þess. |
+| **Skírteini** | Aðeins bankar, ekki Gjaldskil og InKasso. **Vistað** eða **Ekki vistað**. Notaðu **Skrá skírteini** til að hlaða upp `.pfx`-skjalinu og skrá lykilorð þess. |
 | **API-lykill** | Aðeins Landsbankinn. **Vistað** eða **Ekki vistað**. Notaðu **Skrá API-lykil** til að skrá hann. |
 
 Hver aðgerð opnar hulinn glugga sem nefnir bankann og leyndarmálið. Skírteini er opnað með lykilorði sínu
 áður en nokkuð er vistað, svo rangt lykilorð kemur strax í ljós.
 
-**Ljúka.** Í skrefi síðasta bankans vistar **Ljúka** bankann sem þú varst í, merkir uppsetninguna með
+**Ljúka.** Í síðasta skrefinu vistar **Ljúka** bankann eða innheimtufyrirtækið sem þú varst í, merkir uppsetninguna með
 hjálp lokna og lokar leiðsögninni.
 
 ## Eftir leiðsögnina {#after-the-guide}
