@@ -10,6 +10,18 @@ description: "What changed in each version of Bifröst Warehouse published on Mi
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Warehouse published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.3.1 — 25 October 2026
+
+### Changed
+
+- Your AI assistant gets a fuller description of every Warehouse operation: what it answers, the errors it can return and why, and what it changes in Business Central.
+- Notes, examples and step-by-step guidance are added across the operations, and the lines or entries that an operation takes are described one by one.
+- The descriptions now also cover the warnings returned when inventory picks and put-aways are created, and the refusals for assembly orders that are not released or have no location set for consumption.
+
+### Fixed
+
+- Listing open warehouse activities or bin content with a negative skip or take value now returns a clear error that names the value, what is accepted and what to do. If both are negative, both problems are listed in one answer.
+
 ## 28.3.0 — 20 October 2026
 
 ### First version on Microsoft AppSource
