@@ -10,6 +10,19 @@ description: "What changed in each version of Bifröst Orchestrator published on
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Orchestrator published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.0.2 — 25 October 2026
+
+### Changed
+
+- Your AI assistant gets a fuller description of every Orchestrator operation: what it answers, the errors it can return and why, and what it changes in Business Central.
+- Operations that never use a record now say so instead of describing a made-up form, and step-by-step guidance is added where an operation belongs to a sequence, such as run, register and schedule.
+- Report layouts can be listed and read with their own descriptions and examples. The description of queuing a playbook now says that each call queues one more run and does not check the playbook, so run the check first.
+- The description of scheduling an entry now says what it does: it rebuilds the Job Queue schedule from the recurrence settings. It does not run the entry immediately.
+
+### Fixed
+
+- Previewing a workspace is offered to assistants for both reading and writing, and getting a report states that it may insert a preset. Nothing in how these behave has changed; only the description was wrong.
+
 ## 28.0.1 — 21 October 2026
 
 ### Added

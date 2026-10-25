@@ -10,6 +10,19 @@ description: "What changed in each version of Bifröst Language Models published
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Language Models published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.0.1 — 25 October 2026
+
+### Added
+
+- Language Models has its own **assisted setup**. It shows whether HTTP access is on for this app and opens Foundation's setup to turn it on for every Bifröst app, shows whether Copilot is available and initialized, and keeps the chat provider you already use.
+- The setup gives the people you choose the chat permissions for the company and a language model each. Choosing **Finish** completes the Assisted Setup step.
+- **Language Models Setup** opens the new setup, and the Foundation setup stays available from the same page.
+
+### Changed
+
+- Your AI assistant gets a fuller description of every Language Models operation: what it answers, the errors it can return and why, and what it changes in Business Central.
+- The operation that asks a language model for one answer is easier to find: it has more search terms in English and Icelandic and says plainly that it only reads. It points to Business Central data access for prompts that need data.
+
 ## 28.0.0 — 19 October 2026
 
 ### First version on Microsoft AppSource
