@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-25",
+  "updated": "2026-10-26",
   "apps": [
     {
       "appId": "7505e808-6e52-4b96-a328-82573391297a",
@@ -57,6 +57,13 @@
       "version": "28.1.1.98",
       "released": "2026-10-24",
       "releaseNotes": "https://docs.bifrost.origo.is/en-us/iceland/release-notes"
+    },
+    {
+      "appId": "54d53040-b92f-4745-8980-89573b6b0463",
+      "name": "Bifrost Iceland DocEx",
+      "version": "28.0.0.55",
+      "released": "2026-10-21",
+      "releaseNotes": "https://docs.bifrost.origo.is/en-us/iceland-docex/release-notes"
     }
   ]
 }

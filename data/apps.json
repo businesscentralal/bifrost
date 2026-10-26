@@ -167,9 +167,9 @@
         "documents"
       ],
       "foundationMinVersion": "28.0.0.186",
-      "status": "coming-soon",
+      "status": "available",
       "links": {
-        "appSource": null,
+        "appSource": "https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_iceland_docex%7CPAPPID.54d53040-b92f-4745-8980-89573b6b0463",
         "docs": "https://docs.bifrost.origo.is/en-us/iceland-docex/",
         "repository": null,
         "support": "https://www.origo.is/",
