@@ -3,8 +3,6 @@ id: bifrost-apps
 title: "Bifröst-forrit"
 ---
 
-Listinn Finna forrit kemur með væntanlegri uppfærslu á Bifröst Foundation. Þangað til opnar **Finna forrit** [forritaskrána á vefnum](https://docs.bifrost.origo.is/).
-
 **Finna forrit** er í flokknum **Forrit** í [Uppsetningu Bifröst](/help/foundation/bifrost-setup/). Aðgerðin opnar **Bifröst-forrit**, lista sem ekki er hægt að breyta, yfir öll Bifröst-forrit í opinberu forritaskránni á docs.bifrost.origo.is og önnur Bifröst-forrit sem eru uppsett í umhverfinu. Allir notendur sem geta opnað Uppsetningu Bifröst geta opnað listann.
 
 | Reitur | Lýsing |

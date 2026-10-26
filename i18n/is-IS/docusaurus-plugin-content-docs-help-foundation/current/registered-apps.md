@@ -15,4 +15,4 @@ Notaðu **Virkja HTTP fyrir öll forrit** í skrefinu til að virkja það fyrir
 
 ## Uppfærslur Bifröst-forrita
 
-Listinn **Uppfærslur Bifröst-forrita** opnast úr tilkynningunni um að nýrri útgáfa af uppsettu Bifröst-forriti sé á AppSource. Hann sýnir hvert forrit sem hefur uppfærslu: **Uppsetta útgáfu**, **Nýjustu útgáfu**, **Útgáfudag**, tengil í **Slóð útgáfuupplýsinga** og hvenær upplýsingarnar voru **Síðast athugaðar**. Stjórnendur sjá hann í skýjaumhverfi. Listinn setur ekkert upp og uppfærir ekkert.
+Listinn **Uppfærslur Bifröst-forrita** opnast úr tilkynningunni um að nýrri útgáfa af uppsettu Bifröst-forriti sé á AppSource. Hann sýnir hvert forrit sem hefur uppfærslu, með reitunum **Uppsett útgáfa**, **Nýjasta útgáfa** og **Útgáfudagur**, tengli í **Slóð útgáfuupplýsinga** og reitnum **Síðast athugað**, sem segir hvenær upplýsingarnar voru síðast sóttar. Stjórnendur sjá hann í skýjaumhverfi. Listinn setur ekkert upp og uppfærir ekkert.

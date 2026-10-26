@@ -3,8 +3,6 @@ id: bifrost-apps
 title: "Bifröst Apps"
 ---
 
-The Find Apps list comes with an upcoming Bifröst Foundation update. Until then, **Find Apps** opens the [app registry on the web](https://docs.bifrost.origo.is/).
-
 **Find Apps** is in the **Apps** group on [Bifrost Setup](/help/foundation/bifrost-setup/). It opens **Bifröst Apps**, a read-only list of every Bifröst application in the public registry on docs.bifrost.origo.is, together with any other Bifröst application installed in this environment. Every user who can open Bifrost Setup can open it.
 
 | Field | Description |

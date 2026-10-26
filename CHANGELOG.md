@@ -8,6 +8,7 @@
 
 ### Added
 
+- Help for the Bifröst Apps page and an App Updates section on the registered apps page, in English and Icelandic.
 - Language Models: a *Set up with the wizard* section on the app page describing the Set up Bifrost Language Models assisted setup, in English and Icelandic.
 - Context-sensitive help for the Bifrost Warehouse assisted setup, Set up Bifrost Warehouse, in English and Icelandic.
 - Publish Bifröst Iceland Treasury for its AppSource preparation: the app page (statements into bank reconciliation, payment batches for approval at the bank, foreign payments, claims and their payments, tracking, setup and permissions), a page on following payments and claims, a page for each of Arion banki, Íslandsbanki and Landsbankinn, the listing copy, the user scenarios and context-sensitive help for the setup page, the setup guide, bank secrets, user credentials, Payment Methods, the customer ledger entry FactBox, statement import and the tracking pages, in English and Icelandic. The catalogue entry is marked coming soon until the AppSource listing is live.
