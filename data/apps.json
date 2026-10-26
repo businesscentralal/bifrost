@@ -187,9 +187,9 @@
         "integration"
       ],
       "foundationMinVersion": "28.0.2.523",
-      "status": "coming-soon",
+      "status": "available",
       "links": {
-        "appSource": null,
+        "appSource": "https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_iceland_treasury%7CPAPPID.54f038b6-4e7a-4e7d-bd95-a70587f27dd2",
         "docs": "https://docs.bifrost.origo.is/en-us/iceland-treasury/",
         "repository": null,
         "support": "https://www.origo.is/",
