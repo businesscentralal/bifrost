@@ -10,6 +10,21 @@ description: "What changed in each version of Bifröst Foundation published on M
 
 This page is for Business Central administrators and users who want to know what changed in Bifröst Foundation. It lists the versions published on Microsoft AppSource, newest first. To see which version you have installed, open **Extension Management** in Business Central and look for **Bifrost Foundation**.
 
+## 28.0.9 — 27 October 2026
+
+### Added
+- **Update notices for administrators.** Administrators now see a notice in Bifrost Setup and on the role center when an installed Bifröst app has a newer version on Microsoft AppSource. The notice links to the release notes and to manual update guidance, and a details page lists every app that has an update. Each administrator can turn the notice off under My Notifications. Bifröst only informs you; it does not install or update anything. On-premises environments and failed checks stay silent.
+- **See how a call arrived.** The Bifrost Messages page has a read-only **Invocation Source** column that shows whether a call came through the queue, through the task endpoint, from a call made inside Bifröst, or directly, such as the **Run Task** action. Foundation sets the value itself, so a request cannot change it. Other Bifröst apps can use it to allow an operation only on the queue.
+
+### Changed
+- **Source approval and posting previews are classified correctly.** Approving a session source, and the posting previews for sales, purchases, general journals, item journals, fixed asset journals and project journals, are now reported as both reading and changing. Clients that go by this classification treat source approval as a write and the six previews as previews. What the operations do is unchanged, and the help for each operation still says whether data changes.
+
+### Fixed
+- **Media values are checked before anything is written.** When you write records with picture or media values, every base64 value and object shape in the call is checked first. A call with an unreadable value is refused as a whole and nothing is saved. Single media values that are valid are now imported instead of being silently dropped.
+- **Field errors name the row and the field.** When a value is refused while writing records, the answer names the row and field, the expected value and a translated next step, and the call is still rolled back as a whole. An error raised by a record's own validation names only the record.
+- **Journal checks name the right line.** A journal check names the line that has the problem, or the batch when no line applies, and no longer points at a blank line by mistake. A refusal raised by Business Central during a resource journal check is kept as a finding with the same recovery guidance, and refused general journal postings carry that guidance too.
+- **Budget comparison help matches how requests are read.** The help now states the order in which a budget comparison request is read, followed by the range and filter syntax, budget lookup, account selection and dimensions. For example, an invalid income or balance choice is reported before an invalid date.
+
 ## 28.0.8 — 21 October 2026
 
 ### Added
