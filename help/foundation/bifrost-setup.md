@@ -60,7 +60,7 @@ The page also lists the **Available Message Types** and, for licence administrat
 | Connectors | **Anthropic Claude**, **Microsoft Copilot**, **OpenAI ChatGPT** | Open the Bifröst connector in each AI assistant's store. |
 | Memory | **Memory**, **User Memory** | Company- and user-scoped memory records. |
 | | **Bifrost Translations**, **Bifrost Integration** | Translations and the integration log. |
-| Apps | **Find Apps** | The registry of applications built on Bifröst. Installed Bifröst applications add their own setup action to this group. |
+| Apps | **Find Apps** | Opens the Bifröst app registry on the web, which lists every application built on Bifröst with its AppSource status and links; see [Bifröst Apps](/help/foundation/bifrost-apps/). Installed Bifröst applications add their own setup action to this group. |
 
 ## Tips
 
