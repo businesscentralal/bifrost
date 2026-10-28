@@ -11,7 +11,9 @@ payments.
 Open it with **Bank Claim Payments** on
 [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/). The same payments show for one
 claim under **Claim Payments** on [Bank Claims](/help/iceland-treasury/bank-claims/). The page is
-read-only: Bifröst registers each payment once, when the claim payments are read at the bank.
+read-only: Bifröst registers each payment once, when the claim payments are read at the bank. An
+integration or an assistant can update the fields of a registered payment, for example the posting
+information, when the user has the `BIFROST TClmPmt ori` permission set.
 
 ## Fields
 

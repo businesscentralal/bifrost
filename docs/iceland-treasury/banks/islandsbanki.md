@@ -3,7 +3,7 @@ id: islandsbanki
 title: "Íslandsbanki"
 sidebar_label: "Íslandsbanki"
 sidebar_position: 2
-description: "What Bifröst Iceland Treasury does with Íslandsbanki: statements into bank reconciliation, currency rates, account verification, unpaid invoices, foreign payment batches and claims."
+description: "What Bifröst Iceland Treasury does with Íslandsbanki: statements into bank reconciliation, currency rates, account verification, unpaid invoices, domestic and foreign payment batches and claims."
 ---
 
 # Íslandsbanki
@@ -19,6 +19,10 @@ what you set up, and what you see in Business Central afterwards.
 - **Currency rates.** The bank's exchange rates for a date.
 - **Account checks.** Verify that an account exists before you pay to it, and list the unpaid invoices
   addressed to a kennitala.
+- **Domestic payments.** Register domestic (ISK) payment batches, made up of transfers and claim
+  payments, on Íslandsbanki's own payment service. A person at your company approves and pays the batch in
+  the online bank. Before that you can check the batch at the bank and read its result. The bank takes the
+  batch total from the paying account in one withdrawal.
 - **Foreign payments.** Register foreign payment batches for approval at the bank, with a numeric Central
   Bank category key for each payment, get the bank's quote for a batch (rate and charges), and follow its
   status. A batch has one payer, the company unless the batch names another.
@@ -26,8 +30,10 @@ what you set up, and what you see in Business Central afterwards.
   and reports each claim's outcome afterwards. Look a claim up, list claims for a period, see the
   payments received against them, and reactivate a cancelled claim.
 
-Bifröst does not register domestic (ISK) payment batches at Íslandsbanki. Register them in the bank's
-online banking.
+Bifröst never approves or pays a batch. A batch name has at most 20 characters, and a transfer's
+reference at most 7: the bank's limits, checked before the bank is called. Once a batch is approved, the
+bank no longer lets the web-service user read it, so its status in Business Central becomes **Unknown**.
+The statement of the paying account then shows when its payments are paid.
 
 ## What you set up
 
@@ -55,7 +61,7 @@ online banking.
   [start date](/help/iceland-treasury/date-input-dialog/). The
   [Statement Import Summary](/help/iceland-treasury/statement-import-summary/) then shows the lines
   imported and the balances, and warns when they do not agree with the bank.
-- Foreign payment batches, claims, claim batches and claim payments appear on the tracking pages reached
+- Domestic and foreign payment batches, claims, claim batches and claim payments appear on the tracking pages reached
   from **Bifrost Iceland Treasury Setup**; see [Payments and claims](/iceland-treasury/payments-and-claims/).
 - The **Customer Ledger Entry Details** FactBox shows the claim that collects an entry.
 - Every call to the bank is logged on the **Bifrost Request Log**, with passwords masked.

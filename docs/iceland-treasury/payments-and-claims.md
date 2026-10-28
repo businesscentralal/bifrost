@@ -16,11 +16,11 @@ bank until it is paid, and where you see each step in Business Central.
 
 1. **Register the batch.** An assistant, an integration or a routine registers the batch at the bank:
    the account it is paid from, and each payment with its recipient, amount and reference. Domestic
-   (ISK) batches go to Arion banki, Kvika banki, Landsbankinn or a savings bank (*sparisjóður*), foreign
+   (ISK) batches go to Arion banki, Íslandsbanki, Kvika banki, Landsbankinn or a savings bank (*sparisjóður*), foreign
    payment batches to Arion banki, Íslandsbanki or Landsbankinn.
    Bifröst checks the batch before it calls the bank: a name that contains *STP* is refused, and so is a
    date of forward payment in the past. When no date is given, the batch is for today.
-2. **Approve and pay it at the bank.** At Arion banki and Landsbankinn the batch now waits in the bank's
+2. **Approve and pay it at the bank.** At Arion banki, Íslandsbanki and Landsbankinn the batch now waits in the bank's
    online banking. A person at your company with the right to approve payments there approves it and the
    bank pays it. At Kvika banki and the savings banks whether it waits depends on the rights the bank gives your web-service
    user. Bifröst never approves or signs a batch. Start the batch name with `*` so that this person sees it:
@@ -28,6 +28,8 @@ bank until it is paid, and where you see each step in Business Central.
 3. **Follow the result.** Reading the batch's result at the bank updates its status in Business
    Central: awaiting approval, in progress, completed, completed with errors, cancelled. A payment the
    bank refused shows its error, and the refused payments can be registered again as a new batch.
+   Íslandsbanki stops answering for a domestic batch once it is approved; its status becomes **Unknown**
+   and the statement shows when it is paid.
 4. **See that it is paid.** A payment is paid when the statement of the account it is paid from shows
    it. Every statement Bifröst reads, and every bank reconciliation import, is checked against the open
    payments of that account: a matching debit marks the payment **Paid**, with the statement reference,

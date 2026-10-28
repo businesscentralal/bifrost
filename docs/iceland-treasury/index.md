@@ -31,9 +31,9 @@ with [How Bifröst works](/documentation/how-it-works/).*
   are imported the same way.
 - **Read statements, accounts and rates.** Read a statement for any account and period, verify an
   account before you pay to it, and fetch the bank's currency rates.
-- **Register payment batches.** Register domestic (ISK) payment batches at Arion banki, Kvika banki,
-  Landsbankinn and the savings banks, and foreign payment batches at Arion banki, Íslandsbanki and
-  Landsbankinn. At Arion banki and Landsbankinn a person at your company approves and pays each batch in
+- **Register payment batches.** Register domestic (ISK) payment batches at Arion banki, Íslandsbanki,
+  Kvika banki, Landsbankinn and the savings banks, and foreign payment batches at Arion banki, Íslandsbanki and
+  Landsbankinn. At Arion banki, Íslandsbanki and Landsbankinn a person at your company approves and pays each batch in
   the online bank; at Kvika banki and the savings banks that depends on the rights the bank gives your
   web-service user.
 - **Know when a payment is paid.** When the statement of the paying account shows the payment, Bifröst
@@ -53,7 +53,7 @@ with [How Bifröst works](/documentation/how-it-works/).*
 | Domain | Capabilities |
 |---|---|
 | **Arionbanki** | Statements and bank reconciliation import, accounts and account verification, bills, credit cards and their transactions, domestic and foreign payment batches with their results and receipts, foreign-currency accounts and statements, claims created, changed and cancelled in batches, with their history and payments, currency rates |
-| **Islandsbanki** | Statements and bank reconciliation import, account verification, unpaid invoices, foreign payment batches with the bank's quote and result, claims created, changed and cancelled in batches, with their payments and reactivation, currency rates |
+| **Islandsbanki** | Statements and bank reconciliation import, account verification, unpaid invoices, domestic payment batches with their check and result, foreign payment batches with the bank's quote and result, claims created, changed and cancelled in batches, with their payments and reactivation, currency rates |
 | **Kvikabanki** | Statements and bank reconciliation import, domestic payment batches with their results, claims created, changed and cancelled in batches, with their payments, currency rates |
 | **Sparisjodir** | Statements and bank reconciliation import, account verification, domestic payment batches with their results, claims created, changed and cancelled in batches, with their payments, currency rates |
 | **Gjaldskil** | Claims created, changed and cancelled in batches, with their payments |
@@ -105,7 +105,7 @@ own.
 | `BIFROST TPay ori` | Domestic payment batches and their results | No | No |
 | `BIFROST TFrgPay ori` | Foreign payment batches, quotes, results and receipts | No | No |
 | `BIFROST TClmEdit ori` | Creating, changing and cancelling claims, claim batches and Landsbankinn claim templates | Yes | No |
-| `BIFROST TClmPmt ori` | Reading claims, claim payments and claim templates | Yes | Yes |
+| `BIFROST TClmPmt ori` | Reading claims, claim payments and claim templates, and updating claim payments | Yes | Yes |
 | `BIFROST TStmt ori` | Statements, accounts, foreign-currency statements and received electronic documents at Landsbankinn | Yes | Yes |
 | `BIFROST TBill ori` | Unpaid invoices, bills and payment slips | Yes | No |
 | `BIFROST TCard ori` | Cards, card ledger keys and card acquiring | Yes | No |

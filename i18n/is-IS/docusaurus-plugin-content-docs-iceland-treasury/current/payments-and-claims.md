@@ -16,12 +16,12 @@ bankans þar til hún er greidd, og hvar þú sérð hvert skref í Business Cen
 
 1. **Skráðu bunkann.** Aðstoðarmaður, samþætting eða tímasett keyrsla skráir bunkann í bankanum:
    reikninginn sem greitt er af og hverja greiðslu með viðtakanda, upphæð og tilvísun. Innlendir bunkar
-   (ISK) fara til Arion banka, Kviku banka, Landsbankans eða sparisjóðs, bunkar erlendra greiðslna til Arion banka,
+   (ISK) fara til Arion banka, Íslandsbanka, Kviku banka, Landsbankans eða sparisjóðs, bunkar erlendra greiðslna til Arion banka,
    Íslandsbanka eða Landsbankans.
    Bifröst fer yfir bunkann áður en kallað er á bankann: bunka með *STP* í heitinu er hafnað, og
    sömuleiðis framvirkri greiðsludagsetningu sem er liðin. Ef engin dagsetning er gefin er bunkinn fyrir
    daginn í dag.
-2. **Samþykktu og greiddu hann í bankanum.** Hjá Arion banka og Landsbankanum bíður bunkinn nú í
+2. **Samþykktu og greiddu hann í bankanum.** Hjá Arion banka, Íslandsbanka og Landsbankanum bíður bunkinn nú í
    netbanka bankans. Starfsmaður fyrirtækisins sem má samþykkja greiðslur þar samþykkir hann og bankinn
    greiðir. Hjá Kviku banka og sparisjóðunum fer það eftir heimildunum sem bankinn veitir vefþjónustunotandanum þínum
    hvort hann bíður. Bifröst hvorki samþykkir né undirritar bunka. Byrjaðu heiti bunkans á `*` svo sá starfsmaður sjái hann: án
@@ -29,6 +29,8 @@ bankans þar til hún er greidd, og hvar þú sérð hvert skref í Business Cen
 3. **Fylgstu með niðurstöðunni.** Þegar niðurstaða bunkans er lesin í bankanum uppfærist staða hans í
    Business Central: bíður samþykktar, í vinnslu, lokið, lokið með villum, eytt. Greiðsla sem bankinn
    hafnaði sýnir villuna, og hægt er að skrá hafnaðar greiðslur aftur sem nýjan bunka.
+   Íslandsbanki hættir að svara fyrir innlendan bunka þegar hann hefur verið samþykktur; staða hans verður
+   **Óþekkt** og yfirlitið sýnir hvenær hann er greiddur.
 4. **Sjáðu að hún er greidd.** Greiðsla er greidd þegar yfirlit reikningsins sem greitt er af sýnir
    hana. Hvert yfirlit sem Bifröst les, og hver innflutningur í bankaafstemmingu, er borið saman við
    opnar greiðslur þess reiknings: samsvarandi úttekt merkir greiðsluna **Greidd**, með tilvísun

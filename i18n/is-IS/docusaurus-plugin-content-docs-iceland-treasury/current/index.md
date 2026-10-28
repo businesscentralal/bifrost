@@ -31,9 +31,9 @@ Byrjaðu á [Hvernig Bifröst virkar](/documentation/how-it-works/).*
   fluttar inn á sama hátt.
 - **Lesið yfirlit, reikninga og gengi.** Lestu yfirlit hvaða reiknings sem er fyrir hvaða tímabil sem
   er, staðfestu reikning áður en þú greiðir inn á hann og sæktu gengi bankans.
-- **Skráðu greiðslubunka.** Skráðu bunka innlendra greiðslna (ISK) hjá Arion banka, Kviku banka,
-  Landsbankanum og sparisjóðunum, og bunka erlendra greiðslna hjá Arion banka, Íslandsbanka og
-  Landsbankanum. Hjá Arion banka og Landsbankanum samþykkir starfsmaður fyrirtækisins og greiðir hvern
+- **Skráðu greiðslubunka.** Skráðu bunka innlendra greiðslna (ISK) hjá Arion banka, Íslandsbanka,
+  Kviku banka, Landsbankanum og sparisjóðunum, og bunka erlendra greiðslna hjá Arion banka, Íslandsbanka og
+  Landsbankanum. Hjá Arion banka, Íslandsbanka og Landsbankanum samþykkir starfsmaður fyrirtækisins og greiðir hvern
   bunka í netbankanum; hjá Kviku banka og sparisjóðunum fer það eftir heimildunum sem bankinn veitir
   vefþjónustunotandanum þínum.
 - **Séð hvenær greiðsla er greidd.** Þegar yfirlit reikningsins sem greitt er af sýnir greiðsluna merkir
@@ -52,7 +52,7 @@ Byrjaðu á [Hvernig Bifröst virkar](/documentation/how-it-works/).*
 | Lén | Svið |
 |---|---|
 | **Arionbanki** | Yfirlit og innflutningur í bankaafstemmingu, reikningar og staðfesting reikninga, seðlar, kreditkort og færslur þeirra, bunkar innlendra og erlendra greiðslna með niðurstöðum og kvittunum, gjaldeyrisreikningar og yfirlit þeirra, kröfur stofnaðar, breyttar og felldar niður í bunkum, með sögu og greiðslum, gengi |
-| **Islandsbanki** | Yfirlit og innflutningur í bankaafstemmingu, staðfesting reikninga, ógreiddir reikningar, bunkar erlendra greiðslna með tilboði bankans og niðurstöðu, kröfur stofnaðar, breyttar og felldar niður í bunkum, með greiðslum og endurvakningu, gengi |
+| **Islandsbanki** | Yfirlit og innflutningur í bankaafstemmingu, staðfesting reikninga, ógreiddir reikningar, bunkar innlendra greiðslna með villuprófun og niðurstöðu, bunkar erlendra greiðslna með tilboði bankans og niðurstöðu, kröfur stofnaðar, breyttar og felldar niður í bunkum, með greiðslum og endurvakningu, gengi |
 | **Kvikabanki** | Yfirlit og innflutningur í bankaafstemmingu, bunkar innlendra greiðslna með niðurstöðum, kröfur stofnaðar, breyttar og felldar niður í bunkum, með greiðslum, gengi |
 | **Sparisjodir** | Yfirlit og innflutningur í bankaafstemmingu, staðfesting reikninga, bunkar innlendra greiðslna með niðurstöðum, kröfur stofnaðar, breyttar og felldar niður í bunkum, með greiðslum, gengi |
 | **Gjaldskil** | Kröfur stofnaðar, breyttar og felldar niður í bunkum, með greiðslum |
@@ -107,7 +107,7 @@ samstæðu.
 | `BIFROST TPay ori` | Bunkar innlendra greiðslna og niðurstöður þeirra | Nei | Nei |
 | `BIFROST TFrgPay ori` | Bunkar erlendra greiðslna, tilboð, niðurstöður og kvittanir | Nei | Nei |
 | `BIFROST TClmEdit ori` | Stofnun, breytingar og niðurfelling krafna, kröfubunkar og kröfusniðmát Landsbankans | Já | Nei |
-| `BIFROST TClmPmt ori` | Lestur krafna, greiðslna krafna og kröfusniðmáta | Já | Já |
+| `BIFROST TClmPmt ori` | Lestur krafna, greiðslna krafna og kröfusniðmáta, og uppfærsla greiðslna krafna | Já | Já |
 | `BIFROST TStmt ori` | Yfirlit, reikningar, yfirlit gjaldeyrisreikninga og móttekin rafræn skjöl hjá Landsbankanum | Já | Já |
 | `BIFROST TBill ori` | Ógreiddir reikningar, seðlar og greiðsluseðlar | Já | Nei |
 | `BIFROST TCard ori` | Kort, bókhaldslyklar korta og færsluhirðing | Já | Nei |
