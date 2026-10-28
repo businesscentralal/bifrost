@@ -10,6 +10,16 @@ description: "What changed in each version of Bifröst Foundation published on M
 
 This page is for Business Central administrators and users who want to know what changed in Bifröst Foundation. It lists the versions published on Microsoft AppSource, newest first. To see which version you have installed, open **Extension Management** in Business Central and look for **Bifrost Foundation**.
 
+## 28.0.10 — 28 October 2026
+
+### Changed
+- **Unknown parameters are refused before anything runs.** When a request that writes data or performs an action contains a parameter name the operation does not know, Bifröst now refuses the whole request with an unknown parameter error and executes nothing. Before, the extra parameter could be ignored. Requests that only read data still go ahead and return a warning about the unknown parameter. Incoming webhooks are not affected: they keep passing everything they receive on unchanged, and the receiving app checks the content. If you have an integration that writes through Bifröst, make sure it sends only the parameters the operation's help describes before you update.
+
+### Fixed
+- **Subscription tenants no longer need a trial.** On a Business Central SaaS environment with a Subscription license, calls were refused with a message saying that the Bifröst trial had not been started, although a trial does not apply to Subscription. Calls now continue to the monthly user and company quota checks. Prepaid and on-premises environments still need an active trial or purchased calls, as before. The setup wizard also explains that Subscription needs no trial, and it no longer offers a trial or shows a trial activation status for it.
+- **Help works for users whose permissions come from another Bifröst app.** Users who received their Bifröst permissions only through another Bifröst app could be refused when they opened help chapters. They can now read help again. Nothing else in the permission sets changes.
+- **Complete Icelandic texts.** The texts of webhook errors and of change log write-guard refusals now have Icelandic translations, so these messages no longer appear in English in an Icelandic client.
+
 ## 28.0.8 — 21 October 2026
 
 ### Added
