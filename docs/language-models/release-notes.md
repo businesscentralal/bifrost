@@ -10,6 +10,18 @@ description: "What changed in each version of Bifröst Language Models published
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Language Models published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.0.2 — 28 October 2026
+
+### Changed
+
+- The setup's user list opens faster. It now reads the chat permissions and each person's language model choice once, instead of looking them up for every row.
+- The permission columns in the user list use translated captions, and the tooltips still name the permission sets they stand for.
+
+### Fixed
+
+- The setup now keeps permissions that people inherit through a security group. They are shown correctly in the user list and are no longer lost when the list is refreshed.
+- Icelandic texts in the setup use the same wording for Copilot and agent features in actions, help, status and tooltips.
+
 ## 28.0.1 — 25 October 2026
 
 ### Added
