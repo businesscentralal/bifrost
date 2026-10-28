@@ -10,6 +10,20 @@ description: "What changed in each version of Bifröst Orchestrator published on
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Orchestrator published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.0.3 — 28 October 2026
+
+### Added
+
+- **Bifrost Playbooks** and **Playbook Execution Log** open directly from the Navigate area of **Bifrost Setup**. The **Bifrost Orchestrator Setup** action under Apps is unchanged, and the playbook list can now also be found with Tell Me.
+
+### Changed
+
+- Checking a playbook now reports separate counts of the errors and warnings that block it from running or being scheduled. Findings on disabled steps stay visible, but they no longer count as blocking. The existing totals are unchanged. The description of the check tells your AI assistant which counts to read.
+
+### Fixed
+
+- The description of getting a report now says that the call may create an empty preset for the calling user if none exists. It was described as read-only. Nothing in how it behaves has changed.
+
 ## 28.0.2 — 25 October 2026
 
 ### Changed
