@@ -12,3 +12,7 @@ sýnir öll uppsett Bifröst-forrit og hvort þau megi senda HTTP-beiðnir út �
 | **HTTP-biðlarabeiðnir** | Hvort HTTP út á við er virkt fyrir forritið. Flest Bifröst-forrit þurfa það - Bifröst Foundation þarf það til að ná sambandi við leyfisþjónustuna. |
 
 Notaðu **Virkja HTTP fyrir öll forrit** í skrefinu til að virkja það fyrir öll forritin á listanum.
+
+## Uppfærslur Bifröst-forrita
+
+Listinn **Uppfærslur Bifröst-forrita** opnast úr tilkynningunni um að nýrri útgáfa af uppsettu Bifröst-forriti sé á AppSource. Hann sýnir hvert forrit sem hefur uppfærslu, með reitunum **Uppsett útgáfa**, **Nýjasta útgáfa** og **Útgáfudagur**, tengli í **Slóð útgáfuupplýsinga** og reitnum **Síðast athugað**, sem segir hvenær upplýsingarnar voru síðast sóttar. Stjórnendur sjá hann í skýjaumhverfi. Listinn setur ekkert upp og uppfærir ekkert.

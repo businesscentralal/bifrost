@@ -9,6 +9,8 @@ language models, the tools the assistant can call, and the API keys.
 
 The page only shows status. Each value is maintained on the page it links to.
 
+This page is also the help for the Language Models setup wizard.
+
 ## Language Models
 
 A language model connects the chat to a provider (Copilot, OpenAI, Azure OpenAI, a custom LLM, Anthropic,
@@ -44,19 +46,20 @@ a shared key for the whole company and a personal key for each user.
 | --- | --- |
 | **Language Models** | Opens the [language model list](/help/language-models/bifrost-lang-model-list/). |
 | **API Keys** | Opens [Bifrost App Secrets](/help/foundation/bifrost-app-secrets/) filtered to Bifrost Language Models: every key of every language model and whether a value has been entered. The value itself is never shown. |
-| **Setup Wizard** | Opens the [Bifrost setup wizard](/help/foundation/bifrost-setup-wizard/), which allows every Bifröst app to reach the internet and walks through the credentials of every app. |
+| **Setup Wizard** | Opens the Language Models setup wizard, *Set up Bifrost Language Models*. See [Set up with the wizard](/language-models/#set-up-with-the-wizard). |
+| **Bifrost Setup Wizard** | Opens the [Bifrost setup wizard](/help/foundation/bifrost-setup-wizard/), which allows every Bifröst app to reach the internet and walks through the credentials of every app. |
 
 ## Reaching the providers
 
 OpenAI, Azure OpenAI, Custom LLM, Anthropic, xAI and Google Gemini are reached over the internet, so the
-app must be allowed to make HTTP requests. Copilot does not need it. The Bifrost setup wizard allows it
+app must be allowed to make HTTP requests. Copilot does not need it. The Bifrost Setup Wizard allows it
 for every installed Bifröst app at once. Until then, **Bifrost Setup** shows a notification with the
 action **Start setup wizard**, and a chat with one of those providers fails with a message that HTTP
 requests are not allowed for the extension.
 
 ## Getting started
 
-1. On **Bifrost Setup**, choose **Setup Wizard** if you have not run it since installing the app.
+1. On **Bifrost Setup**, choose **Bifrost Setup Wizard** if you have not run it since installing the app.
 2. Open **Bifrost Language Models Setup** and choose **Language Models**. Create a language model with a
    chat provider and a skill, or choose **Init Copilot Defaults** for a ready Copilot model.
 3. On the model card, enter the shared API key, or let each user enter a personal key.

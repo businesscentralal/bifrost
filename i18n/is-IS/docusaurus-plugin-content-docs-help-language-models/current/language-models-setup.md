@@ -9,6 +9,8 @@ staðar: mállíkön, verkfærin sem aðstoðarmaðurinn getur kallað á og API
 
 Síðan sýnir aðeins stöðu. Hverju gildi er viðhaldið á síðunni sem hún vísar á.
 
+Þessi síða er líka hjálp uppsetningarleiðsagnar mállíkana.
+
 ## Mállíkön {#language-models}
 
 Mállíkan tengir spjallið við veitu (Copilot, OpenAI, Azure OpenAI, sérsniðið LLM, Anthropic, xAI eða
@@ -44,7 +46,8 @@ mállíkan hefur sameiginlegan lykil fyrir allt fyrirtækið og persónulegan ly
 | --- | --- |
 | **Mállíkön** | Opnar [lista yfir mállíkön](/help/language-models/bifrost-lang-model-list/). |
 | **API-lyklar** | Opnar [Leyndarmál forrita Bifröst](/help/foundation/bifrost-app-secrets/), síað á Bifröst mállíkön: alla lykla allra mállíkana og hvort gildi hafi verið skráð. Gildið sjálft er aldrei sýnt. |
-| **Uppsetningarleiðsögn** | Opnar [uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/), sem leyfir öllum Bifröst-forritum að ná út á netið og fer yfir auðkenni hvers forrits. |
+| **Uppsetningarleiðsögn** | Opnar uppsetningarleiðsögn mállíkana, *Setja upp Bifröst mállíkön*. Sjá [Uppsetning með leiðsögn](/language-models/#set-up-with-the-wizard). |
+| **Uppsetningarleiðsögn Bifröst** | Opnar [uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/), sem leyfir öllum Bifröst-forritum að ná út á netið og fer yfir auðkenni hvers forrits. |
 
 ## Samband við veiturnar {#reaching-the-providers}
 
@@ -56,7 +59,7 @@ að HTTP-beiðnir séu ekki leyfðar fyrir viðbótina.
 
 ## Fyrstu skref {#getting-started}
 
-1. Á **Uppsetning Bifröst** skaltu velja **Uppsetningarleiðsögn** ef hún hefur ekki verið keyrð síðan
+1. Á **Uppsetning Bifröst** skaltu velja **Uppsetningarleiðsögn Bifröst** ef hún hefur ekki verið keyrð síðan
    forritið var sett upp.
 2. Opnaðu **Uppsetning Bifröst mállíkana** og veldu **Mállíkön**. Búðu til mállíkan með spjallveitanda
    og hæfni, eða veldu **Frumstilla Copilot sjálfgildi** til að fá tilbúið Copilot-líkan.
