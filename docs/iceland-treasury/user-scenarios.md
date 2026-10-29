@@ -14,7 +14,8 @@ one bank and an AI assistant connected to Bifröst. See "Test Credentials" and "
 
 ## Test Credentials
 
-This extension calls the web services of Arion banki, Íslandsbanki, Kvika banki and Landsbankinn.
+This extension calls the web services of Arion banki, Íslandsbanki, Kvika banki, Landsbankinn and the
+savings banks (Sparisjóðir), and of the claim collection agencies Gjaldskil and InKasso.
 
 **Provide:** Origo supplies, with the submission, a user name, password, client certificate (`.pfx`) and
 certificate password for one bank, and the account number of a test account at that bank. They are
@@ -52,7 +53,7 @@ Log**, with the passwords masked.
 
 ### Expected Results
 - The extension installs without errors
-- "Bifrost Iceland Treasury Setup" opens with one row each for "Landsbankinn", "Arion banki", "Íslandsbanki" and "Kvika banki"
+- "Bifrost Iceland Treasury Setup" opens with one row each for "Landsbankinn", "Arion banki", "Íslandsbanki", "Kvika banki", "Sparisjóðir", "Gjaldskil" and "InKasso"
 - Each row is enabled and shows "Missing" under "Secrets"
 
 ---
@@ -69,11 +70,11 @@ Log**, with the passwords masked.
 2. Start "Set up Bifrost Iceland Treasury banks"
 3. Choose "Next" on the welcome step
 4. Choose "Next" to the "Arion banki" step (the second bank step, after "Landsbankinn") and enter a user name in "Username"
-5. Choose "Next" until the "Kvika banki" step, then choose "Finish"
+5. Choose "Next" until the "InKasso" step, then choose "Finish"
 6. Open "Bifrost Iceland Treasury Setup" again
 
 ### Expected Results
-- The guide shows one step per bank, each with "Enabled", "Username", "Company Password" and "Certificate"; only the Landsbankinn step shows "API Key"
+- The guide shows one step per bank and claim collection agency, each with "Enabled", "Username" and "Company Password"; every bank step also shows "Certificate", the "Gjaldskil" and "InKasso" steps do not, and only the Landsbankinn step shows "API Key"
 - "Company Password" and "Certificate" show "Not stored"
 - After "Finish", the guide is marked as completed in "Assisted Setup"
 - The Arion banki row shows the user name entered in step 4

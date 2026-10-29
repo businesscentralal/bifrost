@@ -73,7 +73,7 @@ https://docs.bifrost.origo.is/en-us/licensing/eula/
 
 **Bifrost Iceland Treasury** supports the treasury process of Icelandic companies in Business Central,
 for your assistant, your integrations and your routines. It connects Business Central to the web services
-of Icelandic banks and payment providers, and works the same way for each.
+of Icelandic banks, claim collection agencies and payment providers, and works the same way for each.
 
 ### What it does
 
@@ -114,6 +114,6 @@ Business Central permissions and is logged in the company.
 
 - Microsoft Dynamics 365 Business Central 28.0 or later (Essentials or Premium), for companies in Iceland
 - Bifrost Foundation (available separately on AppSource)
-- An agreement with each bank or payment provider for its web services, with the credentials and client
-  certificate it issues
+- An agreement with each bank, claim collection agency or payment provider for its web services, with
+  the credentials and, where it requires one, the client certificate it issues
 - For the price, contact your Business Central partner

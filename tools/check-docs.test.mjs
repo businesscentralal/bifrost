@@ -13,7 +13,6 @@ const protectedNames = [
   'a6ad3891ba67c714', '63874763be005259',
   '2756636f5ac88609', '90a45c6dcbb66d38',
   '9a91356d3b648e62',
-  'f2c71ad61fb6e8f3', '05784eee5264940d',
 ];
 const protectedRoutes = [
   '3930e671c9e40dee',
@@ -77,15 +76,15 @@ test('Iceland overview and actual context-help routes are permitted in both lang
   }
 });
 
-test('published Iceland Treasury names and routes are allowed, withdrawn banks are not', () => {
+test('published Iceland Treasury names and routes are allowed, including its banks and agencies', () => {
   assert.equal(check('Bifröst Iceland Treasury connects Kvika banki. [Kvika banki](/iceland-treasury/banks/kvika/)', 'docs/iceland-treasury/fixture.md').status, 0, 'Kvika banki');
   for (const file of ['docs/iceland-treasury/fixture.md', 'help/iceland-treasury/treasury-setup.md',
     'i18n/is-IS/docusaurus-plugin-content-docs-iceland-treasury/current/fixture.md',
     'i18n/is-IS/docusaurus-plugin-content-docs-help-iceland-treasury/current/treasury-setup.md']) {
     assert.equal(check('Bifrost Iceland Treasury · Bifröst Ísland Fjárstýring · Iceland Treasury [Overview](/iceland-treasury/) [Setup](/help/iceland-treasury/treasury-setup/)', file).status, 0, file);
   }
-  for (const name of ['Sparisjóðir', 'Sparisjodir']) {
-    assert.notEqual(check(`Bifröst Iceland Treasury connects ${name}.`, 'docs/iceland-treasury/fixture.md').status, 0, name);
+  for (const name of ['Sparisjóðir', 'Sparisjodir', 'Gjaldskil', 'InKasso']) {
+    assert.equal(check(`Bifröst Iceland Treasury connects ${name}.`, 'docs/iceland-treasury/fixture.md').status, 0, name);
   }
 });
 

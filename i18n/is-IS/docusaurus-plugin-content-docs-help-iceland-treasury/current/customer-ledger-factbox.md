@@ -21,6 +21,7 @@ Reitirnir eru auðir þegar engin krafa innheimtir færsluna. Þeir eru aðeins 
 
 ## Gott að vita {#good-to-know}
 
+- Kröfur hjá innheimtufyrirtækjunum Gjaldskilum og InKasso birtast hér á sama hátt og kröfur í banka.
 - Krafa innheimtir færslu þegar færslan var tilgreind þegar krafan var stofnuð. Sama færsla er aldrei á
   tveimur virkum kröfum.
 - Þegar krafa er felld niður losna færslur hennar og ný krafa getur innheimt þær.

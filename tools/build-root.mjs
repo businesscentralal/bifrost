@@ -175,7 +175,7 @@ const appSections = [
   ['orchestrator', 'Bifröst Orchestrator — supervised scheduled jobs with restart and notifications, and playbooks that chain operations'],
   ['iceland', 'Bifröst Iceland — the national registry, VAT, payroll and capital income tax returns, central bank rates, Skilagrein, island.is lookups and SMS'],
   ['iceland-docex', 'Bifröst Iceland DocEx — send and receive Peppol e-invoices through Advania and Unimaze, incoming documents into purchase invoices or journal lines, delivery status and the Peppol code lists'],
-  ['iceland-treasury', 'Bifröst Iceland Treasury — Arion banki, Íslandsbanki and Landsbankinn: statements into bank reconciliation, payment batches for approval at the bank, foreign payments, claims and their payments, and tracking'],
+  ['iceland-treasury', 'Bifröst Iceland Treasury — Arion banki, Íslandsbanki, Kvika banki, Landsbankinn, the savings banks and the claim collection agencies Gjaldskil and InKasso: statements into bank reconciliation, payment batches for approval at the bank, foreign payments, claims and their payments, and tracking'],
   ['warehouse', 'Bifröst Warehouse — warehouse receipts, put-aways, picks and shipments, bin content and open warehouse activities'],
   ['foundation', 'Bifröst Foundation (the base app, always installed) — how Bifröst works, and the standard Business Central operations'],
 ];

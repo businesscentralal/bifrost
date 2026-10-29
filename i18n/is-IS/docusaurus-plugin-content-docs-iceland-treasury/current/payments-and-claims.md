@@ -16,19 +16,21 @@ bankans þar til hún er greidd, og hvar þú sérð hvert skref í Business Cen
 
 1. **Skráðu bunkann.** Aðstoðarmaður, samþætting eða tímasett keyrsla skráir bunkann í bankanum:
    reikninginn sem greitt er af og hverja greiðslu með viðtakanda, upphæð og tilvísun. Innlendir bunkar
-   (ISK) fara til Arion banka, Kviku banka eða Landsbankans, bunkar erlendra greiðslna til Arion banka,
+   (ISK) fara til Arion banka, Íslandsbanka, Kviku banka, Landsbankans eða sparisjóðs, bunkar erlendra greiðslna til Arion banka,
    Íslandsbanka eða Landsbankans.
    Bifröst fer yfir bunkann áður en kallað er á bankann: bunka með *STP* í heitinu er hafnað, og
    sömuleiðis framvirkri greiðsludagsetningu sem er liðin. Ef engin dagsetning er gefin er bunkinn fyrir
    daginn í dag.
-2. **Samþykktu og greiddu hann í bankanum.** Hjá Arion banka og Landsbankanum bíður bunkinn nú í
+2. **Samþykktu og greiddu hann í bankanum.** Hjá Arion banka, Íslandsbanka og Landsbankanum bíður bunkinn nú í
    netbanka bankans. Starfsmaður fyrirtækisins sem má samþykkja greiðslur þar samþykkir hann og bankinn
-   greiðir. Hjá Kviku banka fer það eftir heimildunum sem bankinn veitir vefþjónustunotandanum þínum
+   greiðir. Hjá Kviku banka og sparisjóðunum fer það eftir heimildunum sem bankinn veitir vefþjónustunotandanum þínum
    hvort hann bíður. Bifröst hvorki samþykkir né undirritar bunka. Byrjaðu heiti bunkans á `*` svo sá starfsmaður sjái hann: án
    þess sýnir netbankinn bunkann aðeins vefþjónustunotandanum sem skráði hann.
 3. **Fylgstu með niðurstöðunni.** Þegar niðurstaða bunkans er lesin í bankanum uppfærist staða hans í
    Business Central: bíður samþykktar, í vinnslu, lokið, lokið með villum, eytt. Greiðsla sem bankinn
    hafnaði sýnir villuna, og hægt er að skrá hafnaðar greiðslur aftur sem nýjan bunka.
+   Íslandsbanki hættir að svara fyrir innlendan bunka þegar hann hefur verið samþykktur; staða hans verður
+   **Óþekkt** og yfirlitið sýnir hvenær hann er greiddur.
 4. **Sjáðu að hún er greidd.** Greiðsla er greidd þegar yfirlit reikningsins sem greitt er af sýnir
    hana. Hvert yfirlit sem Bifröst les, og hver innflutningur í bankaafstemmingu, er borið saman við
    opnar greiðslur þess reiknings: samsvarandi úttekt merkir greiðsluna **Greidd**, með tilvísun
@@ -60,14 +62,16 @@ bankans þar til hún er greidd, og hvar þú sérð hvert skref í Business Cen
 
 ## Krafa frá upphafi til enda {#a-claim-start-to-finish}
 
-1. **Settu upp innheimtusamninginn.** Hver innheimtusamningur við banka er greiðslumáti á síðunni
-   **Greiðsluhættir** með kröfuauðkenni bankans og síðasta kröfunúmeri sem var notað. Sjá
+1. **Settu upp innheimtusamninginn.** Hver innheimtusamningur við banka eða innheimtufyrirtæki er
+   greiðslumáti á síðunni **Greiðsluhættir** með kröfuauðkenni hans og síðasta kröfunúmeri sem var notað. Sjá
    [Greiðsluhættir](/help/iceland-treasury/payment-methods/).
 2. **Stofnaðu kröfuna.** Aðstoðarmaður, samþætting eða tímasett keyrsla stofnar kröfuna í bankanum:
    greiðanda, upphæð, kröfudag og eindaga, og ef vill viðskiptamanninn, viðskiptamannafærslurnar sem hún
    innheimtir og greiðslumátann. Bifröst athugar viðskiptamanninn, færslurnar og greiðslumátann áður en
-   kallað er á bankann. Hjá Arion banka, Íslandsbanka og Kviku banka eru kröfur stofnaðar, þeim breytt og
-   þær felldar niður í bunkum: bankinn tekur fyrst við bunkanum og tilkynnir svo niðurstöðu hverrar kröfu. Hjá
+   kallað er á bankann. Hjá Arion banka, Íslandsbanka, Kviku banka og sparisjóðunum, og hjá
+   innheimtufyrirtækjunum Gjaldskilum og InKasso, eru kröfur stofnaðar, þeim breytt og þær felldar niður í
+   bunkum: bankinn eða innheimtufyrirtækið tekur fyrst við bunkanum og tilkynnir svo niðurstöðu hverrar
+   kröfu. Hjá
    Landsbankanum er krafa stofnuð undir einu af kröfusniðmátum þínum og staðfest strax.
 3. **Fylgstu með henni.** Krafan og færslur hennar eru geymdar í Business Central, og viðskiptamannafærslan
    sýnir kröfureikning, kröfudag og stöðu kröfunnar í upplýsingareit sínum. Þegar kröfunni er breytt eða
@@ -78,11 +82,14 @@ bankans þar til hún er greidd, og hvar þú sérð hvert skref í Business Cen
    niðurfellda kröfu aftur upp sem opna, til dæmis af því að hún var endurvakin í netbankanum, opnast
    krafan aftur.
 
+Innheimtufyrirtæki fer eins með kröfur og banki, og kröfur þess birtast á sömu síðum, með
+innheimtufyrirtækið sem banka.
+
 ### Hvar þú sérð það {#where-you-see-it-1}
 
 - [Kröfur í banka](/help/iceland-treasury/bank-claims/): hver krafa, með færslum hennar og greiðslum.
 - [Kröfubunkar í banka](/help/iceland-treasury/bank-claim-batches/): hver bunki krafna sem sendur var til banka.
-- [Greiðslur krafna í banka](/help/iceland-treasury/bank-claim-payments/): hver greiðsla sem bankarnir tilkynntu.
+- [Greiðslur krafna í banka](/help/iceland-treasury/bank-claim-payments/): hver greiðsla sem bankarnir og innheimtufyrirtækin tilkynntu.
 - Upplýsingareiturinn [Upplýsingar um viðskiptamannafærslu](/help/iceland-treasury/customer-ledger-factbox/).
 
 ## Bókun {#posting}
@@ -96,5 +103,7 @@ eins og þú gerir í dag. Bankareikningurinn sem hver bunki er greiddur af, og 
 ## Næstu skref {#next-steps}
 
 - Síður bankanna: [Arion banki](/iceland-treasury/banks/arion/) · [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) ·
-  [Kvika banki](/iceland-treasury/banks/kvika/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/)
+  [Kvika banki](/iceland-treasury/banks/kvika/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/) ·
+  [Sparisjóðir](/iceland-treasury/banks/sparisjodir/)
+- Innheimtufyrirtækin: [Gjaldskil](/iceland-treasury/agencies/gjaldskil/) · [InKasso](/iceland-treasury/agencies/inkasso/)
 - [Heimildasamstæður](/iceland-treasury/#permissions) fyrir greiðslur og kröfur

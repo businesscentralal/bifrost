@@ -3,11 +3,12 @@ id: bank-claim-batches
 title: "Kröfubunkar í banka"
 ---
 
-**Kröfubunkar í banka** sýnir hvern kröfubunka sem Bifröst sendi til banka til að stofna, breyta eða fella
+**Kröfubunkar í banka** sýnir hvern kröfubunka sem Bifröst sendi til banka eða innheimtufyrirtækis til að stofna, breyta eða fella
 niður kröfur, með stöðunni sem bankinn gaf síðast upp. Síðan er fyrir bókarann sem fylgir eftir kröfum
 sem eru sendar í bunkum.
 
-Hjá Arion banka, Íslandsbanka og Kviku banka eru kröfur stofnaðar, þeim breytt og þær felldar niður í bunkum. Bankinn
+Hjá Arion banka, Íslandsbanka, Kviku banka og sparisjóðunum, og hjá innheimtufyrirtækjunum Gjaldskilum og
+InKasso, eru kröfur stofnaðar, þeim breytt og þær felldar niður í bunkum. Bankinn eða innheimtufyrirtækið
 tekur fyrst við bunkanum og tilkynnir svo niðurstöðu hverrar kröfu þegar niðurstaða bunkans er lesin.
 
 Opnaðu hana með aðgerðinni **Kröfubunkar í banka** í
@@ -18,7 +19,7 @@ lestrar og Bifröst skrifar hana.
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Banki** | Bankinn sem bunkinn var sendur til. |
+| **Banki** | Bankinn eða innheimtufyrirtækið sem bunkinn var sendur til. |
 | **Aðgerð** | **Stofna**, **Breyta** eða **Fella niður**. |
 | **Aðgerðarauðkenni** | Auðkenni bunkans í bankanum, notað til að lesa niðurstöðu hans. |
 | **Staða pakka** | **Í vinnslu**, **Lokið**, **Lokið með villum**, **Ekki staðfest**, **Hætt við** eða **Í bið**. |

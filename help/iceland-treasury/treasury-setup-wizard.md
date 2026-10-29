@@ -4,7 +4,7 @@ title: "Bifrost Iceland Treasury - Bank Setup"
 ---
 
 **Bifrost Iceland Treasury - Bank Setup** is the assisted setup that connects Business Central to the
-Icelandic banks, one bank at a time. It is for the administrator who sets the app up, and needs
+Icelandic banks and the claim collection agencies Gjaldskil and InKasso, one at a time. It is for the administrator who sets the app up, and needs
 `BIFROST TAdmin ori`.
 
 Start it from **Assisted Setup**, where it is listed as **Set up Bifrost Iceland Treasury banks**. You can
@@ -19,21 +19,22 @@ allowed.
 
 **Welcome.** Says what the guide covers and reminds you to allow outgoing HTTP requests first.
 
-**One step per bank.** Landsbankinn, Arion banki, Íslandsbanki and Kvika banki, each with the same fields:
+**One step per bank or agency.** Landsbankinn, Arion banki, Íslandsbanki, Kvika banki, Sparisjóðir,
+Gjaldskil and InKasso, each with the same fields:
 
 | Field | Description |
 | --- | --- |
-| **Bank** | The bank this step sets up. |
+| **Bank** | The bank or claim collection agency this step sets up. |
 | **Enabled** | Leave it on for a bank you use; turn it off for one you do not. |
 | **Username** | The company's user name at the bank. |
 | **Company Password** | **Stored** or **Not stored**. Use **Set Company Password** to enter it. |
-| **Certificate** | **Stored** or **Not stored**. Use **Set Certificate** to upload the `.pfx` file and enter its password. |
+| **Certificate** | Banks only, not Gjaldskil and InKasso. **Stored** or **Not stored**. Use **Set Certificate** to upload the `.pfx` file and enter its password. |
 | **API Key** | Landsbankinn only. **Stored** or **Not stored**. Use **Set API Key** to enter it. |
 
 Each action opens a masked dialog that names the bank and the secret. A certificate is opened with its
 password before either is stored, so a wrong password is caught at once.
 
-**Finish.** On the last bank, **Finish** saves the bank you were on, marks the assisted setup as done
+**Finish.** On the last step, **Finish** saves the bank you were on, marks the assisted setup as done
 and closes the guide.
 
 ## After the guide

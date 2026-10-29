@@ -21,6 +21,8 @@ The fields are blank when no claim collects the entry. They are read-only.
 
 ## Good to know
 
+- Claims at the claim collection agencies Gjaldskil and InKasso show here in the same way as claims at a
+  bank.
 - A claim collects an entry when the entry was named when the claim was created. The same entry is never
   on two live claims.
 - When a claim is cancelled, its entries are released and can be collected by a new claim.

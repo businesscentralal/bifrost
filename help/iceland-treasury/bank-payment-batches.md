@@ -21,7 +21,7 @@ payment. The newest batch is at the top.
 | **Kind** | **Domestic** or **Foreign**. |
 | **Name of Batch** | The batch name sent to the bank. |
 | **Visible to All Users** | Whether the name starts with `*`, so every user of the company's online bank sees the batch, not only the web service user. |
-| **Status** | The batch's status at the bank, for example **Registered**, **Awaiting Approval**, **In Progress**, **Completed**, **Completed with Errors**, **Cancelled** or **Rejected**. **Draft (Not Confirmed)** is a foreign batch registered but not yet confirmed. |
+| **Status** | The batch's status at the bank, for example **Registered**, **Awaiting Approval**, **In Progress**, **Completed**, **Completed with Errors**, **Cancelled** or **Rejected**. **Draft (Not Confirmed)** is a foreign batch registered but not yet confirmed. **Unknown** is a batch the bank no longer lets Bifröst read (an Íslandsbanki domestic batch after it was approved); the statement of the out account shows when its payments are paid. |
 | **Line Count**, **Total Amount**, **Currency Code** | The number of payments and their total. |
 | **Out Account** | The account the batch is paid from. |
 | **Date of Forward Payment** | The day the bank pays the batch once it is approved. |

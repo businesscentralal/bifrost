@@ -25,14 +25,18 @@ Type or paste the value and choose **OK**. **Cancel** stores nothing.
 
 | Secret | Kept for | Used by |
 | --- | --- | --- |
-| **Company Password** | The company | Every bank |
-| **User Password** | One user | Every bank, when the user has their own login |
-| **Certificate** and **Certificate Password** | The company | Every bank, to sign requests |
+| **Company Password** | The company | Every bank and claim collection agency |
+| **User Password** | One user | Every bank and claim collection agency, when the user has their own login |
+| **Certificate** and **Certificate Password** | The company | Every bank, to sign requests. Gjaldskil and InKasso use none. |
 | **API Key** | The company | Landsbankinn |
 | **User API Key** | One user | Landsbankinn, instead of the company's API key |
 
 The certificate is a `.pfx` file. **Set Certificate** uploads it and asks for its password; the
 certificate is opened with the password before either is stored.
+
+The claim collection agencies Gjaldskil and InKasso need only a user name and a password: each request
+carries them over an encrypted (HTTPS) connection. Their **Secrets** shows **Complete** as soon as the
+company password is stored.
 
 ## Where they are kept
 

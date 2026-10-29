@@ -3,20 +3,21 @@ id: bank-claim-payments
 title: "Greiðslur krafna í banka"
 ---
 
-**Greiðslur krafna í banka** sýnir hverja greiðslu kröfu sem banki gaf upp, með kröfunni sem hún greiðir
+**Greiðslur krafna í banka** sýnir hverja greiðslu kröfu sem banki eða innheimtufyrirtæki gaf upp, með kröfunni sem hún greiðir
 og bankareikningnum sem féð barst inn á. Síðan er fyrir bókarann sem parar greiðslur viðskiptamanna.
 
 Opnaðu hana með aðgerðinni **Greiðslur krafna í banka** í
 [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/). Sömu greiðslur birtast
 fyrir eina kröfu undir **Greiðslur kröfu** á síðunni [Kröfur í banka](/help/iceland-treasury/bank-claims/). Síðan
 er aðeins til lestrar: Bifröst skráir hverja greiðslu einu sinni, þegar greiðslur krafna eru lesnar í
-bankanum.
+bankanum. Samþætting eða aðstoðarmaður getur uppfært reiti skráðrar greiðslu, til dæmis bókunarupplýsingar,
+þegar notandinn hefur heimildasamstæðuna `BIFROST TClmPmt ori`.
 
 ## Reitir {#fields}
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Banki** | Bankinn sem gaf greiðsluna upp. |
+| **Banki** | Bankinn eða innheimtufyrirtækið sem gaf greiðsluna upp. |
 | **Bókunardagur** | Dagurinn sem bankinn bókaði greiðsluna. |
 | **Kröfureikningur**, **Kröfudagur** | Krafan sem greiðslan er fyrir. |
 | **Viðskiptamannanúmer** | Viðskiptamaður kröfunnar. |

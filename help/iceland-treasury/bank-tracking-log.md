@@ -16,7 +16,7 @@ The log is read-only and written by Bifröst. A call the bank refused is not in 
 | Field | Description |
 | --- | --- |
 | **Logged At** | When the action ran. |
-| **Bank** | The bank. |
+| **Bank** | The bank or claim collection agency. |
 | **Area** | **Payment**, **Foreign Payment** or **Claim**. |
 | **Action** | What was done, for example **Register**, **Result**, **Create**, **Alter**, **Cancel**, **Query Payments**, **Reactivate** or **Statement Match**. |
 | **Payment Batch Status** | The status of the payment batch after the action. Blank for claims. |

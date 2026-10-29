@@ -4,7 +4,7 @@ title: "Payment Methods — claim collection"
 ---
 
 Bifröst Iceland Treasury adds claim collection fields to the **Payment Methods** page. A payment method
-with these fields stands for one collection agreement with a bank: the claims created with it are created under
+with these fields stands for one collection agreement with a bank or a claim collection agency: the claims created with it are created under
 that agreement. This page is for the accountant who sets up claim collection (*kröfur*).
 
 Open it by searching for **Payment Methods**.
@@ -13,15 +13,15 @@ Open it by searching for **Payment Methods**.
 
 | Field | Description |
 | --- | --- |
-| **Claim Identifier** | The claim identifier the bank assigned to the collection agreement. At Íslandsbanki this is the claim template code from the bank's online banking, and at Kvika banki the claim template code the bank gives you. |
+| **Claim Identifier** | The claim identifier the bank assigned to the collection agreement. At Íslandsbanki this is the claim template code from the bank's online banking; at Kvika banki, a savings bank, Gjaldskil and InKasso, the claim template code they give you. |
 | **Last Claim No.** | The last claim number used for this agreement. The next claim gets the following number. |
 
 The claimant's kennitala is not set here: it is read from **Registration No.** on **Company Information**.
 
 ## Setting them up
 
-1. Create one payment method for each collection agreement. Two agreements, at the same bank or at
-   different banks, need two payment methods.
+1. Create one payment method for each collection agreement. Two agreements, at the same bank or agency
+   or at different ones, need two payment methods.
 2. Enter the **Claim Identifier** from the agreement.
 3. Leave **Last Claim No.** empty for a new agreement. When you continue an existing numbering, enter the
    last number already used.
@@ -36,3 +36,6 @@ A payment method without a claim identifier is not used for claims; nothing else
   and in the [Customer Ledger Entry Details FactBox](/help/iceland-treasury/customer-ledger-factbox/).
 - At Landsbankinn the claim is also created under a claim template; see
   [Landsbankinn](/iceland-treasury/banks/landsbankinn/).
+- A claim at Gjaldskil must have a claim account that starts with the bank number `08`, and at InKasso
+  `09`; another bank number is refused before anything is sent. See
+  [Gjaldskil](/iceland-treasury/agencies/gjaldskil/) and [InKasso](/iceland-treasury/agencies/inkasso/).

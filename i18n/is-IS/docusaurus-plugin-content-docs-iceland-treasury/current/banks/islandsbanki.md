@@ -3,7 +3,7 @@ id: islandsbanki
 title: "Íslandsbanki"
 sidebar_label: "Íslandsbanki"
 sidebar_position: 2
-description: "Hvað Bifröst Ísland Fjárstýring gerir með Íslandsbanka: yfirlit í bankaafstemmingu, gengi, staðfesting reikninga, ógreiddir reikningar, bunkar erlendra greiðslna og kröfur."
+description: "Hvað Bifröst Ísland Fjárstýring gerir með Íslandsbanka: yfirlit í bankaafstemmingu, gengi, staðfesting reikninga, ógreiddir reikningar, bunkar innlendra og erlendra greiðslna og kröfur."
 ---
 
 # Íslandsbanki
@@ -19,6 +19,10 @@ við Íslandsbanka. Hún útskýrir hvað [Bifröst Ísland Fjárstýring](/icel
 - **Gengi.** Gengi bankans fyrir dagsetningu.
 - **Athugun reikninga.** Staðfestu að reikningur sé til áður en þú greiðir inn á hann, og listaðu
   ógreidda reikninga sem stílaðir eru á kennitölu.
+- **Innlendar greiðslur.** Skráðu bunka innlendra greiðslna (ISK), millifærslur og greiðslur krafna, í
+  greiðsluþjónustu Íslandsbanka sjálfs. Starfsmaður fyrirtækisins samþykkir og greiðir bunkann í
+  netbankanum. Fram að því geturðu villuprófað bunkann í bankanum og lesið niðurstöðu hans. Bankinn tekur
+  samtölu bunkans af úttektarreikningnum í einni úttekt.
 - **Erlendar greiðslur.** Skráðu bunka erlendra greiðslna til samþykktar í bankanum, með tölulykli
   Seðlabankans fyrir hverja greiðslu, fáðu tilboð bankans í bunka (gengi og kostnað) og fylgstu með stöðu
   hans. Bunki hefur einn greiðanda, fyrirtækið nema bunkinn tilgreini annan.
@@ -26,7 +30,11 @@ við Íslandsbanka. Hún útskýrir hvað [Bifröst Ísland Fjárstýring](/icel
   tilkynnir svo niðurstöðu hverrar kröfu. Flettu kröfu upp, listaðu kröfur fyrir tímabil, sjáðu
   greiðslur sem hafa borist inn á þær og endurvektu niðurfellda kröfu.
 
-Bifröst skráir ekki bunka innlendra greiðslna (ISK) í Íslandsbanka. Skráðu þá í netbanka bankans.
+Bifröst hvorki samþykkir né greiðir bunka. Heiti bunka má vera í mesta lagi 20 stafir og tilvísun
+millifærslu í mesta lagi 7: það eru mörk bankans, og farið er yfir þau áður en kallað er á bankann. Eftir
+að bunki hefur verið samþykktur leyfir bankinn vefþjónustunotandanum ekki lengur að lesa hann, svo staða
+hans í Business Central verður **Óþekkt**. Yfirlit úttektarreikningsins sýnir þá hvenær greiðslurnar eru
+greiddar.
 
 ## Hvað þú setur upp {#what-you-set-up}
 
@@ -54,7 +62,7 @@ Bifröst skráir ekki bunka innlendra greiðslna (ISK) í Íslandsbanka. Skráð
   [upphafsdagsetningu](/help/iceland-treasury/date-input-dialog/).
   [Innfærsla yfirlits — samantekt](/help/iceland-treasury/statement-import-summary/) sýnir síðan
   innfærðar línur og stöður, og varar við ef þær stemma ekki við bankann.
-- Bunkar erlendra greiðslna, kröfur, kröfubunkar og greiðslur krafna birtast á rakningarsíðunum sem
+- Bunkar innlendra og erlendra greiðslna, kröfur, kröfubunkar og greiðslur krafna birtast á rakningarsíðunum sem
   opnaðar eru úr **Bifröst Ísland Fjárstýring - uppsetning**; sjá
   [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/).
 - Upplýsingareiturinn **Upplýsingar um viðskiptamannafærslu** sýnir kröfuna sem innheimtir færsluna.

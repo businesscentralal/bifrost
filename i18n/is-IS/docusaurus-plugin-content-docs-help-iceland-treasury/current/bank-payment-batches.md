@@ -21,7 +21,7 @@ yfirlit sýnir greiðslu. Nýjasti bunkinn er efst.
 | **Tegund** | **Innlend** eða **Erlend**. |
 | **Heiti bunka** | Heitið sem sent var til bankans. |
 | **Sýnilegur öllum notendum** | Hvort heitið byrjar á `*`, svo allir notendur netbanka fyrirtækisins sjá bunkann, ekki aðeins vefþjónustunotandinn. |
-| **Staða** | Staða bunkans í bankanum, til dæmis **Skráður**, **Bíður samþykktar**, **Í vinnslu**, **Lokið**, **Lokið með villum**, **Eytt** eða **Hafnað**. **Óstaðfest** er erlendur bunki sem er skráður en ekki enn staðfestur. |
+| **Staða** | Staða bunkans í bankanum, til dæmis **Skráður**, **Bíður samþykktar**, **Í vinnslu**, **Lokið**, **Lokið með villum**, **Eytt** eða **Hafnað**. **Óstaðfest** er erlendur bunki sem er skráður en ekki enn staðfestur. **Óþekkt** er bunki sem bankinn leyfir Bifröst ekki lengur að lesa (innlendur bunki í Íslandsbanka eftir að hann var samþykktur); yfirlit úttektarreikningsins sýnir hvenær greiðslur hans eru greiddar. |
 | **Fjöldi greiðslna**, **Heildarupphæð**, **Gjaldmiðill** | Fjöldi greiðslna og samtala þeirra. |
 | **Úttektarreikningur** | Reikningurinn sem bunkinn er greiddur af. |
 | **Framvirk greiðsludagsetning** | Dagurinn sem bankinn greiðir bunkann þegar hann hefur verið samþykktur. |

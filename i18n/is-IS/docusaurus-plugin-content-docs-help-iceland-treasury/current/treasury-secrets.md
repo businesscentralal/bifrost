@@ -25,14 +25,18 @@ Sláðu inn eða límdu gildið og veldu **Í lagi**. **Hætta við** vistar ekk
 
 | Leyndarmál | Geymt fyrir | Notað af |
 | --- | --- | --- |
-| **Lykilorð fyrirtækis** | Fyrirtækið | Öllum bönkum |
-| **Lykilorð notanda** | Einn notanda | Öllum bönkum, þegar notandinn hefur eigin innskráningu |
-| **Skírteini** og **Lykilorð skírteinis** | Fyrirtækið | Öllum bönkum, til að undirrita beiðnir |
+| **Lykilorð fyrirtækis** | Fyrirtækið | Öllum bönkum og innheimtufyrirtækjum |
+| **Lykilorð notanda** | Einn notanda | Öllum bönkum og innheimtufyrirtækjum, þegar notandinn hefur eigin innskráningu |
+| **Skírteini** og **Lykilorð skírteinis** | Fyrirtækið | Öllum bönkum, til að undirrita beiðnir. Gjaldskil og InKasso nota ekkert. |
 | **API-lykill** | Fyrirtækið | Landsbankanum |
 | **API-lykill notanda** | Einn notanda | Landsbankanum, í stað API-lykils fyrirtækisins |
 
 Skírteinið er `.pfx`-skjal. **Skrá skírteini** hleður því upp og biður um lykilorð þess; skírteinið er
 opnað með lykilorðinu áður en nokkuð er vistað.
+
+Innheimtufyrirtækin Gjaldskil og InKasso þurfa aðeins notandanafn og lykilorð: hver beiðni ber þau yfir
+dulkóðaða tengingu (HTTPS). **Leyndarmál** þeirra sýnir **Fullskráð** um leið og lykilorð fyrirtækisins
+er vistað.
 
 ## Hvar þau eru geymd {#where-they-are-kept}
 

@@ -3,10 +3,10 @@ id: bank-user-setup
 title: "Bankaaðgangur notanda"
 ---
 
-Bifröst Ísland Fjárstýring bætir flokki fyrir hvern banka við síðuna
+Bifröst Ísland Fjárstýring bætir flokki fyrir hvern banka og innheimtufyrirtæki við síðuna
 [Ritill notandauppsetningar](/help/foundation/bifrost-user-setup-editor/) í **Uppsetning notanda Bifröst**.
-Þessi síða er fyrir notanda sem hefur eigin innskráningu í banka, og fyrir kerfisstjórann sem aðstoðar
-hann.
+Þessi síða er fyrir notanda sem hefur eigin innskráningu í banka, hjá Gjaldskilum eða hjá InKasso, og
+fyrir kerfisstjórann sem aðstoðar hann.
 
 Sjálfgefið notar hvert kall til banka notandanafn og lykilorð fyrirtækisins úr
 [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/). Þegar bankinn hefur
@@ -18,7 +18,7 @@ Opnaðu **Uppsetning notanda Bifröst** og svo þinn eigin notanda.
 
 | Reitur | Lýsing |
 | --- | --- |
-| **... notandanafn** | Þitt eigið notandanafn í bankanum, til dæmis **Arion banki notandanafn**. Hafðu það autt til að nota notandanafn fyrirtækisins. |
+| **... notandanafn** | Þitt eigið notandanafn í bankanum eða hjá innheimtufyrirtækinu, til dæmis **Arion banki notandanafn**. Hafðu það autt til að nota notandanafn fyrirtækisins. Flokkarnir **Gjaldskil** og **InKasso** virka eins. |
 | **Persónulegt lykilorð geymt** | Hvort þitt eigið lykilorð sé vistað. Gildið er aldrei sýnt. |
 | **Persónulegur API-lykill geymdur** | Aðeins Landsbankinn. Hvort þinn eigin API-lykill sé vistaður. |
 
@@ -26,8 +26,8 @@ Opnaðu **Uppsetning notanda Bifröst** og svo þinn eigin notanda.
 
 | Aðgerð | Lýsing |
 | --- | --- |
-| **Skrá ... lykilorðið mitt** | Opnar hulinn glugga og vistar þitt eigið lykilorð í þeim banka. |
-| **Eyða ... lykilorðinu mínu** | Fjarlægir vistað lykilorð þitt í þeim banka. |
+| **Skrá ... lykilorðið mitt** | Opnar hulinn glugga og vistar þitt eigið lykilorð í þeim banka eða hjá því innheimtufyrirtæki, til dæmis **Skrá lykilorðið mitt hjá Gjaldskilum**. |
+| **Eyða ... lykilorðinu mínu** | Fjarlægir vistað lykilorð þitt í þeim banka eða hjá því innheimtufyrirtæki, til dæmis **Eyða lykilorðinu mínu hjá InKasso**. |
 | **Skrá Landsbankinn API-lykilinn minn** | Vistar þinn eigin API-lykil í Landsbankanum. |
 | **Eyða Landsbankinn leyndarmálunum mínum** | Fjarlægir bæði lykilorð þitt og API-lykil þinn í Landsbankanum. |
 

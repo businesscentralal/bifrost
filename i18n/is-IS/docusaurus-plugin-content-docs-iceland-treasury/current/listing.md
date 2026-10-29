@@ -73,7 +73,7 @@ https://docs.bifrost.origo.is/is-is/licensing/eula/
 
 **Bifrost Iceland Treasury** styður fjárstýringu íslenskra fyrirtækja í Business Central, fyrir aðstoðina
 þína, samþættingar og tímasettar keyrslur. Forritið tengir Business Central við vefþjónustur íslenskra
-banka og greiðsluþjónustuveitenda og virkar eins fyrir þá alla.
+banka, innheimtufyrirtækja og greiðsluþjónustuveitenda og virkar eins fyrir þá alla.
 
 ### Hvað það gerir {#what-it-does}
 
@@ -118,6 +118,6 @@ með eigin heimildum notandans í Business Central og er skráð í fyrirtækinu
 - Microsoft Dynamics 365 Business Central 28.0 eða nýrra (Essentials eða Premium), fyrir fyrirtæki á
   Íslandi
 - Bifrost Foundation (fáanlegt sér á AppSource)
-- Samningur við hvern banka eða greiðsluþjónustuveitanda um vefþjónustur hans, með þeim aðgangsupplýsingum
-  og biðlaraskírteini sem hann gefur út
+- Samningur við hvern banka, innheimtufyrirtæki eða greiðsluþjónustuveitanda um vefþjónustur hans, með
+  þeim aðgangsupplýsingum, og biðlaraskírteini þar sem þess er krafist, sem hann gefur út
 - Hafðu samband við samstarfsaðilann þinn fyrir Business Central varðandi verð
