@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "apps": [
     {
       "appId": "7505e808-6e52-4b96-a328-82573391297a",
@@ -40,8 +40,8 @@
     {
       "appId": "47acac54-3873-496f-9e88-157f36413e89",
       "name": "Bifrost Warehouse",
-      "version": "28.3.1.40",
-      "released": "2026-10-25",
+      "version": "28.3.2.43",
+      "released": "2026-10-29",
       "releaseNotes": "https://docs.bifrost.origo.is/en-us/warehouse/release-notes"
     },
     {
