@@ -14,7 +14,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 
 ### Fixed
 
-- A customs duty calculation that is missing the tariff number or the currency code now returns a clear refusal that names the missing value, says what is expected and what to do next, in English and in Icelandic. Calculations that have all their values work as before.
+- When your AI assistant asks for a customs duty calculation without the tariff number or the currency code, it now gets a clear refusal that names the missing value, says what is expected and what to do next, in English and in Icelandic. Calculations that have all their values work as before.
 
 ## 28.1.1 — 24 October 2026
 
