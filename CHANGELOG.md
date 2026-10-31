@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- The App Updates help now describes the new-version notification for every Bifröst user on Bifrost Setup and the role center once per session, Show new versions, and the Release notes and Open in AppSource actions, in English and Icelandic.
+
 ### Fixed
 
 - The top navigation no longer overlaps on desktop screens: Foundation and the apps are now one Apps menu instead of a row of buttons, built from apps.ts so a new app appears there without a navbar change, and check:structure fails if app buttons come back on the bar. Same in English and Icelandic.
