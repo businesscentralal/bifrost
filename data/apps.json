@@ -180,8 +180,8 @@
       "appId": "54f038b6-4e7a-4e7d-bd95-a70587f27dd2",
       "name": "Bifrost Iceland Treasury",
       "publisher": "Origo",
-      "summary": "Work with Arion banki, Íslandsbanki, Kvika banki, Landsbankinn, the savings banks and the claim collection agencies Gjaldskil and InKasso from an assistant or integration: statements into bank reconciliation, payment batches for approval, claims and their payments.",
-      "summary_is": "Vinndu með Arion banka, Íslandsbanka, Kviku banka, Landsbankanum, sparisjóðunum og innheimtufyrirtækjunum Gjaldskilum og InKasso úr aðstoð eða samþættingu: yfirlit í bankaafstemmingu, greiðslubunkar til samþykktar, kröfur og greiðslur þeirra.",
+      "summary": "Work with Arion, Íslandsbanki, Kvika, Landsbankinn, savings banks, Gjaldskil and InKasso from an assistant or integration: statements to reconcile, payment batches to approve, claims and payments.",
+      "summary_is": "Vinndu með Arion, Íslandsbanka, Kviku, Landsbankanum, sparisjóðunum, Gjaldskilum og InKasso úr aðstoð eða samþættingu: yfirlit í bankaafstemmingu, greiðslubunkar til samþykktar, kröfur og greiðslur.",
       "domains": [
         "finance",
         "integration"
