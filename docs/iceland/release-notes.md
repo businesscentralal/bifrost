@@ -10,6 +10,12 @@ description: "What changed in each version of Bifröst Iceland published on Micr
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Iceland published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.1.2 — 31 October 2026
+
+### Fixed
+
+- When your AI assistant asks for a customs duty calculation without the tariff number or the currency code, it now gets a clear refusal that names the missing value, says what is expected and what to do next, in English and in Icelandic. Calculations that have all their values work as before.
+
 ## 28.1.1 — 24 October 2026
 
 ### Changed
