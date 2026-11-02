@@ -4,6 +4,9 @@
 
 ### Changed
 
+- Terms of Use, in English and Icelandic: the Service does not authorise, release or execute payments. It may record entries and prepare payment proposals, batches or files that an authorised person at the customer approves and releases outside the Service (new definition in clause 1, clause 2 and a new acceptable-use rule in clause 5).
+- Terms of Use, in English and Icelandic: the Service does not authorise, release or execute payments. It may record entries and prepare payment proposals, batches or files that an authorised person at the customer approves and releases outside the Service (new definition in clause 1, clause 2 and a new acceptable-use rule in clause 5).
+- Terms of Use, in English and Icelandic: the Service does not authorise, release or execute payments. It may record entries and prepare payment proposals, batches or files that an authorised person at the customer approves and releases outside the Service (new definition in clause 1, clause 2 and a new acceptable-use rule in clause 5).
 - Bifröst Iceland release notes for 28.1.2 (refusals for a customs calculation missing the tariff number or currency code), and the Apps page shows 28.1.2.103.
 
 ### Fixed
