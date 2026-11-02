@@ -51,6 +51,18 @@ If you are unsure, leave it out and ask the maintainers.
 
 - **Everything on the site** is written here: open a pull request.
 
+## When an app is released
+
+Update that app's existing row in `data/versions.json`. Do not add an app that is not already listed. This repository is public and the file only names released apps.
+
+```powershell
+node tools/update-released-version.mjs --app-json path\to\app.json --version 28.0.10.632 --released 2026-10-28
+```
+
+Use the `app.json` from the release the `version` names. The command copies `brief` and `description` exactly from that file and leaves every other app untouched. `schemaVersion` stays 1, because Foundation's update check only reads the existing keys.
+
+`.github/workflows/validate-apps.yml` runs `node tools/validate-apps.mjs` on changes under `data/`. That check fails when any entry is missing `brief` or `description`, or when either one is blank.
+
 ## Before you open a pull request
 
 ```powershell

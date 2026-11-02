@@ -258,7 +258,8 @@ for (const dir of [buildDir, path.join(buildDir, 'en-us'), ...(OFFER_ICELANDIC ?
 
 await writeFile(path.join(buildDir, 'apps.json'), await readFile(path.join(root, 'data', 'apps.json')));
 // versions.json: the latest AppSource version of each released app, read once a day by Bifrost Foundation
-// to tell administrators that an update is available. Updated by the AppSource release process.
+// to tell administrators that an update is available. Written by tools/update-released-version.mjs, which
+// also copies brief and description from the released app.json. schemaVersion stays 1.
 await writeFile(path.join(buildDir, 'versions.json'), await readFile(path.join(root, 'data', 'versions.json')));
 
 console.log(`build-root: wrote index.html, 404.html, llms.txt, apps.json and versions.json for ${site}` +
