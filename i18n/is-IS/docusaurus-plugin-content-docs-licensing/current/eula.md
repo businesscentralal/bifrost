@@ -45,11 +45,15 @@ Með því að fá aðgang að eða nota Þjónustuna, virkja hana fyrir Busines
 
 „Skjölun“ merkir lýsingar á aðgerðum, skilgreiningar á færibreytum og notkunarleiðbeiningar sem Origo birtir fyrir Þjónustuna.
 
+„Greiðslufærsla“ (e. Payment Transaction) merkir hvers kyns millifærslu fjármuna, rafmynta eða annarra fjáreigna, eða hverja aðra greiðslu eða fjármálafærslu, sem framkvæmd er fyrir hönd Viðskiptavinar eða þriðja aðila.
+
 ## 2. Þjónustan
 
 Origo gerir Þjónustuna aðgengilega Viðskiptavini svo að Heimilaðir notendur og Tengiforrit geti lesið gögn úr Business Central og framkvæmt aðgerðir í Business Central í gegnum staðlað viðmót. Þjónustan byggir á sóknarlíkani (e. consumer-pull): Tengiforritið sækir þau gögn og aðgerðir sem það þarfnast, á þeim hraða og í því magni sem það kýs.
 
 Þjónustan er tæknileg miðlunarleið. Origo á ekki frumkvæði að, stýrir ekki og sannreynir ekki efni þeirra beiðna sem sendar eru um Þjónustuna, fyrirmæli Heimilaðra notenda eða Tengiforrita, né þær breytingar sem af þeim leiða í Business Central. Slíkar beiðnir og fyrirmæli eru á vegum og á ábyrgð Viðskiptavinar.
+
+Þjónustan er hvorki hönnuð né ætluð til að heimila, samþykkja til framkvæmdar eða framkvæma Greiðslufærslur. Viðskiptavinur má nota Þjónustuna til að skrá bókhaldsfærslur í Business Central og til að útbúa greiðslutillögur, greiðslubunka eða greiðsluskrár, að því tilskildu að hver Greiðslufærsla sem af því leiðir sé samþykkt og send til framkvæmdar af til þess bærum einstaklingi á vegum Viðskiptavinar utan Þjónustunnar. Slík skráning og undirbúningur teljast ekki í sjálfu sér Greiðslufærsla.
 
 Þjónustan er veitt í því ástandi sem hún er („as is“) og eftir því sem hún er tiltæk („as available“). Skilmálarnir fela ekki sjálfir í sér neinar skuldbindingar um þjónustustig, tryggingu fyrir uppitíma, skyldu til stuðnings, verð eða greiðsluskilmála; um kaup á Bifröst-færslum og tengd gjöld fer samkvæmt sérstökum Viðskiptaskilmálum.
 
@@ -83,6 +87,7 @@ Viðskiptavinur skal einungis nota Þjónustuna í lögmætum innri tilgangi í 
 - reyna að fá aðgang að gögnum eða aðgerðum umfram þær heimildir sem auðkennið sem kallar á Þjónustuna hefur, eða fara fram hjá eða hafa áhrif á auðkenningu, aðgreiningu leigjenda, skráningu eða öryggisráðstafanir;
 - leggja óhóflegt eða ósanngjarnt álag á Þjónustuna, fara fram úr eða reyna að sniðganga notkunarheimildina, eða nota hana á þann hátt að það skerði heilleika, öryggi eða afköst hennar fyrir Origo eða aðra viðskiptavini;
 - bakþýða, afþýða eða reyna að leiða út frumkóða, uppbyggingu eða undirliggjandi líkön Þjónustunnar, nema að því marki sem ófrávíkjanleg lög banna slíka takmörkun;
+- heimila, samþykkja til framkvæmdar eða framkvæma Greiðslufærslu í gegnum Þjónustuna, eða stilla, útvíkka eða breyta Þjónustunni (þ.m.t. með því að búa til eigin skilaboðategundir, aðgerðir, Færni og afurðir eða virkni í Tengiforritum) á þann hátt að Greiðslufærslu megi, eða sé ætlað að megi, heimila, samþykkja til framkvæmdar eða framkvæma í gegnum Þjónustuna, eða sem sniðgengur þá kröfu að hver Greiðslufærsla skuli samþykkt og send til framkvæmdar af einstaklingi sem Viðskiptavinur hefur veitt umboð til þess utan Þjónustunnar;
 - afrita, endurselja, framselja undirleyfi að eða gera Þjónustuna aðgengilega þriðju aðilum nema það sé sérstaklega heimilað; eða
 - koma fyrir spillikóða eða nota Þjónustuna til að þróa samkeppnisþjónustu.
 

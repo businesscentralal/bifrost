@@ -39,11 +39,15 @@ These Terms refer to Origo and the Customer as the “Parties“, as applicable.
 
 “Documentation” means the operation descriptions, parameter definitions and usage guidance published by Origo for the Service.
 
+“Payment Transaction” means any transfer of money, cryptocurrency or other financial assets, or any other payment or financial transaction, made on behalf of the Customer or any third party.
+
 ## 2. The Service
 
 Origo makes the Service available to the Customer to allow Authorised Users and Consumer Applications to read Business Central data and perform operations in Business Central through a standardised interface. The Service operates on a consumer-pull model: the Consumer Application requests the data and operations it requires, at its own pace and volume.
 
 The Service is a technical conduit. Origo does not originate, control or verify the content of the requests made through the Service, the instructions given by Authorised Users or Consumer Applications, or the resulting changes made within Business Central. Such requests and instructions are made by, and under the responsibility of, the Customer.
+
+The Service is not designed or intended to authorise, release or execute any Payment Transaction. The Customer may use the Service to record accounting entries in Business Central and to prepare payment proposals, payment batches or payment files, provided that each resulting Payment Transaction is approved and released for execution by an authorised individual of the Customer outside the Service. Such recording and preparation shall not in themselves constitute a Payment Transaction.
 
 The Service is provided on an “as is” and “as available” basis. These Terms do not themselves set out any service-level commitment, availability guarantee, support obligation, pricing or payment terms; the purchase of Bifröst Transactions and any related fees are governed by separate Commercial Terms.
 
@@ -77,6 +81,7 @@ The Customer shall use the Service only for its lawful internal business purpose
 - attempt to access data or operations beyond the permissions held by the invoking identity, or circumvent or interfere with authentication, tenant isolation, logging or any security measure;
 - place an unreasonable or disproportionate load on the Service, exceed or attempt to circumvent the usage allowance, or use it in a manner that impairs its integrity, security or performance for Origo or other customers;
 - reverse engineer, decompile or attempt to derive the source code, structure or underlying models of the Service, except to the extent this restriction is prohibited by mandatory law;
+- authorise, release or execute any Payment Transaction through the Service, or configure, extend or modify the Service (including by creating custom message types, operations, Skills and Artifacts or Consumer Application functions) in a manner that enables, or is intended to enable, any Payment Transaction to be authorised, released or executed through the Service, or that circumvents the requirement that each Payment Transaction is to be approved and released by an individual authorised by the Customer outside the Service;
 - copy, resell, sublicense or make the Service available to third parties except as expressly permitted; or
 - introduce malicious code, or use the Service to develop a competing service.
 
