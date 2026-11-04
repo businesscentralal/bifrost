@@ -34,6 +34,10 @@ viðbótarforrit ofan á [Bifröst Foundation](/foundation/). Nýr í Bifröst? 
   valkostunum sem hún gefur eða með vistuðum forsendum beiðnisíðu, og vistað hana sem PDF, Excel, Word
   eða XML, með útliti sem er valið fyrir þá keyrslu eingöngu. Útlit skýrslna má telja upp, flytja út og
   flytja inn.
+- **Láttu mállíkan gefa úrskurð.** Þegar ekki er hægt að skrifa reglu sem síu getur athugunarskref
+  beðið mállíkan um úrskurð (stenst, stenst ekki eða óvíst) um hverja færslu og látið það fletta
+  upp gögnum. Það les eingöngu, og [Keðjuskref](/help/orchestrator/playbook-steps/#ask-a-language-model-for-a-verdict)
+  lýsa því hvernig það er sett upp.
 
 Keðjur geta kallað á aðgerðir allra uppsettra Bifröst-forrita, svo hvert forrit sem þú bætir við gefur
 föstu ferlunum þínum meira að vinna með. Aðstoðarmaður getur líka smíðað keðju með þér í samtali.
