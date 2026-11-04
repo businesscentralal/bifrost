@@ -57,7 +57,8 @@ Once the first answer works, let it do more. Each level builds on the one before
 | **Act, safely** | *"Release the newest open sales order and show me what posting it would do."* | A released order, and a posting preview. Nothing posted |
 | **Chain** | *"Which sales orders are past their shipment date? Group them by customer, with the amount outstanding."* | Several operations, one answer |
 
-Then try your own questions: the ones you would normally need a report for.
+Then try your own questions: the ones you would normally need a report for, or pick one by role in
+[What you can do with Bifröst](/try-it-out/use-cases/).
 
 Asking what it can do, in plain words:
 

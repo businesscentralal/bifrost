@@ -24,7 +24,8 @@ Central gerir. Þessi síða segir hvað það þýðir fyrir þig.
   eins og Claude gerir með **Allow once**: leyfðu það þegar þú þekkir beiðnina.
 - **Fyrsta spurning til að prófa:** *„Hver er ég í Business Central?"* Svarið ætti að vera þinn eigin notandi og þitt
   fyrirtæki. Ef fyrirtækið er rangt, biddu hann að skipta um fyrirtæki; ef notandinn er rangur, hættu og láttu
-  kerfisstjórann vita.
+  kerfisstjórann vita. Fleiri spurningar til að prófa, eftir hlutverki, eru í
+  [Hvað er hægt að gera með Bifröst](/try-it-out/use-cases/).
 
 ## Hvernig samtal lítur út {#what-a-conversation-looks-like}
 
