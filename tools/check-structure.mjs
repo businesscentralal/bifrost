@@ -130,7 +130,6 @@ for (const p of mdFiles('docs').filter((f) => !/price|licensing/.test(f.replace(
 
 // 6. One owner per fact: warn when an owned fact is written out on another page.
 const owned = [
-  {fact: 'sandbox rate-limit numbers', re: /\b(5,000|10,000|50,000|100,000)\b.*(24 hours|per day)/i, owner: 'docs/licensing/rate-limits.md'},
   {fact: 'trial size', re: /1,000 user messages and 1,000 app/i, owner: 'docs/setup/company/business-central.md'},
   {fact: 'the posting gate list', re: /BIFROST FA Post ori.*BIFROST Job Post ori/, owner: 'docs/documentation/administrators/permissions.md'},
   {fact: 'Field Access types None and Bypass', re: /\*\*Bypass\*\*/, owner: 'docs/documentation/administrators/data-access.md'},

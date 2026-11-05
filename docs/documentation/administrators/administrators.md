@@ -203,7 +203,6 @@ find a call, open **Bifrost Messages** and filter on the user and the time.
 | *Bifrost trial has not been started* | Online in production, the trial starts when the setup wizard is finished | Finish the setup wizard, or choose **Licensing › Sync**; see [Prepaid](/licensing/license-types/#prepaid) |
 | The allowance is used up | The user's or the company's monthly message quota is reached | Raise the quota, or wait for the next calendar month; see [Monthly quotas](/licensing/license-types/#monthly-quotas) |
 | Calls are refused, and the License pane shows no messages left | The prepaid messages are used up | Contact your Business Central partner; see [Prepaid](/licensing/license-types/#prepaid) |
-| In a sandbox, calls are refused after many calls in one day | The sandbox rate limit on the Bifröst MCP server | See [Rate limits](/licensing/rate-limits/) |
 | Answers carry a warning about the quota, or Bifrost Setup says the license quota is running low | A monthly quota or a prepaid pool is close to its end | Look at the License pane and **License Usage**; see [Monthly quotas](/licensing/license-types/#monthly-quotas) and [Prepaid](/licensing/license-types/#prepaid) |
 | Something was posted that should not have been, or a call failed with a technical error | - | Find the call on **Bifrost Messages**: the request, the answer and the caller. A failed call's answer says what went wrong |
 | The License pane looks out of date | - | **Licensing › Sync**, then **Licensing › Connection Status** |
