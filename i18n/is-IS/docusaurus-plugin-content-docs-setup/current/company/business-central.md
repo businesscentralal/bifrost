@@ -31,7 +31,7 @@ Leiðsögnin fer með þér í gegnum notendaleyfissamninginn, útleið HTTP fyr
 **Hvert fyrirtæki keyrir hana einu sinni: þar til henni er lokið hafnar Bifröst köllum fyrir það fyrirtæki.**
 
 Í framleiðsluumhverfi í skýinu virkjar leiðsögnin prufuleyfið þegar henni lýkur, hafi Microsoft Entra leigjandinn þinn
-ekki fengið það áður. Sandkassi þarf ekkert prufuleyfi. Í staðbundinni uppsetningu er tengingin við leyfisþjónustuna
+ekki fengið það áður. Í staðbundinni uppsetningu er tengingin við leyfisþjónustuna
 staðfest fyrst.
 
 Leiðsögnin er í sex skrefum. Skref 1, 2, 4 og 6 eru fyrir þig. Skref 3, auðkenni, birtist aðeins í staðbundinni

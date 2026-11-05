@@ -56,7 +56,6 @@ The page also lists the **Available Message Types** and, for licence administrat
 | | **Revoke EULA Approval** | Withdraws the licence agreement approval for this company; calls are refused until the wizard is run again. |
 | | **Connection Status** | Whether the licensing service can be reached, which connection secrets are available, whether an exhausted pool blocks messages, and the purchased and reported totals of the tenant. |
 | | **License Usage** | The usage entries of your tenant - see [Bifrost Usage Entries](/help/foundation/license-usage/). |
-| | **Configure Rate Limit** | Subscription tenants, production only. Raises the rate limit on sandbox usage through the public Bifröst MCP server - see [Configure Rate Limit](/help/foundation/rate-limit-configuration/). |
 | Connectors | **Anthropic Claude**, **Microsoft Copilot**, **OpenAI ChatGPT** | Open the Bifröst connector in each AI assistant's store. |
 | Memory | **Memory**, **User Memory** | Company- and user-scoped memory records. |
 | | **Bifrost Translations**, **Bifrost Integration** | Translations and the integration log. |

@@ -56,7 +56,6 @@ Síðan sýnir einnig **Tiltækar skilaboðategundir** og, fyrir leyfisstjóra u
 | | **Afturkalla samþykki notendaleyfissamnings** | Dregur samþykki leyfissamningsins til baka fyrir þetta fyrirtæki; köllum er hafnað þar til leiðsögnin hefur verið keyrð aftur. |
 | | **Tengingastaða** | Hvort náist í leyfisþjónustuna, hvaða tengingarleyndarmál eru aðgengileg, hvort uppurinn pottur loki á skilaboð, og keypt og skráð heildargildi leigjandans. |
 | | **Leyfisnotkun** | Notkunarfærslur leigjandans - sjá [Notkunarfærslur Bifröst](/help/foundation/license-usage/). |
-| | **Stilla álagsþak** | Leigjendur á áskriftarleyfi, aðeins í framleiðsluumhverfi. Hækkar álagsþakið á sandkassanotkun um opinbera Bifröst MCP-þjóninn - sjá [Stilla álagsþak](/help/foundation/rate-limit-configuration/). |
 | Tengingar | **Anthropic Claude**, **Microsoft Copilot**, **OpenAI ChatGPT** | Opna Bifröst-tenginguna í verslun hvers aðstoðarmanns. |
 | Minni | **Minni**, **Notandaminni** | Minnisfærslur fyrir fyrirtækið og fyrir notandann. |
 | | **Þýðingar Bifröst**, **Samþætting Bifröst** | Þýðingar og samþættingarskráin. |
