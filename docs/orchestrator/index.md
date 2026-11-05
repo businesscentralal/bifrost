@@ -33,6 +33,10 @@ app on [Bifröst Foundation](/foundation/). New to Bifröst? Start with
 - **Run reports on request.** An assistant or a playbook can find a report, run it with the options it
   gives or with your saved request page options, and save it as PDF, Excel, Word or XML, with a layout
   chosen for that run only. Report layouts can be listed, exported and imported.
+- **Let a language model give a verdict.** When a rule cannot be written as a filter, a Check step can ask
+  a language model for a verdict (pass, fail or unknown) on each record, and let it look data up. It is
+  read-only, and [Playbook Steps](/help/orchestrator/playbook-steps/#ask-a-language-model-for-a-verdict)
+  describes how to set it up.
 
 Playbooks can call the operations of every installed Bifröst app, so each app you add gives your
 routines more to work with. An assistant can also build a playbook with you in a conversation.
