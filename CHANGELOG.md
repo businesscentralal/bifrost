@@ -14,6 +14,7 @@
 
 ### Added
 
+- A use-case library under Try it out, *What you can do with Bifröst*: cases by role with filters, search, copyable prompts and a random pick, in English and Icelandic, with links from Try it out, Using Bifröst and the home page.
 - Bifröst Iceland Treasury: a page for Sparisjóðir, offered again, and a section for the claim collection agencies Gjaldskil and InKasso with a page each, in English and Icelandic. The app page, Payments and claims, the user scenarios, the listing copy and the help for setup, the setup guide, bank secrets, user credentials, Payment Methods, the claim pages, the tracking log and the customer ledger entry FactBox now name them where they apply. The documentation boundary check no longer blocks the Sparisjóðir name.
 - Bifröst Iceland Treasury: domestic (ISK) payment batches at Íslandsbanki, registered on the bank's own payment service and approved in the online bank, with the new batch status Unknown (Óþekkt) for a batch the bank no longer lets Bifröst read once it is approved. Bank Claim Payments notes that a user with `BIFROST TClmPmt ori` can update a registered claim payment through an integration. Same in English and Icelandic.
 - Help page for Find Apps on Bifrost Setup, which opens the Bifröst app registry on the web, and an App Updates section on the registered apps page, in English and Icelandic.
