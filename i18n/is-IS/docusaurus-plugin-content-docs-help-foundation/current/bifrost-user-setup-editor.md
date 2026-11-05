@@ -19,7 +19,7 @@ Business Central og eigin kerfisleiðbeiningar.
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Mánaðarlegur skilaboðakvóti notanda** | Hámarksfjöldi gjaldskyldra skilaboða sem notandinn má nota í almanaksmánuði, á hvorri leyfistegundinni sem er. `0` þýðir engin takmörk. Þegar kvótanum er náð er köllum notandans hafnað til næsta mánaðar. Ekki framfylgt í sandkassa. Telur öll skilaboð notandans í mánuðinum, hver sem gjaldfærslutegund þeirra er - sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/licensing/license-types/#how-monthly-quotas-are-counted). |
+| **Mánaðarlegur skilaboðakvóti notanda** | Hámarksfjöldi gjaldskyldra skilaboða sem notandinn má nota í almanaksmánuði, á hvorri leyfistegundinni sem er. `0` þýðir engin takmörk. Þegar kvótanum er náð er köllum notandans hafnað til næsta mánaðar. Telur öll skilaboð notandans í mánuðinum, hver sem gjaldfærslutegund þeirra er - sjá [Hvernig mánaðarlegu kvótarnir eru taldir](/licensing/license-types/#how-monthly-quotas-are-counted). |
 
 ## Tengdar færslur {#linked-records}
 

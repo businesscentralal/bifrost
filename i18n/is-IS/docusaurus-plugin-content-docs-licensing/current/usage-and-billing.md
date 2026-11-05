@@ -10,7 +10,7 @@ description: "Hver rukkar leigjandann þinn, hvernig notkun hans er tilkynnt og 
 | Tegund leyfis | Rukkað af | Byggir á |
 |---|---|---|
 | **Fyrirframgreitt** | Seljandi kvótans (spurðu Business Central samstarfsaðilann þinn) | Skilaboðakvótanum sem þú kaupir, fyrir hvern pott. |
-| **Áskrift** | **Samstarfsaðila** þínum hjá Bifröst | Skilaboðunum sem leigjandinn þinn notaði í mánuðinum, eftir [gjaldfærslutegund](./license-types.md#charge-types), auk þreps álagsþaks ofan við Frítt fyrir sandkassanotkun á opinbera MCP-þjóninum ef þú valdir slíkt - á því verði sem samið var um við samstarfsaðilann. |
+| **Áskrift** | **Samstarfsaðila** þínum hjá Bifröst | Skilaboðunum sem leigjandinn þinn notaði í mánuðinum, eftir [gjaldfærslutegund](./license-types.md#charge-types), á því verði sem samið var um við samstarfsaðilann. |
 
 ## Hvernig notkun er tilkynnt
 
@@ -18,7 +18,7 @@ Hvert fyrirtæki tilkynnir gjaldskyld skilaboð sín til leyfisþjónustunnar ei
 hvern dag og hverja gjaldfærslutegund, í bakgrunnsverki sem fyrsta gjaldskylda kall dagsins ræsir.
 **Samstilla** á Uppsetningu Bifröst tilkynnir öll óafgreidd skilaboð strax (nema skilaboð síðustu
 fimm mínútna). Þar til skilaboð hafa verið tilkynnt eru þau talin sem *ótilkynnt* í upplýsingareitnum
-Leyfi. Notkun úr sandkassaumhverfum er tilkynnt sérstaklega og er ekki rukkuð.
+Leyfi.
 
 Hver tilkynning bætir við nýjum notkunarfærslum; færslu er aldrei breytt eftir á. Dagur getur því
 haft nokkrar færslur af sömu gjaldfærslutegund - eina fyrir hverja tilkynningu - og notkun dagsins er
