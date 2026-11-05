@@ -4,6 +4,10 @@
  * referenced logo file exists on disk and is actually a 250x250 PNG, and that
  * every summary reads as prose rather than being empty/whitespace.
  *
+ * Also checks data/versions.json: schemaVersion stays 1, and every released
+ * entry has a non-empty brief and description (copied from that version's
+ * app.json by tools/update-released-version.mjs).
+ *
  * Run standalone:  node tools/validate-apps.mjs
  * Wired into CI:   .github/workflows/validate-apps.yml (runs this, then the
  *                   site build, on any PR/push touching data/** or
@@ -13,18 +17,25 @@ import {readFile, access} from 'node:fs/promises';
 import {constants} from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {spawnSync} from 'node:child_process';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
+import {releasedCopyErrors} from './lib/versions-file.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dataPath = path.join(root, 'data', 'apps.json');
 const schemaPath = path.join(root, 'data', 'apps.schema.json');
+const versionsPath = path.join(root, 'data', 'versions.json');
 
 /** Collects problems instead of throwing on the first one, so a PR sees every fix it needs at once. */
 const errors = [];
 const fail = (message) => errors.push(message);
 
-const [dataRaw, schemaRaw] = await Promise.all([readFile(dataPath, 'utf8'), readFile(schemaPath, 'utf8')]);
+const [dataRaw, schemaRaw, versionsRaw] = await Promise.all([
+  readFile(dataPath, 'utf8'),
+  readFile(schemaPath, 'utf8'),
+  readFile(versionsPath, 'utf8'),
+]);
 
 let data;
 try {
@@ -122,11 +133,30 @@ for (const app of apps) {
   }
 }
 
+// --- versions.json: brief and description on every released entry ----------------------
+// validate-apps.yml runs this script for data/**. The check lives here because
+// the workflow file itself is not edited.
+let versions;
+try {
+  versions = JSON.parse(versionsRaw);
+} catch (err) {
+  console.error(`data/versions.json is not valid JSON: ${err.message}`);
+  process.exit(1);
+}
+for (const message of releasedCopyErrors(versions)) fail(message);
+
+const versionTests = spawnSync(process.execPath, ['--test', path.join(root, 'tools/versions-file.test.mjs')], {encoding: 'utf8'});
+if (versionTests.status !== 0) {
+  fail(`versions-file tests failed:\n${versionTests.stdout}${versionTests.stderr}`);
+}
+
 // --- Report ------------------------------------------------------------------------------------
 if (errors.length > 0) {
-  console.error(`data/apps.json failed validation (${errors.length} issue${errors.length === 1 ? '' : 's'}):\n`);
+  console.error(`app catalogue failed validation (${errors.length} issue${errors.length === 1 ? '' : 's'}):\n`);
   for (const e of errors) console.error(`  - ${e}`);
   process.exit(1);
 }
 
+const released = Array.isArray(versions.apps) ? versions.apps.length : 0;
 console.log(`data/apps.json is valid — ${apps.length} app${apps.length === 1 ? '' : 's'} checked.`);
+console.log(`data/versions.json is valid — ${released} released entr${released === 1 ? 'y' : 'ies'} with brief and description; schemaVersion ${versions.schemaVersion}.`);
