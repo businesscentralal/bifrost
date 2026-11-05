@@ -136,7 +136,7 @@ Samþættingar fylla báðar; yfirleitt skoðarðu þær aðeins.
 
 Hvert Bifröst forrit bætir við eigin sviðum. Þegar það er uppsett bætir hvert þeirra aðgerð við flokkinn **Forrit** á
 Uppsetningu Bifröst, sem opnar eigin uppsetningarsíðu þess. **Forrit › Finna forrit** opnar
-[forritalistann](/apps/).
+listann Bifröst-forrit í Business Central, sem sýnir hver forrit eru uppsett og hvort nýrri útgáfa sé á AppSource; opinberi [forritalistinn](/apps/) er einnig á þessum vef.
 
 ![Flokkurinn Forrit](/img/guides/is-is/menu-apps.png)
 
