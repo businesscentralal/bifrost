@@ -19,9 +19,11 @@ Reiturinn **Yfirlit** efst á síðunni sýnir hvers viðskiptavinir eru á list
 
 | Reitur | Lýsing |
 | --- | --- |
+| **Gælunafn** | Heiti viðskiptavinarins. Ef reiturinn er tómur notar listinn nýjasta útfyllta heitið úr annarri skráningu sama leigjanda innan þess viðskiptavinasviðs sem þú hefur aðgang að, einnig úr skráningum sem eru ekki sýndar í listanum. Fyrirliggjandi heiti helst óbreytt; ef ekkert viðeigandi heiti finnst er reiturinn áfram tómur. Þetta breytir aðeins birtingunni. |
 | **Nafn fyrirtækis** | Fyrirtæki viðskiptavinarins. |
 | **Heiti umhverfis** | Business Central-umhverfi fyrirtækisins. |
-| **Samþykkt þann** / **Samþykkt af** | Hvenær og af hverjum viðskiptavinurinn samþykkti samstarfið við samstarfsaðilann. |
+| **Samþykkt þann** / **Samþykkt af** | Hvenær og af hverjum viðskiptavinurinn samþykkti samstarfið við samstarfsaðilann. Þetta er aðskilið frá samþykki notendaskilmála. |
+| **Notendaskilmálar samþykktir þann** / **Notendaskilmálar samþykktir af** | Hvenær og af hverjum fyrirtækið samþykkti notendaskilmálana. Þessir dálkar sýna ekki samþykki samstarfssambandsins. Upplýsingar sem vantar birtast sem tóm gildi; tímasetning sem ekki er hægt að lesa er einnig tóm. |
 | **Þrep álagsþaks** / **Álagsþak á dag** | Þrepið sem viðskiptavinurinn valdi og fjöldi skilaboða á 24 klukkustundum sem það leyfir fyrir sandkassanotkun viðskiptavinarins á opinbera Bifröst MCP-þjóninum. Frítt, 1.000 skilaboð, er sjálfgefið. Notkun í framleiðsluumhverfi ber ekkert álagsþak. |
 | **Yfir fría þrepinu** | Viðskiptavinurinn valdi þrep ofan við Frítt. |
 | **Notendaskilaboð frá byrjun mánaðar** / **Forritsskilaboð frá byrjun mánaðar** | Notenda- og forritsskráningarskilaboð sem notuð hafa verið í mánuðinum. |
