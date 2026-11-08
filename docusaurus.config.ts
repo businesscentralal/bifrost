@@ -125,6 +125,8 @@ const slugRenames: Array<{from: string; to: string}> = [
   // Licensing, Terms of Use and Privacy moved out of Foundation into their own section.
   {from: '/foundation/eula', to: '/licensing/eula'},
   {from: '/foundation/privacy', to: '/licensing/privacy'},
+  // The sandbox rate limit was withdrawn; its page is gone.
+  {from: '/licensing/rate-limits', to: '/licensing/license-types'},
   // The Guides overview page gave way to How it works, which leads to the page for each role.
   {from: '/documentation', to: '/documentation/how-it-works'},
 ];

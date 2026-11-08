@@ -3,7 +3,7 @@ id: customer-management
 title: "Bifrost Customer Management"
 ---
 
-**Bifrost Customer Management** lists the Customers of a Partner with their rate-limit tier and
+**Bifrost Customer Management** lists the Customers of a Partner with their
 month-to-date usage, and is where the Partner invites and cancels its customers. It opens from
 **Customer Management** on the [Bifrost Setup](/help/foundation/bifrost-setup/) page and requires the
 Partner role and licence administration permission.
@@ -24,8 +24,6 @@ The **View** field at the top shows whose customers are listed.
 | **Environment Name** | The Business Central environment of the company. |
 | **Approved At** / **Approved By** | When and by whom the customer accepted the Partner relationship. This is separate from accepting the End User License Agreement (EULA). |
 | **EULA Approved At** / **EULA Approved By** | When and by whom the company accepted the EULA. These columns do not indicate approval of the Partner relationship. Missing approval details are shown as empty values; an unreadable approval time is also empty. |
-| **Rate Limit Tier** / **Rate Limit Per Day** | The tier the customer chose and the messages per 24 hours it allows for the customer's sandbox usage on the public Bifröst MCP server. Free, 1,000 messages, is the default. Production usage is not rate-limited. |
-| **Above Free Tier** | The customer chose a tier above Free. |
 | **User Msgs MTD** / **App Msgs MTD** | User and App Registration messages used this month. |
 | **Internal Messages MTD** | Messages this month by people in this customer when it is your own tenant. Reported separately from customer usage. |
 | **Demo Messages MTD** | Messages this month by people in this customer when you marked it as a demo environment. Reported separately from customer usage. |
