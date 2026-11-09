@@ -59,7 +59,7 @@ Síðan sýnir einnig **Tiltækar skilaboðategundir** og, fyrir leyfisstjóra u
 | Tengingar | **Anthropic Claude**, **Microsoft Copilot**, **OpenAI ChatGPT** | Opna Bifröst-tenginguna í verslun hvers aðstoðarmanns. |
 | Minni | **Minni**, **Notandaminni** | Minnisfærslur fyrir fyrirtækið og fyrir notandann. |
 | | **Þýðingar Bifröst**, **Samþætting Bifröst** | Þýðingar og samþættingarskráin. |
-| Forrit | **Finna forrit** | Opnar forritaskrá Bifröst á vefnum, sem sýnir öll forrit sem byggja á Bifröst með stöðu á AppSource og tenglum; sjá [Bifröst-forrit](/help/foundation/bifrost-apps/). Uppsett Bifröst-forrit bæta eigin uppsetningaraðgerð við þennan flokk. |
+| Forrit | **Finna forrit** | Opnar listann Bifröst-forrit í Business Central, sem sýnir öll forrit sem byggja á Bifröst, hver þeirra eru uppsett, hvort nýrri útgáfa sé á AppSource og tengla á AppSource, skjölun og útgáfuupplýsingar; sjá [Bifröst-forrit](/help/foundation/bifrost-apps/). Uppsett Bifröst-forrit bæta eigin uppsetningaraðgerð við þennan flokk. |
 
 ## Ábendingar
 

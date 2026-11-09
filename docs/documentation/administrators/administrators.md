@@ -134,7 +134,7 @@ Both are filled by integrations; you normally only look at them.
 ## Other Bifröst apps
 
 Each Bifröst app adds capabilities of its own. Once installed, each adds an action to the
-**Apps** group on Bifrost Setup, which opens its own setup page. **Apps › Find Apps** opens the [list of apps](/apps/).
+**Apps** group on Bifrost Setup, which opens its own setup page. **Apps › Find Apps** opens the Bifröst Apps list in Business Central, which shows which apps are installed and whether a newer version is on AppSource; the public [list of apps](/apps/) is also on this site.
 
 ![The Apps group](/img/guides/en-us/menu-apps.png)
 
