@@ -136,8 +136,22 @@ notar mánaðarlegu kvótana.
 
 ## Sandkassaumhverfi {#sandbox-environments}
 
+<<<<<<< Updated upstream
 Í **sandkassa** Business Central online er notkun skráð og tilkynnt, aðskilin frá framleiðsluumhverfi.
 Spurðu Business Central samstarfsaðilann þinn hvernig leyfismálum Bifröst er háttað í sandkassaumhverfum.
+=======
+Í **sandkassa** Business Central online:
+
+- Bifröst hafnar ekki köllum vegna kvóta: pottum og mánaðarlegum kvóta er ekki framfylgt og ekkert
+  prufuleyfi þarf.
+- Notkun er samt skráð og tilkynnt.
+- Á opinbera Bifröst MCP-þjóninum ber sandkassanotkun álagsþak: 1.000 skilaboð á 24 klukkustundum á
+  hvern Microsoft Entra leigjanda (fría þrepið), nema viðskiptavinur á áskrift hafi valið hærra þrep.
+  Bifröst sjálft hefur engin skilaboðatakmörk.
+
+Fyrir ótakmarkaða sandkassanotkun skaltu keyra staðbundna MCP-þjóninn úr
+[businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
+>>>>>>> Stashed changes
 
 ## Uppsetningar á staðnum {#on-premises-installations}
 

@@ -130,8 +130,20 @@ Keep at least 31 days of Bifrost Messages if you use the monthly quotas.
 
 ## Sandbox environments
 
+<<<<<<< Updated upstream
 In a Business Central online **sandbox**, usage is recorded and reported, separately from production.
 Ask your Business Central partner how Bifröst is licensed in sandbox environments.
+=======
+In a Business Central online **sandbox**:
+
+- Bifröst does not block on quota: pools and monthly quotas are not enforced, and no trial is needed.
+- Usage is still recorded and reported.
+- On the Bifröst MCP server, sandbox usage is rate-limited per Microsoft Entra tenant; see
+  [Rate limits](./rate-limits.md). Bifröst itself has no message limit.
+
+For unlimited sandbox usage, run the Local MCP server from
+[businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
+>>>>>>> Stashed changes
 
 ## On-premises installations
 

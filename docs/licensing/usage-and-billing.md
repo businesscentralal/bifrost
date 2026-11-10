@@ -17,7 +17,12 @@ description: "Who invoices your tenant, how its usage is reported, and where you
 Every company reports its chargeable messages to the licensing service once a day, per day and
 charge type, in a background task started by the first chargeable call of the day. **Sync** on
 Bifrost Setup reports all pending messages immediately (except those of the last five minutes).
+<<<<<<< Updated upstream
 Until a message is reported, it is counted as *unreported* in the License fact box.
+=======
+Until a message is reported, it is counted as *unreported* in the License fact box. Usage from
+sandbox environments is reported.
+>>>>>>> Stashed changes
 
 Each report adds new usage entries; an entry is never changed afterwards. A day can therefore have
 several entries of the same charge type - one per report - and its usage is the sum of their

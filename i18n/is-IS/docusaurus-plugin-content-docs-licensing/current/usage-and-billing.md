@@ -18,7 +18,11 @@ Hvert fyrirtæki tilkynnir gjaldskyld skilaboð sín til leyfisþjónustunnar ei
 hvern dag og hverja gjaldfærslutegund, í bakgrunnsverki sem fyrsta gjaldskylda kall dagsins ræsir.
 **Samstilla** á Uppsetningu Bifröst tilkynnir öll óafgreidd skilaboð strax (nema skilaboð síðustu
 fimm mínútna). Þar til skilaboð hafa verið tilkynnt eru þau talin sem *ótilkynnt* í upplýsingareitnum
+<<<<<<< Updated upstream
 Leyfi.
+=======
+Leyfi. Notkun úr sandkassaumhverfum er tilkynnt.
+>>>>>>> Stashed changes
 
 Hver tilkynning bætir við nýjum notkunarfærslum; færslu er aldrei breytt eftir á. Dagur getur því
 haft nokkrar færslur af sömu gjaldfærslutegund - eina fyrir hverja tilkynningu - og notkun dagsins er
