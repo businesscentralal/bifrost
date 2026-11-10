@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-11-02",
+  "updated": "2026-11-09",
   "apps": [
     {
       "appId": "7505e808-6e52-4b96-a328-82573391297a",
       "name": "Bifrost Foundation",
-      "version": "28.0.10.632",
-      "released": "2026-10-28",
+      "version": "28.0.12.679",
+      "released": "2026-11-09",
       "releaseNotes": "https://docs.bifrost.origo.is/en-us/foundation/release-notes",
       "brief": "Bifrost bridge foundation for Business Central",
       "description": "Bifrost Foundation exposes Business Central through versioned message types over a CloudEvents-based API, enabling seamless integration and headless operation."

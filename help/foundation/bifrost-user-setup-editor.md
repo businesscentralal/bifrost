@@ -17,7 +17,7 @@ The **User Setup Editor** allows you to configure per-user settings for Bifröst
 
 | Field | Description |
 | --- | --- |
-| **User Monthly Message Quota** | The most chargeable messages this user may use in a calendar month, on either license type. `0` means no limit. When it is reached, the user's calls are refused until the next month. Not enforced in a sandbox. Counts every charge type of the user's messages in the month - see [How the monthly quotas are counted](/licensing/license-types/#how-monthly-quotas-are-counted). |
+| **User Monthly Message Quota** | The most chargeable messages this user may use in a calendar month, on either license type. `0` means no limit. When it is reached, the user's calls are refused until the next month. Counts every charge type of the user's messages in the month - see [How the monthly quotas are counted](/licensing/license-types/#how-monthly-quotas-are-counted). |
 
 ## Linked Records
 

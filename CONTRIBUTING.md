@@ -8,7 +8,7 @@ writes it.
 
 - what each app does, in Business Central terms;
 - setup, permissions and behaviour as administrators and users experience them;
-- licensing as customers experience it: license types, quotas, rate limits, their own usage, the
+- licensing as customers experience it: license types, quotas, their own usage, the
   Terms of Use and privacy;
 - one help page per Business Central page that opens help (no index pages).
 
