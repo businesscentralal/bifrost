@@ -46,5 +46,6 @@ export const crossAppInstances = [
   {id: 'try-it-out', title: 'Try it out'},
   {id: 'price', title: 'Price'},
   {id: 'licensing', title: 'Licensing'},
+  {id: 'faq', title: 'FAQ'},
   {id: 'apps', title: 'Apps'},
 ];
