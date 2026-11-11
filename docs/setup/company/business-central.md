@@ -31,7 +31,7 @@ credentials the apps need.
 **Every company runs it once: until it is finished, Bifröst refuses calls for that company.**
 
 Online in production, finishing the wizard activates the trial, if your Microsoft Entra tenant has
-not had one yet. A sandbox needs no trial. On-premises,
+not had one yet. On-premises,
 the connection to the licensing service is verified first.
 
 The wizard has six steps. Steps 1, 2, 4 and 6 are for you. Step 3, credentials, appears only

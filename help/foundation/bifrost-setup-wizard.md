@@ -39,7 +39,7 @@ Missing credentials are never an error here or on Bifrost Setup — a credential
 | Environment | What the step shows |
 | --- | --- |
 | **Production (online)** | The trial: **1,000 User + 1,000 App Registration messages**, activated once per Microsoft Entra tenant. **Finish** activates it if the tenant has no trial yet. On Prepaid, the step also explains how the Subscription license starts: when your Bifröst Partner invites the tenant as a Customer and you accept. |
-| **Sandbox** | **Sandbox Licensing**: no trial is needed and Bifröst itself does not limit messages; the public MCP server allows 1,000 messages per 24 hours per Microsoft Entra tenant. For unlimited sandbox testing, use the Local MCP server from [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp). |
+| **Sandbox** | **Sandbox Licensing**. See [Sandbox environments](/licensing/license-types/#sandbox-environments) for how a sandbox is licensed. |
 | **On-premises** | How to set up the Local MCP server next to your installation, and **Verify Connection** for the licensing-service connection Origo supplied with your on-premises licence. You cannot continue until the connection is verified. |
 
 See [Licensing](/licensing/) for the licence model.

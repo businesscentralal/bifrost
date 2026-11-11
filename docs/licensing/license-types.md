@@ -90,8 +90,6 @@ of a Partner.
 - **Blocking.** An exhausted pool refuses calls with the quota-exhausted error - unless the
   licensing agreement for the tenant says the pool should keep running, in which case calls
   continue, are still counted, and keep returning the warning.
-- **Rate limit.** Production usage is not rate-limited. Sandbox usage on the Bifröst MCP server
-  always has the Free tier. See [Rate limits](./rate-limits.md).
 
 ## Subscription
 
@@ -102,12 +100,8 @@ company of the tenant is on Subscription, including companies that start using B
 - **Invoicing.** The Partner invoices the Customer for the messages it used each month. There is no
   purchased quota: the pools are counted, not limited. The [monthly quotas](#monthly-quotas) are the
   Customer's way to cap its bill.
-- **Rate limit.** Production usage is not rate-limited. Sandbox usage on the Bifröst MCP server
-  has the Free tier by default; the Customer can raise it by choosing a higher tier from its
-  production environment, priced by its Partner. See [Rate limits](./rate-limits.md).
 
-When the relationship with the Partner ends, the tenant returns to **Prepaid** and its sandbox
-rate limit returns to the Free tier. The change takes effect when a license administrator chooses **Sync** on
+When the relationship with the Partner ends, the tenant returns to **Prepaid**. The change takes effect when a license administrator chooses **Sync** on
 Bifrost Setup.
 
 ## Monthly quotas
@@ -124,7 +118,7 @@ Both license types can cap their own monthly usage:
 monthly-quota-exhausted error until the next calendar month; the response names which quota (`user`
 or `company`) stopped the call. The user quota is checked before the company quota, and both before
 a Prepaid tenant's purchased pools. When a monthly quota has 100 or fewer messages left, successful
-responses carry a warning. Monthly quotas are not enforced in a sandbox.
+responses carry a warning.
 
 ### How the monthly quotas are counted {#how-monthly-quotas-are-counted}
 
@@ -136,15 +130,8 @@ Keep at least 31 days of Bifrost Messages if you use the monthly quotas.
 
 ## Sandbox environments
 
-In a Business Central online **sandbox**:
-
-- Bifröst does not block on quota: pools and monthly quotas are not enforced, and no trial is needed.
-- Usage is still recorded and reported, separately from production.
-- On the Bifröst MCP server, sandbox usage is rate-limited per Microsoft Entra tenant; see
-  [Rate limits](./rate-limits.md). Bifröst itself has no message limit.
-
-For unlimited sandbox usage, run the Local MCP server from
-[businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
+In a Business Central online **sandbox**, usage is recorded and reported.
+Ask your Business Central partner how Bifröst is licensed in sandbox environments.
 
 ## On-premises installations
 
