@@ -10,9 +10,12 @@ description: "Answers to common questions about Bifröst: how the MCP server sig
 
 # Frequently asked questions
 
+Click a question to see the answer.
+
 ## Sign-in and access
 
-### How does the Bifröst MCP server get the token it uses to call Business Central? {#on-behalf-of}
+<details id="on-behalf-of">
+<summary>How does the Bifröst MCP server get the token it uses to call Business Central?</summary>
 
 Through an **on-behalf-of** exchange. When a user signs in, Microsoft Entra ID issues a token for that user to
 the Bifröst MCP server. To call Business Central, the server exchanges it for a Business Central token on the
@@ -20,7 +23,10 @@ user's behalf. The user's token is not passed straight through.
 
 As a result, every call runs as the signed-in user, and the user's own permissions always apply.
 
-### Who holds the refresh tokens: Origo's server or the AI client? {#refresh-tokens}
+</details>
+
+<details id="refresh-tokens">
+<summary>Who holds the refresh tokens: Origo's server or the AI client?</summary>
 
 The Bifröst MCP server acts as an OAuth proxy in front of Microsoft Entra ID.
 
@@ -34,7 +40,10 @@ The Bifröst MCP server acts as an OAuth proxy in front of Microsoft Entra ID.
   Microsoft refuses (the user was disabled, the session was revoked, or Conditional Access requires it), the
   client's refresh fails and the user has to sign in again.
 
-### How long does a user's access last, and how is it ended? {#ending-access}
+</details>
+
+<details id="ending-access">
+<summary>How long does a user's access last, and how is it ended?</summary>
 
 Because the MCP server holds the user's Entra refresh token, the user's AI client keeps working without a new
 sign-in until the access is ended or Microsoft refuses to renew it. It always acts as that user, with that user's
@@ -45,20 +54,31 @@ permissions.
 - **For the whole organisation:** disable or delete the *Origo Bifrost* enterprise application; see
   [Withdraw it](/setup/consent/#withdraw-it).
 
-### Why does the consent screen ask for Azure Resource Manager? {#azure-resource-manager}
+</details>
+
+<details id="azure-resource-manager">
+<summary>Why does the consent screen ask for Azure Resource Manager?</summary>
 
 Azure Resource Manager is for users whose account has access to several tenants. The MCP server reaches it the
 same way as Business Central: on behalf of the signed-in user, with that user's own permissions.
 
-### Where is the Bifröst application's own credential kept? {#app-credential}
+</details>
+
+<details id="app-credential">
+<summary>Where is the Bifröst application's own credential kept?</summary>
 
 The on-behalf-of exchange uses the credential of the *Origo Bifrost* application. Origo keeps it in its own Azure
 tenant and rotates it regularly.
 
+</details>
+
 ## Security testing
 
-### Has Bifröst been penetration tested? {#penetration-test}
+<details id="penetration-test">
+<summary>Has Bifröst been penetration tested?</summary>
 
 Yes. Bifröst has been penetration tested by Syndis.
 
 To report a suspected vulnerability, write to bc@origo.is.
+
+</details>
