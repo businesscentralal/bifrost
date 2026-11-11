@@ -36,16 +36,46 @@ viðbótarforrit ofan á [Bifröst Foundation](/foundation/). Nýr í Bifröst? 
   sem móta hvernig aðstoðarmaðurinn svarar. Söluteymi og fjármálateymi geta hvort um sig spjallað við
   líkan sem er sett upp fyrir þeirra vinnu.
 - **Notað líkan inni í sjálfvirku ferli.** Tímasett verk eða verkferill getur beðið mállíkan um eitt
-  svar, til dæmis til að flokka eða taka saman skjal.
+  svar, til dæmis til að flokka eða taka saman skjal. Sjálfvirkt ferli getur líka látið líkanið fletta
+  upp gögnum til að finna svarið; sjá [Láttu sjálfvirkt ferli spyrja spurningar](#ask).
 
 ## Svið {#capabilities}
 
 | Lén | Svið |
 |---|---|
-| **LLM** | Eitt svar frá mállíkani fyrir sjálfvirkt ferli eða samþættingu, án samtals |
+| **LLM** | Eitt svar frá mállíkani fyrir sjálfvirkt ferli eða samþættingu, án samtals, og eftir atvikum eftir að líkanið hefur flett upp gögnum í Business Central |
 
 Í samtali notar aðstoðarmaðurinn svið allra uppsettra Bifröst-forrita: það sem hann getur lesið og gert
 er það sem Foundation og hin forritin bjóða.
+
+## Láttu sjálfvirkt ferli spyrja spurningar {#ask}
+
+Sjálfvirkt ferli getur gert meira en að biðja um eitt svar: það getur spurt spurningar og látið líkanið
+finna svarið í gögnunum þínum.
+
+- **Hvað það er.** Sjálfvirkt ferli, verkferill eða samþætting sendir spurningu, ef vill með texta og
+  færslunni sem spurningin snýst um. Mállíkan finnur svarið með því að lesa Business Central í gegnum
+  lesaðgerðir Bifröst. Það svarar, eða segist ekki geta sagt til um það.
+- **Dæmi.** *„Er þessi viðskiptamaður rétt uppsettur fyrir bókun sölureikninga?“* Svarið er úrskurður og,
+  ef hann er nei, þeir uppsetningarreitir sem eru rangir.
+- **Hvaða réttindi.** Það keyrir sem notandinn sem sjálfvirka ferlið keyrir sem, innan heimilda hans og
+  verndar Bifröst. Tímasett keyrsla notar notanda verkraðarinnar, sem þarf lesaðgang að öllu sem
+  spurningin snertir.
+- **Aðeins lestur.** Það breytir aldrei gögnum. Það getur ekki ræst annað líkanskall eða verkferil.
+- **Takmörk.** Það stöðvast eftir takmarkaðan fjölda uppflettinga og umferða og svarar þá með því sem það
+  hefur. Keyrsla hefur engin tímamörk. Takmörkin eru sett fyrir hverja beiðni innan fastra hámarka;
+  hjálpin með aðgerðinni sýnir þau.
+- **Hvað þarf til.** Heimildasamstæðurnar `BIFROST Chat ori` og `BIFROST LLM Chat ori`, mállíkan með
+  API-lykli og veitu sem styður uppflettingar. Copilot er ekki stutt fyrir þetta. Ef þetta virkar ekki skaltu
+  velja annað mállíkan í Bifröst-notendauppsetningunni eða biðja kerfisstjóra um heimildasamstæðurnar.
+- **Hvað verður um gögnin.** Veita líkansins fær það sem uppflettingarnar skila, eins og í spjallinu en án
+  þess að nokkur fylgist með. Skrá yfir uppflettingarnar er aðeins skilað þegar beiðnin biður um hana og hún
+  er aldrei vistuð.
+- **Talið.** Hver uppfletting líkansins er Bifröst-skilaboð, skráð og talin eins og öll önnur. Sjá
+  [Notkun og reikningsfærsla](/licensing/usage-and-billing/).
+- **Dagsetningar.** Fyrirspurnirnar sem Bifröst mállíkön senda, í spjallinu og fyrir sjálfvirk ferli,
+  bera núverandi dagsetningu og tíma og vinnudagsetningu fyrirtækisins, endurnýjað við hverja beiðni, svo
+  „síðustu 30 dagar“ og „þessi mánuður“ komi rétt út.
 
 ## Sæktu forritið {#get-it}
 
@@ -92,9 +122,9 @@ Hjálp hverrar síðu segir nánar frá:
 
 | Samstæða | Fyrir |
 |---|---|
-| `BIFROST Chat ori` (úr Foundation) | Alla sem mega spjalla, og auðkennið sem sjálfvirkt ferli keyrir sem þegar það biður líkan um svar. Hún fylgir aldrei annarri samstæðu |
+| `BIFROST Chat ori` (úr Foundation) | Alla sem mega spjalla, og auðkennið sem sjálfvirkt ferli keyrir sem þegar það biður líkan um svar, með eða án uppflettingar gagna. Hún fylgir aldrei annarri samstæðu |
 | `BIFROST LLM Rd ori` | Alla sem spjalla: lestur mállíkananna |
-| `BIFROST LLM Chat ori` | Alla sem spjalla við OpenAI, Azure OpenAI, Anthropic, Google Gemini, xAI eða eigið líkan. Ekki þörf fyrir Copilot |
+| `BIFROST LLM Chat ori` | Alla sem spjalla við OpenAI, Azure OpenAI, Anthropic, Google Gemini, xAI eða eigið líkan. Þörf fyrir sjálfvirkt ferli sem lætur líkan fletta upp gögnum. Ekki þörf fyrir Copilot, sem styður ekki uppflettinguna |
 | `BIFROST LLM ori` | Kerfisstjórana sem búa til og breyta mállíkönum |
 | `BIFROST ChatSvc ori` | Þau sem skrá eða hreinsa sameiginlegan API-lykil líkans |
 
