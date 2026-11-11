@@ -25,7 +25,8 @@ const read = (p) => readFileSync(p, 'utf8');
 const IS = (section) => `i18n/is-IS/docusaurus-plugin-content-docs-${section}/current`;
 
 // 1. The menu, left to right.
-const menu = ['Set it up', 'Try it out', 'How it works', 'Price', 'Licensing'];
+// FAQ added after Licensing (11.11.2026).
+const menu = ['Set it up', 'Try it out', 'How it works', 'Price', 'Licensing', 'FAQ'];
 const config = read('docusaurus.config.ts');
 const navbar = config.slice(config.indexOf('navbar:'), config.indexOf('footer:'));
 const leftLabels = [...navbar.matchAll(/label:\s*buildLocale === 'is-IS' \? '[^']*' : '([^']+)'[^}]*position: 'left'/g)].map((m) => m[1]);
