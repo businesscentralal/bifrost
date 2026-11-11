@@ -79,6 +79,4 @@ tenant and rotates it regularly.
 
 Yes. Bifröst has been penetration tested by Syndis.
 
-To report a suspected vulnerability, write to bc@origo.is.
-
 </details>

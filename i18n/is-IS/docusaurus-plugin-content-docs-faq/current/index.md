@@ -80,6 +80,4 @@ skiptir því út reglulega.
 
 Já. Syndis hefur árásarprófað Bifröst.
 
-Til að tilkynna grun um veikleika skaltu skrifa á bc@origo.is.
-
 </details>
