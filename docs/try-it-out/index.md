@@ -14,8 +14,7 @@ description: "Try Bifröst in a Business Central sandbox: what to set up, what t
 [Using Bifröst](/documentation/end-customers/users/).*
 
 The best way to see what Bifröst does is to ask it something. A **Business Central sandbox** with
-demo data is the right place: nothing you try touches your real company, and a sandbox needs no
-trial.
+demo data is the right place: nothing you try touches your real company.
 
 ## The quick path, in a sandbox
 

@@ -15,4 +15,3 @@ Hafðu samband við Business Central samstarfsaðilann þinn.
 **Business Central samstarfsaðilar:** hafið samband við [The App Channel](https://www.theappchannel.com/).
 
 Hvernig notkun er talin og hvernig leyfistegundirnar virka: [Leyfi](/licensing/).
-Í sandkassa er kvótum ekki framfylgt, svo þú getur [prófað](/try-it-out/) fyrst; sjá [Sandkassaumhverfi](/licensing/license-types/#sandbox-environments).

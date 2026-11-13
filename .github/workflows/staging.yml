@@ -1,0 +1,95 @@
+name: Build and deploy staging
+
+on:
+  push:
+    branches: [staging]
+  workflow_dispatch:
+
+env:
+  # Staging has its own Static Web App with preview environments disabled,
+  # so the site is always served from the app's default hostname.
+  SITE_URL: https://green-desert-0402b6f03.5.azurestaticapps.net
+  BASE_URL: /
+
+permissions:
+  contents: read
+
+# Never cancel a running deployment: a half-published site is worse than a
+# slightly stale one.
+concurrency:
+  group: staging
+  cancel-in-progress: false
+
+jobs:
+  build:
+    # Manual runs from other branches must not overwrite staging.
+    if: github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Docusaurus reads git history for each page's last-updated date.
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Public-site boundary
+        run: npm run check:ip-boundary
+
+      - name: Links between pages
+        run: npm run check:links
+
+      - name: Agreed documentation structure
+        run: npm run check:structure
+
+      - name: Build both locales
+        run: npm run build
+
+      - name: Configure Azure staging hosting
+        # Preserve custom 404/locale rescue; don't use an SPA fallback.
+        # Keep public staging content out of search engine indexes.
+        run: |
+          node --input-type=module <<'NODE'
+          import {writeFileSync} from 'node:fs';
+          writeFileSync('build/staticwebapp.config.json', JSON.stringify({
+            responseOverrides: {'404': {rewrite: '/404.html', statusCode: 404}},
+            globalHeaders: {'X-Robots-Tag': 'noindex, nofollow'},
+          }, null, 2));
+          NODE
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bifrost-site-staging
+          path: build
+          retention-days: 14
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      # Deploy only the built files; the token is never exposed to the build.
+      - uses: actions/download-artifact@v4
+        with:
+          name: bifrost-site-staging
+          path: build
+
+      - name: Deploy to the staging Static Web App
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.SWA_API_TOKEN_STAGING }}
+          action: upload
+          # The staging branch is this app's production environment.
+          production_branch: staging
+          app_location: build
+          output_location: ''
+          skip_app_build: true
+          skip_api_build: true

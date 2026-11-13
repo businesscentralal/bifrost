@@ -147,7 +147,7 @@ misskilið þig: segðu *„sýndu mér fyrst"*, og lestu það sem hann leggur 
 | Bókun er hafnað, þótt þú megir bóka í Business Central | Bókun í gegnum aðstoðarmann þarf sína eigin heimild, sem kerfisstjórinn veitir sérstaklega. Hún þarf líka til að sýna hvað bókun myndi gera. Þangað til geturðu bókað í Business Central eins og venjulega. | Kerfisstjórann |
 | Hluta svarsins vantar | Þeir reitir eru takmarkaðir fyrir þig. | Kerfisstjórann, ef þú þarft þá |
 | Það þarf fyrst að samþykkja verkfærið, með tengli | Fyrirtækið þitt krefst þess að ný aðstoðarverkfæri séu samþykkt einu sinni. Opnaðu tengilinn, eða sendu kerfisstjóranum hann. | Þú, eða kerfisstjórinn |
-| Heimildin er uppurin | Mörkum er náð: þínum eigin eða mánaðarlegum mörkum fyrirtækisins (þau byrja aftur 1. næsta mánaðar), skilaboðunum sem fyrirtækið hefur keypt, eða, í sandkassa, daglegu mörkunum. | Kerfisstjórann |
+| Heimildin er uppurin | Mörkum er náð: þínum eigin eða mánaðarlegum mörkum fyrirtækisins (þau byrja aftur 1. næsta mánaðar), eða skilaboðunum sem fyrirtækið hefur keypt. | Kerfisstjórann |
 | Bifröst hafnar köllum fyrir fyrirtækið | Uppsetningarleiðsögninni hefur ekki verið lokið í þessu fyrirtæki, eða prufuleyfið er ekki enn virkt. | Kerfisstjórann |
 | Eitthvað var bókað sem hefði ekki átt að bóka | Aðstoðarmaðurinn gerði það sem hann var beðinn um, með þínum réttindum. Bakfærðu það í Business Central eins og hverja aðra bókun og láttu kerfisstjórann vita; hver beiðni og hvert svar er skráð, svo það má rekja. | Kerfisstjórann |
 
