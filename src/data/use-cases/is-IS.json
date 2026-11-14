@@ -1,0 +1,948 @@
+{
+  "roles": [
+    {
+      "id": "r1",
+      "name": "Forstjóri og eigandi",
+      "lead": "Yfirsýn á fimm mínútum: hvar peningarnir liggja og hvað er að eldast."
+    },
+    {
+      "id": "r2",
+      "name": "Fjármálastjóri",
+      "lead": "Það sem bíður, það sem stemmir ekki, og uppgjörið yfir félögin."
+    },
+    {
+      "id": "r3",
+      "name": "Aðalbókari",
+      "lead": "Afstemmingar, forskoðun á bókun og skjölin sem komast inn án innsláttar."
+    },
+    {
+      "id": "r4",
+      "name": "Gjaldkeri",
+      "lead": "Bankinn, innheimtan og kortatímabilið sem vantar kvittun í."
+    },
+    {
+      "id": "r5",
+      "name": "Verkefna- og þjónustustjóri",
+      "lead": "Hvað er unnið og órukkað, og reikningurinn sem verður til í spjallinu."
+    },
+    {
+      "id": "r6",
+      "name": "Sölu-, innkaupa- og lagerfólk",
+      "lead": "Pantanir, birgjar og verð sem hafa hækkað án þess að nokkur tæki eftir því."
+    },
+    {
+      "id": "r7",
+      "name": "Ytri endurskoðandi",
+      "lead": "Eitt skjal rakið alla leið niður í færslur."
+    },
+    {
+      "id": "r8",
+      "name": "Kerfisstjóri og tæknifólk",
+      "lead": "Umfangið, heimildirnar og það sem féll í nótt."
+    }
+  ],
+  "cases": [
+    {
+      "id": "2",
+      "roles": [
+        "r1"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Hvar áhættan í kröfunum liggur",
+      "summary": "Aldursgreining viðskiptamanna og hverjir bera stærstan hluta útistandandi krafna.",
+      "appliesIf": null,
+      "when": "Þegar þú vilt vita hvar útistandandi kröfur liggja og hjá hverjum.",
+      "steps": [
+        {
+          "prompt": "Sýndu mér aldursgreiningu viðskiptamanna og berðu heildartöluna saman við opnar færslur.",
+          "youGet": "Aldursgreining eftir viðskiptavini og aldursbili, með samanburði á heildartölu."
+        },
+        {
+          "prompt": "Hverjir eru tíu stærstu skuldararnir og hve stór hluti krafnanna liggur hjá þeim?",
+          "youGet": "Tíu stærstu skuldarar og hlutfall þeirra af heildinni."
+        }
+      ],
+      "notes": [
+        "Aldursgreining sleppir færslum án tegundar fylgiskjals. Þess vegna biður fyrsta skrefið um samanburð við opnar færslur.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "5",
+      "roles": [
+        "r1"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Óreikningsfærð upphæð á verkum",
+      "summary": "Hvað hefur verið unnið á verkum og ekki rukkað.",
+      "appliesIf": "Á við ef verkbókhald er notað.",
+      "when": "Þegar þú vilt vita hvað liggur óreikningsfært í verkunum.",
+      "steps": [
+        {
+          "prompt": "Hvaða verk eru með unna vinnu eða kostnað sem er ekki kominn á reikning? Sýndu verkheiti og upphæð á hverju verki.",
+          "youGet": "Tafla yfir verk með óreikningsfærða upphæð."
+        },
+        {
+          "prompt": "Raðaðu verkunum eftir upphæð og segðu mér hvaða þrjú skipta mestu máli.",
+          "youGet": "Þrjú stærstu verkin."
+        }
+      ],
+      "notes": [
+        "Tvær upphæðir geta birst, línuupphæð og kostnaður. Segðu hvora þú átt við.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "1",
+      "roles": [
+        "r1"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "Mælaborð sem verður til í spjallinu",
+      "summary": "Spurt í mannamáli og svarið sett upp sem ein síða sem má deila.",
+      "appliesIf": null,
+      "when": "Þegar þú vilt yfirlit á einni síðu án þess að bíða eftir skýrslu.",
+      "steps": [
+        {
+          "prompt": "Sýndu mér söluna á mánuði síðustu sex mánuði og hvaða viðskiptavinir bera hana.",
+          "youGet": "Tafla með sölu á mánuði og á viðskiptavin."
+        },
+        {
+          "prompt": "Sýndu mér útistandandi kröfur eftir aldri gjalddaga og tíu stærstu skuldarana með nafni. Berðu heildartöluna saman við opnar viðskiptamannafærslur.",
+          "youGet": "Aldursgreining og skuldaralisti, með staðfestingu á heildartölu."
+        },
+        {
+          "prompt": "Settu þetta á eitt mælaborð fyrir stjórnendur.",
+          "youGet": "Ein síða með lykiltölum, súluritum og skuldaratöflu."
+        }
+      ],
+      "notes": [
+        "Sæktu gögnin fyrst og biddu svo um mælaborðið. Mælaborð beint úr engu tekur margfalt lengri tíma.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "3",
+      "roles": [
+        "r1"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Kröfur sem fóru yfir 60 daga í vikunni",
+      "summary": "Það sem færðist yfir mörkin án þess að nokkur spyrði.",
+      "appliesIf": null,
+      "when": "Þegar þú vilt fylgjast með kröfum sem eru að eldast.",
+      "steps": [
+        {
+          "prompt": "Hvaða kröfur fóru yfir 60 daga frá gjalddaga í þessari viku?",
+          "youGet": "Stutt svar með þeim kröfum sem fóru yfir mörkin í vikunni."
+        },
+        {
+          "prompt": "Búðu til innheimtuyfirlit úr þessu á einni síðu: lykiltölur efst, aldursgreining í 30 daga bilum og fimm stærstu skuldarar.",
+          "youGet": "Ein síða með lykiltölum, aldursgreiningu og fimm stærstu skuldurum."
+        }
+      ],
+      "notes": [
+        "Svarið breytist daglega. Keyrðu það sama dag og þú notar það.",
+        "Veldu hvort talið er frá gjalddaga eða bókunardegi og notaðu sama grunn í hvert sinn.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "4",
+      "roles": [
+        "r1"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Afhent en ekki reikningsfært",
+      "summary": "Það sem hefur verið afhent og enginn hefur sent reikning fyrir.",
+      "appliesIf": "Á við ef afhending er skráð á sölupantanir eða verk.",
+      "when": "Þegar þú vilt vita hvort eitthvað hafi farið út án reiknings.",
+      "steps": [
+        {
+          "prompt": "Höfum við afhent eitthvað sem við höfum ekki sent reikning fyrir?",
+          "youGet": "Listi yfir afhent en óreikningsfært, með upphæð."
+        },
+        {
+          "prompt": "Hvað er heildarupphæðin án vsk, og hvernig skiptist hún á sölupantanir og verk?",
+          "youGet": "Heildartala og skipting."
+        }
+      ],
+      "notes": [
+        "Spurningin borgar sig vikulega. Svarið hreyfist með afhendingum og reikningum dagsins.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "63",
+      "roles": [
+        "r5",
+        "r1"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Verk á móti áætlun",
+      "summary": "Áætlun á móti raunkostnaði á opnum verkum, og hvaða verk þurfa athygli.",
+      "appliesIf": "Á við ef áætlanir eru skráðar á verk í verkbókhaldi.",
+      "when": "Þegar þú vilt vita hvaða verk eru að fara fram úr.",
+      "steps": [
+        {
+          "prompt": "Hvernig standa opnu verkin á móti áætlun? Áætlun er heildarkostnaður á áætlunarlínum án sjálfvirkra lína, raunkostnaður er notkun á kostnaðarverði. Bentu mér á þau verk sem þurfa athygli.",
+          "youGet": "Áætlun, raunkostnaður og mismunur á hvert verk."
+        },
+        {
+          "prompt": "Settu þetta á eina síðu sem ég get sýnt: eitt spjald á verk með áætlun, raunkostnaði og mismun, og þau sem þurfa athygli efst.",
+          "youGet": "Ein síða með spjaldi á hvert verk."
+        }
+      ],
+      "notes": [
+        "Sjálfvirkar áætlunarlínur spegla raunkostnaðinn. Promptið sleppir þeim, annars lítur framúrkeyrsla út eins og áætlun.",
+        "Verk án áætlunar koma fram sem slík. Það er niðurstaða, ekki villa.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "65",
+      "roles": [
+        "r2",
+        "r1"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Vaktin yfir öll félögin",
+      "summary": "Það sem þarf athygli í dag, í öllum félögum sem þú hefur aðgang að.",
+      "appliesIf": "Á við ef þú hefur aðgang að fleiri en einu félagi í sama umhverfi.",
+      "when": "Þegar þú berð ábyrgð á fleiri en einu félagi og vilt eitt yfirlit.",
+      "steps": [
+        {
+          "prompt": "Farðu yfir öll félögin sem ég hef aðgang að og gefðu mér stuttan lista yfir það sem þarf athygli í dag: samþykktir komnar yfir eindaga, kröfur sem fóru yfir 60 daga, og viðskipti milli félaganna sem stemma ekki.",
+          "youGet": "Það sem þarf athygli í hverju félagi, í einum lista."
+        },
+        {
+          "prompt": "Styttu þetta í morgunpóst: þrjár til fimm línur, það mikilvægasta fyrst.",
+          "youGet": "Morgunpóstur í þremur til fimm línum."
+        }
+      ],
+      "notes": [
+        "Þetta tekur nokkrar mínútur. Byrjaðu á því og gerðu annað á meðan.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "12",
+      "roles": [
+        "r2"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "VSK-uppgjör tímabilsins, stemmt á móti færslunum",
+      "summary": "Útskattur, innskattur og það sem á að greiða, borið saman við VSK-færslurnar.",
+      "appliesIf": "Á við ef VSK-yfirlit félagsins er sett upp í Business Central.",
+      "when": "Þegar þú vilt staðfesta VSK-skil tímabilsins áður en þeim er skilað.",
+      "steps": [
+        {
+          "prompt": "Sýndu mér VSK-uppgjör síðasta uppgjörstímabils: útskatt, innskatt og hvað á að greiða, og staðfestu útskatt og innskatt á móti VSK-færslunum.",
+          "youGet": "Útskattur, innskattur og til greiðslu, stemmt á móti VSK-færslunum."
+        },
+        {
+          "prompt": "Settu þetta upp eins og VSK-skýrsluna sem fer til Skattsins, á einni síðu sem ég get sýnt.",
+          "youGet": "Ein síða með VSK-yfirliti tímabilsins."
+        }
+      ],
+      "notes": [
+        "Reitanúmer Skattsins eru ekki endilega skráð í VSK-yfirliti félagsins. Þá sýnir síðan línunúmer úr Business Central.",
+        "Ekkert er sent til Skattsins og tímabilinu er ekki lokað.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "54",
+      "roles": [
+        "r2"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "Samstæðuuppgjör og yfirlitið sem bankinn biður um",
+      "summary": "Uppgjör samstæðunnar með útfellingu viðskipta milli félaga, og eins síðu yfirlit fyrir bankann.",
+      "appliesIf": "Á við samstæður þar sem félögin eru í sama umhverfi og þú hefur aðgang að þeim öllum.",
+      "when": "Þegar samstæðan þarf uppgjör, eða bankinn biður um yfirlit.",
+      "steps": [
+        {
+          "prompt": "Gerðu samstæðuuppgjör fyrir félögin í samstæðunni, með helstu atriðum úr rekstri og efnahag, og felldu út viðskipti milli félaga.",
+          "youGet": "Samstæðuuppgjör með útfellingu viðskipta milli félaga."
+        },
+        {
+          "prompt": "Gefðu mér á einni síðu það sem bankinn vill vita um samstæðuna.",
+          "youGet": "Ein síða: lán, innstæður og kröfur."
+        }
+      ],
+      "notes": [
+        "Hlutabréfaeign móðurfélags er ekki felld út á móti eigin fé dótturfélaga nema eignarhlutföll séu skráð í gögnunum.",
+        "Uppgjörið er vinnuskjal. Yfirfarðu það áður en það fer út úr húsi.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "7",
+      "roles": [
+        "r2"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Hvað bíður samþykktar, og hvað er óvænt",
+      "summary": "Opnar samþykktarbeiðnir og það sem sker sig úr venju.",
+      "appliesIf": "Á við ef samþykktarferli (approval workflow) er virkt í Business Central.",
+      "when": "Þegar þú vilt sjá hvað bíður samþykktar og hvort eitthvað er óvenjulegt.",
+      "steps": [
+        {
+          "prompt": "Hvað bíður samþykktar í félaginu, og er eitthvað af því óvænt?",
+          "youGet": "Opnar samþykktarbeiðnir og þær sem skera sig úr, til dæmis reikningur sem hækkar milli mánaða."
+        },
+        {
+          "prompt": "Hvað af þessu er gjaldfallið?",
+          "youGet": "Þær beiðnir sem eru komnar fram yfir eindaga."
+        }
+      ],
+      "notes": [
+        "Spurt er um félagið í heild, ekki um þinn eigin samþykktarlista.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "8",
+      "roles": [
+        "r2",
+        "r3"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Reikningar sem enginn var beðinn um að samþykkja",
+      "summary": "Innkaupareikningar sem sitja án samþykktarbeiðni.",
+      "appliesIf": "Á við ef samþykktarferli er virkt í Business Central.",
+      "when": "Þegar þú vilt finna reikninga sem duttu úr ferlinu.",
+      "steps": [
+        {
+          "prompt": "Eru einhverjir innkaupareikningar sem enginn hefur verið beðinn um að samþykkja?",
+          "youGet": "Listi yfir innkaupareikninga án samþykktarbeiðni."
+        },
+        {
+          "prompt": "Hvað eru þeir háir samtals með vsk?",
+          "youGet": "Heildartala með vsk."
+        }
+      ],
+      "notes": [
+        "Gott að spyrja fyrir mánaðamót, áður en lokað er.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "9",
+      "roles": [
+        "r2",
+        "r3"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Samþykktarbeiðnir komnar yfir eindaga",
+      "summary": "Hvað hefur beðið of lengi og hjá hverjum það liggur.",
+      "appliesIf": "Á við ef samþykktarferli er virkt í Business Central.",
+      "when": "Þegar þú vilt vita hvað er fast í samþykktarferlinu.",
+      "steps": [
+        {
+          "prompt": "Hvaða samþykktarbeiðnir eru komnar fram yfir eindaga?",
+          "youGet": "Beiðnir yfir eindaga, með upphæð og birgi."
+        },
+        {
+          "prompt": "Hjá hverjum bíða þær og hvað hafa þær beðið lengi?",
+          "youGet": "Samþykkjandi og dagafjöldi."
+        }
+      ],
+      "notes": [
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "64",
+      "roles": [
+        "r6",
+        "r2"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Innkaup ársins eftir birgjum",
+      "summary": "Hvað var keypt af hverjum birgi og hvar verð hefur hækkað.",
+      "appliesIf": null,
+      "when": "Þegar þú vilt yfirlit yfir innkaup og verðþróun hjá birgjum.",
+      "steps": [
+        {
+          "prompt": "Hvað keyptum við mikið á þessu ári frá hverjum birgi, án vsk? Sýndu þá stærstu og hve stór hluti fer til fimm stærstu.",
+          "youGet": "Innkaup á hvern birgi án vsk og hlutur fimm stærstu."
+        },
+        {
+          "prompt": "Hjá hvaða birgjum hefur verðið hækkað á árinu? Berðu saman sömu línu, sömu vöru eða sama lykil á reikningum hvers birgis mánuð eftir mánuð, og slepptu því sem er aðeins meira magn. Svaraðu í stuttri töflu.",
+          "youGet": "Stutt tafla yfir birgja þar sem verð hefur hækkað, með skjalanúmeri."
+        }
+      ],
+      "notes": [
+        "Heildartalan getur hreyfst eftir því hvort færslubókarfærslur án tegundar fylgiskjals eru taldar með. Spurðu um hvort tveggja ef talan skiptir máli.",
+        "Þar sem magn er alltaf 1 á línum sést ekki hvort hækkun er verð eða umfang.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "14",
+      "roles": [
+        "r3"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Bókað en ekki reikningsfært",
+      "summary": "Móttökur sem bíða reiknings, með heildarupphæð og skiptingu á birgja.",
+      "appliesIf": "Á við ef móttaka er skráð á innkaupapantanir.",
+      "when": "Þegar skuldir við birgja stemma ekki um mánaðamót.",
+      "steps": [
+        {
+          "prompt": "Hvað höfum við tekið á móti í innkaupum sem ekki er kominn reikningur fyrir? Sýndu móttökurnar og heildarupphæðina.",
+          "youGet": "Móttökur án reiknings með heildarupphæð."
+        },
+        {
+          "prompt": "Sundurliðaðu þetta eftir birgi.",
+          "youGet": "Skipting eftir birgi."
+        }
+      ],
+      "notes": [
+        "Upphæðin er reiknuð sem magn sinnum einingarverð á hverri línu, því móttökulínur bera ekki upphæð.",
+        "Sótt úr innkaupapöntunarlínum, ekki bókuðum móttökuskjölum.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "15",
+      "roles": [
+        "r3"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Undirkerfi á móti safnlyklum, eftir bókunarflokki",
+      "summary": "Hvaða bókunarflokkar stemma ekki og hvaða færslur skýra muninn.",
+      "appliesIf": "Þriðja skrefið á við ef þú hefur aðgang að fleiri en einu félagi.",
+      "when": "Þegar þú vilt vita hvort undirkerfin stemmi við fjárhaginn.",
+      "steps": [
+        {
+          "prompt": "Stemma viðskiptamenn og lánardrottnar við safnlyklana, eftir bókunarflokki?",
+          "youGet": "Staða í hverjum bókunarflokki og hvar munar."
+        },
+        {
+          "prompt": "Ef ekki, finndu færslurnar sem valda mismuninum og segðu hvernig á að laga þær.",
+          "youGet": "Færslurnar sem skýra muninn og tillaga að lagfæringu."
+        },
+        {
+          "prompt": "Gerðu sömu afstemmingu fyrir öll félögin sem ég hef aðgang að og settu hana á eina síðu: eitt spjald á hvert félag, grænt þar sem stemmir og rautt þar sem munar, með færslunum sem skýra muninn.",
+          "youGet": "Ein síða með spjaldi á hvert félag."
+        }
+      ],
+      "notes": [
+        "Tillagan er texti. Ekkert er leiðrétt sjálfkrafa.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "16",
+      "roles": [
+        "r3"
+      ],
+      "level": "do",
+      "effect": "draft",
+      "name": "Lánardrottnar: undirbók á móti yfirliti birgis",
+      "summary": "Innri afstemming segir að allt sé í lagi, yfirlit birgis segir annað.",
+      "appliesIf": null,
+      "when": "Þegar birgir sendir viðskiptayfirlit sem passar ekki við bókhaldið.",
+      "steps": [
+        {
+          "prompt": "Hér er viðskiptayfirlit frá birgi. Stemmdu það af við Business Central og segðu mér hvað stemmir ekki.",
+          "youGet": "Staðan í bókhaldinu á móti yfirliti birgis, og skjölin sem skýra muninn."
+        },
+        {
+          "prompt": "Skrifaðu stutt og kurteist bréf til birgisins um það sem stemmir ekki og biddu um það sem vantar. Ekki senda neitt.",
+          "youGet": "Bréfadrög til birgis."
+        }
+      ],
+      "notes": [
+        "Hengdu yfirlitið (PDF) við spjallið áður en þú límir promptið.",
+        "Reikningsnúmer geta verið skráð öðruvísi hjá birgi en hjá ykkur. Spjallið bendir á slíkt.",
+        "Bréfið er drög. Ekkert er sent."
+      ]
+    },
+    {
+      "id": "19",
+      "roles": [
+        "r3"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "Forskoðun á bókun án þess að bóka",
+      "summary": "Sýnir hvaða færslur myndu verða til ef skjal væri bókað.",
+      "appliesIf": null,
+      "when": "Þegar þú vilt sjá áhrif bókunar áður en þú bókar.",
+      "steps": [
+        {
+          "prompt": "Taktu óbókaðan innkaupareikning sem bíður og sýndu mér hvað myndi bókast ef ég bókaði hann: fjárhagsfærslur, vsk-færslu og lánardrottnafærslu. Ekki bóka.",
+          "youGet": "Forskoðun á bókun, rúlluð til baka. Ekkert er skrifað."
+        },
+        {
+          "prompt": "Getur þú forskoðað bókun á sölupöntun sem bíður afgreiðslu?",
+          "youGet": "Forskoðun á bókun sölupöntunar."
+        }
+      ],
+      "notes": [
+        "Notaðu forskoðun á reikningi fremur en á innkaupapöntun. Á pöntun sýnir hún fulla reikningsbókun þótt aðeins eigi að taka á móti.",
+        "Forskoðun er ekki sannreyning. Hún sýnir áhrifin en grípur ekki allt.",
+        "Aðeins lestur, ekkert er bókað."
+      ]
+    },
+    {
+      "id": "52",
+      "roles": [
+        "r3"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "Afstemming milli félaga",
+      "summary": "Það sem annað félagið hefur bókað en hitt ekki.",
+      "appliesIf": "Á við samstæður þar sem félögin eru í sama umhverfi og þú hefur aðgang að þeim öllum.",
+      "when": "Þegar viðskipti milli félaga í samstæðu þurfa að stemma.",
+      "steps": [
+        {
+          "prompt": "Stemmdu af viðskiptin milli félaganna í samstæðunni. Er allt sem eitt félag hefur bókað á annað líka bókað hjá því, og eins? Ekki breyta neinu.",
+          "youGet": "Staða hjá báðum félögum í hverju pari og munur."
+        },
+        {
+          "prompt": "Settu þetta upp á síðu sem ég get sýnt: eitt spjald fyrir hvert par félaga með stöðunni hjá báðum og muninum, og lista yfir það sem þarf að laga.",
+          "youGet": "Ein síða með spjaldi á hvert par og lagfæringalista."
+        }
+      ],
+      "notes": [
+        "Lesið er úr hverju félagi fyrir sig. Sérstakar aðgerðir fyrir viðskipti milli félaga eru ekki í tengingunni.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "66",
+      "roles": [
+        "r3"
+      ],
+      "level": "do",
+      "effect": "write",
+      "name": "Reikningur frá birgi verður að innkaupareikningi",
+      "summary": "PDF frá birgi verður að skjali á innleið og óbókuðum innkaupareikningi, með lyklum.",
+      "appliesIf": "Á við ef skjöl á innleið (incoming documents) eru virk í Business Central.",
+      "when": "Þegar reikningur kemur á PDF og á að komast inn í kerfið án innsláttar.",
+      "steps": [
+        {
+          "prompt": "Hér er reikningur frá birgi. Lestu hann og búðu til rafrænan reikning (UBL) úr efninu beint á innleið, án þess að hlaða PDF-inu upp, og búðu svo til innkaupareikning úr honum þar sem kerfið finnur lánardrottin og lykla sjálft. Bókaðu ekkert, og segðu mér hvaða lánardrottinn og lyklar urðu fyrir valinu og hvort upphæðin stemmir við PDF-ið.",
+          "youGet": "Skjal á innleið og óbókaður innkaupareikningur, með lykli á hverri línu og samtölu sem stemmir við PDF-ið."
+        }
+      ],
+      "notes": [
+        "Hengdu reikninginn (PDF) við spjallið áður en þú límir promptið.",
+        "Lyklarnir koma úr vörpun texta á lykil: kerfið þekkir orðið í línunni. Yfirfarðu valið áður en þú bókar.",
+        "Skrifar í Business Central: stofnar skjal á innleið og óbókaðan innkaupareikning. Bókar ekkert.",
+        "Bifröst getur ekki eytt drögum. Eyddu þeim í Business Central ef þú vilt losna við þau."
+      ]
+    },
+    {
+      "id": "22",
+      "roles": [
+        "r4"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Bankahreyfingar sem bíða afstemmingar",
+      "summary": "Hvað parast sjálft og hvað þarf mannsauga.",
+      "appliesIf": "Á við ef bankayfirlit er lesið inn í bankaafstemmingu í Business Central.",
+      "when": "Þegar þú vilt vita hvað stendur eftir í bankaafstemmingunni.",
+      "steps": [
+        {
+          "prompt": "Sýndu mér bankahreyfingarnar sem bíða afstemmingar í nýjustu óloknu bankaafstemmingunni og flokkaðu þær eftir því hvort þær parast við færslur í bókhaldinu eða ekki.",
+          "youGet": "Línurnar sem bíða, flokkaðar eftir því hvað parast."
+        },
+        {
+          "prompt": "Taktu stærstu innborgunina sem parast ekki, hvaða færslum tilheyrir hún?",
+          "youGet": "Tillaga að færslum sem mynda innborgunina, og hvað gögnin skera ekki úr um."
+        },
+        {
+          "prompt": "Og innborgunin sem munar litlu á, stemmir hún? Ef ekki, hver er munurinn og hvað er líklegasta skýringin?",
+          "youGet": "Munurinn og líkleg skýring."
+        }
+      ],
+      "notes": [
+        "Aðeins lestur. Ekkert er parað né bókað.",
+        "Bifröst sækir ekki hreyfingar úr bankanum. Yfirlitið þarf að vera komið inn í Business Central."
+      ]
+    },
+    {
+      "id": "25",
+      "roles": [
+        "r4"
+      ],
+      "level": "do",
+      "effect": "write",
+      "name": "Bankaafstemming sem parar sig, nema það sem þarf mannsauga",
+      "summary": "Kerfið parar það sem parast og segir hvað á að gera við afganginn. Ekkert er bókað.",
+      "appliesIf": "Á við ef bankayfirlit er lesið inn í bankaafstemmingu í Business Central.",
+      "when": "Þegar þú ert að stemma af bankann og vilt láta vinna grunnvinnuna.",
+      "steps": [
+        {
+          "prompt": "Stemmdu af nýjustu óloknu bankaafstemminguna: láttu kerfið para það sem parast og paraðu svo það sem eftir stendur ef upphæðir passa saman. Sýndu mér í einni töflu hvað stendur eftir og hvað þú myndir gera við hverja línu, en bókaðu ekkert.",
+          "youGet": "Paraðar línur, það sem stendur eftir og tillaga um hverja línu. Ekkert bókað."
+        }
+      ],
+      "notes": [
+        "Skrifar í Business Central: parar línur í afstemmingunni. Bókar ekkert.",
+        "Spjallið getur spurt hvaða fjárhagslykla á að nota fyrir þjónustugjöld og vexti ef þeir eru ekki skráðir á bankareikninginn.",
+        "Viltu núllstilla pörunina, biddu um það í sama spjalli: „Núllstilltu pörunina á afstemmingunni og staðfestu að engin lína sé lengur pöruð. Bókaðu ekkert.“"
+      ]
+    },
+    {
+      "id": "26",
+      "roles": [
+        "r4"
+      ],
+      "level": "do",
+      "effect": "draft",
+      "name": "Innheimta: kröfur eldri en 60 daga",
+      "summary": "Stærstu skuldarar, innheimtuyfirlit og drög að kurteisu bréfi.",
+      "appliesIf": null,
+      "when": "Þegar þú ætlar að taka innheimtuhringinn.",
+      "steps": [
+        {
+          "prompt": "Hvaða kröfur eru eldri en 60 daga? Sýndu stærstu skuldarana.",
+          "youGet": "Kröfur eldri en 60 daga og stærstu skuldarar."
+        },
+        {
+          "prompt": "Búðu til innheimtuyfirlit úr þessu á einni síðu: lykiltölur efst, aldursgreining og fimm stærstu skuldarar sem á að hringja í.",
+          "youGet": "Ein síða með innheimtuyfirliti."
+        },
+        {
+          "prompt": "Skrifaðu stutt og kurteist innheimtubréf til stærsta skuldarans með lista yfir opnu reikningana. Bentu mér fyrst á ef eitthvað lítur út eins og tvíbókun. Ekki senda neitt.",
+          "youGet": "Bréfadrög og ábending um mögulega tvíbókun."
+        }
+      ],
+      "notes": [
+        "Ábending um tvíbókun er ábending, ekki staðfesting. Skoðaðu reikningana áður en bréf fer.",
+        "Bréfið er drög. Ekkert er sent, hvorki í pósti né SMS."
+      ]
+    },
+    {
+      "id": "42",
+      "roles": [
+        "r4"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "Kortafærslan sem vantar kvittun fyrir",
+      "summary": "Óbókaður kortareikningur, vsk-þrep og kvittunin sem vantar.",
+      "appliesIf": "Á við ef kortareikningar eru skráðir sem innkaupareikningar á kortafyrirtækið, einn á hvert tímabil.",
+      "when": "Þegar kortatímabil er óuppgert og eitthvað vantar.",
+      "steps": [
+        {
+          "prompt": "Hvað er í kortatímabilinu sem er óbókað?",
+          "youGet": "Óbókaður kortareikningur með vsk-þrepum og því sem vantar."
+        },
+        {
+          "prompt": "Lestu athugasemdirnar á línum reikningsins. Hvaða kvittun vantar og með hvaða vsk-þrepi á að bóka hverja línu?",
+          "youGet": "Kvittunin sem vantar og vsk-þrep á hverja línu."
+        }
+      ],
+      "notes": [
+        "Aðeins lestur, ekkert er bókað."
+      ]
+    },
+    {
+      "id": "31",
+      "roles": [
+        "r5"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Samningur: unnið á móti rukkuðu",
+      "summary": "Fast mánaðargjald á móti unnum tímum.",
+      "appliesIf": "Á við ef samningsverk með föstu mánaðargjaldi eru skráð í verkbókhaldi.",
+      "when": "Þegar þú vilt vita hvort fast gjald standi undir vinnunni.",
+      "steps": [
+        {
+          "prompt": "Á rammasamningnum með föstu mánaðargjaldi, hvað höfum við unnið á móti því sem við höfum rukkað?",
+          "youGet": "Unnar klukkustundir og verðmæti á móti mánaðarreikningum."
+        }
+      ],
+      "notes": [
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "28",
+      "roles": [
+        "r5"
+      ],
+      "level": "do",
+      "effect": "write",
+      "name": "Frá spurningu yfir í reikning",
+      "summary": "Sölureikningur útbúinn í spjallinu, yfirfarinn og bókaður þegar þú segir já.",
+      "appliesIf": null,
+      "when": "Þegar þú þarft að stofna reikning og vilt ekki fara inn í viðmótið.",
+      "steps": [
+        {
+          "prompt": "Búðu til sölureikningsdrög á þann viðskiptavin sem ég nefni, með þeim línum og upphæðum sem ég gef upp. Ekki bóka.",
+          "youGet": "Óbókuð sölureikningsdrög."
+        },
+        {
+          "prompt": "Sýndu mér reikninginn eins og hann er og segðu í hvaða félagi og umhverfi hann er. Bókaðu hann ekki fyrr en ég segi já, og gefðu mér þá fylgiskjalsnúmerið.",
+          "youGet": "Reikningurinn yfirfarinn, og bókaður með fylgiskjalsnúmeri eftir að þú staðfestir."
+        }
+      ],
+      "notes": [
+        "Lestu drögin yfir áður en þú segir já. Eftir bókun hækkar krafan á viðskiptavininn.",
+        "Bifröst getur ekki eytt drögum. Drög sem eiga ekki að standa þarf að eyða í Business Central."
+      ]
+    },
+    {
+      "id": "29",
+      "roles": [
+        "r5"
+      ],
+      "level": "do",
+      "effect": "draft",
+      "name": "Mánaðamótin: reikningsdrögin úr verkunum",
+      "summary": "Drög úr öllum reikningshæfum línum á verki, óbókuð og afturkræf.",
+      "appliesIf": "Á við ef verkbókhald er notað með reikningshæfum línum.",
+      "when": "Þegar á að rukka unnið verk um mánaðamót.",
+      "steps": [
+        {
+          "prompt": "Búðu til reikningsdrög úr öllum reikningshæfum línum á því verki sem er með hæstu óreikningsfærðu upphæðina. Ekki bóka.",
+          "youGet": "Sölureikningsdrög með línum úr verkinu. Ekkert er bókað."
+        },
+        {
+          "prompt": "Hvað eru drögin há samtals og hvaða línur fóru í þau?",
+          "youGet": "Heildarupphæð draganna og línurnar sem fóru í þau."
+        }
+      ],
+      "notes": [
+        "Skrifar í Business Central: stofnar óbókuð drög. Bókar ekkert.",
+        "Bifröst getur ekki eytt drögum. Eyddu þeim í Business Central ef þau eiga ekki að standa, annars teljast línur verksins fluttar á reikning.",
+        "Business Central getur varað við því að vörubókunarflokk vsk vanti á línum. Það kemur fram í svarinu."
+      ]
+    },
+    {
+      "id": "30",
+      "roles": [
+        "r5"
+      ],
+      "level": "do",
+      "effect": "write",
+      "name": "Álagið sem skilar sér á verkið",
+      "summary": "Aðkeypt þjónusta fer á verk með álagi, og kreditreikningur dregur álagið til baka.",
+      "appliesIf": "Á við ef verkbókhald er notað með álagsstuðli á reikningshæfar línur.",
+      "when": "Þegar aðkeypt þjónusta á að fara á reikning viðskiptavinar með álagi.",
+      "steps": [],
+      "notes": [
+        "Tilvikið bókar bæði innkaupareikning og kreditreikning, svo það er ekki sett upp sem prompt hér.",
+        "Ráðgjafi Origo sýnir þér þetta í prófunarumhverfi."
+      ]
+    },
+    {
+      "id": "32",
+      "roles": [
+        "r8",
+        "r5"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "Þegar kerfið segir nei",
+      "summary": "Reglur Business Central gilda áfram, líka í spjallinu.",
+      "appliesIf": null,
+      "when": "Þegar spurt er hvort spjallið fari framhjá reglum kerfisins.",
+      "steps": [
+        {
+          "prompt": "Bókaðu 200 kíló af vöru á birgðageymslu sem er ekki til.",
+          "youGet": "Business Central hafnar aðgerðinni og villuboðin koma óbreytt í spjallið."
+        }
+      ],
+      "notes": [
+        "Ekkert er bókað eða búið til. Heimildir, lokuð tímabil og uppsetning gilda eins og í viðmótinu.",
+        "Óhætt er að prófa þetta í rekstrarumhverfi."
+      ]
+    },
+    {
+      "id": "36",
+      "roles": [
+        "r6"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Hvað seldist í mánuðinum, af hverri vöru",
+      "summary": "Svar úr spurningu í stað útflutnings í Excel.",
+      "appliesIf": null,
+      "when": "Þegar þú vilt fljótt yfirlit yfir sölu mánaðarins.",
+      "steps": [
+        {
+          "prompt": "Hvað hefur selst mikið í síðasta mánuði af hverri vöru?",
+          "youGet": "Magn á hverja vöru í mánuðinum."
+        }
+      ],
+      "notes": [
+        "Nefndu mánuðinn með ártali ef svarið á að vera á tilteknu tímabili.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "34",
+      "roles": [
+        "r6"
+      ],
+      "level": "do",
+      "effect": "draft",
+      "name": "Staðfesting birgis borin saman við pöntun",
+      "summary": "Mismunur línu fyrir línu: verð, magn og afhending.",
+      "appliesIf": null,
+      "when": "Þegar birgir sendir pöntunarstaðfestingu.",
+      "steps": [
+        {
+          "prompt": "Hér er pöntunarstaðfesting frá birgi. Berðu hana saman við innkaupapöntunina, línu fyrir línu, og sýndu mér mismuninn.",
+          "youGet": "Mismunur línu fyrir línu: verð, magn og afhending."
+        },
+        {
+          "prompt": "Skrifaðu stutt og kurteist svar til birgisins um mismuninn. Ekki senda neitt.",
+          "youGet": "Drög að svari til birgis."
+        }
+      ],
+      "notes": [
+        "Hengdu staðfestinguna (PDF) við spjallið áður en þú límir promptið.",
+        "Spjallið getur líka bent á að afhendingardagar séu liðnir eða að hluti pöntunar sé móttekinn.",
+        "Svarið er drög. Ekkert er sent."
+      ]
+    },
+    {
+      "id": "33",
+      "roles": [
+        "r6"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Pöntunin sem er á eftir áætlun",
+      "summary": "Innkaupapantanir sem áttu að koma og eru ekki komnar.",
+      "appliesIf": null,
+      "when": "Þegar þú vilt vita hvað er á eftir hjá birgjum.",
+      "steps": [
+        {
+          "prompt": "Eru einhverjar innkaupapantanir sem áttu að koma og eru ekki komnar?",
+          "youGet": "Pantanir með liðna áætlaða móttöku og ekkert móttekið."
+        },
+        {
+          "prompt": "Hvað eru þær háar samtals og hjá hvaða birgi?",
+          "youGet": "Upphæð og birgir."
+        }
+      ],
+      "notes": [
+        "Svarið hreyfist með dagsetningunni. Keyrðu það sama dag og þú notar það.",
+        "Sótt á línustigi, svo pantanir sem eru að hluta mótteknar koma líka fram.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "43",
+      "roles": [
+        "r7"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Einn reikningur alla leið niður",
+      "summary": "Allt sem varð til þegar reikningur var bókaður, á einum stað.",
+      "appliesIf": null,
+      "when": "Þegar rekja þarf eitt skjal niður í færslur.",
+      "steps": [
+        {
+          "prompt": "Taktu nýjasta bókaða sölureikninginn og sýndu mér allt sem varð til þegar hann var bókaður.",
+          "youGet": "Haus, línur, vsk-færsla, viðskiptamannafærsla og fjárhagsfærslur."
+        },
+        {
+          "prompt": "Gerðu það sama fyrir tiltekinn reikning sem ég nefni.",
+          "youGet": "Sama rakning fyrir valið skjal."
+        }
+      ],
+      "notes": [
+        "Skjalanúmer breytist við bókun. Spurðu um bókaða skjalið.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "45",
+      "roles": [
+        "r8"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Hvað Bifröst nær yfir, og hvað ekki",
+      "summary": "Virk viðskiptasvið og fjöldi aðgerða í hverju þeirra.",
+      "appliesIf": null,
+      "when": "Þegar tæknifólk vill vita umfangið.",
+      "steps": [
+        {
+          "prompt": "Hvaða viðskiptasvið eru virk í Bifröst og hve margar aðgerðir eru í hverju þeirra?",
+          "youGet": "Yfirlit yfir svið og fjölda aðgerða."
+        }
+      ],
+      "notes": [
+        "Umfangið breytist með útgáfum. Spyrðu aftur þegar það skiptir máli.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "46",
+      "roles": [
+        "r8"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Listi úr gagnagrunni án SQL",
+      "summary": "Spurt í mannamáli í stað fyrirspurnar.",
+      "appliesIf": null,
+      "when": "Þegar einhver ætlar að sækja lista beint úr gagnagrunninum.",
+      "steps": [
+        {
+          "prompt": "Geturðu listað upp allar vörur og verð hér í spjallinu?",
+          "youGet": "Listi yfir vörur með söluverði."
+        }
+      ],
+      "notes": [
+        "Heimildir notandans gilda. Spjallið sér ekkert sem notandinn sér ekki í Business Central.",
+        "Aðeins lestur, ekkert er skráð."
+      ]
+    },
+    {
+      "id": "47",
+      "roles": [
+        "r8"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Vinnuraðir í villu, í öllum félögum",
+      "summary": "Vinnsluyfirlit eftir vinnslu og félagi, með tillögu að leiðréttingu.",
+      "appliesIf": "Á við ef þú hefur aðgang að fleiri en einu félagi í sama umhverfi.",
+      "when": "Þegar eitthvað féll í nótt og þú vilt vita hvað.",
+      "steps": [
+        {
+          "prompt": "Hvaða vinnsluraðir eru í villu í félögunum sem ég hef aðgang að? Sýndu villutextann og tillögu að leiðréttingu án þess að eyða neinu.",
+          "youGet": "Vinnsluraðir í villu eftir félagi, með villutexta."
+        }
+      ],
+      "notes": [
+        "Sumar raðir bera tóman villutexta. Þá þarf að skoða þær í Business Central.",
+        "Aðeins lestur, engu er eytt."
+      ]
+    }
+  ]
+}

@@ -733,5 +733,101 @@
   "theme.tags.tagsPageTitle": {
     "message": "Merki",
     "description": "The title of the tag list page"
+  },
+  "home.roles.users.useCases": {
+    "message": "Skoðaðu tilvik eftir hlutverki"
+  },
+  "useCases.level.ask": {
+    "message": "Spyrja"
+  },
+  "useCases.level.do": {
+    "message": "Gera"
+  },
+  "useCases.level.watch": {
+    "message": "Vakta"
+  },
+  "useCases.effect.read": {
+    "message": "Aðeins lestur"
+  },
+  "useCases.effect.draft": {
+    "message": "Býr til drög"
+  },
+  "useCases.effect.write": {
+    "message": "Skrifar í BC"
+  },
+  "useCases.filters.label": {
+    "message": "Sía tilvikin"
+  },
+  "useCases.filters.role": {
+    "message": "Hlutverk"
+  },
+  "useCases.filters.roleHint": {
+    "message": "veldu þitt hlutverk"
+  },
+  "useCases.filters.level": {
+    "message": "Stig"
+  },
+  "useCases.filters.levelHint": {
+    "message": "hvað kerfið gerir"
+  },
+  "useCases.filters.levelHelp": {
+    "message": "Spyrja sækir svar, Gera vinnur verkið, Vakta er spurning sem borgar sig að spyrja reglulega."
+  },
+  "useCases.filters.effect": {
+    "message": "Áhrif"
+  },
+  "useCases.filters.effectHint": {
+    "message": "hvað situr eftir í Business Central"
+  },
+  "useCases.filters.effectHelp": {
+    "message": "Aðeins lestur breytir engu, drög eru óbókuð skjöl, og skrifar í BC breytir gögnum."
+  },
+  "useCases.search.label": {
+    "message": "Leit"
+  },
+  "useCases.search.placeholder": {
+    "message": "Leita í tilvikum"
+  },
+  "useCases.filters.clear": {
+    "message": "Hreinsa síur"
+  },
+  "useCases.pick.button": {
+    "message": "Prófaðu eitt núna"
+  },
+  "useCases.pick.note": {
+    "message": "Við veljum tilvik af handahófi og opnum það fyrir þig."
+  },
+  "useCases.pick.none": {
+    "message": "Ekkert tilvik passar við síurnar sem eru valdar."
+  },
+  "useCases.count.none": {
+    "message": "Ekkert fannst"
+  },
+  "useCases.case.when": {
+    "message": "Hvenær:"
+  },
+  "useCases.case.steps": {
+    "message": "Límdu inn, eitt skref í einu"
+  },
+  "useCases.case.youGet": {
+    "message": "Þú færð:"
+  },
+  "useCases.case.notes": {
+    "message": "Gott að vita"
+  },
+  "useCases.role.cases": {
+    "message": "{count} tilvik|{count} tilvik"
+  },
+  "useCases.count.all": {
+    "message": "{count} tilvik|{count} tilvik"
+  },
+  "useCases.count.some": {
+    "message": "{count} af {total} tilvikum|{count} af {total} tilvikum"
+  },
+  "useCases.copy": {
+    "message": "Afrita"
+  },
+  "useCases.copied": {
+    "message": "Afritað"
   }
 }

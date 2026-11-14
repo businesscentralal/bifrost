@@ -24,7 +24,8 @@ request into something Business Central does. This page is what that means for y
   a Bifröst tool, as Claude does with **Allow once**: allow it when you recognise the request.
 - **A first question to try:** *"Who am I in Business Central?"* The answer should be your own user
   and company. If the company is wrong, ask it to switch company; if the user is wrong, stop and
-  tell your administrator.
+  tell your administrator. For more questions to try, by role, see
+  [What you can do with Bifröst](/try-it-out/use-cases/).
 
 ## What a conversation looks like
 
