@@ -169,15 +169,22 @@ export default function Home(): ReactNode {
           <Translate id="home.roles.title">Find your way</Translate>
         </h2>
         <div className="bifrostLinks" style={{marginBottom: '2.5rem'}}>
-          <Link className="bifrostPath" to="/documentation/end-customers/users/">
-            <h3><Translate id="home.roles.users.title">I use Business Central</Translate></h3>
-            <p>
-              <Translate id="home.roles.users.body">
-                What you can ask, what it will not do, and what to do when it says no.
-              </Translate>
-            </p>
-            <span className="bifrostPathCta"><Translate id="home.roles.users.cta">For users</Translate> <span aria-hidden="true">→</span></span>
-          </Link>
+          <div className="bifrostPath">
+            <Link
+              to="/documentation/end-customers/users/"
+              style={{color: 'inherit', textDecoration: 'none', display: 'flex', flexDirection: 'column', gap: '0.6rem'}}>
+              <h3><Translate id="home.roles.users.title">I use Business Central</Translate></h3>
+              <p>
+                <Translate id="home.roles.users.body">
+                  What you can ask, what it will not do, and what to do when it says no.
+                </Translate>
+              </p>
+              <span className="bifrostPathCta"><Translate id="home.roles.users.cta">For users</Translate> <span aria-hidden="true">→</span></span>
+            </Link>
+            <Link className="bifrostPathCta" to="/try-it-out/use-cases/">
+              <Translate id="home.roles.users.useCases">Browse use cases by role</Translate> <span aria-hidden="true">→</span>
+            </Link>
+          </div>
           <Link className="bifrostPath" to="/documentation/end-customers/administrators/">
             <h3><Translate id="home.roles.admins.title">I run Business Central</Translate></h3>
             <p>

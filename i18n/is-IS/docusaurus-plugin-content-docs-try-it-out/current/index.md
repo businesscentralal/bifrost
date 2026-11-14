@@ -54,7 +54,8 @@ Gerðu það áður en þú notar raunveruleg gögn.
 | **Framkvæma, örugglega** | *„Gefðu út nýjustu opnu sölupöntunina og sýndu mér hvað bókun hennar myndi gera.“* | Útgefin pöntun og forskoðun bókunar. Ekkert bókað |
 | **Tengja saman** | *„Hvaða sölupantanir eru komnar fram yfir afhendingardag? Flokkaðu þær eftir viðskiptamanni, með útistandandi upphæð.“* | Margar aðgerðir, eitt svar |
 
-Prófaðu svo eigin spurningar: þær sem þú þyrftir venjulega skýrslu fyrir.
+Prófaðu svo eigin spurningar: þær sem þú þyrftir venjulega skýrslu fyrir, eða veldu eina eftir hlutverki í
+[Hvað er hægt að gera með Bifröst](/try-it-out/use-cases/).
 
 Spurt hvað hann getur gert, á mæltu máli:
 
