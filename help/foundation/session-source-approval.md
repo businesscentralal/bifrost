@@ -8,14 +8,19 @@ integration - before it may submit Bifröst messages as your user. When your use
 approval, messages from a source you have not approved are refused; the source then asks for
 approval and gets a link to this page for you to open.
 
-The request also names the **caller** - the AI host the session comes from, such as Claude or ChatGPT.
-The company keeps a **Bifrost Callers** list of which callers may get session approvals here. Open the
-list from **Callers** on [Bifrost Setup](/help/foundation/bifrost-setup/). The list is not shown in Tell Me.
+The request may also name the **caller** - the AI host the session comes from, such as Claude or
+ChatGPT. The caller code is optional for now. A request without a caller code, or with a blank one,
+is accepted, and a code the request does send is still checked. A request without a code checks a
+caller already recorded for that source and keeps it. A recorded caller that is not allowed is
+refused in the same way as a request that names it. A source with no recorded caller is not checked.
+Core issue 1340 tracks when the caller code becomes mandatory again. The company keeps a **Bifrost
+Callers** list of which callers may get session approvals here. Open the list from **Callers** on
+[Bifrost Setup](/help/foundation/bifrost-setup/). The list is not shown in Tell Me.
 
 | Field | Description |
 | --- | --- |
 | **Session Source** | The source that asks for approval. |
-| **Caller** | The AI host that requested this source. Shown when the request included a caller. |
+| **Caller** | The AI host recorded for this source. Shown when a caller is recorded. |
 | **Description** | Why the source is trusted. |
 | **I approve this session source** | Confirms that you trust the source. |
 | **Allow this caller** | Shown when the caller is not allowed in this company. Turn it on to allow the caller here, then approve the source. Only a user who may change the Bifrost Callers can set it. |

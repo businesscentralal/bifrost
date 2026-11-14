@@ -8,15 +8,19 @@ gervigreindaraðstoðarmann eða samþættingu - áður en hann má senda Bifrö
 Þegar notandauppsetningin þín krefst samþykkis er skilaboðum frá uppruna sem þú hefur ekki samþykkt
 hafnað; uppruninn biður þá um samþykki og fær tengil á þessa síðu sem þú opnar.
 
-Beiðnin tilgreinir einnig **kallarann** - gervigreindarforritið sem setan kemur frá, til dæmis Claude
-eða ChatGPT. Fyrirtækið heldur lista, **Bifrastarkallarar**, yfir þá kallara sem mega fá samþykkt
-uppruna setu hér. Opnaðu listann með **Kallarar** á [Uppsetning Bifröst](/help/foundation/bifrost-setup/).
-Listinn birtist ekki í Leit.
+Beiðnin getur einnig tilgreint **kallarann** - gervigreindarforritið sem setan kemur frá, til dæmis
+Claude eða ChatGPT. Kallarakóðinn er valkvæður í bili. Beiðni án kallarakóða, eða með auðum kóða, er
+tekin gild, og kóði sem beiðnin sendir er samt athugaður. Beiðni án kóða athugar kallara sem þegar er
+skráður á þann uppruna og heldur honum. Skráðum kallara sem er ekki leyfður er hafnað á sama hátt og
+beiðni sem nefnir hann. Uppruni sem hefur engan skráðan kallara er ekki athugaður. Mál 1340 í
+kjarnanum fylgist með því hvenær kallarakóðinn verður aftur skylda. Fyrirtækið heldur lista,
+**Bifrastarkallarar**, yfir þá kallara sem mega fá samþykkt uppruna setu hér. Opnaðu listann með
+**Kallarar** á [Uppsetning Bifröst](/help/foundation/bifrost-setup/). Listinn birtist ekki í Leit.
 
 | Reitur | Lýsing |
 | --- | --- |
 | **Uppruni setu** | Uppruninn sem biður um samþykki. |
-| **Kallari** | Gervigreindarforritið sem óskaði eftir þessum uppruna. Birtist þegar beiðnin inniheldur kallara. |
+| **Kallari** | Gervigreindarforritið sem er skráð á þennan uppruna. Birtist þegar kallari er skráður. |
 | **Lýsing** | Hvers vegna upprunanum er treyst. |
 | **Ég samþykki þennan uppruna setu** | Staðfestir að þú treystir upprunanum. |
 | **Leyfa þennan kallara** | Birtist þegar kallarinn er ekki leyfður í þessu fyrirtæki. Kveiktu á þessu til að leyfa kallarann hér og samþykktu síðan upprunann. Aðeins notandi sem má breyta Bifrastarkallurum getur stillt þetta. |

@@ -84,7 +84,7 @@ Notendur með `BIFROST SrcApAdm ori`, `BIFROST SrcApCfg ori` eða `BIFROST Full 
 
 Listinn stjórnar því hvaða forrit ná til Business Central í gegnum MCP. Hann er ekki öryggismörk gagnvart biðlara sem kallar beint á Cloud Events; sá biðlari þarf áfram auðkennt Entra-auðkenni, samþykkt Bifröst-forrit og samþykki uppruna setu fyrir hvern notanda.
 
-Á meðan fyrirtækið er með einhvern kallara — þar á meðal þá sem voru settir inn við uppsetningu — er beiðni um samþykkt setu án kallarakóða hafnað. Ef þú tæmir listann er beiðni án kallarakóða tekin gild aftur.
+Kallarakóði í beiðni um samþykkt setu er valkvæður í bili. Beiðni án kallarakóða, eða með auðum kóða, er tekin gild. Kóði sem beiðnin sendir er samt athugaður: kallari sem fyrirtækið þekkir ekki er bættur við sem ekki leyfður, og ekki er hægt að samþykkja setu fyrir kallara sem er ekki leyfður fyrr en sá kallari er leyfður. Beiðni án kóða athugar ekki uppruna sem hefur engan skráðan kallara. Þegar uppruninn er þegar með skráðan kallara er sá kallari athugaður og honum haldið, og skráðum kallara sem er ekki leyfður er hafnað á sama hátt og beiðni sem nefnir hann. Mál 1340 í kjarnanum fylgist með því hvenær kallarakóðinn verður aftur skylda.
 
 ## Ábendingar
 

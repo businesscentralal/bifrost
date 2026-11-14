@@ -84,7 +84,7 @@ Users with `BIFROST SrcApAdm ori`, `BIFROST SrcApCfg ori` or `BIFROST Full ori` 
 
 The list controls which hosts reach Business Central through the MCP. It is not a security boundary against a client that calls Cloud Events directly; that client still needs an authorised Entra identity, the approved Bifröst app, and the per-user session source approval.
 
-While the company has any caller — including the seeded ones — a session approval request without a caller code is refused. If you empty the list, a request without a caller code is accepted again.
+The caller code on a session approval request is optional for now. A request without a caller code, or with a blank one, is accepted. A code the request sends is still checked: a caller the company does not know is added as not allowed, and a session cannot be approved for a caller that is not allowed until that caller is allowed. A request without a code does not check a source that has no recorded caller. When the source already has a recorded caller, that caller is checked and kept, and a recorded caller that is not allowed is refused in the same way as a request that names it. Core issue 1340 tracks when the caller code becomes mandatory again.
 
 ## Tips
 
