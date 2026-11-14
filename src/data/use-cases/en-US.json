@@ -1,0 +1,948 @@
+{
+  "roles": [
+    {
+      "id": "r1",
+      "name": "CEO and owner",
+      "lead": "An overview in five minutes: where the money is and what is ageing."
+    },
+    {
+      "id": "r2",
+      "name": "Finance manager",
+      "lead": "What is waiting, what doesn't reconcile, and the close across your companies."
+    },
+    {
+      "id": "r3",
+      "name": "Chief accountant",
+      "lead": "Reconciliations, posting previews, and the documents that arrive without typing."
+    },
+    {
+      "id": "r4",
+      "name": "Treasurer",
+      "lead": "The bank, collections, and the card period that is missing a receipt."
+    },
+    {
+      "id": "r5",
+      "name": "Project and service manager",
+      "lead": "What has been worked but not billed, and the invoice that is made in the chat."
+    },
+    {
+      "id": "r6",
+      "name": "Sales, purchasing and warehouse staff",
+      "lead": "Orders, vendors, and prices that went up without anyone noticing."
+    },
+    {
+      "id": "r7",
+      "name": "External auditor",
+      "lead": "One document, traced all the way down to the entries."
+    },
+    {
+      "id": "r8",
+      "name": "System administrator and IT staff",
+      "lead": "The scope, the permissions, and what failed overnight."
+    }
+  ],
+  "cases": [
+    {
+      "id": "2",
+      "roles": [
+        "r1"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Where the risk in receivables lies",
+      "summary": "Aged Accounts Receivable by customer, and who carries the largest share of outstanding receivables.",
+      "appliesIf": null,
+      "when": "When you want to know where outstanding receivables are and with whom.",
+      "steps": [
+        {
+          "prompt": "Show me the customer aging and compare the total with the open entries.",
+          "youGet": "Aging by customer and age bucket, with a comparison of the total."
+        },
+        {
+          "prompt": "Who are the ten largest debtors and what share of the receivables do they hold?",
+          "youGet": "The ten largest debtors and their share of the total."
+        }
+      ],
+      "notes": [
+        "The aging leaves out entries without a document type. That is why the first step asks for a comparison with the open entries.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "5",
+      "roles": [
+        "r1"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Uninvoiced amount on projects",
+      "summary": "What has been worked on projects and not yet billed.",
+      "appliesIf": "Applies if you use project accounting.",
+      "when": "When you want to know what is sitting uninvoiced in your projects.",
+      "steps": [
+        {
+          "prompt": "Which projects have work done or costs incurred that have not been invoiced? Show the project name and the amount on each project.",
+          "youGet": "A table of projects with their uninvoiced amount."
+        },
+        {
+          "prompt": "Sort the projects by amount and tell me which three matter most.",
+          "youGet": "The three largest projects."
+        }
+      ],
+      "notes": [
+        "Two amounts can appear, the line amount and the cost. Say which one you mean.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "1",
+      "roles": [
+        "r1"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "A dashboard made in the chat",
+      "summary": "Ask in plain language and have the answer laid out as one page you can share.",
+      "appliesIf": null,
+      "when": "When you want an overview on one page without waiting for a report.",
+      "steps": [
+        {
+          "prompt": "Show me sales by month for the last six months and which customers account for them.",
+          "youGet": "A table with sales by month and by customer."
+        },
+        {
+          "prompt": "Show me outstanding receivables by due-date age and the ten largest debtors by name. Compare the total with the open customer entries.",
+          "youGet": "Aging and a list of debtors, with confirmation that the total matches."
+        },
+        {
+          "prompt": "Put this on one dashboard for management.",
+          "youGet": "One page with key figures, bar charts and a debtor table."
+        }
+      ],
+      "notes": [
+        "Fetch the data first and ask for the dashboard afterwards. A dashboard built from nothing takes many times longer.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "3",
+      "roles": [
+        "r1"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Receivables that passed 60 days this week",
+      "summary": "What crossed the line without anyone asking.",
+      "appliesIf": null,
+      "when": "When you want to keep an eye on receivables that are ageing.",
+      "steps": [
+        {
+          "prompt": "Which receivables went past 60 days from the due date this week?",
+          "youGet": "A short answer with the receivables that crossed the line this week."
+        },
+        {
+          "prompt": "Make a one-page collections overview from this: key figures at the top, aging in 30-day buckets and the five largest debtors.",
+          "youGet": "One page with key figures, aging and the five largest debtors."
+        }
+      ],
+      "notes": [
+        "The answer changes daily. Run it on the day you use it.",
+        "Choose whether you count from the due date or the posting date, and use the same basis each time.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "4",
+      "roles": [
+        "r1"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Delivered but not invoiced",
+      "summary": "What has been delivered and nobody has sent an invoice for.",
+      "appliesIf": "Applies if deliveries are recorded on sales orders or projects.",
+      "when": "When you want to know whether anything went out without an invoice.",
+      "steps": [
+        {
+          "prompt": "Have we delivered anything that we have not sent an invoice for?",
+          "youGet": "A list of what is delivered but not invoiced, with the amount."
+        },
+        {
+          "prompt": "What is the total excluding VAT, and how does it split between sales orders and projects?",
+          "youGet": "The total and the split."
+        }
+      ],
+      "notes": [
+        "The question is worth asking weekly. The answer moves with the day's deliveries and invoices.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "63",
+      "roles": [
+        "r5",
+        "r1"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Projects against budget",
+      "summary": "Budget against actual cost on open projects, and which projects need attention.",
+      "appliesIf": "Applies if budgets are recorded on projects in project accounting.",
+      "when": "When you want to know which projects are going over.",
+      "steps": [
+        {
+          "prompt": "How do the open projects stand against budget? Budget is the total cost on the budget lines excluding automatic lines, actual cost is usage at cost price. Point out the projects that need attention.",
+          "youGet": "Budget, actual cost and difference for each project."
+        },
+        {
+          "prompt": "Put this on one page I can show: one card per project with budget, actual cost and difference, and the ones that need attention at the top.",
+          "youGet": "One page with a card for each project."
+        }
+      ],
+      "notes": [
+        "Automatic budget lines mirror the actual cost. The prompt leaves them out, otherwise an overrun would look like budget.",
+        "Projects without a budget show up as such. That is a result, not an error.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "65",
+      "roles": [
+        "r2",
+        "r1"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "The watch across all companies",
+      "summary": "What needs attention today, in every company you have access to.",
+      "appliesIf": "Applies if you have access to more than one company in the same environment.",
+      "when": "When you are responsible for more than one company and want a single overview.",
+      "steps": [
+        {
+          "prompt": "Go through all the companies I have access to and give me a short list of what needs attention today: approvals past their due date, receivables that went past 60 days, and intercompany transactions that don't reconcile.",
+          "youGet": "What needs attention in each company, in one list."
+        },
+        {
+          "prompt": "Shorten this into a morning email: three to five lines, the most important first.",
+          "youGet": "A morning email in three to five lines."
+        }
+      ],
+      "notes": [
+        "This takes a few minutes. Start it and do something else in the meantime.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "12",
+      "roles": [
+        "r2"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "VAT return for the period, reconciled with the entries",
+      "summary": "Output VAT, input VAT and the amount payable, compared with the VAT entries.",
+      "appliesIf": "Applies if the company's VAT statement is set up in Business Central.",
+      "when": "When you want to confirm the period's VAT return before submitting it.",
+      "steps": [
+        {
+          "prompt": "Show me the VAT return for the last settlement period: output VAT, input VAT and the amount payable, and confirm output and input VAT against the VAT entries.",
+          "youGet": "Output VAT, input VAT and amount payable, reconciled with the VAT entries."
+        },
+        {
+          "prompt": "Lay this out like the VAT return that goes to the tax authority, on one page I can show.",
+          "youGet": "One page with the period's VAT overview."
+        }
+      ],
+      "notes": [
+        "The tax authority's box numbers are not necessarily recorded in the company's VAT statement. In that case the page shows line numbers from Business Central.",
+        "Nothing is sent to the tax authority and the period is not closed.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "54",
+      "roles": [
+        "r2"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "Group consolidation and the overview the bank asks for",
+      "summary": "The group's consolidation with intercompany transactions eliminated, and a one-page overview for the bank.",
+      "appliesIf": "Applies to groups whose companies are in the same environment and you have access to all of them.",
+      "when": "When the group needs a consolidation, or the bank asks for an overview.",
+      "steps": [
+        {
+          "prompt": "Make a consolidation for the companies in the group, with the main items from the income statement and balance sheet, and eliminate intercompany transactions.",
+          "youGet": "A consolidation with intercompany transactions eliminated."
+        },
+        {
+          "prompt": "Give me on one page what the bank wants to know about the group.",
+          "youGet": "One page: loans, deposits and receivables."
+        }
+      ],
+      "notes": [
+        "The parent company's shareholding is not eliminated against the subsidiaries' equity unless ownership percentages are recorded in the data.",
+        "The consolidation is a working document. Review it before it leaves the building.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "7",
+      "roles": [
+        "r2"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "What is waiting for approval, and what is unexpected",
+      "summary": "Open approval requests and what stands out from the usual pattern.",
+      "appliesIf": "Applies if an approval workflow is active in Business Central.",
+      "when": "When you want to see what is waiting for approval and whether anything is unusual.",
+      "steps": [
+        {
+          "prompt": "What is waiting for approval in the company, and is any of it unexpected?",
+          "youGet": "Open approval requests and the ones that stand out, for example an invoice that rises from month to month."
+        },
+        {
+          "prompt": "Which of these are overdue?",
+          "youGet": "The requests that are past their due date."
+        }
+      ],
+      "notes": [
+        "The question is about the company as a whole, not your own approval list.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "8",
+      "roles": [
+        "r2",
+        "r3"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Invoices nobody was asked to approve",
+      "summary": "Purchase invoices that sit without an approval request.",
+      "appliesIf": "Applies if an approval workflow is active in Business Central.",
+      "when": "When you want to find invoices that dropped out of the process.",
+      "steps": [
+        {
+          "prompt": "Are there any purchase invoices that nobody has been asked to approve?",
+          "youGet": "A list of purchase invoices without an approval request."
+        },
+        {
+          "prompt": "What is the total including VAT?",
+          "youGet": "The total including VAT."
+        }
+      ],
+      "notes": [
+        "A good question to ask before month end, before you close.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "9",
+      "roles": [
+        "r2",
+        "r3"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Approval requests past their due date",
+      "summary": "What has waited too long and with whom it sits.",
+      "appliesIf": "Applies if an approval workflow is active in Business Central.",
+      "when": "When you want to know what is stuck in the approval process.",
+      "steps": [
+        {
+          "prompt": "Which approval requests are past their due date?",
+          "youGet": "Requests past their due date, with amount and vendor."
+        },
+        {
+          "prompt": "Who are they waiting for and how long have they waited?",
+          "youGet": "The approver and the number of days."
+        }
+      ],
+      "notes": [
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "64",
+      "roles": [
+        "r6",
+        "r2"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "The year's purchases by vendor",
+      "summary": "What was bought from each vendor and where prices have gone up.",
+      "appliesIf": null,
+      "when": "When you want an overview of purchases and price trends at your vendors.",
+      "steps": [
+        {
+          "prompt": "How much did we buy this year from each vendor, excluding VAT? Show the largest and what share goes to the top five.",
+          "youGet": "Purchases per vendor excluding VAT, and the share of the five largest."
+        },
+        {
+          "prompt": "At which vendors has the price gone up this year? Compare the same line, the same item or the same account on each vendor's invoices month by month, and leave out anything that is only a larger quantity. Answer in a short table.",
+          "youGet": "A short table of vendors where the price has gone up, with the document number."
+        }
+      ],
+      "notes": [
+        "The total can move depending on whether journal entries without a document type are included. Ask about both if the figure matters.",
+        "Where the quantity is always 1 on lines, you cannot tell whether an increase is price or volume.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "14",
+      "roles": [
+        "r3"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Posted but not invoiced",
+      "summary": "Receipts waiting for an invoice, with the total amount and a split by vendor.",
+      "appliesIf": "Applies if receipts are recorded on purchase orders.",
+      "when": "When vendor balances don't reconcile at month end.",
+      "steps": [
+        {
+          "prompt": "What have we received in purchasing that has no invoice yet? Show the receipts and the total amount.",
+          "youGet": "Receipts without an invoice, with the total amount."
+        },
+        {
+          "prompt": "Break this down by vendor.",
+          "youGet": "The split by vendor."
+        }
+      ],
+      "notes": [
+        "The amount is calculated as quantity times unit price on each line, because receipt lines carry no amount.",
+        "Fetched from purchase order lines, not from posted receipts.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "15",
+      "roles": [
+        "r3"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Subledgers against control accounts, by posting group",
+      "summary": "Which posting groups don't reconcile and which entries explain the difference.",
+      "appliesIf": "The third step applies if you have access to more than one company.",
+      "when": "When you want to know whether the subledgers reconcile with the general ledger.",
+      "steps": [
+        {
+          "prompt": "Do customers and vendors reconcile with the control accounts, by posting group?",
+          "youGet": "The balance in each posting group and where there is a difference."
+        },
+        {
+          "prompt": "If not, find the entries that cause the difference and tell me how to fix them.",
+          "youGet": "The entries that explain the difference and a suggested fix."
+        },
+        {
+          "prompt": "Do the same reconciliation for all the companies I have access to and put it on one page: one card per company, green where it reconciles and red where there is a difference, with the entries that explain it.",
+          "youGet": "One page with a card for each company."
+        }
+      ],
+      "notes": [
+        "The suggestion is text. Nothing is corrected automatically.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "16",
+      "roles": [
+        "r3"
+      ],
+      "level": "do",
+      "effect": "draft",
+      "name": "Vendors: subledger against the vendor statement",
+      "summary": "The internal reconciliation says all is well, the vendor's statement says otherwise.",
+      "appliesIf": null,
+      "when": "When a vendor sends an account statement that does not match the books.",
+      "steps": [
+        {
+          "prompt": "Here is a statement from a vendor. Reconcile it with Business Central and tell me what doesn't match.",
+          "youGet": "The position in the books against the vendor's statement, and the documents that explain the difference."
+        },
+        {
+          "prompt": "Write a short, polite letter to the vendor about what doesn't match and ask for what is missing. Don't send anything.",
+          "youGet": "A draft letter to the vendor."
+        }
+      ],
+      "notes": [
+        "Attach the statement (PDF) to the chat before you paste the prompt.",
+        "Invoice numbers may be recorded differently at the vendor than at your company. The chat points this out.",
+        "The letter is a draft. Nothing is sent."
+      ]
+    },
+    {
+      "id": "19",
+      "roles": [
+        "r3"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "Posting preview without posting",
+      "summary": "Shows which entries would be created if a document were posted.",
+      "appliesIf": null,
+      "when": "When you want to see the effect of posting before you post.",
+      "steps": [
+        {
+          "prompt": "Take an unposted purchase invoice that is waiting and show me what would be posted if I posted it: G/L entries, a VAT entry and a vendor entry. Do not post.",
+          "youGet": "A posting preview, rolled back. Nothing is written."
+        },
+        {
+          "prompt": "Can you preview the posting of a sales order that is waiting to be processed?",
+          "youGet": "A posting preview for the sales order."
+        }
+      ],
+      "notes": [
+        "Use the preview on an invoice rather than on a purchase order. On an order it shows a full invoice posting even though you only want to receive.",
+        "A preview is not validation. It shows the effects but does not catch everything.",
+        "Read only, nothing is posted."
+      ]
+    },
+    {
+      "id": "52",
+      "roles": [
+        "r3"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "Intercompany reconciliation",
+      "summary": "What one company has posted and the other has not.",
+      "appliesIf": "Applies to groups whose companies are in the same environment and you have access to all of them.",
+      "when": "When intercompany transactions in a group need to reconcile.",
+      "steps": [
+        {
+          "prompt": "Reconcile the intercompany transactions in the group. Is everything one company has posted to another also posted at the other, and the other way round? Don't change anything.",
+          "youGet": "The position at both companies in each pair, and the difference."
+        },
+        {
+          "prompt": "Lay this out on a page I can show: one card for each pair of companies with the position at both and the difference, and a list of what needs fixing.",
+          "youGet": "One page with a card for each pair and a list of fixes."
+        }
+      ],
+      "notes": [
+        "Data is read from each company separately. There are no dedicated intercompany operations in the connection.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "66",
+      "roles": [
+        "r3"
+      ],
+      "level": "do",
+      "effect": "write",
+      "name": "A vendor invoice becomes a purchase invoice",
+      "summary": "A vendor PDF becomes an incoming document and an unposted purchase invoice, with accounts.",
+      "appliesIf": "Applies if incoming documents are active in Business Central.",
+      "when": "When an invoice arrives as a PDF and should get into the system without typing.",
+      "steps": [
+        {
+          "prompt": "Here is an invoice from a vendor. Read it and create an electronic invoice (UBL) from its content directly as an incoming document, without uploading the PDF, and then create a purchase invoice from it where the system finds the vendor and accounts itself. Post nothing, and tell me which vendor and accounts were chosen and whether the amount matches the PDF.",
+          "youGet": "An incoming document and an unposted purchase invoice, with an account on each line and a total that matches the PDF."
+        }
+      ],
+      "notes": [
+        "Attach the invoice (PDF) to the chat before you paste the prompt.",
+        "The accounts come from text-to-account mapping: the system recognises the word on the line. Review the choice before you post.",
+        "Writes to Business Central: creates an incoming document and an unposted purchase invoice. Posts nothing.",
+        "Bifröst cannot delete drafts. Delete them in Business Central if you want to get rid of them."
+      ]
+    },
+    {
+      "id": "22",
+      "roles": [
+        "r4"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Bank movements waiting for reconciliation",
+      "summary": "What matches by itself and what needs a human eye.",
+      "appliesIf": "Applies if a bank statement is imported into a bank reconciliation in Business Central.",
+      "when": "When you want to know what is left in the bank reconciliation.",
+      "steps": [
+        {
+          "prompt": "Show me the bank movements waiting for reconciliation in the latest open bank reconciliation and sort them by whether they match entries in the books or not.",
+          "youGet": "The lines that are waiting, sorted by what matches."
+        },
+        {
+          "prompt": "Take the largest deposit that doesn't match. Which entries does it belong to?",
+          "youGet": "A suggestion of the entries that make up the deposit, and what the data does not settle."
+        },
+        {
+          "prompt": "And the deposit that is off by a small amount, does it reconcile? If not, what is the difference and what is the most likely explanation?",
+          "youGet": "The difference and a likely explanation."
+        }
+      ],
+      "notes": [
+        "Read only. Nothing is matched or posted.",
+        "Bifröst does not fetch movements from the bank. The statement must already be in Business Central."
+      ]
+    },
+    {
+      "id": "25",
+      "roles": [
+        "r4"
+      ],
+      "level": "do",
+      "effect": "write",
+      "name": "A bank reconciliation that matches itself, except what needs a human eye",
+      "summary": "The system matches what can be matched and says what to do with the rest. Nothing is posted.",
+      "appliesIf": "Applies if a bank statement is imported into a bank reconciliation in Business Central.",
+      "when": "When you are reconciling the bank and want the groundwork done for you.",
+      "steps": [
+        {
+          "prompt": "Reconcile the latest open bank reconciliation: let the system match what it can, then match what remains if the amounts agree. Show me in one table what is left and what you would do with each line, but post nothing.",
+          "youGet": "Matched lines, what remains and a suggestion for each line. Nothing posted."
+        }
+      ],
+      "notes": [
+        "Writes to Business Central: matches lines in the reconciliation. Posts nothing.",
+        "The chat may ask which G/L accounts to use for bank charges and interest if they are not set on the bank account.",
+        "To reset the matching, ask in the same chat: “Reset the matching on the reconciliation and confirm that no line is matched any more. Post nothing.”"
+      ]
+    },
+    {
+      "id": "26",
+      "roles": [
+        "r4"
+      ],
+      "level": "do",
+      "effect": "draft",
+      "name": "Collections: receivables older than 60 days",
+      "summary": "The largest debtors, a collections overview and a draft of a polite letter.",
+      "appliesIf": null,
+      "when": "When you are about to do the collections round.",
+      "steps": [
+        {
+          "prompt": "Which receivables are older than 60 days? Show the largest debtors.",
+          "youGet": "Receivables older than 60 days and the largest debtors."
+        },
+        {
+          "prompt": "Make a one-page collections overview from this: key figures at the top, aging and the five largest debtors to call.",
+          "youGet": "One page with a collections overview."
+        },
+        {
+          "prompt": "Write a short, polite collection letter to the largest debtor with a list of the open invoices. First point out if anything looks like a double posting. Don't send anything.",
+          "youGet": "A draft letter and a note about a possible double posting."
+        }
+      ],
+      "notes": [
+        "A note about a double posting is a pointer, not a confirmation. Look at the invoices before a letter goes out.",
+        "The letter is a draft. Nothing is sent, neither by email nor by SMS."
+      ]
+    },
+    {
+      "id": "42",
+      "roles": [
+        "r4"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "The card transaction missing a receipt",
+      "summary": "The unposted card invoice, VAT rates and the missing receipt.",
+      "appliesIf": "Applies if card statements are recorded as purchase invoices to the card company, one for each period.",
+      "when": "When a card period is unsettled and something is missing.",
+      "steps": [
+        {
+          "prompt": "What is in the card period that is unposted?",
+          "youGet": "The unposted card invoice with VAT rates and what is missing."
+        },
+        {
+          "prompt": "Read the comments on the invoice lines. Which receipt is missing and with which VAT rate should each line be posted?",
+          "youGet": "The missing receipt and the VAT rate for each line."
+        }
+      ],
+      "notes": [
+        "Read only, nothing is posted."
+      ]
+    },
+    {
+      "id": "31",
+      "roles": [
+        "r5"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "Contract: worked against billed",
+      "summary": "A fixed monthly fee against hours worked.",
+      "appliesIf": "Applies if contract projects with a fixed monthly fee are recorded in project accounting.",
+      "when": "When you want to know whether the fixed fee covers the work.",
+      "steps": [
+        {
+          "prompt": "On the framework agreement with the fixed monthly fee, how much have we worked against what we have billed?",
+          "youGet": "Hours worked and their value against the monthly invoices."
+        }
+      ],
+      "notes": [
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "28",
+      "roles": [
+        "r5"
+      ],
+      "level": "do",
+      "effect": "write",
+      "name": "From a question to an invoice",
+      "summary": "A sales invoice prepared in the chat, reviewed and posted when you say yes.",
+      "appliesIf": null,
+      "when": "When you need to create an invoice and don't want to go into the interface.",
+      "steps": [
+        {
+          "prompt": "Create a draft sales invoice for the customer I name, with the lines and amounts I give you. Don't post.",
+          "youGet": "An unposted draft sales invoice."
+        },
+        {
+          "prompt": "Show me the invoice as it is and tell me which company and environment it is in. Don't post it until I say yes, and then give me the document number.",
+          "youGet": "The invoice reviewed, and posted with a document number after you confirm."
+        }
+      ],
+      "notes": [
+        "Read the draft through before you say yes. After posting, the customer's receivable goes up.",
+        "Bifröst cannot delete drafts. Drafts that should not stand must be deleted in Business Central."
+      ]
+    },
+    {
+      "id": "29",
+      "roles": [
+        "r5"
+      ],
+      "level": "do",
+      "effect": "draft",
+      "name": "Month end: invoice drafts from the projects",
+      "summary": "Drafts from all invoiceable lines on a project, unposted and reversible.",
+      "appliesIf": "Applies if project accounting is used with invoiceable lines.",
+      "when": "When it is time to bill finished project work at month end.",
+      "steps": [
+        {
+          "prompt": "Create invoice drafts from all invoiceable lines on the project with the highest uninvoiced amount. Don't post.",
+          "youGet": "Draft sales invoices with lines from the project. Nothing is posted."
+        },
+        {
+          "prompt": "What is the total of the drafts and which lines went into them?",
+          "youGet": "The total of the drafts and the lines that went into them."
+        }
+      ],
+      "notes": [
+        "Writes to Business Central: creates unposted drafts. Posts nothing.",
+        "Bifröst cannot delete drafts. Delete them in Business Central if they should not stand, otherwise the project's lines count as transferred to an invoice.",
+        "Business Central may warn that the VAT product posting group is missing on lines. This appears in the answer."
+      ]
+    },
+    {
+      "id": "30",
+      "roles": [
+        "r5"
+      ],
+      "level": "do",
+      "effect": "write",
+      "name": "The markup that flows to the project",
+      "summary": "Purchased services go onto a project with a markup, and a credit memo takes the markup back.",
+      "appliesIf": "Applies if project accounting is used with a markup factor on invoiceable lines.",
+      "when": "When purchased services should go on a customer's invoice with a markup.",
+      "steps": [],
+      "notes": [
+        "This case posts both a purchase invoice and a credit memo, so it is not set up as a prompt here.",
+        "An Origo consultant will show you in a test environment."
+      ]
+    },
+    {
+      "id": "32",
+      "roles": [
+        "r8",
+        "r5"
+      ],
+      "level": "do",
+      "effect": "read",
+      "name": "When the system says no",
+      "summary": "Business Central's rules still apply, in the chat too.",
+      "appliesIf": null,
+      "when": "When someone asks whether the chat bypasses the system's rules.",
+      "steps": [
+        {
+          "prompt": "Post 200 kilos of an item to a warehouse location that doesn't exist.",
+          "youGet": "Business Central rejects the action and the error message comes into the chat unchanged."
+        }
+      ],
+      "notes": [
+        "Nothing is posted or created. Permissions, closed periods and setup apply as in the interface.",
+        "It is safe to try this in a production environment."
+      ]
+    },
+    {
+      "id": "36",
+      "roles": [
+        "r6"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "What sold this month, by item",
+      "summary": "An answer from a question instead of an Excel export.",
+      "appliesIf": null,
+      "when": "When you want a quick overview of the month's sales.",
+      "steps": [
+        {
+          "prompt": "How much of each item sold last month?",
+          "youGet": "Quantity for each item in the month."
+        }
+      ],
+      "notes": [
+        "Name the month with the year if the answer should be for a specific period.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "34",
+      "roles": [
+        "r6"
+      ],
+      "level": "do",
+      "effect": "draft",
+      "name": "Vendor confirmation compared with the order",
+      "summary": "Differences line by line: price, quantity and delivery.",
+      "appliesIf": null,
+      "when": "When a vendor sends an order confirmation.",
+      "steps": [
+        {
+          "prompt": "Here is an order confirmation from a vendor. Compare it with the purchase order, line by line, and show me the differences.",
+          "youGet": "Differences line by line: price, quantity and delivery."
+        },
+        {
+          "prompt": "Write a short, polite reply to the vendor about the differences. Don't send anything.",
+          "youGet": "A draft reply to the vendor."
+        }
+      ],
+      "notes": [
+        "Attach the confirmation (PDF) to the chat before you paste the prompt.",
+        "The chat can also point out that delivery dates have passed or that part of the order has been received.",
+        "The reply is a draft. Nothing is sent."
+      ]
+    },
+    {
+      "id": "33",
+      "roles": [
+        "r6"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "The order that is behind schedule",
+      "summary": "Purchase orders that should have arrived and haven't.",
+      "appliesIf": null,
+      "when": "When you want to know what is behind at your vendors.",
+      "steps": [
+        {
+          "prompt": "Are there any purchase orders that should have arrived and haven't?",
+          "youGet": "Orders with a past expected receipt date and nothing received."
+        },
+        {
+          "prompt": "What is the total, and at which vendors?",
+          "youGet": "The amount and the vendor."
+        }
+      ],
+      "notes": [
+        "The answer moves with the date. Run it on the day you use it.",
+        "Fetched at line level, so partially received orders also show up.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "43",
+      "roles": [
+        "r7"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "One invoice all the way down",
+      "summary": "Everything that was created when an invoice was posted, in one place.",
+      "appliesIf": null,
+      "when": "When you need to trace one document down to the entries.",
+      "steps": [
+        {
+          "prompt": "Take the latest posted sales invoice and show me everything that was created when it was posted.",
+          "youGet": "Header, lines, VAT entry, customer entry and G/L entries."
+        },
+        {
+          "prompt": "Do the same for a specific invoice that I name.",
+          "youGet": "The same trace for the chosen document."
+        }
+      ],
+      "notes": [
+        "The document number changes on posting. Ask about the posted document.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "45",
+      "roles": [
+        "r8"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "What Bifröst covers, and what it does not",
+      "summary": "Active business areas and the number of operations in each.",
+      "appliesIf": null,
+      "when": "When technical staff want to know the scope.",
+      "steps": [
+        {
+          "prompt": "Which business areas are active in Bifröst and how many operations are there in each?",
+          "youGet": "An overview of areas and the number of operations."
+        }
+      ],
+      "notes": [
+        "The scope changes with releases. Ask again when it matters.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "46",
+      "roles": [
+        "r8"
+      ],
+      "level": "ask",
+      "effect": "read",
+      "name": "A list from the database without SQL",
+      "summary": "Ask in plain language instead of writing a query.",
+      "appliesIf": null,
+      "when": "When someone is about to pull a list directly from the database.",
+      "steps": [
+        {
+          "prompt": "Can you list all items and prices here in the chat?",
+          "youGet": "A list of items with sales prices."
+        }
+      ],
+      "notes": [
+        "The user's permissions apply. The chat sees nothing the user cannot see in Business Central.",
+        "Read only, nothing is recorded."
+      ]
+    },
+    {
+      "id": "47",
+      "roles": [
+        "r8"
+      ],
+      "level": "watch",
+      "effect": "read",
+      "name": "Job queue entries in error, across all companies",
+      "summary": "Job queue overview by job and company, with a suggested correction.",
+      "appliesIf": "Applies if you have access to more than one company in the same environment.",
+      "when": "When something failed overnight and you want to know what.",
+      "steps": [
+        {
+          "prompt": "Which job queue entries are in error in the companies I have access to? Show the error text and a suggested correction without deleting anything.",
+          "youGet": "Job queue entries in error by company, with the error text."
+        }
+      ],
+      "notes": [
+        "Some entries carry an empty error text. Then you need to look at them in Business Central.",
+        "Read only, nothing is deleted."
+      ]
+    }
+  ]
+}
