@@ -51,8 +51,8 @@ og sinntu aðeins frávikunum.
 ## Sæktu forritið {#get-it}
 
 Settu **Bifrost Subscription Billing** upp við hlið Bifröst Foundation, af [AppSource](https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_subscription_billing%7CPAPPID.dd7b8bd8-f93e-4ac4-a251-1a132a14ef3d) eða í gegnum
-Business Central samstarfsaðila þinn. Það þarf Business Central 28.3 eða nýrra, Essentials eða
-Premium, og forrit Microsoft, **Subscription Billing**, uppsett og stillt. Hafðu samband við Business
+Business Central samstarfsaðila þinn. Það þarf Business Central Essentials eða Premium, í þeirri
+útgáfu sem forrit Microsoft, **Subscription Billing**, krefst, og það forrit uppsett og stillt. Hafðu samband við Business
 Central samstarfsaðilann þinn varðandi verð.
 
 ## Uppsetning {#set-it-up}

@@ -46,6 +46,7 @@ Síðan sýnir einnig **Tiltækar skilaboðategundir** og, fyrir leyfisstjóra u
 | | **Annáll beiðna** | Útleiðar HTTP-beiðnir þínar - sjá [Annáll beiðna Bifröst](/help/foundation/bifrost-request-log/). |
 | | **Eyðingaskrá** / **Uppsetning eyðingarskráningar** | Endurskoðunarskrá yfir eyddar færslur og uppsetning hennar. |
 | Uppsetning | **Uppsetning notenda** | Uppsetning fyrir hvern notanda: tengdar færslur, kerfisfyrirmæli, mánaðarlegur skilaboðakvóti. |
+| | **Kallarar** | Opnar listann **Bifrastarkallarar** fyrir þetta fyrirtæki: hvaða gervigreindarforrit (kallarar) mega fá samþykkt uppruna setu hér. Listinn birtist ekki í Leit; opnaðu hann með þessari aðgerð. Sjá [Samþykkja uppruna setu](/help/foundation/session-source-approval/). |
 | | **Reitaaðgangur** | Opnar [yfirlit reitaaðgangs](/help/foundation/bifrost-field-accesses/): les- og skriflínur allra notenda og forrita. |
 | | **Næmi reita** | Flokkun fyrirtækisins á reitum sem viðkvæmum eða persónulegum - sjá [Næmi reita Bifröst](/help/foundation/bifrost-field-accesses/#field-sensitivities). |
 | | **Undanþágur breytingaskrárverndar**, **Uppsetning breytingaskrár**, **Varðveislureglur** | Undanþágur frá breytingaskrárvernd, hvaða reiti breytingaskráin nær yfir og sjálfvirk hreinsun. Geymdu Bifröst-skilaboð í minnst 31 dag ef þú notar mánaðarlegu kvótana. |
@@ -60,6 +61,30 @@ Síðan sýnir einnig **Tiltækar skilaboðategundir** og, fyrir leyfisstjóra u
 | Minni | **Minni**, **Notandaminni** | Minnisfærslur fyrir fyrirtækið og fyrir notandann. |
 | | **Þýðingar Bifröst**, **Samþætting Bifröst** | Þýðingar og samþættingarskráin. |
 | Forrit | **Finna forrit** | Opnar listann Bifröst-forrit í Business Central, sem sýnir öll forrit sem byggja á Bifröst, hver þeirra eru uppsett, hvort nýrri útgáfa sé á AppSource og tengla á AppSource, skjölun og útgáfuupplýsingar; sjá [Bifröst-forrit](/help/foundation/bifrost-apps/). Uppsett Bifröst-forrit bæta eigin uppsetningaraðgerð við þennan flokk. |
+
+## Kallarar
+
+**Kallarar** opnar listann **Bifrastarkallarar** fyrir núverandi fyrirtæki. Aðeins samþykkt uppruna setu notar listann. Eftir uppsetningu eða uppfærslu eru þessi þekktu forrit bætt við einu sinni sem leyfð. Færslur sem eru þegar til staðar eru látnar í friði, svo kallari sem þú hefur slökkt á helst slökktur:
+
+| Kóði | Lýsing |
+| --- | --- |
+| CLAUDE | Claude (claude.ai vefur, tölvuforrit og farsími) |
+| CHATGPT | ChatGPT |
+| M365COPILOT | Microsoft 365 Copilot / Teams |
+| COPILOTSTUDIO | Copilot Studio (Power Platform tengill) |
+| GROK | Grok |
+| MISTRAL | Mistral |
+| LOCAL | Staðbundinn biðlari (Claude Code, VS Code, Cursor, MCP Inspector) |
+
+Óþekktur kallari er bættur sjálfkrafa við sem ekki leyfður, og lýsingin sett sem kóðinn.
+
+**Leyft** ræður hvort kallarinn megi fá samþykkt setu í þessu fyrirtæki. Ef slökkt er á þessu fara allir uppruna setu sem samþykktir voru undir kallaranum í þessu fyrirtæki aftur í bið. Ef kveikt er aftur á **Leyft** eru þeir ekki samþykktir sjálfkrafa; hver notandi þarf að samþykkja aftur.
+
+Notendur með `BIFROST SrcApAdm ori`, `BIFROST SrcApCfg ori` eða `BIFROST Full ori` geta breytt listanum og leyft kallara um leið og seta er samþykkt. Notendur með aðeins `BIFROST SrcApOwn ori` eða `BIFROST Read ori` geta séð kallarann en ekki breytt **Leyft** eða leyft kallara á samþykktarsíðunni.
+
+Listinn stjórnar því hvaða forrit ná til Business Central í gegnum MCP. Hann er ekki öryggismörk gagnvart biðlara sem kallar beint á Cloud Events; sá biðlari þarf áfram auðkennt Entra-auðkenni, samþykkt Bifröst-forrit og samþykki uppruna setu fyrir hvern notanda.
+
+Kallarakóði í beiðni um samþykkt setu er valkvæður í bili. Beiðni án kallarakóða, eða með auðum kóða, er tekin gild. Kóði sem beiðnin sendir er samt athugaður: kallari sem fyrirtækið þekkir ekki er bættur við sem ekki leyfður, og ekki er hægt að samþykkja setu fyrir kallara sem er ekki leyfður fyrr en sá kallari er leyfður. Beiðni án kóða athugar ekki uppruna sem hefur engan skráðan kallara. Þegar uppruninn er þegar með skráðan kallara er sá kallari athugaður og honum haldið, og skráðum kallara sem er ekki leyfður er hafnað á sama hátt og beiðni sem nefnir hann. Mál 1340 í kjarnanum fylgist með því hvenær kallarakóðinn verður aftur skylda.
 
 ## Ábendingar
 
