@@ -36,16 +36,47 @@ additional app on [Bifröst Foundation](/foundation/). New to Bifröst? Start wi
   skill: instructions that shape how the assistant answers. A sales team and a finance team can each
   chat with a model set up for their work.
 - **Use a model inside a routine.** A scheduled task or a playbook can ask a language model for one
-  answer, for example to classify or summarise a document.
+  answer, for example to classify or summarise a document. A routine can also let the model look data up
+  to work out an answer; see [Let a routine ask a question](#ask).
 
 ## Capabilities
 
 | Domain | Capabilities |
 |---|---|
-| **LLM** | One answer from a language model for a routine or an integration, without a conversation |
+| **LLM** | One answer from a language model for a routine or an integration, without a conversation, optionally after the model has looked data up in Business Central |
 
 In a conversation, the assistant uses the capabilities of every installed Bifröst app: what it can read
 and do is what Foundation and the other apps provide.
+
+## Let a routine ask a question {#ask}
+
+A routine can do more than ask for one answer: it can ask a question and let the model find the answer in
+your data.
+
+- **What it is.** A routine, a playbook or an integration sends a question, optionally with some text and
+  the record the question is about. A language model works out the answer by reading Business Central
+  through Bifröst's read operations. It answers, or says that it cannot tell.
+- **An example.** *"Is this customer set up correctly for posting sales invoices?"* The answer is a verdict,
+  and when the verdict is no, the setup fields that are wrong.
+- **Whose rights.** It runs as the user the routine runs as, within that user's permissions and Bifröst's
+  protections. A scheduled run uses the job queue user, who needs read access to whatever the question
+  touches.
+- **Read only.** It never changes data. It cannot start another model call or a playbook.
+- **Limits.** It stops after a limited number of lookups and rounds and then answers with what it has.
+  There is no time limit on a run. The limits are set per request within fixed maximums; the help of the
+  operation shows them.
+- **What it needs.** The `BIFROST Chat ori` and `BIFROST LLM Chat ori` permission sets, a language model
+  with an API key, and a provider that supports lookups. Copilot is not supported for this. If it does not
+  work, choose another language model on the Bifröst user setup, or ask an administrator for the permission
+  sets.
+- **What happens to the data.** The model's provider receives what the lookups return, as in the chat but
+  without anyone watching. A record of the lookups is returned only when the request asks for it, and it is
+  never stored.
+- **Counted.** Each lookup the model makes is a Bifröst message, logged and counted like any other. See
+  [Usage and billing](/licensing/usage-and-billing/).
+- **Dates.** The prompts that Bifröst Language Models sends, in the chat and for routines, carry the current
+  date and time and the company's work date, refreshed on every request, so "last 30 days" and "this
+  month" come out right.
 
 ## Get it
 
@@ -92,9 +123,9 @@ The help of each page has the details:
 
 | Set | For |
 |---|---|
-| `BIFROST Chat ori` (from Foundation) | Everyone who may chat, and the identity a routine runs as when it asks a model for an answer. It is never part of another set |
+| `BIFROST Chat ori` (from Foundation) | Everyone who may chat, and the identity a routine runs as when it asks a model for an answer, with or without a data lookup. It is never part of another set |
 | `BIFROST LLM Rd ori` | Everyone who chats: reading the language models |
-| `BIFROST LLM Chat ori` | Everyone who chats with OpenAI, Azure OpenAI, Anthropic, Google Gemini, xAI or a model of your own. Not needed for Copilot |
+| `BIFROST LLM Chat ori` | Everyone who chats with OpenAI, Azure OpenAI, Anthropic, Google Gemini, xAI or a model of your own. Needed for a routine that lets a model look data up. Not needed for Copilot, which does not support the lookup |
 | `BIFROST LLM ori` | The administrators who create and change language models |
 | `BIFROST ChatSvc ori` | The people who set or clear a model's shared API key |
 
