@@ -71,6 +71,7 @@ for the FactBox.
 | --- | --- |
 | **Request Template** | The request template of the step selected in **Steps**, with actions to edit, download and upload it. |
 | **Last Execution** | A summary of the most recent run: status, start, duration, counters and any error. See [Last Execution](/help/orchestrator/playbook-last-run-fact-box/). |
+| **Chat via Bifrost** | Chat about the playbook open on this card. The chat uses that playbook as its context. The FactBox is hidden for a user without chat permission, and when no chat provider is configured. See [Chat via Bifrost](/help/foundation/bifrost-chat-fact-box/). |
 
 ## Actions
 
