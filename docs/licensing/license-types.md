@@ -130,7 +130,7 @@ Keep at least 31 days of Bifrost Messages if you use the monthly quotas.
 
 ## Sandbox environments
 
-In a Business Central online **sandbox**, usage is recorded and reported, separately from production.
+In a Business Central online **sandbox**, usage is recorded and reported.
 Ask your Business Central partner how Bifröst is licensed in sandbox environments.
 
 ## On-premises installations
