@@ -39,7 +39,7 @@ Auðkenni sem vantar eru aldrei villa, hvorki hér né á Uppsetning Bifröst �
 | Umhverfi | Hvað skrefið sýnir |
 | --- | --- |
 | **Framleiðsluumhverfi (í skýinu)** | Prufuleyfið: **1.000 notendaskilaboð + 1.000 forritsskráningarskilaboð**, virkjað einu sinni fyrir hvern Microsoft Entra leigjanda. **Ljúka** virkjar það ef leigjandinn hefur ekki fengið prufuleyfi. Á fyrirframgreiddu leyfi útskýrir skrefið einnig hvernig áskriftarleyfið hefst: þegar Bifröst samstarfsaðili þinn býður leigjandanum sem viðskiptavin og þú samþykkir. |
-| **Sandkassi** | **Sandkassaleyfi**: ekki þarf prufuleyfi og Bifröst sjálft takmarkar ekki skilaboð; opinberi MCP-þjónninn leyfir 1.000 skilaboð á 24 klukkustundum fyrir hvern Microsoft Entra leigjanda. Fyrir ótakmarkaðar prófanir í sandkassa skaltu nota staðbundna MCP-þjóninn úr [businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp). |
+| **Sandkassi** | **Sandkassaleyfi**. Sjá [Sandkassaumhverfi](/licensing/license-types/#sandbox-environments) um hvernig leyfismálum er háttað í sandkassa. |
 | **Á staðnum** | Hvernig staðbundni MCP-þjónninn er settur upp við hlið uppsetningarinnar og **Staðfesta tengingu** fyrir tenginguna við leyfisþjónustuna sem Origo lét fylgja leyfinu á staðnum. Ekki er hægt að halda áfram fyrr en tengingin hefur verið staðfest. |
 
 Sjá [Leyfi](/licensing/) um leyfislíkanið.

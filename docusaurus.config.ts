@@ -125,6 +125,8 @@ const slugRenames: Array<{from: string; to: string}> = [
   // Licensing, Terms of Use and Privacy moved out of Foundation into their own section.
   {from: '/foundation/eula', to: '/licensing/eula'},
   {from: '/foundation/privacy', to: '/licensing/privacy'},
+  // The sandbox rate limit was withdrawn; its page is gone.
+  {from: '/licensing/rate-limits', to: '/licensing/license-types'},
   // The Guides overview page gave way to How it works, which leads to the page for each role.
   {from: '/documentation', to: '/documentation/how-it-works'},
 ];
@@ -250,6 +252,8 @@ const config: Config = {
         {label: buildLocale === 'is-IS' ? 'Hvernig það virkar' : 'How it works', to: '/documentation/how-it-works/', position: 'left', activeBasePath: '/documentation/'},
         {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/', position: 'left'},
         {label: buildLocale === 'is-IS' ? 'Leyfi' : 'Licensing', to: '/licensing/', position: 'left'},
+        {label: buildLocale === 'is-IS' ? 'Spurt og svarað' : 'FAQ', to: '/faq/', position: 'left'},
+        {label: buildLocale === 'is-IS' ? 'Aðstoð' : 'Support', to: '/support/', position: 'left'},
         // On the right, set apart: one Apps menu with Foundation, each additional app and the list
         // of all apps. It is built from apps.ts, so a new app appears here when it is added there,
         // and the bar stays on one line however many apps are published (check:structure guards it).

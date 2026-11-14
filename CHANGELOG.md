@@ -4,8 +4,8 @@
 
 ### Changed
 
-- Terms of Use, in English and Icelandic: the Service does not authorise, release or execute payments. It may record entries and prepare payment proposals, batches or files that an authorised person at the customer approves and releases outside the Service (new definition in clause 1, clause 2 and a new acceptable-use rule in clause 5).
-- Terms of Use, in English and Icelandic: the Service does not authorise, release or execute payments. It may record entries and prepare payment proposals, batches or files that an authorised person at the customer approves and releases outside the Service (new definition in clause 1, clause 2 and a new acceptable-use rule in clause 5).
+- Help for Find Apps, in English and Icelandic: it now describes the in-client Bifröst Apps list (columns, the six states, sort order, actions, daily caching and offline behaviour, and that it never installs apps), replacing the web-registry description (businesscentralal/bifrost-support#8, core#1176). Bifrost Setup help and the administrators guide follow.
+- Sandbox licensing: removed every statement that sandbox use is free (no quota, not billed, no trial needed) and the sandbox rate limit on the Bifröst MCP server (its page, tiers, troubleshooting rows and links), in English and Icelandic. Sandbox environments now point to the Business Central partner; the company and user monthly-quota help also omit the sandbox exemption.
 - Terms of Use, in English and Icelandic: the Service does not authorise, release or execute payments. It may record entries and prepare payment proposals, batches or files that an authorised person at the customer approves and releases outside the Service (new definition in clause 1, clause 2 and a new acceptable-use rule in clause 5).
 - Bifröst Iceland release notes for 28.1.2 (refusals for a customs calculation missing the tariff number or currency code), and the Apps page shows 28.1.2.103.
 
@@ -15,6 +15,7 @@
 
 ### Added
 
+- Bifröst Subscription Billing: the Partner Center listing and user scenarios pages, in English and Icelandic, and an overview that no longer names a Business Central version but the version Microsoft's Subscription Billing app requires (businesscentralal/bifrost-support#5).
 - A use-case library under Try it out, *What you can do with Bifröst*: cases by role with filters, search, copyable prompts and a random pick, in English and Icelandic, with links from Try it out, Using Bifröst and the home page.
 - Bifröst Iceland Treasury: a page for Sparisjóðir, offered again, and a section for the claim collection agencies Gjaldskil and InKasso with a page each, in English and Icelandic. The app page, Payments and claims, the user scenarios, the listing copy and the help for setup, the setup guide, bank secrets, user credentials, Payment Methods, the claim pages, the tracking log and the customer ledger entry FactBox now name them where they apply. The documentation boundary check no longer blocks the Sparisjóðir name.
 - Bifröst Iceland Treasury: domestic (ISK) payment batches at Íslandsbanki, registered on the bank's own payment service and approved in the online bank, with the new batch status Unknown (Óþekkt) for a batch the bank no longer lets Bifröst read once it is approved. Bank Claim Payments notes that a user with `BIFROST TClmPmt ori` can update a registered claim payment through an integration. Same in English and Icelandic.

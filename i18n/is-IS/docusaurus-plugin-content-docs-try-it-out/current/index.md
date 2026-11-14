@@ -14,8 +14,7 @@ description: "Prófaðu Bifröst í Business Central sandkassa: hvað á að set
 [Notkun Bifröst](/documentation/end-customers/users/).*
 
 Besta leiðin til að sjá hvað Bifröst gerir er að spyrja það einhvers. **Business Central sandkassi** með
-sýnigögnum er rétti staðurinn: ekkert sem þú prófar snertir raunverulega fyrirtækið þitt, og sandkassi þarf
-engan prufutíma.
+sýnigögnum er rétti staðurinn: ekkert sem þú prófar snertir raunverulega fyrirtækið þitt.
 
 ## Fljótlega leiðin, í sandkassa {#the-quick-path-in-a-sandbox}
 

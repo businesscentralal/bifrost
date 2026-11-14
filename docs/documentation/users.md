@@ -151,7 +151,7 @@ misunderstand you: say *"show me first"*, and read what it proposes before you s
 | Posting is refused, although you can post in Business Central | Posting through an assistant needs its own permission, which your administrator gives separately. Showing what posting would do needs it too. Until then, post it yourself in Business Central. | Your administrator |
 | Part of the answer is missing | Those fields are restricted for you. | Your administrator, if you need them |
 | The tool must be approved first, with a link | Your company requires new assistants to be approved once. Open the link, or send it to your administrator. | You, or your administrator |
-| The allowance is used up | A limit is reached: your own or the company's monthly limit (it starts again on the 1st of next month), the messages your company has bought, or, in a sandbox, the daily limit. | Your administrator |
+| The allowance is used up | A limit is reached: your own or the company's monthly limit (it starts again on the 1st of next month), or the messages your company has bought. | Your administrator |
 | Bifröst refuses calls for the company | The setup wizard has not been finished in this company, or the trial is not active yet. | Your administrator |
 | Something was posted that should not have been | The assistant did what it was asked, with your rights. Reverse it in Business Central as you would any posting and tell your administrator; every request and answer is logged, so it can be traced. | Your administrator |
 

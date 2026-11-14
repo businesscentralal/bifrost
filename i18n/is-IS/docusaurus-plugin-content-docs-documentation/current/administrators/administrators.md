@@ -136,7 +136,7 @@ Samþættingar fylla báðar; yfirleitt skoðarðu þær aðeins.
 
 Hvert Bifröst forrit bætir við eigin sviðum. Þegar það er uppsett bætir hvert þeirra aðgerð við flokkinn **Forrit** á
 Uppsetningu Bifröst, sem opnar eigin uppsetningarsíðu þess. **Forrit › Finna forrit** opnar
-[forritalistann](/apps/).
+listann Bifröst-forrit í Business Central, sem sýnir hver forrit eru uppsett og hvort nýrri útgáfa sé á AppSource; opinberi [forritalistinn](/apps/) er einnig á þessum vef.
 
 ![Flokkurinn Forrit](/img/guides/is-is/menu-apps.png)
 
@@ -204,7 +204,6 @@ Til að finna kall opnarðu **Bifröst skilaboð** og síar á notandann og tím
 | *Prufuleyfi Bifröst hefur ekki verið virkjað* | Í framleiðsluumhverfi í skýinu er prufuleyfið virkjað þegar uppsetningarleiðsögninni lýkur | Ljúktu uppsetningarleiðsögninni, eða veldu **Leyfi › Samstilla**; sjá [Fyrirframgreitt leyfi](/licensing/license-types/#prepaid) |
 | Heimildin er uppurin | Mánaðarlegum skilaboðakvóta notandans eða fyrirtækisins er náð | Hækkaðu kvótann, eða bíddu næsta almanaksmánaðar; sjá [Mánaðarlegir kvótar](/licensing/license-types/#monthly-quotas) |
 | Köllum er hafnað, og svæðið Leyfi sýnir engin skilaboð eftir | Fyrirframgreiddu skilaboðin eru uppurin | Hafðu samband við Business Central samstarfsaðilann þinn; sjá [Fyrirframgreitt leyfi](/licensing/license-types/#prepaid) |
-| Í sandkassa er köllum hafnað eftir mörg köll á einum degi | Álagsþak sandkassa á Bifröst MCP-þjóninum | Sjá [Álagsþak](/licensing/rate-limits/) |
 | Svör bera viðvörun um kvótann, eða Uppsetning Bifröst segir að leyfiskvótinn sé að klárast | Mánaðarlegur kvóti eða fyrirframgreiddur pottur er að verða búinn | Skoðaðu svæðið Leyfi og **Leyfisnotkun**; sjá [Mánaðarlegir kvótar](/licensing/license-types/#monthly-quotas) og [Fyrirframgreitt leyfi](/licensing/license-types/#prepaid) |
 | Eitthvað var bókað sem hefði ekki átt að bóka, eða kall mistókst með tæknilegri villu | - | Finndu kallið á **Bifröst skilaboðum**: beiðnina, svarið og kallandann. Svar kalls sem mistókst segir hvað fór úrskeiðis |
 | Svæðið Leyfi virðist úrelt | - | **Leyfi › Samstilla**, síðan **Leyfi › Tengingastaða** |

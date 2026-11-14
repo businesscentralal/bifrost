@@ -93,8 +93,6 @@ viðskiptavinir samstarfsaðila.
 - **Lokun.** Tæmdur pottur hafnar köllum með villunni um uppurinn kvóta - nema leyfissamningur
   leigjandans kveði á um að potturinn skuli halda áfram. Þá halda köllin áfram, eru áfram talin og
   skila áfram viðvöruninni. Gildandi stilling birtist sem `blockOnMissingQuota` í leyfisstöðunni.
-- **Álagsþak.** Notkun í framleiðsluumhverfi ber ekkert álagsþak. Sandkassanotkun á opinbera Bifröst
-  MCP-þjóninum er alltaf á fría þrepinu, 1.000 skilaboð á 24 klukkustundum. Sjá [Álagsþak](./rate-limits.md).
 
 ## Áskrift {#subscription}
 
@@ -105,13 +103,8 @@ leigjandann: öll fyrirtæki hans eru á áskrift, líka fyrirtæki sem byrja a�
 - **Reikningsfærsla.** Samstarfsaðilinn rukkar viðskiptavininn fyrir skilaboðin sem hann notaði í
   hverjum mánuði. Enginn kvóti er keyptur: pottarnir eru taldir en ekki takmarkaðir.
   [Mánaðarlegu kvótarnir](#monthly-quotas) eru leið viðskiptavinarins til að setja þak á reikninginn.
-- **Álagsþak.** Notkun í framleiðsluumhverfi ber ekkert álagsþak. Sandkassanotkun á opinbera Bifröst
-  MCP-þjóninum er sjálfgefið á fría þrepinu (1.000 skilaboð á 24 klukkustundum); viðskiptavinurinn getur
-  hækkað það með því að velja hærra þrep úr framleiðsluumhverfinu, á verði samstarfsaðilans. Sjá
-  [Álagsþak](./rate-limits.md).
 
-Þegar sambandinu við samstarfsaðilann lýkur fer leigjandinn aftur á **fyrirframgreitt leyfi** og
-sandkassaþak hans aftur á fría þrepið. Breytingin tekur gildi þegar leyfisstjóri velur **Samstilla** á
+Þegar sambandinu við samstarfsaðilann lýkur fer leigjandinn aftur á **fyrirframgreitt leyfi**. Breytingin tekur gildi þegar leyfisstjóri velur **Samstilla** á
 síðunni Uppsetning Bifröst.
 
 ## Mánaðarlegir kvótar {#monthly-quotas}
@@ -129,7 +122,7 @@ Báðar tegundir leyfa geta sett þak á eigin mánaðarlega notkun:
 mánaðarlegan kvóta fram að næsta almanaksmánuði; svarið tilgreinir hvaða kvóti (`user` eða
 `company`) stöðvaði kallið. Kvóti notanda er athugaður á undan kvóta fyrirtækis, og báðir á undan
 keyptum pottum leigjanda með fyrirframgreitt leyfi. Þegar 100 eða færri skilaboð eru eftir af
-mánaðarlegum kvóta bera árangursrík svör viðvörun. Mánaðarlegum kvóta er ekki framfylgt í sandkassa.
+mánaðarlegum kvóta bera árangursrík svör viðvörun.
 
 ### Hvernig mánaðarlegu kvótarnir eru taldir {#how-monthly-quotas-are-counted}
 
@@ -143,17 +136,8 @@ notar mánaðarlegu kvótana.
 
 ## Sandkassaumhverfi {#sandbox-environments}
 
-Í **sandkassa** Business Central online:
-
-- Bifröst hafnar ekki köllum vegna kvóta: pottum og mánaðarlegum kvóta er ekki framfylgt og ekkert
-  prufuleyfi þarf.
-- Notkun er samt skráð og tilkynnt, aðskilin frá framleiðsluumhverfi.
-- Á opinbera Bifröst MCP-þjóninum ber sandkassanotkun álagsþak: 1.000 skilaboð á 24 klukkustundum á
-  hvern Microsoft Entra leigjanda (fría þrepið), nema viðskiptavinur á áskrift hafi valið hærra þrep.
-  Bifröst sjálft hefur engin skilaboðatakmörk.
-
-Fyrir ótakmarkaða sandkassanotkun skaltu keyra staðbundna MCP-þjóninn úr
-[businesscentralal/origo-bc-mcp](https://github.com/businesscentralal/origo-bc-mcp).
+Í **sandkassa** Business Central online er notkun skráð og tilkynnt.
+Spurðu Business Central samstarfsaðilann þinn hvernig leyfismálum Bifröst er háttað í sandkassaumhverfum.
 
 ## Uppsetningar á staðnum {#on-premises-installations}
 

@@ -32,7 +32,7 @@ There is no notification for missing credentials: a credential that has not been
 | **Default Email Scenario** | The email scenario used to pick the sending account when a request does not name one. |
 | **Request Debug Mode** | Stores full, unmasked request and response bodies in the [Request Log](/help/foundation/bifrost-request-log/). Use only while troubleshooting. Requires the `BIFROST ReqLgAdm ori` permission set. |
 | **Respect Data Sensitivity** | Shown under *Show more*. Whether the fields classified on [Bifrost Field Sensitivities](/help/foundation/bifrost-field-accesses/#field-sensitivities) are hidden from every user: **Off** (default) hides nothing, **Sensitive** hides the Sensitive fields, **Sensitive + Personal** hides both. A **None** line in Field Access opens a hidden field for one user. |
-| **Company Monthly Message Quota** | The most chargeable messages the company may use in a calendar month, on either license type. `0` means no limit. When the quota is reached, calls are refused until the next month. Not enforced in a sandbox. On Subscription it does not count App Registration messages. Counted from the Bifrost Messages of the month, so keep at least 31 days of Bifrost Messages in the retention policy. See [How the monthly quotas are counted](/licensing/license-types/#how-monthly-quotas-are-counted). Only users with BIFROST Full ori or SUPER can change Company Monthly Message Quota on the Bifröst Setup card. A licence administrator without either setup role can view the quota but cannot change it, including in edit mode. A forced save is refused and leaves the stored quota unchanged. |
+| **Company Monthly Message Quota** | The most chargeable messages the company may use in a calendar month, on either license type. `0` means no limit. When the quota is reached, calls are refused until the next month. On Subscription it does not count App Registration messages. Counted from the Bifrost Messages of the month, so keep at least 31 days of Bifrost Messages in the retention policy. See [How the monthly quotas are counted](/licensing/license-types/#how-monthly-quotas-are-counted). Only users with BIFROST Full ori or SUPER can change Company Monthly Message Quota on the Bifröst Setup card. A licence administrator without either setup role can view the quota but cannot change it, including in edit mode. A forced save is refused and leaves the stored quota unchanged. |
 
 The **Environment** group (online only) shows the **Environment Name**, **Company Id**, **Azure Tenant Id**, the **Task API Url** and **Queue API Url** of this company, and a **Connection Prompt** you can paste into an AI assistant to connect it to this environment.
 
@@ -46,6 +46,7 @@ The page also lists the **Available Message Types** and, for licence administrat
 | | **Request Log** | Your outbound HTTP requests - see [Bifrost Request Log](/help/foundation/bifrost-request-log/). |
 | | **Delete Log** / **Delete Setup** | The audit log of deleted records and its setup. |
 | Setup | **User Setup** | Per-user setup: linked records, system prompt, monthly message quota. |
+| | **Callers** | Opens the **Bifrost Callers** list for this company: which AI hosts (callers) may get session source approvals here. The list is not shown in Tell Me; open it from this action. See [Approve Session Source](/help/foundation/session-source-approval/). |
 | | **Field Access** | Opens the [Field Access Overview](/help/foundation/bifrost-field-accesses/): the read and write lines of every user and application. |
 | | **Field Sensitivities** | The company's classification of fields as Sensitive or Personal - see [Bifrost Field Sensitivities](/help/foundation/bifrost-field-accesses/#field-sensitivities). |
 | | **ChangeLog Guard Exceptions**, **Change Log Setup**, **Retention Policies** | Change-log guard exceptions, change-log coverage and automatic clean-up. Keep at least 31 days of Bifrost Messages when you use the monthly quotas. |
@@ -56,11 +57,34 @@ The page also lists the **Available Message Types** and, for licence administrat
 | | **Revoke EULA Approval** | Withdraws the licence agreement approval for this company; calls are refused until the wizard is run again. |
 | | **Connection Status** | Whether the licensing service can be reached, which connection secrets are available, whether an exhausted pool blocks messages, and the purchased and reported totals of the tenant. |
 | | **License Usage** | The usage entries of your tenant - see [Bifrost Usage Entries](/help/foundation/license-usage/). |
-| | **Configure Rate Limit** | Subscription tenants, production only. Raises the rate limit on sandbox usage through the public Bifröst MCP server - see [Configure Rate Limit](/help/foundation/rate-limit-configuration/). |
 | Connectors | **Anthropic Claude**, **Microsoft Copilot**, **OpenAI ChatGPT** | Open the Bifröst connector in each AI assistant's store. |
 | Memory | **Memory**, **User Memory** | Company- and user-scoped memory records. |
 | | **Bifrost Translations**, **Bifrost Integration** | Translations and the integration log. |
-| Apps | **Find Apps** | Opens the Bifröst app registry on the web, which lists every application built on Bifröst with its AppSource status and links; see [Bifröst Apps](/help/foundation/bifrost-apps/). Installed Bifröst applications add their own setup action to this group. |
+| Apps | **Find Apps** | Opens the Bifröst Apps list in Business Central, which shows every application built on Bifröst, which ones are installed, whether a newer version is on AppSource, and links to AppSource, the documentation and the release notes; see [Bifröst Apps](/help/foundation/bifrost-apps/). Installed Bifröst applications add their own setup action to this group. |
+
+## Callers
+
+**Callers** opens the **Bifrost Callers** list for the current company. Only session source approval uses this list. After install or upgrade, these known hosts are added once as allowed. Rows that already exist are left alone, so a caller you have turned off stays off:
+
+| Code | Description |
+| --- | --- |
+| CLAUDE | Claude (claude.ai web, desktop and mobile) |
+| CHATGPT | ChatGPT |
+| M365COPILOT | Microsoft 365 Copilot / Teams |
+| COPILOTSTUDIO | Copilot Studio (Power Platform connector) |
+| GROK | Grok |
+| MISTRAL | Mistral |
+| LOCAL | Local client (Claude Code, VS Code, Cursor, MCP Inspector) |
+
+An unknown caller is added automatically as not allowed, with the description set to the code.
+
+**Allowed** controls whether that caller may get session approvals in this company. Turning it off sets every session source approved under that caller in this company back to Pending. Turning it back on does not re-approve those sources; each user must approve again.
+
+Users with `BIFROST SrcApAdm ori`, `BIFROST SrcApCfg ori` or `BIFROST Full ori` can change the list and allow a caller while approving a session. Users with only `BIFROST SrcApOwn ori` or `BIFROST Read ori` can see the caller but cannot change **Allowed** or allow a caller on the approval page.
+
+The list controls which hosts reach Business Central through the MCP. It is not a security boundary against a client that calls Cloud Events directly; that client still needs an authorised Entra identity, the approved Bifröst app, and the per-user session source approval.
+
+The caller code on a session approval request is optional for now. A request without a caller code, or with a blank one, is accepted. A code the request sends is still checked: a caller the company does not know is added as not allowed, and a session cannot be approved for a caller that is not allowed until that caller is allowed. A request without a code does not check a source that has no recorded caller. When the source already has a recorded caller, that caller is checked and kept, and a recorded caller that is not allowed is refused in the same way as a request that names it. Core issue 1340 tracks when the caller code becomes mandatory again.
 
 ## Tips
 
