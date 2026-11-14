@@ -33,3 +33,16 @@ Skref sem ítra yfir fylki eru inndregin og óvirk skref eru daufari. Veldu skre
 - **Greina eftir niðurstöðu:** settu ólík skref í **Næsta skref (árangur)** og **Næsta skref (misbrestur)**, og bættu við árangursskilyrðum ef svar aðgerðarinnar, ekki aðeins það að henni ljúki, á að ráða leiðinni.
 - **Vinna úr lista:** láttu **Upprunaskref ítrunar** og **Slóð fylkis til ítrunar** vísa á fylkið sem fyrra skref skilaði.
 - **Prófa breytingu:** veldu **Keyra núna** á spjaldinu og skoðaðu dálkinn **Síðasta keyrsla**.
+
+## Biðja mállíkan um úrskurð {#ask-a-language-model-for-a-verdict}
+
+Þegar ekki er hægt að skrifa reglu sem síu („er þessi viðskiptamaður rétt uppsettur?“) getur **Athugun** beðið mállíkan um úrskurð (stenst, stenst ekki eða óvíst) og látið líkanið fletta upp gögnum. Líkanið les eingöngu og getur ekki breytt gögnum. Hvað uppflettingin getur og getur ekki er lýst undir [Bifröst mállíkön](/language-models/).
+
+- **Gerð skrefsins:** **Athugun** sem endurtekur sig fyrir hverja færslu fyrra skrefs, þar sem **Upprunaskref ítrunar** og **Slóð fylkis til ítrunar** vísa á færslur þess skrefs. Árangursskilyrðin eru að svarið barst, að svarið passaði við umbeðið form og að úrskurðurinn sé „stenst“.
+- **Hvað hver niðurstaða þýðir:** „stenst“ þýðir að hluturinn tókst. „Stenst ekki“ eða „óvíst“ þýðir að hluturinn er athugaður og þarfnast athygli: athugunin svaraði nei og keyrslan mistekst ekki. Ef líkanið gat ekki keyrt er hluturinn villa og telst misbrestur keyrslunnar.
+- **Geymdu niðurstöðurnar:** notaðu **Niðurstöðuskráningarslóðir** til að geyma úrskurðinn og athugasemdirnar, og ástæðu þess að keyrsla stöðvaðist, fyrir hvern hlut.
+- **Skýrðu frá fjölda:** taktu fjölda hluta eftir niðurstöðu úr talningu skrefsins í skýrslu keyrslunnar. **Slóðir samantektar** á endurteknu skrefi geyma aðeins síðasta hlutinn.
+- **Hugaðu að kostnaði:** hver hlutur er ein keyrsla líkans og hver uppflettun sem hún gerir er talin skilaboð (sjá [Notkun og reikningsfærsla](/licensing/usage-and-billing/)). Kostnaðurinn vex með fjölda færslna sem fyrra skrefið les, svo takmarkaðu það sem það les.
+- **Keyrðu án tímamarka:** keyrsla sem er ræst með **Keyra núna**, samkvæmt tímaáætlun eða með því að setja hana í biðröð hefur engin tímamörk biðlara. Aðstoðarmaður eða kerfi sem ræsir keðju og bíður eftir svari getur farið yfir tímamörk fyrst; fyrir langar keyrslur ætti það að setja keðjuna í biðröð í stað þess að bíða.
+- **Öruggt að tímasetja:** úrskurðarkeðja skrifar ekkert og er því óhætt að tímasetja hana þegar þú hefur prófað hana. Keðja sem bregst við úrskurðinum bætir við eigin skrifskrefi, sem þú stýrir sérstaklega.
+- **Fyrir aðstoðarmann:** aðstoðarmaður sem er tengdur Bifröst les uppsettar aðgerðir og dæmi þeirra í beinni með `list_domains`, `describe_domains` og `describe_message_type`.
