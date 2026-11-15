@@ -19,5 +19,5 @@
 - [ ] `npm run check:ip-boundary` passes
 - [ ] `node tools/check-links.mjs` passes
 - [ ] `npm run build` succeeds
-- [ ] `node tools/validate-apps.mjs` passes (if `data/**` or `static/img/apps/**` changed)
+- [ ] `node tools/validate-apps.mjs` passes (if `data/**` or `static/img/apps/**` changed), including a non-empty `brief` and `description` on every `data/versions.json` entry
 - [ ] English and Icelandic pages changed together
