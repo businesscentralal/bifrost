@@ -10,6 +10,39 @@ description: "What changed in each version of Bifröst Foundation published on M
 
 This page is for Business Central administrators and users who want to know what changed in Bifröst Foundation. It lists the versions published on Microsoft AppSource, newest first. To see which version you have installed, open **Extension Management** in Business Central and look for **Bifrost Foundation**.
 
+## 28.0.12 — 9 November 2026
+
+This version also includes the changes made since 28.0.10.
+
+### Added
+- **Find Apps.** Bifrost Setup now opens a read-only list of Bifröst apps. It shows the apps that are installed, which version each one has, and whether an update is available, with safe links to each app's page and release notes. If the list cannot be refreshed, it falls back to showing only the installed apps. Users with read-only or full access can see it.
+- **Confirmation for irreversible operations is on by default.** For new and upgraded companies, operations that cannot be undone, such as posting, applying entries, reversing and adjusting exchange rates, now first show a preview and need the caller to send back the number of records the preview reported. Administrators can turn this off per company in Bifrost Setup. A count that is sent is always checked. Previews that do not post anything, such as an exchange rate adjustment that is not posted, run without the count. Converting a purchase quote to an order follows the same rule as converting a sales quote. If you have an integration that posts through Bifröst, preview first and send the count, or ask an administrator to turn the setting off.
+- **Initial monthly quota for new users.** Administrators can set a default monthly message quota in Bifrost Setup. New users get it automatically. Existing users and quotas that were set explicitly do not change, and zero still means unlimited.
+- **The assistant knows the date and time.** Bifröst now gives the assistant the current date, time, weekday and your work date at the start of a conversation, so relative periods such as "last month" are read correctly. Other Bifröst apps can reuse the same information.
+- **Version information in Help.** The help for who you are and for Bifröst itself now lists the installed Bifröst apps with their versions and how each one was published.
+- **Usage by environment.** Subscription usage, partner billing summaries and license usage can be limited to one environment type and name, such as Production or Sandbox. Without a filter, billing is unchanged, and Production includes older documents that have no environment recorded.
+- **Temporary storage for uploaded files.** Bifröst apps can now hold an uploaded file for the company until another Bifröst app picks it up. Only the user who uploaded a file can read or collect it. Files are removed after one week by default, and a retention policy that an administrator has set or deleted is respected.
+- **Partners can rename pending customers.** A partner with the License Admin role can change or clear the friendly name of a customer whose invitation is still open, from Customer Management.
+- **A shared JSON helper for other Bifröst apps.** Foundation now offers other Bifröst apps a documented way to convert records to and from JSON.
+
+### Changed
+- **Update notices reach every Bifröst user.** The notice that an installed app has a newer version on AppSource now appears every session for all users, not only for administrators, regardless of earlier notification settings. One action, **Show new versions**, opens the list of updates, with links to the release notes and to the app's AppSource listing, or to an AppSource search when no listing link is known.
+- **Retention policies are set up from Bifrost Setup.** Installing or upgrading no longer creates retention policies, which avoided failed upgrades for users without the license rights. Opening Retention Policies from Bifrost Setup creates the missing defaults once: one week for staged uploads and one month for the request log. Policies that administrators changed or deleted are kept as they are.
+- **Company quota stays read-only for license administrators.** Only the Full role or SUPER can change the company's monthly quota, even when the card is in edit mode.
+- **Help texts stay in English.** Help chapters are English at every language, including the text that Foundation adds to other apps. Catalogue descriptions, keywords and the error and refusal texts you see at run time are still translated.
+- **Clearer help.** The help for creating sales documents now shows the order of the steps and how to recover if a step fails. The help for the Response Data page explains that **Download File** gives the exact stored response. Help no longer mentions internal implementation names or object numbers. Several operations give clearer answers: e-mail profiles that prompt before sending are refused with an explanation, and budget copy, field history, fixed asset posting, purchase approval and missing delete setup now say what to do next. Approval delegation to yourself is refused, and the examples for the CSV and Memory tools are corrected.
+- **Write operations report when a retry is safe.** Operations that change data now state that a call that failed because of a lock can be retried, and recognized English and Icelandic lock errors are answered with the existing translated retry message.
+- **Exchange rate adjustment counts every account type.** The confirmation count includes customer, vendor, bank, employee and G/L accounts that are enabled for the adjustment, with a summary per type, and G/L accounts do not depend on the currency code. Bank accounts are selected as Business Central does, by the currency on the bank card, including accounts with no entries.
+
+### Fixed
+- **Test operations are checked like any other.** An operation used only for testing and that declares its parameters now refuses an unknown parameter, like every other operation. Operations that declare no parameters are unaffected.
+- **License administrators can open Setup.** Users who have only the License Admin role can open the read-only Setup card, the quota and the licensing connection check without extra permission sets.
+- **Tool calls work for restricted roles.** Calls made as the API, Read or Full role together with the Chat role, including who-am-I and request debug logging, succeed, and who-am-I works even when the user cannot read the company list.
+- **Posting and journal confirmation is more reliable.** The recount of records now happens inside the same protected transaction as the posting, for general, item, fixed asset and project journals, customer and vendor applications and unapplications, bank reconciliation, reversals and approvals, so a count that changed in the meantime is refused with a clear answer. Journal posting still returns the register numbers. Malformed request data no longer causes a runtime error in the confirmation check; the operation answers with its own refusal.
+- **Writing records with several key fields.** Key fields are now set and checked in the order of the table's key, so conditional relations such as Service Item Line Orders work.
+- **Uploaded files are claimed safely.** Two users cannot claim the same uploaded file at the same time. Files uploaded by someone else behave as if they did not exist, also for SUPER.
+- **Complete Icelandic texts** for the new customer name dialog and for the environment filter in usage reports.
+
 ## 28.0.10 — 28 October 2026
 
 ### Changed

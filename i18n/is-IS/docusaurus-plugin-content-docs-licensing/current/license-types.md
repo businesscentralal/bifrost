@@ -136,7 +136,7 @@ notar mánaðarlegu kvótana.
 
 ## Sandkassaumhverfi {#sandbox-environments}
 
-Í **sandkassa** Business Central online er notkun skráð og tilkynnt, aðskilin frá framleiðsluumhverfi.
+Í **sandkassa** Business Central online er notkun skráð og tilkynnt.
 Spurðu Business Central samstarfsaðilann þinn hvernig leyfismálum Bifröst er háttað í sandkassaumhverfum.
 
 ## Uppsetningar á staðnum {#on-premises-installations}

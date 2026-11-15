@@ -159,6 +159,7 @@ is missing or broken.
 | --- | --- | --- |
 | `deploy.yml` | push to `main`, manual | Builds both locales and deploys to GitHub Pages |
 | `preview.yml` | pull request to `main` or `staging` | Builds both locales, uploads an artifact, and deploys an Azure preview with a PR comment; removes the preview when the PR closes |
+| `staging.yml` | push to `staging`, manual (from `staging` only) | Runs the same checks as `preview.yml`, builds both locales and deploys to the staging Static Web App |
 
 ### Pull request previews
 
@@ -181,10 +182,28 @@ are not deployed because GitHub does not provide them with deployment secrets.
 The deploy job needs `pull-requests: write` permission for the URL comment.
 
 Preview URLs are publicly accessible, even for private repositories. Azure's
-hosting plan limits the number of simultaneous preview environments (three on
-the Free plan); further deployments fail if all slots are occupied. If the
+hosting plan limits the number of simultaneous preview environments (ten on
+the Standard plan); further deployments fail if all slots are occupied. If the
 Static Web App changes, update both `SWA_API_TOKEN` and the `SITE_URL` hostname
 in `preview.yml`.
+
+### Staging
+
+Every push to `staging` (normally a merged PR) deploys the full site to a
+separate Azure Static Web App using the repository Actions secret
+`SWA_API_TOKEN_STAGING`:
+
+```text
+https://green-desert-0402b6f03.5.azurestaticapps.net
+```
+
+The staging app has preview environments disabled; PR previews still go to the
+preview app via `preview.yml`. Staging also sends a `noindex` header. The
+"Protect staging" repository ruleset blocks deleting or force-pushing
+`staging`; nobody can bypass it, so disable the ruleset first if the branch
+ever has to be rewritten. If the
+staging Static Web App changes, update both `SWA_API_TOKEN_STAGING` and the
+`SITE_URL` hostname in `staging.yml`.
 
 ## Contributing
 

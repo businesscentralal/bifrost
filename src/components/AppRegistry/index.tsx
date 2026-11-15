@@ -49,7 +49,7 @@ type ReleasedVersion = {
   releaseNotes: string;
 };
 
-/** Latest AppSource version per app id, from data/versions.json (updated by the AppSource release process). */
+/** Latest AppSource version per app id, from data/versions.json (written by tools/update-released-version.mjs on release). */
 const latestVersions = new Map(
   (versionFile as {apps: ReleasedVersion[]}).apps.map((v) => [v.appId.toLowerCase(), v]),
 );
