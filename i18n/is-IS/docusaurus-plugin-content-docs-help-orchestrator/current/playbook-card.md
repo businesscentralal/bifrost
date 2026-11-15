@@ -71,6 +71,7 @@ upplýsingareitinn.
 | --- | --- |
 | **Sniðmát beiðni** | Sniðmát beiðni þess skrefs sem er valið í **Skref**, með aðgerðum til að breyta því, sækja það og hlaða því upp. |
 | **Síðasta keyrsla** | Samantekt síðustu keyrslu: staða, upphaf, tímalengd, teljarar og villa ef einhver var. Sjá [Síðasta keyrsla](/help/orchestrator/playbook-last-run-fact-box/). |
+| **Spjalla með Bifröst** | Spjall um keðjuna sem er opin á þessu spjaldi. Spjallið notar þá keðju sem samhengi. Upplýsingareiturinn er falinn fyrir notanda sem hefur ekki heimild til að spjalla, og þegar engin spjallveita er stillt. Sjá [Spjalla með Bifröst](/help/foundation/bifrost-chat-fact-box/). |
 
 ## Aðgerðir {#actions}
 
