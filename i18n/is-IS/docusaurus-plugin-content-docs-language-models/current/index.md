@@ -69,8 +69,9 @@ finna svarið í gögnunum þínum.
   API-lykli og veitu sem styður uppflettingar. Copilot er ekki stutt fyrir þetta. Ef þetta virkar ekki skaltu
   velja annað mállíkan í Bifröst-notendauppsetningunni eða biðja kerfisstjóra um heimildasamstæðurnar.
 - **Hvað verður um gögnin.** Veita líkansins fær það sem uppflettingarnar skila, eins og í spjallinu en án
-  þess að nokkur fylgist með. Skrá yfir uppflettingarnar er aðeins skilað þegar beiðnin biður um hana og hún
-  er aldrei vistuð.
+  þess að nokkur fylgist með. Skrá yfir uppflettingarnar er aðeins skilað þegar beiðnin biður um hana.
+  Bifrost mállíkön vista skrána ekki sérstaklega. Skilaboðaskrá Bifröst geymir beiðnina og svarið, þar á meðal
+  skrána yfir uppflettingarnar ef henni er skilað, þar til þeim er eytt samkvæmt varðveislureglum.
 - **Talið.** Hver uppfletting líkansins er Bifröst-skilaboð, skráð og talin eins og öll önnur. Sjá
   [Notkun og reikningsfærsla](/licensing/usage-and-billing/).
 - **Dagsetningar.** Fyrirspurnirnar sem Bifröst mállíkön senda, í spjallinu og fyrir sjálfvirk ferli,

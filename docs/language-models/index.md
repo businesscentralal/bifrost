@@ -70,8 +70,9 @@ your data.
   work, choose another language model on the Bifröst user setup, or ask an administrator for the permission
   sets.
 - **What happens to the data.** The model's provider receives what the lookups return, as in the chat but
-  without anyone watching. A record of the lookups is returned only when the request asks for it, and it is
-  never stored.
+  without anyone watching. A record of the lookups is returned only when the request asks for it.
+  Language Models does not store that record separately. Bifröst's message log keeps the request and
+  response, including any returned record of the lookups, until retention removes them.
 - **Counted.** Each lookup the model makes is a Bifröst message, logged and counted like any other. See
   [Usage and billing](/licensing/usage-and-billing/).
 - **Dates.** The prompts that Bifröst Language Models sends, in the chat and for routines, carry the current
