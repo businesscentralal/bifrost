@@ -36,7 +36,20 @@ There is no notification for missing credentials: a credential that has not been
 
 The **Environment** group (online only) shows the **Environment Name**, **Company Id**, **Azure Tenant Id**, the **Task API Url** and **Queue API Url** of this company, and a **Connection Prompt** you can paste into an AI assistant to connect it to this environment.
 
-The page also lists the **Available Message Types** and, for licence administrators outside a sandbox, the [License fact box](/help/foundation/license-fact-box/).
+The page also lists the **Available Message Types** and, for license administrators, the [License fact box](/help/foundation/license-fact-box/).
+
+## Licensing display by installation
+
+A DEV extension in a Business Central online sandbox, and an on-premises installation, show the license
+state, the confirmed-until and grace-until dates, Bifrost users and the last license-check error in the
+[License fact box](/help/foundation/license-fact-box/). They hide the tenant hash and usage figures,
+and hide **Connection Status** and **License Usage** under Licensing. **Sync** remains available
+and refreshes the license.
+
+Foundation installed from AppSource on Business Central online keeps the tenant hash, monthly usage
+and sync status, **Connection Status** and **License Usage**. It hides the license-state fields.
+**License Type** and the End-User License Agreement stay visible in both cases. A DEV extension
+published into an online production environment uses this AppSource display.
 
 ## Actions
 
@@ -55,8 +68,8 @@ The page also lists the **Available Message Types** and, for licence administrat
 | | **Setup Wizard** | Opens the [Setup Wizard](/help/foundation/bifrost-setup-wizard/). |
 | Licensing | **Sync** | Reports pending usage to the licensing service and refreshes the licence status. The daily background task only reports usage. |
 | | **Revoke EULA Approval** | Withdraws the licence agreement approval for this company; calls are refused until the wizard is run again. |
-| | **Connection Status** | Whether the licensing service can be reached, which connection secrets are available, whether an exhausted pool blocks messages, and the purchased and reported totals of the tenant. |
-| | **License Usage** | The usage entries of your tenant - see [Bifrost Usage Entries](/help/foundation/license-usage/). |
+| | **Connection Status** | Shown for an AppSource installation on Business Central online, including a DEV extension in online production. Hidden for an on-premises installation and for a DEV extension in an online sandbox. Whether the licensing service can be reached, which connection secrets are available, whether an exhausted pool blocks messages, and the purchased and reported totals of the tenant. |
+| | **License Usage** | Shown and hidden in the same cases as **Connection Status**. The usage entries of your tenant - see [Bifrost Usage Entries](/help/foundation/license-usage/). |
 | Connectors | **Anthropic Claude**, **Microsoft Copilot**, **OpenAI ChatGPT** | Open the Bifröst connector in each AI assistant's store. |
 | Memory | **Memory**, **User Memory** | Company- and user-scoped memory records. |
 | | **Bifrost Translations**, **Bifrost Integration** | Translations and the integration log. |
