@@ -36,7 +36,20 @@ There is no notification for missing credentials: a credential that has not been
 
 The **Environment** group (online only) shows the **Environment Name**, **Company Id**, **Azure Tenant Id**, the **Task API Url** and **Queue API Url** of this company, and a **Connection Prompt** you can paste into an AI assistant to connect it to this environment.
 
-The page also lists the **Available Message Types** and, for licence administrators outside a sandbox, the [License fact box](/help/foundation/license-fact-box/).
+The page also lists the **Available Message Types** and, for licence administrators, the [License fact box](/help/foundation/license-fact-box/).
+
+## Licensing display by installation
+
+DEV-published Foundation in a SaaS sandbox and on-premises installations show licence state,
+confirmed-until and grace-until dates, Bifrost users and the last licence-check error in the
+[License fact box](/help/foundation/license-fact-box/). They hide the tenant hash and usage figures,
+and hide **Connection Status** and **License Usage** under Licensing. **Sync** remains available
+and refreshes the licence.
+
+SaaS installations from AppSource keep the tenant hash, monthly usage and sync status, **Connection
+Status** and **License Usage**. They hide the licence-state fields. The licence type and EULA remain
+visible in both modes. The display follows the existing licensing classification, including PTE/Global
+SaaS and DEV SaaS production; it does not use application names.
 
 ## Actions
 
@@ -55,8 +68,8 @@ The page also lists the **Available Message Types** and, for licence administrat
 | | **Setup Wizard** | Opens the [Setup Wizard](/help/foundation/bifrost-setup-wizard/). |
 | Licensing | **Sync** | Reports pending usage to the licensing service and refreshes the licence status. The daily background task only reports usage. |
 | | **Revoke EULA Approval** | Withdraws the licence agreement approval for this company; calls are refused until the wizard is run again. |
-| | **Connection Status** | Whether the licensing service can be reached, which connection secrets are available, whether an exhausted pool blocks messages, and the purchased and reported totals of the tenant. |
-| | **License Usage** | The usage entries of your tenant - see [Bifrost Usage Entries](/help/foundation/license-usage/). |
+| | **Connection Status** | SaaS only; hidden on DEV/non-SaaS installations. Whether the licensing service can be reached, which connection secrets are available, whether an exhausted pool blocks messages, and the purchased and reported totals of the tenant. |
+| | **License Usage** | SaaS only; hidden on DEV/non-SaaS installations. The usage entries of your tenant - see [Bifrost Usage Entries](/help/foundation/license-usage/). |
 | Connectors | **Anthropic Claude**, **Microsoft Copilot**, **OpenAI ChatGPT** | Open the Bifröst connector in each AI assistant's store. |
 | Memory | **Memory**, **User Memory** | Company- and user-scoped memory records. |
 | | **Bifrost Translations**, **Bifrost Integration** | Translations and the integration log. |
