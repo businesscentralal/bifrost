@@ -36,7 +36,20 @@ Engin tilkynning er um vantandi auðkenni: auðkenni sem hefur ekki verið skrá
 
 Flipinn **Umhverfi** (aðeins í skýinu) sýnir **Heiti umhverfis**, **Kenni fyrirtækis**, **Azure leigjandakenni**, **Vefslóð verkefna-API** og **Vefslóð biðraðar-API** þessa fyrirtækis ásamt **Biðja um Tengingu**, texta sem þú getur límt inn í gervigreindaraðstoðarmann til að tengja hann við þetta umhverfi.
 
-Síðan sýnir einnig **Tiltækar skilaboðategundir** og, fyrir leyfisstjóra utan sandkassa, [upplýsingareitinn Leyfi](/help/foundation/license-fact-box/).
+Síðan sýnir einnig **Tiltækar skilaboðategundir** og, fyrir leyfisstjóra, [upplýsingareitinn Leyfi](/help/foundation/license-fact-box/).
+
+## Leyfisupplýsingar eftir uppsetningu {#licensing-display-by-installation}
+
+DEV-viðbót í SaaS-sandkassa í Business Central, og staðbundin uppsetning, sýna stöðu leyfis,
+staðfestingu og frest, notendur Bifröst og síðustu villu leyfisathugunar í
+[upplýsingareitnum Leyfi](/help/foundation/license-fact-box/). Tætigildi leigjandakennis og
+notkunartölur eru faldar og aðgerðirnar **Tengingastaða** og **Leyfisnotkun** undir Leyfi eru faldar.
+**Samstilla** er áfram tiltæk og uppfærir leyfið.
+
+Foundation sem er sett upp úr AppSource í Business Central í skýinu sýnir áfram tætigildi leigjandakennis,
+mánaðarlega notkun og samstillingarstöðu, **Tengingastöðu** og **Leyfisnotkun**. Leyfisstöðureitirnir
+eru faldir. **Tegund leyfis** og notendaleyfissamningurinn birtast í báðum tilvikum. DEV-viðbót sem er
+birt í framleiðsluumhverfi í skýinu notar þessa AppSource-birtingu.
 
 ## Aðgerðir
 
@@ -55,8 +68,8 @@ Síðan sýnir einnig **Tiltækar skilaboðategundir** og, fyrir leyfisstjóra u
 | | **Uppsetningarleiðsögn** | Opnar [uppsetningarleiðsögnina](/help/foundation/bifrost-setup-wizard/). |
 | Leyfi | **Samstilla** | Tilkynnir óskráða notkun til leyfisþjónustunnar og uppfærir stöðu leyfisins. Daglega bakgrunnsverkið tilkynnir aðeins notkun. |
 | | **Afturkalla samþykki notendaleyfissamnings** | Dregur samþykki leyfissamningsins til baka fyrir þetta fyrirtæki; köllum er hafnað þar til leiðsögnin hefur verið keyrð aftur. |
-| | **Tengingastaða** | Hvort náist í leyfisþjónustuna, hvaða tengingarleyndarmál eru aðgengileg, hvort uppurinn pottur loki á skilaboð, og keypt og skráð heildargildi leigjandans. |
-| | **Leyfisnotkun** | Notkunarfærslur leigjandans - sjá [Notkunarfærslur Bifröst](/help/foundation/license-usage/). |
+| | **Tengingastaða** | Birtist fyrir uppsetningu úr AppSource í Business Central í skýinu, þar á meðal DEV-viðbót í framleiðsluumhverfi í skýinu. Falin fyrir staðbundna uppsetningu og fyrir DEV-viðbót í SaaS-sandkassa. Hvort náist í leyfisþjónustuna, hvaða tengingarleyndarmál eru aðgengileg, hvort uppurinn pottur loki á skilaboð, og keypt og skráð heildargildi leigjandans. |
+| | **Leyfisnotkun** | Birtist og er falin í sömu tilvikum og **Tengingastaða**. Notkunarfærslur leigjandans - sjá [Notkunarfærslur Bifröst](/help/foundation/license-usage/). |
 | Tengingar | **Anthropic Claude**, **Microsoft Copilot**, **OpenAI ChatGPT** | Opna Bifröst-tenginguna í verslun hvers aðstoðarmanns. |
 | Minni | **Minni**, **Notandaminni** | Minnisfærslur fyrir fyrirtækið og fyrir notandann. |
 | | **Þýðingar Bifröst**, **Samþætting Bifröst** | Þýðingar og samþættingarskráin. |
