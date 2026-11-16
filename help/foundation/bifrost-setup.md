@@ -3,7 +3,7 @@ id: bifrost-setup
 title: "Bifrost Setup"
 ---
 
-The **Bifrost Setup** page is the central configuration point for Bifröst. Use it to select the implementation behind each business feature, set the default language and the monthly message quota, and manage secrets and licensing.
+The **Bifrost Setup** page is the central configuration point for Bifröst. Use it to select the implementation behind each business feature, set the default language and the monthly message quota, manage secrets and licensing, and start [Setup Mode](#setup-mode).
 
 ## Notifications
 
@@ -13,7 +13,7 @@ Every setup notification of the Bifröst family appears here, never on another a
 | --- | --- |
 | _HTTP client requests are not enabled for: &lt;applications&gt;_ | **Start setup wizard** opens the [Setup Wizard](/help/foundation/bifrost-setup-wizard/) on the HTTP step. |
 | _The Bifrost End-User License Agreement has not been approved for this company_ | **Start setup wizard**. Until the agreement is approved, every call for the company is refused. |
-| _Bifrost … license quota is running low_ | Shown when a Prepaid pool has fewer than 200 messages left. |
+| _Bifrost … license quota is running low_ | Shown when a Trial pool has fewer than 200 messages left. |
 | _Request Debug Mode is ON_ | A reminder to switch off **Request Debug Mode** after troubleshooting. |
 
 There is no notification for missing credentials: a credential that has not been entered disables the message types that need it. Enter credentials from **Secrets** or in the wizard.
@@ -32,7 +32,9 @@ There is no notification for missing credentials: a credential that has not been
 | **Default Email Scenario** | The email scenario used to pick the sending account when a request does not name one. |
 | **Request Debug Mode** | Stores full, unmasked request and response bodies in the [Request Log](/help/foundation/bifrost-request-log/). Use only while troubleshooting. Requires the `BIFROST ReqLgAdm ori` permission set. |
 | **Respect Data Sensitivity** | Shown under *Show more*. Whether the fields classified on [Bifrost Field Sensitivities](/help/foundation/bifrost-field-accesses/#field-sensitivities) are hidden from every user: **Off** (default) hides nothing, **Sensitive** hides the Sensitive fields, **Sensitive + Personal** hides both. A **None** line in Field Access opens a hidden field for one user. |
-| **Company Monthly Message Quota** | The most chargeable messages the company may use in a calendar month, on either license type. `0` means no limit. When the quota is reached, calls are refused until the next month. On Subscription it does not count App Registration messages. Counted from the Bifrost Messages of the month, so keep at least 31 days of Bifrost Messages in the retention policy. See [How the monthly quotas are counted](/licensing/license-types/#how-monthly-quotas-are-counted). Only users with BIFROST Full ori or SUPER can change Company Monthly Message Quota on the Bifröst Setup card. A licence administrator without either setup role can view the quota but cannot change it, including in edit mode. A forced save is refused and leaves the stored quota unchanged. |
+| **Require Confirmation for Irreversible Messages** | Shown under *Show more*. On (default): a request that cannot be undone must state how many records it expects to change. A stated number is always checked, and when it does not match, nothing is run. An administrator can turn the requirement off for the company. |
+| **Company Monthly Message Quota** | The most chargeable messages the company may use in a calendar month, on either license type. `0` means no limit. Not enforced in a sandbox. When the quota is reached, calls are refused until the next month. On Subscription it does not count App Registration messages. Counted from the Bifrost Messages of the month, so keep at least 31 days of Bifrost Messages in the retention policy. See [How the monthly quotas are counted](/licensing/license-types/#how-monthly-quotas-are-counted). Only users with BIFROST Full ori or SUPER can change Company Monthly Message Quota on the Bifröst Setup card. A licence administrator without either setup role can view the quota but cannot change it, including in edit mode. A forced save is refused and leaves the stored quota unchanged. |
+| **Initial User Monthly Message Quota** | Shown under *Show more*. The monthly message quota that each new Bifröst user setup gets. `0` means no limit. Changing it does not change existing users. |
 
 The **Environment** group (online only) shows the **Environment Name**, **Company Id**, **Azure Tenant Id**, the **Task API Url** and **Queue API Url** of this company, and a **Connection Prompt** you can paste into an AI assistant to connect it to this environment.
 
@@ -58,22 +60,48 @@ published into an online production environment uses this AppSource display.
 | Messages | **Bifrost Messages** | The messages in the queue. |
 | | **Request Log** | Your outbound HTTP requests - see [Bifrost Request Log](/help/foundation/bifrost-request-log/). |
 | | **Delete Log** / **Delete Setup** | The audit log of deleted records and its setup. |
-| Setup | **User Setup** | Per-user setup: linked records, system prompt, monthly message quota. |
-| | **Callers** | Opens the **Bifrost Callers** list for this company: which AI hosts (callers) may get session source approvals here. The list is not shown in Tell Me; open it from this action. See [Approve Session Source](/help/foundation/session-source-approval/). |
+| Setup | **User Setup** | Per-user setup: linked records, group, system prompt, monthly message quota - see [User Setup](/help/foundation/bifrost-user-setup-list/). |
+| | **Callers** | Opens the **Bifrost Callers** list for this company: which AI hosts (callers) may get session source approvals here. The list is not shown in Tell Me; open it from this action. See [Bifrost Callers](/help/foundation/session-source-approval/#bifrost-callers). |
+| | **Groups** | Shared field access, system prompt and disabled message types for users and applications. Needs permission to change groups. |
 | | **Field Access** | Opens the [Field Access Overview](/help/foundation/bifrost-field-accesses/): the read and write lines of every user and application. |
 | | **Field Sensitivities** | The company's classification of fields as Sensitive or Personal - see [Bifrost Field Sensitivities](/help/foundation/bifrost-field-accesses/#field-sensitivities). |
 | | **ChangeLog Guard Exceptions**, **Change Log Setup**, **Retention Policies** | Change-log guard exceptions, change-log coverage and automatic clean-up. Keep at least 31 days of Bifrost Messages when you use the monthly quotas. |
 | | **Remove Retention Registrations** | Run it in each company before you uninstall Bifröst. It removes the retention policies of the Bifröst log tables; no Bifröst data is deleted. Needs the Retention Pol. Admin permission set or SUPER. |
 | | **Secrets** | The secrets every installed Bifröst application needs - see [Bifrost App Secrets](/help/foundation/bifrost-app-secrets/). |
-| | **Setup Wizard** | Opens the [Setup Wizard](/help/foundation/bifrost-setup-wizard/). |
-| Licensing | **Sync** | Reports pending usage to the licensing service and refreshes the licence status. The daily background task only reports usage. |
+| Licensing | **Setup Wizard** | Opens the [Setup Wizard](/help/foundation/bifrost-setup-wizard/). |
+| | **Sync** | Reports pending usage to the licensing service and refreshes the licence status. The daily background task only reports usage. |
 | | **Revoke EULA Approval** | Withdraws the licence agreement approval for this company; calls are refused until the wizard is run again. |
 | | **Connection Status** | Shown for an AppSource installation on Business Central online, including a DEV extension in online production. Hidden for an on-premises installation and for a DEV extension in an online sandbox. Whether the licensing service can be reached, which connection secrets are available, whether an exhausted pool blocks messages, and the purchased and reported totals of the tenant. |
 | | **License Usage** | Shown and hidden in the same cases as **Connection Status**. The usage entries of your tenant - see [Bifrost Usage Entries](/help/foundation/license-usage/). |
+| Actions | **Start Setup Mode…** | Opens the **Setup Mode** wizard - see [Setup Mode](#setup-mode). Bifröst administrators only. |
 | Connectors | **Anthropic Claude**, **Microsoft Copilot**, **OpenAI ChatGPT** | Open the Bifröst connector in each AI assistant's store. |
 | Memory | **Memory**, **User Memory** | Company- and user-scoped memory records. |
 | | **Bifrost Translations**, **Bifrost Integration** | Translations and the integration log. |
 | Apps | **Find Apps** | Opens the Bifröst Apps list in Business Central, which shows every application built on Bifröst, which ones are installed, whether a newer version is on AppSource, and links to AppSource, the documentation and the release notes; see [Bifröst Apps](/help/foundation/bifrost-apps/). Installed Bifröst applications add their own setup action to this group. |
+
+## Setup Mode {#setup-mode}
+
+Setup Mode lets an AI assistant help you set up Bifröst for a limited time. While it is on for one of your
+approved session sources, that session may change Bifröst's own setup: User Setup, Field Access, ChangeLog
+Guard Exceptions, Delete Setup, Field Sensitivities, Groups and the Change Log setup. The ChangeLog write
+guard is open for that session, and the default write restrictions are not applied.
+
+Setup Mode never relaxes the rest. Permission sets, posting checks, session source approval, the End-User
+License Agreement, licence and quota checks, read restrictions, Data Sensitivity and your own Field Access
+lines still apply. Bifrost Setup, secrets, users and permissions stay protected. While Setup Mode is on,
+every caller needs an approved session source, and every write is logged.
+
+Only a Bifröst administrator (`BIFROST Full ori` or SUPER) can start or end Setup Mode. Choose
+**Start Setup Mode…** to open the wizard:
+
+| Step | What you do |
+| --- | --- |
+| **1. Setup access** | Read what Setup Mode opens and which security checks remain. Choose **Next**. |
+| **2. Source and duration** | Enter the **Approved Session Source**: one of your own sources that you have already approved on [Approve Session Source](/help/foundation/session-source-approval/). Enter the **Duration**: 2 hours by default, more than zero and at most 8 hours. Choose **Finish** to start Setup Mode for that source only. |
+
+When Setup Mode is already on for the source you enter, the wizard shows **Active Until** and **Remaining
+Time**, and **End Setup Mode** ends it for that source at once; all guards then apply again. Otherwise Setup
+Mode ends by itself at the end time. Starting or ending it does not change the approval of the source.
 
 ## Callers
 
@@ -97,7 +125,7 @@ Users with `BIFROST SrcApAdm ori`, `BIFROST SrcApCfg ori` or `BIFROST Full ori` 
 
 The list controls which hosts reach Business Central through the MCP. It is not a security boundary against a client that calls Cloud Events directly; that client still needs an authorised Entra identity, the approved Bifröst app, and the per-user session source approval.
 
-The caller code on a session approval request is optional for now. A request without a caller code, or with a blank one, is accepted. A code the request sends is still checked: a caller the company does not know is added as not allowed, and a session cannot be approved for a caller that is not allowed until that caller is allowed. A request without a code does not check a source that has no recorded caller. When the source already has a recorded caller, that caller is checked and kept, and a recorded caller that is not allowed is refused in the same way as a request that names it. Core issue 1340 tracks when the caller code becomes mandatory again.
+The caller code on a session approval request is optional for now. A request without a caller code, or with a blank one, is accepted. A code the request sends is still checked: a caller the company does not know is added as not allowed, and a session cannot be approved for a caller that is not allowed until that caller is allowed. A request without a code does not check a source that has no recorded caller. When the source already has a recorded caller, that caller is checked and kept, and a recorded caller that is not allowed is refused in the same way as a request that names it.
 
 ## Tips
 

@@ -13,9 +13,8 @@ ChatGPT. The caller code is optional for now. A request without a caller code, o
 is accepted, and a code the request does send is still checked. A request without a code checks a
 caller already recorded for that source and keeps it. A recorded caller that is not allowed is
 refused in the same way as a request that names it. A source with no recorded caller is not checked.
-Core issue 1340 tracks when the caller code becomes mandatory again. The company keeps a **Bifrost
-Callers** list of which callers may get session approvals here. Open the list from **Callers** on
-[Bifrost Setup](/help/foundation/bifrost-setup/). The list is not shown in Tell Me.
+The company keeps a **Bifrost Callers** list of which callers may get session approvals here; see
+[Bifrost Callers](#bifrost-callers).
 
 | Field | Description |
 | --- | --- |
@@ -40,3 +39,21 @@ each user must approve again.
 The list controls which hosts reach Business Central through the MCP. It is not a security boundary
 against a client that calls Cloud Events directly; that client still needs an authorised Entra
 identity, the approved Bifröst app, and the per-user session source approval.
+
+## Bifrost Callers {#bifrost-callers}
+
+**Bifrost Callers** lists the callers (AI hosts) that may get session approvals in the current company. This
+help page opens from it as well. Open the list from **Callers** on [Bifrost Setup](/help/foundation/bifrost-setup/#callers);
+it is not shown in Tell Me.
+
+| Field | Description |
+| --- | --- |
+| **Code** | The caller code the AI host sends when it asks for a session approval. |
+| **Description** | What the caller is. |
+| **Allowed** | Whether this caller may get session approvals in this company. Turning it off sets every session source approved under this caller back to Pending. |
+
+After install or upgrade, the known AI hosts are added once as allowed; the list is on
+[Bifrost Setup](/help/foundation/bifrost-setup/#callers). A row that already exists is left alone, so a caller
+you have turned off stays off. An unknown caller is added automatically as not allowed, with the code as its
+description. Users with `BIFROST SrcApAdm ori`, `BIFROST SrcApCfg ori` or `BIFROST Full ori` can change the
+list.
