@@ -17,6 +17,7 @@
 
 ### Added
 
+- Bifröst Iceland Treasury: a page on reversing payment and claim tracking records (English): what a reversal covers, that it never reaches the bank, that repeating it changes nothing, and how long tracking records are kept (businesscentralal/bifrost-support#14).
 - Bifröst Subscription Billing: the Partner Center listing and user scenarios pages, in English and Icelandic, and an overview that no longer names a Business Central version but the version Microsoft's Subscription Billing app requires (businesscentralal/bifrost-support#5).
 - A use-case library under Try it out, *What you can do with Bifröst*: cases by role with filters, search, copyable prompts and a random pick, in English and Icelandic, with links from Try it out, Using Bifröst and the home page.
 - Each released app in `data/versions.json` now carries `brief` and `description`, copied from that version's `app.json`. The release command `tools/update-released-version.mjs` writes both fields, and the app-registry check rejects an entry that omits them. `schemaVersion` stays 1.
