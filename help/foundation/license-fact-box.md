@@ -5,8 +5,16 @@ title: "License"
 
 The **License** fact box on [Bifrost Setup](/help/foundation/bifrost-setup/) shows information for the
 current tenant and company to users with license administration permission (`BIFROST LicAdm ori`).
-Which fields appear depends on how Foundation is installed. **License Type** and the End-User
-License Agreement appear in both cases.
+Which fields appear depends on how Foundation is installed. **License Type**, **Setup Mode** and the
+End-User License Agreement appear in every installation.
+
+## Setup Mode
+
+**Setup Mode** shows **Active until** and the latest end time when any of your approved session
+sources is in setup mode in this company, or **Not active** when none is. The line is shown for a
+DEV extension, an on-premises installation and an installation from AppSource. A user with
+`BIFROST Full ori` or SUPER starts or ends it with **Start Setup Mode…** on
+[Bifrost Setup](/help/foundation/bifrost-setup/).
 
 ## DEV-published and on-premises installations
 
