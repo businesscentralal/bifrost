@@ -10,6 +10,52 @@ description: "What changed in each version of Bifröst Orchestrator published on
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Orchestrator published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.0.4 — DATE (set by the release manager)
+
+### Added
+
+- **Confirm from the preview.** A playbook step that does something irreversible can now confirm the number of records from the preview the operation gives, up to a limit you set. The step has a new **Max Count** field. If the previewed count is above the limit, or there is no limit, the step fails and nothing is changed. The step log shows the previewed and the confirmed count, or the refusal. Checking a playbook reports a step that asks for the preview without a limit and a limit without the preview.
+- **Print and send more documents.** Your AI assistant can print a purchase order, a sales quote or a sales order confirmation as a PDF, using the report that Report Selection names for the document. The file has a stable name. It can also send each of the three through the Document Sending Profile, the same way a sales invoice is sent. A document that does not exist, a profile that does not exist or is tied to a client, and a missing e-mail address are refused before anything is sent.
+- **Table data.** Administrators can open a table's rows in **Table Data**, filter them, page through them and change a single field value. The table can be exported to a JSON file and a file can be imported, with a dry run and a confirmation first. Fields that Bifröst restricts are not shown or changed, and a table that is restricted for reading is refused. These pages are for playbook administrators only.
+- **Copy plans.** A copy plan lists the tables to copy and how fields map. Bifröst generates a playbook from it that reads in pages and writes each row. Parents are copied before their children, and the plan only replaces the playbook it generated earlier.
+- **Transform steps.** A playbook step can now change data without calling an operation: copy a value, set a constant, negate a number or replace text. A copy plan can use the same transformations on a field.
+- **Chat on the playbook card.** When Bifröst Chat is turned on, the **Bifrost Chat** FactBox appears on the **Playbook Card**, with the playbook as its context.
+- **Report layouts from a staged file.** A report layout can be uploaded from a file that another Bifröst app has staged, as an alternative to sending the layout itself.
+- **A worked example.** The built-in help has a new example playbook that audits the posting setup of customers with an AI model.
+- **More checks before a run.** Checking a playbook now also warns about:
+  - an AI question that goes through an unbounded list of records
+  - a question about data without a response schema
+  - a discarded trace in an app without Language Models
+  - an irreversible operation without a confirmed count while confirmation is required
+  - a request key that the operation does not accept
+  - a list position written the wrong way, such as `result.0.id` instead of `result[0].id`
+
+### Changed
+
+- Every Orchestrator operation now checks the app version and then the license before it does any work.
+- A stored field that does not exist is an error in a playbook check, not a warning. It blocks running and scheduling even when warnings are accepted, so a playbook that only warned before can be refused until its references are corrected.
+- The answers of a playbook check explain what happens at run time for a missing step or field: the step fails before anything is sent, and the failed log entry names the reference.
+- The built-in help for the PDF operations says what is written as a side effect. Printing a purchase order or a sales quote can add an entry to the interaction log, and a sales quote or sales order confirmation can be stored as an archived document version when archiving is turned on for it.
+- The AI answers in a playbook run no longer keep the trace in the Orchestrator log or in what later steps read.
+- Administrators of licenses can open Bifrost Setup and register Orchestrator without being given the Orchestrator administration role.
+
+### Fixed
+
+- A schedule that has never run now runs in its first allowed slot. A daily schedule keeps its next configured start time when a run is delayed past midnight, and applying a recurring template keeps the existing job instead of replacing it. Changing the starting time keeps the reference time in step.
+- Playbook references to a record's primary key, such as `@_current.primaryKey.No_`, are checked before a step runs. A reference that points nowhere fails the step with a clear message instead of sending the reference text. The check also warns when a primary key field is read from the wrong place.
+- A whole-value reference keeps the type of its source. A number-like code such as `1001` stays text and is no longer sent as a number.
+- The **Exists** condition is false for a missing value, an empty text, an empty list and an empty object, so a missing chat id no longer counts as present. Numbers and the values `0` and `false` still exist.
+- A failed step always has an error text. A step that gets an error answer shows it, and a success condition that does not hold names what it expected and what it got. A failed run names the first step that failed, in the language of the run.
+- The text shown for a forEach item that was skipped because an earlier step failed is translated into Icelandic.
+- A playbook check no longer warns about the envelope keys that an operation accepts, such as the expected count, the subject or strict mode.
+- A transform step shows a blank operation in the log instead of `0`, and the operation left on a transform step can be cleared. The check names the step to clear.
+- The step log shows the error text of every refused call, including a call that needed confirmation.
+- A sales quote PDF returns its file name in the same way as a purchase order PDF.
+- The description of the sales quote and sales order confirmation send operations names the PDF operation that now exists.
+- The Orchestrator wizard is registered in Assisted Setup for users who have no business permissions, without giving them more access.
+- The preview of a workspace no longer repeats the direction of the operation in its notes.
+- The shared description of who you are no longer names Orchestrator in apps that do not use it.
+
 ## 28.0.3 — 28 October 2026
 
 ### Added
