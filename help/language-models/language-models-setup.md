@@ -7,7 +7,7 @@ title: "Bifrost Language Models Setup"
 group on **Bifrost Setup**. It shows at a glance whether the three things the chat needs are in place:
 language models, the tools the assistant can call, and the API keys.
 
-The page only shows status. Each value is maintained on the page it links to.
+Most of the page shows status, and each of those values is maintained on the page it links to. The Ask limits are the exception: you change them here.
 
 This page is also the help for the Language Models setup wizard.
 
@@ -29,6 +29,21 @@ can read and change Business Central data for you, with your own permissions.
 | Field | Description |
 | --- | --- |
 | **Available Tools** | How many tools the chat can call in this company. |
+
+## Ask Limits
+
+These limits apply to every question that a routine or an AI agent sends to a language model with data lookup (Ask), in this company. The model may call Bifröst's read-only tools while it answers, and each tool call still counts against the monthly message quota. A **cap** is the most a question may use: if a question asks for more, it is cut to the cap and the answer carries a warning. A **default** is what a question uses when it names no limit of its own, and it cannot be above its cap.
+
+You can change these fields only with the `BIFROST LLM ori` permission set; with any other permission set they are shown but cannot be edited. A value that is out of range, or a default above its cap, is refused and the stored value stays.
+
+| Field | Description |
+| --- | --- |
+| **Ask Max Tool Calls Cap** | The most tool calls one question may use, from 1 to 999. The standard value is 40. |
+| **Ask Default Tool Calls** | The tool calls a question may use when it sets no limit. 1 or more, and not above the cap. The standard value is 15. |
+| **Ask Max Rounds Cap** | The most requests to the provider (rounds) one question may use, from 1 to 999. The standard value is 20. |
+| **Ask Default Rounds** | The rounds a question may use when it sets no limit. 1 or more, and not above the cap. The standard value is 10. |
+| **Ask Max Result Chars Cap** | The most characters of one tool result that are sent to the model, 1 or more. The standard value is 20,000. |
+| **Ask Default Result Chars** | The characters of one tool result sent to the model when the question sets no limit. 1 or more, and not above the cap. The standard value is 8,000. |
 
 ## API Keys
 

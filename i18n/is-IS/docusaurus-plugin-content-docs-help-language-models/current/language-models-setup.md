@@ -7,7 +7,7 @@ title: "Uppsetning Bifröst mállíkana"
 **Forrit** á **Uppsetning Bifröst**. Hún sýnir í einu vetfangi hvort þrennt sem spjallið þarf sé til
 staðar: mállíkön, verkfærin sem aðstoðarmaðurinn getur kallað á og API-lyklarnir.
 
-Síðan sýnir aðeins stöðu. Hverju gildi er viðhaldið á síðunni sem hún vísar á.
+Mestur hluti síðunnar sýnir stöðu og hverju þeirra gilda er viðhaldið á síðunni sem hún vísar á. Mörk spurninga eru undantekning: þeim breytirðu hér.
 
 Þessi síða er líka hjálp uppsetningarleiðsagnar mállíkana.
 
@@ -29,6 +29,21 @@ og breytt gögnum í Business Central fyrir þig, með þínum eigin heimildum.
 | Reitur | Lýsing |
 | --- | --- |
 | **Tiltæk verkfæri** | Hversu mörg verkfæri spjallið getur kallað á í þessu fyrirtæki. |
+
+## Mörk spurninga {#ask-limits}
+
+Þessi mörk gilda um hverja spurningu sem sjálfvirkt ferli eða gervigreindarfulltrúi sendir mállíkani með gagnaleit (Ask), í þessu fyrirtæki. Líkanið má kalla á verkfæri Bifröst, sem eingöngu lesa, á meðan það svarar, og hvert verkfærakall telst áfram til mánaðarlegs skilaboðakvóta. **Hámark** er það mesta sem ein spurning má nota: ef spurning biður um meira er það lækkað í hámarkið og svarið ber viðvörun. **Sjálfgildi** er það sem spurning notar þegar hún tilgreinir engin eigin mörk, og það má ekki vera hærra en hámarkið.
+
+Þú getur aðeins breytt þessum reitum með heimildasamstæðunni `BIFROST LLM ori`; með annarri heimildasamstæðu eru þeir sýndir en ekki hægt að breyta þeim. Gildi utan marka, eða sjálfgildi sem er hærra en hámarkið, er hafnað og geymda gildið helst.
+
+| Reitur | Lýsing |
+| --- | --- |
+| **Hámark verkfærakalla í spurningu** | Flest verkfærakköll sem ein spurning má nota, frá 1 til 999. Staðalgildið er 40. |
+| **Sjálfgefin verkfærakköll í spurningu** | Verkfæraköllin sem spurning má nota þegar hún setur engin mörk. 1 eða fleiri, og ekki yfir hámarkinu. Staðalgildið er 15. |
+| **Hámark umferða í spurningu** | Flestar beiðnir til veitunnar (umferðir) sem ein spurning má nota, frá 1 til 999. Staðalgildið er 20. |
+| **Sjálfgefnar umferðir í spurningu** | Umferðirnar sem spurning má nota þegar hún setur engin mörk. 1 eða fleiri, og ekki yfir hámarkinu. Staðalgildið er 10. |
+| **Hámark stafa í verkfæraniðurstöðu** | Flestir stafir einnar verkfæraniðurstöðu sem eru sendir líkaninu, 1 eða fleiri. Staðalgildið er 20.000. |
+| **Sjálfgefnir stafir í verkfæraniðurstöðu** | Stafir einnar verkfæraniðurstöðu sem eru sendir líkaninu þegar spurningin setur engin mörk. 1 eða fleiri, og ekki yfir hámarkinu. Staðalgildið er 8.000. |
 
 ## API-lyklar {#api-keys}
 

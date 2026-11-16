@@ -26,6 +26,7 @@ Copilot runs on resources Microsoft manages, so these fields are not used for it
 | **Timeout Seconds** | How long to wait for an answer, in seconds. `0` uses the provider's default. |
 | **Max Tokens** | The longest answer the model may give, in tokens. `0` uses the provider's default. |
 | **Context Tokens** | How much conversation the model can take in at once, its context window, in tokens. Bifröst uses it to decide how much of the earlier conversation it sends with each question; the current question is always sent. Blank (`0`) uses the provider's default: 32,000 tokens for Custom LLM, 128,000 for OpenAI, Azure OpenAI, xAI and Google Gemini, and 200,000 for Anthropic. Set it to the model's context window when you use a model with a smaller or larger window than that, for example a model you run yourself. |
+| **Attachment Limit Bytes** | The most data, in bytes, that the files attached to one question may add up to. Blank (`0`) allows 100 MB. A question whose files are larger is refused before the provider is called, so nothing is charged. |
 | **Chat Path** | The path of the chat endpoint, for providers that need one (Azure OpenAI and Custom LLM). Leave it empty for `/v1/chat/completions`. |
 | **Models Path** | The path that lists the provider's models, for providers that need one. Leave it empty for `/v1/models`. |
 | **Model** | The provider's model to use. Leave it empty for the provider's default. For providers that can list their models, the lookup opens **Available Models**, the models the provider offers; choose one to fill in the field. |
