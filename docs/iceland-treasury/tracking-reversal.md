@@ -60,8 +60,7 @@ Reversed records are hidden by default, so the working lists show only what is s
 - Lists read through an assistant leave reversed records out unless the request asks for them.
 - Reversed records offer no next steps and are not refreshed from the bank, and statement matching skips them.
 - A claim that was reversed here is not reopened when the bank later reports it as active.
-- Nothing can mark a record Reversed except the reversal itself; the ordinary create and change operations
-  cannot.
+- The ordinary create and change operations cannot set the Reversed field directly.
 
 ## How long records are kept
 
