@@ -34,7 +34,7 @@ og breytt gögnum í Business Central fyrir þig, með þínum eigin heimildum.
 
 Þessi mörk gilda um hverja spurningu sem sjálfvirkt ferli eða gervigreindarfulltrúi sendir mállíkani með gagnaleit (Ask), í þessu fyrirtæki. Líkanið má kalla á verkfæri Bifröst, sem eingöngu lesa, á meðan það svarar, og hvert verkfærakall telst áfram til mánaðarlegs skilaboðakvóta. **Hámark** er það mesta sem ein spurning má nota: ef spurning biður um meira er það lækkað í hámarkið og svarið ber viðvörun. **Sjálfgildi** er það sem spurning notar þegar hún tilgreinir engin eigin mörk, og það má ekki vera hærra en hámarkið.
 
-Þú getur aðeins breytt þessum reitum með heimildasamstæðunni `BIFROST LLM ori`; með annarri heimildasamstæðu eru þeir sýndir en ekki hægt að breyta þeim. Gildi utan marka, eða sjálfgildi sem er hærra en hámarkið, er hafnað og geymda gildið helst.
+Til að breyta þessum reitum þarf skrifheimild á mörk spurninga. Bæði `BIFROST LLM ori` og `BIFROST Full ori` innihalda þá heimild. Án hennar eru reitirnir sýndir en ekki hægt að breyta þeim. Gildi utan marka, eða sjálfgildi sem er hærra en hámarkið, er hafnað og geymda gildið helst.
 
 | Reitur | Lýsing |
 | --- | --- |

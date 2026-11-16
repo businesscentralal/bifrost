@@ -34,7 +34,7 @@ can read and change Business Central data for you, with your own permissions.
 
 These limits apply to every question that a routine or an AI agent sends to a language model with data lookup (Ask), in this company. The model may call Bifröst's read-only tools while it answers, and each tool call still counts against the monthly message quota. A **cap** is the most a question may use: if a question asks for more, it is cut to the cap and the answer carries a warning. A **default** is what a question uses when it names no limit of its own, and it cannot be above its cap.
 
-You can change these fields only with the `BIFROST LLM ori` permission set; with any other permission set they are shown but cannot be edited. A value that is out of range, or a default above its cap, is refused and the stored value stays.
+Changing these fields needs write permission on the Ask limits. Both `BIFROST LLM ori` and `BIFROST Full ori` include that permission. Without it, the fields are shown but cannot be edited. A value that is out of range, or a default above its cap, is refused and the stored value stays.
 
 | Field | Description |
 | --- | --- |
