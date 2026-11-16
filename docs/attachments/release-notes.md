@@ -10,6 +10,12 @@ description: "What changed in each version of Bifröst Attachments published on 
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Attachments published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.3.3 — DATE (set by the release manager)
+
+### Changed
+
+- This version has no changes that you will notice in Business Central or in your AI assistant.
+
 ## 28.3.2 — 10 November 2026
 
 ### Added
