@@ -161,7 +161,7 @@ Bifröst telur **skilaboð**: ein fyrir hvert vel heppnað kall sem vinnur verk.
 breytingaskrárköll Bifröst eru ekki talin.
 
 - **Mörk sem þú getur sett.** Mánaðarlegur skilaboðakvóti fyrir hvert fyrirtæki og hvern notanda stöðvar notkun við mörk
-  sem þú velur. Reitirnir, hvað `0` þýðir og hvað gerist þegar kvóta er náð: [Mánaðarlegir kvótar](/licensing/license-types/#monthly-quotas).
+  sem þú velur. Aðeins notendur með `BIFROST Full ori` eða SUPER geta breytt kvóta fyrirtækisins. Reitirnir, hvað `0` þýðir og hvað gerist þegar kvóta er náð: [Mánaðarlegir kvótar](/licensing/license-types/#monthly-quotas).
 - **Sjáðu hvað er notað** á **Aðgerðir › Leyfisnotkun**, eftir fyrirtæki, degi og tegund. **Leyfi › Samstilla** uppfærir
   tölurnar strax; bakgrunnsverk gerir það sama daglega.
 
