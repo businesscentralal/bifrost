@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Bifröst Foundation: the Partner Center listing copy as a page (Foundation › Listing), in English and Icelandic, from the live AppSource text, now with the free trial: 1,000 user messages and 1,000 app registration messages, once per Microsoft Entra tenant, when the setup wizard is finished in production.
 - Microsoft 365 Copilot setup, in English and Icelandic: Bifröst is now an agent, in a pilot (ask Origo); both setup pages say so in the same words. An administrator uploads the agent package once in the Microsoft 365 admin center and chooses who gets it; each user then adds **Bifröst** under Agents › More agents and signs in. *Pick your assistant* no longer asks Copilot users for the MCP server address. The unlisted logo page also shows the Bifröst Ö mark.
 - The docs homepage replaces the three static example cards with an interactive role demo ("What can you do with Bifröst?"): pick a role and an example and watch the question, the steps and the result card play, in Icelandic and English, with made-up figures.
 - Language Model card and Language Models Setup help, in English and Icelandic: the card lists Attachment Limit Bytes, and the setup page now describes the Ask limits (caps and defaults for questions with data lookup) and that changing them needs write permission, which both `BIFROST LLM ori` and `BIFROST Full ori` include (language-models#145).
