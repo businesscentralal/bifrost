@@ -5,9 +5,9 @@ sidebar_label: "Bifrost Playbooks"
 sidebar_position: 9
 ---
 
-A **playbook** is a routine that Bifrost Orchestrator runs step by step. Each step calls one Bifröst
-operation in Business Central, and the answer of a step can fill in the request of a later step, be
-repeated for every element of an array, or decide which step runs next. A playbook can run when you
+A **playbook** is a routine that Bifrost Orchestrator runs step by step. Each step either calls a Bifröst
+operation in Business Central or transforms data locally. The result of a step can fill in the input
+of a later step, and a step can repeat for every element of an array or decide which step runs next. A playbook can run when you
 choose **Run Now**, on a schedule, or when an assistant or another system asks for it.
 
 **Bifrost Playbooks** lists the playbooks of the company with the outcome of their most recent run. It
