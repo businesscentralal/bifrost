@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Language Model card and Language Models Setup help, in English and Icelandic: the card lists Attachment Limit Bytes, and the setup page now describes the Ask limits (caps and defaults for questions with data lookup) and that changing them needs write permission, which both `BIFROST LLM ori` and `BIFROST Full ori` include (language-models#145).
 - License fact box and Bifrost Setup help, in English and Icelandic: **Setup Mode** shows **Active until** and the latest end time, or **Not active**, in every installation. **Start Setup Mode…** opens the wizard for one approved session source and a duration (#166, core#1370).
 - License fact box and Bifrost Setup help, in English and Icelandic: the display now depends on the installation. A DEV extension in an online sandbox, and an on-premises installation, show the license state, confirmed-until and grace-until dates, Bifrost users and the last license-check error, and hide the tenant hash, usage and the Connection Status and License Usage actions. An AppSource installation on Business Central online keeps usage and connection details and hides the license-state fields. A DEV extension in online production uses that AppSource display (#166).
 - Playbook card help, in English and Icelandic: the **Chat via Bifrost** FactBox (**Spjalla með Bifröst**) is listed with Request Template and Last Execution. The chat uses the open playbook as its context, and the FactBox is hidden without chat permission or a configured chat provider (businesscentralal/bc-origo-bifrost-orchestrator#170, #162).
