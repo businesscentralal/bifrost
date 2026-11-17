@@ -10,6 +10,29 @@ description: "What changed in each version of Bifröst Attachments published on 
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Attachments published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.3.2 — 10 November 2026
+
+### Added
+
+- **Hand a stored file to another Bifröst app.** Your AI assistant can copy a file from a storage connection into Bifröst's temporary storage for uploaded files, so another Bifröst app can use it without the file being downloaded and uploaded again. The file in storage is not changed. A file that does not exist is reported as missing, and a file larger than 240 MiB is refused before anything is copied.
+- **Large uploads into temporary storage.** A file uploaded in parts can now be put together in Bifröst's temporary storage instead of in a storage account, for another Bifröst app to pick up. If a check fails, the upload is kept so it can be tried again.
+- **Test storage without credentials.** A storage connection can use storage inside the company, with no account, credentials or network connection, to try out storage operations. Each connection keeps its own files, and they are removed with the connection.
+
+### Changed
+
+- Data exchange definitions can no longer be deleted through Bifröst. The request is refused with a message in your language and nothing is deleted; delete definitions in Business Central. Deleting data exchange entries and files is unchanged.
+- When a file is attached to an incoming document, the answer gives both the data exchange type that was asked for and the type the incoming document has after Business Central has recognized and processed it. The data exchange type that the answer already gave now reports the type that was applied.
+- The built-in help for every Attachments operation is in English in every language. Descriptions, keywords and error messages are still translated.
+- The help for restoring an attachment says which files are deleted from storage: only files that the attachment created. Files that were in storage before, and older links, are kept.
+
+### Fixed
+
+- The list of data exchange types shows whether each type is for invoices or credit memos, with the same values you use when you set a type.
+- Exporting with Data Exchange checks the target before it asks for confirmation. Export formats that need someone at the screen are refused in background calls before anything is written.
+- Processing with Data Exchange runs only the real mapping lines of a definition, and names an invalid mapping, table or codeunit before anything is processed.
+- A CSV upload with only a header row is refused before anything is written, and the upload is kept so you can correct the file and try again. Messages about invalid file content are shorter and keep the details needed to recover.
+- License administrators can open Bifrost Setup when Attachments is installed, without extra permission sets.
+
 ## 28.3.1 — 25 October 2026
 
 ### Changed
