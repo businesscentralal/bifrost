@@ -12,7 +12,7 @@ title: "Mælaborð Bifröst"
 | **Kóði** | Kóðinn sem auðkennir mælaborðið. |
 | **Heiti** | Heiti mælaborðsins. |
 | **Lýsing** | Hvað mælaborðið sýnir. |
-| **Virkt** | Hvort mælaborðið er sýnt notendum. |
+| **Virkt** | Hvort hægt er að uppfæra gögn mælaborðsins. |
 | **Útgáfa** | Hversu oft mælaborðið hefur verið skrifað. |
 | **Lágmarkstími milli uppfærslna (sek.)** | Stysti tími milli tveggja uppfærslna. Uppfærsla innan þess tíma skilar vistuðu gögnunum. |
 | **Uppfæra sjálfkrafa við opnun** | Hvort mælaborðið uppfærir gögnin sín þegar það er opnað. |
@@ -41,7 +41,7 @@ title: "Mælaborð Bifröst"
 | **Sækja gagnamynd** | Sækir mælaborðið með síðustu gögnunum þínum sem eina sjálfstæða HTML-skrá. |
 | **Gagnagjafar** | Sýnir gagnagjafana sem fylla þetta mælaborð. |
 | **Í beinni** | Uppfærir gögnin með reglulegu millibili. Bilið er aldrei styttra en lágmarkstími mælaborðsins og aldrei undir 30 sekúndum. |
-| **Afrita myndrit** | Afritar fyrsta myndritið sem mynd. Ef ekkert myndrit er til er fyrsta taflan afrituð sem texti. |
+| **Afrita graf** | Afritar fyrsta myndritið sem mynd. Ef ekkert myndrit er til er fyrsta taflan afrituð sem texti. |
 
 Til að skoða mælaborð þarf aðeins heimildasamstæðuna `BIFROST Read ori`. Mælaborð sýnir þau gögn sem þú mátt sjá.
 

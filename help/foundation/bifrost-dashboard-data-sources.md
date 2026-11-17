@@ -16,7 +16,7 @@ Open the page from **Data Sources** on the dashboard list or on the dashboard vi
 | **Source Key** | The key under which the dashboard finds the data of this source. |
 | **Message Type** | The read operation that the refresh calls to get the data. |
 | **Note** | A note about this data source. |
-| **Max. Pages** | How many pages of a paged answer the refresh reads at most. |
+| **Maximum Pages** | How many pages of a paged answer the refresh reads at most. |
 | **Page Size** | How many rows the refresh reads per page. |
 | **Request** | The request that the refresh sends to that operation. |
 
@@ -27,4 +27,4 @@ The page has no actions of its own. Use the back button to return to the dashboa
 ## Common tasks
 
 - **Find out what feeds a chart:** match the chart's data to the **Source Key** and read the **Request**.
-- **Understand a slow refresh:** compare **Max. Pages** and **Page Size**. Together they limit how many rows a refresh reads from a source.
+- **Understand a slow refresh:** compare **Maximum Pages** and **Page Size**. Together they limit how many rows a refresh reads from a source.

@@ -12,7 +12,7 @@ title: "Bifrost Dashboards"
 | **Code** | The code that identifies the dashboard. |
 | **Name** | The name of the dashboard. |
 | **Description** | What the dashboard shows. |
-| **Enabled** | Whether the dashboard is shown to users. |
+| **Enabled** | Whether the dashboard data can be refreshed. |
 | **Version** | How many times the dashboard has been written. |
 | **Min. Refresh Seconds** | The shortest time between two refreshes. A refresh within this time returns the stored data. |
 | **Auto Refresh On Open** | Whether the dashboard refreshes its data when it is opened. |
