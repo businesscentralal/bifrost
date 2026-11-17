@@ -114,6 +114,10 @@ Both license types can cap their own monthly usage:
 - **User Monthly Message Quota** on each user's Bifrost User Setup - that user's chargeable messages in the
   calendar month, whatever their charge type.
 
+Only users with **BIFROST Full ori** or **SUPER** can change the Company Monthly Message Quota. A license
+administrator without either of them sees the field read-only, including in edit mode. The user quota is set on
+each user's Bifrost User Setup.
+
 `0` (the default) means no limit. When a quota is reached, calls are refused with a
 monthly-quota-exhausted error until the next calendar month; the response names which quota (`user`
 or `company`) stopped the call. The user quota is checked before the company quota, and both before

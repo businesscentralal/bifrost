@@ -1,0 +1,862 @@
+{
+  "kinds": {
+    "ask": "Ask",
+    "task": "Task",
+    "dashboard": "Dashboard",
+    "agent": "Agent",
+    "connection": "Connection",
+    "custom": "Custom solution"
+  },
+  "roles": [
+    {
+      "id": "manager",
+      "label": "a manager",
+      "examples": [
+        {
+          "kind": "dashboard",
+          "who": "You, in Claude",
+          "q": "Build a dashboard with a cash forecast for the next 13 weeks and share it with the executive team.",
+          "gate": "Checks the user's permissions and logs the call.",
+          "bc": "Reads the bank balance, open invoices, orders and the due dates of payroll and VAT.",
+          "out": "A dashboard built on live data that the executive team opens and keeps asking questions of.",
+          "title": "Cash forecast · 13 weeks",
+          "blocks": [
+            {
+              "type": "kpis",
+              "items": [
+                {
+                  "label": "Balance today",
+                  "value": "84.2 m ISK"
+                },
+                {
+                  "label": "Lowest balance",
+                  "value": "21.6 m ISK",
+                  "note": "Week 45 · payroll and VAT",
+                  "warn": true
+                },
+                {
+                  "label": "Awaiting approval",
+                  "value": "12.4 m ISK",
+                  "note": "18 invoices"
+                }
+              ]
+            },
+            {
+              "type": "lineChart",
+              "aria": "Cash forecast, 13 weeks",
+              "values": [
+                84.2,
+                76.5,
+                21.6,
+                39.8,
+                47.1,
+                55.3,
+                48.0,
+                31.2,
+                44.5,
+                52.8,
+                60.1,
+                35.4,
+                49.9
+              ],
+              "labels": [
+                "W43",
+                "W44",
+                "W45",
+                "W46",
+                "W47",
+                "W48",
+                "W49",
+                "W50",
+                "W51",
+                "W52",
+                "W1",
+                "W2",
+                "W3"
+              ],
+              "threshold": 20,
+              "thresholdLabel": "Threshold {value} m ISK",
+              "minIndex": 2
+            }
+          ],
+          "summary": "Metrics for the collection rate and payment terms are included. Shared with the executive team with a single link."
+        },
+        {
+          "kind": "ask",
+          "who": "You, in Copilot",
+          "q": "Why did the margin drop in September?",
+          "gate": "Checks the user's permissions and logs the call.",
+          "bc": "Calculates margin by customer, item and project and compares it with August.",
+          "out": "An answer in plain language with a variance analysis you can trace.",
+          "title": "Margin · August to September (ISK m)",
+          "blocks": [
+            {
+              "type": "waterfall",
+              "aria": "Margin variance analysis",
+              "steps": [
+                {
+                  "label": "August",
+                  "value": 48.2,
+                  "total": true
+                },
+                {
+                  "label": "Price",
+                  "value": -3.1
+                },
+                {
+                  "label": "Exchange rate",
+                  "value": -2.4
+                },
+                {
+                  "label": "Product mix",
+                  "value": -1.2
+                },
+                {
+                  "label": "Volume",
+                  "value": 1.5
+                },
+                {
+                  "label": "September",
+                  "value": 43.0,
+                  "total": true
+                }
+              ]
+            }
+          ],
+          "summary": "Margin fell by 5.2 m ISK. The biggest effects are a price cut to the largest customer (−3.1) and higher purchase prices because of the exchange rate (−2.4). Higher volume offset some of it (+1.5)."
+        },
+        {
+          "kind": "dashboard",
+          "who": "You, in Claude",
+          "q": "Put together a board pack for October.",
+          "gate": "Checks the user's permissions and logs the call.",
+          "bc": "Fetches income statement, balance sheet and budget. Totals calculated in Business Central.",
+          "out": "Slides for a board meeting, ready for review.",
+          "title": "Board pack · October 2026",
+          "blocks": [
+            {
+              "type": "slides",
+              "items": [
+                {
+                  "title": "October in brief",
+                  "n": "1/5",
+                  "kind": "cover"
+                },
+                {
+                  "title": "Operations against budget",
+                  "n": "2/5",
+                  "kind": "bars"
+                },
+                {
+                  "title": "EBITDA bridge",
+                  "n": "3/5",
+                  "kind": "wf"
+                },
+                {
+                  "title": "Balance sheet",
+                  "n": "4/5",
+                  "kind": "bal"
+                }
+              ]
+            }
+          ],
+          "summary": "Five slides: overview, operations against budget and the previous year, EBITDA bridge, balance sheet and the main risks."
+        },
+        {
+          "kind": "agent",
+          "who": "Agent, Mondays at 08:00",
+          "q": "Let me know if the cash balance is heading below 20 m ISK in the next four weeks.",
+          "gate": "Runs as its own user, with its own permissions, like a new employee.",
+          "bc": "Updates the cash forecast from the latest entries, every week.",
+          "out": "A notification only when needed, with an explanation.",
+          "title": "Notification from the agent",
+          "blocks": [
+            {
+              "type": "message",
+              "from": "Agent · Monday 26.10.2026 at 08:00",
+              "title": "Cash balance heading for 18.7 m ISK in week 45",
+              "body": "Payroll on 1 November and three large vendor invoices fall in the same week. If the invoices to Byggir ehf. (6.2 m ISK) are collected before 30.10., the balance stays above 20 m ISK.",
+              "actions": [
+                "Open the forecast",
+                "Send a reminder"
+              ]
+            }
+          ],
+          "summary": "The agent only notifies you when the threshold is at risk."
+        }
+      ]
+    },
+    {
+      "id": "accountant",
+      "label": "an accountant",
+      "examples": [
+        {
+          "kind": "ask",
+          "who": "You, in Claude",
+          "q": "What is left before we can close September?",
+          "gate": "Checks the user's permissions and logs the call.",
+          "bc": "Compares bank, customers, vendors and VAT with the general ledger.",
+          "out": "A checklist with the open items and the next step.",
+          "title": "Month end · September 2026",
+          "blocks": [
+            {
+              "type": "checks",
+              "items": [
+                {
+                  "label": "Bank accounts reconciled",
+                  "status": "ok",
+                  "note": "3 of 3"
+                },
+                {
+                  "label": "Customers against the general ledger",
+                  "status": "ok",
+                  "note": "0 ISK difference"
+                },
+                {
+                  "label": "Vendors against the general ledger",
+                  "status": "warn",
+                  "note": "Difference 184,500 ISK"
+                },
+                {
+                  "label": "Exchange differences posted",
+                  "status": "ok",
+                  "note": "USD, EUR"
+                },
+                {
+                  "label": "VAT settlement entry",
+                  "status": "open",
+                  "note": "Not posted"
+                },
+                {
+                  "label": "Depreciation",
+                  "status": "open",
+                  "note": "Not run"
+                },
+                {
+                  "label": "Period closed",
+                  "status": "open",
+                  "note": "Open"
+                }
+              ]
+            }
+          ],
+          "summary": "Three items left. The vendor difference comes from one invoice that was posted directly to a G/L account."
+        },
+        {
+          "kind": "custom",
+          "who": "You, in Copilot",
+          "q": "Register the electronic invoices that arrived this morning.",
+          "gate": "Checks the user's permissions and logs the call.",
+          "bc": "Reads the invoices, finds the vendor by registration number and creates purchase invoices.",
+          "out": "Purchase invoices ready for approval. Nothing posted.",
+          "title": "Electronic invoices · today",
+          "blocks": [
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Vendor"
+                },
+                {
+                  "label": "Registration no."
+                },
+                {
+                  "label": "Amount",
+                  "num": true
+                },
+                {
+                  "label": "Status"
+                }
+              ],
+              "rows": [
+                [
+                  "Heildsalan ehf.",
+                  "540298-••••",
+                  "1,284,000 ISK",
+                  {
+                    "pill": "For approval"
+                  }
+                ],
+                [
+                  "Rafvirkinn ehf.",
+                  "611003-••••",
+                  "312,400 ISK",
+                  {
+                    "pill": "For approval"
+                  }
+                ],
+                [
+                  "Prentun og bók hf.",
+                  "450172-••••",
+                  "96,720 ISK",
+                  {
+                    "pill": "For approval"
+                  }
+                ],
+                [
+                  "Flutningar ehf.",
+                  "701205-••••",
+                  "455,000 ISK",
+                  {
+                    "pill": "Missing order",
+                    "tone": "warn"
+                  }
+                ]
+              ],
+              "foot": [
+                "4 invoices",
+                "",
+                "2,148,120 ISK",
+                ""
+              ]
+            }
+          ],
+          "summary": "Registration numbers are hidden from the AI according to your rules. One invoice needs a purchase order."
+        },
+        {
+          "kind": "custom",
+          "who": "Agent, every weekday at 07:00",
+          "q": "Fetch yesterday's movements and reconcile the bank.",
+          "gate": "Runs as its own user. The posting gate is closed: it prepares, you post.",
+          "bc": "Fetches movements from the bank and matches them against open entries.",
+          "out": "A reconciliation ready for review. Differences listed separately.",
+          "title": "Bank reconciliation · 19.10.2026",
+          "blocks": [
+            {
+              "type": "kpis",
+              "items": [
+                {
+                  "label": "Movements",
+                  "value": "142"
+                },
+                {
+                  "label": "Matched automatically",
+                  "value": "136"
+                },
+                {
+                  "label": "For review",
+                  "value": "6",
+                  "warn": true
+                }
+              ]
+            },
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Text"
+                },
+                {
+                  "label": "Amount",
+                  "num": true
+                },
+                {
+                  "label": "Suggestion"
+                }
+              ],
+              "rows": [
+                [
+                  "Transfer 0115-26-…",
+                  "−48,900 ISK",
+                  "Two invoices could match"
+                ],
+                [
+                  "Card settlement",
+                  "1,212,330 ISK",
+                  "Missing an entry from the card company"
+                ],
+                [
+                  "Interest",
+                  "−3,412 ISK",
+                  "Post to interest expense"
+                ]
+              ]
+            }
+          ],
+          "summary": "136 of 142 movements matched. Six are waiting for you, each with a suggestion."
+        },
+        {
+          "kind": "agent",
+          "who": "Agent, every weekday at 09:00",
+          "q": "Remind approvers about invoices approaching their due date.",
+          "gate": "Runs as its own user, with its own permissions, like a new employee.",
+          "bc": "Reads approval workflows and due dates.",
+          "out": "Each approver gets a list of their own invoices.",
+          "title": "Invoices awaiting approval",
+          "blocks": [
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Approver"
+                },
+                {
+                  "label": "Invoices",
+                  "num": true
+                },
+                {
+                  "label": "Amount",
+                  "num": true
+                },
+                {
+                  "label": "First due date"
+                }
+              ],
+              "rows": [
+                [
+                  "Finance manager",
+                  "4",
+                  "3,204,000 ISK",
+                  {
+                    "pill": "21.10.",
+                    "tone": "warn"
+                  }
+                ],
+                [
+                  "Operations manager",
+                  "2",
+                  "860,000 ISK",
+                  {
+                    "pill": "22.10.",
+                    "tone": "warn"
+                  }
+                ],
+                [
+                  "Purchasing manager",
+                  "7",
+                  "1,910,500 ISK",
+                  {
+                    "pill": "27.10.",
+                    "tone": "muted"
+                  }
+                ]
+              ],
+              "foot": [
+                "",
+                "13",
+                "5,974,500 ISK",
+                ""
+              ]
+            }
+          ],
+          "summary": "Three reminders sent. No invoice goes past its due date without someone knowing about it."
+        }
+      ]
+    },
+    {
+      "id": "sales",
+      "label": "in sales and service",
+      "examples": [
+        {
+          "kind": "task",
+          "who": "You, in ChatGPT",
+          "q": "Turn quote SQ-1042 into an order and show what the posting does.",
+          "gate": "Posting gate: preview only for this user.",
+          "bc": "Converts the quote to an order and previews the posting.",
+          "out": "Order created and the entries shown. Nothing posted.",
+          "title": "Posting preview · SO-102345",
+          "blocks": [
+            {
+              "type": "banner",
+              "text": "Preview · nothing has been posted"
+            },
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Account"
+                },
+                {
+                  "label": "Description"
+                },
+                {
+                  "label": "Debit",
+                  "num": true
+                },
+                {
+                  "label": "Credit",
+                  "num": true
+                }
+              ],
+              "rows": [
+                [
+                  "1310",
+                  "Customers",
+                  "1,240,000",
+                  ""
+                ],
+                [
+                  "3100",
+                  "Sales of goods",
+                  "",
+                  "1,000,000"
+                ],
+                [
+                  "2810",
+                  "Output VAT 24%",
+                  "",
+                  "240,000"
+                ],
+                [
+                  "4100",
+                  "Cost of goods sold",
+                  "610,000",
+                  ""
+                ],
+                [
+                  "1410",
+                  "Inventory",
+                  "",
+                  "610,000"
+                ]
+              ],
+              "foot": [
+                "",
+                "Total",
+                "1,850,000",
+                "1,850,000"
+              ]
+            }
+          ],
+          "summary": "The order is created. You decide whether it is posted."
+        },
+        {
+          "kind": "ask",
+          "who": "You, in Copilot",
+          "q": "Which customers are over their credit limits and how much is overdue?",
+          "gate": "Checks the user's permissions and logs the call.",
+          "bc": "Reads balances, credit limits and open entries.",
+          "out": "A list you can trace in Business Central.",
+          "title": "Over credit limits",
+          "blocks": [
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Customer"
+                },
+                {
+                  "label": "Balance",
+                  "num": true
+                },
+                {
+                  "label": "Credit limit",
+                  "num": true
+                },
+                {
+                  "label": "Overdue",
+                  "num": true
+                },
+                {
+                  "label": "Utilisation"
+                }
+              ],
+              "rows": [
+                [
+                  "Byggir ehf.",
+                  "12.4 m ISK",
+                  "10.0 m ISK",
+                  "3.1 m ISK",
+                  {
+                    "meter": 124,
+                    "text": "124%"
+                  }
+                ],
+                [
+                  "Verkstæðið hf.",
+                  "2.2 m ISK",
+                  "2.0 m ISK",
+                  "1.4 m ISK",
+                  {
+                    "meter": 110,
+                    "text": "110%"
+                  }
+                ],
+                [
+                  "Hótel Norður",
+                  "4.8 m ISK",
+                  "4.5 m ISK",
+                  "0.9 m ISK",
+                  {
+                    "meter": 107,
+                    "text": "107%"
+                  }
+                ]
+              ]
+            }
+          ],
+          "summary": "Three customers are over their limits. Byggir ehf. has 3.1 m ISK overdue and two open orders."
+        },
+        {
+          "kind": "dashboard",
+          "who": "You, in Claude",
+          "q": "Show me revenue leakage for the last 12 months.",
+          "gate": "Checks the user's permissions and logs the call.",
+          "bc": "Finds uninvoiced work, zero-value lines and discounts outside the limits.",
+          "out": "A dashboard with the amount for each item.",
+          "title": "Revenue leakage · last 12 months",
+          "blocks": [
+            {
+              "type": "kpis",
+              "items": [
+                {
+                  "label": "Total",
+                  "value": "14.6 m ISK",
+                  "warn": true
+                },
+                {
+                  "label": "Can be invoiced now",
+                  "value": "9.2 m ISK"
+                }
+              ]
+            },
+            {
+              "type": "bars",
+              "max": 6.8,
+              "items": [
+                {
+                  "label": "Uninvoiced work",
+                  "value": 6.8,
+                  "text": "6.8 m ISK"
+                },
+                {
+                  "label": "Completed projects not settled",
+                  "value": 3.9,
+                  "text": "3.9 m ISK"
+                },
+                {
+                  "label": "Discounts outside the limits",
+                  "value": 2.1,
+                  "text": "2.1 m ISK"
+                },
+                {
+                  "label": "Zero-value lines",
+                  "value": 1.2,
+                  "text": "1.2 m ISK"
+                },
+                {
+                  "label": "Gaps in recurring invoices",
+                  "value": 0.6,
+                  "text": "0.6 m ISK"
+                }
+              ]
+            }
+          ],
+          "summary": "9.2 m ISK can be invoiced now. Each item opens down to projects and entries."
+        },
+        {
+          "kind": "agent",
+          "who": "Agent, on the first working day of the month",
+          "q": "Send statements to customers who are 30 days past due.",
+          "gate": "Runs as its own user. Sends nothing without approval.",
+          "bc": "Creates account statements and email drafts.",
+          "out": "Drafts ready for your review.",
+          "title": "Email draft · 1 of 12",
+          "blocks": [
+            {
+              "type": "banner",
+              "text": "Draft · awaiting review"
+            },
+            {
+              "type": "message",
+              "from": "To: Byggir ehf. · Attachment: Account statement.pdf",
+              "title": "Overview of overdue invoices",
+              "body": "Good day. Attached is an overview of invoices that are past their due date, 3,104,200 ISK in total. If payment is already on its way, please disregard this message.",
+              "actions": [
+                "Approve and send",
+                "Edit"
+              ]
+            }
+          ],
+          "summary": "Twelve drafts, one for each customer. Nothing goes out until you approve."
+        }
+      ]
+    },
+    {
+      "id": "developer",
+      "label": "a developer",
+      "examples": [
+        {
+          "kind": "connection",
+          "who": "The web shop",
+          "q": "New order: 3 units of item 1896-S.",
+          "gate": "The same permissions and the same logging as when people ask.",
+          "bc": "Creates a sales order and reads the stock level at each warehouse.",
+          "out": "The order is in Business Central and the web shop shows the right stock.",
+          "title": "Web shop and Business Central",
+          "blocks": [
+            {
+              "type": "sync",
+              "left": {
+                "label": "Web shop",
+                "title": "Order #10482",
+                "detail": "3 × 1896-S"
+              },
+              "right": {
+                "label": "Business Central",
+                "title": "Sales order SO-102346",
+                "detail": "Created 14:02"
+              }
+            },
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Warehouse"
+                },
+                {
+                  "label": "Available",
+                  "num": true
+                }
+              ],
+              "rows": [
+                [
+                  "Main warehouse",
+                  "14"
+                ],
+                [
+                  "Akureyri",
+                  "3"
+                ],
+                [
+                  "Expected 28.10.",
+                  "20"
+                ]
+              ]
+            }
+          ],
+          "summary": "No custom integration. The web shop calls the same operations as the AI."
+        },
+        {
+          "kind": "connection",
+          "who": "The CRM system",
+          "q": "Let us know when an invoice is posted.",
+          "gate": "A subscription to an event, registered in Business Central.",
+          "bc": "Sends a notification as soon as an invoice is posted.",
+          "out": "The CRM system updates immediately.",
+          "title": "Events in real time",
+          "blocks": [
+            {
+              "type": "events",
+              "items": [
+                {
+                  "time": "14:02:11",
+                  "text": "Invoice SI-10931 posted in Business Central"
+                },
+                {
+                  "time": "14:02:11",
+                  "text": "Notification sent to the CRM system"
+                },
+                {
+                  "time": "14:02:12",
+                  "text": "Customer card updated: open balance 1,240,000 ISK"
+                }
+              ]
+            }
+          ],
+          "summary": "No flood of queries. Business Central tells you when something happens."
+        },
+        {
+          "kind": "connection",
+          "who": "Data warehouse, at night",
+          "q": "Send today's changes.",
+          "gate": "Checks the user's permissions and logs the call.",
+          "bc": "Reads only what changed, and what was deleted.",
+          "out": "The database in step, without full extracts.",
+          "title": "Changes · 18.10.2026",
+          "blocks": [
+            {
+              "type": "kpis",
+              "items": [
+                {
+                  "label": "Changed records",
+                  "value": "4,812"
+                },
+                {
+                  "label": "New",
+                  "value": "1,209"
+                },
+                {
+                  "label": "Deleted",
+                  "value": "37"
+                }
+              ]
+            },
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Table"
+                },
+                {
+                  "label": "Changes",
+                  "num": true
+                }
+              ],
+              "rows": [
+                [
+                  "G/L entries",
+                  "2,940"
+                ],
+                [
+                  "Customer ledger entries",
+                  "1,106"
+                ],
+                [
+                  "Items",
+                  "766"
+                ]
+              ]
+            }
+          ],
+          "summary": "Only changes move between systems. Deleted records come along so nothing is left behind."
+        },
+        {
+          "kind": "custom",
+          "who": "Developer",
+          "q": "Add our price calculation as an operation.",
+          "gate": "The new operation automatically goes through the same gate.",
+          "bc": "A new operation in your own extension, with a description the AI reads.",
+          "out": "The operation is immediately usable in every connected AI.",
+          "title": "New operation in Bifröst's catalogue",
+          "blocks": [
+            {
+              "type": "operation",
+              "name": "Price calculation",
+              "rows": [
+                [
+                  "Does",
+                  "Calculates the price by agreement, quantity and exchange rate"
+                ],
+                [
+                  "Needs",
+                  "Customer, item, quantity"
+                ],
+                [
+                  "Returns",
+                  "Unit price, discount, total price"
+                ]
+              ],
+              "clients": [
+                {
+                  "text": "Copilot"
+                },
+                {
+                  "text": "ChatGPT"
+                },
+                {
+                  "text": "Claude"
+                },
+                {
+                  "text": "Web shop",
+                  "tone": "muted"
+                }
+              ]
+            }
+          ],
+          "summary": "The same permissions, the same logging. The AI reads the description and knows when to use the operation."
+        }
+      ]
+    }
+  ]
+}
