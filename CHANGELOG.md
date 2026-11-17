@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Language Model card and Language Models Setup help, in English and Icelandic: the card lists Attachment Limit Bytes, and the setup page now describes the Ask limits (caps and defaults for questions with data lookup) and that changing them needs write permission, which both `BIFROST LLM ori` and `BIFROST Full ori` include (language-models#145).
 - License fact box and Bifrost Setup help, in English and Icelandic: the display now depends on the installation. A DEV extension in an online sandbox, and an on-premises installation, show the license state, confirmed-until and grace-until dates, Bifrost users and the last license-check error, and hide the tenant hash, usage and the Connection Status and License Usage actions. An AppSource installation on Business Central online keeps usage and connection details and hides the license-state fields. A DEV extension in online production uses that AppSource display (#166).
 - Playbook card help, in English and Icelandic: the **Chat via Bifrost** FactBox (**Spjalla með Bifröst**) is listed with Request Template and Last Execution. The chat uses the open playbook as its context, and the FactBox is hidden without chat permission or a configured chat provider (businesscentralal/bc-origo-bifrost-orchestrator#170, #162).
 - Help for Find Apps, in English and Icelandic: it now describes the in-client Bifröst Apps list (columns, the six states, sort order, actions, daily caching and offline behaviour, and that it never installs apps), replacing the web-registry description (businesscentralal/bifrost-support#8, core#1176). Bifrost Setup help and the administrators guide follow.
@@ -18,6 +19,7 @@
 ### Added
 
 - Help page for the Bifrost Groups pages (group list, card, Group Field Access and Disabled Message Types), in English and Icelandic, at the slug `bifrost-groups` (businesscentralal/bifrost#179, core#1392; must merge before core#1398).
+- Bifröst Iceland Treasury: a page on reversing payment and claim tracking records (English): what a reversal covers, that it never reaches the bank, that repeating it changes nothing, and how long tracking records are kept (businesscentralal/bifrost-support#14).
 - Bifröst Subscription Billing: the Partner Center listing and user scenarios pages, in English and Icelandic, and an overview that no longer names a Business Central version but the version Microsoft's Subscription Billing app requires (businesscentralal/bifrost-support#5).
 - A use-case library under Try it out, *What you can do with Bifröst*: cases by role with filters, search, copyable prompts and a random pick, in English and Icelandic, with links from Try it out, Using Bifröst and the home page.
 - Each released app in `data/versions.json` now carries `brief` and `description`, copied from that version's `app.json`. The release command `tools/update-released-version.mjs` writes both fields, and the app-registry check rejects an entry that omits them. `schemaVersion` stays 1.
