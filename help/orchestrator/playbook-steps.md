@@ -29,6 +29,8 @@ Steps that iterate over an array are indented, and disabled steps are dimmed. Se
 | **Stop On Item Error** | Stops the playbook when one item of an iteration fails, instead of continuing with the remaining items. |
 | **Disabled** | The playbook skips the step without running it. |
 
+A **Transform** step cannot use paging.
+
 ## Common tasks
 
 - **Add an operation step:** enter a new line with **Step Kind** set to **Message**, choose the operation in **Message Type**, then write its request in the **Request Template** FactBox.
@@ -50,7 +52,7 @@ playbook proceed within a limit you have chosen, without waiting for someone to 
    the count is at or below **Max Count**, the step confirms that exact count. If it is above the limit,
    or the preview gives no usable count, the step fails without confirming the operation. A missing
    **Max Count** also prevents a step configured this way from running.
-4. Open the [Playbook Step Log](/help/orchestrator/playbook-step-logs/) and read **Confirmation Note**
+4. Open the [Playbook Step Log](/help/orchestrator/playbook-step-logs/) and read **Confirmation**
    for the preview count, the count used to confirm, or the reason confirmation was refused.
 
 For example, with **Max Count** set to **10**, a preview of **8** is confirmed as **8**, a preview of

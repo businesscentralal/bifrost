@@ -20,7 +20,7 @@ Select a line to see its request and response in the [Selected Step](/help/orche
 | **Status** | The outcome of the step: _Completed_ (green), _Failed_ (red), or _Cancelled_ when an item was skipped because an earlier step failed for it or the iteration limit was reached. |
 | **Duration** | How long the step took. |
 | **Error Text** | The error message, when the step failed. |
-| **Confirmation Note** | For a step configured to confirm from its preview: the preview count and the count used to confirm, or why confirmation was refused. |
+| **Confirmation** | For a step configured to confirm from its preview: the preview count and the count used to confirm, or why confirmation was refused. |
 
 ## Actions
 
@@ -33,4 +33,4 @@ Select a line to see its request and response in the [Selected Step](/help/orche
 ## Common tasks
 
 - **Find the cause of a failure:** look for the first red line, read **Error Text**, then compare the request in the **Selected Step** FactBox with what the operation or transform expects.
-- **Review a confirmation:** read **Confirmation Note** alongside **Status** and **Error Text**. The note records the count used to confirm; the status shows whether the step completed successfully.
+- **Review a confirmation:** read **Confirmation** alongside **Status** and **Error Text**. The note records the count used to confirm; the status shows whether the step completed successfully.

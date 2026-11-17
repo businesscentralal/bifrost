@@ -14,6 +14,8 @@ choose **Run Now**, on a schedule, or when an assistant or another system asks f
 is opened from [Bifrost Orchestrator Setup](/help/orchestrator/orchestrator-setup/). Choose **New**, or
 open a line, to work on the [Bifrost Playbook](/help/orchestrator/playbook-card/) card.
 
+To prepare data in a **Transform** step, add mappings in [Transform Fields](/help/orchestrator/playbook-card/#transform-fields).
+
 ## Fields
 
 | Field | Description |
