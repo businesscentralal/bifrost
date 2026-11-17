@@ -19,7 +19,7 @@ Bifröst virkar með gervigreindaraðstoðarmanninum sem þú notar þegar. Fyri
 | Aðstoðarmaður | Hvernig hann tengist |
 |---|---|
 | **Claude** (á vefnum eða [Claude Desktop](https://claude.ai/download)) | Tenging sem þú bætir við sjálf(ur); skref fyrir skref í [Tengdu aðstoðarmanninn](/setup/connect-your-ai/#claude) |
-| **Microsoft 365 Copilot** | Fulltrúi (agent) sem heitir **Bifröst**: kerfisstjórinn birtir hann einu sinni, svo bætir þú honum við í Copilot ([hvernig](/setup/connect-your-ai/#microsoft-copilot)) |
+| **Microsoft 365 Copilot** | Bifröst er fulltrúi (agent) í Microsoft 365 Copilot, í prófun: spurðu Origo hvort hann sé í boði fyrir fyrirtækið þitt. Kerfisstjórinn birtir hann einu sinni, svo bætir þú honum við í Copilot ([hvernig](/setup/connect-your-ai/#microsoft-copilot)) |
 | **ChatGPT** | Ekki enn í verslun hans; þangað til sem fjartengdur MCP-þjónn þar sem ChatGPT hjá þér leyfir það ([hvernig](/setup/connect-your-ai/#chatgpt)) |
 | **Annar aðstoðarmaður** | Hver sá aðstoðarmaður sem styður fjartengda MCP-þjóna |
 

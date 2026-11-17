@@ -50,8 +50,8 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 
 ## Microsoft 365 Copilot {#microsoft-copilot}
 
-Í Microsoft 365 Copilot er Bifröst **fulltrúi** (agent) sem heitir **Bifröst**. Kerfisstjóri birtir hann einu sinni
-fyrir fyrirtækið; eftir það bætir hver notandi honum við og skráir sig inn sem hann sjálfur.
+Bifröst er fulltrúi (agent) í Microsoft 365 Copilot, í prófun: spurðu Origo hvort hann sé í boði fyrir fyrirtækið þitt. Kerfisstjóri birtir hann einu sinni fyrir fyrirtækið; eftir það bætir hver notandi honum við og skráir
+sig inn sem hann sjálfur.
 
 Aðgerðin **Microsoft Copilot** undir *Tengingar* á **Uppsetningu Bifröst** opnar enn opinbera verslun Microsoft, þar
 sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staðinn.
@@ -61,8 +61,8 @@ sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staði
 *Hver þarf að koma að: kerfisstjóri Microsoft 365 sem má stýra fulltrúum í Microsoft 365-stjórnborðinu. Fyrirtækið
 þarf líka að hafa gefið Bifröst [samþykki einu sinni](/setup/consent/).*
 
-1. **Fáðu fulltrúapakkann.** Þangað til Bifröst er kominn í verslun Microsoft kemur fulltrúinn sem `.zip`-skrá frá
-   Origo: spurðu tengiliðinn þinn hjá Origo. Hladdu henni upp eins og hún er; ekki pakka henni upp.
+1. **Fáðu fulltrúapakkann.** Meðan á prófuninni stendur kemur fulltrúinn sem `.zip`-skrá frá Origo: spurðu
+   tengiliðinn þinn hjá Origo. Hladdu henni upp eins og hún er; ekki pakka henni upp.
 2. **Hladdu honum upp.** Í Microsoft 365-stjórnborðinu skaltu opna **Agents › All agents**, velja **Add agent** og
    hlaða svo `.zip`-skránni upp.
 

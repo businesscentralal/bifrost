@@ -51,8 +51,8 @@ In Claude, the connector is called **Bifröst Origo**. The steps are the same on
 
 ## Microsoft 365 Copilot {#microsoft-copilot}
 
-In Microsoft 365 Copilot, Bifröst is an **agent** called **Bifröst**. An administrator publishes it once for the
-organisation; after that, each user adds it and signs in as themselves.
+Bifröst is an agent in Microsoft 365 Copilot, in a pilot: ask Origo whether it is available for your organisation. An administrator publishes it once for the organisation; after that, each user adds it and signs in as
+themselves.
 
 The **Microsoft Copilot** action under *Connectors* on **Bifrost Setup** still opens Microsoft's public store,
 where Bifröst is not listed yet. Use the steps below instead.
@@ -62,8 +62,8 @@ where Bifröst is not listed yet. Use the steps below instead.
 *Who is needed: a Microsoft 365 administrator who may manage agents in the Microsoft 365 admin center. Your
 organisation must also have given its [consent once](/setup/consent/) to Bifröst.*
 
-1. **Get the agent package.** Until Bifröst is in Microsoft's store, the agent comes as a `.zip` file from Origo:
-   ask your Origo contact. Upload it as it is; don't unpack it.
+1. **Get the agent package.** During the pilot, the agent comes as a `.zip` file from Origo: ask your Origo
+   contact. Upload it as it is; don't unpack it.
 2. **Upload it.** In the Microsoft 365 admin center, open **Agents › All agents**, choose **Add agent**, then
    upload the `.zip` file.
 
