@@ -49,14 +49,53 @@ In Claude, the connector is called **Bifröst Origo**. The steps are the same on
 
 5. **Ask your first question**: see [Ask your first question](/setup/first-question/).
 
-## Microsoft Copilot
+## Microsoft 365 Copilot {#microsoft-copilot}
 
-The Bifröst connector is not in Microsoft's store yet. Until it is, the **Microsoft Copilot** action under
-*Connectors* on **Bifrost Setup** opens the store's public catalogue, without Bifröst in it.
+In Microsoft 365 Copilot, Bifröst is an **agent** called **Bifröst**. An administrator publishes it once for the
+organisation; after that, each user adds it and signs in as themselves.
 
-Meanwhile, if your Copilot lets you add a remote MCP server or a custom connector, add Bifröst that way: see
-[Other assistants](#other-assistants). Whether it can depends on your Copilot and your organisation's settings; ask
-your administrator.
+The **Microsoft Copilot** action under *Connectors* on **Bifrost Setup** still opens Microsoft's public store,
+where Bifröst is not listed yet. Use the steps below instead.
+
+### For the administrator: publish the agent once {#copilot-administrator}
+
+*Who is needed: a Microsoft 365 administrator who may manage agents in the Microsoft 365 admin center. Your
+organisation must also have given its [consent once](/setup/consent/) to Bifröst.*
+
+1. **Get the agent package.** Until Bifröst is in Microsoft's store, the agent comes as a `.zip` file from Origo:
+   ask your Origo contact. Upload it as it is; don't unpack it.
+2. **Upload it.** In the Microsoft 365 admin center, open **Agents › All agents**, choose **Add agent**, then
+   upload the `.zip` file.
+
+   ![Add agent in the list of all agents in the Microsoft 365 admin center](/img/setup/copilot-add-agent.png)
+
+3. **Choose who gets it.** Under **Publish**, choose **All users**, or **Specific users/groups**, for example a group
+   of the people who have a Business Central user. Under **Install (optional)**, **None** lets each user add it
+   themselves; choose users or groups here to have it pre-installed for them.
+
+   ![Publish agent to selected users: who can install Bifröst, and who has it pre-installed](/img/setup/copilot-publish-to-users.png)
+
+4. **Review and accept.** Go through **Security policy** and **Accept permissions**, read what the agent asks for,
+   and accept. The agent signs each user in to Business Central as themselves, so it reaches only what that user
+   can reach.
+5. **Finish.** Check the summary on **Review & finish** and complete the upload. It can take a while before the
+   agent shows up for users.
+
+### For each user: add it and sign in {#copilot-user}
+
+1. **Find the agent.** In Microsoft 365 Copilot, open **Agents** in the left pane and choose **More agents**.
+   Find **Bifröst** and add it. If your administrator pre-installed it, it is already under *Agents*.
+
+   ![The Agents menu in Microsoft 365 Copilot, with More agents](/img/setup/copilot-more-agents.png)
+
+2. **Ask, and sign in.** Open Bifröst and ask a question, or pick one of its starters, such as *Which Business
+   Central companies can I use?* The first time, Copilot asks you to sign in: use the account that has access
+   to Business Central. Bifröst works as you, with exactly your permissions.
+3. **Pick the company.** If you can use more than one company, Bifröst lists them and asks which one.
+4. **Ask your first question**: see [Ask your first question](/setup/first-question/).
+
+If sign-in or the company list fails, your organisation has probably not finished the one-time setup: ask your
+administrator, and see [For your company](/setup/).
 
 ## ChatGPT
 
