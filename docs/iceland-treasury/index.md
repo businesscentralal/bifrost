@@ -111,6 +111,7 @@ own.
 | `BIFROST TCard ori` | Cards, card ledger keys and card acquiring | Yes | No |
 | `BIFROST TDoc ori` | Electronic documents | Yes | No |
 | `BIFROST TAsset ori` | Portfolios and asset transactions | Yes | No |
+| `BIFROST TReverse ori` | [Reversing payment and claim tracking](/iceland-treasury/tracking-reversal/) | No | No |
 | `BIFROST TAdmin ori` | Changing the bank setup and the company's bank secrets | No | No |
 
 Payments always need `BIFROST TPay ori` or `BIFROST TFrgPay ori`, given on purpose, even to a user with
