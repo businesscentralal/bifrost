@@ -19,9 +19,12 @@ This page is for the people who decide on the app and run it. It lists the versi
 - **Table data.** Administrators can open a table's rows in **Table Data**, filter them, page through them and change a single field value. The table can be exported to a JSON file and a file can be imported, with a dry run and a confirmation first. Fields that Bifröst restricts are not shown or changed, and a table that is restricted for reading is refused. These pages are for playbook administrators only.
 - **Copy plans.** A copy plan lists the tables to copy and how fields map. Bifröst generates a playbook from it that reads in pages and writes each row. Parents are copied before their children, and the plan only replaces the playbook it generated earlier.
 - **Transform steps.** A playbook step can now change data without calling an operation: copy a value, set a constant, negate a number or replace text. A copy plan can use the same transformations on a field.
+- **Convert a text reply to data.** A transform step can turn text that holds JSON, such as an AI reply that is wrapped in a Markdown code fence, into real data. A later step can then pass it on to an operation that expects an object or a list. Text that is not valid JSON fails the step with a clear message and nothing is passed on. A playbook check warns when a text value is sent where an object or a list is expected.
 - **Chat on the playbook card.** When Bifröst Chat is turned on, the **Bifrost Chat** FactBox appears on the **Playbook Card**, with the playbook as its context.
 - **Report layouts from a staged file.** A report layout can be uploaded from a file that another Bifröst app has staged, as an alternative to sending the layout itself.
 - **A worked example.** The built-in help has a new example playbook that audits the posting setup of customers with an AI model.
+- **Set or clear the default report layout.** Your AI assistant can make an uploaded layout, or an existing layout picked by name, the default layout of a report in the company. It can also clear the default so the report's built-in layout applies again. The answer names the layout that was the default before, so it can be restored in one call.
+- **Tools on Bifröst Setup and Playbooks.** Bifröst Setup and the Playbooks list have a new **Tools** group that opens Table Data and Copy Plans. Users who may not read those pages do not see the links.
 - **More checks before a run.** Checking a playbook now also warns about:
   - an AI question that goes through an unbounded list of records
   - a question about data without a response schema
@@ -29,10 +32,18 @@ This page is for the people who decide on the app and run it. It lists the versi
   - an irreversible operation without a confirmed count while confirmation is required
   - a request key that the operation does not accept
   - a list position written the wrong way, such as `result.0.id` instead of `result[0].id`
+  - a success condition that reads a value the operation does not answer with
+  - a reference to the current item in a step that does not repeat over a list
+  - an AI step with success conditions but none on how the answer ended
+  - a list path that the earlier step does not return
 
 ### Changed
 
 - Every Orchestrator operation now checks the app version and then the license before it does any work.
+- Operations that cannot be undone say what their expected count counts, for example one document, one message or one playbook run, and how to see the count without any change before confirming it.
+- Playbook check findings are listed by step number first, then errors before warnings. Findings about the playbook as a whole come last. The finding for an unknown request key names the keys in their real spelling and now also covers operations that only read data.
+- A reference to an unknown field of the current item is an error in a playbook check. AI playbooks that only check for success now carry a warning, which blocks running and scheduling unless warnings are accepted.
+- Icelandic texts for playbooks, copy plans, table data, document sending, PDF and report layouts were reviewed and corrected.
 - A stored field that does not exist is an error in a playbook check, not a warning. It blocks running and scheduling even when warnings are accepted, so a playbook that only warned before can be refused until its references are corrected.
 - The answers of a playbook check explain what happens at run time for a missing step or field: the step fails before anything is sent, and the failed log entry names the reference.
 - The built-in help for the PDF operations says what is written as a side effect. Printing a purchase order or a sales quote can add an entry to the interaction log, and a sales quote or sales order confirmation can be stored as an archived document version when archiving is turned on for it.
@@ -55,6 +66,12 @@ This page is for the people who decide on the app and run it. It lists the versi
 - The Orchestrator wizard is registered in Assisted Setup for users who have no business permissions, without giving them more access.
 - The preview of a workspace no longer repeats the direction of the operation in its notes.
 - The shared description of who you are no longer names Orchestrator in apps that do not use it.
+- A transform step can read the matching item of an earlier step that repeats over a list, in the same way request values already can.
+- A playbook run that points at a step that does not exist now ends as **Failed** with the error text. Before, it could stay **Running** forever. A scheduled playbook that fails is no longer started again three times within seconds by the job queue. The restart rules of the schedule decide.
+- The **Playbook Execution Log** has a new action, **Close Abandoned Runs**. It closes runs that have been Running for more than 24 hours as Failed and deletes nothing.
+- Every failed step and run has an error text, including a repeating step where some items failed. The response in the step log is always JSON, also when the answer was plain text.
+- A check that answers no is shown in a separate **Outcome Note** column of the step log and no longer as an error text.
+- The saved snapshot of a failed step no longer keeps personal data. The user and the user id are replaced by a placeholder, and values with names such as password, secret, key or token are masked.
 
 ## 28.0.3 — 28 October 2026
 
