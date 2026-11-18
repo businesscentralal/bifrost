@@ -28,6 +28,11 @@ import PermissionLayers from '@site/src/components/PermissionLayers';
   má aðeins lesa getur ekki bókað, hvernig sem hann er beðinn.
 - **Allar samstæðurnar, og hvernig hliðin virka,** eru í [Heimildasamstæður og hlið](/documentation/end-customers/permissions/).
 
+:::warning SUPER og Bifröst
+Gefðu ekki notendum með SUPER aðgang í gegnum Bifröst: SUPER kemst í gegnum öll hlið og allar takmarkanir í
+reitaaðgangi. Hvers vegna, og hvað í staðinn: [Heimildasamstæður og hlið](/documentation/end-customers/permissions/).
+:::
+
 ## Notendur og fulltrúar {#users-and-agents}
 
 **Uppsetning › Uppsetning notenda** telur upp hvern notanda Bifröst í fyrirtækinu. Opnaðu notanda til að stilla:
@@ -98,6 +103,14 @@ aldrei afrituð milli fyrirtækja.
 
 Listinn fyllist þegar þú setur upp Bifröst forrit sem tengjast öðrum kerfum. Í staðbundinni uppsetningu biður
 uppsetningarleiðsögnin um leyndarmál þeirra í einu valfrjálsu skrefi. Í skýinu skráirðu þau á **Uppsetning › Leyndarmál**.
+
+**Forrit frá öðrum útgefendum.** Forrit sem byggir á Bifröst bætir við aðgerðum sem útgefandi þess skrifar. Lýsingar
+þeirra eru yfirlýsingar útgefandans sjálfs: Origo staðfestir ekki að aðgerð geri nákvæmlega það sem hún segir, og þótt
+forrit standist sjálfvirkar athuganir er það hvorki öryggisúttekt né trygging fyrir réttri hegðun. Það sem Bifröst
+framfylgir fyrir hverja aðgerð, hver sem skrifaði hana: hún keyrir sem innskráði notandinn með heimildum hans, bókun
+þarf hlið sem þú veitir, reitaaðgangur gildir um eigin gagnaaðgerðir Bifröst, og hvert kall er skráð. Settu aðeins upp
+forrit frá útgefendum sem þú treystir, prófaðu þau fyrst í sandkassa, og gefðu notendunum sem kalla á þau aðeins þær
+heimildir sem þeir þurfa.
 
 ## Hinar stillingarnar á Uppsetningu Bifröst {#the-other-settings-on-bifrost-setup}
 
@@ -208,6 +221,32 @@ Til að finna kall opnarðu **Bifröst skilaboð** og síar á notandann og tím
 | Eitthvað var bókað sem hefði ekki átt að bóka, eða kall mistókst með tæknilegri villu | - | Finndu kallið á **Bifröst skilaboðum**: beiðnina, svarið og kallandann. Svar kalls sem mistókst segir hvað fór úrskeiðis |
 | Svæðið Leyfi virðist úrelt | - | **Leyfi › Samstilla**, síðan **Leyfi › Tengingastaða** |
 | Nýtt Bifröst forrit virkar ekki | Útleið HTTP er ekki virk fyrir það, eða leyndarmál þess eru ekki skráð | Keyrðu uppsetningarleiðsögnina aftur; athugaðu **Uppsetning › Leyndarmál** |
+
+## Persónuvernd og persónugögn {#privacy-and-personal-data}
+
+Þú ákveður hver má nota Bifröst, hvað fulltrúar mega lesa og breyta, í gegnum hvaða aðstoðarmann þeir vinna og hve
+lengi annálar eru geymdir. Hlutur Origo, og það sem Origo geymir, er á síðunni [Persónuvernd](/licensing/privacy/).
+Upphafspunktur fyrir flest fyrirtæki:
+
+1. **Byrjaðu þröngt.** Gefðu notendum aðeins `BIFROST API ori` (lesa og undirbúa), og bókunarhlið síðar, þeim fáu
+   sem eiga að bóka í gegnum aðstoðarmann. Aldrei SUPER (sjá að ofan).
+2. **Feldu persónugögn sjálfgefið.** Á Uppsetningu Bifröst seturðu **Virða næmi gagna** á *Viðkvæmt + Persónulegt*
+   og keyrir **Beita ráðlagðri flokkun**; í **reitaaðgangi** keyrirðu **Beita ráðlögðu sniðmáti** fyrir notendur
+   Bifröst, og aftur fyrir nýja. Opnaðu síðan reiti fyrir einstaka notendur þar sem vinnan krefst þess
+   ([hvernig](/documentation/end-customers/data-access/)).
+3. **Taktu önnur forrit með.** Innbyggð vernd Bifröst nær til staðlaðra taflna Business Central. Gögn sem önnur
+   forrit geyma (mannauður, laun, CRM og fleira) eru aðeins varin með þeim heimildum, flokkun og línum í
+   reitaaðgangi sem þú setur fyrir þau.
+4. **Stilltu varðveislu.** Gefðu **Bifröst skilaboðum** varðveislutíma í **Varðveislureglum**, að minnsta kosti 31 dag, því
+   mánaðarkvótarnir eru taldir út frá þeim: þau geyma svörin sem
+   köll skiluðu, þar með talin persónugögn í þeim. Þegar þú eyðir gögnum manneskju í Business Central standa afrit í
+   Bifröst skilaboðum og breytingaskránni þar til varðveislutími þeirra rennur út.
+5. **Veldu aðstoðarmanninn af kostgæfni.** Það sem fulltrúi les fer til þjónustuaðila aðstoðarmannsins, samkvæmt
+   samningi ykkar við hann. Notaðu aðstoðarmann sem gervigreindarstefna fyrirtækisins leyfir, á viðskiptaskilmálum
+   með vinnslusamningi.
+
+Mat á áhrifum á persónuvernd (DPIA) er ykkar sem ábyrgðaraðila; Origo leggur til lýsingu á sinni vinnslu á síðunni
+[Persónuvernd](/licensing/privacy/).
 
 ## Það sem þú berð ábyrgð á {#what-you-are-responsible-for}
 
