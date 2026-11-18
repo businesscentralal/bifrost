@@ -4,6 +4,7 @@
 
 ### Changed
 
+- License fact box help, in English and Icelandic: the local trial fields **Trial Ends**, **Trial Messages** and **Trial Limit Reached** (Foundation 28.0.14), the 1,000 message / 90 day limit shared by every company in the environment, and registering with a Partner for a Subscription. The fact box no longer calls the trial "Prepaid" (#187, core#1415, core#1412). Merge with the Foundation 28.0.14 release.
 - Bifröst Foundation: the Partner Center listing copy as a page (Foundation › Listing), in English and Icelandic, from the live AppSource text, now with the free trial: 1,000 user messages and 1,000 app registration messages, once per Microsoft Entra tenant, when the setup wizard is finished in production.
 - Microsoft 365 Copilot setup, in English and Icelandic: Bifröst is now an agent, in a pilot (ask Origo); both setup pages say so in the same words. The agent package is a download link in the steps. An administrator uploads the agent package once in the Microsoft 365 admin center and chooses who gets it; each user then adds **Bifröst** under Agents › More agents and signs in. *Pick your assistant* no longer asks Copilot users for the MCP server address. The unlisted logo page also shows the Bifröst Ö mark.
 - The docs homepage replaces the three static example cards with an interactive role demo ("What can you do with Bifröst?"): pick a role and an example and watch the question, the steps and the result card play, in Icelandic and English, with made-up figures.

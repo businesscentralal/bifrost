@@ -15,16 +15,36 @@ installation.
 
 | Field | Description |
 | --- | --- |
-| **License Type** | **Trial** or **Subscription**. Trial on this field is the Prepaid license. See [License types](/licensing/license-types/). |
+| **License Type** | **Trial** or **Subscription**. See [License types](/licensing/license-types/). |
 | **Licence State** | Not activated, trial, licensed, grace period, expired or mocked. |
 | **Confirmed Until** | When the last successful license check stays valid. After that, the grace period starts. |
 | **Grace Until** | When the license expires if another license check does not succeed. |
 | **Bifrost Users** | The Bifrost User Setup count and, when available, the number of users the license allows. |
 | **Last Licence Check Error** | The reason code of the last license check that did not succeed. |
+| **Trial Ends** | The date the local trial ends: 90 days after it started, or earlier when the message limit is reached. |
+| **Trial Messages** | The messages used out of the 1,000 that the local trial allows, for example **37 / 1,000**. |
+| **Trial Limit Reached** | Which limit ended the local trial: the 1,000 messages, the 90 days, both, or a trial counter that cannot be read. |
 
 The tenant hash, monthly usage, unreported messages and last usage sync are hidden. The **Connection
 Status** and **License Usage** actions on Bifrost Setup are hidden too. **Sync** remains available to
 refresh the license.
+
+### The local trial
+
+**Trial Ends**, **Trial Messages** and **Trial Limit Reached** appear only on these installations, and
+only after a local trial has started. They are hidden on a SaaS installation from AppSource, on a
+Subscription and when no trial has started. **Trial Limit Reached** appears only once the trial has
+ended.
+
+- **When the trial ends.** A local trial allows 1,000 messages or 90 days, whichever comes first.
+  Both limits are shared by every company in the environment, so messages sent in any company count
+  toward the same 1,000.
+- **What you see at the limit.** **Trial Limit Reached** says **Message limit reached (1,000 messages)**,
+  **Time limit reached (90 days)** or **Both limits reached (1,000 messages, 90 days)**, and the license
+  state shows expired. If the trial counter cannot be read, **Trial Messages** and **Trial Ends** show
+  **Unknown** and **Trial Limit Reached** says **Trial counter cannot be read**.
+- **What to do next.** Register with a Partner for a Subscription. Licensing is a Trial first, then a
+  Subscription once you link a Partner. See [License types](/licensing/license-types/).
 
 ## SaaS installations from AppSource
 

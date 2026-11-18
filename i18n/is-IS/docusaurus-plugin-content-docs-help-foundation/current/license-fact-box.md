@@ -14,16 +14,36 @@ DEV-viðbót í SaaS-sandkassa í Business Central sýnir sömu leyfisupplýsing
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Tegund leyfis** | **Prufuleyfi** eða **Áskrift**. Prufuleyfi á þessum reit er fyrirframgreitt leyfi. Sjá [Tegundir leyfa](/licensing/license-types/). |
+| **Tegund leyfis** | **Prufuleyfi** eða **Áskrift**. Sjá [Tegundir leyfa](/licensing/license-types/). |
 | **Staða leyfis** | Ekki virkjað, prufuleyfi, með leyfi, frestur, útrunnið eða hermt. |
 | **Staðfest til** | Hve lengi síðasta leyfisathugun sem tókst gildir. Eftir þann tíma hefst fresturinn. |
 | **Frestur til** | Hvenær leyfið rennur út ef önnur leyfisathugun tekst ekki. |
 | **Notendur Bifröst** | Fjöldi færslna í notendauppsetningu Bifröst og, þegar talan er tiltæk, fjöldi notenda sem leyfið heimilar. |
 | **Síðasta villa leyfisathugunar** | Ástæðukóði síðustu leyfisathugunar sem tókst ekki. |
+| **Prufuleyfi lýkur** | Dagurinn sem staðbundna prufuleyfið rennur út: 90 dögum eftir að það hófst, eða fyrr ef skilaboðamörkum er náð. |
+| **Skilaboð prufuleyfis** | Hve mörg af þeim 1.000 skilaboðum sem staðbundið prufuleyfi leyfir hafa verið notuð, til dæmis **37 / 1.000**. |
+| **Prufumörkum náð** | Hvaða mörk bundu enda á staðbundna prufuleyfið: 1.000 skilaboð, 90 dagar, hvort tveggja, eða teljari prufuleyfis sem ekki er hægt að lesa. |
 
 Tætigildi leigjandakennis, mánaðarleg notkun, óskráð skilaboð og síðasta samstilling notkunar eru falin.
 Aðgerðirnar **Tengingastaða** og **Leyfisnotkun** á Uppsetningu Bifröst eru einnig faldar. **Samstilla**
 er áfram tiltæk til að uppfæra leyfið.
+
+### Staðbundið prufuleyfi {#the-local-trial}
+
+**Prufuleyfi lýkur**, **Skilaboð prufuleyfis** og **Prufumörkum náð** birtast aðeins í þessum uppsetningum
+og aðeins eftir að staðbundið prufuleyfi hefur hafist. Þeir eru faldir í SaaS-uppsetningu úr AppSource, á
+áskrift og þegar ekkert prufuleyfi hefur hafist. **Prufumörkum náð** birtist aðeins þegar prufuleyfið er
+runnið út.
+
+- **Hvenær prufuleyfið rennur út.** Staðbundið prufuleyfi leyfir 1.000 skilaboð eða 90 daga, hvort sem
+  gerist fyrr. Bæði mörkin eru sameiginleg öllum fyrirtækjum í umhverfinu, þannig að skilaboð í hvaða
+  fyrirtæki sem er telja í sömu 1.000.
+- **Hvað sést þegar mörkum er náð.** **Prufumörkum náð** segir **Skilaboðamörkum náð (1.000 skilaboð)**,
+  **Tímamörkum náð (90 dagar)** eða **Báðum mörkum náð (1.000 skilaboð, 90 dagar)** og leyfisstaðan sýnir
+  útrunnið. Ef ekki er hægt að lesa teljara prufuleyfisins sýna **Skilaboð prufuleyfis** og **Prufuleyfi
+  lýkur** **Óþekkt** og **Prufumörkum náð** segir **Ekki er hægt að lesa teljara prufuleyfis**.
+- **Hvað á að gera næst.** Skráðu þig hjá samstarfsaðila til að fá áskrift. Leyfisveiting byrjar á
+  prufuleyfi og verður að áskrift þegar þú tengir samstarfsaðila. Sjá [Tegundir leyfa](/licensing/license-types/).
 
 ## SaaS-uppsetning úr AppSource {#saas-installations-from-appsource}
 
