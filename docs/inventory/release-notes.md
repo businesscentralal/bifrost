@@ -60,14 +60,14 @@ Each new operation works through your AI assistant or an integration, with Busin
 - **Reclassification journals** can be checked, previewed and posted. They are separate from transfer orders.
 - **Clearer refusals.** Refusals carry an error code and a next step in your language, and the built-in help and setup guidance are complete in English and Icelandic.
 - **Business Central 29.** Direct transfer posting is supported in Business Central 29 without warnings. Business Central 28 keeps working as before.
-- **Restricted licence administrators** can be registered.
+- **Restricted license administrators** can be registered.
 
 ### Fixed
 
 - Undoing a posted transfer receipt is refused, because Business Central cannot reverse it.
 - Preview and check of a physical inventory journal treat blank rows the way posting does, so a preview no longer disagrees with the result.
 - Cancelling a reservation that does not exist now says what was expected and what to do next.
-- Adjust cost checks the licence and version before it runs.
+- Adjust cost checks the license and version before it runs.
 
 ## 28.3.1 — 25 October 2026
 
