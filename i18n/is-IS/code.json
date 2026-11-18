@@ -829,5 +829,35 @@
   },
   "useCases.copied": {
     "message": "Afritað"
+  },
+  "home.roleDemo.title": {
+    "message": "Hvað getur þú gert með Bifröst?"
+  },
+  "home.roleDemo.rolesLabel": {
+    "message": "Veldu hlutverk"
+  },
+  "home.roleDemo.examplesLabel": {
+    "message": "Dæmi"
+  },
+  "home.roleDemo.iam": {
+    "message": "Ég er …"
+  },
+  "home.roleDemo.badge": {
+    "message": "Sýnidæmi"
+  },
+  "home.roleDemo.gate": {
+    "message": "Bifröst gætir"
+  },
+  "home.roleDemo.bc": {
+    "message": "Business Central vinnur"
+  },
+  "home.roleDemo.result": {
+    "message": "Niðurstaða"
+  },
+  "home.roleDemo.note": {
+    "message": "Dæmin eru sýnidæmi með tilbúnum tölum."
+  },
+  "home.roleDemo.link": {
+    "message": "Hvernig Bifröst áttar sig á því sem á að gera"
   }
 }

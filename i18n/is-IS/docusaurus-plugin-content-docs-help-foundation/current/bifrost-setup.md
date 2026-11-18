@@ -51,6 +51,9 @@ mánaðarlega notkun og samstillingarstöðu, **Tengingastöðu** og **Leyfisnot
 eru faldir. **Tegund leyfis** og notendaleyfissamningurinn birtast í báðum tilvikum. DEV-viðbót sem er
 birt í framleiðsluumhverfi í skýinu notar þessa AppSource-birtingu.
 
+**Uppsetningarhamur** á upplýsingareitnum Leyfi helst sýnilegur í báðum birtingum. Hann sýnir
+**Virkur til** og síðasta lokatímann, eða **Óvirkur**.
+
 ## Aðgerðir
 
 | Flokkur | Aðgerð | Lýsing |
@@ -66,6 +69,7 @@ birt í framleiðsluumhverfi í skýinu notar þessa AppSource-birtingu.
 | | **Fjarlægja skráningar varðveislureglna** | Keyrðu hana í hverju fyrirtæki áður en þú fjarlægir Bifröst. Hún eyðir varðveislureglum annálstaflna Bifröst; engum Bifröst-gögnum er eytt. Krefst heimildasamstæðunnar Retention Pol. Admin eða SUPER. |
 | | **Leyndarmál** | Leyndarmálin sem öll uppsett Bifröst-forrit þurfa - sjá [Leyndarmál forrita Bifröst](/help/foundation/bifrost-app-secrets/). |
 | | **Uppsetningarleiðsögn** | Opnar [uppsetningarleiðsögnina](/help/foundation/bifrost-setup-wizard/). |
+| Aðgerðir | **Hefja uppsetningarham…** | Opnar leiðsagnarforritið Uppsetningarhamur fyrir einn [samþykktan uppruna setu](/help/foundation/session-source-approval/). Tímalengdin er sjálfgefið 2 klukkustundir; sláðu inn tímalengd sem er meiri en núll og mest 8 klukkustundir. **Ljúka** byrjar uppsetningarham fyrir þann uppruna. Honum lýkur sjálfkrafa á lokatímanum. Þegar hann er virkur sýnir leiðsagnarforritið **Virkur til** og **Tími eftir**, og **Ljúka uppsetningarham** lýkur honum fyrir þann uppruna. [Upplýsingareiturinn Leyfi](/help/foundation/license-fact-box/) sýnir þá **Virkur til** og síðasta lokatímann, eða **Óvirkur**, í hverri uppsetningu. Aðeins notandi með `BIFROST Full ori` eða SUPER getur opnað leiðsagnarforritið. |
 | Leyfi | **Samstilla** | Tilkynnir óskráða notkun til leyfisþjónustunnar og uppfærir stöðu leyfisins. Daglega bakgrunnsverkið tilkynnir aðeins notkun. |
 | | **Afturkalla samþykki notendaleyfissamnings** | Dregur samþykki leyfissamningsins til baka fyrir þetta fyrirtæki; köllum er hafnað þar til leiðsögnin hefur verið keyrð aftur. |
 | | **Tengingastaða** | Birtist fyrir uppsetningu úr AppSource í Business Central í skýinu, þar á meðal DEV-viðbót í framleiðsluumhverfi í skýinu. Falin fyrir staðbundna uppsetningu og fyrir DEV-viðbót í SaaS-sandkassa. Hvort náist í leyfisþjónustuna, hvaða tengingarleyndarmál eru aðgengileg, hvort uppurinn pottur loki á skilaboð, og keypt og skráð heildargildi leigjandans. |

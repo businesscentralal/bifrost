@@ -4,8 +4,13 @@
 
 ### Changed
 
+- Bifröst Foundation: the Partner Center listing copy as a page (Foundation › Listing), in English and Icelandic, from the live AppSource text, now with the free trial: 1,000 user messages and 1,000 app registration messages, once per Microsoft Entra tenant, when the setup wizard is finished in production.
+- Microsoft 365 Copilot setup, in English and Icelandic: Bifröst is now an agent, in a pilot (ask Origo); both setup pages say so in the same words. The agent package is a download link in the steps. An administrator uploads the agent package once in the Microsoft 365 admin center and chooses who gets it; each user then adds **Bifröst** under Agents › More agents and signs in. *Pick your assistant* no longer asks Copilot users for the MCP server address. The unlisted logo page also shows the Bifröst Ö mark.
+- The docs homepage replaces the three static example cards with an interactive role demo ("What can you do with Bifröst?"): pick a role and an example and watch the question, the steps and the result card play, in Icelandic and English, with made-up figures.
+- Playbook help now explains local transform steps and field mappings, automatic confirmation from a preview with Max Count, the Exists condition, the Confirmation column in the step log, and the transform input editor (businesscentralal/bc-origo-bifrost-orchestrator#204).
 - Language Model card and Language Models Setup help, in English and Icelandic: the card lists Attachment Limit Bytes, and the setup page now describes the Ask limits (caps and defaults for questions with data lookup) and that changing them needs write permission, which both `BIFROST LLM ori` and `BIFROST Full ori` include (language-models#145).
 - Licensing and administrator guides, in English and Icelandic: the Company Monthly Message Quota can be changed only by users with BIFROST Full ori or SUPER; a license administrator sees it read-only (businesscentralal/bifrost-support#9).
+- License fact box and Bifrost Setup help, in English and Icelandic: **Setup Mode** shows **Active until** and the latest end time, or **Not active**, in every installation. **Start Setup Mode…** opens the wizard for one approved session source and a duration (#166, core#1370).
 - Bifröst Language Models release notes: draft section for 28.0.3 with the date left for the release manager (businesscentralal/bc-origo-bifrost-language-models#146). English only; #125 and #142 must land before release.
 - License fact box and Bifrost Setup help, in English and Icelandic: the display now depends on the installation. A DEV extension in an online sandbox, and an on-premises installation, show the license state, confirmed-until and grace-until dates, Bifrost users and the last license-check error, and hide the tenant hash, usage and the Connection Status and License Usage actions. An AppSource installation on Business Central online keeps usage and connection details and hides the license-state fields. A DEV extension in online production uses that AppSource display (#166).
 - Playbook card help, in English and Icelandic: the **Chat via Bifrost** FactBox (**Spjalla með Bifröst**) is listed with Request Template and Last Execution. The chat uses the open playbook as its context, and the FactBox is hidden without chat permission or a configured chat provider (businesscentralal/bc-origo-bifrost-orchestrator#170, #162).
@@ -15,6 +20,8 @@
 - Bifröst Iceland release notes for 28.1.2 (refusals for a customs calculation missing the tariff number or currency code), and the Apps page shows 28.1.2.103.
 
 ### Fixed
+
+- Dashboard help describes Enabled as controlling data refresh in English and Icelandic, and uses the displayed Copy chart and Maximum Pages captions (#177).
 
 - The top navigation no longer overlaps on desktop screens: Foundation and the apps are now one Apps menu instead of a row of buttons, built from apps.ts so a new app appears there without a navbar change, and check:structure fails if app buttons come back on the bar. Same in English and Icelandic.
 
