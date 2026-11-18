@@ -21,7 +21,7 @@ Each new operation works through your AI assistant or an integration, with Busin
 - **Create items.** Create an item from an item template, or from a catalog item with that catalog item's template. Add units of measure and variants to an existing item, and read them back.
 - **Item references.** Create or update an item reference. Omitted descriptions and dates are kept, and a reference that already belongs to another item is refused with guidance.
 - **Stockkeeping units.** Create stockkeeping units per location and variant, and read them with their planning and cost fields.
-- **Price lists.** Create or update a draft sales or purchase price list and its lines. Activating the list stays in Business Central.
+- **Price lists.** Create or update a draft sales or purchase price list and its lines, and activate the list. Activation refuses a price that duplicates an existing one. Price tables can no longer be written through the generic record operations; reading them is unchanged.
 - **Substitutes.** Read the direct substitutes of an item and the stock of each variant.
 - **Standard cost.** Suggest new standard costs and implement them with Business Central's standard cost worksheet.
 
