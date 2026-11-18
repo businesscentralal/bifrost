@@ -20,7 +20,7 @@ function AppCard({id, title, appName}: {id: string; title: string; appName: stri
   const summary = registrySummaries[appName] ?? fallbackSummaries[id];
   return (
     <Link className="bifrostCard" to={`/${id}/`}>
-      <img src={useBaseUrl(`img/${id}.png`)} alt="" role="presentation" />
+      <img src={useBaseUrl(`img/apps/${id}.png`)} alt="" role="presentation" />
       <h3>{title}</h3>
       <p>{summary}</p>
     </Link>

@@ -5,8 +5,16 @@ title: "Leyfi"
 
 Upplýsingareiturinn **Leyfi** á [Uppsetningu Bifröst](/help/foundation/bifrost-setup/) sýnir upplýsingar
 um núverandi leigjanda og fyrirtæki fyrir notendur með leyfisstjórnunarheimild (`BIFROST LicAdm ori`).
-Hvernig Foundation er sett upp ræður því hvaða reitir birtast. **Tegund leyfis** og notendaleyfissamningurinn
-birtast í báðum tilvikum.
+Hvernig Foundation er sett upp ræður því hvaða reitir birtast. **Tegund leyfis**, **Uppsetningarhamur**
+og notendaleyfissamningurinn birtast í hverri uppsetningu.
+
+## Uppsetningarhamur {#setup-mode}
+
+**Uppsetningarhamur** sýnir **Virkur til** og síðasta lokatímann þegar einhver samþykktur uppruni setu
+hjá þér er í uppsetningarham í þessu fyrirtæki, eða **Óvirkur** þegar enginn er það. Línan birtist
+fyrir DEV-viðbót, staðbundna uppsetningu og uppsetningu úr AppSource. Notandi með `BIFROST Full ori`
+eða SUPER byrjar eða lýkur honum með **Hefja uppsetningarham…** á
+[Uppsetningu Bifröst](/help/foundation/bifrost-setup/).
 
 ## DEV-útgáfa og staðbundin uppsetning {#dev-published-and-on-premises-installations}
 

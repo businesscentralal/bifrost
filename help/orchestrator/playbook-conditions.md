@@ -7,7 +7,7 @@ sidebar_position: 24
 
 The **Step Conditions** part of the [Bifrost Playbook](/help/orchestrator/playbook-card/) card decides whether a step runs, which way the playbook goes after it, and whether the run should be marked as failed. It shows the conditions of the step selected in the [Steps](/help/orchestrator/playbook-steps/) part; new lines belong to that step.
 
-A step without conditions always runs, and it succeeds when its operation completes without an error.
+An enabled step without conditions runs when reached, and succeeds when its operation or transform completes without an error.
 
 ## Fields
 
@@ -20,6 +20,12 @@ A step without conditions always runs, and it succeeds when its operation comple
 | **Operator** | How the value at the path is compared: _Equals_, _Not Equals_, _Greater Than_, _Less Than_, _Greater or Equal_, _Less or Equal_, _Contains_ or _Exists_. |
 | **Value** | The value to compare against. Not needed for _Exists_. |
 | **Description** | An optional note on what the condition is for. |
+
+## Check that a value exists
+
+Choose **Exists** when a path must have a value. It is false for a missing path, `null`, empty text,
+an empty array or an empty object. The values `0` and `false` still exist. Leave **Value** blank for
+this operator.
 
 ## Common tasks
 
