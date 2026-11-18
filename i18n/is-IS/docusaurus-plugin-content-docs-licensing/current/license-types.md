@@ -118,6 +118,10 @@ Báðar tegundir leyfa geta sett þak á eigin mánaðarlega notkun:
 - **Mánaðarlegur skilaboðakvóti notanda** í Uppsetningu notanda Bifröst fyrir hvern notanda -
   gjaldskyld skilaboð þess notanda í almanaksmánuðinum, hver sem gjaldfærslutegund þeirra er.
 
+Aðeins notendur með **BIFROST Full ori** eða **SUPER** geta breytt Mánaðarlegum skilaboðakvóta fyrirtækis.
+Leyfisstjórnandi án þessara heimilda sér reitinn skrifvarinn, einnig í breytingaham. Kvóti notanda er
+stilltur í Uppsetningu notanda Bifröst fyrir hvern notanda.
+
 `0` (sjálfgefið) þýðir engin takmörk. Þegar kvóta er náð er köllum hafnað með villu um uppurinn
 mánaðarlegan kvóta fram að næsta almanaksmánuði; svarið tilgreinir hvaða kvóti (`user` eða
 `company`) stöðvaði kallið. Kvóti notanda er athugaður á undan kvóta fyrirtækis, og báðir á undan
