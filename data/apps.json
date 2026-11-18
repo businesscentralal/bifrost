@@ -195,6 +195,25 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/iceland-treasury.png"
       }
+    },
+    {
+      "appId": "c847bab7-2525-4ff5-93c4-15512b3be1e5",
+      "name": "Bifrost Projects",
+      "publisher": "Origo",
+      "summary": "Run project work from an assistant or integration: projects, tasks and planning lines, usage, WIP, budget and actual, quotes and time sheets.",
+      "summary_is": "Vinndu verkefnavinnu úr aðstoð eða samþættingu: verkefni, verkhluta og áætlunarlínur, notkun, VÍV, áætlun og rauntölur, tilboð og tímaskýrslur.",
+      "domains": [
+        "projects"
+      ],
+      "foundationMinVersion": "28.0.5.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/projects/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/projects.png"
+      }
     }
   ]
 }
