@@ -62,9 +62,9 @@ sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staði
 þarf líka að hafa gefið Bifröst [samþykki einu sinni](/setup/consent/).*
 
 1. **Sæktu fulltrúapakkann.** Meðan á prófuninni stendur er fulltrúinn `.zip`-skrá:
-   [appPackage.pilot-20261117.zip](https://origopublic.blob.core.windows.net/bifrost/appPackage.pilot-20261117.zip). Hladdu henni upp eins og hún er; ekki pakka henni upp.
+   [appPackage_Bifrost_Copilot-20261119.zip](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip). Hladdu henni upp eins og hún er; ekki pakka henni upp.
 2. **Hladdu honum upp.** Í Microsoft 365-stjórnborðinu skaltu opna **Agents › All agents**, velja **Add agent** og
-   hlaða svo [`.zip`-skránni](https://origopublic.blob.core.windows.net/bifrost/appPackage.pilot-20261117.zip) upp.
+   hlaða svo [`.zip`-skránni](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip) upp.
 
    ![Add agent í lista yfir alla fulltrúa í Microsoft 365-stjórnborðinu](/img/setup/copilot-add-agent.png)
 
