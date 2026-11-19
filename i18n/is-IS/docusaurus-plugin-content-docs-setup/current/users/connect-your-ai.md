@@ -50,13 +50,30 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 
 ## Microsoft 365 Copilot {#microsoft-copilot}
 
-Bifröst er fulltrúi (agent) í Microsoft 365 Copilot, í prófun: spurðu Origo hvort hann sé í boði fyrir fyrirtækið þitt. Kerfisstjóri birtir hann einu sinni fyrir fyrirtækið; eftir það bætir hver notandi honum við og skráir
-sig inn sem hann sjálfur.
+Þú getur notað Bifröst í Microsoft 365 Copilot á tvo vegu:
+
+- **Sem viðbót (plugin) í Copilot Cowork**: sjá [Viðbót fyrir Cowork](#copilot-cowork).
+- **Sem fulltrúa (agent) í Copilot Chat**: sjá [Fulltrúi í Copilot Chat](#copilot-chat-agent).
 
 Aðgerðin **Microsoft Copilot** undir *Tengingar* á **Uppsetningu Bifröst** opnar enn opinbera verslun Microsoft, þar
 sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staðinn.
 
-### Fyrir kerfisstjórann: birtu fulltrúann einu sinni {#copilot-administrator}
+### Viðbót fyrir Cowork {#copilot-cowork}
+
+1. **Opnaðu Plugins.** Í Microsoft 365 Copilot opnarðu **Plugins** og velur **Cowork**.
+2. **Leitaðu að Bifröst.** Skrifaðu *Bifröst* í leitarreitinn.
+
+   ![Plugins í Microsoft 365 Copilot, á flipanum Cowork, með leitarreitnum](/img/setup/copilot-cowork-plugins.png)
+
+3. **Bættu viðbótinni við.** Veldu **Bifröst** og bættu henni við.
+4. **Spurðu fyrstu spurningarinnar**: sjá [Spurðu fyrstu spurningarinnar](/setup/first-question/).
+
+### Fulltrúi í Copilot Chat {#copilot-chat-agent}
+
+Bifröst er fulltrúi (agent) í Microsoft 365 Copilot, í prófun: spurðu Origo hvort hann sé í boði fyrir fyrirtækið þitt. Kerfisstjóri birtir hann einu sinni fyrir fyrirtækið; eftir það bætir hver notandi honum við og skráir
+sig inn sem hann sjálfur.
+
+#### Fyrir kerfisstjórann: birtu fulltrúann einu sinni {#copilot-administrator}
 
 *Hver þarf að koma að: kerfisstjóri Microsoft 365 sem má stýra fulltrúum í Microsoft 365-stjórnborðinu. Fyrirtækið
 þarf líka að hafa gefið Bifröst [samþykki einu sinni](/setup/consent/).*
@@ -80,7 +97,7 @@ sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staði
 5. **Ljúktu við.** Farðu yfir samantektina á **Review & finish** og ljúktu upphleðslunni. Það getur tekið smá tíma
    þar til fulltrúinn birtist notendum.
 
-### Fyrir hvern notanda: bættu honum við og skráðu þig inn {#copilot-user}
+#### Fyrir hvern notanda: bættu honum við og skráðu þig inn {#copilot-user}
 
 1. **Finndu fulltrúann.** Í Microsoft 365 Copilot skaltu opna **Agents** í vinstri dálkinum og velja **More agents**.
    Finndu **Bifröst** og bættu honum við. Ef kerfisstjórinn setti hann upp fyrirfram er hann þegar undir *Agents*.

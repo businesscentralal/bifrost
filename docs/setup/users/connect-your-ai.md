@@ -51,13 +51,30 @@ In Claude, the connector is called **Bifröst Origo**. The steps are the same on
 
 ## Microsoft 365 Copilot {#microsoft-copilot}
 
-Bifröst is an agent in Microsoft 365 Copilot, in a pilot: ask Origo whether it is available for your organisation. An administrator publishes it once for the organisation; after that, each user adds it and signs in as
-themselves.
+You can use Bifröst in Microsoft 365 Copilot in two ways:
+
+- **As a plugin in Copilot Cowork**: see [Plugin for Cowork](#copilot-cowork).
+- **As an agent in Copilot Chat**: see [Agent for Copilot Chat](#copilot-chat-agent).
 
 The **Microsoft Copilot** action under *Connectors* on **Bifrost Setup** still opens Microsoft's public store,
 where Bifröst is not listed yet. Use the steps below instead.
 
-### For the administrator: publish the agent once {#copilot-administrator}
+### Plugin for Cowork {#copilot-cowork}
+
+1. **Open Plugins.** In Microsoft 365 Copilot, open **Plugins** and choose **Cowork**.
+2. **Search for Bifröst.** Type *Bifröst* in the search box.
+
+   ![Plugins in Microsoft 365 Copilot, on the Cowork tab, with the search box](/img/setup/copilot-cowork-plugins.png)
+
+3. **Add the plugin.** Choose **Bifröst** and add it.
+4. **Ask your first question**: see [Ask your first question](/setup/first-question/).
+
+### Agent for Copilot Chat {#copilot-chat-agent}
+
+Bifröst is an agent in Microsoft 365 Copilot, in a pilot: ask Origo whether it is available for your organisation. An administrator publishes it once for the organisation; after that, each user adds it and signs in as
+themselves.
+
+#### For the administrator: publish the agent once {#copilot-administrator}
 
 *Who is needed: a Microsoft 365 administrator who may manage agents in the Microsoft 365 admin center. Your
 organisation must also have given its [consent once](/setup/consent/) to Bifröst.*
@@ -81,7 +98,7 @@ organisation must also have given its [consent once](/setup/consent/) to Bifrös
 5. **Finish.** Check the summary on **Review & finish** and complete the upload. It can take a while before the
    agent shows up for users.
 
-### For each user: add it and sign in {#copilot-user}
+#### For each user: add it and sign in {#copilot-user}
 
 1. **Find the agent.** In Microsoft 365 Copilot, open **Agents** in the left pane and choose **More agents**.
    Find **Bifröst** and add it. If your administrator pre-installed it, it is already under *Agents*.
