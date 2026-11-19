@@ -23,7 +23,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 - **Chat on the playbook card.** When Bifröst Chat is turned on, the **Bifrost Chat** FactBox appears on the **Playbook Card**, with the playbook as its context.
 - **Report layouts from a staged file.** A report layout can be uploaded from a file that another Bifröst app has staged, as an alternative to sending the layout itself.
 - **A worked example.** The built-in help has a new example playbook that audits the posting setup of customers with an AI model.
-- **Set or clear the default report layout.** Your AI assistant can make an uploaded layout, or an existing layout picked by name, the default layout of a report in the company. It can also clear the default so the report's built-in layout applies again. The answer names the layout that was the default before, so it can be restored in one call.
+- **Set or clear the default report layout.** Your AI assistant can make an uploaded layout, or an existing layout picked by name, the default layout of a report in the company. It can also clear the default. Clearing removes the company's own override and restores the all-companies default, or the report's built-in layout when no such default exists. The answer names the layout that was the default before, so it can be restored in one call.
 - **Tools on Bifröst Setup and Playbooks.** Bifröst Setup and the Playbooks list have a new **Tools** group that opens Table Data and Copy Plans. Users who may not read those pages do not see the links.
 - **More checks before a run.** Checking a playbook now also warns about:
   - an AI question that goes through an unbounded list of records
@@ -71,7 +71,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 - The **Playbook Execution Log** has a new action, **Close Abandoned Runs**. It closes runs that have been Running for more than 24 hours as Failed and deletes nothing.
 - Every failed step and run has an error text, including a repeating step where some items failed. The response in the step log is always JSON, also when the answer was plain text.
 - A check that answers no is shown in a separate **Outcome Note** column of the step log and no longer as an error text.
-- The saved snapshot of a failed step no longer keeps personal data. The user and the user id are replaced by a placeholder, and values with names such as password, secret, key or token are masked.
+- The saved snapshot of a failed step no longer keeps the user and the user id, which are replaced by a placeholder, and values with names such as password or secret are masked. Step inputs and results are kept for debugging and can still contain personal data, so treat the snapshot as sensitive.
 
 ## 28.0.3 — 28 October 2026
 
