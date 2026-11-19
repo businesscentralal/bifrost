@@ -251,6 +251,70 @@ a.bifrostCard:focus-visible,
   }
 }
 
+/* Setup panels: expandable step-by-step blocks on setup pages
+   (<details className="setup-panel"> with a title and a meta line in the summary). */
+.markdown details.setup-panel {
+  --ifm-alert-foreground-color: var(--ifm-font-color-base);
+  --ifm-alert-border-color: var(--ifm-color-emphasis-300);
+  --docusaurus-details-decoration-color: var(--ifm-color-emphasis-200);
+  margin: 0 0 1rem;
+  padding: 0;
+  color: var(--ifm-font-color-base);
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-left: 4px solid var(--ifm-color-primary);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+  transition: box-shadow 150ms ease;
+}
+
+.markdown details.setup-panel:hover {
+  box-shadow: 0 4px 14px rgb(0 0 0 / 8%);
+}
+
+.markdown details.setup-panel > summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.9rem 3rem 0.9rem 1.25rem;
+  border-radius: 12px;
+}
+
+.markdown details.setup-panel > summary::before {
+  top: 50%;
+  left: auto;
+  right: 1.35rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-style: solid;
+  border-color: var(--ifm-color-primary);
+  border-width: 0 2px 2px 0;
+  transform: translateY(-70%) rotate(45deg);
+  transform-origin: center;
+}
+
+.markdown details.setup-panel[data-collapsed='false'] > summary::before,
+.markdown details.setup-panel[open]:not([data-collapsed]) > summary::before {
+  transform: translateY(-30%) rotate(-135deg);
+}
+
+.setup-panel__title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ifm-heading-color);
+}
+
+.setup-panel__meta {
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.markdown details.setup-panel > div > div {
+  margin-top: 0;
+  padding: 1rem 1.25rem 0.25rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
 /* Homepage: a light rounded box around "What it looks like" and the role demo. */
 .bifrostShowcase {
   margin: 2.5rem 0;
