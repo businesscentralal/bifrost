@@ -87,7 +87,9 @@ import AskOrAct from '@site/src/components/AskOrAct';
 
 ## Athugaðu hvað aðstoðarmaðurinn gerði {#check-what-the-assistant-did}
 
-- **Opnaðu færsluna.** Biddu um tengil á hana og opnaðu hana í Business Central, eins og að ofan.
+- **Opnaðu færsluna.** Biddu um tengil á hana og opnaðu hana í Business Central, eins og að ofan. Þegar breyting
+  skiptir máli skaltu skoða færsluna sjálfa: samantekt aðstoðarmannsins, eða „búið“, sannar ekki að niðurstaðan sé sú
+  sem þú ætlaðir.
 - **Sjáðu hvert kall.** Hvert kall sem aðstoðarmaður gerir fyrir þig er geymt á **Bifröst skilaboðum**
   (**Uppsetning Bifröst › Skilaboð › Bifröst skilaboð**), þar sem þú sérð þín eigin köll. Ef þú getur ekki opnað
   Uppsetningu Bifröst, spurðu kerfisstjórann. Hver lína er eitt kall: hvað var gert, hvort það tókst, og hvaða
