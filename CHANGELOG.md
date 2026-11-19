@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Microsoft 365 Copilot setup, in English and Icelandic: two ways for each user, as a plugin in Copilot Cowork (open Plugins › Cowork, search for Bifröst, add it; with a screenshot) or as an agent in Copilot Chat (the existing pilot steps). *Pick your assistant* links to both.
+- Microsoft 365 Copilot setup, in English and Icelandic: ordered as *For the administrator* (publish the agent once), then *For each user*, with two ways: a plugin in Copilot Cowork (Plugins › Cowork, search for Bifröst, add it; with a screenshot) or an agent in Copilot Chat (the existing pilot steps). Each is an expandable setup panel (new `setup-panel` style). *Pick your assistant* links to the user steps.
 - Use-case library, case 32, in English and Icelandic: the note now says to try it in a sandbox, not that it is safe in production.
 - Administrators, Data access, Permissions, Developers and Users, in English and Icelandic: a SUPER warning (don't give users with SUPER access through Bifröst; the full text on Permission sets and gates), apps from other publishers, a *Privacy and personal data* starting point (start narrow, hide personal data by default, include other apps, keep at least 31 days of Bifrost Messages, choose the assistant with care), what Field Access covers and what it does not, *Build your own operations* for developers, and *check the record itself* for users.
 - Bifröst Foundation: the Partner Center listing copy as a page (Foundation › Listing), in English and Icelandic, from the live AppSource text, now with the free trial: 1,000 user messages and 1,000 app registration messages, once per Microsoft Entra tenant, when the setup wizard is finished in production.

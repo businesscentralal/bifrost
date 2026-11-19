@@ -20,7 +20,7 @@ Bifröst works with the AI assistant you already use. Your company usually decid
 | Assistant | How it connects |
 |---|---|
 | **Claude** (on the web or [Claude Desktop](https://claude.ai/download)) | A connector you add yourself; step by step in [Connect your assistant](/setup/connect-your-ai/#claude) |
-| **Microsoft 365 Copilot** | Two ways: as a plugin in Copilot Cowork ([how](/setup/connect-your-ai/#copilot-cowork)), or as an agent in Copilot Chat. Bifröst is an agent in Microsoft 365 Copilot, in a pilot: ask Origo whether it is available for your organisation. Your administrator publishes it once, then you add it in Copilot ([how](/setup/connect-your-ai/#copilot-chat-agent)) |
+| **Microsoft 365 Copilot** | Two ways: as a plugin in Copilot Cowork ([how](/setup/connect-your-ai/#copilot-user)), or as an agent in Copilot Chat. Bifröst is an agent in Microsoft 365 Copilot, in a pilot: ask Origo whether it is available for your organisation. Your administrator publishes it once, then you add it in Copilot ([how](/setup/connect-your-ai/#copilot-user)) |
 | **ChatGPT** | Not in its store yet; until then, as a remote MCP server where your ChatGPT allows it ([how](/setup/connect-your-ai/#chatgpt)) |
 | **Another assistant** | Any assistant that supports remote MCP servers |
 

@@ -50,30 +50,18 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 
 ## Microsoft 365 Copilot {#microsoft-copilot}
 
-Þú getur notað Bifröst í Microsoft 365 Copilot á tvo vegu:
+Bifröst er fulltrúi (agent) í Microsoft 365 Copilot, í prófun: spurðu Origo hvort hann sé í boði fyrir fyrirtækið þitt. Kerfisstjóri birtir hann einu sinni fyrir fyrirtækið; eftir það bætir hver notandi honum við og skráir
+sig inn sem hann sjálfur.
 
-- **Sem viðbót (plugin) í Copilot Cowork**: sjá [Viðbót fyrir Cowork](#copilot-cowork).
-- **Sem fulltrúa (agent) í Copilot Chat**: sjá [Fulltrúi í Copilot Chat](#copilot-chat-agent).
+Hver notandi getur svo notað Bifröst á tvo vegu: sem **viðbót (plugin) í Copilot Cowork**, eða sem **fulltrúa (agent) í Copilot Chat**.
 
 Aðgerðin **Microsoft Copilot** undir *Tengingar* á **Uppsetningu Bifröst** opnar enn opinbera verslun Microsoft, þar
 sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staðinn.
 
-### Viðbót fyrir Cowork {#copilot-cowork}
+### Fyrir kerfisstjórann {#copilot-administrator}
 
-1. **Opnaðu Plugins.** Í Microsoft 365 Copilot opnarðu **Plugins** og velur **Cowork**.
-2. **Leitaðu að Bifröst.** Skrifaðu *Bifröst* í leitarreitinn.
-
-   ![Plugins í Microsoft 365 Copilot, á flipanum Cowork, með leitarreitnum](/img/setup/copilot-cowork-plugins.png)
-
-3. **Bættu viðbótinni við.** Veldu **Bifröst** og bættu henni við.
-4. **Spurðu fyrstu spurningarinnar**: sjá [Spurðu fyrstu spurningarinnar](/setup/first-question/).
-
-### Fulltrúi í Copilot Chat {#copilot-chat-agent}
-
-Bifröst er fulltrúi (agent) í Microsoft 365 Copilot, í prófun: spurðu Origo hvort hann sé í boði fyrir fyrirtækið þitt. Kerfisstjóri birtir hann einu sinni fyrir fyrirtækið; eftir það bætir hver notandi honum við og skráir
-sig inn sem hann sjálfur.
-
-#### Fyrir kerfisstjórann: birtu fulltrúann einu sinni {#copilot-administrator}
+<details className="setup-panel" id="copilot-admin-steps">
+<summary><span className="setup-panel__title">Birtu fulltrúann einu sinni</span><span className="setup-panel__meta">Kerfisstjóri Microsoft 365 · einu sinni fyrir fyrirtækið</span></summary>
 
 *Hver þarf að koma að: kerfisstjóri Microsoft 365 sem má stýra fulltrúum í Microsoft 365-stjórnborðinu. Fyrirtækið
 þarf líka að hafa gefið Bifröst [samþykki einu sinni](/setup/consent/).*
@@ -97,7 +85,27 @@ sig inn sem hann sjálfur.
 5. **Ljúktu við.** Farðu yfir samantektina á **Review & finish** og ljúktu upphleðslunni. Það getur tekið smá tíma
    þar til fulltrúinn birtist notendum.
 
-#### Fyrir hvern notanda: bættu honum við og skráðu þig inn {#copilot-user}
+</details>
+
+### Fyrir hvern notanda {#copilot-user}
+
+Opnaðu þá leið sem þú notar Bifröst í Copilot:
+
+<details className="setup-panel" id="copilot-cowork">
+<summary><span className="setup-panel__title">Viðbót fyrir Cowork</span><span className="setup-panel__meta">Í Copilot Cowork: Plugins › Cowork › Bifröst</span></summary>
+
+1. **Opnaðu Plugins.** Í Microsoft 365 Copilot opnarðu **Plugins** og velur **Cowork**.
+2. **Leitaðu að Bifröst.** Skrifaðu *Bifröst* í leitarreitinn.
+
+   ![Plugins í Microsoft 365 Copilot, á flipanum Cowork, með leitarreitnum](/img/setup/copilot-cowork-plugins.png)
+
+3. **Bættu viðbótinni við.** Veldu **Bifröst** og bættu henni við.
+4. **Spurðu fyrstu spurningarinnar**: sjá [Spurðu fyrstu spurningarinnar](/setup/first-question/).
+
+</details>
+
+<details className="setup-panel" id="copilot-chat-agent">
+<summary><span className="setup-panel__title">Fulltrúi í Copilot Chat</span><span className="setup-panel__meta">Í Copilot Chat: Agents › More agents › Bifröst</span></summary>
 
 1. **Finndu fulltrúann.** Í Microsoft 365 Copilot skaltu opna **Agents** í vinstri dálkinum og velja **More agents**.
    Finndu **Bifröst** og bættu honum við. Ef kerfisstjórinn setti hann upp fyrirfram er hann þegar undir *Agents*.
@@ -112,6 +120,8 @@ sig inn sem hann sjálfur.
 
 Ef innskráning eða fyrirtækjalistinn bregst hefur fyrirtækið líklega ekki lokið uppsetningunni sem gerð er einu
 sinni: spurðu kerfisstjórann, og sjá [Fyrir fyrirtækið](/setup/).
+
+</details>
 
 ## ChatGPT {#chatgpt}
 
