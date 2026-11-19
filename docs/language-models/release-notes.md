@@ -10,7 +10,7 @@ description: "What changed in each version of Bifröst Language Models published
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Language Models published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
-## 28.0.3 — D Month YYYY
+## 28.0.3 — 19 November 2026
 
 ### Added
 
@@ -26,6 +26,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 - The language model setup sets the limits for questions per company. Existing companies start with the same limits that applied before.
 - Bifröst Language Models now needs Bifröst Foundation 28.0.13 or later.
 - Your AI assistant gets fuller descriptions of the new question operation and of file attachments, in English and Icelandic.
+- The Icelandic texts that are new or changed in this version have been reviewed, with clearer wording in the question limits, the error messages and the help.
 
 ### Fixed
 
@@ -39,6 +40,8 @@ This page is for the people who decide on the app and run it. It lists the versi
 - If you send a picture to a language model that cannot read pictures, you get a clear message naming the model and suggesting up to three of your other models that can, instead of a general provider error.
 - Using a Copilot language model for a prompt gives a clear message when Copilot is not set up or not active, or when the session cannot use it. Copilot works for prompts only in an interactive Business Central session, not through an API connection.
 - Questions and prompts that carry uploaded files now report the current date and time. Before, the date and time were left out whenever uploaded files were attached.
+- A new Google Gemini model uses `gemini-flash-latest` by default. The previous default model no longer answered.
+- When you change the provider of a language model, the old provider's default address is replaced by the new provider's default address. An address you set yourself, for example for Azure or a proxy, is kept.
 - **Assisted Setup** lists the Language Models setup for people who may see it but not run it, and does not give them more rights.
 - A license administrator with restricted permissions can open **Bifrost Setup** when Language Models is installed.
 
