@@ -61,10 +61,10 @@ sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staði
 *Hver þarf að koma að: kerfisstjóri Microsoft 365 sem má stýra fulltrúum í Microsoft 365-stjórnborðinu. Fyrirtækið
 þarf líka að hafa gefið Bifröst [samþykki einu sinni](/setup/consent/).*
 
-1. **Fáðu fulltrúapakkann.** Meðan á prófuninni stendur kemur fulltrúinn sem `.zip`-skrá frá Origo: spurðu
-   tengiliðinn þinn hjá Origo. Hladdu henni upp eins og hún er; ekki pakka henni upp.
+1. **Sæktu fulltrúapakkann.** Meðan á prófuninni stendur er fulltrúinn
+   [`.zip`-skrá](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip). Hladdu henni upp eins og hún er; ekki pakka henni upp.
 2. **Hladdu honum upp.** Í Microsoft 365-stjórnborðinu skaltu opna **Agents › All agents**, velja **Add agent** og
-   hlaða svo `.zip`-skránni upp.
+   hlaða svo [`.zip`-skránni](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip) upp.
 
    ![Add agent í lista yfir alla fulltrúa í Microsoft 365-stjórnborðinu](/img/setup/copilot-add-agent.png)
 
