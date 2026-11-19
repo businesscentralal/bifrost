@@ -252,6 +252,20 @@ breytingaskráin er sett upp. Án beiðni um þvingun haldast þeir lokaðir og 
 Önnur Bifröst forrit geta bætt við eigin vernd og lýst reit *skrifanlegan einu sinni*: hann má setja þegar færslan er
 stofnuð og honum er aldrei breytt í gegnum Bifröst eftir það.
 
+## Hvað reitaaðgangur nær til, og hvað ekki {#what-field-access-covers-and-what-it-does-not}
+
+Reitaaðgangur og sjálfgefna verndin gilda alls staðar þar sem Bifröst les eða skrifar reit fyrir reit: lestur
+færslna, talning og samtölur, síur og röðun, útflutningur, eyddar færslur, saga og endurheimt úr breytingaskrá, og
+breytingar á færslum. Falinn reit er ekki hægt að lesa þar, né finna út með síu.
+
+Þau gilda ekki um:
+
+- **Aðgerðir sem svara viðskiptaspurningu eða búa til skjal**, til dæmis lánamörk viðskiptamanns, tölfræði skjals eða
+  PDF. Þær skila því sem verkið þarf. Stýrðu því hver má keyra þær með heimildasamstæðum.
+- **Afrit af gildi í öðrum töflum.** Regla gildir um einn reit í einni töflu. Sölu- og innkaupaskjöl geyma til dæmis
+  eigið afrit af síma og netfangi viðskiptamanns eða lánardrottins; bættu líka við línum fyrir þá reiti.
+- **Töflur annarra forrita**, þar til þú flokkar þær eða bætir við línum í reitaaðgangi fyrir þær.
+
 ## Fulltrúar sem lesa tölvupósta og skjöl {#agents-that-read-emails-and-documents}
 
 Aðstoðarmaður sem les efni utan frá, til dæmis tölvupóst, viðhengi eða vefsíðu, getur rekist á texta sem reynir að
