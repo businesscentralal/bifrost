@@ -21,6 +21,9 @@ In Claude, the connector is called **Bifröst Origo**. The steps are the same on
 [Claude Desktop](https://claude.ai/download). Claude's own help describes them in
 [Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp).
 
+<details className="setup-panel" id="claude-steps">
+<summary><span className="setup-panel__title">Add Bifröst Origo in Claude</span><span className="setup-panel__meta">On the web or in Claude Desktop · Customize › Connectors</span></summary>
+
 1. **Add the connector.** In Claude, open **Customize** and then **Connectors** (in older versions of
    Claude Desktop: **Settings › Connectors**), and choose **+ Add**. Until Bifröst is in Claude's
    connector directory, choose **Add custom connector**: give it a name and paste the MCP server
@@ -48,6 +51,8 @@ In Claude, the connector is called **Bifröst Origo**. The steps are the same on
    ![Claude asks before it uses a Bifröst tool for the first time](/img/setup/claude-allow-tool.png)
 
 5. **Ask your first question**: see [Ask your first question](/setup/first-question/).
+
+</details>
 
 ## Microsoft 365 Copilot {#microsoft-copilot}
 

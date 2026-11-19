@@ -22,6 +22,9 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 [Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
 (á ensku).
 
+<details className="setup-panel" id="claude-steps">
+<summary><span className="setup-panel__title">Bættu Bifröst Origo við í Claude</span><span className="setup-panel__meta">Á vefnum eða í Claude Desktop · Customize › Connectors</span></summary>
+
 1. **Bættu tengingunni við.** Í Claude opnarðu **Customize** og síðan **Connectors** (í eldri útgáfum af Claude
    Desktop: **Settings › Connectors**) og velur **+ Add**. Þar til Bifröst er komið í tengingaskrá Claude velurðu
    **Add custom connector**: gefðu tengingunni nafn og límdu inn slóð MCP-þjónsins sem þú fékkst hjá kerfisstjóranum.
@@ -47,6 +50,8 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
    ![Claude spyr áður en það notar Bifröst-verkfæri í fyrsta sinn](/img/setup/claude-allow-tool.png)
 
 5. **Spurðu fyrstu spurningarinnar**: sjá [Spurðu fyrstu spurningarinnar](/setup/first-question/).
+
+</details>
 
 ## Microsoft 365 Copilot {#microsoft-copilot}
 
