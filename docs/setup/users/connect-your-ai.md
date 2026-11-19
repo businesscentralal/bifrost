@@ -62,8 +62,8 @@ where Bifröst is not listed yet. Use the steps below instead.
 *Who is needed: a Microsoft 365 administrator who may manage agents in the Microsoft 365 admin center. Your
 organisation must also have given its [consent once](/setup/consent/) to Bifröst.*
 
-1. **Download the agent package.** During the pilot, the agent is a `.zip` file:
-   [appPackage_Bifrost_Copilot-20261119.zip](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip). Upload it as it is; don't unpack it.
+1. **Download the agent package.** During the pilot, the agent is a
+   [`.zip` file](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip). Upload it as it is; don't unpack it.
 2. **Upload it.** In the Microsoft 365 admin center, open **Agents › All agents**, choose **Add agent**, then
    upload the [`.zip` file](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip).
 
