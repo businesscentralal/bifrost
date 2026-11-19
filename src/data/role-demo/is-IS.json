@@ -14,7 +14,7 @@
       "examples": [
         {
           "kind": "dashboard",
-          "who": "Þú, í Claude",
+          "who": "Þú, í gervigreindarerindrekanum þínum",
           "q": "Búðu til mælaborð með sjóðspá næstu 13 vikna og deildu því með framkvæmdastjórn.",
           "gate": "Athugar heimildir notandans og skráir kallið.",
           "bc": "Les bankastöðu, opna reikninga, pantanir og gjalddaga launa og VSK.",
@@ -127,7 +127,7 @@
         },
         {
           "kind": "dashboard",
-          "who": "Þú, í Claude",
+          "who": "Þú, í gervigreindarerindrekanum þínum",
           "q": "Settu saman stjórnarpakka fyrir október.",
           "gate": "Athugar heimildir notandans og skráir kallið.",
           "bc": "Sækir rekstur, efnahag og áætlun. Samtölur reiknaðar í Business Central.",
@@ -192,7 +192,7 @@
       "examples": [
         {
           "kind": "ask",
-          "who": "Þú, í Claude",
+          "who": "Þú, í gervigreindarerindrekanum þínum",
           "q": "Hvað er eftir til að loka september?",
           "gate": "Athugar heimildir notandans og skráir kallið.",
           "bc": "Ber banka, viðskiptamenn, lánardrottna og VSK saman við fjárhag.",
@@ -589,7 +589,7 @@
         },
         {
           "kind": "dashboard",
-          "who": "Þú, í Claude",
+          "who": "Þú, í gervigreindarerindrekanum þínum",
           "q": "Sýndu mér tekjuleka síðustu 12 mánaða.",
           "gate": "Athugar heimildir notandans og skráir kallið.",
           "bc": "Finnur óreikningsfærða vinnu, 0 kr. línur og afslætti utan marka.",

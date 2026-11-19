@@ -171,7 +171,7 @@ Bifröst counts **messages**: one for each successful call that does work. The h
 and change-log calls of Bifröst are not counted.
 
 - **Limits you can set.** A monthly message quota per company and per user stops usage at a level you choose.
-  The fields, what `0` means and what happens when a quota is reached: [Monthly quotas](/licensing/license-types/#monthly-quotas).
+  Only users with `BIFROST Full ori` or SUPER can change the company quota. The fields, what `0` means and what happens when a quota is reached: [Monthly quotas](/licensing/license-types/#monthly-quotas).
 - **See what is used** on **Actions › License Usage**, per company, day and type. **Licensing › Sync** refreshes the
   figures at once; a background task does the same every day.
 

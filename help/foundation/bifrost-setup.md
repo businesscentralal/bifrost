@@ -51,6 +51,9 @@ and sync status, **Connection Status** and **License Usage**. It hides the licen
 **License Type** and the End-User License Agreement stay visible in both cases. A DEV extension
 published into an online production environment uses this AppSource display.
 
+**Setup Mode** on the License fact box stays visible in both displays. It shows **Active until** and
+the latest end time, or **Not active**.
+
 ## Actions
 
 | Group | Action | Description |
@@ -66,6 +69,7 @@ published into an online production environment uses this AppSource display.
 | | **Remove Retention Registrations** | Run it in each company before you uninstall Bifröst. It removes the retention policies of the Bifröst log tables; no Bifröst data is deleted. Needs the Retention Pol. Admin permission set or SUPER. |
 | | **Secrets** | The secrets every installed Bifröst application needs - see [Bifrost App Secrets](/help/foundation/bifrost-app-secrets/). |
 | | **Setup Wizard** | Opens the [Setup Wizard](/help/foundation/bifrost-setup-wizard/). |
+| Actions | **Start Setup Mode…** | Opens the Setup Mode wizard for one of your [approved session sources](/help/foundation/session-source-approval/). The duration defaults to 2 hours; enter a duration greater than zero and at most 8 hours. **Finish** starts setup mode for that source. It ends by itself at the end time. While it is active, the wizard shows **Active Until** and **Remaining Time**, and **End Setup Mode** ends it for that source. The [License fact box](/help/foundation/license-fact-box/) then shows **Active until** and the latest end time, or **Not active**, in every installation. Only a user with `BIFROST Full ori` or SUPER can open the wizard. |
 | Licensing | **Sync** | Reports pending usage to the licensing service and refreshes the licence status. The daily background task only reports usage. |
 | | **Revoke EULA Approval** | Withdraws the licence agreement approval for this company; calls are refused until the wizard is run again. |
 | | **Connection Status** | Shown for an AppSource installation on Business Central online, including a DEV extension in online production. Hidden for an on-premises installation and for a DEV extension in an online sandbox. Whether the licensing service can be reached, which connection secrets are available, whether an exhausted pool blocks messages, and the purchased and reported totals of the tenant. |

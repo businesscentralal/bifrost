@@ -4,12 +4,16 @@
 
 ### Changed
 
+- Docs homepage: *Why Bifröst* and *How it works* now come before the interactive role demo (*What it looks like*), so visitors read what Bifröst is before they see it in action, and the demo sits in a light rounded box. In the demo, "You, in Claude" now reads "You, in your AI agent" (IS: "Þú, í gervigreindarerindrekanum þínum").
 - Use-case library, case 32, in English and Icelandic: the note now says to try it in a sandbox, not that it is safe in production.
 - Administrators, Data access, Permissions, Developers and Users, in English and Icelandic: a SUPER warning (don't give users with SUPER access through Bifröst; the full text on Permission sets and gates), apps from other publishers, a *Privacy and personal data* starting point (start narrow, hide personal data by default, include other apps, keep at least 31 days of Bifrost Messages, choose the assistant with care), what Field Access covers and what it does not, *Build your own operations* for developers, and *check the record itself* for users.
 - Bifröst Foundation: the Partner Center listing copy as a page (Foundation › Listing), in English and Icelandic, from the live AppSource text, now with the free trial: 1,000 user messages and 1,000 app registration messages, once per Microsoft Entra tenant, when the setup wizard is finished in production.
 - Microsoft 365 Copilot setup, in English and Icelandic: Bifröst is now an agent, in a pilot (ask Origo); both setup pages say so in the same words. The agent package is a download link in the steps. An administrator uploads the agent package once in the Microsoft 365 admin center and chooses who gets it; each user then adds **Bifröst** under Agents › More agents and signs in. *Pick your assistant* no longer asks Copilot users for the MCP server address. The unlisted logo page also shows the Bifröst Ö mark.
 - The docs homepage replaces the three static example cards with an interactive role demo ("What can you do with Bifröst?"): pick a role and an example and watch the question, the steps and the result card play, in Icelandic and English, with made-up figures.
+- Playbook help now explains local transform steps and field mappings, automatic confirmation from a preview with Max Count, the Exists condition, the Confirmation column in the step log, and the transform input editor (businesscentralal/bc-origo-bifrost-orchestrator#204).
 - Language Model card and Language Models Setup help, in English and Icelandic: the card lists Attachment Limit Bytes, and the setup page now describes the Ask limits (caps and defaults for questions with data lookup) and that changing them needs write permission, which both `BIFROST LLM ori` and `BIFROST Full ori` include (language-models#145).
+- Licensing and administrator guides, in English and Icelandic: the Company Monthly Message Quota can be changed only by users with BIFROST Full ori or SUPER; a license administrator sees it read-only (businesscentralal/bifrost-support#9).
+- License fact box and Bifrost Setup help, in English and Icelandic: **Setup Mode** shows **Active until** and the latest end time, or **Not active**, in every installation. **Start Setup Mode…** opens the wizard for one approved session source and a duration (#166, core#1370).
 - License fact box and Bifrost Setup help, in English and Icelandic: the display now depends on the installation. A DEV extension in an online sandbox, and an on-premises installation, show the license state, confirmed-until and grace-until dates, Bifrost users and the last license-check error, and hide the tenant hash, usage and the Connection Status and License Usage actions. An AppSource installation on Business Central online keeps usage and connection details and hides the license-state fields. A DEV extension in online production uses that AppSource display (#166).
 - Playbook card help, in English and Icelandic: the **Chat via Bifrost** FactBox (**Spjalla með Bifröst**) is listed with Request Template and Last Execution. The chat uses the open playbook as its context, and the FactBox is hidden without chat permission or a configured chat provider (businesscentralal/bc-origo-bifrost-orchestrator#170, #162).
 - Help for Find Apps, in English and Icelandic: it now describes the in-client Bifröst Apps list (columns, the six states, sort order, actions, daily caching and offline behaviour, and that it never installs apps), replacing the web-registry description (businesscentralal/bifrost-support#8, core#1176). Bifrost Setup help and the administrators guide follow.
@@ -19,10 +23,14 @@
 
 ### Fixed
 
+- Dashboard help describes Enabled as controlling data refresh in English and Icelandic, and uses the displayed Copy chart and Maximum Pages captions (#177).
+
 - The top navigation no longer overlaps on desktop screens: Foundation and the apps are now one Apps menu instead of a row of buttons, built from apps.ts so a new app appears there without a navbar change, and check:structure fails if app buttons come back on the bar. Same in English and Icelandic.
 
 ### Added
 
+- Help page for the Bifrost Groups pages (group list, card, Group Field Access and Disabled Message Types), in English and Icelandic, at the slug `bifrost-groups` (businesscentralal/bifrost#179, core#1392; must merge before core#1398).
+- Bifröst Iceland Treasury: a page on reversing payment and claim tracking records (English): what a reversal covers, that it never reaches the bank, that repeating it changes nothing, and how long tracking records are kept (businesscentralal/bifrost-support#14).
 - Bifröst Subscription Billing: the Partner Center listing and user scenarios pages, in English and Icelandic, and an overview that no longer names a Business Central version but the version Microsoft's Subscription Billing app requires (businesscentralal/bifrost-support#5).
 - A use-case library under Try it out, *What you can do with Bifröst*: cases by role with filters, search, copyable prompts and a random pick, in English and Icelandic, with links from Try it out, Using Bifröst and the home page.
 - Each released app in `data/versions.json` now carries `brief` and `description`, copied from that version's `app.json`. The release command `tools/update-released-version.mjs` writes both fields, and the app-registry check rejects an entry that omits them. `schemaVersion` stays 1.
