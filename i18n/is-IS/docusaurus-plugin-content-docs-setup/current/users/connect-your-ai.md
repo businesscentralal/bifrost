@@ -104,8 +104,13 @@ Opnaðu þá leið sem þú notar Bifröst í Copilot:
 
    ![Plugins í Microsoft 365 Copilot, á flipanum Cowork, með leitarreitnum](/img/setup/copilot-cowork-plugins.png)
 
-3. **Bættu viðbótinni við.** Veldu **Bifröst** og bættu henni við.
-4. **Spurðu fyrstu spurningarinnar**: sjá [Spurðu fyrstu spurningarinnar](/setup/first-question/).
+3. **Settu viðbótina upp.** Veldu **Bifröst** og settu hana upp.
+4. **Tengdu viðbótina.** Þegar hún er uppsett sýnir Bifröst *Not connected* undir **Connections**: veldu
+   **Connect**. Bifröst nær ekki í Business Central fyrr en viðbótin er tengd.
+
+   ![Bifröst-viðbótin í Copilot Cowork, með Connect undir Connections](/img/setup/copilot-cowork-connect.png)
+
+5. **Spurðu fyrstu spurningarinnar**: sjá [Spurðu fyrstu spurningarinnar](/setup/first-question/).
 
 </details>
 

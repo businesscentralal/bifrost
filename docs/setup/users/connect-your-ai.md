@@ -105,8 +105,13 @@ Open the way you use Bifröst in Copilot:
 
    ![Plugins in Microsoft 365 Copilot, on the Cowork tab, with the search box](/img/setup/copilot-cowork-plugins.png)
 
-3. **Add the plugin.** Choose **Bifröst** and add it.
-4. **Ask your first question**: see [Ask your first question](/setup/first-question/).
+3. **Install the plugin.** Choose **Bifröst** and install it.
+4. **Connect the plugin.** Once it is installed, Bifröst shows *Not connected* under **Connections**: choose
+   **Connect**. Bifröst can't reach Business Central until the plugin is connected.
+
+   ![The Bifröst plugin in Copilot Cowork, with Connect under Connections](/img/setup/copilot-cowork-connect.png)
+
+5. **Ask your first question**: see [Ask your first question](/setup/first-question/).
 
 </details>
 
