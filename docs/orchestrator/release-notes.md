@@ -24,6 +24,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 - **Report layouts from a staged file.** A report layout can be uploaded from a file that another Bifröst app has staged, as an alternative to sending the layout itself.
 - **A worked example.** The built-in help has a new example playbook that audits the posting setup of customers with an AI model.
 - **Set or clear the default report layout.** Your AI assistant can make an uploaded layout, or an existing layout picked by name, the default layout of a report in the company. It can also clear the default. Clearing removes the company's own override and restores the all-companies default, or the report's built-in layout when no such default exists. The answer names the layout that was the default before, so it can be restored in one call.
+- **Export and import a playbook.** The **Playbooks** page has new **Export Playbook** and **Import Playbook** actions. The file holds the playbook with its steps, conditions and transform rows. Import asks for confirmation first and stops at the first row that cannot be imported.
 - **Tools on Bifröst Setup and Playbooks.** Bifröst Setup and the Playbooks list have a new **Tools** group that opens Table Data and Copy Plans. Users who may not read those pages do not see the links.
 - **More checks before a run.** Checking a playbook now also warns about:
   - an AI question that goes through an unbounded list of records
