@@ -149,18 +149,20 @@ export default function Home(): ReactNode {
             <Translate id="home.how.more">More on how Bifröst works</Translate> <span aria-hidden="true">→</span>
           </Link>
         </p>
-        <h2>
-          <Translate id="home.examples.title">What it looks like</Translate>
-        </h2>
-        <RoleDemo />
-        <p style={{marginTop: '-1.5rem', marginBottom: '2.5rem'}}>
-          <small>
-            <Translate id="home.roleDemo.note">The examples use made-up figures.</Translate>{' '}
-            <Link to="/documentation/how-it-works/#what-happens-when-you-ask">
-              <Translate id="home.roleDemo.link">How Bifröst works out what to do</Translate>
-            </Link>
-          </small>
-        </p>
+        <section className="bifrostShowcase">
+          <h2>
+            <Translate id="home.examples.title">What it looks like</Translate>
+          </h2>
+          <RoleDemo />
+          <p className="bifrostShowcaseNote">
+            <small>
+              <Translate id="home.roleDemo.note">The examples use made-up figures.</Translate>{' '}
+              <Link to="/documentation/how-it-works/#what-happens-when-you-ask">
+                <Translate id="home.roleDemo.link">How Bifröst works out what to do</Translate>
+              </Link>
+            </small>
+          </p>
+        </section>
         <h2>
           <Translate id="home.roles.title">Find your way</Translate>
         </h2>

@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Docs homepage: *Why Bifröst* and *How it works* now come before the interactive role demo (*What it looks like*), so visitors read what Bifröst is before they see it in action. No text changed.
+- Docs homepage: *Why Bifröst* and *How it works* now come before the interactive role demo (*What it looks like*), so visitors read what Bifröst is before they see it in action, and the demo sits in a light rounded box. No text changed.
 - Bifröst Foundation: the Partner Center listing copy as a page (Foundation › Listing), in English and Icelandic, from the live AppSource text, now with the free trial: 1,000 user messages and 1,000 app registration messages, once per Microsoft Entra tenant, when the setup wizard is finished in production.
 - Microsoft 365 Copilot setup, in English and Icelandic: Bifröst is now an agent, in a pilot (ask Origo); both setup pages say so in the same words. The agent package is a download link in the steps. An administrator uploads the agent package once in the Microsoft 365 admin center and chooses who gets it; each user then adds **Bifröst** under Agents › More agents and signs in. *Pick your assistant* no longer asks Copilot users for the MCP server address. The unlisted logo page also shows the Bifröst Ö mark.
 - The docs homepage replaces the three static example cards with an interactive role demo ("What can you do with Bifröst?"): pick a role and an example and watch the question, the steps and the result card play, in Icelandic and English, with made-up figures.
