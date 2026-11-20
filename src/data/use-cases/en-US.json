@@ -773,7 +773,7 @@
       ],
       "notes": [
         "Nothing is posted or created. Permissions, closed periods and setup apply as in the interface.",
-        "It is safe to try this in a production environment."
+        "Try this in a sandbox."
       ]
     },
     {

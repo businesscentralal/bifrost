@@ -21,6 +21,9 @@ In Claude, the connector is called **Bifröst Origo**. The steps are the same on
 [Claude Desktop](https://claude.ai/download). Claude's own help describes them in
 [Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp).
 
+<details className="setup-panel" id="claude-steps">
+<summary><span className="setup-panel__title">Add Bifröst Origo in Claude</span><span className="setup-panel__meta">On the web or in Claude Desktop · Customize › Connectors</span></summary>
+
 1. **Add the connector.** In Claude, open **Customize** and then **Connectors** (in older versions of
    Claude Desktop: **Settings › Connectors**), and choose **+ Add**. Until Bifröst is in Claude's
    connector directory, choose **Add custom connector**: give it a name and paste the MCP server
@@ -49,23 +52,30 @@ In Claude, the connector is called **Bifröst Origo**. The steps are the same on
 
 5. **Ask your first question**: see [Ask your first question](/setup/first-question/).
 
+</details>
+
 ## Microsoft 365 Copilot {#microsoft-copilot}
 
 Bifröst is an agent in Microsoft 365 Copilot, in a pilot: ask Origo whether it is available for your organisation. An administrator publishes it once for the organisation; after that, each user adds it and signs in as
 themselves.
 
+Each user can then use Bifröst in two ways: as a **plugin in Copilot Cowork**, or as an **agent in Copilot Chat**.
+
 The **Microsoft Copilot** action under *Connectors* on **Bifrost Setup** still opens Microsoft's public store,
 where Bifröst is not listed yet. Use the steps below instead.
 
-### For the administrator: publish the agent once {#copilot-administrator}
+### For the administrator {#copilot-administrator}
+
+<details className="setup-panel" id="copilot-admin-steps">
+<summary><span className="setup-panel__title">Publish the agent once</span><span className="setup-panel__meta">Microsoft 365 administrator · once for the organisation</span></summary>
 
 *Who is needed: a Microsoft 365 administrator who may manage agents in the Microsoft 365 admin center. Your
 organisation must also have given its [consent once](/setup/consent/) to Bifröst.*
 
-1. **Download the agent package.** During the pilot, the agent is a `.zip` file:
-   [appPackage.pilot-20261117.zip](https://origopublic.blob.core.windows.net/bifrost/appPackage.pilot-20261117.zip). Upload it as it is; don't unpack it.
+1. **Download the agent package.** During the pilot, the agent is a
+   [`.zip` file](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip). Upload it as it is; don't unpack it.
 2. **Upload it.** In the Microsoft 365 admin center, open **Agents › All agents**, choose **Add agent**, then
-   upload the [`.zip` file](https://origopublic.blob.core.windows.net/bifrost/appPackage.pilot-20261117.zip).
+   upload the [`.zip` file](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip).
 
    ![Add agent in the list of all agents in the Microsoft 365 admin center](/img/setup/copilot-add-agent.png)
 
@@ -81,7 +91,32 @@ organisation must also have given its [consent once](/setup/consent/) to Bifrös
 5. **Finish.** Check the summary on **Review & finish** and complete the upload. It can take a while before the
    agent shows up for users.
 
-### For each user: add it and sign in {#copilot-user}
+</details>
+
+### For each user {#copilot-user}
+
+Open the way you use Bifröst in Copilot:
+
+<details className="setup-panel" id="copilot-cowork">
+<summary><span className="setup-panel__title">Plugin for Cowork</span><span className="setup-panel__meta">In Copilot Cowork: Plugins › Cowork › Bifröst</span></summary>
+
+1. **Open Plugins.** In Microsoft 365 Copilot, open **Plugins** and choose **Cowork**.
+2. **Search for Bifröst.** Type *Bifröst* in the search box.
+
+   ![Plugins in Microsoft 365 Copilot, on the Cowork tab, with the search box](/img/setup/copilot-cowork-plugins.png)
+
+3. **Install the plugin.** Choose **Bifröst** and install it.
+4. **Connect the plugin.** Once it is installed, Bifröst shows *Not connected* under **Connections**: choose
+   **Connect**. Bifröst can't reach Business Central until the plugin is connected.
+
+   ![The Bifröst plugin in Copilot Cowork, with Connect under Connections](/img/setup/copilot-cowork-connect.png)
+
+5. **Ask your first question**: see [Ask your first question](/setup/first-question/).
+
+</details>
+
+<details className="setup-panel" id="copilot-chat-agent">
+<summary><span className="setup-panel__title">Agent in Copilot Chat</span><span className="setup-panel__meta">In Copilot Chat: Agents › More agents › Bifröst</span></summary>
 
 1. **Find the agent.** In Microsoft 365 Copilot, open **Agents** in the left pane and choose **More agents**.
    Find **Bifröst** and add it. If your administrator pre-installed it, it is already under *Agents*.
@@ -96,6 +131,8 @@ organisation must also have given its [consent once](/setup/consent/) to Bifrös
 
 If sign-in or the company list fails, your organisation has probably not finished the one-time setup: ask your
 administrator, and see [For your company](/setup/).
+
+</details>
 
 ## ChatGPT
 

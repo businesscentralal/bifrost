@@ -14,7 +14,7 @@
       "examples": [
         {
           "kind": "dashboard",
-          "who": "You, in Claude",
+          "who": "You, in your AI agent",
           "q": "Build a dashboard with a cash forecast for the next 13 weeks and share it with the executive team.",
           "gate": "Checks the user's permissions and logs the call.",
           "bc": "Reads the bank balance, open invoices, orders and the due dates of payroll and VAT.",
@@ -127,7 +127,7 @@
         },
         {
           "kind": "dashboard",
-          "who": "You, in Claude",
+          "who": "You, in your AI agent",
           "q": "Put together a board pack for October.",
           "gate": "Checks the user's permissions and logs the call.",
           "bc": "Fetches income statement, balance sheet and budget. Totals calculated in Business Central.",
@@ -192,7 +192,7 @@
       "examples": [
         {
           "kind": "ask",
-          "who": "You, in Claude",
+          "who": "You, in your AI agent",
           "q": "What is left before we can close September?",
           "gate": "Checks the user's permissions and logs the call.",
           "bc": "Compares bank, customers, vendors and VAT with the general ledger.",
@@ -589,7 +589,7 @@
         },
         {
           "kind": "dashboard",
-          "who": "You, in Claude",
+          "who": "You, in your AI agent",
           "q": "Show me revenue leakage for the last 12 months.",
           "gate": "Checks the user's permissions and logs the call.",
           "bc": "Finds uninvoiced work, zero-value lines and discounts outside the limits.",

@@ -64,6 +64,8 @@ function releaseNotesPath(url: string): string {
 }
 
 function formatReleased(date: string, isIcelandic: boolean): string {
+  // DATE is the release-manager placeholder in data/versions.json. Show it as written.
+  if (date === 'DATE') return 'DATE';
   const [y, m, d] = date.split('-');
   return isIcelandic ? `${d}.${m}.${y}` : new Date(`${date}T00:00:00Z`).toLocaleDateString('en-GB', {day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'});
 }

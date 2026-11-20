@@ -121,6 +121,13 @@ What follows from this:
 - **`BIFROST Full ori` opens no posting gate** (only the inbound-webhook gate). An administrator who posts through
   Bifröst needs the posting gates too.
 
+:::warning SUPER and Bifröst
+We recommend that users with SUPER are not given access through Bifröst. SUPER passes every gate and every Field
+Access restriction, so an assistant working as that user can do everything the user can do in Business Central.
+Use a separate account for administration (setup, permissions), and give the account people work with through
+Bifröst only the permission sets they need. Integrations cannot be given SUPER.
+:::
+
 ## Which gate opens what
 
 When an agent tries something its user's gates do not open, Bifröst refuses with a message such as *Posting denied:

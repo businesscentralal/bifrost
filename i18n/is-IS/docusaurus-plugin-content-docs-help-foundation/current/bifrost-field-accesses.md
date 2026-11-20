@@ -12,19 +12,19 @@ notanda) og **Næmi reita Bifröst**. Heildarmyndina, með dæmum, finnurðu í
 ## Yfirlit reitaaðgangs Bifröst {#overview}
 
 **Reitaaðgangur** á [Uppsetningu Bifröst](/help/foundation/bifrost-setup/) opnar þessa síðu: allar línur reitaaðgangs
-allra notenda og forrita í fyrirtækinu, aðeins til lestrar. Hægt er að raða og sía eftir öllum dálkum.
+allra notenda og forrita í fyrirtækinu og línur allra hópa, aðeins til lestrar. Hægt er að raða og sía eftir öllum dálkum.
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Notandanafn** / **Fullt nafn** | Notandinn eða forritið sem línan á við um. Fyrir forrit er **Fullt nafn** lýsing þess. |
-| **Tegund uppruna** | **Notandi** eða **Microsoft Entra forrit**. |
+| **Notandanafn** / **Fullt nafn** | Notandinn, forritið eða hópurinn sem línan á við um. Fyrir forrit er **Fullt nafn** lýsing þess; fyrir hóp er **Notandanafn** hópkóðinn og **Fullt nafn** heiti hópsins. |
+| **Tegund uppruna** | **Notandi**, **Microsoft Entra forrit** eða **Hópur**. |
 | **Töflunúmer** / **Heiti töflu** | Taflan. **0** þýðir allar töflur. |
 | **Reitur nr.** / **Heiti reits** | Reiturinn. **0** þýðir allir reitir töflunnar. |
 | **Tegund takmarkana** | Sjá [Tegundir takmarkana](#restriction-types). |
 
 | Aðgerð | Lýsing |
 | --- | --- |
-| **Breyta** | Opnar línur notandans á völdu línunni til að breyta þeim. Yfirlitið uppfærist þegar þú lokar. |
+| **Breyta** | Opnar línur notandans á völdu línunni til að breyta þeim. Á línu hóps opnar hún spjald hópsins. Yfirlitið uppfærist þegar þú lokar. |
 | **Nýtt fyrir notanda...** | Veldu notanda eða forrit og opnaðu línur þess til að bæta við nýjum. |
 
 ## Reitaaðgangar Bifröst {#lines-of-one-user}

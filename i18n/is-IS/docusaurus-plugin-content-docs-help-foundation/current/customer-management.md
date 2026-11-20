@@ -26,6 +26,7 @@ Reiturinn **Yfirlit** efst á síðunni sýnir hvers viðskiptavinir eru á list
 | **Innri skilaboð frá byrjun mánaðar** | Skilaboð í mánuðinum frá fólki hjá þessum viðskiptavini þegar hann er þinn eigin leigjandi. Tilkynnt aðskilið frá notkun viðskiptavina. |
 | **Skilaboð sýniumhverfis frá byrjun mánaðar** | Skilaboð í mánuðinum frá fólki hjá þessum viðskiptavini þegar þú merktir hann sem sýniumhverfi. Tilkynnt aðskilið frá notkun viðskiptavina. |
 | **Skilaboð þjónustuaðila frá byrjun mánaðar** | Skilaboð í mánuðinum frá þínum notendum sem vinna hjá þessum viðskiptavini gegnum framselda samstarfsaðilaáskrift. Tilkynnt aðskilið frá notkun viðskiptavina. |
+| **Notendaskilaboð í sandkassa frá byrjun mánaðar**, **Forritsskilaboð í sandkassa frá byrjun mánaðar**, **Innri skilaboð í sandkassa frá byrjun mánaðar**, **Skilaboð sýniumhverfis í sandkassa frá byrjun mánaðar**, **Skilaboð þjónustuaðila í sandkassa frá byrjun mánaðar** | Sami fjöldi fyrir skilaboð í sandkassaumhverfum í mánuðinum. Dálkarnir án *sandkassa* sýna fjöldann í framleiðsluumhverfi. Aðeins magn. |
 
 ## Aðgerðir
 
@@ -34,7 +35,7 @@ Reiturinn **Yfirlit** efst á síðunni sýnir hvers viðskiptavinir eru á list
 | **Endurhlaða** | Sækir listann aftur. |
 | **Skoða notkun** | Opnar [notkunarfærslur](/help/foundation/license-usage/) valins viðskiptavinar. |
 | **Bjóða viðskiptavin** | Aðeins samstarfsaðilar, á eigin viðskiptavinum. Opnar [Bjóða viðskiptavin](/help/foundation/invite-customer/). |
-| **Segja upp viðskiptavini** | Aðeins samstarfsaðilar, á eigin viðskiptavinum. Lýkur samstarfinu við valinn viðskiptavin, með valfrjálsri [ástæðu](/help/foundation/cancel-reason/). Við næstu samstillingu viðskiptavinarins fer hann aftur á fyrirframgreitt leyfi. |
+| **Segja upp viðskiptavini** | Aðeins samstarfsaðilar, á eigin viðskiptavinum. Lýkur samstarfinu við valinn viðskiptavin, með valfrjálsri [ástæðu](/help/foundation/cancel-reason/). Við næstu samstillingu viðskiptavinarins fer hann aftur á prufuleyfi. |
 
 Aðeins virkir viðskiptavinir eru sýndir; viðskiptavinur sem hefur verið sagt upp hverfur af síðunni,
 en notkun hans fram að uppsögninni helst í notkunarfærslunum. Sjá [Gjaldfærslutegundir í áskrift](/licensing/license-types/#charge-types).
