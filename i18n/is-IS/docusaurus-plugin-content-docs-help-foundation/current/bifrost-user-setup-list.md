@@ -3,27 +3,25 @@ id: bifrost-user-setup-list
 title: "Bifröst notandauppsetning"
 ---
 
-Síðan **Bifröst notandauppsetning** sýnir uppsetningu á hvern notanda fyrir Bifröst viðbótina. Hver færsla geymir kerfisleiðbeiningar og valfrjálsar tengdar færslur sem stýra því hvernig gervigreindarþjónn finnur út hver notandinn er (notandasniðið sem hann les um kallandann).
+Síðan **Bifröst notandauppsetning** sýnir uppsetningu Bifröst fyrir hvern notanda: hópinn sem notandinn
+tilheyrir, hvaðan kerfisleiðbeiningar notandans koma og sem hvað skilaboð hans eru gjaldfærð. Opnaðu línu til
+að breyta henni í [Ritli notandauppsetningar](/help/foundation/bifrost-user-setup-editor/). Upplýsingareiturinn
+[Forskoðun notandauppsetningar](/help/foundation/bifrost-user-setup-fact-box/) sýnir kerfisleiðbeiningar,
+notkun Bifröst og tengdar færslur valins notanda.
 
-## Reitir
+## Reitir {#fields}
 
 | Reitur | Lýsing |
 | --- | --- |
-| **Öryggisauðkenni notanda** | Einstakt öryggisauðkenni Business Central notandans. |
-| **Notandanafn** | Birtinganafn notandans (lesskráð, dregið af öryggisauðkenni notanda). |
-| **Gjaldfærslutegund** | Lesskráð. Sem hvað skilaboð þessa notanda eru gjaldfærð: **Notandi**, **Forritsskráning**, og í áskrift **Innri**, **Sýniumhverfi** eða **Þjónustuaðili**. Ákvörðuð þegar notandinn er settur upp og uppfærð með **Samstilla** á síðunni Uppsetning Bifröst og með daglegu notkunarsamstillingunni. Sjá [Gjaldfærslutegundir í áskrift](/licensing/license-types/#charge-types). |
-| **Kerfisleiðbeining** | Texti leiðbeiningarinnar sem bætt er við AI-samhengi fyrir þennan notanda. Stýrt á notandauppsetningarspjaldinu. |
-| **Fjárhagslykill nr.** | Valfrjáls fjárhagslykill notaður í notandasniðinu fyrir stöðuskýrslugerð. |
-| **Starfsmannsnr.** | Valfrjáls starfsmannatengsl fyrir auðkennissamhengi notandans. |
-| **Viðskiptamannsnr.** | Valfrjáls viðskiptamannatengsl tengd þessum notanda. |
-| **Lánardrottinanr.** | Valfrjáls lánardrottnatengsl tengd þessum notanda. |
-| **Forðanr.** | Valfrjáls forðatengsl fyrir auðkennissamhengi notandans. |
-| **Kóði sölumanns** | Valfrjáls sölumanns-/innkaupaaðilatengsl fyrir auðkennissamhengi notandans. |
-| **Tengiliðanr.** | Valfrjáls tengiliðatengsl tengd þessum notanda. |
-| **Birgðageymsla** | Valfrjáls sjálfgefinn birgðageymslukóði fyrir notandann. |
+| **Öryggiskenni notanda** | Einstakt öryggisauðkenni Business Central notandans. |
+| **Notandanafn** / **Fullt nafn notanda** | Notandinn (lesskráð, dregið af öryggiskenni notanda). |
+| **Hópkóði** | Hópur þessa notanda eða forrits. Tómt gildi notar sjálfgefinn hóp. Aðeins notandi sem má breyta hópum getur breytt honum. |
+| **Er með reitaaðgangsfærslu** | Lesskráð. Hvort notandinn hefur eigin línur í reitaaðgangi. Eigin línur koma í stað allra reitaaðgangsreglna hópsins. |
+| **Virkur uppruni leiðbeininga** | Lesskráð. Hvort kerfisleiðbeiningarnar koma frá notandanum, hópi notandans eða sjálfgefna hópnum. |
+| **Gjaldfærslutegund** | Lesskráð. Sem hvað skilaboð þessa notanda eru gjaldfærð: **Notandi**, **Forritsskráning**, **Innri**, **Sýniumhverfi** eða **Þjónustuaðili**. Ákvörðuð þegar notandinn er settur upp og uppfærð með **Samstilla** á síðunni Uppsetning Bifröst og með daglegu notkunarsamstillingunni. Notandi samstarfsaðila með framselda heimild er **Þjónustuaðili** á öllum leyfistegundum; annars eru aðeins **Notandi** og **Forritsskráning** notuð á prufuleyfi. Sjá [Gjaldfærslutegundir í áskrift](/licensing/license-types/#charge-types). |
 
-## Ábendingar
+## Ábendingar {#tips}
 
 -   Notendur sem eru ekki stjórnendur sjá aðeins sína eigin færslu á þessari síðu.
--   Notandasniðið sem gervigreindarþjónn les notar þessa reiti til að leysa tengdar færslur og kerfisleiðbeininguna.
--   Þegar tengireitur er auður, fellur svarið til baka á staðlaða BC-úrlausn (t.d. Eigandi vinnuskýrslu fyrir Forða, Notandauppsetning fyrir Sölumanninn).
+-   Tengdar færslur (fjárhagsreikningur, starfsmaður, viðskiptamaður, lánardrottinn, forði, sölumaður, tengiliður, birgðageymsla) og kerfisleiðbeiningar eru stilltar í [Ritli notandauppsetningar](/help/foundation/bifrost-user-setup-editor/). Notandasniðið sem aðstoðarmaður les notar þær.
+-   Þegar tengireitur er auður fellur svarið til baka á staðlaða úrlausn Business Central (t.d. Eigandi vinnuskýrslu fyrir Forða, Notandauppsetning fyrir Sölumann).
