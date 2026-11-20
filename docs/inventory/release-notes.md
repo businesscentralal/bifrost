@@ -10,9 +10,9 @@ description: "What changed in each version of Bifröst Inventory published on Mi
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Inventory published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
-## 28.3.2 — [date to be set by the release manager]
+## 28.3.2 — 20 November 2026
 
-### New message types
+### Added
 
 Each new operation works through your AI assistant or an integration, with Business Central's own logic behind it. Operations that read leave your data unchanged. Operations that write say so in their description.
 
@@ -52,8 +52,8 @@ Each new operation works through your AI assistant or an integration, with Busin
 ### Changed
 
 - **Guided setup.** **Set up Bifröst Inventory** is a new guided setup in Business Central, in English and Icelandic. It explains what the app adds, shows the connection status and the company's active areas, and does not change settings by itself.
-- **Areas follow your usage.** On upgrade and on a new company, an area is turned on when the company already uses it, for example when it has reservations, item tracking or price list lines. Areas you turned off yourself stay off.
-- **Setup mode.** While Bifröst Foundation's setup mode is active, **Inventory Setup** can be changed through Bifröst. Item, price, cost and ledger data stays protected. This needs Bifröst Foundation 28.0.13 or later.
+- **Areas are off until you choose them.** Each Inventory area is now off by default, so your AI assistant only sees the operations of the areas you use. A new **Suggest Setup** action on **Inventory Setup**, and in the guided setup, reads your Business Central setup and proposes which areas to turn on, with a reason for each. For example, transfers need an in-transit location and two other locations. It changes nothing until you confirm, and it never turns an area off. When the app is installed or upgraded, Suggest Setup runs once for each company that has no Inventory setup yet. A company that already has one keeps its choices. An area that is off only hides its operations from the list; your data and Business Central are not affected.
+- **Setup mode.** While Bifröst Foundation's setup mode is active, **Inventory Setup** can be changed through Bifröst. Item, price, cost and ledger data stays protected. This needs Bifröst Foundation 28.0.14 or later.
 - **Clearer confirmation counts.** For the operations that cannot be undone, the description now says what the confirmation count counts: one order, batch or run, not lines or entries.
 - **More precise tracking, reservations and applications.** Item tracking and reservations are tied to the exact source line. Selections for item applications work with an exact quantity in the base unit of measure. Undoing a posted transfer shipment can be limited to selected lines.
 - **Cost adjustment and posting to the general ledger** use Business Central's own filters.
