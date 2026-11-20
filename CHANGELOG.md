@@ -39,6 +39,7 @@
 ### Added
 
 - Help page for the Bifrost Groups pages (group list, card, Group Field Access and Disabled Message Types), in English and Icelandic, at the slug `bifrost-groups` (businesscentralal/bifrost#179, core#1392; must merge before core#1398).
+- Publish Bifröst Projects for its first AppSource release: the app page (projects, tasks and planning lines, status, copies and archived versions, quotes, purchase and item usage, WIP, statistics and reports, resource allocation, and time sheets from creation through submission and approval to posting and archiving, setup and permissions) and context-sensitive help for Projects Setup, in English and Icelandic. The catalogue entry is marked coming soon until the AppSource listing is live.
 - Bifröst Iceland Treasury: a page on reversing payment and claim tracking records (English): what a reversal covers, that it never reaches the bank, that repeating it changes nothing, and how long tracking records are kept (businesscentralal/bifrost-support#14).
 - Bifröst Subscription Billing: the Partner Center listing and user scenarios pages, in English and Icelandic, and an overview that no longer names a Business Central version but the version Microsoft's Subscription Billing app requires (businesscentralal/bifrost-support#5).
 - A use-case library under Try it out, *What you can do with Bifröst*: cases by role with filters, search, copyable prompts and a random pick, in English and Icelandic, with links from Try it out, Using Bifröst and the home page.
