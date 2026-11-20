@@ -10,7 +10,7 @@ description: "What changed in each version of Bifröst Language Models published
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Language Models published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
-## 28.0.3 — 19 November 2026
+## 28.0.3 — 20 November 2026
 
 ### Added
 
