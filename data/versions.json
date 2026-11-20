@@ -59,8 +59,8 @@
     {
       "appId": "dd7b8bd8-f93e-4ac4-a251-1a132a14ef3d",
       "name": "Bifrost Subscription Billing",
-      "version": "28.0.1.47",
-      "released": "2026-10-25",
+      "version": "28.0.2.67",
+      "released": "2026-11-20",
       "releaseNotes": "https://docs.bifrost.origo.is/en-us/subscription-billing/release-notes",
       "brief": "Bifrost Subscription Billing - message types for Subscription Billing",
       "description": "Adds Bifrost message types for the Microsoft Dynamics 365 Business Central Subscription Billing app. Covers subscription lines, customer and vendor contracts, the billing pipeline, price updates and indexation, renewal, usage-based billing, deferrals, contract analysis and migration - so an agent can operate Subscription Billing end to end without manual UI steps."

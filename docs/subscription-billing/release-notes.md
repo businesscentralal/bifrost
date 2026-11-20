@@ -10,7 +10,7 @@ description: "What changed in each version of Bifröst Subscription Billing publ
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Subscription Billing published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
-## 28.0.2 — [date to be set by the release manager]
+## 28.0.2 — 20 November 2026
 
 ### Added
 
