@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Time Sheet Date help for Bifrost Projects (help/projects), in English and Icelandic: what the column on sales invoice and credit memo lines (draft and posted) shows, when it is blank, when it is visible, and how a user shows or hides it through personalization (#193, projects#71). The page is not routed until Projects is added to apps.ts.
 - Bifröst Subscription Billing release notes: draft section for 28.0.2 with the date left for the release manager (changes from 28.0.1 to main db99bd3 in businesscentralal/bc-origo-bifrost-subscription-billing). English only.
 - Inventory Setup help, in English and Icelandic, for Inventory 28.3.2: every area is off by default, an area that is off only hides its operations from assistants, all 19 areas are listed, install and update run Suggest Setup once for companies without a setup record, and a new Suggest Setup section with its rules.
 - Bifröst Orchestrator release notes for 28.0.4 (build 28.0.4.147), dated 20 November 2026. The app catalogue keeps 28.0.3 until 28.0.4 is live on AppSource.
