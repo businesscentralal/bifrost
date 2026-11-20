@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Bifröst Subscription Billing release notes: draft section for 28.0.2 with the date left for the release manager (changes from 28.0.1 to main db99bd3 in businesscentralal/bc-origo-bifrost-subscription-billing). English only.
 - Bifröst Orchestrator release notes for 28.0.4 (build 28.0.4.147), dated 20 November 2026. The app catalogue keeps 28.0.3 until 28.0.4 is live on AppSource.
 - Microsoft 365 Copilot setup, in English and Icelandic: ordered as *For the administrator* (publish the agent once), then *For each user*, with two ways: a plugin in Copilot Cowork (Plugins › Cowork, search for Bifröst, install it and connect it; with a screenshot) or an agent in Copilot Chat (the existing pilot steps). Each is an expandable setup panel (new `setup-panel` style). *Pick your assistant* links to the user steps. The Claude steps are in a setup panel too.
 - Use-case library, case 32, in English and Icelandic: the note now says to try it in a sandbox, not that it is safe in production.
