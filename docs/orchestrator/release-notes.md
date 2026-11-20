@@ -50,6 +50,8 @@ This page is for the people who decide on the app and run it. It lists the versi
 - The built-in help for the PDF operations says what is written as a side effect. Printing a purchase order or a sales quote can add an entry to the interaction log, and a sales quote or sales order confirmation can be stored as an archived document version when archiving is turned on for it.
 - The AI answers in a playbook run no longer keep the trace in the Orchestrator log or in what later steps read.
 - Administrators of licenses can open Bifrost Setup and register Orchestrator without being given the Orchestrator administration role.
+- Report layout operations are easier to use. A caller can see a layout's company restriction before choosing it, gets the correct file type when downloading a layout, and gets stable error codes for a missing layout name or a staging id that is already used. The built-in help, in English and Icelandic, now names the option to set a layout as the default, gives the all-zero GUID example for user-defined layouts, and states that deleting a layout is deliberately not available to your AI assistant. The help for saving a report as a file adds guidance on the document filter, inline output and the timeout.
+- The built-in help for Orchestrator lists the operations correctly: it shows the real number of operations, includes the operation that sets a report layout, and has a new **Required parameters** column for every operation.
 
 ### Fixed
 
@@ -73,6 +75,8 @@ This page is for the people who decide on the app and run it. It lists the versi
 - Every failed step and run has an error text, including a repeating step where some items failed. The response in the step log is always JSON, also when the answer was plain text.
 - A check that answers no is shown in a separate **Outcome Note** column of the step log and no longer as an error text.
 - The saved snapshot of a failed step no longer keeps the user and the user id, which are replaced by a placeholder, and values with names such as password or secret are masked. Step inputs and results are kept for debugging and can still contain personal data, so treat the snapshot as sensitive.
+- Importing a playbook from the **Playbooks** page no longer fails when the company's Change Log guard is set to Blocked and no Change Log coverage exists. The import runs under the administrator's own permissions and validates every field. Export and the other imports keep their guards. The misleading hint to set up Change Log is gone.
+- Setting a report layout by name no longer replaces or re-scopes a user-defined layout that is limited to another company. The request is refused with a message that asks for another layout name, and nothing is changed. Looking up or setting as default such a layout still answers that it was not found, so the other company is not disclosed.
 
 ## 28.0.3 — 28 October 2026
 
