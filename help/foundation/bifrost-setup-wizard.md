@@ -13,12 +13,10 @@ Open it from the Assisted Setup list, from **Setup Wizard** on Bifrost Setup, or
 | --- | --- |
 | **1. Welcome** | Explains what Bifröst stores with Origo (a one-way hash of your tenant ID, the configuration of this company and its message usage) and shows the End-User License Agreement. Select **I accept the End-User License Agreement** to continue. |
 | **2. HTTP** | Lists every installed Bifröst application and whether it may make outbound HTTP requests. See [HTTP step](#http-step). |
-| **3. Credentials** _(on-premises only)_ | Lists the credentials the installed applications need, so you can enter missing values. See [Credentials step](#credentials-step). |
+| **3. Credentials** | Not shown: the wizard goes from the HTTP step to the licensing step. Enter credentials from **Secrets** on Bifrost Setup - see [Credentials step](#credentials-step). |
 | **4. Licensing** | Depends on the environment - see [Licensing step](#licensing-step). |
-| **5. MCP server connection** | Online only. Shows the MCP server URL to add to your AI agent, the link an administrator (Global Administrator or Application Administrator in Microsoft Entra) uses to authorise the Origo Bifrost enterprise application, and links to the Bifröst connector in the AI agent stores. |
-| **6. Finish** | Choose **Finish** to approve the licence agreement for this company, register the company with the licensing service and, in a production environment, activate the trial. The assisted setup is then marked as complete. |
-
-On-premises installations skip step 5.
+| **5. MCP server connection** | Shows the MCP server URL to add to your AI agent, the link an administrator (Global Administrator or Application Administrator in Microsoft Entra) uses to authorise the Origo Bifrost enterprise application, and links to the Bifröst connector in the AI agent stores. |
+| **6. Finish** | Choose **Finish** to approve the licence agreement for this company, register the company with the licensing service and, in a production environment, activate the trial. On an on-premises installation, or a DEV extension in an online sandbox, **Finish** activates the trial of the environment if it is not active yet. The assisted setup is then marked as complete. |
 
 ### HTTP step
 
@@ -30,7 +28,7 @@ Outbound HTTP is required by most Bifröst applications — Bifröst Foundation 
 
 ### Credentials step
 
-Every installed Bifröst application can register the credentials it needs with the shared secret store (see [Bifrost App Secrets](/help/foundation/bifrost-app-secrets/)). The [Credentials](/help/foundation/wizard-credentials/) list shows all of them. Select a row and choose **Set value...** to enter one.
+Every installed Bifröst application can register the credentials it needs with the shared secret store (see [Bifrost App Secrets](/help/foundation/bifrost-app-secrets/)). The wizard does not show the [Credentials](/help/foundation/wizard-credentials/) step: enter the values from **Secrets** on Bifrost Setup.
 
 Missing credentials are never an error here or on Bifrost Setup — a credential that is not set disables the message types that depend on it, and can be entered later from **Secrets** on Bifrost Setup.
 
@@ -38,14 +36,14 @@ Missing credentials are never an error here or on Bifrost Setup — a credential
 
 | Environment | What the step shows |
 | --- | --- |
-| **Production (online)** | The trial: **1,000 User + 1,000 App Registration messages**, activated once per Microsoft Entra tenant. **Finish** activates it if the tenant has no trial yet. On Prepaid, the step also explains how the Subscription license starts: when your Bifröst Partner invites the tenant as a Customer and you accept. |
-| **Sandbox** | **Sandbox Licensing**. See [Sandbox environments](/licensing/license-types/#sandbox-environments) for how a sandbox is licensed. |
-| **On-premises** | How to set up the Local MCP server next to your installation, and **Verify Connection** for the licensing-service connection Origo supplied with your on-premises licence. You cannot continue until the connection is verified. |
+| **Production (online)** | The trial: **1,000 User + 1,000 App Registration messages**, activated once per Microsoft Entra tenant. **Finish** activates it if the tenant has no trial yet. On Trial, the step also explains how the Subscription license starts: when your Bifröst Partner invites the tenant as a Customer and you accept. |
+| **Sandbox (online)** | **Sandbox Licensing**: licenses are not activated in a sandbox. See [Sandbox environments](/licensing/license-types/#sandbox-environments) for how a sandbox is licensed. |
+| **On-premises, or a DEV extension in an online sandbox** | **Activate Trial**: the trial of the environment is 90 days or 1,000 messages, whichever comes first, shared by every company in the environment. **Status** shows whether it is active and, after a refused or failed activation, why. **Activate Trial** sends the activation request and shows the result; no usage is reported. A refused or failed activation does not stop the wizard: **Finish** still completes, and you can activate the trial later here or on Bifrost Setup. A link opens the setup instructions for the Local MCP server. |
 
 See [Licensing](/licensing/) for the licence model.
 
 ## Tips
 
--   A new installation always starts on the **Prepaid** license. The **Subscription** license begins later, when the tenant accepts an invitation from a Bifröst Partner - see [License types](/licensing/license-types/#subscription).
+-   A new installation always starts on the **Trial** license. The **Subscription** license begins later, when the tenant accepts an invitation from a Bifröst Partner - see [License types](/licensing/license-types/#subscription).
 -   Nothing you do in the wizard is destructive: **Back** and **Next** never discard values you have already entered, and you can run the wizard again at any time.
 -   **Revoke EULA Approval** on Bifrost Setup withdraws the approval for the company; run the wizard again to restore it.

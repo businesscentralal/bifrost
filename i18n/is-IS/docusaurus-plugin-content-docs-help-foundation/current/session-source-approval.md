@@ -12,10 +12,9 @@ Beiðnin getur einnig tilgreint **kallarann** - gervigreindarforritið sem setan
 Claude eða ChatGPT. Kallarakóðinn er valkvæður í bili. Beiðni án kallarakóða, eða með auðum kóða, er
 tekin gild, og kóði sem beiðnin sendir er samt athugaður. Beiðni án kóða athugar kallara sem þegar er
 skráður á þann uppruna og heldur honum. Skráðum kallara sem er ekki leyfður er hafnað á sama hátt og
-beiðni sem nefnir hann. Uppruni sem hefur engan skráðan kallara er ekki athugaður. Mál 1340 í
-kjarnanum fylgist með því hvenær kallarakóðinn verður aftur skylda. Fyrirtækið heldur lista,
-**Bifrastarkallarar**, yfir þá kallara sem mega fá samþykkt uppruna setu hér. Opnaðu listann með
-**Kallarar** á [Uppsetning Bifröst](/help/foundation/bifrost-setup/). Listinn birtist ekki í Leit.
+beiðni sem nefnir hann. Uppruni sem hefur engan skráðan kallara er ekki athugaður.
+Fyrirtækið heldur lista, **Bifrastarkallarar**, yfir þá kallara sem mega fá samþykkt uppruna setu hér;
+sjá [Bifrastarkallarar](#bifrost-callers).
 
 | Reitur | Lýsing |
 | --- | --- |
@@ -40,3 +39,21 @@ samþykktir sjálfkrafa; hver notandi þarf að samþykkja aftur.
 Listinn stjórnar því hvaða forrit ná til Business Central í gegnum MCP. Hann er ekki öryggismörk
 gagnvart biðlara sem kallar beint á Cloud Events; sá biðlari þarf áfram auðkennt Entra-auðkenni,
 samþykkt Bifröst-forrit og samþykki uppruna setu fyrir hvern notanda.
+
+## Bifrastarkallarar {#bifrost-callers}
+
+**Bifrastarkallarar** sýnir kallarana (gervigreindarforritin) sem mega fá samþykkt setu í núverandi fyrirtæki.
+Þessi hjálparsíða opnast einnig þaðan. Opnaðu listann með **Kallarar** á [Uppsetning Bifröst](/help/foundation/bifrost-setup/#callers);
+hann birtist ekki í Leit.
+
+| Reitur | Lýsing |
+| --- | --- |
+| **Kóði** | Kóði kallarans sem gervigreindarforritið sendir þegar það biður um samþykkt setu. |
+| **Lýsing** | Hvað kallarinn er. |
+| **Leyft** | Hvort þessi kallari megi fá samþykkt setu í þessu fyrirtæki. Ef slökkt er á þessu fara allir uppruna setu sem samþykktir voru undir kallaranum aftur í bið. |
+
+Eftir uppsetningu eða uppfærslu eru þekktu gervigreindarforritin bætt við einu sinni sem leyfð; listinn er á
+[Uppsetning Bifröst](/help/foundation/bifrost-setup/#callers). Færsla sem er þegar til staðar er látin í friði,
+svo kallari sem þú hefur slökkt á helst slökktur. Óþekktur kallari er bættur sjálfkrafa við sem ekki leyfður,
+með kóðann sem lýsingu. Notendur með `BIFROST SrcApAdm ori`, `BIFROST SrcApCfg ori` eða `BIFROST Full ori`
+geta breytt listanum.
