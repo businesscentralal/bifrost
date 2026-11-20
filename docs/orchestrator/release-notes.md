@@ -10,7 +10,7 @@ description: "What changed in each version of Bifröst Orchestrator published on
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Orchestrator published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
-## 28.0.4 — DATE (set by the release manager)
+## 28.0.4 — 20 November 2026
 
 ### Added
 
