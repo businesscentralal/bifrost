@@ -52,6 +52,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 - Administrators of licenses can open Bifrost Setup and register Orchestrator without being given the Orchestrator administration role.
 - Report layout operations are easier to use. A caller can see a layout's company restriction before choosing it, gets the correct file type when downloading a layout, and gets stable error codes for a missing layout name or a staging id that is already used. The built-in help, in English and Icelandic, now names the option to set a layout as the default, gives the all-zero GUID example for user-defined layouts, and states that deleting a layout is deliberately not available to your AI assistant. The help for saving a report as a file adds guidance on the document filter, inline output and the timeout.
 - The built-in help for Orchestrator lists the operations correctly: it shows the real number of operations, includes the operation that sets a report layout, and has a new **Required parameters** column for every operation.
+- A missing or unknown input on an entry, a playbook, an e-mail, a Telegram message or a report is answered with a specific error code. The answer names the parameter and says what to do next. The Icelandic texts for these errors are complete.
 
 ### Fixed
 
