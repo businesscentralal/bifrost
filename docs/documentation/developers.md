@@ -135,6 +135,31 @@ That answer is always current for your environment. The same list is on the **Bi
 Types** page in Business Central, and the MCP tools `describe_domains` and
 `describe_message_type` read it too.
 
+## Build your own operations
+
+Partners and developers can add operations of their own, as a Business Central app that depends on Bifröst
+Foundation. A new operation joins the same catalogue, runs through the same permissions, gates and log, and every
+connected assistant can use it the day it is installed.
+
+What decides whether an assistant uses it well is how it describes itself, because the assistant never sees the
+code. A good operation:
+
+- **does one thing a person would ask for**, in their own words;
+- **is found for the right question**, and says which other operation to use instead;
+- **can be used without the code**: what to send, what comes back and what can go wrong, with real examples;
+- **is honest about consequences**: whether it reads, writes or cannot be undone, so the assistant knows when to
+  ask first;
+- **is safe by design**: anything that cannot be undone comes in two steps, a preview and an apply;
+- **says what to do when it refuses**, so the assistant can correct itself.
+
+The description is your statement of what the operation does; what Bifröst enforces at runtime is the user's
+permissions, the gates, Field Access on its own data operations, and the log. Check that your operation does what
+its description says, and return enough for an assistant to confirm the result, such as the number of the record it
+created.
+
+The [reference repository](https://github.com/businesscentralal/bc-bifrost-reference) shows how, from a first
+operation to copy to the preview-and-apply pattern, and how to write a description an assistant gets right.
+
 ## What it counts
 
 An integration's calls count in the **App Registration** pool, apart from people's calls. What

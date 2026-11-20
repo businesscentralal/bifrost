@@ -19,13 +19,16 @@ The **View** field at the top shows whose customers are listed.
 
 | Field | Description |
 | --- | --- |
+| **Friendly Name** | The customer's display name. If it is empty, the list uses the most recently updated non-empty name from another registration of the same tenant within your permitted customer scope, including registrations not shown in this list. An existing name is kept; without an eligible name, the field stays empty. This changes only the display. |
 | **Company Name** | The customer company. |
 | **Environment Name** | The Business Central environment of the company. |
-| **Approved At** / **Approved By User Id** | When and by whom the customer accepted the Partner relationship. |
+| **Approved At** / **Approved By** | When and by whom the customer accepted the Partner relationship. This is separate from accepting the End User License Agreement (EULA). |
+| **EULA Approved At** / **EULA Approved By** | When and by whom the company accepted the EULA. These columns do not indicate approval of the Partner relationship. Missing approval details are shown as empty values; an unreadable approval time is also empty. |
 | **User Msgs MTD** / **App Msgs MTD** | User and App Registration messages used this month. |
 | **Internal Messages MTD** | Messages this month by people in this customer when it is your own tenant. Reported separately from customer usage. |
 | **Demo Messages MTD** | Messages this month by people in this customer when you marked it as a demo environment. Reported separately from customer usage. |
 | **Support Messages MTD** | Messages this month by your users working in this customer through a delegated partner plan. Reported separately from customer usage. |
+| **Sandbox User Messages MTD**, **Sandbox App Reg. Messages MTD**, **Sandbox Internal Messages MTD**, **Sandbox Demo Messages MTD**, **Sandbox Support Messages MTD** | The same counts for messages in sandbox environments this month. The columns without *Sandbox* hold the production counts. Quantities only. |
 
 ## Actions
 
@@ -34,7 +37,7 @@ The **View** field at the top shows whose customers are listed.
 | **Refresh** | Reloads the list. |
 | **View Usage** | Opens the [usage entries](/help/foundation/license-usage/) of the selected customer. |
 | **Invite Customer** | Partners only, on their own customers. Opens [Invite Customer](/help/foundation/invite-customer/). |
-| **Cancel Customer** | Partners only, on their own customers. Ends the relationship with the selected customer, with an optional [reason](/help/foundation/cancel-reason/). On the customer's next Sync it returns to the Prepaid license. |
+| **Cancel Customer** | Partners only, on their own customers. Ends the relationship with the selected customer, with an optional [reason](/help/foundation/cancel-reason/). On the customer's next Sync it returns to the Trial license. |
 
 Only active customers are listed; a cancelled customer disappears from the page, but its usage up to
 the cancellation stays in the usage entries. See [Charge types on Subscription](/licensing/license-types/#charge-types).
