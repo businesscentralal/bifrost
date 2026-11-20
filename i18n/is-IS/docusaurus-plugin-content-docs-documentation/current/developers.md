@@ -133,6 +133,32 @@ samning hverrar þeirrar (`Help.Implementation.Get`). Það svar er alltaf rétt
 **Bifrost Message Types** í Business Central, og MCP-verkfærin `describe_domains` og `describe_message_type` lesa hann
 líka.
 
+## Byggðu eigin aðgerðir {#build-your-own-operations}
+
+Samstarfsaðilar og forritarar geta bætt við eigin aðgerðum, sem Business Central forriti sem byggir á Bifröst
+Foundation. Ný aðgerð bætist í sama safn, fer í gegnum sömu heimildir, hlið og annál, og allir tengdir
+aðstoðarmenn geta notað hana daginn sem hún er sett upp.
+
+Hversu vel aðstoðarmaður notar hana ræðst af því hvernig hún lýsir sér, því aðstoðarmaðurinn sér aldrei kóðann.
+Góð aðgerð:
+
+- **gerir eitt sem manneskja myndi biðja um**, með hennar eigin orðum;
+- **finnst fyrir réttu spurninguna**, og segir hvaða aðra aðgerð eigi að nota í staðinn;
+- **er nothæf án kóðans**: hvað á að senda, hvað kemur til baka og hvað getur farið úrskeiðis, með raunverulegum
+  dæmum;
+- **segir satt um afleiðingarnar**: hvort hún les, skrifar eða er óafturkræf, svo aðstoðarmaðurinn viti hvenær
+  hann á að spyrja fyrst;
+- **er örugg frá grunni**: það sem ekki verður aftur tekið kemur í tveimur skrefum, forskoðun og framkvæmd;
+- **segir hvað á að gera þegar hún hafnar**, svo aðstoðarmaðurinn geti leiðrétt sig.
+
+Lýsingin er þín yfirlýsing um hvað aðgerðin gerir; það sem Bifröst framfylgir við keyrslu eru heimildir notandans,
+hliðin, reitaaðgangur í eigin gagnaaðgerðum og annállinn. Gakktu úr skugga um að aðgerðin geri það sem lýsingin
+segir, og skilaðu nógu miklu til að aðstoðarmaður geti staðfest niðurstöðuna, til dæmis númeri færslunnar sem hún
+stofnaði.
+
+[Tilvísunarsafnið](https://github.com/businesscentralal/bc-bifrost-reference) sýnir hvernig, frá fyrstu aðgerð
+til að afrita að forskoðun og framkvæmd, og hvernig á að skrifa lýsingu sem aðstoðarmaður skilur rétt.
+
 ## Hvað það telur {#what-it-counts}
 
 Köll samþættingar eru talin í pottinum **App Registration**, aðskilið frá köllum fólks. Hvað telst sem skilaboð:

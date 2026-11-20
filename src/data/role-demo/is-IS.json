@@ -1,0 +1,862 @@
+{
+  "kinds": {
+    "ask": "Spyrja",
+    "task": "Verk",
+    "dashboard": "Mælaborð",
+    "agent": "Erindreki",
+    "connection": "Tenging",
+    "custom": "Sérlausn"
+  },
+  "roles": [
+    {
+      "id": "manager",
+      "label": "stjórnandi",
+      "examples": [
+        {
+          "kind": "dashboard",
+          "who": "Þú, í gervigreindarerindrekanum þínum",
+          "q": "Búðu til mælaborð með sjóðspá næstu 13 vikna og deildu því með framkvæmdastjórn.",
+          "gate": "Athugar heimildir notandans og skráir kallið.",
+          "bc": "Les bankastöðu, opna reikninga, pantanir og gjalddaga launa og VSK.",
+          "out": "Mælaborð úr lifandi gögnum sem framkvæmdastjórn opnar og spyr áfram.",
+          "title": "Sjóðspá · 13 vikur",
+          "blocks": [
+            {
+              "type": "kpis",
+              "items": [
+                {
+                  "label": "Staða í dag",
+                  "value": "84,2 m.kr."
+                },
+                {
+                  "label": "Lægsta staða",
+                  "value": "21,6 m.kr.",
+                  "note": "Vika 45 · laun og VSK",
+                  "warn": true
+                },
+                {
+                  "label": "Bíður samþykktar",
+                  "value": "12,4 m.kr.",
+                  "note": "18 reikningar"
+                }
+              ]
+            },
+            {
+              "type": "lineChart",
+              "aria": "Sjóðspá 13 vikur",
+              "values": [
+                84.2,
+                76.5,
+                21.6,
+                39.8,
+                47.1,
+                55.3,
+                48.0,
+                31.2,
+                44.5,
+                52.8,
+                60.1,
+                35.4,
+                49.9
+              ],
+              "labels": [
+                "V43",
+                "V44",
+                "V45",
+                "V46",
+                "V47",
+                "V48",
+                "V49",
+                "V50",
+                "V51",
+                "V52",
+                "V1",
+                "V2",
+                "V3"
+              ],
+              "threshold": 20,
+              "thresholdLabel": "Viðmið {value} m.kr.",
+              "minIndex": 2
+            }
+          ],
+          "summary": "Stikur fyrir innheimtuhlutfall og greiðslufresti fylgja. Deilt með framkvæmdastjórn með einum hlekk."
+        },
+        {
+          "kind": "ask",
+          "who": "Þú, í Copilot",
+          "q": "Af hverju lækkaði framlegðin í september?",
+          "gate": "Athugar heimildir notandans og skráir kallið.",
+          "bc": "Reiknar framlegð eftir viðskiptavini, vöru og verki og ber saman við ágúst.",
+          "out": "Svar á mannamáli með frávikagreiningu sem þú getur rakið.",
+          "title": "Framlegð · ágúst til september (m.kr.)",
+          "blocks": [
+            {
+              "type": "waterfall",
+              "aria": "Frávikagreining framlegðar",
+              "steps": [
+                {
+                  "label": "Ágúst",
+                  "value": 48.2,
+                  "total": true
+                },
+                {
+                  "label": "Verð",
+                  "value": -3.1
+                },
+                {
+                  "label": "Gengi",
+                  "value": -2.4
+                },
+                {
+                  "label": "Vörublanda",
+                  "value": -1.2
+                },
+                {
+                  "label": "Magn",
+                  "value": 1.5
+                },
+                {
+                  "label": "September",
+                  "value": 43.0,
+                  "total": true
+                }
+              ]
+            }
+          ],
+          "summary": "Framlegð lækkaði um 5,2 m.kr. Mest munar um verðlækkun til stærsta viðskiptavinar (−3,1) og hærra innkaupsverð vegna gengis (−2,4). Aukið magn vó á móti (+1,5)."
+        },
+        {
+          "kind": "dashboard",
+          "who": "Þú, í gervigreindarerindrekanum þínum",
+          "q": "Settu saman stjórnarpakka fyrir október.",
+          "gate": "Athugar heimildir notandans og skráir kallið.",
+          "bc": "Sækir rekstur, efnahag og áætlun. Samtölur reiknaðar í Business Central.",
+          "out": "Glærur fyrir stjórnarfund, tilbúnar til yfirferðar.",
+          "title": "Stjórnarpakki · október 2026",
+          "blocks": [
+            {
+              "type": "slides",
+              "items": [
+                {
+                  "title": "Október í hnotskurn",
+                  "n": "1/5",
+                  "kind": "cover"
+                },
+                {
+                  "title": "Rekstur á móti áætlun",
+                  "n": "2/5",
+                  "kind": "bars"
+                },
+                {
+                  "title": "EBITDA-brú",
+                  "n": "3/5",
+                  "kind": "wf"
+                },
+                {
+                  "title": "Efnahagur",
+                  "n": "4/5",
+                  "kind": "bal"
+                }
+              ]
+            }
+          ],
+          "summary": "Fimm glærur: yfirlit, rekstur á móti áætlun og fyrra ári, EBITDA-brú, efnahagur og helstu áhættur."
+        },
+        {
+          "kind": "agent",
+          "who": "Erindreki, mánudaga kl. 08:00",
+          "q": "Láttu mig vita ef sjóðstaðan stefnir undir 20 m.kr. næstu fjórar vikur.",
+          "gate": "Keyrir sem eigin notandi, með eigin heimildum, eins og nýr starfsmaður.",
+          "bc": "Uppfærir sjóðspána úr nýjustu færslum, í hverri viku.",
+          "out": "Tilkynning aðeins þegar þarf, með skýringu.",
+          "title": "Tilkynning frá erindreka",
+          "blocks": [
+            {
+              "type": "message",
+              "from": "Erindreki · mánudagur 26.10.2026 kl. 08:00",
+              "title": "Sjóðstaða stefnir í 18,7 m.kr. í viku 45",
+              "body": "Laun 1. nóvember og þrír stórir birgjareikningar falla á sömu viku. Ef reikningar til Byggis ehf. (6,2 m.kr.) innheimtast fyrir 30.10. helst staðan yfir 20 m.kr.",
+              "actions": [
+                "Opna sjóðspá",
+                "Senda áminningu"
+              ]
+            }
+          ],
+          "summary": "Erindrekinn lætur aðeins vita þegar viðmið er í hættu."
+        }
+      ]
+    },
+    {
+      "id": "accountant",
+      "label": "bókari",
+      "examples": [
+        {
+          "kind": "ask",
+          "who": "Þú, í gervigreindarerindrekanum þínum",
+          "q": "Hvað er eftir til að loka september?",
+          "gate": "Athugar heimildir notandans og skráir kallið.",
+          "bc": "Ber banka, viðskiptamenn, lánardrottna og VSK saman við fjárhag.",
+          "out": "Gátlisti með opnum atriðum og næsta skrefi.",
+          "title": "Mánaðarlok · september 2026",
+          "blocks": [
+            {
+              "type": "checks",
+              "items": [
+                {
+                  "label": "Bankareikningar stemmdir",
+                  "status": "ok",
+                  "note": "3 af 3"
+                },
+                {
+                  "label": "Viðskiptamenn á móti fjárhag",
+                  "status": "ok",
+                  "note": "0 kr. frávik"
+                },
+                {
+                  "label": "Lánardrottnar á móti fjárhag",
+                  "status": "warn",
+                  "note": "Frávik 184.500 kr."
+                },
+                {
+                  "label": "Gengismunur bókaður",
+                  "status": "ok",
+                  "note": "USD, EUR"
+                },
+                {
+                  "label": "VSK-uppgjörsfærsla",
+                  "status": "open",
+                  "note": "Ekki bókuð"
+                },
+                {
+                  "label": "Afskriftir",
+                  "status": "open",
+                  "note": "Ekki keyrðar"
+                },
+                {
+                  "label": "Tímabili lokað",
+                  "status": "open",
+                  "note": "Opið"
+                }
+              ]
+            }
+          ],
+          "summary": "Þrjú atriði eftir. Frávikið hjá lánardrottnum skýrist af einum reikningi sem var bókaður beint á fjárhagslykil."
+        },
+        {
+          "kind": "custom",
+          "who": "Þú, í Copilot",
+          "q": "Skráðu rafrænu reikningana sem komu í morgun.",
+          "gate": "Athugar heimildir notandans og skráir kallið.",
+          "bc": "Les reikningana, finnur birgja á kennitölu og stofnar innkaupareikninga.",
+          "out": "Innkaupareikningar tilbúnir til samþykktar. Ekkert bókað.",
+          "title": "Rafrænir reikningar · í dag",
+          "blocks": [
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Birgir"
+                },
+                {
+                  "label": "Kennitala"
+                },
+                {
+                  "label": "Upphæð",
+                  "num": true
+                },
+                {
+                  "label": "Staða"
+                }
+              ],
+              "rows": [
+                [
+                  "Heildsalan ehf.",
+                  "540298-••••",
+                  "1.284.000 kr.",
+                  {
+                    "pill": "Til samþykktar"
+                  }
+                ],
+                [
+                  "Rafvirkinn ehf.",
+                  "611003-••••",
+                  "312.400 kr.",
+                  {
+                    "pill": "Til samþykktar"
+                  }
+                ],
+                [
+                  "Prentun og bók hf.",
+                  "450172-••••",
+                  "96.720 kr.",
+                  {
+                    "pill": "Til samþykktar"
+                  }
+                ],
+                [
+                  "Flutningar ehf.",
+                  "701205-••••",
+                  "455.000 kr.",
+                  {
+                    "pill": "Vantar pöntun",
+                    "tone": "warn"
+                  }
+                ]
+              ],
+              "foot": [
+                "4 reikningar",
+                "",
+                "2.148.120 kr.",
+                ""
+              ]
+            }
+          ],
+          "summary": "Kennitölur eru faldar fyrir gervigreindinni samkvæmt reglum þínum. Einn reikningur þarf innkaupapöntun."
+        },
+        {
+          "kind": "custom",
+          "who": "Erindreki, alla virka daga kl. 07:00",
+          "q": "Sæktu hreyfingar gærdagsins og stemmdu bankann af.",
+          "gate": "Keyrir sem eigin notandi. Bókunarhliðið er lokað: hann undirbýr, þú bókar.",
+          "bc": "Sækir hreyfingar úr bankanum og jafnar á móti opnum færslum.",
+          "out": "Afstemming tilbúin til yfirferðar. Frávik listuð sérstaklega.",
+          "title": "Bankaafstemming · 19.10.2026",
+          "blocks": [
+            {
+              "type": "kpis",
+              "items": [
+                {
+                  "label": "Hreyfingar",
+                  "value": "142"
+                },
+                {
+                  "label": "Jafnaðar sjálfkrafa",
+                  "value": "136"
+                },
+                {
+                  "label": "Til skoðunar",
+                  "value": "6",
+                  "warn": true
+                }
+              ]
+            },
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Texti"
+                },
+                {
+                  "label": "Upphæð",
+                  "num": true
+                },
+                {
+                  "label": "Tillaga"
+                }
+              ],
+              "rows": [
+                [
+                  "Millifærsla 0115-26-…",
+                  "−48.900 kr.",
+                  "Tveir reikningar koma til greina"
+                ],
+                [
+                  "Kortauppgjör",
+                  "1.212.330 kr.",
+                  "Vantar færslu frá kortafyrirtæki"
+                ],
+                [
+                  "Vextir",
+                  "−3.412 kr.",
+                  "Bóka á vaxtagjöld"
+                ]
+              ]
+            }
+          ],
+          "summary": "136 af 142 hreyfingum jafnaðar. Sex bíða þín, hver með tillögu."
+        },
+        {
+          "kind": "agent",
+          "who": "Erindreki, alla virka daga kl. 09:00",
+          "q": "Minntu samþykkjendur á reikninga sem nálgast gjalddaga.",
+          "gate": "Keyrir sem eigin notandi, með eigin heimildum, eins og nýr starfsmaður.",
+          "bc": "Les samþykktarferla og gjalddaga.",
+          "out": "Hver samþykkjandi fær lista yfir sína reikninga.",
+          "title": "Reikningar sem bíða samþykktar",
+          "blocks": [
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Samþykkjandi"
+                },
+                {
+                  "label": "Reikningar",
+                  "num": true
+                },
+                {
+                  "label": "Upphæð",
+                  "num": true
+                },
+                {
+                  "label": "Fyrsti gjalddagi"
+                }
+              ],
+              "rows": [
+                [
+                  "Fjármálastjóri",
+                  "4",
+                  "3.204.000 kr.",
+                  {
+                    "pill": "21.10.",
+                    "tone": "warn"
+                  }
+                ],
+                [
+                  "Rekstrarstjóri",
+                  "2",
+                  "860.000 kr.",
+                  {
+                    "pill": "22.10.",
+                    "tone": "warn"
+                  }
+                ],
+                [
+                  "Innkaupastjóri",
+                  "7",
+                  "1.910.500 kr.",
+                  {
+                    "pill": "27.10.",
+                    "tone": "muted"
+                  }
+                ]
+              ],
+              "foot": [
+                "",
+                "13",
+                "5.974.500 kr.",
+                ""
+              ]
+            }
+          ],
+          "summary": "Þrjár áminningar sendar. Enginn reikningur fer framhjá gjalddaga án þess að einhver viti af því."
+        }
+      ]
+    },
+    {
+      "id": "sales",
+      "label": "í sölu og þjónustu",
+      "examples": [
+        {
+          "kind": "task",
+          "who": "Þú, í ChatGPT",
+          "q": "Breyttu tilboði SQ-1042 í pöntun og sýndu hvað bókunin gerir.",
+          "gate": "Bókunarhlið: aðeins forskoðun fyrir þennan notanda.",
+          "bc": "Breytir tilboði í pöntun og forskoðar bókunina.",
+          "out": "Pöntun stofnuð og færslurnar sýndar. Ekkert bókað.",
+          "title": "Forskoðun bókunar · SO-102345",
+          "blocks": [
+            {
+              "type": "banner",
+              "text": "Forskoðun · ekkert hefur verið bókað"
+            },
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Lykill"
+                },
+                {
+                  "label": "Lýsing"
+                },
+                {
+                  "label": "Debet",
+                  "num": true
+                },
+                {
+                  "label": "Kredit",
+                  "num": true
+                }
+              ],
+              "rows": [
+                [
+                  "1310",
+                  "Viðskiptamenn",
+                  "1.240.000",
+                  ""
+                ],
+                [
+                  "3100",
+                  "Sala vara",
+                  "",
+                  "1.000.000"
+                ],
+                [
+                  "2810",
+                  "Útskattur 24%",
+                  "",
+                  "240.000"
+                ],
+                [
+                  "4100",
+                  "Kostnaðarverð seldra vara",
+                  "610.000",
+                  ""
+                ],
+                [
+                  "1410",
+                  "Birgðir",
+                  "",
+                  "610.000"
+                ]
+              ],
+              "foot": [
+                "",
+                "Samtals",
+                "1.850.000",
+                "1.850.000"
+              ]
+            }
+          ],
+          "summary": "Pöntunin er stofnuð. Þú ákveður hvort hún er bókuð."
+        },
+        {
+          "kind": "ask",
+          "who": "Þú, í Copilot",
+          "q": "Hvaða viðskiptavinir eru yfir lánamörkum og hvað er gjaldfallið?",
+          "gate": "Athugar heimildir notandans og skráir kallið.",
+          "bc": "Les stöðu, lánamörk og opnar færslur.",
+          "out": "Listi sem þú getur rakið í Business Central.",
+          "title": "Yfir lánamörkum",
+          "blocks": [
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Viðskiptavinur"
+                },
+                {
+                  "label": "Staða",
+                  "num": true
+                },
+                {
+                  "label": "Lánamörk",
+                  "num": true
+                },
+                {
+                  "label": "Gjaldfallið",
+                  "num": true
+                },
+                {
+                  "label": "Nýting"
+                }
+              ],
+              "rows": [
+                [
+                  "Byggir ehf.",
+                  "12,4 m.kr.",
+                  "10,0 m.kr.",
+                  "3,1 m.kr.",
+                  {
+                    "meter": 124,
+                    "text": "124%"
+                  }
+                ],
+                [
+                  "Verkstæðið hf.",
+                  "2,2 m.kr.",
+                  "2,0 m.kr.",
+                  "1,4 m.kr.",
+                  {
+                    "meter": 110,
+                    "text": "110%"
+                  }
+                ],
+                [
+                  "Hótel Norður",
+                  "4,8 m.kr.",
+                  "4,5 m.kr.",
+                  "0,9 m.kr.",
+                  {
+                    "meter": 107,
+                    "text": "107%"
+                  }
+                ]
+              ]
+            }
+          ],
+          "summary": "Þrír viðskiptavinir yfir mörkum. Byggir ehf. er með 3,1 m.kr. gjaldfallið og tvær opnar pantanir."
+        },
+        {
+          "kind": "dashboard",
+          "who": "Þú, í gervigreindarerindrekanum þínum",
+          "q": "Sýndu mér tekjuleka síðustu 12 mánaða.",
+          "gate": "Athugar heimildir notandans og skráir kallið.",
+          "bc": "Finnur óreikningsfærða vinnu, 0 kr. línur og afslætti utan marka.",
+          "out": "Mælaborð með fjárhæð hvers liðar.",
+          "title": "Tekjuleki · síðustu 12 mánuðir",
+          "blocks": [
+            {
+              "type": "kpis",
+              "items": [
+                {
+                  "label": "Samtals",
+                  "value": "14,6 m.kr.",
+                  "warn": true
+                },
+                {
+                  "label": "Má reikningsfæra strax",
+                  "value": "9,2 m.kr."
+                }
+              ]
+            },
+            {
+              "type": "bars",
+              "max": 6.8,
+              "items": [
+                {
+                  "label": "Óreikningsfærð vinna",
+                  "value": 6.8,
+                  "text": "6,8 m.kr."
+                },
+                {
+                  "label": "Kláruð verk ekki gerð upp",
+                  "value": 3.9,
+                  "text": "3,9 m.kr."
+                },
+                {
+                  "label": "Afslættir utan marka",
+                  "value": 2.1,
+                  "text": "2,1 m.kr."
+                },
+                {
+                  "label": "0 kr. línur",
+                  "value": 1.2,
+                  "text": "1,2 m.kr."
+                },
+                {
+                  "label": "Rof í endurteknum reikningum",
+                  "value": 0.6,
+                  "text": "0,6 m.kr."
+                }
+              ]
+            }
+          ],
+          "summary": "9,2 m.kr. má reikningsfæra strax. Hver liður opnast niður í verk og færslur."
+        },
+        {
+          "kind": "agent",
+          "who": "Erindreki, fyrsta virka dag mánaðar",
+          "q": "Sendu yfirlit á viðskiptavini sem eru 30 daga fram yfir gjalddaga.",
+          "gate": "Keyrir sem eigin notandi. Sendir ekkert án samþykkis.",
+          "bc": "Býr til reikningsyfirlit og drög að tölvupósti.",
+          "out": "Drög tilbúin til yfirferðar hjá þér.",
+          "title": "Drög að tölvupósti · 1 af 12",
+          "blocks": [
+            {
+              "type": "banner",
+              "text": "Drög · bíða yfirferðar"
+            },
+            {
+              "type": "message",
+              "from": "Til: Byggir ehf. · Viðhengi: Reikningsyfirlit.pdf",
+              "title": "Yfirlit yfir gjaldfallna reikninga",
+              "body": "Góðan dag. Meðfylgjandi er yfirlit yfir reikninga sem eru komnir fram yfir gjalddaga, samtals 3.104.200 kr. Ef greiðsla hefur þegar farið af stað má líta framhjá þessum pósti.",
+              "actions": [
+                "Samþykkja og senda",
+                "Breyta"
+              ]
+            }
+          ],
+          "summary": "Tólf drög, eitt fyrir hvern viðskiptavin. Ekkert fer út fyrr en þú samþykkir."
+        }
+      ]
+    },
+    {
+      "id": "developer",
+      "label": "forritari",
+      "examples": [
+        {
+          "kind": "connection",
+          "who": "Vefverslunin",
+          "q": "Ný pöntun: 3 stk. af vöru 1896-S.",
+          "gate": "Sömu heimildir, sama skráning og þegar fólk spyr.",
+          "bc": "Stofnar sölupöntun og les birgðastöðu á hverjum lager.",
+          "out": "Pöntunin er í Business Central og vefverslunin sýnir rétta stöðu.",
+          "title": "Vefverslun og Business Central",
+          "blocks": [
+            {
+              "type": "sync",
+              "left": {
+                "label": "Vefverslun",
+                "title": "Pöntun #10482",
+                "detail": "3 × 1896-S"
+              },
+              "right": {
+                "label": "Business Central",
+                "title": "Sölupöntun SO-102346",
+                "detail": "Stofnuð 14:02"
+              }
+            },
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Lager"
+                },
+                {
+                  "label": "Til ráðstöfunar",
+                  "num": true
+                }
+              ],
+              "rows": [
+                [
+                  "Aðallager",
+                  "14"
+                ],
+                [
+                  "Akureyri",
+                  "3"
+                ],
+                [
+                  "Væntanlegt 28.10.",
+                  "20"
+                ]
+              ]
+            }
+          ],
+          "summary": "Engin sérsmíðuð samþætting. Vefverslunin kallar á sömu aðgerðir og gervigreindin."
+        },
+        {
+          "kind": "connection",
+          "who": "CRM-kerfið",
+          "q": "Láttu okkur vita þegar reikningur er bókaður.",
+          "gate": "Áskrift að atburði, skráð í Business Central.",
+          "bc": "Sendir tilkynningu um leið og reikningur er bókaður.",
+          "out": "CRM-kerfið uppfærist strax.",
+          "title": "Atburðir í rauntíma",
+          "blocks": [
+            {
+              "type": "events",
+              "items": [
+                {
+                  "time": "14:02:11",
+                  "text": "Reikningur SI-10931 bókaður í Business Central"
+                },
+                {
+                  "time": "14:02:11",
+                  "text": "Tilkynning send til CRM-kerfis"
+                },
+                {
+                  "time": "14:02:12",
+                  "text": "Viðskiptavinaspjald uppfært: opin staða 1.240.000 kr."
+                }
+              ]
+            }
+          ],
+          "summary": "Ekkert fyrirspurnaflóð. Business Central lætur vita þegar eitthvað gerist."
+        },
+        {
+          "kind": "connection",
+          "who": "Vöruhús gagna, á nóttunni",
+          "q": "Sendu breytingar dagsins.",
+          "gate": "Athugar heimildir notandans og skráir kallið.",
+          "bc": "Les aðeins það sem breyttist, og það sem var eytt.",
+          "out": "Gagnagrunnurinn í takt, án fullra útdrátta.",
+          "title": "Breytingar · 18.10.2026",
+          "blocks": [
+            {
+              "type": "kpis",
+              "items": [
+                {
+                  "label": "Breyttar færslur",
+                  "value": "4.812"
+                },
+                {
+                  "label": "Nýjar",
+                  "value": "1.209"
+                },
+                {
+                  "label": "Eyddar",
+                  "value": "37"
+                }
+              ]
+            },
+            {
+              "type": "table",
+              "cols": [
+                {
+                  "label": "Tafla"
+                },
+                {
+                  "label": "Breytingar",
+                  "num": true
+                }
+              ],
+              "rows": [
+                [
+                  "Fjárhagsfærslur",
+                  "2.940"
+                ],
+                [
+                  "Viðskiptamannafærslur",
+                  "1.106"
+                ],
+                [
+                  "Vörur",
+                  "766"
+                ]
+              ]
+            }
+          ],
+          "summary": "Aðeins breytingar fara á milli. Eyddar færslur fylgja með svo ekkert verður eftir."
+        },
+        {
+          "kind": "custom",
+          "who": "Forritari",
+          "q": "Bættu verðútreikningi okkar við sem aðgerð.",
+          "gate": "Nýja aðgerðin fer sjálfkrafa í gegnum sama hlið.",
+          "bc": "Ný aðgerð í ykkar eigin viðbót, með lýsingu sem gervigreindin les.",
+          "out": "Aðgerðin er strax nothæf í allri gervigreind sem er tengd.",
+          "title": "Ný aðgerð í vörulista Bifrastar",
+          "blocks": [
+            {
+              "type": "operation",
+              "name": "Verðútreikningur",
+              "rows": [
+                [
+                  "Gerir",
+                  "Reiknar verð eftir samningi, magni og gengi"
+                ],
+                [
+                  "Þarf",
+                  "Viðskiptavinur, vara, magn"
+                ],
+                [
+                  "Skilar",
+                  "Einingarverð, afsláttur, heildarverð"
+                ]
+              ],
+              "clients": [
+                {
+                  "text": "Copilot"
+                },
+                {
+                  "text": "ChatGPT"
+                },
+                {
+                  "text": "Claude"
+                },
+                {
+                  "text": "Vefverslun",
+                  "tone": "muted"
+                }
+              ]
+            }
+          ],
+          "summary": "Sömu heimildir, sama skráning. Gervigreindin les lýsinguna og veit hvenær á að nota aðgerðina."
+        }
+      ]
+    }
+  ]
+}

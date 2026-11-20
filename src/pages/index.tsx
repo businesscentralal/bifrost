@@ -5,6 +5,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import Translate, {translate} from '@docusaurus/Translate';
 import {apps} from '../../apps';
 import registry from '../../data/apps.json';
+import RoleDemo from '../components/RoleDemo';
 
 /** Summaries come from the app registry (data/apps.json), so they are written in one place. */
 const registrySummaries: Record<string, string> = Object.fromEntries(
@@ -19,7 +20,7 @@ function AppCard({id, title, appName}: {id: string; title: string; appName: stri
   const summary = registrySummaries[appName] ?? fallbackSummaries[id];
   return (
     <Link className="bifrostCard" to={`/${id}/`}>
-      <img src={useBaseUrl(`img/${id}.png`)} alt="" role="presentation" />
+      <img src={useBaseUrl(`img/apps/${id}.png`)} alt="" role="presentation" />
       <h3>{title}</h3>
       <p>{summary}</p>
     </Link>
@@ -66,23 +67,6 @@ export default function Home(): ReactNode {
       </header>
       <main className="container">
         <h2 style={{marginTop: '2rem'}}>
-          <Translate id="home.examples.title">What it looks like</Translate>
-        </h2>
-        <div className="bifrostGrid" style={{marginBottom: '2.5rem'}}>
-          <Link className="bifrostCard" to="/documentation/how-it-works/#what-happens-when-you-ask">
-            <p><em><Translate id="home.examples.ask1">"How many of item 1896-S can we still promise this week, and where are they?"</Translate></em></p>
-            <p><Translate id="home.examples.do1">The assistant finds the right operation, reads live availability per location and answers with the figures.</Translate></p>
-          </Link>
-          <Link className="bifrostCard" to="/documentation/how-it-works/#what-happens-when-you-ask">
-            <p><em><Translate id="home.examples.ask2">"Turn quote SQ-1042 into an order and show me what posting it would do."</Translate></em></p>
-            <p><Translate id="home.examples.do2">It creates the order and previews the posting, without posting anything, so you see the result first.</Translate></p>
-          </Link>
-          <Link className="bifrostCard" to="/documentation/how-it-works/#what-happens-when-you-ask">
-            <p><em><Translate id="home.examples.ask3">"Which customers are over their credit limit, and how much of it is overdue?"</Translate></em></p>
-            <p><Translate id="home.examples.do3">It reads balances, credit limits and open entries, and answers with a list you can check in Business Central.</Translate></p>
-          </Link>
-        </div>
-        <h2>
           <Translate id="home.why.title">Why Bifröst</Translate>
         </h2>
         <div className="bifrostSteps">
@@ -165,6 +149,20 @@ export default function Home(): ReactNode {
             <Translate id="home.how.more">More on how Bifröst works</Translate> <span aria-hidden="true">→</span>
           </Link>
         </p>
+        <section className="bifrostShowcase">
+          <h2>
+            <Translate id="home.examples.title">What it looks like</Translate>
+          </h2>
+          <RoleDemo />
+          <p className="bifrostShowcaseNote">
+            <small>
+              <Translate id="home.roleDemo.note">The examples use made-up figures.</Translate>{' '}
+              <Link to="/documentation/how-it-works/#what-happens-when-you-ask">
+                <Translate id="home.roleDemo.link">How Bifröst works out what to do</Translate>
+              </Link>
+            </small>
+          </p>
+        </section>
         <h2>
           <Translate id="home.roles.title">Find your way</Translate>
         </h2>

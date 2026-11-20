@@ -22,6 +22,9 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 [Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
 (á ensku).
 
+<details className="setup-panel" id="claude-steps">
+<summary><span className="setup-panel__title">Bættu Bifröst Origo við í Claude</span><span className="setup-panel__meta">Á vefnum eða í Claude Desktop · Customize › Connectors</span></summary>
+
 1. **Bættu tengingunni við.** Í Claude opnarðu **Customize** og síðan **Connectors** (í eldri útgáfum af Claude
    Desktop: **Settings › Connectors**) og velur **+ Add**. Þar til Bifröst er komið í tengingaskrá Claude velurðu
    **Add custom connector**: gefðu tengingunni nafn og límdu inn slóð MCP-þjónsins sem þú fékkst hjá kerfisstjóranum.
@@ -48,14 +51,87 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 
 5. **Spurðu fyrstu spurningarinnar**: sjá [Spurðu fyrstu spurningarinnar](/setup/first-question/).
 
-## Microsoft Copilot {#microsoft-copilot}
+</details>
 
-Bifröst-tengingin er ekki enn komin í verslun Microsoft. Þangað til opnar aðgerðin **Microsoft Copilot** undir
-*Tengingar* á **Uppsetningu Bifröst** opinberan vörulista verslunarinnar, án Bifröst.
+## Microsoft 365 Copilot {#microsoft-copilot}
 
-Á meðan, ef Copilot hjá þér leyfir að bæta við fjartengdum MCP-þjóni eða sérsniðinni tengingu, bættu Bifröst við
-þannig: sjá [Aðrir aðstoðarmenn](#other-assistants). Hvort það er hægt fer eftir Copilot hjá þér og stillingum
-fyrirtækisins; spurðu kerfisstjórann.
+Bifröst er fulltrúi (agent) í Microsoft 365 Copilot, í prófun: spurðu Origo hvort hann sé í boði fyrir fyrirtækið þitt. Kerfisstjóri birtir hann einu sinni fyrir fyrirtækið; eftir það bætir hver notandi honum við og skráir
+sig inn sem hann sjálfur.
+
+Hver notandi getur svo notað Bifröst á tvo vegu: sem **viðbót (plugin) í Copilot Cowork**, eða sem **fulltrúa (agent) í Copilot Chat**.
+
+Aðgerðin **Microsoft Copilot** undir *Tengingar* á **Uppsetningu Bifröst** opnar enn opinbera verslun Microsoft, þar
+sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staðinn.
+
+### Fyrir kerfisstjórann {#copilot-administrator}
+
+<details className="setup-panel" id="copilot-admin-steps">
+<summary><span className="setup-panel__title">Birtu fulltrúann einu sinni</span><span className="setup-panel__meta">Kerfisstjóri Microsoft 365 · einu sinni fyrir fyrirtækið</span></summary>
+
+*Hver þarf að koma að: kerfisstjóri Microsoft 365 sem má stýra fulltrúum í Microsoft 365-stjórnborðinu. Fyrirtækið
+þarf líka að hafa gefið Bifröst [samþykki einu sinni](/setup/consent/).*
+
+1. **Sæktu fulltrúapakkann.** Meðan á prófuninni stendur er fulltrúinn
+   [`.zip`-skrá](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip). Hladdu henni upp eins og hún er; ekki pakka henni upp.
+2. **Hladdu honum upp.** Í Microsoft 365-stjórnborðinu skaltu opna **Agents › All agents**, velja **Add agent** og
+   hlaða svo [`.zip`-skránni](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip) upp.
+
+   ![Add agent í lista yfir alla fulltrúa í Microsoft 365-stjórnborðinu](/img/setup/copilot-add-agent.png)
+
+3. **Veldu hverjir fá hann.** Undir **Publish** skaltu velja **All users**, eða **Specific users/groups**, til dæmis
+   hóp þeirra sem eru með notanda í Business Central. Undir **Install (optional)** leyfir **None** hverjum notanda að
+   bæta honum við sjálfur; veldu notendur eða hópa þar til að setja hann upp fyrir þá fyrirfram.
+
+   ![Publish agent to selected users: hverjir mega setja Bifröst upp og hverjir fá hann uppsettan](/img/setup/copilot-publish-to-users.png)
+
+4. **Farðu yfir og samþykktu.** Farðu í gegnum **Security policy** og **Accept permissions**, lestu hvað fulltrúinn
+   biður um og samþykktu. Fulltrúinn skráir hvern notanda inn í Business Central sem hann sjálfan, svo hann nær aðeins
+   til þess sem sá notandi nær til.
+5. **Ljúktu við.** Farðu yfir samantektina á **Review & finish** og ljúktu upphleðslunni. Það getur tekið smá tíma
+   þar til fulltrúinn birtist notendum.
+
+</details>
+
+### Fyrir hvern notanda {#copilot-user}
+
+Opnaðu þá leið sem þú notar Bifröst í Copilot:
+
+<details className="setup-panel" id="copilot-cowork">
+<summary><span className="setup-panel__title">Viðbót fyrir Cowork</span><span className="setup-panel__meta">Í Copilot Cowork: Plugins › Cowork › Bifröst</span></summary>
+
+1. **Opnaðu Plugins.** Í Microsoft 365 Copilot opnarðu **Plugins** og velur **Cowork**.
+2. **Leitaðu að Bifröst.** Skrifaðu *Bifröst* í leitarreitinn.
+
+   ![Plugins í Microsoft 365 Copilot, á flipanum Cowork, með leitarreitnum](/img/setup/copilot-cowork-plugins.png)
+
+3. **Settu viðbótina upp.** Veldu **Bifröst** og settu hana upp.
+4. **Tengdu viðbótina.** Þegar hún er uppsett sýnir Bifröst *Not connected* undir **Connections**: veldu
+   **Connect**. Bifröst nær ekki í Business Central fyrr en viðbótin er tengd.
+
+   ![Bifröst-viðbótin í Copilot Cowork, með Connect undir Connections](/img/setup/copilot-cowork-connect.png)
+
+5. **Spurðu fyrstu spurningarinnar**: sjá [Spurðu fyrstu spurningarinnar](/setup/first-question/).
+
+</details>
+
+<details className="setup-panel" id="copilot-chat-agent">
+<summary><span className="setup-panel__title">Fulltrúi í Copilot Chat</span><span className="setup-panel__meta">Í Copilot Chat: Agents › More agents › Bifröst</span></summary>
+
+1. **Finndu fulltrúann.** Í Microsoft 365 Copilot skaltu opna **Agents** í vinstri dálkinum og velja **More agents**.
+   Finndu **Bifröst** og bættu honum við. Ef kerfisstjórinn setti hann upp fyrirfram er hann þegar undir *Agents*.
+
+   ![Agents-valmyndin í Microsoft 365 Copilot, með More agents](/img/setup/copilot-more-agents.png)
+
+2. **Spurðu og skráðu þig inn.** Opnaðu Bifröst og spurðu, eða veldu eina af tillögum hans, til dæmis *Which Business
+   Central companies can I use?* Í fyrsta skiptið biður Copilot þig að skrá þig inn: notaðu reikninginn sem hefur
+   aðgang að Business Central. Bifröst vinnur sem þú, með nákvæmlega þín réttindi.
+3. **Veldu fyrirtækið.** Ef þú getur notað fleiri en eitt fyrirtæki listar Bifröst þau og spyr hvert þeirra.
+4. **Spurðu fyrstu spurningarinnar**: sjá [Spurðu fyrstu spurningarinnar](/setup/first-question/).
+
+Ef innskráning eða fyrirtækjalistinn bregst hefur fyrirtækið líklega ekki lokið uppsetningunni sem gerð er einu
+sinni: spurðu kerfisstjórann, og sjá [Fyrir fyrirtækið](/setup/).
+
+</details>
 
 ## ChatGPT {#chatgpt}
 

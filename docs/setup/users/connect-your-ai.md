@@ -21,6 +21,9 @@ In Claude, the connector is called **Bifröst Origo**. The steps are the same on
 [Claude Desktop](https://claude.ai/download). Claude's own help describes them in
 [Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp).
 
+<details className="setup-panel" id="claude-steps">
+<summary><span className="setup-panel__title">Add Bifröst Origo in Claude</span><span className="setup-panel__meta">On the web or in Claude Desktop · Customize › Connectors</span></summary>
+
 1. **Add the connector.** In Claude, open **Customize** and then **Connectors** (in older versions of
    Claude Desktop: **Settings › Connectors**), and choose **+ Add**. Until Bifröst is in Claude's
    connector directory, choose **Add custom connector**: give it a name and paste the MCP server
@@ -49,14 +52,87 @@ In Claude, the connector is called **Bifröst Origo**. The steps are the same on
 
 5. **Ask your first question**: see [Ask your first question](/setup/first-question/).
 
-## Microsoft Copilot
+</details>
 
-The Bifröst connector is not in Microsoft's store yet. Until it is, the **Microsoft Copilot** action under
-*Connectors* on **Bifrost Setup** opens the store's public catalogue, without Bifröst in it.
+## Microsoft 365 Copilot {#microsoft-copilot}
 
-Meanwhile, if your Copilot lets you add a remote MCP server or a custom connector, add Bifröst that way: see
-[Other assistants](#other-assistants). Whether it can depends on your Copilot and your organisation's settings; ask
-your administrator.
+Bifröst is an agent in Microsoft 365 Copilot, in a pilot: ask Origo whether it is available for your organisation. An administrator publishes it once for the organisation; after that, each user adds it and signs in as
+themselves.
+
+Each user can then use Bifröst in two ways: as a **plugin in Copilot Cowork**, or as an **agent in Copilot Chat**.
+
+The **Microsoft Copilot** action under *Connectors* on **Bifrost Setup** still opens Microsoft's public store,
+where Bifröst is not listed yet. Use the steps below instead.
+
+### For the administrator {#copilot-administrator}
+
+<details className="setup-panel" id="copilot-admin-steps">
+<summary><span className="setup-panel__title">Publish the agent once</span><span className="setup-panel__meta">Microsoft 365 administrator · once for the organisation</span></summary>
+
+*Who is needed: a Microsoft 365 administrator who may manage agents in the Microsoft 365 admin center. Your
+organisation must also have given its [consent once](/setup/consent/) to Bifröst.*
+
+1. **Download the agent package.** During the pilot, the agent is a
+   [`.zip` file](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip). Upload it as it is; don't unpack it.
+2. **Upload it.** In the Microsoft 365 admin center, open **Agents › All agents**, choose **Add agent**, then
+   upload the [`.zip` file](https://origopublic.blob.core.windows.net/bifrost/appPackage_Bifrost_Copilot-20261119.zip).
+
+   ![Add agent in the list of all agents in the Microsoft 365 admin center](/img/setup/copilot-add-agent.png)
+
+3. **Choose who gets it.** Under **Publish**, choose **All users**, or **Specific users/groups**, for example a group
+   of the people who have a Business Central user. Under **Install (optional)**, **None** lets each user add it
+   themselves; choose users or groups here to have it pre-installed for them.
+
+   ![Publish agent to selected users: who can install Bifröst, and who has it pre-installed](/img/setup/copilot-publish-to-users.png)
+
+4. **Review and accept.** Go through **Security policy** and **Accept permissions**, read what the agent asks for,
+   and accept. The agent signs each user in to Business Central as themselves, so it reaches only what that user
+   can reach.
+5. **Finish.** Check the summary on **Review & finish** and complete the upload. It can take a while before the
+   agent shows up for users.
+
+</details>
+
+### For each user {#copilot-user}
+
+Open the way you use Bifröst in Copilot:
+
+<details className="setup-panel" id="copilot-cowork">
+<summary><span className="setup-panel__title">Plugin for Cowork</span><span className="setup-panel__meta">In Copilot Cowork: Plugins › Cowork › Bifröst</span></summary>
+
+1. **Open Plugins.** In Microsoft 365 Copilot, open **Plugins** and choose **Cowork**.
+2. **Search for Bifröst.** Type *Bifröst* in the search box.
+
+   ![Plugins in Microsoft 365 Copilot, on the Cowork tab, with the search box](/img/setup/copilot-cowork-plugins.png)
+
+3. **Install the plugin.** Choose **Bifröst** and install it.
+4. **Connect the plugin.** Once it is installed, Bifröst shows *Not connected* under **Connections**: choose
+   **Connect**. Bifröst can't reach Business Central until the plugin is connected.
+
+   ![The Bifröst plugin in Copilot Cowork, with Connect under Connections](/img/setup/copilot-cowork-connect.png)
+
+5. **Ask your first question**: see [Ask your first question](/setup/first-question/).
+
+</details>
+
+<details className="setup-panel" id="copilot-chat-agent">
+<summary><span className="setup-panel__title">Agent in Copilot Chat</span><span className="setup-panel__meta">In Copilot Chat: Agents › More agents › Bifröst</span></summary>
+
+1. **Find the agent.** In Microsoft 365 Copilot, open **Agents** in the left pane and choose **More agents**.
+   Find **Bifröst** and add it. If your administrator pre-installed it, it is already under *Agents*.
+
+   ![The Agents menu in Microsoft 365 Copilot, with More agents](/img/setup/copilot-more-agents.png)
+
+2. **Ask, and sign in.** Open Bifröst and ask a question, or pick one of its starters, such as *Which Business
+   Central companies can I use?* The first time, Copilot asks you to sign in: use the account that has access
+   to Business Central. Bifröst works as you, with exactly your permissions.
+3. **Pick the company.** If you can use more than one company, Bifröst lists them and asks which one.
+4. **Ask your first question**: see [Ask your first question](/setup/first-question/).
+
+If sign-in or the company list fails, your organisation has probably not finished the one-time setup: ask your
+administrator, and see [For your company](/setup/).
+
+</details>
 
 ## ChatGPT
 
