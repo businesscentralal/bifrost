@@ -55,13 +55,27 @@ Credentials are not copied from an earlier app or an upgrade. Enter them again a
 | **Unimaze** | **Set Username** / **Set Password or API Key** | Stores the value for the selected environment. |
 | | **Clear Credentials** | Removes both values for the selected environment, after you confirm. |
 | | **Test Unimaze Connection** | Signs in to Unimaze and shows the company's party on the network, found by the **Registration No.** on **Company Information**, and how many messages are in the inbox and unread, or says why the connection failed and what to check. |
-| **General** | **App Secrets** | Opens the list of the app's secrets: which are stored, when and by whom. |
+| **General** | **Refresh Key Vault Status** | Checks the Key Vault again and updates the **Key Vault** status. |
+| | **App Secrets** | Opens the list of the app's secrets: which are stored, when and by whom. |
 | | **Setup Wizard** | Opens the Bifrost Setup Wizard, which allows HTTP requests for the Bifröst apps. |
 | | **Update BII Data Exchange Definitions** | Creates the data exchange definitions that read received e-invoices and credit notes again from scratch. Run it before you receive documents, and after an update if you are asked to. |
 | | **BIS30 Code Map** | Opens the [BIS30 Code Map](/help/iceland-docex/bis30-code-map/). |
 | | **VAT G/L Account Map** | Opens the [Vendor VAT G/L Account Map](/help/iceland-docex/vend-vat-gl-map/). |
 
 ![The message after Test Unimaze Connection: connected to the Unimaze Test environment as the company's party, with the number of messages in the inbox and how many are not yet in Business Central](/img/iceland-docex/en-us/test-unimaze-connection.png)
+
+## Key Vault status
+
+The **Key Vault** group shows whether the app can read the Iceland Key Vault. The page checks the vault
+when it opens; choose **Refresh Key Vault Status** to check it again.
+
+| Status | Meaning |
+| --- | --- |
+| **Connected** | The vault can be read and every value the app needs is there. |
+| **Not connected** | The vault cannot be read, or a value the app needs is missing. |
+| **Not connected (not an AppSource install)** | The app was not installed from AppSource, so it has no access to the vault. This is expected in a development or per-tenant installation, and the page still works. |
+
+The status never shows the names or values of the secrets in the vault.
 
 ## Outgoing HTTP requests
 

@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Document Exchange Setup help (Bifröst Iceland DocEx): a new *Key Vault status* section (Connected, Not connected, Not connected (not an AppSource install)), and **Refresh Key Vault Status** in the actions table. No secret names or values. English only. Merge with the DocEx release that contains the Key Vault status (#194).
 - Docs homepage: *Why Bifröst* and *How it works* now come before the interactive role demo (*What it looks like*), so visitors read what Bifröst is before they see it in action, and the demo sits in a light rounded box. In the demo, "You, in Claude" now reads "You, in your AI agent" (IS: "Þú, í gervigreindarerindrekanum þínum").
 - Use-case library, case 32, in English and Icelandic: the note now says to try it in a sandbox, not that it is safe in production.
 - Administrators, Data access, Permissions, Developers and Users, in English and Icelandic: a SUPER warning (don't give users with SUPER access through Bifröst; the full text on Permission sets and gates), apps from other publishers, a *Privacy and personal data* starting point (start narrow, hide personal data by default, include other apps, keep at least 31 days of Bifrost Messages, choose the assistant with care), what Field Access covers and what it does not, *Build your own operations* for developers, and *check the record itself* for users.
