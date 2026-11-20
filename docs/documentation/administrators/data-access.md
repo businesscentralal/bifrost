@@ -250,6 +250,20 @@ these fields.
 Other Bifröst apps can add their own protections, and can declare a field *write-once*: it can be set when the record
 is created and is never changed through Bifröst afterwards.
 
+## What Field Access covers, and what it does not
+
+Field Access and the default protections apply wherever Bifröst reads or writes field by field: reading records,
+counting and totals, filters and sorting, exports, deleted records, change-log history and restores, and record
+changes. A hidden field can't be read there, or worked out through a filter.
+
+They do not apply to:
+
+- **Operations that answer a business question or produce a document**, such as a customer's credit limit, a
+  document's statistics or a PDF. They return what the task needs. Control who may run them with permission sets.
+- **Copies of a value in other tables.** A rule applies to one field in one table. Sales and purchase documents,
+  for example, keep their own copy of the customer's or vendor's phone and email; add rows for those fields too.
+- **Tables from other apps**, until you classify them or add Field Access rows for them.
+
 ## Agents that read emails and documents
 
 An assistant that reads content from outside, such as an email, an attachment or a web page, can find text in it

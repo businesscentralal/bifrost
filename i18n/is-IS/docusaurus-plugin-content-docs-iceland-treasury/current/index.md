@@ -113,6 +113,7 @@ samstæðu.
 | `BIFROST TCard ori` | Kort, bókhaldslyklar korta og færsluhirðing | Já | Nei |
 | `BIFROST TDoc ori` | Rafræn skjöl | Já | Nei |
 | `BIFROST TAsset ori` | Eignasöfn og eignafærslur | Já | Nei |
+| `BIFROST TReverse ori` | Að bakfæra rakningu greiðslna og krafna | Nei | Nei |
 | `BIFROST TAdmin ori` | Breytingar á uppsetningu banka og leyndarmálum fyrirtækisins | Nei | Nei |
 
 Greiðslur krefjast alltaf `BIFROST TPay ori` eða `BIFROST TFrgPay ori`, veitt af ásetningi, líka fyrir

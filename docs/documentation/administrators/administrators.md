@@ -29,6 +29,11 @@ import PermissionLayers from '@site/src/components/PermissionLayers';
   app that may only read cannot post, however it is asked.
 - **Every set, and how the gates work,** is in [Permission sets and gates](/documentation/end-customers/permissions/).
 
+:::warning SUPER and Bifröst
+Don't give users with SUPER access through Bifröst: SUPER passes every gate and every Field Access restriction.
+Why, and what to do instead: [Permission sets and gates](/documentation/end-customers/permissions/).
+:::
+
 ## Users and agents
 
 **Setup › User Setup** lists every user of Bifröst in the company. Open a user to set:
@@ -142,6 +147,13 @@ Each Bifröst app adds capabilities of its own. Once installed, each adds an act
 is on for the new app (choose **Enable HTTP for all apps** in step 2), and on-premises it asks for the credentials.
 Online, enter them on **Setup › Secrets**.
 
+**Apps from other publishers.** An app built on Bifröst adds operations written by its publisher. Their descriptions
+are the publisher's own statements: Origo does not verify that an operation does exactly what it says, and an app
+passing automated checks is not a security review or a guarantee of correct behaviour. What Bifröst enforces for every
+operation, whoever wrote it: it runs as the signed-in user with that user's permissions, posting needs a gate you
+grant, Field Access applies to Bifröst's own data operations, and every call is logged. Install apps only from
+publishers you trust, try them in a sandbox first, and give the users who call them only the permissions they need.
+
 ## The license agreement and the wizard
 
 **Licensing › Setup Wizard** can be run again at any time, for example to read the Bifröst MCP server address or the
@@ -159,7 +171,7 @@ Bifröst counts **messages**: one for each successful call that does work. The h
 and change-log calls of Bifröst are not counted.
 
 - **Limits you can set.** A monthly message quota per company and per user stops usage at a level you choose.
-  The fields, what `0` means and what happens when a quota is reached: [Monthly quotas](/licensing/license-types/#monthly-quotas).
+  Only users with `BIFROST Full ori` or SUPER can change the company quota. The fields, what `0` means and what happens when a quota is reached: [Monthly quotas](/licensing/license-types/#monthly-quotas).
 - **See what is used** on **Actions › License Usage**, per company, day and type. **Licensing › Sync** refreshes the
   figures at once; a background task does the same every day.
 
@@ -207,6 +219,31 @@ find a call, open **Bifrost Messages** and filter on the user and the time.
 | Something was posted that should not have been, or a call failed with a technical error | - | Find the call on **Bifrost Messages**: the request, the answer and the caller. A failed call's answer says what went wrong |
 | The License pane looks out of date | - | **Licensing › Sync**, then **Licensing › Connection Status** |
 | A new Bifröst app does not work | Outbound HTTP is off for it, or its secrets are not set | Run the setup wizard again; check **Setup › Secrets** |
+
+## Privacy and personal data
+
+You decide who may use Bifröst, what agents may read and change, which assistant they work through and how long
+logs are kept. Origo's part, and what it keeps, is in [Privacy](/licensing/privacy/). A starting point for most
+companies:
+
+1. **Start narrow.** Give users `BIFROST API ori` only (read and prepare), and posting gates later, to the few who
+   should post through an assistant. Never SUPER (see above).
+2. **Hide personal data by default.** On Bifrost Setup, set **Respect Data Sensitivity** to *Sensitive + Personal*
+   and run **Apply Recommended Classification**; on **Field Access**, run **Apply Recommended Template...** for your
+   Bifröst users, and again for new ones. Then open fields per user where the work needs them
+   ([how](/documentation/end-customers/data-access/)).
+3. **Include your other apps.** Bifröst's built-in protections cover standard Business Central tables. Data that
+   other apps store (HR, payroll, CRM and others) is protected only by the permissions, classification and Field
+   Access rows you set for it.
+4. **Set retention.** Give **Bifrost Messages** a retention period in **Retention Policies**, of at least 31 days, because the monthly
+   quotas are counted from it: it keeps the answers
+   calls returned, including any personal data in them. When you delete a person's data in Business Central, copies
+   in Bifrost Messages and the change log remain until their retention period ends.
+5. **Choose the assistant with care.** What an agent reads goes to the assistant's provider, under your agreement
+   with it. Use an assistant your company's AI policy allows, on business terms with a data processing agreement.
+
+Your data protection assessment (DPIA) is yours as controller; Origo provides the description of its processing on
+[Privacy](/licensing/privacy/).
 
 ## What you are responsible for
 

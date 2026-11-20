@@ -120,6 +120,13 @@ Af þessu leiðir:
 - **`BIFROST Full ori` opnar ekkert bókunarhlið** (aðeins hliðið fyrir innkomna vefkróka). Umsjónarmaður sem bókar í
   gegnum Bifröst þarf líka bókunarhliðin.
 
+:::warning SUPER og Bifröst
+Við ráðleggjum að gefa ekki notendum með SUPER aðgang í gegnum Bifröst. SUPER kemst í gegnum öll hlið og allar
+takmarkanir í reitaaðgangi, svo aðstoðarmaður sem vinnur sem sá notandi getur gert allt sem notandinn getur gert í
+Business Central. Notaðu sérstakan aðgang til stjórnunar (uppsetning, heimildir), og gefðu aðganginum sem fólk vinnur
+með í gegnum Bifröst aðeins þær heimildasamstæður sem það þarf. Samþættingum er ekki hægt að gefa SUPER.
+:::
+
 ## Hvaða hlið opnar hvað {#which-gate-opens-what}
 
 Þegar fulltrúi reynir eitthvað sem hlið notandans opna ekki, hafnar Bifröst með skilaboðum á borð við *Bókun hafnað: vantar

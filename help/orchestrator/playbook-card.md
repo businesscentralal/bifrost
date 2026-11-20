@@ -5,8 +5,8 @@ sidebar_label: "Bifrost Playbook"
 sidebar_position: 6
 ---
 
-Use the **Bifrost Playbook** card to define a playbook: a routine of steps, each one a Bifröst
-operation in Business Central, where the answer of one step can feed the next. On the card you set the
+Use the **Bifrost Playbook** card to define a playbook: a routine of steps that call Bifröst
+operations in Business Central or transform data locally, where the result of one step can feed the next. On the card you set the
 steps, the conditions that gate and branch them and the request the first step receives, run the
 playbook, and schedule it. The card also shows how each step did in the most recent run.
 
@@ -21,9 +21,9 @@ Open it from [Bifrost Playbooks](/help/orchestrator/playbooks/).
 
 ## Steps
 
-The **Steps** part lists the steps in the order they run. For each step you choose the operation it
-calls (the **Message Type** column), whether it repeats for every element of an array from an earlier
-step, what counts as a check rather than an action, and which step comes next on success and on
+The **Steps** part lists the steps in the order they run. Choose **Message** in **Step Kind** to call
+an operation (the **Message Type** column), or **Transform** to prepare data locally. For each step,
+choose whether it repeats for every element of an array from an earlier step, what counts as a check rather than an action, and which step comes next on success and on
 failure. Steps that repeat over an array are indented, and disabled steps are dimmed. The **Last Run**
 column shows how each step did in the most recent run: ✓ completed, ✗ failed, – skipped, · not run.
 
@@ -37,6 +37,23 @@ condition fails the run without changing the path. All conditions in a group mus
 group is enough.
 
 See [Step Conditions](/help/orchestrator/playbook-conditions/) for every column.
+
+## Transform Fields
+
+The **Transform Fields** part shows the mappings for the step selected in **Steps**. Use it with a
+**Transform** step to prepare the data a later step needs. Each mapping puts a value at a target path
+in a new JSON object. It changes the playbook's data, without changing Business Central records.
+
+| Field | Description |
+| --- | --- |
+| **Target Path** | Where to put the value in the result. Use dots to separate nested fields, and give each mapping a distinct target. |
+| **Source Path** | Where to read the value in the step's input, or an **@ path** to a value the run has already collected. Not needed for **Constant**. |
+| **Operation** | **Copy** keeps the value and its type; **Constant** uses **Argument 1** as text; **Negate** changes the sign of a numeric value; **Replace Text** replaces matching text, with case sensitivity. |
+| **Argument 1** | The text for **Constant**, or the text to find for **Replace Text**. The search text must not be empty. |
+| **Argument 2** | The replacement text for **Replace Text**. |
+
+Add at least one mapping. Edit the step's input in the [Playbook Template Editor](/help/orchestrator/playbook-template-editor/),
+then use the result in a later step as you would an operation's answer.
 
 ## Schedule
 
@@ -52,7 +69,8 @@ See [Step Conditions](/help/orchestrator/playbook-conditions/) for every column.
 
 ## Request templates
 
-Each step sends a request built from its request template, shown in the **Request Template** FactBox.
+A **Message** step builds its request from the template shown in the **Request Template** FactBox.
+For a **Transform** step, the same template supplies the input to its field mappings.
 A template can use values the run has collected so far with an **@ path**:
 
 - `@10.customerNo` is a value kept from the answer of step 10.
@@ -69,7 +87,7 @@ for the FactBox.
 
 | FactBox | Description |
 | --- | --- |
-| **Request Template** | The request template of the step selected in **Steps**, with actions to edit, download and upload it. |
+| **Request Template** | The request or transform input of the step selected in **Steps**, with actions to edit, download and upload it. |
 | **Last Execution** | A summary of the most recent run: status, start, duration, counters and any error. See [Last Execution](/help/orchestrator/playbook-last-run-fact-box/). |
 | **Chat via Bifrost** | Chat about the playbook open on this card. The chat uses that playbook as its context. The FactBox is hidden for a user without chat permission, and when no chat provider is configured. See [Chat via Bifrost](/help/foundation/bifrost-chat-fact-box/). |
 
