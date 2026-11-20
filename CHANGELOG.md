@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Bifröst Orchestrator release notes for 28.0.4 (build 28.0.4.147), dated 20 November 2026. The app catalogue keeps 28.0.3 until 28.0.4 is live on AppSource.
 - Microsoft 365 Copilot setup, in English and Icelandic: ordered as *For the administrator* (publish the agent once), then *For each user*, with two ways: a plugin in Copilot Cowork (Plugins › Cowork, search for Bifröst, install it and connect it; with a screenshot) or an agent in Copilot Chat (the existing pilot steps). Each is an expandable setup panel (new `setup-panel` style). *Pick your assistant* links to the user steps. The Claude steps are in a setup panel too.
 - Use-case library, case 32, in English and Icelandic: the note now says to try it in a sandbox, not that it is safe in production.
 - Administrators, Data access, Permissions, Developers and Users, in English and Icelandic: a SUPER warning (don't give users with SUPER access through Bifröst; the full text on Permission sets and gates), apps from other publishers, a *Privacy and personal data* starting point (start narrow, hide personal data by default, include other apps, keep at least 31 days of Bifrost Messages, choose the assistant with care), what Field Access covers and what it does not, *Build your own operations* for developers, and *check the record itself* for users.
