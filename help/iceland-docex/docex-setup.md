@@ -14,7 +14,7 @@ setup per company; it is created the first time the page opens.
 
 ## Networks
 
-![Document Exchange Setup with the Advania and Unimaze groups, each with its environment set to Test and the credentials stored](/img/iceland-docex/en-us/docex-setup.png)
+![Document Exchange Setup with the Advania and Unimaze groups, each with its environment set to Production and the credentials not set, and the secure connection status showing not connected on a development install](/img/iceland-docex/en-us/docex-setup.png)
 
 Each network has its own group with an **Environment** field and a read-only **Credentials** status.
 

@@ -14,7 +14,7 @@ uppsetning er til fyrir hvert fyrirtæki; hún verður til þegar síðan er opn
 
 ## Skjalaskiptanet {#networks}
 
-![Uppsetning skjalaskipta með flokkunum Advania og Unimaze, þar sem umhverfið er Prófun og innskráningarupplýsingar eru geymdar](/img/iceland-docex/is-is/docex-setup.png)
+![Uppsetning skjalaskipta með flokkunum Advania og Unimaze, þar sem umhverfið er Framleiðsla og innskráningarupplýsingar eru ekki skráðar, og staða öruggrar tengingar sýnir að ekki er tengt í þróunaruppsetningu](/img/iceland-docex/is-is/docex-setup.png)
 
 Hvert net hefur eigin flokk með reit fyrir umhverfi og stöðunni **Innskráningarupplýsingar**, sem ekki er
 hægt að breyta.
