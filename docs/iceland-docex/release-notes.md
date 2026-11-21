@@ -10,6 +10,13 @@ description: "What changed in each version of Bifröst Iceland DocEx published o
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Iceland DocEx published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.0.2 — 21 November 2026
+
+### Bug-fix release
+
+- Sending, registering and updating documents with Advania and Unimaze no longer asks for a count to confirm. These actions can be repeated or corrected, so an assistant or another app treats them as ordinary changes. Reading documents and statuses is unchanged.
+- Older callers that still send a count keep working; the count is ignored.
+
 ## 28.0.1 — 21 November 2026
 
 ### Bug-fix release
