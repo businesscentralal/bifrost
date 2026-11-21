@@ -10,6 +10,13 @@ description: "What changed in each version of Bifröst Attachments published on 
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Attachments published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.3.3 — DATE (set by the release manager)
+
+### Changed
+
+- Exporting a file with Data Exchange, and handing an uploaded file to Data Exchange, now count as changes that cannot be undone, because both can write a file to external storage. When **Require Confirmation for Irreversible Messages** is turned on in **Bifrost Setup**, your AI assistant must confirm them first, in the same way as creating, copying, moving or deleting files in storage.
+- The help for every operation that cannot be undone says what the confirmed number counts (always one file, folder or attachment) and how to see what would happen without changing anything.
+
 ## 28.3.2 — 10 November 2026
 
 ### Added
