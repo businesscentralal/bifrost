@@ -20,11 +20,11 @@ Each network has its own group with an **Environment** field and a read-only **C
 
 | Group | Fields |
 | --- | --- |
-| **Advania** | **Advania Environment** (Live or Test), **Advania Web UI User Name**, **Credentials** |
-| **Unimaze** | **Unimaze Environment** (Live or Test), **Credentials** |
+| **Advania** | **Advania Environment** (Production or Test), **Advania Web UI User Name**, **Credentials** |
+| **Unimaze** | **Unimaze Environment** (Production or Test), **Credentials** |
 
 - **Environment** decides which service is called. Credentials are stored per network **and** per
-  environment, so a Test credential is never used for a Live call. When you change the environment, the
+  environment, so a Test credential is never used for a Production call. When you change the environment, the
   **Credentials** status shows whether that environment has its values.
 - **Advania Web UI User Name** is used only by **Open Advania Web UI**, to open the Advania web interface
   with single sign-on. It is not a credential.
@@ -41,6 +41,10 @@ Bifröst secret store and never shown again.
 | Unimaze | The user name and password. To sign in with an API key instead, leave the user name empty and store the key with **Set Password or API Key**. |
 
 Credentials are not copied from an earlier app or an upgrade. Enter them again after installing.
+
+## Key Vault
+
+The **Key Vault** line is read-only. **Connected** means the Key Vault the app reads its secrets from can be reached and holds everything the app needs. **Not connected** means it cannot be reached or something is missing. **Not connected (not an AppSource install)** means the app was not installed from AppSource, so there is no vault to read. Secret values are never shown. Choose **Refresh Key Vault Status** to read the vault again.
 
 ## Actions
 
@@ -63,6 +67,10 @@ Credentials are not copied from an earlier app or an upgrade. Enter them again a
 
 ![The message after Test Unimaze Connection: connected to the Unimaze Test environment as the company's party, with the number of messages in the inbox and how many are not yet in Business Central](/img/iceland-docex/en-us/test-unimaze-connection.png)
 
+## Copying a company to a sandbox
+
+When Business Central copies a production company or environment to a sandbox, the app clears every stored network credential and the Advania web interface user name in the copy, and switches every network set to **Production** to **Test**. The sandbox can then never call a network with production credentials. Enter test credentials again in the sandbox. Nothing is cleared when a company is simply opened.
+
 ## Outgoing HTTP requests
 
 Every network is reached over HTTP. Until HTTP requests are allowed for the Bifröst apps, no call to a
@@ -80,5 +88,5 @@ network succeeds and **Bifrost Setup** shows a notification with **Start setup w
 6. If you receive invoices, choose **Update BII Data Exchange Definitions** and fill in the
    [BIS30 Code Map](/help/iceland-docex/bis30-code-map/) and the
    [Vendor VAT G/L Account Map](/help/iceland-docex/vend-vat-gl-map/).
-7. Send a test invoice from start to finish, then switch the environment to **Live** and enter the Live
+7. Send a test invoice from start to finish, then switch the environment to **Production** and enter the Production
    credentials.

@@ -21,11 +21,11 @@ hægt að breyta.
 
 | Flokkur | Reitir |
 | --- | --- |
-| **Advania** | **Advania umhverfi** (Raun eða Prófun), **Advania notandanafn fyrir vefviðmót**, **Innskráningarupplýsingar** |
-| **Unimaze** | **Unimaze umhverfi** (Raun eða Prófun), **Innskráningarupplýsingar** |
+| **Advania** | **Advania umhverfi** (Framleiðsla eða Prófun), **Advania notandanafn fyrir vefviðmót**, **Innskráningarupplýsingar** |
+| **Unimaze** | **Unimaze umhverfi** (Framleiðsla eða Prófun), **Innskráningarupplýsingar** |
 
 - **Umhverfi** ræður hvaða þjónusta er kölluð. Innskráningarupplýsingar eru geymdar fyrir hvert net
-  **og** hvert umhverfi, svo prófunarupplýsingar eru aldrei notaðar í raunkall. Þegar þú skiptir um
+  **og** hvert umhverfi, svo prófunarupplýsingar eru aldrei notaðar í kalli á framleiðsluumhverfi. Þegar þú skiptir um
   umhverfi sýnir staðan **Innskráningarupplýsingar** hvort það umhverfi hafi sín gildi.
 - **Advania notandanafn fyrir vefviðmót** er aðeins notað af **Opna Advania vefviðmót**, til að opna
   vefviðmót Advania með einni innskráningu. Það eru ekki innskráningarupplýsingar.
@@ -44,6 +44,10 @@ glugga; það er geymt í leyndarmálageymslu Bifröst og birtist aldrei aftur.
 
 Innskráningarupplýsingar eru ekki afritaðar úr eldra forriti eða við uppfærslu. Sláðu þær aftur inn
 eftir uppsetningu.
+
+## Lyklageymsla {#key-vault}
+
+Línan **Lyklageymsla** er skrifvarin. **Tengt** þýðir að hægt er að ná í lyklageymsluna sem forritið les leyndarmál sín úr og að hún geymir allt sem forritið þarf. **Ekki tengt** þýðir að ekki næst í hana eða að eitthvað vantar. **Ekki tengt (ekki AppSource uppsetning)** þýðir að forritið var ekki sett upp frá AppSource og því er engin geymsla til að lesa. Gildi leyndarmála eru aldrei birt. Veldu **Endurnýja stöðu lyklageymslu** til að lesa geymsluna aftur.
 
 ## Aðgerðir {#actions}
 
@@ -66,6 +70,10 @@ eftir uppsetningu.
 
 ![Skilaboðin eftir Prófa Unimaze tengingu: tengt við prófunarumhverfi Unimaze sem aðili fyrirtækisins, með fjölda skeyta í innhólfinu og hve mörg hafa ekki verið sótt í Business Central](/img/iceland-docex/is-is/test-unimaze-connection.png)
 
+## Fyrirtæki afritað í prófunarumhverfi {#copy-to-sandbox}
+
+Þegar Business Central afritar framleiðslufyrirtæki eða framleiðsluumhverfi í prófunarumhverfi (sandbox) eyðir forritið öllum geymdum innskráningarupplýsingum skjalaskiptaneta og notandanafni Advania vefviðmóts í afritinu og skiptir öllum netum sem eru stillt á **Framleiðsla** yfir í **Prófun**. Prófunarumhverfið getur því aldrei kallað á net með framleiðsluupplýsingum. Sláðu prófunarupplýsingarnar aftur inn í prófunarumhverfinu. Ekkert er hreinsað þegar fyrirtæki er einfaldlega opnað.
+
 ## Útsendar HTTP-beiðnir {#outgoing-http-requests}
 
 Öll net eru sótt um HTTP. Þar til HTTP-beiðnir eru leyfðar fyrir Bifröst-forritin tekst ekkert kall til
@@ -84,5 +92,5 @@ hana, eða **Uppsetningarleiðsögn** á þessari síðu, og leyfðu beiðnirnar
 6. Ef þú tekur á móti reikningum velur þú **Uppfæra BII gagnaskiptaskilgreiningar** og fyllir út
    [BIS30 kóðavörpun](/help/iceland-docex/bis30-code-map/) og
    [VSK fjárhagsreikn.vörpun lánardrottins](/help/iceland-docex/vend-vat-gl-map/).
-7. Sendu prófunarreikning frá upphafi til enda, skiptu síðan umhverfinu í **Raun** og sláðu inn
-   innskráningarupplýsingarnar fyrir Raun.
+7. Sendu prófunarreikning frá upphafi til enda, skiptu síðan umhverfinu í **Framleiðsla** og sláðu inn
+   innskráningarupplýsingarnar fyrir Framleiðslu.
