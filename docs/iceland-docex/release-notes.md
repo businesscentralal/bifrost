@@ -34,7 +34,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 
 - A request with missing or malformed information is refused with a clear message, in English or Icelandic, before any call is made to a network.
 - When Business Central copies a company to a sandbox, the stored network credentials are cleared and every network set to **Production** is switched to **Test**. A sandbox can no longer send documents with production credentials.
-- **Document Exchange Setup** shows whether the Key Vault is connected, with a **Refresh Key Vault Status** action.
+- **Document Exchange Setup** shows the secure connection status, with an action to refresh it.
 - The environment names on **Document Exchange Setup** are now **Production** and **Test**. Your existing choices are kept.
 
 ## 28.0.0 — 21 October 2026

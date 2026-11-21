@@ -45,10 +45,6 @@ glugga; það er geymt í leyndarmálageymslu Bifröst og birtist aldrei aftur.
 Innskráningarupplýsingar eru ekki afritaðar úr eldra forriti eða við uppfærslu. Sláðu þær aftur inn
 eftir uppsetningu.
 
-## Lyklageymsla {#key-vault}
-
-Línan **Lyklageymsla** er skrifvarin. **Tengt** þýðir að hægt er að ná í lyklageymsluna sem forritið les leyndarmál sín úr og að hún geymir allt sem forritið þarf. **Ekki tengt** þýðir að ekki næst í hana eða að eitthvað vantar. **Ekki tengt (ekki AppSource uppsetning)** þýðir að forritið var ekki sett upp frá AppSource og því er engin geymsla til að lesa. Gildi leyndarmála eru aldrei birt. Veldu **Endurnýja stöðu lyklageymslu** til að lesa geymsluna aftur.
-
 ## Aðgerðir {#actions}
 
 ![Uppsetning skjalaskipta með aðgerðir Unimaze opnar: Skrá notandanafn, Skrá lykilorð eða API lykil og Hreinsa innskráningarupplýsingar, og Prófa Unimaze tengingu á aðgerðastikunni](/img/iceland-docex/is-is/docex-setup-actions.png)

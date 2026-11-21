@@ -42,10 +42,6 @@ Bifröst secret store and never shown again.
 
 Credentials are not copied from an earlier app or an upgrade. Enter them again after installing.
 
-## Key Vault
-
-The **Key Vault** line is read-only. **Connected** means the Key Vault the app reads its secrets from can be reached and holds everything the app needs. **Not connected** means it cannot be reached or something is missing. **Not connected (not an AppSource install)** means the app was not installed from AppSource, so there is no vault to read. Secret values are never shown. Choose **Refresh Key Vault Status** to read the vault again.
-
 ## Actions
 
 ![Document Exchange Setup with the Unimaze actions open: Set Username, Set Password or API Key and Clear Credentials, and Test Unimaze Connection in the action bar](/img/iceland-docex/en-us/docex-setup-actions.png)
