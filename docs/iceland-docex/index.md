@@ -74,7 +74,7 @@ need none.
 |---|---|---|
 | 1 | Install Bifröst Foundation and complete its setup, then install **Bifrost Iceland DocEx**. | Business Central administrator |
 | 2 | In the [Bifrost Setup Wizard](/help/foundation/bifrost-setup-wizard/), allow outgoing HTTP requests for the app. Nothing reaches a network until HTTP requests are allowed. | Business Central administrator |
-| 3 | Open **Bifrost Setup** and choose **Document Exchange Setup** in the **Apps** group. For each network you use, choose **Test** or **Live**, enter the credentials and choose **Test Advania Connection** or **Test Unimaze Connection**. | Business Central administrator |
+| 3 | Open **Bifrost Setup** and choose **Document Exchange Setup** in the **Apps** group. For each network you use, choose **Test** or **Production**, enter the credentials and choose **Test Advania Connection** or **Test Unimaze Connection**. | Business Central administrator |
 | 4 | Make sure **Registration No.** on **Company Information** holds the company's kennitala, and **VAT Registration No.** its VAT number. The networks know the company by them. | Accountant or administrator |
 | 5 | If you receive invoices: choose **Update BII Data Exchange Definitions**, give each vendor its kennitala in **Registration No.**, and decide how lines are posted: Business Central's **Text-to-Account Mapping**, the **VAT G/L Account Map** and the **BIS30 Code Map**. Choose **Incoming Doc. Posting Mode** on vendors whose invoices should become journal lines. | Accountant or Business Central partner |
 | 6 | Give the people and services that send or receive documents `BIFROST Full ori`. | Business Central administrator |
@@ -88,7 +88,7 @@ The help of each page has the details: [Document Exchange Setup](/help/iceland-d
 [Vendor VAT G/L Account Map](/help/iceland-docex/vend-vat-gl-map/).
 
 Start with the network's **Test** environment and send a document from start to finish before you switch
-to **Live**.
+to **Production**.
 
 ## Permissions
 
@@ -100,11 +100,11 @@ to Business Central's own permission sets: `D365 Basic - Read`, `D365 Basic - Ed
 
 - **It acts as you.** Every call runs with the caller's own Business Central permissions and is logged on
   **Bifrost Messages**.
-- **Sending is real.** On a **Live** environment a document goes to the recipient. A posted document that
+- **Sending is real.** On a **Production** environment a document goes to the recipient. A posted document that
   has already been sent, or is waiting for the recipient, is refused unless the request says on purpose
   that it should be sent again.
 - **Credentials stay in protected storage**, per network and per environment, so a Test credential is
-  never used for a Live call. A value is entered once in a masked dialog and never shown again; the setup
+  never used for a Production call. A value is entered once in a masked dialog and never shown again; the setup
   page only says whether one is stored.
 - **Every call to a network is logged** on the **Bifrost Request Log**, with the credentials masked, so a
   failed exchange can be traced.
