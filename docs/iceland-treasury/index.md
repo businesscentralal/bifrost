@@ -82,7 +82,7 @@ agencies Gjaldskil and InKasso issue only a user name and password.
 | 5 | For claims, set the bank's claim identifier on a **Payment Method** for each collection agreement. | Accountant or administrator |
 | 6 | Give each user or service the permission sets for what they may do at the bank (see [Permissions](#permissions)). Users who have their own login at a bank enter it on **Bifrost User Setup**. | Business Central administrator, then each user |
 
-On **Bifrost Iceland Treasury Setup**, the **Information** FactBox keeps the **Key Vault** status line
+On **Bifrost Iceland Treasury Setup**, the **Information** FactBox keeps the secure connection status line
 and shows **My authorization** and **Authentication** for the selected bank. You can set or clear your
 own authorization without changing the company's authorization. Administrators can use **Copy
 Certificate To...** to copy a company certificate and its password to another bank, with confirmation

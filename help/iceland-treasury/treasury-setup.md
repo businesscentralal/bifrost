@@ -28,11 +28,11 @@ allowed.
 
 ## Information
 
-The **Information** FactBox shows status for the selected bank without displaying stored values.
+The **Information** FactBox keeps the existing secure connection status line and adds the following
+authorization status for the selected bank, without displaying stored values.
 
 | Field | Description |
 | --- | --- |
-| **Key Vault** | The existing secure connection status line. Use **Refresh Key Vault Status** to read the status again. |
 | **My authorization** | **Registered** when you have stored your own authorization for the selected bank; **Not registered** otherwise. |
 | **Authentication** | **Available** when your own authorization or the company authorization is stored; **Missing** only when neither is stored. |
 
@@ -56,7 +56,6 @@ password, the FactBox says so. Gjaldskil and InKasso use no certificate.
 | **Set My Bank Authorization** | Opens a masked dialog for your own authorization for the selected bank. The value is available only while you enter it and is not displayed again after saving. Your authorization is used before the company authorization. |
 | **Clear My Bank Authorization** | Removes your own authorization for the selected bank after confirmation. The company authorization is unchanged. |
 | **Copy Certificate To...** | Copies the selected bank's company certificate and its password to another bank. Requires `BIFROST TAdmin ori` and asks before replacing an existing certificate at the destination. |
-| **Refresh Key Vault Status** | Reads the secure connection status again in the **Information** FactBox. |
 | **Set Certificate** | Uploads the client certificate (a `.pfx` file) and asks for its password. The certificate is opened with the password before either is stored, so a wrong password is caught at once. Not available for Gjaldskil and InKasso. |
 | **Set Bank Certificate** | Íslandsbanki only. Uploads the bank's own public certificate. |
 | **Set API Key** | Landsbankinn only. Stores the company's API key. |

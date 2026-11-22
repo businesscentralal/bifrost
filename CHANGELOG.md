@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Iceland Treasury Setup help and overview, English only: Information FactBox with the existing Key Vault line, personal and company authorization status, set and clear personal authorization, and Copy Certificate To... with overwrite confirmation. No objects added.
+- Iceland Treasury Setup help and overview, English only: Information FactBox with the existing secure connection status line, personal and company authorization status, set and clear personal authorization, and Copy Certificate To... with overwrite confirmation. No objects added.
 
 - Connect your assistant and Pick your assistant, in English and Icelandic: the Bifröst MCP server address, `https://bifrost.origo.is/mcp`, is shown in a code block with a copy button, where users need it (top of the page, Claude step 1, Other assistants, What you need first), instead of "from your administrator". The Microsoft 365 Copilot section says to use the same address to connect Copilot Studio.
 - Document Exchange Setup help (Bifröst Iceland DocEx): a new *Secure connection status* section (Connected, Not connected, Not connected (not an AppSource install)), and the refresh action in the actions table. No secret names or values. English only. Merge with the DocEx release that contains the connection status (#194).
