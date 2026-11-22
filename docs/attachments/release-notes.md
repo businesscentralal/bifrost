@@ -10,6 +10,14 @@ description: "What changed in each version of Bifröst Attachments published on 
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Attachments published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.3.3 — 22 November 2026
+
+### Changed
+
+- Working with files and folders in storage, attachment offload and restore, uploads, and Data Exchange imports and exports no longer ask for a confirmation count. These operations can be repeated or corrected, so an assistant or another app treats them as ordinary changes. A file written to external storage is still not rolled back with Business Central, and the help says so.
+- Older callers that still send a count keep working; the count is ignored.
+- The Data Exchange setup tables follow Bifröst Foundation's setup mode: an administrator can change them through your assistant or an integration only while setup mode is on.
+
 ## 28.3.2 — 10 November 2026
 
 ### Added

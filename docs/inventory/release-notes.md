@@ -10,6 +10,17 @@ description: "What changed in each version of Bifröst Inventory published on Mi
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Inventory published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.3.3 — 22 November 2026
+
+### Added
+
+- Reservations can be created and cancelled for a project planning line as well.
+
+### Changed
+
+- Carrying out a requisition or planning worksheet no longer asks for a confirmation count, because it creates orders that can be changed or deleted and posts nothing. Older callers that still send a count keep working; the count is ignored.
+- When a planning worksheet line is for production, the refusal now points to the Manufacturing app, which carries out production lines.
+
 ## 28.3.2 — 20 November 2026
 
 ### Added
