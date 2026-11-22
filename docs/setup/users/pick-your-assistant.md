@@ -31,13 +31,7 @@ Bifröst works with the AI assistant you already use. Your company usually decid
 - **Your Business Central user**, with the Bifröst permissions your administrator has given you.
   The assistant works as you, with exactly your rights.
 - **For Claude, ChatGPT, Copilot Studio and other assistants: the MCP server address**. You paste it in when you
-  add the connector:
-
-  ```text title="MCP server address"
-  bifrost.origo.is/mcp
-  ```
-
-  For the agent in Copilot Chat you don't need it: the agent already knows it.
+  add the connector: `bifrost.origo.is/mcp`. For the agent in Copilot Chat you don't need it: the agent already knows it.
 
 Two things to know: the assistant needs its own license from its provider, as it does today; and what the
 assistant reads from Business Central goes to that provider, under your company's agreement with it. See

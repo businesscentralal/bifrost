@@ -30,13 +30,7 @@ Bifröst virkar með gervigreindaraðstoðarmanninum sem þú notar þegar. Fyri
 - **Notandann þinn í Business Central**, með Bifröst-heimildunum sem kerfisstjórinn hefur gefið þér. Aðstoðarmaðurinn
   vinnur sem þú, með nákvæmlega þín réttindi.
 - **Fyrir Claude, ChatGPT, Copilot Studio og aðra aðstoðarmenn: slóð MCP-þjónsins**. Þú límir hana inn þegar þú
-  bætir tengingunni við:
-
-  ```text title="Slóð MCP-þjónsins"
-  bifrost.origo.is/mcp
-  ```
-
-  Fyrir fulltrúann í Copilot Chat þarftu hana ekki: fulltrúinn þekkir hana þegar.
+  bætir tengingunni við: `bifrost.origo.is/mcp`. Fyrir fulltrúann í Copilot Chat þarftu hana ekki: fulltrúinn þekkir hana þegar.
 
 Tvennt að vita: aðstoðarmaðurinn þarf sitt eigið leyfi frá sínum þjónustuaðila, eins og í dag; og það sem
 aðstoðarmaðurinn les úr Business Central fer til þess þjónustuaðila, samkvæmt samningi fyrirtækisins við hann. Sjá

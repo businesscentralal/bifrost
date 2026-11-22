@@ -10,13 +10,7 @@ description: "For each user: add Bifröst to Claude, Copilot, ChatGPT or another
 # Connect your assistant
 
 *For each user. For Claude, ChatGPT, Copilot Studio and other assistants that connect directly, you need the
-Bifröst MCP server address:*
-
-```text title="MCP server address"
-bifrost.origo.is/mcp
-```
-
-*See also [Pick your assistant](/setup/pick-your-assistant/#what-you-need-first).*
+Bifröst MCP server address, `bifrost.origo.is/mcp`. See also [Pick your assistant](/setup/pick-your-assistant/#what-you-need-first).*
 
 You connect once, and sign in as yourself, so the assistant works with exactly your permissions in
 Business Central.
@@ -33,13 +27,7 @@ In Claude, the connector is called **Bifröst Origo**. The steps are the same on
 1. **Add the connector.** In Claude, open **Customize** and then **Connectors** (in older versions of
    Claude Desktop: **Settings › Connectors**), and choose **+ Add**. Until Bifröst is in Claude's
    connector directory, choose **Add custom connector**: give it a name and paste the MCP server
-   address:
-
-   ```text title="MCP server address"
-   bifrost.origo.is/mcp
-   ```
-
-   Leave the options marked *Detected* as they are and choose **Add**. They
+   address `bifrost.origo.is/mcp`. Leave the options marked *Detected* as they are and choose **Add**. They
    mean that each person signs in as themselves, and that no client ID or secret is needed; if they are
    not detected, check the address. In a Claude Team or Enterprise organisation, an owner adds it once
    for everyone, and the owner may have to allow custom connectors first. Once it is listed, the
@@ -76,12 +64,8 @@ Each user can then use Bifröst in two ways: as a **plugin in Copilot Cowork**, 
 The **Microsoft Copilot** action under *Connectors* on **Bifrost Setup** still opens Microsoft's public store,
 where Bifröst is not listed yet. Use the steps below instead.
 
-**Copilot Studio:** to connect Bifröst to an agent you build in Copilot Studio, add it as an MCP server with this
-address, and sign in with your work account:
-
-```text title="MCP server address"
-bifrost.origo.is/mcp
-```
+**Copilot Studio:** to connect Bifröst to an agent you build in Copilot Studio, add it as an MCP server with the
+address `bifrost.origo.is/mcp`, and sign in with your work account.
 
 ### For the administrator {#copilot-administrator}
 
@@ -167,12 +151,8 @@ your administrator.
 The steps follow the same pattern as for Claude: add the connector, sign in, turn it on, approve
 its tools, ask.
 
-An assistant that supports remote MCP servers can connect too: add the Bifröst MCP server address
-as a remote MCP server or custom connector in its settings, and sign in with your work account. Where to find that
+An assistant that supports remote MCP servers can connect too: add the Bifröst MCP server address,
+`bifrost.origo.is/mcp`, as a remote MCP server or custom connector in its settings, and sign in with your work account. Where to find that
 setting is in the assistant's own help.
-
-```text title="MCP server address"
-bifrost.origo.is/mcp
-```
 
 **Next:** [Ask your first question](/setup/first-question/)
