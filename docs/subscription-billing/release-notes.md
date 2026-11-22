@@ -10,7 +10,15 @@ description: "What changed in each version of Bifröst Subscription Billing publ
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Subscription Billing published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
-## 28.0.2 — [date to be set by the release manager]
+## 28.0.3 — 22 November 2026
+
+### Bug-fix release
+
+- Most Subscription Billing operations no longer ask for a confirmation count. They can be repeated or corrected, so an assistant or another app treats them as ordinary changes. Creating billing documents (which can post them), posting billing documents and releasing deferrals still ask for a count, because they post.
+- Older callers that still send a count keep working; the count is ignored.
+- The descriptions of operations that take a list name the real list parameters, and say when a value must be a whole number.
+
+## 28.0.2 — 20 November 2026
 
 ### Added
 

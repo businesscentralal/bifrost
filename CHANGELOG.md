@@ -4,7 +4,9 @@
 
 ### Changed
 
+- Connect your assistant and Pick your assistant, in English and Icelandic: the Bifröst MCP server address, `https://bifrost.origo.is/mcp`, is shown in a code block with a copy button, where users need it (top of the page, Claude step 1, Other assistants, What you need first), instead of "from your administrator". The Microsoft 365 Copilot section says to use the same address to connect Copilot Studio.
 - Document Exchange Setup help (Bifröst Iceland DocEx): a new *Secure connection status* section (Connected, Not connected, Not connected (not an AppSource install)), and the refresh action in the actions table. No secret names or values. English only. Merge with the DocEx release that contains the connection status (#194).
+- Bifröst Iceland Treasury release notes: draft section for 28.0.3 with the date left for the release manager (changes from 28.0.2 to main d0c2076 in OrigoSoftwareSolutions/bc-origo-bifrost-iceland-treasury). data/versions.json is not changed.
 - Time Sheet Date help for Bifrost Projects (help/projects), in English and Icelandic: what the column on sales invoice and credit memo lines (draft and posted) shows, when it is blank, when it is visible, and how a user shows or hides it through personalization (#193, projects#71). The page is not routed until Projects is added to apps.ts.
 - Bifröst Subscription Billing release notes: draft section for 28.0.2 with the date left for the release manager (changes from 28.0.1 to main db99bd3 in businesscentralal/bc-origo-bifrost-subscription-billing). English only.
 - Inventory Setup help, in English and Icelandic, for Inventory 28.3.2: every area is off by default, an area that is off only hides its operations from assistants, all 19 areas are listed, install and update run Suggest Setup once for companies without a setup record, and a new Suggest Setup section with its rules.
