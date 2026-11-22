@@ -10,7 +10,13 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 # Tengdu aðstoðarmanninn
 
 *Fyrir hvern notanda. Fyrir Claude, ChatGPT, Copilot Studio og aðra aðstoðarmenn sem tengjast beint þarftu slóð
-Bifröst MCP-þjónsins, `bifrost.origo.is/mcp`. Sjá líka [Veldu aðstoðarmanninn](/setup/pick-your-assistant/#what-you-need-first).*
+Bifröst MCP-þjónsins:*
+
+```text
+https://bifrost.origo.is/mcp
+```
+
+*Sjá líka [Veldu aðstoðarmanninn](/setup/pick-your-assistant/#what-you-need-first).*
 
 Þú tengist einu sinni og skráir þig inn sem þú sjálf(ur), svo aðstoðarmaðurinn vinnur með nákvæmlega
 þínar heimildir í Business Central.
@@ -27,7 +33,12 @@ Bifröst MCP-þjónsins, `bifrost.origo.is/mcp`. Sjá líka [Veldu aðstoðarman
 
 1. **Bættu tengingunni við.** Í Claude opnarðu **Customize** og síðan **Connectors** (í eldri útgáfum af Claude
    Desktop: **Settings › Connectors**) og velur **+ Add**. Þar til Bifröst er komið í tengingaskrá Claude velurðu
-   **Add custom connector**: gefðu tengingunni nafn og límdu inn slóð MCP-þjónsins, `bifrost.origo.is/mcp`.
+   **Add custom connector**: gefðu tengingunni nafn og límdu inn slóð MCP-þjónsins:
+
+   ```text
+   https://bifrost.origo.is/mcp
+   ```
+
    Láttu valkostina sem eru merktir *Detected* standa og veldu **Add**. Þeir þýða að hver og einn skráir sig inn
    sjálfur og að ekkert biðlarakenni eða leyndarmál þarf; finnist þeir ekki, athugaðu slóðina. Í Claude Team eða
    Enterprise bætir eigandi henni við einu sinni fyrir alla, og eigandinn gæti þurft að leyfa eigin tengingar fyrst.
@@ -64,7 +75,11 @@ Aðgerðin **Microsoft Copilot** undir *Tengingar* á **Uppsetningu Bifröst** o
 sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staðinn.
 
 **Copilot Studio:** til að tengja Bifröst við fulltrúa sem þú smíðar í Copilot Studio bætirðu honum við sem
-MCP-þjóni með slóðinni `bifrost.origo.is/mcp` og skráir þig inn með vinnureikningnum þínum.
+MCP-þjóni með slóðinni hér fyrir neðan og skráir þig inn með vinnureikningnum þínum:
+
+```text
+https://bifrost.origo.is/mcp
+```
 
 ### Fyrir kerfisstjórann {#copilot-administrator}
 
@@ -150,8 +165,12 @@ fyrirtækisins; spurðu kerfisstjórann.
 Skrefin fylgja sama mynstri og fyrir Claude: bættu tengingunni við, skráðu þig inn, kveiktu á henni, leyfðu verkfæri
 hennar, spurðu.
 
-Aðstoðarmaður sem styður fjartengda MCP-þjóna getur líka tengst: bættu slóð Bifröst MCP-þjónsins, `bifrost.origo.is/mcp`, við sem fjartengdum
+Aðstoðarmaður sem styður fjartengda MCP-þjóna getur líka tengst: bættu slóð Bifröst MCP-þjónsins hér fyrir neðan við sem fjartengdum
 MCP-þjóni eða sérsniðinni tengingu í stillingum hans, og skráðu þig inn með vinnureikningnum þínum. Hvar sú stilling
 er kemur fram í hjálp aðstoðarmannsins sjálfs.
+
+```text
+https://bifrost.origo.is/mcp
+```
 
 **Næst:** [Spurðu fyrstu spurningarinnar](/setup/first-question/)
