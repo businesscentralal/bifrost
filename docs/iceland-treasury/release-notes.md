@@ -10,6 +10,28 @@ description: "What changed in each version of Bifröst Iceland Treasury publishe
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Iceland Treasury published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.0.3 — 22 November 2026
+
+### Added
+
+- Reverse payment and claim tracking records. A reversal is a local bookkeeping step in Business Central: it marks the records as Reversed with a reason, and sends nothing to the bank. It needs its own permission set, so you decide who may do it. See [Reversing payment and claim tracking](/iceland-treasury/tracking-reversal/).
+- Payment and claim tracking records are kept for seven years. They are registered with the Business Central retention policies, and a payment or claim is removed only when everything that belongs to it is completed and at least seven years old.
+- Personal Landsbankinn API keys are honored when you enable the Landsbankinn connections. The personal key is used before the company key, and the guidance when a key is missing names both places to set it up.
+- The Iceland Treasury setup page shows the secure connection status (Connected, Not connected, or Not connected (not an AppSource install)), with an action to check it again. No secret names or values are shown.
+
+### Changed
+
+- No Treasury operation asks for a confirmation count any more. Treasury posts nothing in Business Central: reads change nothing, and what it sends to a bank (payments, claims, claim templates, card ledger keys, electronic documents) can be updated, cancelled or sent again, so an assistant or another app treats these as ordinary changes. Older callers that still send a count keep working; the count is ignored.
+- Errors from Treasury now follow the error format of Bifröst Foundation. Every error carries a code and a text, and the help for each operation describes the errors it can return truthfully, including errors that had no code before.
+- The overview help names the refusal codes you can meet, in English and Icelandic.
+
+### Fixed
+
+- Landsbankinn card lists, and the help that describes them, are correct, and the translated help follows the language of the request.
+- Bank statements are read correctly regardless of the decimal separator of the Business Central language or region. A statement with decimals no longer fails or changes value because of the culture of the session.
+- When you copy a company to a sandbox, the bank credentials are not carried over. A sandbox cannot use the bank connections of the company it was copied from.
+- Treasury installs and runs on Business Central 28.4, and registers its operations correctly when Bifröst Foundation starts.
+
 ## 28.0.2 — 28 October 2026
 
 ### Added
