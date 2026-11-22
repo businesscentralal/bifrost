@@ -10,6 +10,14 @@ description: "What changed in each version of Bifröst Orchestrator published on
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Orchestrator published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.0.6 — 22 November 2026
+
+### Bug-fix release
+
+- Restarting the orchestrator, registering, scheduling and restarting entries, running playbooks, previewing workspaces, and sending emails, Telegram messages and sales or purchase documents no longer ask for a count to confirm. They can be repeated or corrected, so an assistant or another app treats them as ordinary changes.
+- Running an entry once and running a report still ask for a count to confirm, because they can post. Steps that save their own changes are still refused in a playbook chain that must roll back together.
+- Older callers that still send a count keep working; the count is ignored.
+
 ## 28.0.5 — 20 November 2026
 
 ### Added
