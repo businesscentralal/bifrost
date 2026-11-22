@@ -78,7 +78,7 @@ Peppol-kóðalistarnir krefjast einskis slíks.
 |---|---|---|
 | 1 | Settu upp Bifröst Foundation og ljúktu uppsetningu þess, og settu síðan upp **Bifrost Iceland DocEx**. | Kerfisstjóri Business Central |
 | 2 | Leyfðu útsendar HTTP-beiðnir fyrir forritið í [Uppsetningarleiðsögn Bifröst](/help/foundation/bifrost-setup-wizard/). Ekkert fer til skjalaskiptanets fyrr en HTTP-beiðnir eru leyfðar. | Kerfisstjóri Business Central |
-| 3 | Opnaðu **Uppsetning Bifröst** og veldu **Uppsetning skjalaskipta** í flokknum **Forrit**. Fyrir hvert net sem þú notar velur þú **Prófun** eða **Raun**, slærð inn innskráningarupplýsingarnar og velur **Prófa Advania tengingu** eða **Prófa Unimaze tengingu**. | Kerfisstjóri Business Central |
+| 3 | Opnaðu **Uppsetning Bifröst** og veldu **Uppsetning skjalaskipta** í flokknum **Forrit**. Fyrir hvert net sem þú notar velur þú **Prófun** eða **Framleiðsla**, slærð inn innskráningarupplýsingarnar og velur **Prófa Advania tengingu** eða **Prófa Unimaze tengingu**. | Kerfisstjóri Business Central |
 | 4 | Gakktu úr skugga um að **Kennitala** í **Fyrirtækjaupplýsingum** sé kennitala fyrirtækisins og **VSK-númer** virðisaukaskattsnúmer þess. Netin þekkja fyrirtækið á þeim. | Bókari eða kerfisstjóri |
 | 5 | Ef þú tekur á móti reikningum: veldu **Uppfæra BII gagnaskiptaskilgreiningar**, skráðu kennitölu hvers lánardrottins í **Kennitala**, og ákveddu hvernig línur bókast: **Vörpun texta á reikning** í Business Central, **VSK fjárhagsreikn.vörpun** og **BIS30 kóðavörpun**. Veldu **Bókunaraðferð skjala á innleið** hjá lánardrottnum sem eiga að fá færslubókarlínur. | Bókari eða Business Central samstarfsaðili |
 | 6 | Veittu þeim sem senda eða taka á móti skjölum `BIFROST Full ori`. | Kerfisstjóri Business Central |
@@ -91,7 +91,7 @@ Hjálp hverrar síðu segir nánar frá: [Uppsetning skjalaskipta](/help/iceland
 [BIS30 kóðavörpun](/help/iceland-docex/bis30-code-map/) og
 [VSK fjárhagsreikn.vörpun lánardrottins](/help/iceland-docex/vend-vat-gl-map/).
 
-Byrjaðu á **Prófun** hjá netinu og sendu skjal frá upphafi til enda áður en þú skiptir yfir í **Raun**.
+Byrjaðu á **Prófun** hjá netinu og sendu skjal frá upphafi til enda áður en þú skiptir yfir í **Framleiðsla**.
 
 ## Heimildir {#permissions}
 
@@ -103,11 +103,11 @@ Byrjaðu á **Prófun** hjá netinu og sendu skjal frá upphafi til enda áður 
 
 - **Það vinnur sem þú.** Hvert kall keyrir með eigin heimildum þess sem kallar í Business Central og er
   skráð á **Bifröst skilaboð**.
-- **Sending er raunveruleg.** Í **Raun**-umhverfi fer skjal til viðtakandans. Bókuðu skjali sem þegar
+- **Sending er raunveruleg.** Í umhverfinu **Framleiðsla** fer skjal til viðtakandans. Bókuðu skjali sem þegar
   hefur verið sent, eða bíður viðtakandans, er hafnað nema beiðnin segi sérstaklega að það eigi að senda
   aftur.
 - **Innskráningarupplýsingar eru í varinni geymslu**, fyrir hvert net og hvert umhverfi, svo
-  prófunarupplýsingar eru aldrei notaðar í raunkall. Gildi er slegið inn einu sinni í földum glugga og
+  prófunarupplýsingar eru aldrei notaðar í kalli á framleiðsluumhverfi. Gildi er slegið inn einu sinni í földum glugga og
   birtist aldrei aftur; uppsetningarsíðan segir aðeins hvort gildi er geymt.
 - **Hvert kall til skjalaskiptanets er skráð** í **Annál beiðna**, með innskráningarupplýsingarnar
   faldar, svo rekja megi misheppnuð samskipti.
