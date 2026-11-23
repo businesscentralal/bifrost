@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-11-22",
+  "updated": "2026-11-23",
   "apps": [
     {
       "appId": "7505e808-6e52-4b96-a328-82573391297a",
@@ -86,8 +86,8 @@
     {
       "appId": "54f038b6-4e7a-4e7d-bd95-a70587f27dd2",
       "name": "Bifrost Iceland Treasury",
-      "version": "28.0.3.170",
-      "released": "2026-11-22",
+      "version": "28.0.4.175",
+      "released": "2026-11-23",
       "releaseNotes": "https://docs.bifrost.origo.is/en-us/iceland-treasury/release-notes",
       "brief": "Treasury for Iceland in Business Central: payments, claims, statements and currency rates.",
       "description": "Supports the treasury process of Icelandic companies in Business Central, connected to the web services of Icelandic banks and payment providers. Registers domestic and foreign payment batches, creates and follows claims (kröfur) and the payments reported on them, imports bank statements into bank reconciliation and marks payments paid when the statement shows them, and reads currency rates. Payment batches, claims, claim payments and every action at a provider are tracked on read-only pages, the same for every provider, and each payment can carry the Business Central record it pays. Permission sets per treasury domain control who may register payments, manage claims or read statements."

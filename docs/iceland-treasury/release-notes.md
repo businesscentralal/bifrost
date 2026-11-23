@@ -10,6 +10,22 @@ description: "What changed in each version of Bifröst Iceland Treasury publishe
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Iceland Treasury published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.0.4 — 23 November 2026
+
+### Added
+
+- Each user can register and clear their own bank authorization from the Iceland Treasury setup page, with the actions Set My Bank Authorization and Clear My Bank Authorization. The value is entered in a masked field, is kept in protected storage for that user only, and is never shown again.
+- A new action, Copy Certificate To, copies the company certificate of one bank, with its password, to another bank. The copy stays inside protected storage, you confirm before an existing certificate is overwritten, and the same administrator permission is needed as for setting a certificate.
+
+### Changed
+
+- The side panel on the Iceland Treasury setup page is now called Information. It follows the bank you select and shows whether you have registered your own authorization (Registered or Not registered) and whether authentication is available (Available or Missing). The secure connection status line and its refresh action are unchanged.
+
+### Fixed
+
+- A bank is no longer shown as Missing when you have registered your own authorization. It is shown as Missing only when neither you nor the company has registered one.
+- A company authorization is recognized on its own, whether or not a certificate is registered for the bank.
+
 ## 28.0.3 — 22 November 2026
 
 ### Added
