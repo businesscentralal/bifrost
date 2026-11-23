@@ -25,7 +25,7 @@ leyfðar.
 | **Virkt** | Hvort kalla megi á bankann. Slökktu á reitnum til að stöðva allar aðgerðir bankans án þess að eyða stillingum hans. |
 | **Notandanafn** | Notandanafn fyrirtækisins í bankanum. Notandi sem hefur eigin innskráningu skráir hana með **Skrá mína bankaauðkenningu**, sem vistar nafnið á síðunni **Uppsetning notanda Bifröst** fyrir þann notanda. Autt eigið nafn heldur þessu sjálfgefna nafni fyrirtækisins. |
 | **Leyndarmál** | **Fullskráð** þegar þín eigin auðkenning eða auðkenning fyrirtækisins er vistuð fyrir bankann; **Vantar** þegar hvorug er vistuð. Staða skírteinis er sýnd sér. Gildin eru aldrei sýnd. |
-| **SOAP-undirritari** | Aðeins sýndur fyrir Íslandsbanka, Kviku banka og sparisjóðina. Hafðu hann auðan nema bankinn biðji þig um að nota WSE2 eða WSE3. Auður reitur notar venjulegt snið bankans: WSE2 fyrir Íslandsbanka og Kviku banka, WSE3 fyrir sparisjóðina. |
+| **SOAP-undirritari** | Aðeins hægt að breyta honum fyrir Íslandsbanka, Kviku banka og sparisjóðina; á öðrum línum er hann aðeins til lestrar. Hafðu hann auðan nema bankinn biðji þig um að nota WSE2 eða WSE3. Auður reitur notar venjulegt snið bankans: WSE2 fyrir Íslandsbanka og Kviku banka, WSE3 fyrir sparisjóðina. |
 
 ## Upplýsingar {#information}
 

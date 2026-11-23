@@ -86,10 +86,10 @@ Gjaldskil og InKasso gefa aðeins út notandanafn og lykilorð.
 tengingar og sýnir **Notandanafn**, **Mín auðkenning** og **Auðkenning** fyrir valinn banka. Notandanafnið
 er þitt eigið eða sjálfgefið fyrirtækisins, og lykilorð er ekki sýnt. **Skrá mína bankaauðkenningu** biður
 um notandanafnið þitt og auðkenninguna þína saman. Autt notandanafn heldur sjálfgefna nafni fyrirtækisins.
-**Hreinsa mína bankaauðkenningu** getur einnig hreinsað það notandanafn. **SOAP-undirritari** er aðeins
-sýndur fyrir Íslandsbanka, Kviku banka og sparisjóðina: hafðu hann auðan nema bankinn biðji þig um að
-nota WSE2 eða WSE3. Kerfisstjórar geta notað **Afrita skírteini í...** til að afrita skírteini fyrirtækisins
-og lykilorð þess yfir á annan banka, með staðfestingu áður en skírteini sem er þegar til er skipt út. Sjá
+**Hreinsa mína bankaauðkenningu** getur einnig hreinsað það notandanafn. **SOAP-undirritari**: Aðeins
+er hægt að breyta honum fyrir Íslandsbanka, Kviku banka og sparisjóðina; á öðrum línum er hann aðeins
+til lestrar. Hafðu hann auðan nema bankinn biðji þig um að nota WSE2 eða WSE3. Kerfisstjórar geta notað
+**Afrita skírteini í...** til að afrita skírteini fyrirtækisins og lykilorð þess yfir á annan banka, með staðfestingu áður en skírteini sem er þegar til er skipt út. Sjá
 [hjálp uppsetningarinnar](/help/iceland-treasury/treasury-setup/) um merkingu stöðunnar og skrefin.
 
 Hjálp hverrar síðu hefur nánari upplýsingar: [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/),

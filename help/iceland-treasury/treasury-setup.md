@@ -24,7 +24,7 @@ allowed.
 | **Enabled** | Whether the bank may be called. Turn it off to stop every operation of that bank without removing its settings. |
 | **Username** | The company's user name at the bank. A user who has their own login sets it with **Set My Bank Authorization**, which stores the name on that user's **Bifrost User Setup**. A blank personal name keeps this company default. |
 | **Secrets** | **Complete** when your own authorization or the company authorization is stored for this bank; **Missing** when neither is stored. Certificate status is shown separately. The values are never shown. |
-| **SOAP Signer** | Shown only for Íslandsbanki, Kvika banki and Sparisjóðir. Leave it blank unless the bank tells you to use WSE2 or WSE3. Blank uses the bank's usual profile: WSE2 for Íslandsbanki and Kvika banki, WSE3 for the savings banks. |
+| **SOAP Signer** | You can change it only for Íslandsbanki, Kvika banki and Sparisjóðir; on other rows it is read-only. Leave it blank unless the bank tells you to use WSE2 or WSE3. Blank uses the bank's usual profile: WSE2 for Íslandsbanki and Kvika banki, WSE3 for the savings banks. |
 
 ## Information
 

@@ -86,8 +86,9 @@ On **Bifrost Iceland Treasury Setup**, the **Information** FactBox keeps the sec
 and shows **User name**, **My authorization** and **Authentication** for the selected bank. The user name
 is your own or the company default, and a password is not shown. **Set My Bank Authorization** asks for
 your user name and your authorization together. A blank user name keeps the company default. **Clear My
-Bank Authorization** can also clear that user name. **SOAP Signer** is shown only for Íslandsbanki, Kvika
-banki and Sparisjóðir: leave it blank unless the bank tells you to use WSE2 or WSE3. Administrators can
+Bank Authorization** can also clear that user name. **SOAP Signer** can be changed only for Íslandsbanki,
+Kvika banki and Sparisjóðir; on other rows it is read-only. Leave it blank unless the bank tells you
+to use WSE2 or WSE3. Administrators can
 use **Copy Certificate To...** to copy a company certificate and its password to another bank, with
 confirmation before replacing an existing certificate. See the [setup help](/help/iceland-treasury/treasury-setup/)
 for the status meanings and steps.
