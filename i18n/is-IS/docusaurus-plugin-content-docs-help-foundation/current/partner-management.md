@@ -26,4 +26,4 @@ krefst hlutverks söluaðila og leyfisstjórnunarheimildar.
 | **Bjóða samstarfsaðila** | Opnar [Bjóða samstarfsaðila](/help/foundation/invite-partner/). Sláðu inn eigið leigjandaauðkenni til að skrá þig sem eigin samstarfsaðila. |
 | **Skoða viðskiptavini** | Opnar [Umsjón viðskiptavina](/help/foundation/customer-management/) fyrir viðskiptavini valins samstarfsaðila, aðeins til lestrar. |
 | **Skoða notkun** | Opnar [notkunarfærslur](/help/foundation/license-usage/) viðskiptavina valins samstarfsaðila. |
-| **Segja upp samstarfsaðila** | Segir upp völdum samstarfsaðila í stöðunni **Open**, með valfrjálsri [ástæðu](/help/foundation/cancel-reason/). Við næstu samstillingu samstarfsaðilans er skráningu hans lokað og hver viðskiptavinur hans fer aftur á fyrirframgreitt leyfi við sína næstu samstillingu. |
+| **Segja upp samstarfsaðila** | Segir upp völdum samstarfsaðila í stöðunni **Open**, með valfrjálsri [ástæðu](/help/foundation/cancel-reason/). Við næstu samstillingu samstarfsaðilans er skráningu hans lokað og hver viðskiptavinur hans fer aftur á prufuleyfi við sína næstu samstillingu. |
