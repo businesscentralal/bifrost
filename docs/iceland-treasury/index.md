@@ -89,3 +89,75 @@ your user name and your authorization together. A blank user name keeps the comp
 Bank Authorization** can also clear that user name. **SOAP Signer** can be changed only for Íslandsbanki,
 Kvika banki and Sparisjóðir; on other rows it is read-only. Leave it blank unless the bank tells you
 to use WSE2 or WSE3. Administrators can
+use **Copy Certificate To...** to copy a company certificate and its password to another bank, with
+confirmation before replacing an existing certificate. See the [setup help](/help/iceland-treasury/treasury-setup/)
+for the status meanings and steps.
+
+The help of each page has the details: [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/),
+the [setup wizard](/help/iceland-treasury/treasury-setup-wizard/),
+[Bank secrets](/help/iceland-treasury/treasury-secrets/),
+[Bank credentials for your user](/help/iceland-treasury/bank-user-setup/) and
+[Payment Methods](/help/iceland-treasury/payment-methods/).
+
+What each bank covers and needs: [Arion banki](/iceland-treasury/banks/arion/), [Íslandsbanki](/iceland-treasury/banks/islandsbanki/),
+[Kvika banki](/iceland-treasury/banks/kvika/), [Landsbankinn](/iceland-treasury/banks/landsbankinn/) and
+[Sparisjóðir](/iceland-treasury/banks/sparisjodir/). The claim collection agencies:
+[Gjaldskil](/iceland-treasury/agencies/gjaldskil/) and [InKasso](/iceland-treasury/agencies/inkasso/). How a payment and a claim are followed from start to finish:
+[Payments and claims](/iceland-treasury/payments-and-claims/).
+
+## Permissions
+
+Each kind of work has its own permission set, the same for every bank and agency, so a user can read statements
+without being allowed to pay. Each set includes read access to the tracking pages. Rates need no set of their
+own.
+
+| Permission set | For | Included in `BIFROST Full ori` | Included in `BIFROST Read ori` |
+|---|---|---|---|
+| `BIFROST TPay ori` | Domestic payment batches and their results | No | No |
+| `BIFROST TFrgPay ori` | Foreign payment batches, quotes, results and receipts | No | No |
+| `BIFROST TClmEdit ori` | Creating, changing and cancelling claims, claim batches and Landsbankinn claim templates | Yes | No |
+| `BIFROST TClmPmt ori` | Reading claims, claim payments and claim templates, and updating claim payments | Yes | Yes |
+| `BIFROST TStmt ori` | Statements, accounts, foreign-currency statements and received electronic documents at Landsbankinn | Yes | Yes |
+| `BIFROST TBill ori` | Unpaid invoices, bills and payment slips | Yes | No |
+| `BIFROST TCard ori` | Cards, card ledger keys and card acquiring | Yes | No |
+| `BIFROST TDoc ori` | Electronic documents | Yes | No |
+| `BIFROST TAsset ori` | Portfolios and asset transactions | Yes | No |
+| `BIFROST TReverse ori` | [Reversing payment and claim tracking](/iceland-treasury/tracking-reversal/) | No | No |
+| `BIFROST TAdmin ori` | Changing the bank setup and the company's bank secrets | No | No |
+
+Payments always need `BIFROST TPay ori` or `BIFROST TFrgPay ori`, given on purpose, even to a user with
+`BIFROST Full ori`. Only a holder of `BIFROST TAdmin ori` can change **Bifrost Iceland Treasury Setup**;
+for everyone else it opens read-only. Users enter their own bank password and API key without that set.
+
+## Good to know
+
+- **Bifröst does not approve payments.** A payment batch is registered at the bank. At Arion banki and
+  Landsbankinn it waits there until a person approves and pays it in the bank's online banking; at Kvika
+  banki and the savings banks that depends on the rights the bank gives your web-service user. A batch whose name contains
+  *STP* is refused.
+- **Start the batch name with `*`.** The online bank shows a batch registered through the web service
+  only to the web service user, unless its name starts with `*`. Then every user of the company's online
+  bank sees it, including the person who approves payments. A batch cannot be renamed: register it again.
+- **It acts as you.** A call uses the user's own bank login when they have entered one, and the
+  company's otherwise. Every call runs with the caller's own Business Central permissions and is logged
+  on **Bifrost Messages**, and every call to a bank is logged on the **Bifrost Request Log** with the
+  passwords masked.
+- **Secrets stay in protected storage.** Passwords, certificates and API keys are entered once in a
+  masked dialog and never shown again; the setup page only says whether they are stored and when the
+  certificate expires.
+- **Tracking is written by Bifröst.** The tracking pages are read-only. They have fields for posting in
+  Business Central (document number, posting date, journal), which Bifröst does not fill: Bifröst does
+  not post payments or claim payments.
+- **Moving from Origo's earlier apps for Arion banki or Landsbankinn?** Install Bifröst Iceland Treasury
+  next to the earlier app. Its claims, batches, settings and permission assignments are taken over on
+  install, then you can remove it. Stored passwords and certificates do not carry over: enter them again.
+- **Message types.** The operations this app adds are listed with all the others by the MCP tools
+  (`list_domains`, `describe_domains`, `describe_message_type`) and on the **Bifrost Message Types**
+  page, and each explains itself through `Help.Implementation.Get`.
+
+## Next steps
+
+- [Payments and claims](/iceland-treasury/payments-and-claims/): how a payment and a claim are followed
+- [Arion banki](/iceland-treasury/banks/arion/) · [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) · [Kvika banki](/iceland-treasury/banks/kvika/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/) · [Sparisjóðir](/iceland-treasury/banks/sparisjodir/)
+- Claim collection agencies: [Gjaldskil](/iceland-treasury/agencies/gjaldskil/) · [InKasso](/iceland-treasury/agencies/inkasso/)
+- [AppSource user scenarios](/iceland-treasury/user-scenarios/) · [AppSource listing text](/iceland-treasury/listing/)

@@ -44,3 +44,32 @@ The statement of the paying account then shows when its payments are paid.
    Certificate**. **Secrets** shows **Complete** when both are stored. Leave **SOAP Signer** blank unless
    the bank tells you to use WSE2 or WSE3. You can change the field only for
    Íslandsbanki, Kvika banki and Sparisjóðir; on other rows it is read-only.
+3. **Personal logins, if your users have their own at the bank.** Each user enters their own user name
+   and password on **Bifrost User Setup**; see
+   [Bank credentials for your user](/help/iceland-treasury/bank-user-setup/).
+4. **Bank reconciliation.** On the Business Central bank account, set **Bank Account No.** to the
+   Íslandsbanki account and **Bank Statement Import Format** to `ISB-FEED-IN`.
+5. **Claims.** A claim at Íslandsbanki is created under a claim template code from the bank's online
+   banking. Set that code as the claim identifier, and the last claim number used, on a
+   [Payment Method](/help/iceland-treasury/payment-methods/) for each collection agreement. The claim
+   account is the template's branch, the ledger `66` and the claim number.
+6. **Permissions.** Assign the [permission sets](/iceland-treasury/#permissions) for what each user may
+   do.
+
+## What you see in Business Central
+
+- **Import Bank Statement** on a bank account reconciliation fetches the statement from Íslandsbanki.
+  The period starts the day after the last posted statement; the first time, it asks for a
+  [start date](/help/iceland-treasury/date-input-dialog/). The
+  [Statement Import Summary](/help/iceland-treasury/statement-import-summary/) then shows the lines
+  imported and the balances, and warns when they do not agree with the bank.
+- Domestic and foreign payment batches, claims, claim batches and claim payments appear on the tracking pages reached
+  from **Bifrost Iceland Treasury Setup**; see [Payments and claims](/iceland-treasury/payments-and-claims/).
+- The **Customer Ledger Entry Details** FactBox shows the claim that collects an entry.
+- Every call to the bank is logged on the **Bifrost Request Log**, with passwords masked.
+
+## Next steps
+
+- [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/)
+- [Payments and claims](/iceland-treasury/payments-and-claims/)
+- [Iceland Treasury overview](/iceland-treasury/)

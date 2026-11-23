@@ -37,3 +37,32 @@ Bifröst skráir ekki bunka erlendra greiðslna í Kviku banka.
    **Skrá skírteini**. **Leyndarmál** sýnir **Fullskráð** þegar hvort tveggja er vistað. Hafðu
    **SOAP-undirritari** auðan nema bankinn biðji þig um að nota WSE2 eða WSE3. Aðeins er hægt að breyta
    reitnum fyrir Íslandsbanka, Kviku banka og sparisjóðina; á öðrum línum er hann aðeins til lestrar.
+3. **Eigin innskráningu, ef notendur þínir hafa sína eigin í bankanum.** Hver notandi skráir eigið
+   notandanafn og lykilorð á síðunni **Uppsetning notanda Bifröst**; sjá
+   [Bankaaðgangur notanda](/help/iceland-treasury/bank-user-setup/).
+4. **Bankaafstemmingu.** Á bankareikningnum í Business Central skaltu setja **Númer bankareiknings** á
+   reikninginn í Kviku banka og **Innflutningssnið bankayfirlits** á `KVIKA-FEED-IN`.
+5. **Kröfur.** Krafa í Kviku banka er stofnuð undir kóða kröfusniðmáts frá bankanum. Skráðu þann kóða sem
+   kröfuauðkenni, og síðasta kröfunúmer, á greiðslumáta ([Greiðsluhættir](/help/iceland-treasury/payment-methods/))
+   fyrir hvern innheimtusamning.
+6. **Heimildir.** Úthlutaðu [heimildasamstæðunum](/iceland-treasury/#permissions) fyrir það sem hver
+   notandi má gera. Til að skrá greiðslubunka þarf `BIFROST TPay ori`.
+
+## Hvað þú sérð í Business Central {#what-you-see-in-business-central}
+
+- **Flytja inn bankayfirlit** í afstemmingu bankareiknings sækir yfirlitið til Kviku banka. Tímabilið
+  hefst daginn eftir síðasta bókaða yfirlit; í fyrsta sinn er spurt um
+  [upphafsdagsetningu](/help/iceland-treasury/date-input-dialog/).
+  [Innfærsla yfirlits — samantekt](/help/iceland-treasury/statement-import-summary/) sýnir síðan
+  innfærðar línur og stöður, og varar við ef þær stemma ekki við bankann.
+- Greiðslubunkar, kröfur, kröfubunkar og greiðslur krafna birtast á rakningarsíðunum sem opnaðar eru úr
+  **Bifröst Ísland Fjárstýring - uppsetning**; sjá [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/).
+  Yfirlit sem sýnir greiðslu merkir hana greidda.
+- Upplýsingareiturinn **Upplýsingar um viðskiptamannafærslu** sýnir kröfuna sem innheimtir færsluna.
+- Hvert kall til bankans er skráð á síðunni **Annáll beiðna Bifröst**, með lykilorðin falin.
+
+## Næstu skref {#next-steps}
+
+- [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/)
+- [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/)
+- [Yfirlit yfir Bifröst Ísland Fjárstýringu](/iceland-treasury/)

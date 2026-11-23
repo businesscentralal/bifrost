@@ -90,3 +90,77 @@ um notandanafnið þitt og auðkenninguna þína saman. Autt notandanafn heldur 
 er hægt að breyta honum fyrir Íslandsbanka, Kviku banka og sparisjóðina; á öðrum línum er hann aðeins
 til lestrar. Hafðu hann auðan nema bankinn biðji þig um að nota WSE2 eða WSE3. Kerfisstjórar geta notað
 **Afrita skírteini í...** til að afrita skírteini fyrirtækisins og lykilorð þess yfir á annan banka, með staðfestingu áður en skírteini sem er þegar til er skipt út. Sjá
+[hjálp uppsetningarinnar](/help/iceland-treasury/treasury-setup/) um merkingu stöðunnar og skrefin.
+
+Hjálp hverrar síðu hefur nánari upplýsingar: [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/),
+[uppsetningarleiðsögnin](/help/iceland-treasury/treasury-setup-wizard/),
+[Leyndarmál banka](/help/iceland-treasury/treasury-secrets/),
+[Bankaaðgangur notanda](/help/iceland-treasury/bank-user-setup/) og
+[Greiðsluhættir](/help/iceland-treasury/payment-methods/).
+
+Hvað hver banki nær yfir og þarf: [Arion banki](/iceland-treasury/banks/arion/),
+[Íslandsbanki](/iceland-treasury/banks/islandsbanki/), [Kvika banki](/iceland-treasury/banks/kvika/),
+[Landsbankinn](/iceland-treasury/banks/landsbankinn/) og [Sparisjóðir](/iceland-treasury/banks/sparisjodir/).
+Innheimtufyrirtækin: [Gjaldskil](/iceland-treasury/agencies/gjaldskil/) og
+[InKasso](/iceland-treasury/agencies/inkasso/).
+Hvernig greiðslu og kröfu er fylgt frá upphafi til enda:
+[Greiðslur og kröfur](/iceland-treasury/payments-and-claims/).
+
+## Heimildir {#permissions}
+
+Hver tegund verka hefur sína heimildasamstæðu, þá sömu fyrir alla banka og innheimtufyrirtæki, svo notandi getur lesið yfirlit
+án þess að mega greiða. Hver samstæða veitir lesaðgang að rakningarsíðunum. Gengi þarf enga sérstaka
+samstæðu.
+
+| Heimildasamstæða | Fyrir | Innifalin í `BIFROST Full ori` | Innifalin í `BIFROST Read ori` |
+|---|---|---|---|
+| `BIFROST TPay ori` | Bunkar innlendra greiðslna og niðurstöður þeirra | Nei | Nei |
+| `BIFROST TFrgPay ori` | Bunkar erlendra greiðslna, tilboð, niðurstöður og kvittanir | Nei | Nei |
+| `BIFROST TClmEdit ori` | Stofnun, breytingar og niðurfelling krafna, kröfubunkar og kröfusniðmát Landsbankans | Já | Nei |
+| `BIFROST TClmPmt ori` | Lestur krafna, greiðslna krafna og kröfusniðmáta, og uppfærsla greiðslna krafna | Já | Já |
+| `BIFROST TStmt ori` | Yfirlit, reikningar, yfirlit gjaldeyrisreikninga og móttekin rafræn skjöl hjá Landsbankanum | Já | Já |
+| `BIFROST TBill ori` | Ógreiddir reikningar, seðlar og greiðsluseðlar | Já | Nei |
+| `BIFROST TCard ori` | Kort, bókhaldslyklar korta og færsluhirðing | Já | Nei |
+| `BIFROST TDoc ori` | Rafræn skjöl | Já | Nei |
+| `BIFROST TAsset ori` | Eignasöfn og eignafærslur | Já | Nei |
+| `BIFROST TReverse ori` | Að bakfæra rakningu greiðslna og krafna | Nei | Nei |
+| `BIFROST TAdmin ori` | Breytingar á uppsetningu banka og leyndarmálum fyrirtækisins | Nei | Nei |
+
+Greiðslur krefjast alltaf `BIFROST TPay ori` eða `BIFROST TFrgPay ori`, veitt af ásetningi, líka fyrir
+notanda sem hefur `BIFROST Full ori`. Aðeins handhafi `BIFROST TAdmin ori` getur breytt **Bifröst Ísland
+Fjárstýring - uppsetning**; fyrir aðra opnast hún aðeins til lestrar. Notendur skrá eigið lykilorð og
+API-lykil í banka án þeirrar samstæðu.
+
+## Gott að vita {#good-to-know}
+
+- **Bifröst samþykkir ekki greiðslur.** Greiðslubunki er skráður í bankanum. Hjá Arion banka og
+  Landsbankanum bíður hann þar uns starfsmaður samþykkir hann og greiðir í netbanka bankans; hjá Kviku
+  banka og sparisjóðunum fer það eftir heimildunum sem bankinn veitir vefþjónustunotandanum þínum. Bunka með *STP* í
+  heitinu er hafnað.
+- **Byrjaðu heiti bunkans á `*`.** Netbankinn sýnir bunka sem skráður er í gegnum vefþjónustu aðeins
+  vefþjónustunotandanum, nema heitið byrji á `*`. Þá sjá allir notendur netbanka fyrirtækisins hann,
+  líka sá sem samþykkir greiðslur. Ekki er hægt að endurnefna bunka: skráðu hann aftur.
+- **Forritið vinnur sem þú.** Kall notar eigin innskráningu notandans í bankann ef hann hefur skráð hana,
+  annars innskráningu fyrirtækisins. Hvert kall keyrir með eigin heimildum kallandans í Business Central
+  og er skráð á síðunni **Bifröst skilaboð**, og hvert kall til banka er skráð á síðunni **Annáll beiðna
+  Bifröst** með lykilorðin falin.
+- **Leyndarmál eru í varinni geymslu.** Lykilorð, skírteini og API-lyklar eru slegin inn einu sinni í
+  huldum glugga og birtast aldrei aftur; uppsetningarsíðan segir aðeins hvort þau eru vistuð og hvenær
+  skírteinið rennur út.
+- **Bifröst skrifar rakninguna.** Rakningarsíðurnar eru aðeins til lestrar. Þær hafa reiti fyrir
+  bókun í Business Central (fylgiskjalsnúmer, bókunardagsetningu, færslubók) sem Bifröst fyllir ekki út:
+  Bifröst bókar ekki greiðslur eða greiðslur krafna.
+- **Ertu að flytja þig úr eldri forritum Origo fyrir Arion banka eða Landsbankann?** Settu Bifröst Ísland
+  Fjárstýringu upp við hlið eldra forritsins. Kröfur þess, bunkar, stillingar og heimildaúthlutanir eru
+  teknar yfir við uppsetningu og síðan geturðu fjarlægt það. Vistuð lykilorð og skírteini flytjast ekki:
+  skráðu þau aftur.
+- **Skilaboðategundir.** Aðgerðirnar sem þetta forrit bætir við eru taldar upp með öllum hinum af
+  MCP-tólunum (`list_domains`, `describe_domains`, `describe_message_type`) og á síðunni
+  **Skilaboðategundir Bifröst**, og hver þeirra útskýrir sig sjálf í gegnum `Help.Implementation.Get`.
+
+## Næstu skref {#next-steps}
+
+- [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/): hvernig greiðslu og kröfu er fylgt eftir
+- [Arion banki](/iceland-treasury/banks/arion/) · [Íslandsbanki](/iceland-treasury/banks/islandsbanki/) · [Kvika banki](/iceland-treasury/banks/kvika/) · [Landsbankinn](/iceland-treasury/banks/landsbankinn/) · [Sparisjóðir](/iceland-treasury/banks/sparisjodir/)
+- Innheimtufyrirtæki: [Gjaldskil](/iceland-treasury/agencies/gjaldskil/) · [InKasso](/iceland-treasury/agencies/inkasso/)
+- [Notendasviðsmyndir fyrir AppSource](/iceland-treasury/user-scenarios/) · [Texti AppSource-skráningar](/iceland-treasury/listing/)

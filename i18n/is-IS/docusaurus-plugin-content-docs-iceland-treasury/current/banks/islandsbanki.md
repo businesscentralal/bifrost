@@ -45,3 +45,33 @@ greiddar.
    **Skrá skírteini**. **Leyndarmál** sýnir **Fullskráð** þegar hvort tveggja er vistað. Hafðu
    **SOAP-undirritari** auðan nema bankinn biðji þig um að nota WSE2 eða WSE3. Aðeins er hægt að breyta
    reitnum fyrir Íslandsbanka, Kviku banka og sparisjóðina; á öðrum línum er hann aðeins til lestrar.
+3. **Eigin innskráningu, ef notendur þínir hafa sína eigin í bankanum.** Hver notandi skráir eigið
+   notandanafn og lykilorð á síðunni **Uppsetning notanda Bifröst**; sjá
+   [Bankaaðgangur notanda](/help/iceland-treasury/bank-user-setup/).
+4. **Bankaafstemmingu.** Á bankareikningnum í Business Central skaltu setja **Númer bankareiknings** á
+   reikninginn í Íslandsbanka og **Innflutningssnið bankayfirlits** á `ISB-FEED-IN`.
+5. **Kröfur.** Krafa í Íslandsbanka er stofnuð undir kóða kröfusniðmáts úr netbanka bankans. Skráðu þann
+   kóða sem kröfuauðkenni, og síðasta kröfunúmer, á greiðslumáta ([Greiðsluhættir](/help/iceland-treasury/payment-methods/))
+   fyrir hvern innheimtusamning. Kröfureikningurinn er útibú sniðmátsins, höfuðbókin `66` og
+   kröfunúmerið.
+6. **Heimildir.** Úthlutaðu [heimildasamstæðunum](/iceland-treasury/#permissions) fyrir það sem hver
+   notandi má gera.
+
+## Hvað þú sérð í Business Central {#what-you-see-in-business-central}
+
+- **Flytja inn bankayfirlit** í afstemmingu bankareiknings sækir yfirlitið til Íslandsbanka. Tímabilið
+  hefst daginn eftir síðasta bókaða yfirlit; í fyrsta sinn er spurt um
+  [upphafsdagsetningu](/help/iceland-treasury/date-input-dialog/).
+  [Innfærsla yfirlits — samantekt](/help/iceland-treasury/statement-import-summary/) sýnir síðan
+  innfærðar línur og stöður, og varar við ef þær stemma ekki við bankann.
+- Bunkar innlendra og erlendra greiðslna, kröfur, kröfubunkar og greiðslur krafna birtast á rakningarsíðunum sem
+  opnaðar eru úr **Bifröst Ísland Fjárstýring - uppsetning**; sjá
+  [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/).
+- Upplýsingareiturinn **Upplýsingar um viðskiptamannafærslu** sýnir kröfuna sem innheimtir færsluna.
+- Hvert kall til bankans er skráð á síðunni **Annáll beiðna Bifröst**, með lykilorðin falin.
+
+## Næstu skref {#next-steps}
+
+- [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/)
+- [Greiðslur og kröfur](/iceland-treasury/payments-and-claims/)
+- [Yfirlit yfir Bifröst Ísland Fjárstýringu](/iceland-treasury/)
