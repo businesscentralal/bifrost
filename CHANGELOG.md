@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Foundation Bifrost Dashboards help, in English and Icelandic: a new Chat panel section describes the Bifrost Chat FactBox on the Dashboards list (shown only with the Chat permission and a configured chat provider). The Download Snapshot action is removed from the help, because it is hidden in the app.
+
 ### Changed
 
 - Iceland Treasury Setup help and overview, English only: Information FactBox with the existing secure connection status line, personal and company authorization status, set and clear personal authorization, and Copy Certificate To... with overwrite confirmation. No objects added.

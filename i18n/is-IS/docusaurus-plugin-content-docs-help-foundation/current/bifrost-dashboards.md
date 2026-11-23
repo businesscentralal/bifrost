@@ -3,7 +3,7 @@ id: bifrost-dashboards
 title: "Mælaborð Bifröst"
 ---
 
-**Mælaborð Bifröst** sýnir mælaborðin sem eru vistuð í Bifröst. Mælaborð er síða með myndritum og töflum sem er fyllt með lifandi gögnum úr Business Central. Opnaðu mælaborð til að sjá það í skoðaranum, uppfæra gögnin, sýna það á öllum skjánum eða sækja það. Mælaborð eru búin til og þeim breytt utan þessarar síðu; hér opnarðu þau, uppfærir og fjarlægir.
+**Mælaborð Bifröst** sýnir mælaborðin sem eru vistuð í Bifröst. Mælaborð er síða með myndritum og töflum sem er fyllt með lifandi gögnum úr Business Central. Opnaðu mælaborð til að sjá það í skoðaranum, uppfæra gögnin, eða sýna það á öllum skjánum. Mælaborð eru búin til og þeim breytt utan þessarar síðu; hér opnarðu þau, uppfærir og fjarlægir.
 
 ## Reitir {#fields}
 
@@ -38,16 +38,18 @@ title: "Mælaborð Bifröst"
 | --- | --- |
 | **Uppfæra** | Uppfærir gögnin með þínum eigin heimildum. |
 | **Allur skjárinn** | Sýnir mælaborðið á allri síðunni. Sama tækjastika er þar. |
-| **Sækja gagnamynd** | Sækir mælaborðið með síðustu gögnunum þínum sem eina sjálfstæða HTML-skrá. |
 | **Gagnagjafar** | Sýnir gagnagjafana sem fylla þetta mælaborð. |
 | **Í beinni** | Uppfærir gögnin með reglulegu millibili. Bilið er aldrei styttra en lágmarkstími mælaborðsins og aldrei undir 30 sekúndum. |
 | **Afrita graf** | Afritar fyrsta myndritið sem mynd. Ef ekkert myndrit er til er fyrsta taflan afrituð sem texti. |
 
 Til að skoða mælaborð þarf aðeins heimildasamstæðuna `BIFROST Read ori`. Mælaborð sýnir þau gögn sem þú mátt sjá.
 
+## Spjallsvæði {#chat-panel}
+
+Þegar þú hefur aðgang að spjalli Bifröst birtist spjallsvæðið til hliðar við listann. Spjallið veit hvaða mælaborð er valið, svo þú getur spurt beint um það, til dæmis hvað tiltekin tala þýðir eða hvaða gagnagjafi fyllir myndrit. Svæðið birtist aðeins ef þú hefur heimildasamstæðuna `BIFROST Chat ori` og spjallveita hefur verið sett upp, sama regla og á öðrum síðum Bifröst. Sjá [Spjall Bifröst í Business Central](/language-models/chat/).
+
 ## Algeng verkefni {#common-tasks}
 
 - **Sjá mælaborð:** veldu það og veldu **Opna mælaborð**.
 - **Uppfæra tölurnar:** veldu **Uppfæra**. Ef lágmarkstíminn er ekki liðinn færðu vistuðu gögnin.
-- **Deila mynd af gögnunum:** veldu **Sækja gagnamynd** og sendu HTML-skrána.
 - **Kanna hvaðan tölurnar koma:** veldu **Gagnagjafar**.
