@@ -21,29 +21,32 @@ assign permissions.
 ## Two layers of permission
 
 An agent works as the Business Central user it acts for, and an integration as its Microsoft Entra application. Every
-request runs with that identity's permissions, so an agent can never do more than its user can do in the client. Two
-layers decide what it may do:
+request runs on behalf of that identity. Two layers decide what it may do:
 
-1. **Business Central permissions**, as in the client: the user's ordinary permission sets decide which data they may
-   read, change and post. Bifröst does not widen them, with two exceptions, below.
+1. **Business Central permissions and license**: Business Central checks the permissions available to the user and
+   the app for the operation, within the user's license.
 2. **Bifröst permission sets**: `BIFROST API ori` lets the identity call Bifröst at all, and a **gate** opens each
    action that Bifröst keeps closed even for a user who could do it in the client, such as posting.
 
-Both layers must allow an action. A user who may post sales invoices in the client cannot post them through Bifröst
-without the posting gate, and the gate alone posts nothing for a user who may not post in the client.
+Bifröst operations run with the app's own permissions within your Business Central license. They can create or change
+records on your behalf even where your own permission sets would not allow the same direct edit in Business Central.
+The permission report in Bifröst shows your own permissions; it does not limit what Bifröst operations can do.
+
+Both layers must allow an operation. A user who may post sales invoices in the client still needs the posting gate
+to post through Bifröst. A gate alone does not grant permission to business data or extend the user's license.
 
 ### Does a Bifröst permission set give a user more rights?
 
-No, with two exceptions, both from `BIFROST API ori`: reading the change log, and reading some setup and the
-right to calculate sales prices and discounts. A user with narrow permissions in Business Central otherwise stays
-narrow, however many Bifröst permission sets you add:
+The permission sets give access to Bifröst's own pages and data, plus the access from `BIFROST API ori` described
+below. This is separate from an operation using the app's permissions on your behalf:
 
 - **The Bifröst permission sets cover Bifröst's own pages and data**: the messages, the setup, the memory and the
   logs. They do not open customers, items, documents or ledger entries themselves, but see the change log below.
 - **The gates narrow; they never widen.** A posting gate is an extra check on top of the user's own posting
   permission. Without that permission in Business Central, the gate posts nothing.
-- **Bifröst's code follows Business Central's rules.** Where it writes to journal lines or document headers, it
-  goes through the user's own (indirect) permissions, the same way Business Central's own posting does.
+- **Bifröst operations follow Business Central's rules.** An operation can use the app's permissions to create or
+  change records on the user's behalf, within the user's license. This does not give the user the same direct
+  editing permissions in the client.
 - **`BIFROST Force ori`** lets a change past Bifröst's own restrictions: Field Access, and the ChangeLog Write Guard
   when it is set to **Via force**. It never goes past Business Central's permissions.
 - **Exception 1: `BIFROST API ori` includes Business Central's *View Change Log Entries* permission set**
