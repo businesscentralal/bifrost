@@ -10,6 +10,35 @@ description: "What changed in each version of Bifröst Foundation published on M
 
 This page is for Business Central administrators and users who want to know what changed in Bifröst Foundation. It lists the versions published on Microsoft AppSource, newest first. To see which version you have installed, open **Extension Management** in Business Central and look for **Bifrost Foundation**.
 
+## 28.0.15 — 23 November 2026
+
+### Added
+- **Copy sales and purchase documents.** You can copy an unposted or posted sales document, or a purchase document, into a new document or into an existing open one. Lines already on the target are kept, and a copy onto itself or into a target that already has a header is refused. A request is checked before anything is written, and a refusal says how to recover.
+- **Cancel posted credit memos.** A posted sales credit memo and a posted purchase credit memo can be cancelled when the credit memo itself cancelled an invoice. Any other credit memo is refused with an explanation.
+- **Suggest vendor payments.** Bifröst can fill a payment journal with suggested vendor payments, filtered by vendor.
+- **Fixed asset depreciation.** Depreciation can be calculated into the fixed asset journal or the general journal.
+- **Year-end close.** Bifröst can run the income statement close into a general journal.
+- **Recurring journals.** Recurring general journals can be posted.
+- **Deferrals.** Deferral schedules on documents and journal lines can be read and set.
+- **Number series.** The next number in a number series can be previewed and, after confirmation, taken.
+- **Active and Inactive users.** The Bifrost User Setup now has an Active/Inactive status for users and app registrations.
+- **Administrators can add user setup in advance.** An administrator can add a user to Bifrost User Setup with **New** before the user first connects. The help describes when the row is otherwise created.
+- **Usage filters.** The licensing usage view can be filtered by environment type, Production or Sandbox, and the filters work in the web client.
+
+### Changed
+- **Longer MCP tool results.** Content that the chat tools hand over is now kept per user in temporary storage with a size limit of 25 MiB and an expiry of 24 hours. It survives a chat reset, and existing tool names and references keep working.
+- **Confirmation counts only for posting.** Only operations that post, and so cannot be undone, ask for the confirmation count. Eight other operations that create or change data without posting now run without it, and a count that is still sent is ignored. The help says which is which.
+- **Licensing messages.** After a trial has expired, the License FactBox and the menu point to **Request License** instead of **Activate Trial**. The license type, dates and the Sync failure warning are shown with clearer wording in English and Icelandic, and trial lines are hidden where they no longer apply.
+- **Icelandic wording.** Icelandic texts were aligned with the review made for the previous version.
+- **Help.** The help explains when each Bifrost User Setup row is created and limits the confirmation count guidance to posting.
+
+### Fixed
+- **Keys keep their meaning in every language.** When a record is read, option and enum values in its key are answered as language-independent names, so the key can be reused in another language. Names of keys are no longer confused with field captions.
+- **Setup Mode and generic readers.** While Setup Mode is on, the generic readers can open the setup tables that Setup Mode allows. On-premises installations name the one read exception and keep other failures to open a table distinct.
+- **Usage filter values.** The expected environment values in the usage filters are translated, and the filter offers only Production and Sandbox.
+- **Cancelling a purchase credit memo.** A failure when cancelling a purchase credit memo and the checks that protect the ledger entries involved were corrected.
+- **Depreciation messages.** A depreciation calculation that fails keeps its failure, shows guidance in the user's language, and names the lines that were inserted.
+
 ## 28.0.14 — 20 November 2026
 
 This version also includes the changes made since 28.0.12, including those of version 28.0.13, which was not published on AppSource.
