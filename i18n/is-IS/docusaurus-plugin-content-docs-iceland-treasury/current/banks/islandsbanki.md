@@ -42,7 +42,9 @@ greiddar.
    biðlaraskírteini (`.pfx`-skjali með eigin lykilorði).
 2. **Línu Íslandsbanka í [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/)**:
    hafðu hana virka, skráðu notandanafn fyrirtækisins og notaðu svo **Skrá lykilorð fyrirtækis** og
-   **Skrá skírteini**. **Leyndarmál** sýnir **Fullskráð** þegar hvort tveggja er vistað.
+   **Skrá skírteini**. **Leyndarmál** sýnir **Fullskráð** þegar hvort tveggja er vistað. Hafðu
+   **SOAP-undirritari** auðan nema bankinn biðji þig um að nota WSE2 eða WSE3. Reiturinn er aðeins
+   sýndur fyrir Íslandsbanka, Kviku banka og sparisjóðina.
 3. **Eigin innskráningu, ef notendur þínir hafa sína eigin í bankanum.** Hver notandi skráir eigið
    notandanafn og lykilorð á síðunni **Uppsetning notanda Bifröst**; sjá
    [Bankaaðgangur notanda](/help/iceland-treasury/bank-user-setup/).

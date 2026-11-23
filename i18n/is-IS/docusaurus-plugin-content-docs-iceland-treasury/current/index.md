@@ -80,7 +80,17 @@ Gjaldskil og InKasso gefa aðeins út notandanafn og lykilorð.
 | 3 | Keyrðu **Bifröst Ísland Fjárstýring - Bankauppsetning** af síðunni **Uppsetning með hjálp**, eða opnaðu **Bifröst Ísland Fjárstýring - uppsetning** af síðunni **Uppsetning Bifröst**. Skráðu notandanafn og leyndarmál hvers banka sem þú notar og slökktu á bönkunum sem þú notar ekki. | Kerfisstjóri Business Central með `BIFROST TAdmin ori` |
 | 4 | Fyrir bankaafstemmingu: settu innflutningssnið bankans í **Innflutningssnið bankayfirlits** á hverjum bankareikningi í Business Central, og reikningsnúmerið í bankanum í **Númer bankareiknings**. | Bókari eða kerfisstjóri |
 | 5 | Fyrir kröfur: skráðu kröfuauðkenni bankans á greiðslumáta (síðan **Greiðsluhættir**) fyrir hvern innheimtusamning. | Bókari eða kerfisstjóri |
-| 6 | Úthlutaðu hverjum notanda eða þjónustu heimildasamstæðunum fyrir það sem hann má gera í bankanum (sjá [Heimildir](#permissions)). Notendur sem hafa eigin innskráningu í banka skrá hana á síðunni **Uppsetning notanda Bifröst**. | Kerfisstjóri Business Central, síðan hver notandi |
+| 6 | Úthlutaðu hverjum notanda eða þjónustu heimildasamstæðunum fyrir það sem hann má gera í bankanum (sjá [Heimildir](#permissions)). Notendur sem hafa eigin innskráningu í banka skrá hana á síðunni **Uppsetning notanda Bifröst**, eða með **Skrá mína bankaauðkenningu** á **Bifröst Ísland Fjárstýring - uppsetning**. | Kerfisstjóri Business Central, síðan hver notandi |
+
+Á **Bifröst Ísland Fjárstýring - uppsetning** heldur upplýsingareiturinn **Upplýsingar** stöðulínu öruggrar
+tengingar og sýnir **Notandanafn**, **Mín auðkenning** og **Auðkenning** fyrir valinn banka. Notandanafnið
+er þitt eigið eða sjálfgefið fyrirtækisins, og lykilorð er ekki sýnt. **Skrá mína bankaauðkenningu** biður
+um notandanafnið þitt og auðkenninguna þína saman. Autt notandanafn heldur sjálfgefna nafni fyrirtækisins.
+**Hreinsa mína bankaauðkenningu** getur einnig hreinsað það notandanafn. **SOAP-undirritari** er aðeins
+sýndur fyrir Íslandsbanka, Kviku banka og sparisjóðina: hafðu hann auðan nema bankinn biðji þig um að
+nota WSE2 eða WSE3. Kerfisstjórar geta notað **Afrita skírteini í...** til að afrita skírteini fyrirtækisins
+og lykilorð þess yfir á annan banka, með staðfestingu áður en skírteini sem er þegar til er skipt út. Sjá
+[hjálp uppsetningarinnar](/help/iceland-treasury/treasury-setup/) um merkingu stöðunnar og skrefin.
 
 Hjálp hverrar síðu hefur nánari upplýsingar: [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/),
 [uppsetningarleiðsögnin](/help/iceland-treasury/treasury-setup-wizard/),

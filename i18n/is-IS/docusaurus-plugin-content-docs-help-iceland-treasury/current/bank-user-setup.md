@@ -12,6 +12,12 @@ Sjálfgefið notar hvert kall til banka notandanafn og lykilorð fyrirtækisins 
 [Bifröst Ísland Fjárstýring - uppsetning](/help/iceland-treasury/treasury-setup/). Þegar bankinn hefur
 látið þig fá eigin innskráningu skráir þú hana hér og köllin þín nota hana í staðinn.
 
+Þú getur skráð sama notandanafn af þeirri uppsetningarsíðu. **Skrá mína bankaauðkenningu** biður um
+notandanafnið þitt og auðkenninguna þína saman og vistar nafnið hér. Hafðu nafnið autt, eða skildu
+sjálfgefið fyrirtækisins eftir eins og glugginn sýnir það, til að halda notandanafni fyrirtækisins.
+**Hreinsa mína bankaauðkenningu** fjarlægir fyrst auðkenninguna þína og spyr svo hvort notandanafnið eigi
+að fara. Ef þú hafnar fyrri spurningunni breytist ekkert. Ef þú hafnar þeirri seinni helst nafnið.
+
 Opnaðu **Uppsetning notanda Bifröst** og svo þinn eigin notanda.
 
 ## Reitir {#fields}
