@@ -38,6 +38,7 @@ title: "Bifrost Dashboards"
 | --- | --- |
 | **Refresh** | Refreshes the data using your own permissions. |
 | **Full Screen** | Shows the dashboard on the whole page. The same toolbar is available there. |
+| **Save as PDF** | Saves the visible dashboard as a PDF, exactly as it is shown, with its data attached inside the PDF as a JSON file and one CSV file per table. Open the attachments in your PDF reader (for example the Attachments pane in Adobe Acrobat). |
 | **Data Sources** | Shows the data sources that fill this dashboard. |
 | **Live** | Refreshes the data at an interval. The interval is never shorter than the minimum refresh time of the dashboard, and never below 30 seconds. |
 | **Copy chart** | Copies the first chart as a picture. If there is no chart, the first table is copied as text. |
@@ -51,5 +52,6 @@ When you can use Bifrost Chat, the list shows the chat panel on the side. The ch
 ## Common tasks
 
 - **See a dashboard:** select it and choose **Open Dashboard**.
+- **Share a dashboard with its data:** open it, refresh it and choose **Save as PDF**. The PDF carries the data as attachments.
 - **Update the figures:** choose **Refresh**. If the minimum refresh time has not passed, you get the stored data.
 - **Check where the figures come from:** choose **Data Sources**.

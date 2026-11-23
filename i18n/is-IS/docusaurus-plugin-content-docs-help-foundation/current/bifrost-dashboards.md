@@ -38,6 +38,7 @@ title: "Mælaborð Bifröst"
 | --- | --- |
 | **Uppfæra** | Uppfærir gögnin með þínum eigin heimildum. |
 | **Allur skjárinn** | Sýnir mælaborðið á allri síðunni. Sama tækjastika er þar. |
+| **Vista sem PDF** | Vistar sýnilegt mælaborð sem PDF, nákvæmlega eins og það birtist, með gögnunum sem viðhengjum í PDF-skjalinu: einni JSON-skrá og einni CSV-skrá fyrir hverja töflu. Opnaðu viðhengin í PDF-lesaranum (til dæmis í viðhengjaglugganum í Adobe Acrobat). |
 | **Gagnagjafar** | Sýnir gagnagjafana sem fylla þetta mælaborð. |
 | **Í beinni** | Uppfærir gögnin með reglulegu millibili. Bilið er aldrei styttra en lágmarkstími mælaborðsins og aldrei undir 30 sekúndum. |
 | **Afrita graf** | Afritar fyrsta myndritið sem mynd. Ef ekkert myndrit er til er fyrsta taflan afrituð sem texti. |
@@ -51,5 +52,6 @@ Til að skoða mælaborð þarf aðeins heimildasamstæðuna `BIFROST Read ori`.
 ## Algeng verkefni {#common-tasks}
 
 - **Sjá mælaborð:** veldu það og veldu **Opna mælaborð**.
+- **Deila mælaborði með gögnunum:** opnaðu það, uppfærðu og veldu **Vista sem PDF**. Gögnin fylgja PDF-skjalinu sem viðhengi.
 - **Uppfæra tölurnar:** veldu **Uppfæra**. Ef lágmarkstíminn er ekki liðinn færðu vistuðu gögnin.
 - **Kanna hvaðan tölurnar koma:** veldu **Gagnagjafar**.
