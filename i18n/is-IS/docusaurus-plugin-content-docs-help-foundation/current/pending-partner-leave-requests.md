@@ -18,5 +18,5 @@ söluaðila og leyfisstjórnunarheimildar.
 | Aðgerð | Lýsing |
 | --- | --- |
 | **Endurhlaða** | Sækir óafgreiddu beiðnirnar aftur. |
-| **Staðfesta** | Samþykkir beiðnina. Samstarfsaðilanum er sagt upp við næstu samstillingu hans og hver viðskiptavinur hans fer aftur á fyrirframgreitt leyfi við sína næstu samstillingu. |
+| **Staðfesta** | Samþykkir beiðnina. Samstarfsaðilanum er sagt upp við næstu samstillingu hans og hver viðskiptavinur hans fer aftur á prufuleyfi við sína næstu samstillingu. |
 | **Hafna** | Hafnar beiðninni með [ástæðu](/help/foundation/cancel-reason/). Samstarfsaðilinn sér hana eftir næstu samstillingu sína og er áfram samstarfsaðili. |
