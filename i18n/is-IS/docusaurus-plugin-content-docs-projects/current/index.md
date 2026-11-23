@@ -4,99 +4,167 @@ title: "Bifröst verkefni"
 sidebar_label: "Yfirlit"
 sidebar_position: 1
 slug: /
-description: "Verkefnavinna í Business Central úr aðstoð eða samþættingu — verkefni, verkhlutar og áætlunarlínur, staða, afrit og vistaðar útgáfur, notkun, VÍV, tölfræði og skýrslur, ráðstöfun forða, tilboð og tímaskýrslur."
+description: "Verkefnavinna í Business Central úr aðstoðarmanni eða samþættingu: verkefni, verkhlutar og áætlanir, notkun og VÍV, áætlun og rauntölur, tilboð, tímaskýrslur og vettvangsheimsóknir."
 ---
 
 # Bifröst verkefni
 
-**Vinndu verkefnavinnuna í Business Central úr aðstoðinni eða kerfinu sem þú notar nú þegar.** Bifröst
-verkefni gera aðstoð, áætlanakerfi eða samþættingu kleift að stofna verkefni með verkhlutum og
-áætlunarlínum, halda þeim við, bóka notkun og verk í vinnslu, lesa hvar verkefni stendur miðað við
-áætlun, senda tilboðið og fylgja tímaskýrslum frá innsendingu til bókunar.
+**Stýrðu verkefnavinnu í Business Central úr aðstoðarmanninum eða kerfinu sem þú notar nú þegar.** Með
+Bifröst verkefnum getur aðstoðarmaður, áætlanakerfi eða samþætting stofnað verkefni með verkhlutum og
+áætlunarlínum, haldið áætluninni við, bókað notkun og verk í vinnslu, séð hvar verkefni stendur miðað við
+áætlun, sent tilboðið og fylgt tímaskýrslum frá fyrstu stund til bókunar. Vettvangstæknimenn skrá
+heimsóknir, ferðir, kílómetra og vörur í eigin aðstoðarmanni, fá undirskrift viðskiptavinarins og biðja
+um eftirfylgni.
 
-Hver aðgerð keyrir eigin verkefnarökfræði Business Central, nákvæmlega eins og ef notandi ynni verkið,
-og niðurstöðurnar birtast á stöðluðum síðum Business Central: verkefnisspjaldinu, verkhlutum og
-áætlunarlínum, verkefnisfærslum, VÍV-færslum og tímaskýrslum.
+Hver aðgerð keyrir eigin verkefnarökfræði Business Central, nákvæmlega eins og ef notandi ynni verkið, og
+niðurstöðurnar birtast á stöðluðum síðum Business Central: verkefnisspjaldinu, verkhlutum og
+áætlunarlínum, verkefnisfærslum, VÍV-færslum, tímaskýrslum og færslubókum.
 
-*Viðbótarforrit ofan á [Bifröst Foundation](/foundation/). Nýr í Bifröst? Byrjaðu á
-[Hvernig Bifröst virkar](/documentation/how-it-works/).*
+Þessi síða er fyrir þá sem ákveða hvort nota eigi forritið og setja það upp. Bifröst verkefni er
+viðbótarforrit ofan á [Bifröst Foundation](/foundation/). Nýr í Bifröst? Byrjaðu á
+[Hvernig Bifröst virkar](/documentation/how-it-works/).
 
 ## Hvað þú getur gert {#what-you-can-do}
 
-- **Stofnað verkefni í einu skrefi.** Stofnaðu verkefni með verkhlutum og áætlunarlínum (forði, vara,
-  fjárhagsreikningur eða texti) í einu kalli, eða bættu við og uppfærðu verkhluta og áætlunarlínur
-  síðar. Ef Business Central hafnar einhverjum hluta er ekkert vistað.
-- **Haldið verkefnum við.** Uppfærðu verkefni, breyttu stöðu þess (til dæmis úr Tilboði í Opið eða
-  Lokið) eða lokaðu á það, með eigin prófunum Business Central.
-- **Afritað og vistað útgáfur.** Afritaðu verkefni í nýtt verkefni með bili verkhluta, áætlunar- eða
-  reikningshæfum línum, verðum, magni og víddum. Vistaðu útgáfu af verkefni, skoðaðu lista vistaðra
-  útgáfna og lestu eina þeirra með verkhlutum og áætlunarlínum.
-- **Sent tilboðið.** Sendu tilboð verkefnis í stöðunni Tilboð til reikningsviðskiptavinar þess með
-  skjalasendingarsniði, eins og aðgerðin á verkefnisspjaldinu sem sendir tilboðið gerir.
-- **Skráð notkun.** Tengdu opna innkaupalínu við verkhluta, bókaðu vörunotkun á verkhluta í gegnum
-  verkefnabók, lestu notkunartengingar verkhluta og eftirstandandi magn áætlunarlína, og tengdu bókaða
-  notkun við áætlunarlínu eða stofnaðu áætlunarlínur úr henni.
-- **Unnið með verk í vinnslu.** Reiknaðu VÍV, lestu reiknaðar og bókaðar VÍV-færslur og bókaðu VÍV í
-  fjárhag. Lestu VÍV-aðferðirnar og stofnaðu eða uppfærðu eigin aðferð; aðferðir sem Business Central
-  skilgreinir, og aðferðir sem VÍV-færslur nota nú þegar, haldast óbreyttar.
-- **Séð hvar verkefni stendur.** Lestu áætlaðan, raunverulegan, reikningshæfan og reikningsfærðan
-  kostnað og verð, áætlun á móti rauntölum eftir verkhlutum og stöðluðu verkefnaskýrslurnar (rauntölur
-  og áætlun, greining, VÍV í fjárhag og færsluskrá verkefna) sem gögn eða PDF.
-- **Skipulagt forða.** Lestu afkastagetu forða, hve mikið af henni er ráðstafað á opin verkefni og hvað
-  er enn laust, eftir degi, viku, mánuði, ársfjórðungi eða ári.
-- **Unnið með tímaskýrslur.** Stofnaðu tímaskýrslur fyrir valda forða og vikur, fylltu þær úr
-  verkáætlun eða úr síðustu tímaskýrslu og skráðu fjarvistir. Eigandi tímaskýrslu sendir línur hennar
-  inn; samþykkjandinn sem er nefndur á tímaskýrslunni sér línurnar sem bíða hans og samþykkir þær eða
-  hafnar þeim. Kerfisstjóri opnar línur aftur, bókar samþykktar línur í gegnum verkefnabók og setur
-  bókaðar tímaskýrslur í geymslu.
+### Verkefni og áætlanir {#projects-and-planning}
+
+- **Stofnaðu verkefni í einu skrefi.** Stofnaðu verkefni með verkhlutum og áætlunarlínum (forði, vara,
+  fjárhagsreikningur eða texti) í einu kalli, eða bættu við og breyttu verkhlutum og áætlunarlínum síðar.
+  Ef Business Central hafnar einhverjum hluta er ekkert vistað. Inndragðu verkhlutana eins og
+  **Inndraga verkhluta** gerir.
+- **Haltu áætluninni við.** Uppfærðu verkefni, breyttu stöðu þess (til dæmis úr Tilboði í Opið eða Lokið)
+  eða lokaðu á það, og færðu áætlunardagsetningar með dagsetningarformúlu eða á fasta dagsetningu, fyrir
+  heilt verkefni eða bil verkhluta.
+- **Afritaðu og settu í safn.** Afritaðu verkefni í nýtt verkefni, eða afritaðu bil verkhluta með
+  áætlunarlínum í verkefni sem er þegar til. Settu útgáfu verkefnis í safn, skoðaðu vistaðar útgáfur þess
+  og lestu eina þeirra.
+- **Sendu tilboðið.** Sendu tilboð verkefnis í stöðunni Tilboð til viðskiptavinarins sem greiðir, með
+  sendingarsniði skjala, eins og aðgerðin **Senda verkefnistilboð** á verkefnisspjaldinu gerir.
+- **Keyptu og notaðu það sem verkefnið þarf.** Stofnaðu innkaupapantanir fyrir vörur sem verkefnið vantar
+  enn, tengdu opna innkaupalínu við verkhluta, færðu áætlunarlínur í verkbók án þess að bóka þær, bókaðu
+  vörunotkun á verkhluta og tengdu bókaða notkun við áætlunarlínur.
+- **Verk í vinnslu.** Reiknaðu VÍV, lestu reiknaðar og bókaðar VÍV-færslur, bókaðu VÍV í fjárhag og
+  bakfærðu bókað VÍV. Lestu VÍV-aðferðirnar og stofnaðu eða uppfærðu eigin aðferðir. Uppfærðu
+  vörukostnað á verkefnisfærslum í leiðréttan kostnað eftir kostnaðarleiðréttingu.
+- **Sjáðu hvar verkefni stendur.** Lestu áætlaðan, raunverulegan, reikningshæfan og reikningsfærðan
+  kostnað og verð, áætlun á móti rauntölum fyrir hvern verkhluta, og staðlaðar verkefnaskýrslur sem gögn
+  eða PDF.
+- **Skipuleggðu forða.** Lestu afkastagetu forða, hve mikið af henni er ráðstafað á opin verkefni, hvað er
+  enn laust og stundirnar á tímaskýrslum, eftir degi, viku, mánuði, ársfjórðungi eða ári.
+
+### Tímaskýrslur {#time-sheets}
+
+- **Hver og einn heldur eigin tímaskýrslu.** Í aðstoðarmanninum sínum stofnar starfsmaður tímaskýrslu
+  vikunnar, bætir við línum og stundum, les hana til baka ásamt athugasemdum við höfnun og sendir hana
+  inn. Aðeins eigandi tímaskýrslu sendir línur hennar inn.
+- **Samþykkjendur ákveða.** Samþykkjandinn sem er skráður á tímaskýrsluna sér línurnar sem bíða hans og
+  samþykkir þær eða hafnar þeim, línu fyrir línu eða alla skýrsluna, með ástæðu þegar hann hafnar. Enginn
+  samþykkir eigin tímaskýrslu.
+- **Kerfisstjórar stýra tímabilinu.** Stofnaðu tímaskýrslur fyrir valda forða og tímabil, fylltu þær út
+  frá verkefnaáætlun eða síðustu tímaskýrslu, skráðu fjarvistir, opnaðu línur aftur, bókaðu samþykktar
+  línur í gegnum verkbók og settu bókaðar tímaskýrslur í safn.
+- **Notkun á tímaskýrslunni.** Vörur og forðar sem eru notaðir, til dæmis varahlutir eða kílómetrar, eru
+  skráðir á tímaskýrsluna og fara í gegnum sömu samþykkt. Samþykkt notkun er færð í birgða-, forða- eða
+  verkbók til bókunar. Sjá [Notkunarlínur tímaskýrslna](/help/projects/ts-usage-lines/).
+- **Dagsetning vinnuskýrslu á reikningum.** Línur sölureikninga og kreditreikninga sem eru stofnaðar út
+  frá verkefni sýna dagsetningu vinnunnar sem þær reikningsfæra. Sjá
+  [Dagsetning vinnuskýrslu](/help/projects/time-sheet-date/).
+
+### Vettvangsþjónusta {#field-service}
+
+- **Dagur tæknimannsins.** Tæknimaður spyr aðstoðarmanninn hvað sé á dagskrá í dag og fær yfirlit fyrir
+  hverja heimsókn: staðinn, áætlaðar stundir og vörur, og það sem hefur þegar verið skráð.
+- **Heimsóknir sem skrá sig sjálfar.** Tæknimaðurinn hefur og stöðvar ferð eða vinnu á verkhluta.
+  Stundirnar eru námundaðar og þeim bætt á tímaskýrslu hans. Þegar heimsókn er lokað eru eknir
+  kílómetrar og niðurstaðan skráð. Ekkert er sent inn fyrr en tæknimaðurinn sendir það inn.
+- **Vörur úr bílnum.** Tæknimaðurinn segir hvaða vörur voru notaðar; þær eru skráðar af birgðum bílsins,
+  og aðstoðarmaðurinn getur sýnt hvað er eftir í bílnum og hvað er undir endurpöntunarmarki. Sjá
+  [Uppsetning tæknimanna](/help/projects/technician-setup/).
+- **Undirritun og heimsóknarskýrsla.** Viðskiptavinurinn skrifar undir á tæki tæknimannsins, og
+  undirskriftin og myndir eru geymdar með lokinni heimsókn. Heimsóknarskýrslan sýnir tíma, vörur og
+  niðurstöðu ásamt undirskrift, á ensku eða íslensku og án verða. Undirritaðri heimsókn er læst.
+- **Eftirfylgni.** Tæknimaðurinn biður um viðbótarvinnu á staðnum. Verkefnisstjórinn breytir beiðninni í
+  nýjan eða núverandi verkhluta með áætlunarlínum, eða hafnar henni. Sjá
+  [Eftirfylgnibeiðnir verkefna](/help/projects/follow-up-requests/).
+
+<!-- screenshot: Project Follow-up Requests 1039 -->
+<!-- screenshot: Time Sheet Usage Lines 1039 -->
 
 ## Svið {#capabilities}
 
 | Lén | Svið |
 |---|---|
-| **Verkefni** | Verkefni, verkhlutar og áætlunarlínur frá stofnun til stöðu og lokunar, afrit og vistaðar útgáfur, verkefnistilboð, innkaupa- og vörunotkun, útreikningur, bókun og aðferðir VÍV, tölfræði áætlunar og rauntalna, staðlaðar verkefnaskýrslur, afkastageta og ráðstöfun forða, og tímaskýrslur frá stofnun um innsendingu og samþykkt til bókunar og geymslu |
+| **Verkefni** | Verkefni, verkhlutar og áætlunarlínur frá stofnun til stöðu, afrit og vistaðar útgáfur, verkefnistilboð, innkaup og vörunotkun, VÍV og VÍV-aðferðir, áætlun og rauntölur og staðlaðar verkefnaskýrslur, afkastageta og ráðstöfun forða, tímaskýrslur frá fyrstu stund eigandans í gegnum samþykkt til bókunar, notkunarlínur, og vettvangsheimsóknir með birgðum í bíl, undirritun og eftirfylgnibeiðnum |
 
-## Náðu í það {#get-it}
+## Fáðu það {#get-it}
 
-Settu **Bifrost Projects** upp við hlið Bifröst Foundation, úr AppSource eða í gegnum Business Central
-samstarfsaðilann þinn. Það þarf Business Central 28 eða nýrra, Essentials eða Premium, og Bifröst
-Foundation 28.0.5.0 eða nýrra. Hafðu samband við Business Central samstarfsaðilann þinn um verð.
+Settu **Bifrost Projects** upp við hlið Bifröst Foundation, af AppSource eða í gegnum Business Central
+samstarfsaðilann þinn. Forritið þarf Business Central 28.0 eða nýrra, Essentials eða Premium, og Bifröst
+Foundation 28.0.15.0 eða nýrra. Um verð: Hafðu samband við Business Central samstarfsaðilann þinn.
 
-## Settu það upp {#set-it-up}
+## Uppsetning {#set-it-up}
 
 | Skref | Hvað | Hver |
 |---|---|---|
 | 1 | Settu upp Bifröst Foundation og ljúktu uppsetningu þess, settu síðan upp **Bifrost Projects**. | Kerfisstjóri Business Central |
 | 2 | Opnaðu **Uppsetning verkefna** og athugaðu að kveikt sé á **Virkt** fyrir þetta fyrirtæki. Kveikt er á því þegar forritið er sett upp. | Kerfisstjóri Business Central |
-| 3 | Gakktu úr skugga um að fólkið og þjónusturnar sem kalla á það hafi `BIFROST Read ori` eða `BIFROST Full ori` úr Bifröst; Bifrost Projects bætir heimildum sínum við þau söfn. Gefðu `BIFROST Full ori` aðeins þeim sem mega bóka og vista útgáfur (sjá *Gott að vita*). | Kerfisstjóri Business Central |
-| 4 | Athugaðu uppsetninguna í Business Central sem vinnan þarf: númeraraðir og bókunarflokka verkefna, VÍV-aðferðir, sniðmát og bunka verkefnabóka, og stillinguna sem leyfir vistun verkefna (*Archive Projects*) í eigin verkefnauppsetningu Business Central (Jobs Setup) ef vista á útgáfur verkefna. Fyrir tímaskýrslur: forða sem nota tímaskýrslur, hvern með eiganda og samþykkjanda tímaskýrslu, og tímaskýrslustillingarnar í uppsetningu forða. | Kerfisstjóri Business Central eða samstarfsaðili |
+| 3 | Úthlutaðu heimildasöfnunum hér fyrir neðan til fólks og þjónusta sem nota forritið. | Kerfisstjóri Business Central |
+| 4 | Athugaðu uppsetninguna sem vinnan þarf í Business Central: númeraraðir og bókunarflokka verkefna, VÍV-aðferðir, sniðmát og keyrslur verkbóka, og **Setja verkefni í safn** í verkefnagrunni Business Central ef setja á verkefni í safn. | Kerfisstjóri Business Central eða samstarfsaðili |
+| 5 | Fyrir tímaskýrslur: stillingar tímaskýrslna í **Forðagrunni**, og forða sem nota tímaskýrslur, hvern með eiganda tímaskýrslu og samþykkjanda. | Kerfisstjóri Business Central |
+| 6 | Fyrir vettvangsþjónustu: á **Uppsetning verkefna**, vinnutegund ferða, akstursforða, námundun og hvort tæknimenn megi vinna á verkhlutum sem þeir eru ekki áætlaðir á. Settu hvern bíl upp sem staðsetningu og tengdu hann við tæknimanninn á **Uppsetning tæknimanna**. Forðar tæknimanna ættu að hafa klukkustundir sem mælieiningu. | Kerfisstjóri Business Central |
 
-Hjálp uppsetningarsíðunnar hefur nánari upplýsingar: [Uppsetning verkefna](/help/projects/projects/).
+Hjálp hverrar síðu segir nánar frá: [Uppsetning verkefna](/help/projects/projects/),
+[Uppsetning tæknimanna](/help/projects/technician-setup/),
+[Notkunarlínur tímaskýrslna](/help/projects/ts-usage-lines/) og
+[Eftirfylgnibeiðnir verkefna](/help/projects/follow-up-requests/).
+
+### Heimildasöfn {#permission-sets}
+
+Bifröst verkefni bæta aðgerðum sínum við `BIFROST Read ori` og `BIFROST Full ori` frá Bifröst.
+Verkefnavinna þarf annað hvort heimildasafnið ásamt eigin heimildum viðkomandi til verkefna í Business Central.
+Tímaskýrslur, notkun og vettvangsþjónusta þurfa auk þess eitt af þessum heimildasöfnum:
+
+| Heimildasafn | Fyrir | Úthlutað með |
+|---|---|---|
+| `PROJ TS SELF ori` | Starfsmenn sem halda eigin tímaskýrslur | `BIFROST Read ori` |
+| `PROJ TS APPROVER ori` | Samþykkjendur sem samþykkja eða hafna tímaskýrslum sem beinast að þeim | `BIFROST Read ori` |
+| `PROJ TS POST ori` | Þá sem bóka tímaskýrslur og setja þær í safn | `BIFROST Read ori` |
+| `PROJ TS ADMIN ori` | Umsjón tímaskýrslna: tímaskýrslur annarra, fjarvistir, enduropnun, listi yfir samþykktir í bið, og Uppsetning tæknimanna | `BIFROST Full ori` (`BIFROST Read ori` til að lesa aðeins samþykktir í bið) |
+| `PROJ USAGE ori` | Samþykkjendur og skrifstofuna sem sinna notkunarlínum | `BIFROST Full ori` (`BIFROST Read ori` til að skoða eingöngu) |
+| `PROJ FIELD TECH ori` | Vettvangstæknimenn: eigin tímaskýrslur og notkun, heimsóknir, vörur úr bíl, undirritun og eftirfylgnibeiðnir | `BIFROST Read ori` |
+| `PROJ VISIT ori` | Aðeins heimsóknir, fyrir þá sem hafa þegar `PROJ TS SELF ori` | `BIFROST Read ori` og `PROJ TS SELF ori` |
+
+`PROJ TS ADMIN ori` veitir líka beinan aðgang að tímaskýrslum, safni þeirra, verkbókarlínum og
+fjarvistum starfsmanna í Business Central, svo úthlutaðu því aðeins þeim sem sjá um tímaskýrslur. Sjá
+[Heimildasöfn og hlið](/documentation/end-customers/permissions/) um hvernig heimildasöfn Bifröst virka.
 
 ## Gott að vita {#good-to-know}
 
-- **Það vinnur sem þú.** Hvert kall keyrir með eigin heimildum þess sem kallar í Business Central og er
-  skráð á **Bifrost Messages**. Aðgerð sem sá sem kallar hefur ekki heimild til er ekki boðin
-  aðstoðinni.
-- **Bókun krefst `BIFROST Full ori`.** Bókun VÍV, bókun vörunotkunar, tenging innkaupalína við verkefni
-  og vistun útgáfu verkefnis þurfa `BIFROST Full ori` til viðbótar við eigin heimildir í Business
+- **Það vinnur sem þú.** Hvert kall keyrir með eigin heimildum notandans í Business Central og er skráð á
+  **Bifrost Messages**. Aðgerð sem notandinn hefur ekki heimild til er ekki boðin aðstoðarmanninum.
+- **Bókun þarf `BIFROST Full ori`.** Bókun VÍV, bakfærsla bókaðs VÍV, bókun vörunotkunar og að setja
+  útgáfu verkefnis í safn þurfa `BIFROST Full ori` til viðbótar við heimildir notandans í Business
   Central. `BIFROST Read ori` nægir til að lesa verkefni, tölfræði, skýrslur og vistaðar útgáfur.
-- **Tímaskýrslur þurfa heimild til tímaskýrslna.** Tímaskýrsluaðgerðirnar sem stofna, breyta,
-  samþykkja, bóka eða geyma tímaskýrslur þurfa heimildir til tímaskýrslna í Business Central. Þegar
-  Bifrost Projects er uppsett inniheldur `BIFROST Full ori` þær (tímaskýrslur og geymslu þeirra, línur
-  verkefnabókar og fjarvistir starfsmanna), svo úthlutaðu því aðeins fólki og þjónustum sem mega vinna
-  með tímaskýrslur.
 - **Eigendur senda inn, samþykkjendur ákveða.** Aðeins eigandi tímaskýrslu getur sent línur hennar inn,
-  og aðeins samþykkjandinn sem er nefndur á tímaskýrslunni getur samþykkt þær eða hafnað þeim. Listinn
-  yfir línur sem bíða samþykkis sýnir aðeins eigin biðröð þess sem kallar.
-- **Sum skref verða ekki afturkölluð.** Bókun tímaskýrslna, bókun VÍV, bókun vörunotkunar og sending
-  tilboðs eru endanleg. Bókaðar færslur eru leiðréttar á venjulegan hátt í Business Central.
-- **Hægt er að slökkva á verkefnum fyrir fyrirtæki.** Þegar slökkt er á **Virkt** í **Uppsetning
-  verkefna** eru verkefnaaðgerðirnar ekki boðnar aðstoð í því fyrirtæki, og kall svarar með villu sem
-  segir það. Tímaskýrsluaðgerðirnar eru óháðar þessum rofa.
-- **Sumum gögnum er aðeins breytt með þessum aðgerðum.** Aðstoð getur ekki breytt Uppsetningu
-  verkefna, stöðu tímaskýrslna, bókuðum tímaskýrslugögnum eða tímaskýrslum í geymslu í gegnum almennar
-  gagnaaðgerðir Bifröst; hún notar aðgerðir þessa forrits, sem halda eigin prófunum Business Central.
-- **Skilaboðategundir.** Aðgerðirnar sem forritið bætir við eru taldar upp með öllum hinum af
-  MCP-tólunum (`list_domains`, `describe_domains`, `describe_message_type`) og á síðunni **Bifrost
-  Message Types**, og hver þeirra útskýrir sig sjálf í gegnum `Help.Implementation.Get`.
+  og aðeins samþykkjandinn sem er skráður á tímaskýrsluna getur samþykkt þær eða hafnað þeim. Listi
+  notanda yfir línur sem bíða samþykktar sýnir aðeins hans eigin biðröð.
+- **Bókun er endanleg.** Forritið getur ekki afturkallað bókun tímaskýrslna, VÍV eða vörunotkunar.
+  Bókaðar færslur eru leiðréttar á venjulegan hátt í Business Central, og bókað VÍV má bakfæra.
+- **Undirritaðri heimsókn er læst.** Eftir að viðskiptavinurinn hefur skrifað undir getur tæknimaðurinn
+  hvorki breytt heimsókninni né bætt notkun við hana. Til að breyta henni skaltu biðja verkefnisstjórann
+  að aflæsa henni.
+- **Undirskriftir koma frá viðskiptavininum.** Undirskrift er tekin af viðskiptavininum, aldrei búin til
+  af aðstoðarmanninum. Bifröst verkefni senda heimsóknarskýrsluna ekki sjálf; aðstoðarmaðurinn sýnir
+  hverjum hún yrði send og spyr áður en hún er send.
+- **Hægt er að slökkva á verkefnum fyrir fyrirtæki.** Þegar slökkt er á **Virkt** á **Uppsetning
+  verkefna** eru verkefnaaðgerðir og eftirfylgnibeiðnir ekki boðnar aðstoðarmönnum í því fyrirtæki.
+  Tímaskýrslur, notkunarlínur og heimsóknir eru óháðar þessum rofa.
+- **Sumum gögnum er aðeins breytt með þessum aðgerðum.** Aðstoðarmaður getur ekki breytt Uppsetning
+  verkefna, stöðu tímaskýrslna, stöðu notkunarlína, tímum og stundum heimsókna eða ákvörðun um
+  eftirfylgnibeiðni með almennum gagnaaðgerðum Bifröst; hann notar aðgerðir þessa forrits, sem halda
+  eigin prófunum Business Central.
+- **Að finna aðgerðirnar.** Aðgerðirnar sem forritið bætir við eru skráðar ásamt öllum hinum í
+  MCP-tólunum (`list_domains`, `describe_domains`, `describe_message_type`) og á Uppsetning Bifröst, og
+  hver þeirra útskýrir sig sjálf með `Help.Implementation.Get`.
+
+[Útgáfuupplýsingar](./release-notes) · [Texti AppSource-skráningar](./listing) · [Prófunarsviðsmyndir AppSource](./user-scenarios)
