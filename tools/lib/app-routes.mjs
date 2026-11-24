@@ -1,7 +1,7 @@
 /**
  * App -> docs route mapping for the source-based tools (tools/check-context-help.mjs).
  *
- * Matches apps.ts: published apps and the explicitly permitted Attachments documentation.
+ * Matches apps.ts: published apps and apps being prepared for AppSource.
  */
 
 /** Owner id -> docs route id (the apps.ts plugin id) and display title. */
@@ -12,6 +12,7 @@ export const APP_ROUTES = {
   'inventory': {route: 'inventory', title: 'Inventory'},
   'subscription-billing': {route: 'subscription-billing', title: 'Subscription Billing'},
   'orchestrator': {route: 'orchestrator', title: 'Orchestrator'},
+  'quality-management': {route: 'quality-management', title: 'Quality Management'},
   'warehouse': {route: 'warehouse', title: 'Warehouse'},
   'iceland': {route: 'iceland', title: 'Iceland'},
   'iceland-docex': {route: 'iceland-docex', title: 'Iceland DocEx'},

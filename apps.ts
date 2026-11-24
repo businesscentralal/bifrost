@@ -29,6 +29,7 @@ export const apps: BifrostApp[] = [
   {id: 'inventory', title: 'Inventory', appName: 'Bifrost Inventory', titleIs: 'Birgðir'},
   {id: 'subscription-billing', title: 'Subscription Billing', appName: 'Bifrost Subscription Billing', titleIs: 'Áskriftarreikningagerð'},
   {id: 'orchestrator', title: 'Orchestrator', appName: 'Bifrost Orchestrator', titleIs: 'Stjórnandi'},
+  {id: 'quality-management', title: 'Quality Management', appName: 'Bifrost Quality Management', titleIs: 'Gæðastjórnun'},
   {id: 'warehouse', title: 'Warehouse', appName: 'Bifrost Warehouse', titleIs: 'Vöruhús'},
   {id: 'iceland', title: 'Iceland', appName: 'Bifrost Iceland', titleIs: 'Ísland'},
   {id: 'iceland-docex', title: 'Iceland DocEx', appName: 'Bifrost Iceland DocEx', titleIs: 'Ísland DocEx'},
