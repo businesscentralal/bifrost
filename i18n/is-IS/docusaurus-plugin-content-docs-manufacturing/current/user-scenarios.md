@@ -133,7 +133,7 @@ description: "The scenarios Microsoft's validation team executes to certify this
 ### Skref
 1. Spyrjið aðstoðina: „Er hægt að ljúka þessari framleiðslupöntun?“
 2. Biðjið aðstoðina að ljúka henni og staðfestið fjöldann sem hún tilkynnir.
-3. Biðjið aðstoðina að opna hana aftur og staðfestið fjöldann sem hún tilkynnir.
+3. Biðjið aðstoðina að opna hana aftur.
 
 ### Væntar niðurstöður
 - Athugunin tilkynnir allt sem hún finnur, til dæmis vantandi afköst, og breytir engu.

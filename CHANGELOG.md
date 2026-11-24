@@ -8,6 +8,8 @@
 
 ### Changed
 
+- Manufacturing docs: distinguish finishing warnings that can be acknowledged from outstanding subcontract purchase orders and picks that must be resolved. Remove the Reopen count-confirmation step in English and Icelandic; Finish still requires confirmation.
+
 - Permission sets and gates, in English and Icelandic: clarify that Bifröst operations use the app’s permissions within the user’s Business Central license, and that the permission report shows the user’s own permissions. No objects added.
 
 - Iceland Treasury Setup help and overview, English only: Information FactBox with the existing secure connection status line, personal and company authorization status, set and clear personal authorization, and Copy Certificate To... with overwrite confirmation. No objects added.

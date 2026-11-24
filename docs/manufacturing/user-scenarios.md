@@ -133,7 +133,7 @@ This extension holds no secrets of its own and calls no external service. Everyt
 ### Steps
 1. Ask the assistant: "Can that production order be finished?"
 2. Ask the assistant to finish it, confirming the count it reports.
-3. Ask the assistant to reopen it, confirming the count it reports.
+3. Ask the assistant to reopen it.
 
 ### Expected Results
 - The check reports any findings, such as missing output, and changes nothing.
