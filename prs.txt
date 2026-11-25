@@ -1,0 +1,106 @@
+### #1541 feat(#1539): Help.WhoAmI.Get reports appId for Foundation and each Bifrost app
+Fixes #1539
+
+`Help.WhoAmI.Get` (and `Help.Bifrost.Get`, which shares `Bifrost App Info ori`) now return `appId` in `bifrost.foundation` and in each `bifrost.apps[]` entry. The value is the installed app id as a lower-case GUID without braces, the key of https://docs.bifrost.origo.is/versions.json. With it the MCP server (data-cloudevents-mcp-stateless#274) can tell a user when an installed app is older than th
+
+- Additive only: `appId` comes after the existing keys, so their o
+
+### #1542 fix: Icelandic production environments use raunumhverfi (#1540)
+Foundation now calls a production environment “raunumhverfi” in Icelandic captions, tooltips, messages and README text. The licence-usage filter displays “Raunumhverfi” and “Sandkassi”; literal Production/Sandbox API values and manufacturing terminology are preserved.
+
+Fixes #1540.
+
+- AC1–AC3 implemented and verified: translation-only product AL changes, synchronized XLF, unchanged API contracts/examples.
+- AC4: XLF sync and changelog-fragment validation pass; exact-head paired CI is started and
+
+### #1545 feat: dashboard-only view and refresh permission set (#1543)
+Adds assignable permission set `BIFROST DashView ori` (10077904) for dashboard viewing and refresh, using the viewer's own business-data permissions. Refresh writes request-log metadata without granting log pages or the log reader. Read and Dash remain unchanged. Exact-role regressions are in codeunit98503; captions and is-IS translations are synchronized.
+
+Implements Claude Code's #1543 rulings: logging-only grants replace ReqLog inclusion, and the new set grants no Setup page, table or tableda
+
+### #1548 feat: save dashboards as PDFs with attached JSON and CSV (#1544)
+Adds **Save as PDF** to Dashboard Viewer and Full Screen, following Gunnar's approved design in #1544. The PDF renders the current dashboard HTML/charts in A4 landscape and embeds the original JSON, per-table CSV, refresh time and parameters. It downloads through Business Central with translated failure handling. Bundled libraries are pinned, the opaque dashboard sandbox is retained, and read perm
+
+Refs #1544. This is the approved browser export scope; the Word-report design wa
+
+### #1537 Fix licence-capped table write permissions (#1536)
+Help.Permissions.Get now returns direct insert, modify and delete permissions from Business Central's effective permissions and licence limits. The existing write flag is true when any of those operations is allowed, so a Modify-only user is no longer reported as unable to write.
+
+Fixes #1536. AC01–AC03 verified; the exact-head evidence is in Current state.
+
+- AC01 implemented: additive operation flags and compatible write summary. Read permission keeps its session-aware check.
+- AC02 implemente
+
+### #1552 Explain indirect writes in permission reports (#1550)
+Help.Permissions.Get now returns a localized `permissionScope` explaining that Bifröst message types can create or change records through their own indirect permissions, within the user's licence, even when `write = false`. Existing permission fields and calculations are preserved. Discovery descriptions are updated in English and Icelandic; the canonical English contract, example, workflow and n
+
+Refs #1550. No journal or document handler changes. No new object
+
+### #1551 feat: My Bifrost Dashboards, per-user favourite dashboards (#1549)
+Implements #1549 (My Bifröst Dashboards). Gunnar's decisions of 23.11.2026 are applied as written in the issue.
+
+## Changes
+- **Table 10078301 `My Dashboard ori`**: key User Security ID + Dashboard Code (TableRelation to `Dashboard ori`), Sequence, FlowFields Name/Description/Enabled/Last Refresh At/Last Refresh Status. The user field is EndUserPseudonymousIdentifiers. A duplicate is refused with an error naming the dashboard (OnValidate, OnInsert, OnRename).
+- **Page 10078301 `My Bifrost Dashbo
+
+### #1554 fix(#1553): one all-fields text on guard exceptions and field accesses
+Fixes #1553
+
+## Cause
+`Field Name` on `ChangeLog Guard Exception ori` (and `Field Access ori`) is **stored text**. Foundation writes `<All Fields>` / `<Allir reitir>` in the language of the inserting session, but the take-over from Origo Cloud Events Core (Merge, 10075513 → 10077913 and 10075489 → 10077889) copies the old app's stored text, `<Öll svæði>`. The pages showed whatever was stored, so both texts stood
+
+### #1559 feat: public field-read facade for feature apps (#1557)
+## Summary
+- Adds public `IsFieldReadRestricted` and `RespondIfFieldReadRestricted` on `Message Argument ori` (table 10077896).
+- Both delegate to the existing internal read policy (`IsDataFieldReadRestricted` / `RespondIfDataFieldReadRestricted`). The refusal envelope is unchanged. No new object ID.
+- Feature apps, including Sustainability #12, can apply the same field-read decision and PermissionDenied answer as Foundation.
+
+Fixes #1557
+
+## Acceptance
+- AC01: both procedures are public, docume
+
+### #1558 fix: group field access UI matches user field access (#1556)
+Fixes #1556
+
+The Bifröst Group card's **Group Field Accesses** subpage (page 10077981, table 10077976) now matches **Bifrost Field Accesses** (page 10077888):
+
+- read-only *Table Name* (table caption, `<All Tables>` for 0) and *Field Name* (field caption, `<All Fields>` for 0) columns; zero numbers show blank;
+- *Table No.* lookup opens **All Objects with Caption** filtered to tables; *Field No.* lookup opens **Select Field** (`Field Lookup ori`) filtered to normal, enabled fields of the rule's 
+
+### #1547 feat: show Bifrost Chat on the Dashboards list (#1546)
+The Dashboards list shows the existing Chat FactBox for users with Chat permission and a configured provider; selected-dashboard SystemId and localized name supply its context. The shared visibility gate now checks Setup read access, so DashView + Chat users can open the list with Chat hidden without gaining Setup permissions. Read + Chat users with provider None retain the existing no-op-provider
+
+Refs #1546. AC4 help is covered by b
+
+### #1566 feat(#1565): public field-reference readers on Message Argument
+Fixes #1565
+
+Additive public facade on `Message Argument ori` (table 10077896) so feature apps (iceland#280 Auðkenni ApproveMe) can read a **field reference** (table + field + record SystemId) without AL0161. The new procedures only delegate to the existing internal readers; none of their logic is copied.
+
+| Public procedure | Delegates to | Keys / precedence |
+|---|---|---|
+| `TryReadTableReference(RequestJson, var TableId)` | `TryEvaluateTable(RequestJson, false, TableId)` | tableName, then ta
+
+### #1564 fix: allow indirect Change Log inserts for Bifrost writers (#1563)
+Authorized business-table writes can fail when BC Change Log Management appends an audit entry because BIFROST API ori lacks indirect Insert on table 405. This change adds that indirect Insert permission to API and 12 other assignable roles with persistent-data writes. Direct log Insert, Modify and Delete remain denied, and production business-table permissions are unchanged. Ten capability-only r
+
+Related issue: https://github.com/Orig
+
+### #1569 fix: redact personal identifiers before strict validation (#1567)
+Strict UnknownParameter refusals now redact six personal-identifier names using the existing case/separator/suffix matching rules. The additive OnIsSensitiveParameterName integration event lets feature apps classify additional names after built-in matching; built-in protection cannot be disabled by subscribers. Refusal order, codes and response shape are unchanged.
+
+Fixes #1567. English contract text and English/Icelandic documentation are updated. Tests 98511 and 98512 cover persisted requests,
+
+### #1562 feat(licensing): take over Vendor/Partner roles from another company of the tenant (#1561)
+Implements #1561 per Gunnar's simplified contract (24.11.2026, final rule in issue comment 7146570192): **Sync on Bifröst Setup** enables the roles and the configuration of the company that runs it. No Cosmos writes, and no other company is read.
+
+Fixes #1561.
+
+## Change
+Three independent checks, each on `T` = `GetTenantIdHash()` and `C` = `GetCompanyIdHash()` of the running company (compared upper-case):
+
+| Document | Matches when | Result |
+|---|---|---|
+| Vendor | `tenantId = T`, `companyId =
+
