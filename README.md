@@ -34,10 +34,11 @@ creates both instances and both navbar entries.
 | `iceland` | Bifrost Iceland | `bc-origo-bifrost-iceland` |
 | `iceland-docex` | Bifrost Iceland DocEx | `bc-origo-bifrost-iceland-docex` |
 | `iceland-treasury` | Bifrost Iceland Treasury | `bc-origo-bifrost-iceland-treasury` |
+| `projects` | Bifrost Projects | `bc-origo-bifrost-projects` |
 | `shopify` | Bifrost Shopify | `bc-origo-bifrost-shopify` |
 
 The site documents published apps and the apps being prepared for AppSource (Attachments, Orchestrator,
-Inventory, Subscription Billing, Warehouse, Iceland, Iceland DocEx and Iceland Treasury are listed as coming soon). Every other unpublished app remains blocked.
+Inventory, Subscription Billing, Warehouse, Iceland, Iceland DocEx, Iceland Treasury, Projects and Shopify are listed as coming soon). Every other unpublished app remains blocked.
 Every listed app has a docs instance; a help instance exists only for an app with help pages, one page per
 Business Central page that carries `ContextSensitiveHelpPage`, and no index page.
 
