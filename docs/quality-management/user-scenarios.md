@@ -41,7 +41,7 @@ These scenarios help a quality inspector or supervisor work through an inspectio
 
 1. Select an inspection sourced from a purchase line, with a positive failed quantity and sufficient received quantity.
 2. Ask the assistant to create a purchase return for the failed quantity. Supply a reason and the vendor's credit memo number if appropriate.
-3. Open the returned purchase return order number in Business Central and check the vendor, lines and quantities.
+3. Open the purchase return order that was created in Business Central and check the vendor, lines and quantities.
 4. Process and post the return through your usual purchasing procedure after review.
 
 **Result:** an unposted purchase return order. Creating it does not post a vendor credit memo. Check for an existing return before asking again.

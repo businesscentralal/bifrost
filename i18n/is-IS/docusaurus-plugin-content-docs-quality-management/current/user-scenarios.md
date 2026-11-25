@@ -46,4 +46,4 @@ description: "Fylgdu skoðun frá stofnun til niðurstaðna, endurskoðunar og r
 
 **Niðurstaða:** óbókuð innkaupaskilapöntun. Stofnun hennar bókar ekki kreditnótu lánardrottins. Athugaðu hvort skil hafi þegar verið stofnuð áður en þú biður aftur.
 
-Sjá [útgáfuupplýsingarnar](./release-notes.md) fyrir breytingar í forritinu.
+Sjá [útgáfuupplýsingarnar á ensku](https://docs.bifrost.origo.is/en-us/quality-management/release-notes/) fyrir breytingar í forritinu.

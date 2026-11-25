@@ -37,4 +37,4 @@ Endurtekin stofnun skoðunar, endurskoðunar, flutnings eða innkaupaskila getur
 
 Forritið bætir ekki við eigin síðum. Notaðu hefðbundnar síður Quality Management til að yfirfara skoðanir og sögu þeirra og hefðbundnar birgða- og innkaupasíður til að yfirfara vinnuna sem verður til.
 
-Næst: fylgdu [notkunardæmunum](./user-scenarios.md) eða lestu [útgáfuupplýsingarnar](./release-notes.md).
+Næst: fylgdu [notkunardæmunum](./user-scenarios.md) eða lestu [útgáfuupplýsingarnar á ensku](https://docs.bifrost.origo.is/en-us/quality-management/release-notes/).
