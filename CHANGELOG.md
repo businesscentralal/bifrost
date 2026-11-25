@@ -8,6 +8,8 @@
 
 ### Changed
 
+- Projects help and overview in English and Icelandic: screenshots of all five help topics, including Time Sheet Date on an unposted demo invoice. Time Sheet Date help now explains visibility per document and the existing sales permissions. No objects added.
+
 - Manufacturing release notes name the first release 28.0, following the release manager’s confirmed mapping of all current features; the build number and release date are assigned at release.
 
 - Manufacturing docs: distinguish finishing warnings that can be acknowledged from outstanding subcontract purchase orders and picks that must be resolved. Remove the Reopen count-confirmation step in English and Icelandic; Finish still requires confirmation.

@@ -16,8 +16,7 @@ This page shows the requests and the result; it does not change them.
 
 Search for **Project Follow-up Requests** in Business Central to open it.
 
-<!-- screenshot: Project Follow-up Requests 1033 -->
-<!-- screenshot: Project Follow-up Requests 1039 -->
+![Project Follow-up Requests](/img/projects/en-us/follow-up-requests.png)
 
 ## Which requests you see
 

@@ -14,8 +14,7 @@ eigin verkefnastillingar sem getur borið sama heiti; þessi síða hefur flokka
 **Vettvangsþjónusta** sem lýst er hér fyrir neðan. Ein uppsetningarfærsla er til fyrir hvert fyrirtæki.
 Hún verður til þegar forritið er sett upp, eða í fyrsta sinn sem síðan er opnuð.
 
-<!-- screenshot: Projects Setup 1033 -->
-<!-- screenshot: Projects Setup 1039 -->
+![Uppsetning verkefna](/img/projects/is-is/projects.png)
 
 ## Almennt {#general}
 

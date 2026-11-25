@@ -14,8 +14,7 @@ aðstoðarmann eða samþættingu, með eigin prófunum Business Central. Síða
 
 Leitaðu að **Notkunarlínur tímaskýrslna** í Business Central til að opna síðuna.
 
-<!-- screenshot: Time Sheet Usage Lines 1033 -->
-<!-- screenshot: Time Sheet Usage Lines 1039 -->
+![Notkunarlínur tímaskýrslna](/img/projects/is-is/ts-usage-lines.png)
 
 ## Ferill notkunarlínu {#how-a-usage-line-moves}
 

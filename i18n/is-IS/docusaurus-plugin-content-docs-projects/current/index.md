@@ -87,8 +87,30 @@ viðbótarforrit ofan á [Bifröst Foundation](/foundation/). Nýr í Bifröst? 
   nýjan eða núverandi verkhluta með áætlunarlínum, eða hafnar henni. Sjá
   [Eftirfylgnibeiðnir verkefna](/help/projects/follow-up-requests/).
 
-<!-- screenshot: Project Follow-up Requests 1039 -->
-<!-- screenshot: Time Sheet Usage Lines 1039 -->
+<details>
+<summary>Skoða síðurnar í Business Central</summary>
+
+**Uppsetning verkefna**
+
+![Uppsetning verkefna](/img/projects/is-is/projects.png)
+
+**Eftirfylgnibeiðnir verkefna**
+
+![Eftirfylgnibeiðnir verkefna](/img/projects/is-is/follow-up-requests.png)
+
+**Uppsetning tæknimanna**
+
+![Uppsetning tæknimanna](/img/projects/is-is/technician-setup.png)
+
+**Notkunarlínur tímaskýrslna**
+
+![Notkunarlínur tímaskýrslna](/img/projects/is-is/ts-usage-lines.png)
+
+**Dagsetning vinnuskýrslu á sýnidæmi um sölureikning**
+
+![Dagsetning vinnuskýrslu á sýnidæmi um sölureikning](/img/projects/is-is/time-sheet-date.png)
+
+</details>
 
 ## Svið {#capabilities}
 

@@ -16,8 +16,7 @@ Síðan sýnir beiðnirnar og niðurstöðuna en breytir þeim ekki.
 
 Leitaðu að **Eftirfylgnibeiðnir verkefna** í Business Central til að opna síðuna.
 
-<!-- screenshot: Project Follow-up Requests 1033 -->
-<!-- screenshot: Project Follow-up Requests 1039 -->
+![Eftirfylgnibeiðnir verkefna](/img/projects/is-is/follow-up-requests.png)
 
 ## Hvaða beiðnir þú sérð {#which-requests-you-see}
 

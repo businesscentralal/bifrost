@@ -83,8 +83,30 @@ This page is for the people who decide on the app and set it up. Bifröst Projec
   the request into a new or existing project task with planning lines, or rejects it. See
   [Project Follow-up Requests](/help/projects/follow-up-requests/).
 
-<!-- screenshot: Project Follow-up Requests 1033 -->
-<!-- screenshot: Time Sheet Usage Lines 1033 -->
+<details>
+<summary>See the pages in Business Central</summary>
+
+**Projects Setup**
+
+![Projects Setup](/img/projects/en-us/projects.png)
+
+**Project Follow-up Requests**
+
+![Project Follow-up Requests](/img/projects/en-us/follow-up-requests.png)
+
+**Technician Setup**
+
+![Technician Setup](/img/projects/en-us/technician-setup.png)
+
+**Time Sheet Usage Lines**
+
+![Time Sheet Usage Lines](/img/projects/en-us/ts-usage-lines.png)
+
+**Time Sheet Date on a demo sales invoice**
+
+![Time Sheet Date on a demo sales invoice](/img/projects/en-us/time-sheet-date.png)
+
+</details>
 
 ## Capabilities
 

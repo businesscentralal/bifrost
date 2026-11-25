@@ -13,8 +13,7 @@ Open it from the list of installed apps on [Bifrost Setup](/help/foundation/bifr
 project settings; this one has the **General** and **Field service** groups described below. There is one
 setup record per company. It is created when the app is installed, or the first time the page opens.
 
-<!-- screenshot: Projects Setup 1033 -->
-<!-- screenshot: Projects Setup 1039 -->
+![Projects Setup](/img/projects/en-us/projects.png)
 
 ## General
 

@@ -11,8 +11,7 @@ séð hvað er í bílnum og skráð vörurnar sem voru notaðar í heimsókn, t
 Leitaðu að **Uppsetning tæknimanna** í Business Central til að opna síðuna. Bættu við einni línu fyrir
 hvern tæknimann.
 
-<!-- screenshot: Technician Setup 1033 -->
-<!-- screenshot: Technician Setup 1039 -->
+![Uppsetning tæknimanna](/img/projects/is-is/technician-setup.png)
 
 ## Reitir {#fields}
 
