@@ -195,6 +195,26 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/iceland-treasury.png"
       }
+    },
+    {
+      "appId": "61a67425-c1e2-45e1-85b5-9e01488f6c1d",
+      "name": "Bifrost Shopify",
+      "publisher": "Origo",
+      "summary": "Import Shopify orders, products and customers, create sales documents and credit memos, and send prices, stock and shipments through Microsoft's Shopify Connector.",
+      "summary_is": "Sæktu Shopify pantanir, vörur og viðskiptavini, stofnaðu söluskjöl og kreditnótur og sendu verð, birgðir og sendingar með Shopify Connector frá Microsoft.",
+      "domains": [
+        "sales",
+        "inventory"
+      ],
+      "foundationMinVersion": "28.0.5.590",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/shopify/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/shopify.png"
+      }
     }
   ]
 }

@@ -33,6 +33,7 @@ creates both instances and both navbar entries.
 | `iceland` | Bifrost Iceland | `bc-origo-bifrost-iceland` |
 | `iceland-docex` | Bifrost Iceland DocEx | `bc-origo-bifrost-iceland-docex` |
 | `iceland-treasury` | Bifrost Iceland Treasury | `bc-origo-bifrost-iceland-treasury` |
+| `shopify` | Bifrost Shopify | `bc-origo-bifrost-shopify` |
 
 The site documents published apps and the apps being prepared for AppSource (Attachments, Orchestrator,
 Inventory, Subscription Billing, Warehouse, Iceland, Iceland DocEx and Iceland Treasury are listed as coming soon). Every other unpublished app remains blocked.

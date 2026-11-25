@@ -177,6 +177,7 @@ const appSections = [
   ['iceland-docex', 'Bifröst Iceland DocEx — send and receive Peppol e-invoices through Advania and Unimaze, incoming documents into purchase invoices or journal lines, delivery status and the Peppol code lists'],
   ['iceland-treasury', 'Bifröst Iceland Treasury — Arion banki, Íslandsbanki, Kvika banki, Landsbankinn, the savings banks and the claim collection agencies Gjaldskil and InKasso: statements into bank reconciliation, payment batches for approval at the bank, foreign payments, claims and their payments, and tracking'],
   ['warehouse', 'Bifröst Warehouse — warehouse receipts, put-aways, picks and shipments, bin content and open warehouse activities'],
+  ['shopify', 'Bifröst Shopify — Shopify orders, products and customers into Business Central, sales documents and refund credit memos, and prices, stock and posted shipments back to Shopify'],
   ['foundation', 'Bifröst Foundation (the base app, always installed) — how Bifröst works, and the standard Business Central operations'],
 ];
 

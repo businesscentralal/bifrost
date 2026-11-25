@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Bifröst Shopify first release docs (#223): overview, Partner Center listing, user scenarios and release notes 28.0.0.0 (date set at release) under `docs/shopify/`, in English and Icelandic. The app has no pages of its own, so it has no `help/shopify/` instance. Business Central opens the overview: `contextSensitiveHelpUrl` is `https://docs.bifrost.origo.is/{0}/shopify/`. `apps.ts`, `tools/lib/app-routes.mjs`, `tools/build-root.mjs` and `data/apps.json` (status coming-soon, no AppSource link) list the app. `data/versions.json` is not changed until the app is live on AppSource.
+
 ### Changed
 
 - Permission sets and gates, in English and Icelandic: clarify that Bifröst operations use the app’s permissions within the user’s Business Central license, and that the permission report shows the user’s own permissions. No objects added.
