@@ -12,19 +12,19 @@ This help covers three pages: **Bifrost Field Access Overview**, **Bifrost Field
 ## Bifrost Field Access Overview {#overview}
 
 **Field Access** on [Bifrost Setup](/help/foundation/bifrost-setup/) opens this page: every Field Access line of every
-user and application in the company, read-only. All columns can be sorted and filtered.
+user and application in the company, and the lines of every group, read-only. All columns can be sorted and filtered.
 
 | Field | Description |
 | --- | --- |
-| **User Name** / **Full Name** | The user or application the line applies to. For an application, **Full Name** is its description. |
-| **Source Type** | **User** or **AAD Application**. |
+| **User Name** / **Full Name** | The user, application or group the line applies to. For an application, **Full Name** is its description; for a group, **User Name** is the group code and **Full Name** its name. |
+| **Source Type** | **User**, **AAD Application** or **Group**. |
 | **Table No.** / **Table Name** | The table. **0** means all tables. |
 | **Field No.** / **Field Name** | The field. **0** means all fields of the table. |
 | **Restriction Type** | See [Restriction types](#restriction-types). |
 
 | Action | Description |
 | --- | --- |
-| **Edit** | Opens the lines of the user on the selected line, to change them. The overview is refreshed when you close it. |
+| **Edit** | Opens the lines of the user on the selected line, to change them. On a group line it opens the card of that group. The overview is refreshed when you close it. |
 | **New for User...** | Choose a user or application and open its lines, to add new ones. |
 
 ## Bifrost Field Accesses {#lines-of-one-user}

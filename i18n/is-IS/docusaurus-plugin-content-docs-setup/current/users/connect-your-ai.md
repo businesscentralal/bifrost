@@ -9,8 +9,14 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 
 # Tengdu aðstoðarmanninn
 
-*Fyrir hvern notanda. Þú þarft slóð MCP-þjónsins frá kerfisstjóranum; sjá
-[Veldu aðstoðarmanninn](/setup/pick-your-assistant/#what-you-need-first).*
+*Fyrir hvern notanda. Fyrir Claude, ChatGPT, Copilot Studio og aðra aðstoðarmenn sem tengjast beint þarftu slóð
+Bifröst MCP-þjónsins:*
+
+```text
+https://bifrost.origo.is/mcp
+```
+
+*Sjá líka [Veldu aðstoðarmanninn](/setup/pick-your-assistant/#what-you-need-first).*
 
 Þú tengist einu sinni og skráir þig inn sem þú sjálf(ur), svo aðstoðarmaðurinn vinnur með nákvæmlega
 þínar heimildir í Business Central.
@@ -22,9 +28,17 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 [Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
 (á ensku).
 
+<details className="setup-panel" id="claude-steps">
+<summary><span className="setup-panel__title">Bættu Bifröst Origo við í Claude</span><span className="setup-panel__meta">Á vefnum eða í Claude Desktop · Customize › Connectors</span></summary>
+
 1. **Bættu tengingunni við.** Í Claude opnarðu **Customize** og síðan **Connectors** (í eldri útgáfum af Claude
    Desktop: **Settings › Connectors**) og velur **+ Add**. Þar til Bifröst er komið í tengingaskrá Claude velurðu
-   **Add custom connector**: gefðu tengingunni nafn og límdu inn slóð MCP-þjónsins sem þú fékkst hjá kerfisstjóranum.
+   **Add custom connector**: gefðu tengingunni nafn og límdu inn slóð MCP-þjónsins:
+
+   ```text
+   https://bifrost.origo.is/mcp
+   ```
+
    Láttu valkostina sem eru merktir *Detected* standa og veldu **Add**. Þeir þýða að hver og einn skráir sig inn
    sjálfur og að ekkert biðlarakenni eða leyndarmál þarf; finnist þeir ekki, athugaðu slóðina. Í Claude Team eða
    Enterprise bætir eigandi henni við einu sinni fyrir alla, og eigandinn gæti þurft að leyfa eigin tengingar fyrst.
@@ -48,15 +62,29 @@ description: "Fyrir hvern notanda: bættu Bifröst við Claude, Copilot, ChatGPT
 
 5. **Spurðu fyrstu spurningarinnar**: sjá [Spurðu fyrstu spurningarinnar](/setup/first-question/).
 
+</details>
+
 ## Microsoft 365 Copilot {#microsoft-copilot}
 
 Bifröst er fulltrúi (agent) í Microsoft 365 Copilot, í prófun: spurðu Origo hvort hann sé í boði fyrir fyrirtækið þitt. Kerfisstjóri birtir hann einu sinni fyrir fyrirtækið; eftir það bætir hver notandi honum við og skráir
 sig inn sem hann sjálfur.
 
+Hver notandi getur svo notað Bifröst á tvo vegu: sem **viðbót (plugin) í Copilot Cowork**, eða sem **fulltrúa (agent) í Copilot Chat**.
+
 Aðgerðin **Microsoft Copilot** undir *Tengingar* á **Uppsetningu Bifröst** opnar enn opinbera verslun Microsoft, þar
 sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staðinn.
 
-### Fyrir kerfisstjórann: birtu fulltrúann einu sinni {#copilot-administrator}
+**Copilot Studio:** til að tengja Bifröst við fulltrúa sem þú smíðar í Copilot Studio bætirðu honum við sem
+MCP-þjóni með slóðinni hér fyrir neðan og skráir þig inn með vinnureikningnum þínum:
+
+```text
+https://bifrost.origo.is/mcp
+```
+
+### Fyrir kerfisstjórann {#copilot-administrator}
+
+<details className="setup-panel" id="copilot-admin-steps">
+<summary><span className="setup-panel__title">Birtu fulltrúann einu sinni</span><span className="setup-panel__meta">Kerfisstjóri Microsoft 365 · einu sinni fyrir fyrirtækið</span></summary>
 
 *Hver þarf að koma að: kerfisstjóri Microsoft 365 sem má stýra fulltrúum í Microsoft 365-stjórnborðinu. Fyrirtækið
 þarf líka að hafa gefið Bifröst [samþykki einu sinni](/setup/consent/).*
@@ -80,7 +108,32 @@ sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staði
 5. **Ljúktu við.** Farðu yfir samantektina á **Review & finish** og ljúktu upphleðslunni. Það getur tekið smá tíma
    þar til fulltrúinn birtist notendum.
 
-### Fyrir hvern notanda: bættu honum við og skráðu þig inn {#copilot-user}
+</details>
+
+### Fyrir hvern notanda {#copilot-user}
+
+Opnaðu þá leið sem þú notar Bifröst í Copilot:
+
+<details className="setup-panel" id="copilot-cowork">
+<summary><span className="setup-panel__title">Viðbót fyrir Cowork</span><span className="setup-panel__meta">Í Copilot Cowork: Plugins › Cowork › Bifröst</span></summary>
+
+1. **Opnaðu Plugins.** Í Microsoft 365 Copilot opnarðu **Plugins** og velur **Cowork**.
+2. **Leitaðu að Bifröst.** Skrifaðu *Bifröst* í leitarreitinn.
+
+   ![Plugins í Microsoft 365 Copilot, á flipanum Cowork, með leitarreitnum](/img/setup/copilot-cowork-plugins.png)
+
+3. **Settu viðbótina upp.** Veldu **Bifröst** og settu hana upp.
+4. **Tengdu viðbótina.** Þegar hún er uppsett sýnir Bifröst *Not connected* undir **Connections**: veldu
+   **Connect**. Bifröst nær ekki í Business Central fyrr en viðbótin er tengd.
+
+   ![Bifröst-viðbótin í Copilot Cowork, með Connect undir Connections](/img/setup/copilot-cowork-connect.png)
+
+5. **Spurðu fyrstu spurningarinnar**: sjá [Spurðu fyrstu spurningarinnar](/setup/first-question/).
+
+</details>
+
+<details className="setup-panel" id="copilot-chat-agent">
+<summary><span className="setup-panel__title">Fulltrúi í Copilot Chat</span><span className="setup-panel__meta">Í Copilot Chat: Agents › More agents › Bifröst</span></summary>
 
 1. **Finndu fulltrúann.** Í Microsoft 365 Copilot skaltu opna **Agents** í vinstri dálkinum og velja **More agents**.
    Finndu **Bifröst** og bættu honum við. Ef kerfisstjórinn setti hann upp fyrirfram er hann þegar undir *Agents*.
@@ -96,6 +149,8 @@ sem Bifröst er ekki enn skráður. Fylgdu skrefunum hér fyrir neðan í staði
 Ef innskráning eða fyrirtækjalistinn bregst hefur fyrirtækið líklega ekki lokið uppsetningunni sem gerð er einu
 sinni: spurðu kerfisstjórann, og sjá [Fyrir fyrirtækið](/setup/).
 
+</details>
+
 ## ChatGPT {#chatgpt}
 
 Bifröst-tengingin er ekki enn komin í verslun OpenAI. Þangað til opnar aðgerðin **OpenAI ChatGPT** undir *Tengingar* á
@@ -110,8 +165,12 @@ fyrirtækisins; spurðu kerfisstjórann.
 Skrefin fylgja sama mynstri og fyrir Claude: bættu tengingunni við, skráðu þig inn, kveiktu á henni, leyfðu verkfæri
 hennar, spurðu.
 
-Aðstoðarmaður sem styður fjartengda MCP-þjóna getur líka tengst: bættu slóð Bifröst MCP-þjónsins við sem fjartengdum
+Aðstoðarmaður sem styður fjartengda MCP-þjóna getur líka tengst: bættu slóð Bifröst MCP-þjónsins hér fyrir neðan við sem fjartengdum
 MCP-þjóni eða sérsniðinni tengingu í stillingum hans, og skráðu þig inn með vinnureikningnum þínum. Hvar sú stilling
 er kemur fram í hjálp aðstoðarmannsins sjálfs.
+
+```text
+https://bifrost.origo.is/mcp
+```
 
 **Næst:** [Spurðu fyrstu spurningarinnar](/setup/first-question/)

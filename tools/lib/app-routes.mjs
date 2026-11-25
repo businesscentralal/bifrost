@@ -13,6 +13,7 @@ export const APP_ROUTES = {
   'subscription-billing': {route: 'subscription-billing', title: 'Subscription Billing'},
   'orchestrator': {route: 'orchestrator', title: 'Orchestrator'},
   'quality-management': {route: 'quality-management', title: 'Quality Management'},
+  'manufacturing': {route: 'manufacturing', title: 'Manufacturing'},
   'warehouse': {route: 'warehouse', title: 'Warehouse'},
   'iceland': {route: 'iceland', title: 'Iceland'},
   'iceland-docex': {route: 'iceland-docex', title: 'Iceland DocEx'},

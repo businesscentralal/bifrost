@@ -13,12 +13,10 @@ Opnaðu hana úr listanum Aðstoðuð uppsetning, með **Uppsetningarleiðsögn*
 | --- | --- |
 | **1. Velkomin í Bifröst** | Útskýrir hvað Bifröst geymir hjá Origo (einstefnutætigildi af leigjandaauðkenninu þínu, stillingar þessa fyrirtækis og skilaboðanotkun þess) og sýnir notendaleyfissamninginn. Veldu **Ég samþykki notendaleyfissamninginn** til að halda áfram. |
 | **2. Virkja HTTP-biðlarabeiðnir** | Telur upp öll uppsett Bifröst-forrit og hvort þau megi senda útleiðar HTTP-beiðnir. Sjá [HTTP-skref](#http-step). |
-| **3. Auðkenni** _(aðeins á staðnum)_ | Telur upp auðkennin sem uppsettu forritin þurfa svo þú getir skráð gildi sem vantar. Sjá [Auðkennaskref](#credentials-step). |
+| **3. Auðkenni** | Birtist ekki: leiðsögnin fer beint af HTTP-skrefinu á leyfisskrefið. Skráðu auðkenni með **Leyndarmál** á Uppsetning Bifröst - sjá [Auðkennaskref](#credentials-step). |
 | **4. Leyfi** | Fer eftir umhverfinu - sjá [Leyfisskref](#licensing-step). |
-| **5. MCP-þjónustenging og heimild forrits** | Aðeins í skýinu. Sýnir vefslóð MCP-þjónsins sem þú bætir við gervigreindarvirkið þitt, tengilinn sem stjórnandi (alstjórnandi eða forritastjórnandi í Microsoft Entra) notar til að heimila Origo Bifrost-fyrirtækjaforritið og tengla á Bifröst-tenginguna í verslunum gervigreindarvirkja. |
-| **6. Uppsetningu lokið** | Veldu **Ljúka** til að samþykkja leyfissamninginn fyrir þetta fyrirtæki, skrá fyrirtækið hjá leyfisþjónustunni og, í framleiðsluumhverfi, virkja prufuleyfið. Aðstoðaða uppsetningin er þá merkt sem lokið. |
-
-Uppsetningar á staðnum sleppa skrefi 5.
+| **5. MCP-þjónustenging og heimild forrits** | Sýnir vefslóð MCP-þjónsins sem þú bætir við gervigreindarvirkið þitt, tengilinn sem stjórnandi (alstjórnandi eða forritastjórnandi í Microsoft Entra) notar til að heimila Origo Bifrost-fyrirtækjaforritið og tengla á Bifröst-tenginguna í verslunum gervigreindarvirkja. |
+| **6. Uppsetningu lokið** | Veldu **Ljúka** til að samþykkja leyfissamninginn fyrir þetta fyrirtæki, skrá fyrirtækið hjá leyfisþjónustunni og, í framleiðsluumhverfi, virkja prufuleyfið. Í uppsetningu á staðnum, eða í DEV-viðbót í sandkassa í skýinu, virkjar **Ljúka** prufuleyfi umhverfisins ef það er ekki þegar virkt. Aðstoðaða uppsetningin er þá merkt sem lokið. |
 
 ### HTTP-skref {#http-step}
 
@@ -30,7 +28,7 @@ Flest Bifröst-forrit þurfa útleiðar HTTP — Bifröst Foundation þarf það
 
 ### Auðkennaskref {#credentials-step}
 
-Hvert uppsett Bifröst-forrit getur skráð auðkennin sem það þarf í sameiginlegu leyndarmálageymsluna (sjá [Leyndarmál forrita Bifröst](/help/foundation/bifrost-app-secrets/)). Listinn [Auðkenni](/help/foundation/wizard-credentials/) sýnir þau öll. Veldu línu og síðan **Skrá gildi...** til að slá inn gildi.
+Hvert uppsett Bifröst-forrit getur skráð auðkennin sem það þarf í sameiginlegu leyndarmálageymsluna (sjá [Leyndarmál forrita Bifröst](/help/foundation/bifrost-app-secrets/)). Leiðsögnin sýnir ekki skrefið [Auðkenni](/help/foundation/wizard-credentials/): skráðu gildin með **Leyndarmál** á Uppsetning Bifröst.
 
 Auðkenni sem vantar eru aldrei villa, hvorki hér né á Uppsetning Bifröst — auðkenni sem er ekki skráð gerir óvirkar þær skilaboðategundir sem eru háðar því og hægt er að skrá það síðar með **Leyndarmál** á Uppsetning Bifröst.
 
@@ -38,14 +36,14 @@ Auðkenni sem vantar eru aldrei villa, hvorki hér né á Uppsetning Bifröst �
 
 | Umhverfi | Hvað skrefið sýnir |
 | --- | --- |
-| **Framleiðsluumhverfi (í skýinu)** | Prufuleyfið: **1.000 notendaskilaboð + 1.000 forritsskráningarskilaboð**, virkjað einu sinni fyrir hvern Microsoft Entra leigjanda. **Ljúka** virkjar það ef leigjandinn hefur ekki fengið prufuleyfi. Á fyrirframgreiddu leyfi útskýrir skrefið einnig hvernig áskriftarleyfið hefst: þegar Bifröst samstarfsaðili þinn býður leigjandanum sem viðskiptavin og þú samþykkir. |
-| **Sandkassi** | **Sandkassaleyfi**. Sjá [Sandkassaumhverfi](/licensing/license-types/#sandbox-environments) um hvernig leyfismálum er háttað í sandkassa. |
-| **Á staðnum** | Hvernig staðbundni MCP-þjónninn er settur upp við hlið uppsetningarinnar og **Staðfesta tengingu** fyrir tenginguna við leyfisþjónustuna sem Origo lét fylgja leyfinu á staðnum. Ekki er hægt að halda áfram fyrr en tengingin hefur verið staðfest. |
+| **Framleiðsluumhverfi (í skýinu)** | Prufuleyfið: **1.000 notendaskilaboð + 1.000 forritsskráningarskilaboð**, virkjað einu sinni fyrir hvern Microsoft Entra leigjanda. **Ljúka** virkjar það ef leigjandinn hefur ekki fengið prufuleyfi. Á prufuleyfi útskýrir skrefið einnig hvernig áskriftarleyfið hefst: þegar Bifröst samstarfsaðili þinn býður leigjandanum sem viðskiptavin og þú samþykkir. |
+| **Sandkassi (í skýinu)** | **Sandkassaleyfi**: leyfi eru ekki virkjuð í sandkassa. Sjá [Sandkassaumhverfi](/licensing/license-types/#sandbox-environments) um hvernig leyfismálum er háttað í sandkassa. |
+| **Á staðnum, eða DEV-viðbót í sandkassa í skýinu** | **Virkja prufuleyfi**: prufuleyfi umhverfisins gildir í 90 daga eða fyrir 1.000 skilaboð, hvort sem kemur fyrr, og öll fyrirtæki umhverfisins deila því. **Staða** sýnir hvort það er virkt og, eftir hafnaða eða misheppnaða virkjun, ástæðuna. **Virkja prufuleyfi** sendir virkjunarbeiðnina og sýnir niðurstöðuna; engin notkun er tilkynnt. Höfnuð eða misheppnuð virkjun stöðvar ekki leiðsögnina: **Ljúka** lýkur samt og þú getur virkjað prufuleyfið síðar hér eða á Uppsetning Bifröst. Tengill opnar leiðbeiningar um uppsetningu staðbundna MCP-þjónsins. |
 
 Sjá [Leyfi](/licensing/) um leyfislíkanið.
 
 ## Ábendingar
 
--   Ný uppsetning byrjar alltaf á **fyrirframgreiddu** leyfi. **Áskriftarleyfið** hefst síðar, þegar leigjandinn samþykkir boð frá Bifröst samstarfsaðila - sjá [Tegundir leyfa](/licensing/license-types/#subscription).
+-   Ný uppsetning byrjar alltaf á **prufuleyfi**. **Áskriftarleyfið** hefst síðar, þegar leigjandinn samþykkir boð frá Bifröst samstarfsaðila - sjá [Tegundir leyfa](/licensing/license-types/#subscription).
 -   Ekkert sem þú gerir í leiðsögninni er óafturkræft: **Til baka** og **Áfram** henda aldrei gildum sem þú hefur þegar skráð og þú getur keyrt leiðsögnina aftur hvenær sem er.
 -   **Afturkalla samþykki notendaleyfissamnings** á Uppsetning Bifröst dregur samþykkið til baka fyrir fyrirtækið; keyrðu leiðsögnina aftur til að endurheimta það.

@@ -9,7 +9,9 @@
 
 const REQUIRED = ['appId', 'name', 'version', 'released', 'releaseNotes', 'brief', 'description'];
 const VERSION = /^\d+\.\d+\.\d+\.\d+$/;
-const DAY = /^\d{4}-\d{2}-\d{2}$/;
+// DATE is the release-manager placeholder, the same token as a draft release-notes heading.
+// It is replaced with YYYY-MM-DD on release day. Any other non-date is still rejected.
+const DAY_OR_DATE = /^(?:\d{4}-\d{2}-\d{2}|DATE)$/;
 
 /** Problems that would make the feed unusable or drop the new copy fields. */
 export function releasedCopyErrors(data) {
@@ -20,8 +22,8 @@ export function releasedCopyErrors(data) {
   if (data.schemaVersion !== 1) {
     errors.push('data/versions.json schemaVersion must stay 1 so Foundation AppVersionCheck can parse the file');
   }
-  if (typeof data.updated !== 'string' || !DAY.test(data.updated)) {
-    errors.push('data/versions.json updated must be a YYYY-MM-DD date');
+  if (typeof data.updated !== 'string' || !DAY_OR_DATE.test(data.updated)) {
+    errors.push('data/versions.json updated must be a YYYY-MM-DD date or the placeholder DATE');
   }
   if (!Array.isArray(data.apps) || data.apps.length === 0) {
     errors.push('data/versions.json apps must be a non-empty array');
@@ -42,8 +44,8 @@ export function releasedCopyErrors(data) {
     if (typeof app.version === 'string' && app.version !== '' && !VERSION.test(app.version)) {
       errors.push(`${label}: version "${app.version}" must be a four-part numeric version`);
     }
-    if (typeof app.released === 'string' && app.released !== '' && !DAY.test(app.released)) {
-      errors.push(`${label}: released "${app.released}" must be YYYY-MM-DD`);
+    if (typeof app.released === 'string' && app.released !== '' && !DAY_OR_DATE.test(app.released)) {
+      errors.push(`${label}: released "${app.released}" must be YYYY-MM-DD or the placeholder DATE`);
     }
     if (typeof app.releaseNotes === 'string' && app.releaseNotes !== '' && !app.releaseNotes.startsWith('https://')) {
       errors.push(`${label}: releaseNotes must be an https URL`);
@@ -83,11 +85,11 @@ export function applyReleasedCopy(data, appJson, options = {}) {
     entry.version = options.version;
   }
   if (options.released !== undefined) {
-    if (!DAY.test(options.released)) throw new Error(`released "${options.released}" must be YYYY-MM-DD`);
+    if (!DAY_OR_DATE.test(options.released)) throw new Error(`released "${options.released}" must be YYYY-MM-DD or the placeholder DATE`);
     entry.released = options.released;
   }
   if (options.updated !== undefined) {
-    if (!DAY.test(options.updated)) throw new Error(`updated "${options.updated}" must be YYYY-MM-DD`);
+    if (!DAY_OR_DATE.test(options.updated)) throw new Error(`updated "${options.updated}" must be YYYY-MM-DD or the placeholder DATE`);
     data.updated = options.updated;
   }
   return entry;

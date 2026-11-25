@@ -67,9 +67,23 @@ Password** on the collector; see [Skilagrein Collectors](/help/iceland/iceland-s
 | **Set VAT Password**, **Set Payroll Password**, **Set Capital Income Tax Password** | Enter the password of that Skatturinn service for the environment chosen in **Skatturinn Client Type**. |
 | **Clear Skatturinn Passwords** | Removes the stored VAT, payroll and capital income tax passwords of the chosen environment. |
 | **App Secrets** | Opens [Bifrost App Secrets](/help/foundation/bifrost-app-secrets/) filtered to this app, to see which credentials are stored, when they were entered and by whom. |
+| Refresh secure connection status | Checks the secure connection again and updates its status. |
 | **Setup Wizard** | Opens the Bifrost Setup Wizard. |
 | **Skilagrein Collectors** | Opens the list of collectors. |
 | **National Registry Entries** | Shown when the Umsjá client is enabled. Opens the local copy of the national registry; see [National Registry Entries](/help/iceland/iceland-umsja-registry/). |
+
+## Secure connection status
+
+The secure connection status shows whether the app can access the values it needs. The page checks
+the connection when it opens; use the refresh action to check it again.
+
+| Status | Meaning |
+| --- | --- |
+| **Connected** | The connection is available and every value the app needs is there. |
+| **Not connected** | The connection is unavailable, or a value the app needs is missing. |
+| **Not connected (not an AppSource install)** | The app was not installed from AppSource, so the secure connection is unavailable. This is expected in a development or per-tenant installation, and the page still works. |
+
+The status never shows secret names or values.
 
 ## Good to know
 
