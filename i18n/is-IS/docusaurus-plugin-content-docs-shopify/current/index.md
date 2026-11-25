@@ -56,4 +56,4 @@ Forritið hefur engar eigin síður. Farðu yfir verslun, pantanir, vörur og vi
 
 Settu upp **Bifrost Shopify** við hlið Bifröst Foundation og **Shopify Connector** frá Microsoft. Business Central samstarfsaðilinn þinn setur það upp. Það þarf Business Central Essentials eða Premium, útgáfu 28, með Shopify Connector uppsettum og verslun tengda. Varðandi verð, hafðu samband við Business Central samstarfsaðilann þinn.
 
-Næst: fylgdu [notkunardæmunum](./user-scenarios.md) eða lestu [útgáfuupplýsingarnar](./release-notes.md).
+Næst: fylgdu [notkunardæmunum](./user-scenarios.md).

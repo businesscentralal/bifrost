@@ -69,4 +69,3 @@ description: "Sæktu Shopify verslun, stofnaðu söluskjalið og kreditnótuna o
 
 **Niðurstaða:** beiðninni er hafnað og svarið segir hvað er að. Hún breytir ekki færslum sem tengillinn hafði ekki þegar vistað. Lagfærðu orsökina og keyrðu aftur.
 
-Um breytingarnar í forritinu, sjá [útgáfuupplýsingarnar](./release-notes.md).

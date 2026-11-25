@@ -10,7 +10,7 @@ description: "Customer-facing changes in Bifröst Shopify."
 
 These notes help sales, inventory and administrator teams review what the app changes. To check your installed version, open **Extension Management** in Business Central.
 
-## 28.0.0.0 — Unreleased {#v28-0-0-0}
+## 28.0 — first release (date set at release)
 
 ### Initial capabilities {#initial-capabilities}
 
@@ -26,6 +26,6 @@ These notes help sales, inventory and administrator teams review what the app ch
 
 ### Requirements {#requirements}
 
-This version requires Bifröst Foundation **28.0.5.590** or later and Microsoft's Shopify Connector **28.0.0.0** or later, on Business Central 28.
+This version requires Bifröst Foundation **28.0.5.590** or later and Microsoft's Shopify Connector **28.0** or later, on Business Central 28.
 
 See the [overview](./index.md) for setup and the [user scenarios](./user-scenarios.md) for the work to review before you post a document or send a fulfillment.
