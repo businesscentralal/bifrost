@@ -4,6 +4,7 @@
 
 ### Added
 
+- Language Models release notes 28.0.5 (25 November 2026) in `docs/language-models/release-notes.md`: usage log, estimated cost from prices on the language model card, daily totals, compression and retention. Version 28.0.4 was not published; it had no user-facing changelog entries, so this section covers everything since 28.0.3 (businesscentralal/bc-origo-bifrost-language-models#168, tag 28.0.5 at 83171d9). English only. `data/versions.json` moves Language Models to 28.0.5.106, released 2026-11-25. The language model card help, in English and Icelandic, describes the new pricing fields and usage actions (#232).
 - Bifröst Manufacturing first release docs (#224): overview, Partner Center listing, user scenarios and release notes 28.0 (date set at release) under `docs/manufacturing/`, with Icelandic overview, listing and user scenarios (release notes English only, as for the other apps). The app has no pages of its own, so it has no `help/manufacturing/` instance, matching its `contextSensitiveHelpUrl` and AS0051. `apps.ts`, `tools/lib/app-routes.mjs` and `tools/build-root.mjs` list the app; `data/apps.json` and `data/versions.json` are not changed until it is live on AppSource. `tools/check-docs.mjs` and its test no longer treat the name Bifrost Manufacturing as unpublished.
 
 ### Changed
