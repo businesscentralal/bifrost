@@ -2,7 +2,17 @@
 
 ## [Unreleased]
 
+### Added
+
+- Bifröst Manufacturing first release docs (#224): overview, Partner Center listing, user scenarios and release notes 28.0 (date set at release) under `docs/manufacturing/`, with Icelandic overview, listing and user scenarios (release notes English only, as for the other apps). The app has no pages of its own, so it has no `help/manufacturing/` instance, matching its `contextSensitiveHelpUrl` and AS0051. `apps.ts`, `tools/lib/app-routes.mjs` and `tools/build-root.mjs` list the app; `data/apps.json` and `data/versions.json` are not changed until it is live on AppSource. `tools/check-docs.mjs` and its test no longer treat the name Bifrost Manufacturing as unpublished.
+
 ### Changed
+
+- Manufacturing release notes name the first release 28.0, following the release manager’s confirmed mapping of all current features; the build number and release date are assigned at release.
+
+- Manufacturing docs: distinguish finishing warnings that can be acknowledged from outstanding subcontract purchase orders and picks that must be resolved. Remove the Reopen count-confirmation step in English and Icelandic; Finish still requires confirmation.
+
+- Permission sets and gates, in English and Icelandic: clarify that Bifröst operations use the app’s permissions within the user’s Business Central license, and that the permission report shows the user’s own permissions. No objects added.
 
 - Iceland Treasury Setup help and overview, English only: Information FactBox with the existing secure connection status line, personal and company authorization status, set and clear personal authorization, and Copy Certificate To... with overwrite confirmation. No objects added.
 

@@ -20,29 +20,32 @@ heimildum.
 ## Tvö lög heimilda {#two-layers-of-permission}
 
 Fulltrúi starfar sem notandinn í Business Central sem hann vinnur fyrir, og samþætting sem Microsoft Entra forritið sitt.
-Hver beiðni keyrir með heimildum þess auðkennis, svo fulltrúi getur aldrei gert meira en notandinn getur gert í
-biðlaranum. Tvö lög ráða því hvað hann má:
+Hver beiðni er framkvæmd fyrir hönd þess auðkennis. Tvö lög ráða því hvað hann má:
 
-1. **Heimildir Business Central**, eins og í biðlaranum: venjulegar heimildasamstæður notandans ráða hvaða gögn hann má
-   lesa, breyta og bóka. Bifröst víkkar þær ekki, með tveimur undantekningum, hér að neðan.
+1. **Heimildir og leyfi Business Central**: Business Central athugar heimildir notandans og forritsins fyrir
+   aðgerðina, innan leyfis notandans.
 2. **Heimildasamstæður Bifröst**: `BIFROST API ori` leyfir auðkenninu að kalla í Bifröst yfirleitt, og **hlið** opnar
    hverja aðgerð sem Bifröst heldur lokaðri jafnvel fyrir notanda sem gæti framkvæmt hana í biðlaranum, til dæmis bókun.
 
-Bæði lögin verða að leyfa aðgerð. Notandi sem má bóka sölureikninga í biðlaranum getur ekki bókað þá í gegnum Bifröst án
-bókunarhliðsins, og hliðið eitt bókar ekkert fyrir notanda sem má ekki bóka í biðlaranum.
+Aðgerðir Bifröst nota eigin heimildir forritsins innan Business Central leyfisins þíns. Þær geta stofnað eða breytt
+færslum fyrir þína hönd þótt eigin heimildasamstæður þínar leyfi ekki sömu breytingu beint í Business Central.
+Heimildayfirlitið í Bifröst sýnir eigin heimildir þínar; það takmarkar ekki hvað aðgerðir Bifröst geta gert.
+
+Bæði lögin verða að leyfa aðgerð. Notandi sem má bóka sölureikninga í biðlaranum þarf samt bókunarhliðið til að bóka
+í gegnum Bifröst. Hlið eitt og sér veitir ekki heimildir að viðskiptagögnum og víkkar ekki leyfi notandans.
 
 ### Fær notandi meiri réttindi með heimildasamstæðum Bifröst? {#does-a-bifröst-permission-set-give-a-user-more-rights}
 
-Nei, með tveimur undantekningum, báðum frá `BIFROST API ori`: lestri breytingaskrárinnar, og lestri á hluta
-uppsetningar ásamt réttinum til að reikna söluverð og afslætti. Annars er notandi með þröngar heimildir í Business
-Central áfram þröngur, sama hve mörgum heimildasamstæðum Bifröst þú bætir við:
+Heimildasamstæðurnar veita aðgang að síðum og gögnum Bifröst sjálfs, auk aðgangsins frá `BIFROST API ori` sem lýst
+er hér að neðan. Þetta er aðskilið frá því að aðgerð noti heimildir forritsins fyrir þína hönd:
 
 - **Heimildasamstæður Bifröst ná yfir síður og gögn Bifröst sjálfs**: skilaboðin, uppsetninguna, minnið og annálana.
   Þær opna ekki sjálfar viðskiptamenn, vörur, fylgiskjöl eða færslur, en sjá breytingaskrána hér fyrir neðan.
 - **Hliðin þrengja; þau víkka aldrei.** Bókunarhlið er aukaathugun ofan á eigin bókunarheimild notandans. Án
   þeirrar heimildar í Business Central bókar hliðið ekkert.
-- **Kóði Bifröst fylgir reglum Business Central.** Þar sem hann skrifar í færslubókarlínur eða fylgiskjalahausa fer
-  hann í gegnum eigin (óbeinar) heimildir notandans, eins og bókun Business Central sjálfs.
+- **Aðgerðir Bifröst fylgja reglum Business Central.** Aðgerð getur notað heimildir forritsins til að stofna eða
+  breyta færslum fyrir hönd notandans, innan leyfis hans. Það veitir notandanum ekki sömu beinu breytingaheimildir
+  í biðlaranum.
 - **`BIFROST Force ori`** hleypir breytingu framhjá takmörkunum Bifröst sjálfs: reitaaðgangi, og breytingaskrárvernd
   þegar hún er stillt á **Með þvingunarheimild**. Hún fer aldrei framhjá heimildum Business Central.
 - **Undantekning 1: `BIFROST API ori` inniheldur heimildasamstæðu Business Central *View Change Log Entries***
