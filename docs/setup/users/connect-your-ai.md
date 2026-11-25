@@ -115,4 +115,6 @@ An assistant that supports remote MCP servers can connect too: add the Bifröst 
 as a remote MCP server or custom connector in its settings, and sign in with your work account. Where to find that
 setting is in the assistant's own help.
 
+See the [MCP release notes](/mcp/release-notes/) for changes to how Bifröst works with your assistant.
+
 **Next:** [Ask your first question](/setup/first-question/)
