@@ -179,6 +179,7 @@ const appSections = [
   ['projects', 'Bifröst Projects — projects, tasks and planning lines, status, copies and archives, quotes, usage, WIP, statistics and reports, resource allocation and time sheets from submission and approval to posting'],
   ['manufacturing', 'Bifröst Manufacturing — production orders and their statuses, production BOMs and routings, where-used, availability and statistics, the production journal and corrections'],
   ['warehouse', 'Bifröst Warehouse — warehouse receipts, put-aways, picks and shipments, bin content and open warehouse activities'],
+  ['shopify', 'Bifröst Shopify — Shopify orders, products and customers into Business Central, sales documents and refund credit memos, and prices, stock and posted shipments back to Shopify'],
   ['foundation', 'Bifröst Foundation (the base app, always installed) — how Bifröst works, and the standard Business Central operations'],
 ];
 
