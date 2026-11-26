@@ -1,0 +1,18 @@
+.details {
+  margin-bottom: var(--ifm-spacing-vertical);
+  border: 1px solid var(--ifm-alert-border-color);
+}
+
+.details > summary {
+  cursor: pointer;
+}
+
+.answer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ifm-alert-border-color);
+}
+
+.answer > :last-child {
+  margin-bottom: 0;
+}
