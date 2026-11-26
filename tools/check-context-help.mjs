@@ -10,6 +10,8 @@
  * This script reads the AL repository and the site, and reports:
  *
  *   - app.json: contextSensitiveHelpUrl (site root, {0} placeholder, route id), `help`,
+ *     An app with no pages of its own may point contextSensitiveHelpUrl at the
+ *     docs overview, {0}/<route>/, instead of {0}/help/<route>/.
  *     and helpBaseUrl when present
  *   - every page, report request page and query: ContextSensitiveHelpPage / HelpLink,
  *     the published URL for en-US and is-IS, and whether the target page exists
@@ -140,6 +142,20 @@ function parseHelpUrl(url, route) {
   return {ok: findings.length === 0, root, findings};
 }
 
+/** App with no pages of its own: Business Central opens the docs overview at {0}/<route>/. */
+function parseOverviewHelpUrl(url, route) {
+  const findings = [];
+  if (!url) return {ok: false, findings: ['contextSensitiveHelpUrl is missing']};
+  const root = SITE_ROOTS.find((r) => url.startsWith(r));
+  if (!root) findings.push(`site root is not one of ${SITE_ROOTS.join(', ')}`);
+  if (!url.includes('{0}')) findings.push('no {0} locale placeholder');
+  const rest = root ? url.slice(root.length) : url;
+  const m = /^\{0\}\/([^/]+)\/$/.exec(rest);
+  if (!m) findings.push(`path should be {0}/${route}/ (with the trailing slash), found '${rest}'`);
+  else if (m[1] !== route) findings.push(`route '${m[1]}' does not match '${route}'`);
+  return {ok: findings.length === 0, root, findings, overview: true};
+}
+
 // ---------------------------------------------------------------------------
 // Run
 // ---------------------------------------------------------------------------
@@ -168,7 +184,7 @@ async function main(argv) {
 
   const routes = await helpRoutes(siteRoot, route);
   const appFindings = [];
-  const url = parseHelpUrl(app.json.contextSensitiveHelpUrl, route);
+  let url = parseHelpUrl(app.json.contextSensitiveHelpUrl, route);
   appFindings.push({property: 'contextSensitiveHelpUrl', value: app.json.contextSensitiveHelpUrl ?? '', status: url.ok ? 'ok' : 'broken', note: url.findings.join('; ')});
   if (app.json.helpBaseUrl !== undefined) {
     appFindings.push({property: 'helpBaseUrl', value: app.json.helpBaseUrl, status: 'check', note: 'helpBaseUrl is the on-premises Help Server setting; online apps use contextSensitiveHelpUrl'});
@@ -251,6 +267,19 @@ async function main(argv) {
     rows.push(row);
   }
 
+  const hasHelpTargets = rows.some((r) => r.status !== 'n/a');
+  let opensOverview = false;
+  if (!url.ok && !hasHelpTargets) {
+    const overviewUrl = parseOverviewHelpUrl(app.json.contextSensitiveHelpUrl, route);
+    if (overviewUrl.ok) {
+      url = overviewUrl;
+      opensOverview = true;
+      const finding = appFindings.find((f) => f.property === 'contextSensitiveHelpUrl');
+      finding.status = 'ok';
+      finding.note = 'no pages of its own; Business Central opens the app overview';
+    }
+  }
+
   const problems = [...appFindings.filter((f) => f.status === 'broken'), ...rows.filter((r) => r.status === 'broken' || r.status === 'missing')];
   if (opts.json) {
     console.log(JSON.stringify({app: app.json.name, route, appFindings, objects: rows, problems: problems.length}, null, 2));
@@ -261,7 +290,8 @@ async function main(argv) {
     console.log('\n| Object type | Id | Name | Current value | Expected docs path | Status | Note |\n|---|---|---|---|---|---|---|');
     for (const r of rows) console.log(`| ${r.objectType} | ${r.id ?? ''} | ${r.name} | ${r.current ? `\`${r.current}\`` : '(none)'} | ${r.expected ? `\`${r.expected}\`` : ''} | ${r.status} | ${r.note} |`);
     console.log(`\n${problems.length ? `${problems.length} problem(s).` : 'All context-sensitive help resolves.'}`);
-    if (url.root) console.log(`Published as ${url.root}{en-us|is-is}/help/${route}/<page>/ (Business Central sends en-US/is-IS; the site's 404 page rewrites the locale case).`);
+    if (url.root && opensOverview) console.log(`Published as ${url.root}{en-us|is-is}/${route}/ (Business Central sends en-US/is-IS; the site's 404 page rewrites the locale case).`);
+    else if (url.root) console.log(`Published as ${url.root}{en-us|is-is}/help/${route}/<page>/ (Business Central sends en-US/is-IS; the site's 404 page rewrites the locale case).`);
   }
   return problems.length ? 1 : 0;
 }

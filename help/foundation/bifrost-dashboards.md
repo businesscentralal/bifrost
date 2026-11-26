@@ -3,7 +3,7 @@ id: bifrost-dashboards
 title: "Bifrost Dashboards"
 ---
 
-**Bifrost Dashboards** lists the dashboards that are stored in Bifrost. A dashboard is a page of charts and tables that is filled with live Business Central data. Open one to see it in the viewer, refresh its data, show it on the whole screen or download it. Dashboards are created and changed outside this page; here you open, refresh and remove them.
+**Bifrost Dashboards** lists the dashboards that are stored in Bifrost. A dashboard is a page of charts and tables that is filled with live Business Central data. Open one to see it in the viewer, refresh its data, or show it on the whole screen. Dashboards are created and changed outside this page; here you open, refresh and remove them.
 
 ## Fields
 
@@ -38,16 +38,20 @@ title: "Bifrost Dashboards"
 | --- | --- |
 | **Refresh** | Refreshes the data using your own permissions. |
 | **Full Screen** | Shows the dashboard on the whole page. The same toolbar is available there. |
-| **Download Snapshot** | Downloads the dashboard with your last data as one self-contained HTML file. |
+| **Save as PDF** | Saves the visible dashboard as a PDF, exactly as it is shown, with its data attached inside the PDF as a JSON file and one CSV file per table. Open the attachments in your PDF reader (for example the Attachments pane in Adobe Acrobat). |
 | **Data Sources** | Shows the data sources that fill this dashboard. |
 | **Live** | Refreshes the data at an interval. The interval is never shorter than the minimum refresh time of the dashboard, and never below 30 seconds. |
 | **Copy chart** | Copies the first chart as a picture. If there is no chart, the first table is copied as text. |
 
 Viewing a dashboard needs only the `BIFROST Read ori` permission set. A dashboard shows the data you are allowed to see.
 
+## Chat panel
+
+When you can use Bifrost Chat, the list shows the chat panel on the side. The chat knows which dashboard is selected, so you can ask about it directly, for example what a figure means or which data source fills a chart. The panel is shown only when you have the `BIFROST Chat ori` permission set and a chat provider is set up, the same rule as on the other Bifrost pages. See [Bifrost Chat in Business Central](/language-models/chat/).
+
 ## Common tasks
 
 - **See a dashboard:** select it and choose **Open Dashboard**.
+- **Share a dashboard with its data:** open it, refresh it and choose **Save as PDF**. The PDF carries the data as attachments.
 - **Update the figures:** choose **Refresh**. If the minimum refresh time has not passed, you get the stored data.
-- **Share a view of the data:** choose **Download Snapshot** and send the HTML file.
 - **Check where the figures come from:** choose **Data Sources**.

@@ -49,8 +49,9 @@ Bifröst does not register foreign payment batches at the savings banks.
    a client certificate (a `.pfx` file with its own password).
 2. **The Sparisjóðir row on [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/)**:
    leave it enabled, enter the company user name, then use **Set Company Password** and **Set
-   Certificate**. **Secrets** shows **Complete** when both are stored. Leave **SOAP Signer** blank: the
-   savings banks sign with WSE3. Choose **WSE2** only if the savings bank asks for it.
+   Certificate**. **Secrets** shows **Complete** when both are stored. Leave **SOAP Signer** blank unless
+   the savings bank tells you to use WSE2 or WSE3. Blank uses WSE3. You can change the field only for
+   Íslandsbanki, Kvika banki and Sparisjóðir; on other rows it is read-only.
 3. **Personal logins, if your users have their own at the savings bank.** Each user enters their own user
    name and password on **Bifrost User Setup**; see
    [Bank credentials for your user](/help/iceland-treasury/bank-user-setup/).

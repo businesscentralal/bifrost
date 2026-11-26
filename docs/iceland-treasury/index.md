@@ -80,7 +80,18 @@ agencies Gjaldskil and InKasso issue only a user name and password.
 | 3 | Run **Bifrost Iceland Treasury - Bank Setup** from **Assisted Setup**, or open **Bifrost Iceland Treasury Setup** from **Bifrost Setup**. Enter the user name and secrets of each bank you use, and turn off the banks you do not use. | Business Central administrator with `BIFROST TAdmin ori` |
 | 4 | For bank reconciliation, set the bank's import format as **Bank Statement Import Format** on each Business Central bank account, with the bank's account number in **Bank Account No.** | Accountant or administrator |
 | 5 | For claims, set the bank's claim identifier on a **Payment Method** for each collection agreement. | Accountant or administrator |
-| 6 | Give each user or service the permission sets for what they may do at the bank (see [Permissions](#permissions)). Users who have their own login at a bank enter it on **Bifrost User Setup**. | Business Central administrator, then each user |
+| 6 | Give each user or service the permission sets for what they may do at the bank (see [Permissions](#permissions)). Users who have their own login at a bank enter it on **Bifrost User Setup**, or with **Set My Bank Authorization** on **Bifrost Iceland Treasury Setup**. | Business Central administrator, then each user |
+
+On **Bifrost Iceland Treasury Setup**, the **Information** FactBox keeps the secure connection status line
+and shows **User name**, **My authorization** and **Authentication** for the selected bank. The user name
+is your own or the company default, and a password is not shown. **Set My Bank Authorization** asks for
+your user name and your authorization together. A blank user name keeps the company default. **Clear My
+Bank Authorization** can also clear that user name. **SOAP Signer** can be changed only for Íslandsbanki,
+Kvika banki and Sparisjóðir; on other rows it is read-only. Leave it blank unless the bank tells you
+to use WSE2 or WSE3. Administrators can
+use **Copy Certificate To...** to copy a company certificate and its password to another bank, with
+confirmation before replacing an existing certificate. See the [setup help](/help/iceland-treasury/treasury-setup/)
+for the status meanings and steps.
 
 The help of each page has the details: [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/),
 the [setup wizard](/help/iceland-treasury/treasury-setup-wizard/),

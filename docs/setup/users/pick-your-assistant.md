@@ -20,7 +20,7 @@ Bifröst works with the AI assistant you already use. Your company usually decid
 | Assistant | How it connects |
 |---|---|
 | **Claude** (on the web or [Claude Desktop](https://claude.ai/download)) | A connector you add yourself; step by step in [Connect your assistant](/setup/connect-your-ai/#claude) |
-| **Microsoft 365 Copilot** | Bifröst is an agent in Microsoft 365 Copilot, in a pilot: ask Origo whether it is available for your organisation. Your administrator publishes it once, then you add it in Copilot ([how](/setup/connect-your-ai/#microsoft-copilot)) |
+| **Microsoft 365 Copilot** | Two ways: as a plugin in Copilot Cowork ([how](/setup/connect-your-ai/#copilot-user)), or as an agent in Copilot Chat. Bifröst is an agent in Microsoft 365 Copilot, in a pilot: ask Origo whether it is available for your organisation. Your administrator publishes it once, then you add it in Copilot ([how](/setup/connect-your-ai/#copilot-user)) |
 | **ChatGPT** | Not in its store yet; until then, as a remote MCP server where your ChatGPT allows it ([how](/setup/connect-your-ai/#chatgpt)) |
 | **Another assistant** | Any assistant that supports remote MCP servers |
 
@@ -30,8 +30,14 @@ Bifröst works with the AI assistant you already use. Your company usually decid
   Some companies let only the workspace owner add connectors; ask your administrator.
 - **Your Business Central user**, with the Bifröst permissions your administrator has given you.
   The assistant works as you, with exactly your rights.
-- **For Claude, ChatGPT and other assistants: the MCP server address**, from your administrator. You paste it in
-  when you add the connector. In Microsoft 365 Copilot you don't need it: the agent already knows it.
+- **For Claude, ChatGPT, Copilot Studio and other assistants: the MCP server address**. You paste it in when you
+  add the connector:
+
+  ```text
+  https://bifrost.origo.is/mcp
+  ```
+
+  For the agent in Copilot Chat you don't need it: the agent already knows it.
 
 Two things to know: the assistant needs its own license from its provider, as it does today; and what the
 assistant reads from Business Central goes to that provider, under your company's agreement with it. See

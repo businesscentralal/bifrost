@@ -18,5 +18,5 @@ samstarfsaðila og leyfisstjórnunarheimildar.
 | Aðgerð | Lýsing |
 | --- | --- |
 | **Endurhlaða** | Sækir óafgreiddu beiðnirnar aftur. |
-| **Staðfesta** | Samþykkir beiðnina. Viðskiptavininum er sagt upp og hann fer aftur á fyrirframgreitt leyfi við næstu samstillingu sína. |
+| **Staðfesta** | Samþykkir beiðnina. Viðskiptavininum er sagt upp og hann fer aftur á prufuleyfi við næstu samstillingu sína. |
 | **Hafna** | Hafnar beiðninni með [ástæðu](/help/foundation/cancel-reason/). Viðskiptavinurinn sér hana eftir næstu samstillingu sína og er áfram viðskiptavinur þinn. |

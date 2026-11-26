@@ -3,22 +3,25 @@ id: bifrost-user-setup-fact-box
 title: "User Setup Preview"
 ---
 
-The **User Setup Preview** FactBox displays a quick summary of the current user's Bifrost configuration. It shows resolved display names (not just codes) for all linked records, making it easy to verify your settings at a glance.
+The **User Setup Preview** FactBox shows a summary of the selected user's Bifröst setup. It appears on
+[Bifrost User Setup](/help/foundation/bifrost-user-setup-list/) and in the
+[User Setup Editor](/help/foundation/bifrost-user-setup-editor/). It shows resolved names, not just codes, for the
+linked records, so you can check the setup at a glance.
 
 ## Displayed Information
 
 | Field | Description |
 | --- | --- |
-| **Employee** | Resolved employee name from the linked employee number. |
-| **Customer** | Resolved customer name from the linked customer number. |
-| **Vendor** | Resolved vendor name from the linked vendor number. |
-| **Resource** | Resolved resource name from the linked resource number. |
+| **System Prompt** | A preview of the user's system prompt. |
+| **Chargeable messages this month** | The user's chargeable messages in the current company from the first of this month through today. Choose the count to see the messages. |
+| **Chargeable messages last month** | The user's chargeable messages in the current company in the whole previous calendar month. Choose the count to see the messages. |
+| **G/L Account**, **Employee**, **Customer**, **Vendor**, **Resource**, **Salesperson**, **Contact**, **Location** | The names of the linked records. |
 
 ## Actions
 
 | Action | Description |
 | --- | --- |
-| **Edit Setup** | Opens the [User Setup Editor](/help/foundation/bifrost-user-setup-editor/) to modify your configuration. |
+| **Edit Setup** | Opens the [User Setup Editor](/help/foundation/bifrost-user-setup-editor/) to change this user's setup. |
 
 ## See Also
 

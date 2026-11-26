@@ -14,17 +14,17 @@ setup per company; it is created the first time the page opens.
 
 ## Networks
 
-![Document Exchange Setup with the Advania and Unimaze groups, each with its environment set to Test and the credentials stored](/img/iceland-docex/en-us/docex-setup.png)
+![Document Exchange Setup with the Advania and Unimaze groups, each with its environment set to Production and the credentials not set, and the secure connection status showing not connected on a development install](/img/iceland-docex/en-us/docex-setup.png)
 
 Each network has its own group with an **Environment** field and a read-only **Credentials** status.
 
 | Group | Fields |
 | --- | --- |
-| **Advania** | **Advania Environment** (Live or Test), **Advania Web UI User Name**, **Credentials** |
-| **Unimaze** | **Unimaze Environment** (Live or Test), **Credentials** |
+| **Advania** | **Advania Environment** (Production or Test), **Advania Web UI User Name**, **Credentials** |
+| **Unimaze** | **Unimaze Environment** (Production or Test), **Credentials** |
 
 - **Environment** decides which service is called. Credentials are stored per network **and** per
-  environment, so a Test credential is never used for a Live call. When you change the environment, the
+  environment, so a Test credential is never used for a Production call. When you change the environment, the
   **Credentials** status shows whether that environment has its values.
 - **Advania Web UI User Name** is used only by **Open Advania Web UI**, to open the Advania web interface
   with single sign-on. It is not a credential.
@@ -55,13 +55,31 @@ Credentials are not copied from an earlier app or an upgrade. Enter them again a
 | **Unimaze** | **Set Username** / **Set Password or API Key** | Stores the value for the selected environment. |
 | | **Clear Credentials** | Removes both values for the selected environment, after you confirm. |
 | | **Test Unimaze Connection** | Signs in to Unimaze and shows the company's party on the network, found by the **Registration No.** on **Company Information**, and how many messages are in the inbox and unread, or says why the connection failed and what to check. |
-| **General** | **App Secrets** | Opens the list of the app's secrets: which are stored, when and by whom. |
+| **General** | Refresh secure connection status | Checks the secure connection again and updates its status. |
+| | **App Secrets** | Opens the list of the app's secrets: which are stored, when and by whom. |
 | | **Setup Wizard** | Opens the Bifrost Setup Wizard, which allows HTTP requests for the Bifröst apps. |
 | | **Update BII Data Exchange Definitions** | Creates the data exchange definitions that read received e-invoices and credit notes again from scratch. Run it before you receive documents, and after an update if you are asked to. |
 | | **BIS30 Code Map** | Opens the [BIS30 Code Map](/help/iceland-docex/bis30-code-map/). |
 | | **VAT G/L Account Map** | Opens the [Vendor VAT G/L Account Map](/help/iceland-docex/vend-vat-gl-map/). |
 
 ![The message after Test Unimaze Connection: connected to the Unimaze Test environment as the company's party, with the number of messages in the inbox and how many are not yet in Business Central](/img/iceland-docex/en-us/test-unimaze-connection.png)
+
+## Copying a company to a sandbox
+
+When Business Central copies a production company or environment to a sandbox, the app clears every stored network credential and the Advania web interface user name in the copy, and switches every network set to **Production** to **Test**. The sandbox can then never call a network with production credentials. Enter test credentials again in the sandbox. Nothing is cleared when a company is simply opened.
+
+## Secure connection status
+
+The secure connection status shows whether the app can access the values it needs. The page checks
+the connection when it opens; use the refresh action to check it again.
+
+| Status | Meaning |
+| --- | --- |
+| **Connected** | The connection is available and every value the app needs is there. |
+| **Not connected** | The connection is unavailable, or a value the app needs is missing. |
+| **Not connected (not an AppSource install)** | The app was not installed from AppSource, so the secure connection is unavailable. This is expected in a development or per-tenant installation, and the page still works. |
+
+The status never shows secret names or values.
 
 ## Outgoing HTTP requests
 
@@ -80,5 +98,5 @@ network succeeds and **Bifrost Setup** shows a notification with **Start setup w
 6. If you receive invoices, choose **Update BII Data Exchange Definitions** and fill in the
    [BIS30 Code Map](/help/iceland-docex/bis30-code-map/) and the
    [Vendor VAT G/L Account Map](/help/iceland-docex/vend-vat-gl-map/).
-7. Send a test invoice from start to finish, then switch the environment to **Live** and enter the Live
+7. Send a test invoice from start to finish, then switch the environment to **Production** and enter the Production
    credentials.

@@ -63,3 +63,20 @@ test('applyReleasedCopy can set the released package version without adding apps
   assert.equal(data.apps.length, 1);
   assert.throws(() => applyReleasedCopy(data, appJson, {version: '28.0'}), /four-part/);
 });
+
+test('DATE is the only non-date allowed for released and updated', () => {
+  const data = entry();
+  data.updated = 'DATE';
+  data.apps[0].released = 'DATE';
+  assert.deepEqual(releasedCopyErrors(data), []);
+  applyReleasedCopy(data, appJson, {released: 'DATE', updated: 'DATE'});
+  assert.equal(data.apps[0].released, 'DATE');
+  assert.equal(data.updated, 'DATE');
+  const bad = entry();
+  bad.updated = 'SOON';
+  bad.apps[0].released = 'SOON';
+  const errors = releasedCopyErrors(bad).join('\n');
+  assert.match(errors, /updated must be a YYYY-MM-DD date or the placeholder DATE/);
+  assert.match(errors, /released "SOON" must be YYYY-MM-DD or the placeholder DATE/);
+  assert.throws(() => applyReleasedCopy(entry(), appJson, {released: 'SOON'}), /placeholder DATE/);
+});
