@@ -8,6 +8,8 @@ displayed_sidebar: null
 description: "Answers to common questions about using Bifröst, connecting assistants, data and permissions, sign-in and security."
 ---
 
+import LinkedFaqAnswer from '@site/src/components/LinkedFaqAnswer';
+
 # Frequently asked questions
 
 Click a question to see the answer.
@@ -116,8 +118,7 @@ Microsoft Entra ID.
 
 </details>
 
-<details id="stored-sign-ins">
-<summary>Does Origo keep users' sign-ins on its servers, and if so, how are they protected and for how long?</summary>
+<LinkedFaqAnswer id="stored-sign-ins" question="Does Origo keep users' sign-ins on its servers, and if so, how are they protected and for how long?">
 
 **Yes, when your assistant signs in through Bifröst.** Origo stores access and refresh tokens from
 Microsoft Entra ID so your assistant can stay connected. These tokens are encrypted when stored.
@@ -130,7 +131,7 @@ longer be used, but that does not tell you when the stored copy is deleted. For 
 period, [contact Bifröst support](/support/). See [Privacy](/licensing/privacy/) for how Origo handles
 service data.
 
-</details>
+</LinkedFaqAnswer>
 
 <details id="ending-access">
 <summary>How long does a user's access last, and how is it ended?</summary>

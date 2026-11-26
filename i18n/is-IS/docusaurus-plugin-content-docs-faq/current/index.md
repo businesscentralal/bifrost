@@ -8,6 +8,8 @@ displayed_sidebar: null
 description: "Svör við algengum spurningum um notkun Bifröst, tengingu aðstoðarmanna, gögn, heimildir, innskráningu og öryggi."
 ---
 
+import LinkedFaqAnswer from '@site/src/components/LinkedFaqAnswer';
+
 # Spurt og svarað
 
 Smelltu á spurningu til að sjá svarið.
@@ -118,8 +120,7 @@ milli aðstoðarmannsins og Microsoft Entra ID.
 
 </details>
 
-<details id="stored-sign-ins">
-<summary>Geymir Origo innskráningarupplýsingar notenda á sínum þjónum? Ef svo er, hvernig eru þær varðar og hve lengi eru þær geymdar?</summary>
+<LinkedFaqAnswer id="stored-sign-ins" question="Geymir Origo innskráningarupplýsingar notenda á sínum þjónum? Ef svo er, hvernig eru þær varðar og hve lengi eru þær geymdar?">
 
 **Já, þegar aðstoðarmaðurinn notar innskráningu í gegnum Bifröst.** Origo geymir aðgangs- og
 endurnýjunartóka frá Microsoft Entra ID svo tengingin haldist virk. Tókarnir eru dulkóðaðir í
@@ -132,7 +133,7 @@ afturkallaður er ekki lengur hægt að nota hann, en það segir ekki til um hv
 geymslu. [Hafðu samband við þjónustuver Bifrastar](/support/) til að fá upplýsingar um geymslutíma.
 Sjá einnig [Persónuvernd](/licensing/privacy/) um meðferð Origo á þjónustugögnum.
 
-</details>
+</LinkedFaqAnswer>
 
 <details id="ending-access">
 <summary>Hve lengi varir aðgangur notanda og hvernig er honum lokið?</summary>
