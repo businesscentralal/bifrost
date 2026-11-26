@@ -298,6 +298,7 @@ const config: Config = {
             {label: buildLocale === 'is-IS' ? 'Prófaðu' : 'Try it out', to: '/try-it-out/'},
             {label: buildLocale === 'is-IS' ? 'Verð' : 'Price', to: '/price/'},
             {label: buildLocale === 'is-IS' ? 'Hvernig það virkar' : 'How it works', to: '/documentation/how-it-works/'},
+            {label: buildLocale === 'is-IS' ? 'Útgáfuskýringar MCP (á ensku)' : 'MCP release notes', to: '/mcp/release-notes/'},
             {label: buildLocale === 'is-IS' ? 'Persónuvernd' : 'Privacy', to: '/licensing/privacy/'},
             {label: buildLocale === 'is-IS' ? 'Notkunarskilmálar' : 'Terms of Use', to: '/licensing/eula/'},
           ],

@@ -2,7 +2,13 @@
 
 ## [Unreleased]
 
+### Added
+
+- Bifröst MCP release notes for the hosted service, with dated November 2026 entries (including retirement of the Azure Resource Manager permission), and links from the footer and Connect your assistant.
+
 ### Changed
+
+- FAQ in English and Icelandic: update the ARM consent answer, explain how sign-in tokens are protected, and add answers about assistant access, data, setup, missing companies and timed-out changes.
 
 - Docs homepage: *Why Bifröst* and *How it works* now come before the interactive role demo (*What it looks like*), so visitors read what Bifröst is before they see it in action, and the demo sits in a light rounded box. In the demo, "You, in Claude" now reads "You, in your AI agent" (IS: "Þú, í gervigreindarerindrekanum þínum").
 - Use-case library, case 32, in English and Icelandic: the note now says to try it in a sandbox, not that it is safe in production.

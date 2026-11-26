@@ -114,4 +114,6 @@ Aðstoðarmaður sem styður fjartengda MCP-þjóna getur líka tengst: bættu s
 MCP-þjóni eða sérsniðinni tengingu í stillingum hans, og skráðu þig inn með vinnureikningnum þínum. Hvar sú stilling
 er kemur fram í hjálp aðstoðarmannsins sjálfs.
 
+Sjáðu nýjustu breytingar í [útgáfuskýringum MCP (á ensku)](/mcp/release-notes/).
+
 **Næst:** [Spurðu fyrstu spurningarinnar](/setup/first-question/)
