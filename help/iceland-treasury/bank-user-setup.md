@@ -12,6 +12,12 @@ By default every call to a bank uses the company's user name and password from
 [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/). When the bank has given you a
 login of your own, enter it here and your calls use it instead.
 
+You can set the same user name from that setup page. **Set My Bank Authorization** asks for your user
+name and your authorization together and stores the name here. Leave the name blank, or leave the
+company default as the dialog shows it, to keep the company's user name. **Clear My Bank Authorization**
+removes your authorization first, then asks whether to clear your user name. Declining the first
+question changes nothing. Declining the second keeps the name.
+
 Open **Bifrost User Setup**, then your own user.
 
 ## Fields

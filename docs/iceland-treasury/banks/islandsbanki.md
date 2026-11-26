@@ -41,7 +41,9 @@ The statement of the paying account then shows when its payments are paid.
    client certificate (a `.pfx` file with its own password).
 2. **The Íslandsbanki row on [Bifrost Iceland Treasury Setup](/help/iceland-treasury/treasury-setup/)**:
    leave it enabled, enter the company user name, then use **Set Company Password** and **Set
-   Certificate**. **Secrets** shows **Complete** when both are stored.
+   Certificate**. **Secrets** shows **Complete** when both are stored. Leave **SOAP Signer** blank unless
+   the bank tells you to use WSE2 or WSE3. You can change the field only for
+   Íslandsbanki, Kvika banki and Sparisjóðir; on other rows it is read-only.
 3. **Personal logins, if your users have their own at the bank.** Each user enters their own user name
    and password on **Bifrost User Setup**; see
    [Bank credentials for your user](/help/iceland-treasury/bank-user-setup/).
