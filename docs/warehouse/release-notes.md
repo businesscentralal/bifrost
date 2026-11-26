@@ -10,6 +10,29 @@ description: "What changed in each version of Bifröst Warehouse published on Mi
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Warehouse published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.3.3 — 26 November 2026
+
+### Added
+
+- Read open warehouse receipts and shipments, with their lines and quantities, using filters and paging.
+- See how much of an item a pick can take at a location, per bin and per lot, serial or package number. The numbers come from Business Central's own calculations: the quantity in the warehouse, on open picks, in dedicated or blocked bins, reserved, and in receiving, shipping or quality bins.
+- Create internal put-aways and internal picks at locations that use directed put-away and pick, from lines you name or from the content of a bin, and optionally create the put-away or pick that is then registered. If the location is not set up for it, a bin is blocked or there is not enough to pick, nothing is created and the answer says what to do next.
+- Change an open warehouse receipt or shipment: header fields and the zone and bin on its lines, checked by Business Central's own validation and saved all or nothing. A released shipment is refused with a reminder to reopen it first.
+- Assign warehouse activities to a warehouse employee at the location, remove the assignment, change how the lines are sorted and set the due date.
+- Create a pick for a released production order, assembly order or project, not only for a warehouse shipment, the same way as the order's own Create Warehouse Pick action.
+- Create an inventory put-away for the output of a released production order and post it together with the output, when the location handles production output with inventory put-aways. If nothing is waiting to be put away, the answer says so and nothing is written.
+
+### Changed
+
+- Creating receipts, picks, put-aways, movements, inventory picks, inventory put-aways, inventory movements, bin replenishment and worksheet activities is now an ordinary change, not an irreversible one. These operations no longer ask for a confirmation count when your company requires confirmation of irreversible operations. Posting and registering are still irreversible.
+- For every operation that is still irreversible, the description says what the confirmation count counts: the call itself, not lines or documents.
+- Internal put-aways and internal picks can no longer be written through the general record update. The refusal points to the new operations.
+
+### Fixed
+
+- Irreversible operations no longer refuse a request because it includes the confirmation count.
+- An administrator with a restricted licence can open Bifröst Setup while Warehouse is installed.
+
 ## 28.3.2 — 29 October 2026
 
 ### Added
