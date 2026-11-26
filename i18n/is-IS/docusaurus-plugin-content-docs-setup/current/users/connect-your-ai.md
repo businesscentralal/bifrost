@@ -173,4 +173,6 @@ er kemur fram í hjálp aðstoðarmannsins sjálfs.
 https://bifrost.origo.is/mcp
 ```
 
+Sjáðu nýjustu breytingar í [útgáfuskýringum MCP (á ensku)](/mcp/release-notes/).
+
 **Næst:** [Spurðu fyrstu spurningarinnar](/setup/first-question/)

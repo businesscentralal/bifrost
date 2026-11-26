@@ -63,6 +63,14 @@ Use the `app.json` from the release the `version` names. The command copies `bri
 
 `.github/workflows/validate-apps.yml` runs `node tools/validate-apps.mjs` on changes under `data/`. That check fails when any entry is missing `brief` or `description`, or when either one is blank.
 
+## When the hosted MCP service is updated
+
+Add customer-visible changes to [MCP release notes](docs/mcp/release-notes.md) once the rollout is
+confirmed. Use one heading per rollout date (for example, `24 November 2026`), newest first. Group
+changes that roll out on the same day. Don't use the merge or build date as the rollout date.
+Describe what users will notice and what they need to do, if anything. Keep the notes in English,
+like the app release notes, and follow the same review steps below.
+
 ## Before you open a pull request
 
 ```powershell

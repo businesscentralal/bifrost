@@ -175,4 +175,6 @@ Where to find that setting is in the assistant's own help.
 https://bifrost.origo.is/mcp
 ```
 
+See the [MCP release notes](/mcp/release-notes/) for changes to how Bifröst works with your assistant.
+
 **Next:** [Ask your first question](/setup/first-question/)

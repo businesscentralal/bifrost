@@ -4,6 +4,8 @@
 
 ### Added
 
+- Bifröst MCP release notes for the hosted service, with dated November 2026 entries (including retirement of the Azure Resource Manager permission), and links from the footer and Connect your assistant.
+
 - Foundation release notes 28.0.16 (25 November 2026) in `docs/foundation/release-notes.md`: My Bifröst Dashboards, Save as PDF, the dashboard-only permission set, Chat on the Dashboards list, app identity in status answers, shared field-read rules for Bifröst apps, Sync enabling Vendor/Partner roles, permission reports, Icelandic wording and fixes (core#1568). English only. `data/versions.json` moves Foundation to 28.0.16.823, released 2026-11-25.
 - Language Models release notes 28.0.5 (25 November 2026) in `docs/language-models/release-notes.md`: usage log, estimated cost from prices on the language model card, daily totals, compression and retention. Version 28.0.4 was not published; it had no user-facing changelog entries, so this section covers everything since 28.0.3 (businesscentralal/bc-origo-bifrost-language-models#168, tag 28.0.5 at 83171d9). English only. `data/versions.json` moves Language Models to 28.0.5.106, released 2026-11-25. The language model card help, in English and Icelandic, describes the new pricing fields and usage actions (#232).
 - Bifröst Manufacturing first release docs (#224): overview, Partner Center listing, user scenarios and release notes 28.0 (date set at release) under `docs/manufacturing/`, with Icelandic overview, listing and user scenarios (release notes English only, as for the other apps). The app has no pages of its own, so it has no `help/manufacturing/` instance, matching its `contextSensitiveHelpUrl` and AS0051. `apps.ts`, `tools/lib/app-routes.mjs` and `tools/build-root.mjs` list the app; `data/apps.json` and `data/versions.json` are not changed until it is live on AppSource. `tools/check-docs.mjs` and its test no longer treat the name Bifrost Manufacturing as unpublished.
@@ -11,6 +13,8 @@
 - Foundation Bifrost Dashboards help, in English and Icelandic: a new Chat panel section describes the Bifrost Chat FactBox on the Dashboards list (shown only with the Chat permission and a configured chat provider). The Download Snapshot action is removed from the help, because it is hidden in the app.
 
 ### Changed
+
+- FAQ in English and Icelandic: update the ARM consent answer, explain how sign-in tokens are protected, and add answers about assistant access, data, setup, missing companies and timed-out changes.
 
 - Projects help and overview in English and Icelandic: screenshots of all five help topics, including Time Sheet Date on an unposted demo invoice. Time Sheet Date help now explains visibility per document and the existing sales permissions. No objects added.
 
