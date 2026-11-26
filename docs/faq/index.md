@@ -22,11 +22,13 @@ license, the permissions for each operation, and the Bifröst apps and restricti
 set up. For example, your administrator can hide fields, and posting through Bifröst needs a
 separate permission.
 
+Bifröst does not delete records in Business Central. The assistant can give you a link to the record
+and ask you to delete it there yourself.
+
 Bifröst requires the assistant to confirm a change before submitting it to a production environment.
 Lookups don't need that confirmation, though your assistant may still ask to use a tool. Say
-**“Show me first”** before asking it to post, send or delete anything,
-and check the company and the planned change before you approve it. See
-[What you can ask](/documentation/end-customers/users/#what-you-can-ask).
+**“Show me first”** before asking it to post or send anything, and check the company and the planned
+change before you approve it. See [What you can ask](/documentation/end-customers/users/#what-you-can-ask).
 
 </details>
 

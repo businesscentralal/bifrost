@@ -22,11 +22,13 @@ Business Central, heimildum fyrir hverja aðgerð og þeim Bifröst-forritum og 
 fyrirtækið hefur sett upp. Kerfisstjóri getur til dæmis falið reiti og sérstaka heimild þarf til
 að bóka í gegnum Bifröst.
 
+Bifröst eyðir ekki gögnum í Business Central. Aðstoðarmaðurinn getur gefið þér hlekk á færsluna
+og beðið þig um að eyða henni þar.
+
 Bifröst krefst þess að aðstoðarmaðurinn staðfesti breytingu áður en hann sendir hana í
 framleiðsluumhverfi. Uppflettingar þurfa ekki þessa staðfestingu en aðstoðarmaðurinn gæti samt
-beðið um leyfi til að nota verkfæri. Segðu **„Sýndu mér fyrst“** áður en þú biður hann að bóka,
-senda eða eyða einhverju. Athugaðu
-fyrirtækið og fyrirhugaða breytingu áður en þú samþykkir hana. Sjá
+beðið um leyfi til að nota verkfæri. Segðu **„Sýndu mér fyrst“** áður en þú biður hann um að bóka
+eða senda eitthvað. Athugaðu fyrirtækið og fyrirhugaða breytingu áður en þú samþykkir hana. Sjá
 [Hvað þú getur spurt um](/documentation/end-customers/users/#what-you-can-ask).
 
 </details>
