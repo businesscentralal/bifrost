@@ -4,6 +4,7 @@
 
 ### Added
 
+- Warehouse release notes 28.3.3 (26 November 2026) in `docs/warehouse/release-notes.md`: reading open receipts and shipments, quantity available to pick, internal put-aways and picks, changing receipts and shipments, assigning activities, picks for production, assembly and project orders, put-away of production output, create operations no longer irreversible, and fixes (businesscentralal/bc-origo-bifrost-warehouse, tag 28.3.3 at d7e0fca). English only. `data/versions.json` moves Warehouse to 28.3.3.58, released 2026-11-26.
 - Bifröst Service Management first release docs (#238): overview, Partner Center listing, user scenarios and release notes 28.0.0 (date set at release) under `docs/service-management/`, with Icelandic overview, listing and user scenarios (release notes English only), and the app's coming-soon entry.
 
 - Bifröst MCP release notes for the hosted service, with dated November 2026 entries (including retirement of the Azure Resource Manager permission), and links from the footer and Connect your assistant.

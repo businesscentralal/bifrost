@@ -8,6 +8,8 @@ displayed_sidebar: null
 description: "Svör við algengum spurningum um notkun Bifröst, tengingu aðstoðarmanna, gögn, heimildir, innskráningu og öryggi."
 ---
 
+import LinkedFaqAnswer from '@site/src/components/LinkedFaqAnswer';
+
 # Spurt og svarað
 
 Smelltu á spurningu til að sjá svarið.
@@ -22,11 +24,13 @@ Business Central, heimildum fyrir hverja aðgerð og þeim Bifröst-forritum og 
 fyrirtækið hefur sett upp. Kerfisstjóri getur til dæmis falið reiti og sérstaka heimild þarf til
 að bóka í gegnum Bifröst.
 
+Bifröst eyðir ekki gögnum í Business Central. Aðstoðarmaðurinn getur gefið þér hlekk á færsluna
+og beðið þig um að eyða henni þar.
+
 Bifröst krefst þess að aðstoðarmaðurinn staðfesti breytingu áður en hann sendir hana í
 framleiðsluumhverfi. Uppflettingar þurfa ekki þessa staðfestingu en aðstoðarmaðurinn gæti samt
-beðið um leyfi til að nota verkfæri. Segðu **„Sýndu mér fyrst“** áður en þú biður hann að bóka,
-senda eða eyða einhverju. Athugaðu
-fyrirtækið og fyrirhugaða breytingu áður en þú samþykkir hana. Sjá
+beðið um leyfi til að nota verkfæri. Segðu **„Sýndu mér fyrst“** áður en þú biður hann um að bóka
+eða senda eitthvað. Athugaðu fyrirtækið og fyrirhugaða breytingu áður en þú samþykkir hana. Sjá
 [Hvað þú getur spurt um](/documentation/end-customers/users/#what-you-can-ask).
 
 </details>
@@ -118,8 +122,7 @@ milli aðstoðarmannsins og Microsoft Entra ID.
 
 </details>
 
-<details id="stored-sign-ins">
-<summary>Geymir Origo innskráningarupplýsingar notenda á sínum þjónum? Ef svo er, hvernig eru þær varðar og hve lengi eru þær geymdar?</summary>
+<LinkedFaqAnswer id="stored-sign-ins" question="Geymir Origo innskráningarupplýsingar notenda á sínum þjónum? Ef svo er, hvernig eru þær varðar og hve lengi eru þær geymdar?">
 
 **Já, þegar aðstoðarmaðurinn notar innskráningu í gegnum Bifröst.** Origo geymir aðgangs- og
 endurnýjunartóka frá Microsoft Entra ID svo tengingin haldist virk. Tókarnir eru dulkóðaðir í
@@ -132,7 +135,7 @@ afturkallaður er ekki lengur hægt að nota hann, en það segir ekki til um hv
 geymslu. [Hafðu samband við þjónustuver Bifrastar](/support/) til að fá upplýsingar um geymslutíma.
 Sjá einnig [Persónuvernd](/licensing/privacy/) um meðferð Origo á þjónustugögnum.
 
-</details>
+</LinkedFaqAnswer>
 
 <details id="ending-access">
 <summary>Hve lengi varir aðgangur notanda og hvernig er honum lokið?</summary>

@@ -10,7 +10,7 @@ description: "Customer-facing changes in Bifröst Shopify."
 
 These notes help sales, inventory and administrator teams review what the app changes. To check your installed version, open **Extension Management** in Business Central.
 
-## 28.0 — first release (date set at release)
+## 28.0.0 — 26 November 2026
 
 ### Initial capabilities {#initial-capabilities}
 
@@ -22,10 +22,10 @@ These notes help sales, inventory and administrator teams review what the app ch
 - Import Shopify customers and update Shopify customers from Business Central, following the shop's customer settings. Customers already mapped are matched, not created again.
 - Send one posted sales shipment to Shopify as a fulfillment. A shipment that already has a fulfillment is refused. A fulfillment Shopify has accepted stays.
 - Send stock levels per location for one enabled shop. You can send stock without importing products first, and you can limit the send to one variant. Sending the same stock again leaves Shopify unchanged.
-- English (United States) and Icelandic (Iceland). **Bifrost Shopify Full** (`SHOPIFY Full ori`) may change data. **Bifrost Shopify Read** (`SHOPIFY Read ori`) may not. Microsoft Shopify permissions are still required.
+- English (United States) and Icelandic (Iceland). **Bifrost Shopify Full** may change data. **Bifrost Shopify Read** may not. Microsoft Shopify permissions are still required.
 
 ### Requirements {#requirements}
 
-This version requires Bifröst Foundation **28.0.5.590** or later and Microsoft's Shopify Connector **28.0** or later, on Business Central 28.
+This version requires Bifröst Foundation **28.0.15** or later and Microsoft's Shopify Connector **28.0** or later, on Business Central 28.
 
 See the [overview](./index.md) for setup and the [user scenarios](./user-scenarios.md) for the work to review before you post a document or send a fulfillment.

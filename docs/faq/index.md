@@ -8,6 +8,8 @@ displayed_sidebar: null
 description: "Answers to common questions about using Bifröst, connecting assistants, data and permissions, sign-in and security."
 ---
 
+import LinkedFaqAnswer from '@site/src/components/LinkedFaqAnswer';
+
 # Frequently asked questions
 
 Click a question to see the answer.
@@ -22,11 +24,13 @@ license, the permissions for each operation, and the Bifröst apps and restricti
 set up. For example, your administrator can hide fields, and posting through Bifröst needs a
 separate permission.
 
+Bifröst does not delete records in Business Central. The assistant can give you a link to the record
+and ask you to delete it there yourself.
+
 Bifröst requires the assistant to confirm a change before submitting it to a production environment.
 Lookups don't need that confirmation, though your assistant may still ask to use a tool. Say
-**“Show me first”** before asking it to post, send or delete anything,
-and check the company and the planned change before you approve it. See
-[What you can ask](/documentation/end-customers/users/#what-you-can-ask).
+**“Show me first”** before asking it to post or send anything, and check the company and the planned
+change before you approve it. See [What you can ask](/documentation/end-customers/users/#what-you-can-ask).
 
 </details>
 
@@ -116,8 +120,7 @@ Microsoft Entra ID.
 
 </details>
 
-<details id="stored-sign-ins">
-<summary>Does Origo keep users' sign-ins on its servers, and if so, how are they protected and for how long?</summary>
+<LinkedFaqAnswer id="stored-sign-ins" question="Does Origo keep users' sign-ins on its servers, and if so, how are they protected and for how long?">
 
 **Yes, when your assistant signs in through Bifröst.** Origo stores access and refresh tokens from
 Microsoft Entra ID so your assistant can stay connected. These tokens are encrypted when stored.
@@ -130,7 +133,7 @@ longer be used, but that does not tell you when the stored copy is deleted. For 
 period, [contact Bifröst support](/support/). See [Privacy](/licensing/privacy/) for how Origo handles
 service data.
 
-</details>
+</LinkedFaqAnswer>
 
 <details id="ending-access">
 <summary>How long does a user's access last, and how is it ended?</summary>
