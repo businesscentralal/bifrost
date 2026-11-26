@@ -12,8 +12,7 @@ Bifröst verkefni bæta dálkinum við fjórar síður: **Sölureikningur**, **S
 sölureikningur** og **Bókaður sölukreditreikningur**. Hann er næst á undan **Lýsing** og ekki er hægt að
 breyta honum.
 
-<!-- screenshot: Sales Invoice, Time Sheet Date column 1033 -->
-<!-- screenshot: Sales Invoice, Time Sheet Date column 1039 -->
+![Dagsetning vinnuskýrslu á sýnidæmi um sölureikning](/img/projects/is-is/time-sheet-date.png)
 
 ## Hvað hann sýnir {#what-it-shows}
 
@@ -31,10 +30,10 @@ er þegar skráð er aldrei breytt.
 
 ## Hvenær dálkurinn sést {#when-the-column-is-visible}
 
-Dálkurinn sést í fyrirtæki sem á reiknings- eða kreditreikningslínur sem voru stofnaðar út frá
-verkefnum, en er falinn í fyrirtæki sem á engar slíkar línur. Business Central ákveður þetta þegar
-línuhlutinn opnast, svo valið gildir fyrir fyrirtækið en ekki hvert skjal fyrir sig: í fyrirtæki sem
-reikningsfærir verkefni sést dálkurinn líka á skjali án verkefnalína, og er þá auður.
+Dálkurinn sést þegar reikningurinn eða kreditreikningurinn sem er opinn inniheldur línur sem urðu til
+úr áætlunarlínum verkefna. Hann er falinn á skjali án slíkra lína, þótt önnur skjöl í fyrirtækinu séu fyrir
+verkefni. Business Central athugar þetta þegar línuhlutinn opnast. Handfærð lína á verkefnareikningi getur
+því sýnt dálkinn með auðri dagsetningu.
 
 Dálkurinn krefst líka notkunarsviðsins **Verkefni** (Jobs), eins og aðrar verkefnaaðgerðir.
 
@@ -42,5 +41,11 @@ Dálkurinn krefst líka notkunarsviðsins **Verkefni** (Jobs), eins og aðrar ve
 
 Hver notandi getur sýnt eða falið dálkinn með sérstillingu. Veldu **Stillingar** og svo **Sérstilla** á
 síðunni, og bættu við eða fjarlægðu **Dagsetning vinnuskýrslu**. Valið gildir aðeins fyrir þann notanda.
+
+## Gott að vita {#good-to-know}
+
+Venjulegar söluheimildir þínar í Business Central gilda um aðgang að reikningum og kreditreikningum.
+Dagsetningin er skrifvarin og ekki þarf sérstaka aðgerð til að fylla hana út þegar lína er stofnuð úr
+áætlunarlínum verkefnis.
 
 Meira um forritið: [Bifröst verkefni](/projects/).

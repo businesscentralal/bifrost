@@ -11,8 +11,7 @@ line is for.
 The column is added by Bifröst Projects and appears on four pages: **Sales Invoice**, **Sales Credit Memo**,
 **Posted Sales Invoice** and **Posted Sales Credit Memo**. It sits just before **Description** and is read-only.
 
-<!-- screenshot: Sales Invoice, Time Sheet Date column 1033 -->
-<!-- screenshot: Sales Invoice, Time Sheet Date column 1039 -->
+![Time Sheet Date on a demo sales invoice](/img/projects/en-us/time-sheet-date.png)
 
 ## What it shows
 
@@ -30,10 +29,10 @@ never changed.
 
 ## When the column is visible
 
-The column is shown in a company that has invoice or credit memo lines created from projects, and is
-hidden in a company that has none. Business Central decides this when the lines part opens, so the choice
-is made for the company and not for each document: in a company that invoices projects, the column is
-shown on a document without project lines too, where it is blank.
+The column is shown when the invoice or credit memo being viewed contains lines created from project
+planning lines. It is hidden on a document without those lines, even if other documents in the company
+invoice projects. Business Central checks this when the lines part opens. A manually added line on a
+project invoice can therefore show the column with a blank date.
 
 The column also needs the **Jobs** application area, as the rest of the project functions do.
 
@@ -41,5 +40,10 @@ The column also needs the **Jobs** application area, as the rest of the project 
 
 Each user can show or hide the column through personalization. Choose **Settings**, then
 **Personalize**, on the page, and add or remove **Time Sheet Date**. The choice applies to that user only.
+
+## Good to know
+
+Open invoices and credit memos with your normal Business Central sales permissions. The date is
+read-only, and no separate action is needed to fill it when a line is created from project planning.
 
 More about the app: [Bifröst Projects](/projects/).

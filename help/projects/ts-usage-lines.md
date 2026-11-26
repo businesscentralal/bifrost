@@ -14,8 +14,7 @@ or an integration, with Business Central's own checks. This page shows the resul
 
 Search for **Time Sheet Usage Lines** in Business Central to open it.
 
-<!-- screenshot: Time Sheet Usage Lines 1033 -->
-<!-- screenshot: Time Sheet Usage Lines 1039 -->
+![Time Sheet Usage Lines](/img/projects/en-us/ts-usage-lines.png)
 
 ## How a usage line moves
 

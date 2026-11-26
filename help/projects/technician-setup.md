@@ -10,8 +10,7 @@ the parts used on a visit, taken from the van's stock.
 
 Search for **Technician Setup** in Business Central to open it. Add one line per technician.
 
-<!-- screenshot: Technician Setup 1033 -->
-<!-- screenshot: Technician Setup 1039 -->
+![Technician Setup](/img/projects/en-us/technician-setup.png)
 
 ## Fields
 
