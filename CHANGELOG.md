@@ -4,6 +4,8 @@
 
 ### Added
 
+- Bifröst Service Management first release docs (#238): overview, Partner Center listing, user scenarios and release notes 28.0.0 (date set at release) under `docs/service-management/`, with Icelandic overview, listing and user scenarios (release notes English only), and the app's coming-soon entry.
+
 - Bifröst MCP release notes for the hosted service, with dated November 2026 entries (including retirement of the Azure Resource Manager permission), and links from the footer and Connect your assistant.
 
 - Foundation release notes 28.0.16 (25 November 2026) in `docs/foundation/release-notes.md`: My Bifröst Dashboards, Save as PDF, the dashboard-only permission set, Chat on the Dashboards list, app identity in status answers, shared field-read rules for Bifröst apps, Sync enabling Vendor/Partner roles, permission reports, Icelandic wording and fixes (core#1568). English only. `data/versions.json` moves Foundation to 28.0.16.823, released 2026-11-25.

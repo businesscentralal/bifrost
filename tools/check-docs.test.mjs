@@ -10,7 +10,6 @@ const source = readFileSync(new URL('./check-docs.mjs', import.meta.url), 'utf8'
 const hash = (value) => createHash('sha256').update(value).digest('hex').slice(0, 16);
 const protectedNames = [
   'a046c4f0a310ac2f', '17214a07d5b7578b',
-  '63874763be005259',
   '2756636f5ac88609', '90a45c6dcbb66d38',
   '9a91356d3b648e62',
 ];

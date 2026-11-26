@@ -20,6 +20,7 @@ export const APP_ROUTES = {
   'iceland-treasury': {route: 'iceland-treasury', title: 'Iceland Treasury'},
   'projects': {route: 'projects', title: 'Projects'},
   'shopify': {route: 'shopify', title: 'Shopify'},
+  'service-management': {route: 'service-management', title: 'Service Management'},
 };
 
 /**

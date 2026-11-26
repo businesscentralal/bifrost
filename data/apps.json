@@ -236,6 +236,26 @@
       }
     },
     {
+      "appId": "f74e6852-7965-4c14-afb7-1102e080cda7",
+      "name": "Bifrost Service Management",
+      "publisher": "Origo",
+      "summary": "Release, allocate, post and bill service orders, lend loaners and run service contract billing from an assistant or integration.",
+      "summary_is": "Gefðu út, úthlutaðu, bókaðu og reikningsfærðu þjónustupantanir, lánaðu lánstæki og keyrðu reikningagerð þjónustusamninga úr aðstoð eða samþættingu.",
+      "domains": [
+        "sales",
+        "inventory"
+      ],
+      "foundationMinVersion": "28.0.11.669",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/service-management/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/service-management.png"
+      }
+    },
+    {
       "appId": "61a67425-c1e2-45e1-85b5-9e01488f6c1d",
       "name": "Bifrost Shopify",
       "publisher": "Origo",
