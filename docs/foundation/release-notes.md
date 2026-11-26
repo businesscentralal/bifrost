@@ -10,7 +10,7 @@ description: "What changed in each version of Bifröst Foundation published on M
 
 This page is for Business Central administrators and users who want to know what changed in Bifröst Foundation. It lists the versions published on Microsoft AppSource, newest first. To see which version you have installed, open **Extension Management** in Business Central and look for **Bifrost Foundation**.
 
-## 28.0.16 — date set on release day
+## 28.0.16 — 25 November 2026
 
 ### Added
 - **My Bifröst Dashboards.** Each user can keep a personal list of favourite dashboards, in their own order, and open them from one place.

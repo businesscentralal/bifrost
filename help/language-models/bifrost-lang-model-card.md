@@ -7,6 +7,38 @@ The **Bifrost Language Model** card sets up one language model: the provider the
 model and its limits, the API key, and the skill, the instructions sent with every chat. People chat with
 the model chosen on their Bifröst user setup.
 
+## Usage and pricing
+
+This group estimates what calls cost and shows that estimate for the current month. The prices are
+estimates you maintain, not the provider's invoice. A cost that is already recorded stays as it was when
+you change the prices.
+
+| Field | Description |
+| --- | --- |
+| **Input Price per 1M** | Estimated price for each million tokens sent in. |
+| **Output Price per 1M** | Estimated price for each million tokens received. |
+| **Usage Currency Code** | The currency the cost is calculated in. |
+| **Input tokens this month** | Input tokens for this model this month, in the selected currency, from the detailed log and the daily totals. |
+| **Output tokens this month** | Output tokens, counted the same way. |
+| **Cost this month** | Estimated cost for this model this month, in the selected currency. Amounts in another currency are not added in. |
+
+**Usage log** opens the list of calls: tokens in and out, cached and reasoning tokens when the provider
+reports them, duration, model, where the call came from, who asked and whether it succeeded. The question,
+the answer, files and keys are not stored. If the provider does not report token use, the log says so.
+
+On the usage log:
+
+| Action | Description |
+| --- | --- |
+| **Usage guide** | Explains prices, what is recorded, compression and retention, in English and Icelandic. |
+| **Daily totals** | Opens the compressed history. |
+| **Compression setup** | **Compress After Days** (30 by default) and **Keep User in Daily Totals** (off by default). |
+| **Compress usage** | Takes days older than the limit, writes them as daily totals and removes only those detailed rows, for the whole company. Running it again leaves a day that is already compressed unchanged. You can schedule it. |
+| **Retention policies** | Opens Business Central retention policies. The app suggests 90 days for the detailed log and two years for daily totals, and leaves both rules turned off until an administrator enables them. Compress first if the daily history should be kept. |
+
+**Bifrost LLM usage read** lets someone look at the log and the daily totals. **Bifrost LLM usage admin**
+lets someone run compression. The full Bifröst permission includes that administration.
+
 ## General
 
 | Field | Description |
@@ -60,6 +92,7 @@ the system prompt of their [Bifröst user setup](/help/foundation/bifrost-user-s
 
 | Action | Description |
 | --- | --- |
+| **Usage log** | Opens the recorded calls for this language model, with the usage guide, daily totals, compression and retention. |
 | **Import Defaults** | Fills the skill with the provider's default skill, after asking before it overwrites a skill you have. Available for providers that have one. |
 | **Test Connection** | Calls the provider with the key that applies to you and tells you whether the model answers. |
 | **Try It** | Opens a chat with this language model, so you can check it before you assign it to anyone. |

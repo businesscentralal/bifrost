@@ -195,6 +195,45 @@
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/iceland-treasury.png"
       }
+    },
+    {
+      "appId": "c847bab7-2525-4ff5-93c4-15512b3be1e5",
+      "name": "Bifrost Projects",
+      "publisher": "Origo",
+      "summary": "Run project work from an assistant or integration: projects, tasks and planning, usage, WIP, budget and actual, quotes, time sheets and field service visits.",
+      "summary_is": "Stýrðu verkefnavinnu úr aðstoðarmanni eða samþættingu: verkefni, verkhlutar og áætlanir, notkun, VÍV, áætlun og rauntölur, tilboð, tímaskýrslur og vettvangsheimsóknir.",
+      "domains": [
+        "projects"
+      ],
+      "foundationMinVersion": "28.0.15.0",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/projects/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/projects.png"
+      }
+    },
+    {
+      "appId": "d3ca6790-e2c1-44c1-a026-fd75a3f5b52d",
+      "name": "Bifrost Quality Management",
+      "publisher": "Origo",
+      "summary": "Create and complete quality inspections, record test results, arrange re-inspections and handle inspected inventory through Microsoft Quality Management.",
+      "summary_is": "Stofnaðu og ljúktu gæðaskoðunum, skráðu prófunarniðurstöður, stofnaðu endurskoðanir og ráðstafaðu skoðuðum birgðum með Quality Management frá Microsoft.",
+      "domains": [
+        "inventory",
+        "purchasing"
+      ],
+      "foundationMinVersion": "28.0.15.6",
+      "status": "coming-soon",
+      "links": {
+        "appSource": null,
+        "docs": "https://docs.bifrost.origo.is/en-us/quality-management/",
+        "repository": null,
+        "support": "https://www.origo.is/",
+        "logo": "static/img/apps/quality-management.png"
+      }
     }
   ]
 }
