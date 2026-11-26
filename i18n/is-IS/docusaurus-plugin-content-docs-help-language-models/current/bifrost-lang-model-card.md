@@ -7,6 +7,38 @@ Spjaldið **Bifröst mállíkan** setur upp eitt mállíkan: veituna sem spjalli
 þess, API-lykilinn og hæfnina, leiðbeiningarnar sem eru sendar með hverju spjalli. Fólk spjallar við
 líkanið sem er valið í notandauppsetningu Bifröst hjá því.
 
+## Notkun og verð {#usage-and-pricing}
+
+Þessi hópur áætlar kostnað kallanna og sýnir áætlunina fyrir yfirstandandi mánuð. Verðin eru áætlun sem
+þú heldur við, ekki reikningur veitunnar. Kostnaður sem er þegar skráður helst óbreyttur þegar þú
+breytir verðinu.
+
+| Reitur | Lýsing |
+| --- | --- |
+| **Verð á milljón inntakstákna** | Áætlað verð fyrir hverja milljón tókena sem eru send inn. |
+| **Verð á milljón úttakstákna** | Áætlað verð fyrir hverja milljón tókena sem berast. |
+| **Gjaldmiðill notkunar** | Gjaldmiðillinn sem kostnaðurinn er reiknaður í. |
+| **Inntakstákn þessa mánaðar** | Inntakstákn þessa líkans í þessum mánuði, í völdum gjaldmiðli, úr nákvæmu skránni og dagsamtölunum. |
+| **Úttakstákn þessa mánaðar** | Úttakstákn, talin á sama hátt. |
+| **Kostnaður þessa mánaðar** | Áætlaður kostnaður þessa líkans í þessum mánuði, í völdum gjaldmiðli. Upphæðir í öðrum gjaldmiðli eru ekki lagðar við. |
+
+**Notkunarskrá** opnar lista yfir köllin: tákn inn og út, tákn í skyndiminni og röktákn þegar veitan
+skilar þeim, tímalengd, líkan, hvaðan kallið kom, hver spurði og hvort það tókst. Spurningin, svarið,
+skrár og lyklar eru ekki geymd. Ef veitan skilar ekki táknafjölda segir skráin það.
+
+Á notkunarskránni:
+
+| Aðgerð | Lýsing |
+| --- | --- |
+| **Leiðbeiningar um notkun** | Útskýrir verð, hvað er skráð, þjöppun og varðveislu, á ensku og íslensku. |
+| **Dagsamtöl** | Opnar þjöppuðu söguna. |
+| **Uppsetning þjöppunar** | **Þjappa eftir daga** (sjálfgefið 30) og **Geyma notanda í dagsamtölum** (sjálfgefið slökkt). |
+| **Þjappa notkun** | Tekur daga sem eru eldri en mörkin, skráir þá sem dagsamtöl og fjarlægir aðeins þær nákvæmu færslur, fyrir allt fyrirtækið. Að keyra hana aftur lætur dag sem er þegar þjappaður óbreyttan. Hægt er að setja hana á áætlun. |
+| **Varðveislureglur** | Opnar varðveislureglur Business Central. Forritið stingur upp á 90 dögum fyrir nákvæmu skrána og tveimur árum fyrir dagsamtöl, og skilur báðar reglur eftir óvirkar þar til stjórnandi kveikir á þeim. Þjappaðu fyrst ef dagsagan á að haldast. |
+
+**Lesa mállíkananotkun Bifrastar** leyfir að skoða skrána og dagsamtölin. **Stýra mállíkananotkun Bifrastar**
+leyfir að keyra þjöppun. Full heimild Bifrastar innifelur þá stjórnun.
+
 ## Almennt {#general}
 
 | Reitur | Lýsing |
@@ -60,6 +92,7 @@ leiðbeiningum í kerfisleiðbeiningum [notandauppsetningar Bifröst](/help/foun
 
 | Aðgerð | Lýsing |
 | --- | --- |
+| **Notkunarskrá** | Opnar skráð köll þessa mállíkans, með leiðbeiningum um notkun, dagsamtölum, þjöppun og varðveislu. |
 | **Flytja inn sjálfgildi** | Fyllir hæfnina með sjálfgefinni hæfni veitunnar, og spyr áður en hún skrifar yfir hæfni sem er fyrir. Í boði fyrir veitur sem hafa slíka. |
 | **Prófa tengingu** | Kallar á veituna með lyklinum sem gildir fyrir þig og segir hvort líkanið svari. |
 | **Prófa** | Opnar spjall við þetta mállíkan, svo þú getir prófað það áður en þú úthlutar því nokkrum. |

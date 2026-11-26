@@ -10,6 +10,24 @@ description: "What changed in each version of Bifröst Language Models published
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Language Models published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.0.5 — 25 November 2026
+
+Version 28.0.4 was not published. This version includes every change since 28.0.3.
+
+### Added
+
+- Every call the app makes to a language model is recorded: tokens in and out, cached and reasoning tokens when the provider reports them, how long the call took, which model answered, where the call came from, who asked, and whether it succeeded. The question, the answer, attached files and keys are not stored. When a provider does not report token use, the log says so. Administrators get a telemetry signal with the model, the source, the token counts and the outcome, and not the content.
+- On the language model card, **Usage and pricing** sets **Input Price per 1M**, **Output Price per 1M** and **Usage Currency Code**. Each call stores an estimated cost from the prices in force at that moment. Changing the prices later leaves recorded costs as they were. The prices are estimates you maintain, not the provider's invoice.
+- The card shows **Input tokens this month**, **Output tokens this month** and **Cost this month** for this model in the selected currency. Amounts in another currency are not added in.
+- **Usage log** lists the recorded calls, and you can filter them. **Daily totals** shows the compressed history. **Usage guide** explains prices, what is recorded, compression and how long history is kept, in English and Icelandic.
+- **Compression setup** sets **Compress After Days** (30 by default) and **Keep User in Daily Totals** (off by default, so a daily total leaves out who made the call). **Compress usage** summarises older days into daily totals and removes only those detailed rows, for the whole company. Running it again leaves a day that is already compressed unchanged. You can schedule it. Compress before old detail is removed if you want the daily history kept.
+- **Retention policies** can remove old detail and old daily totals. The app suggests 90 days of detail and two years of daily history, and leaves both rules turned off until an administrator enables them.
+- **Bifrost LLM usage read** lets someone look at the log and the daily totals. **Bifrost LLM usage admin** lets someone run compression. The full Bifröst permission includes that administration.
+
+### Changed
+
+- The new usage pages, fields and actions are in English and Icelandic.
+
 ## 28.0.3 — 20 November 2026
 
 ### Added
