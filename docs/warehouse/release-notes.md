@@ -31,7 +31,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 ### Fixed
 
 - Irreversible operations no longer refuse a request because it includes the confirmation count.
-- An administrator with a restricted licence can open Bifröst Setup while Warehouse is installed.
+- An administrator with a restricted license can open Bifröst Setup while Warehouse is installed.
 
 ## 28.3.2 — 29 October 2026
 
