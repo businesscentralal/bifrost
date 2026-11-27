@@ -4,6 +4,7 @@
 
 ### Added
 
+- Warehouse release notes 28.3.4 (27 November 2026) in `docs/warehouse/release-notes.md`: cross-dock suggestions for a warehouse receipt, and Business Central 28.0 as the minimum version (businesscentralal/bc-origo-bifrost-warehouse, tag 28.3.4, build 1.0.4.62). English only. `data/versions.json` moves Warehouse to 28.3.4.62, released 2026-11-27.
 - Projects 28.1.1 is live on Microsoft AppSource (confirmed by Gunnar on 27 November 2026): `data/apps.json` moves Projects from coming-soon to available with its AppSource link, `data/versions.json` dates Projects 28.1.1.47 (businesscentralal/bc-origo-bifrost-projects tag 28.1.1 at b08a069), and the release notes date the first version. English only.
 - Warehouse release notes 28.3.3 (26 November 2026) in `docs/warehouse/release-notes.md`: reading open receipts and shipments, quantity available to pick, internal put-aways and picks, changing receipts and shipments, assigning activities, picks for production, assembly and project orders, put-away of production output, create operations no longer irreversible, and fixes (businesscentralal/bc-origo-bifrost-warehouse, tag 28.3.3 at d7e0fca). English only. `data/versions.json` moves Warehouse to 28.3.3.58, released 2026-11-26.
 - Bifröst MCP release notes for the hosted service, with dated November 2026 entries (including retirement of the Azure Resource Manager permission), and links from the footer and Connect your assistant.

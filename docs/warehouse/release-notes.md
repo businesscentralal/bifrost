@@ -10,6 +10,16 @@ description: "What changed in each version of Bifröst Warehouse published on Mi
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Warehouse published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
+## 28.3.4 — 27 November 2026
+
+### Added
+
+- Calculate cross-dock suggestions for a warehouse receipt, for the whole receipt or only the lines you name. Applying the suggestions saves them: Business Central replaces its working cross-dock suggestions and updates the cross-dock quantities on the selected receipt lines. Previewing shows the suggestions without saving anything. Neither option posts the receipt or deletes the receipt, its lines or ledger entries.
+
+### Changed
+
+- Bifröst Warehouse now runs on Business Central 28.0 and later (it previously required 28.3).
+
 ## 28.3.3 — 26 November 2026
 
 ### Added
