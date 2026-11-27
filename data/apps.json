@@ -206,9 +206,9 @@
         "projects"
       ],
       "foundationMinVersion": "28.0.15.0",
-      "status": "coming-soon",
+      "status": "available",
       "links": {
-        "appSource": null,
+        "appSource": "https://marketplace.microsoft.com/en-US/product/dynamics-365-business-central/PUBID.origo%7CAID.origo_bifrost_projects%7CPAPPID.c847bab7-2525-4ff5-93c4-15512b3be1e5",
         "docs": "https://docs.bifrost.origo.is/en-us/projects/",
         "repository": null,
         "support": "https://www.origo.is/",
