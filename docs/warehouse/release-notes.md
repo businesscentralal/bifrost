@@ -14,7 +14,7 @@ This page is for the people who decide on the app and run it. It lists the versi
 
 ### Added
 
-- Calculate cross-dock suggestions for a warehouse receipt, for the whole receipt or only the lines you name. A preview shows the suggestions without saving anything. Business Central replaces only its own working suggestions; the receipt and its entries are not changed.
+- Calculate cross-dock suggestions for a warehouse receipt, for the whole receipt or only the lines you name. Applying the suggestions saves them: Business Central replaces its working cross-dock suggestions and updates the cross-dock quantities on the selected receipt lines. Previewing shows the suggestions without saving anything. Neither option posts the receipt or deletes the receipt, its lines or ledger entries.
 
 ### Changed
 
