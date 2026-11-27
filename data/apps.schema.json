@@ -60,6 +60,96 @@
         }
       }
     },
+    "localizedReason": {
+      "type": "object",
+      "required": [
+        "en",
+        "is"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "en": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "\\{count\\}",
+          "description": "English reason shown to the user. Must contain the {count} placeholder."
+        },
+        "is": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "\\{count\\}",
+          "description": "Icelandic reason shown to the user. Must contain the {count} placeholder."
+        }
+      }
+    },
+    "signalFilter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fieldNo"
+      ],
+      "description": "One field filter. Either an exact 'value', or a 'min'/'max' range (at least one of them).",
+      "properties": {
+        "fieldNo": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "value": {
+          "anyOf": [{ "type": "string" }, { "type": "number" }, { "type": "boolean" }],
+          "description": "Exact value the field must have. Enum fields use the option ordinal."
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        }
+      },
+      "anyOf": [
+        { "required": ["value"], "properties": { "value": true, "min": false, "max": false } },
+        { "required": ["min"], "properties": { "min": true, "value": false } },
+        { "required": ["max"], "properties": { "max": true, "value": false } }
+      ]
+    },
+    "signal": {
+      "type": "object",
+      "required": [
+        "tableId",
+        "reason"
+      ],
+      "additionalProperties": false,
+      "description": "A detection rule: when the company's Business Central data contains at least minCount records in the table (matching the filters), Foundation's setup guidance may suggest this app if it is not installed. Data only; read by Foundation.",
+      "properties": {
+        "tableId": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Table whose records are counted."
+        },
+        "filters": {
+          "type": "array",
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/signalFilter"
+          }
+        },
+        "minCount": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1,
+          "description": "Records needed to trigger the suggestion."
+        },
+        "reason": {
+          "$ref": "#/$defs/localizedReason"
+        },
+        "requiresApp": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+          "description": "App id of an optional Microsoft app whose table this signal reads. Foundation skips the signal when that app is not installed."
+        }
+      }
+    },
     "app": {
       "type": "object",
       "required": ["appId", "name", "publisher", "summary", "domains", "foundationMinVersion", "status", "links"],
@@ -106,7 +196,15 @@
           "description": "Minimum Bifrost Foundation version this app requires, e.g. '28.0.0.0'."
         },
         "status": { "$ref": "#/$defs/status" },
-        "links": { "$ref": "#/$defs/links" }
+        "links": { "$ref": "#/$defs/links" },
+        "signals": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/$defs/signal"
+          },
+          "description": "Optional detection rules for Foundation's setup guidance (max 5 per app, 60 in total)."
+        }
       }
     }
   }

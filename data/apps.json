@@ -57,7 +57,25 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/attachments.png"
-      }
+      },
+      "signals": [
+        {
+          "tableId": 1173,
+          "minCount": 10,
+          "reason": {
+            "en": "Document attachments: {count}",
+            "is": "Skjalaviðhengi: {count}"
+          }
+        },
+        {
+          "tableId": 133,
+          "minCount": 10,
+          "reason": {
+            "en": "Incoming document attachments: {count}",
+            "is": "Viðhengi móttekinna skjala: {count}"
+          }
+        }
+      ]
     },
     {
       "appId": "7da3f512-5c19-47cd-bbe4-4c2bc713f1db",
@@ -77,7 +95,31 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/orchestrator.png"
-      }
+      },
+      "signals": [
+        {
+          "tableId": 472,
+          "minCount": 3,
+          "reason": {
+            "en": "Job queue entries: {count}",
+            "is": "Færslur í verkröð: {count}"
+          }
+        },
+        {
+          "tableId": 1501,
+          "filters": [
+            {
+              "fieldNo": 3,
+              "value": true
+            }
+          ],
+          "reason": {
+            "en": "Enabled workflows: {count}",
+            "is": "Virk vinnuflæði: {count}"
+          },
+          "minCount": 1
+        }
+      ]
     },
     {
       "appId": "02701c94-c962-4825-92c7-ef9f70311a2b",
@@ -96,7 +138,47 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/inventory.png"
-      }
+      },
+      "signals": [
+        {
+          "tableId": 27,
+          "filters": [
+            {
+              "fieldNo": 10,
+              "value": 0
+            }
+          ],
+          "minCount": 25,
+          "reason": {
+            "en": "Inventory items: {count}",
+            "is": "Birgðavörur: {count}"
+          }
+        },
+        {
+          "tableId": 32,
+          "minCount": 100,
+          "reason": {
+            "en": "Item ledger entries: {count}",
+            "is": "Vörufærslur: {count}"
+          }
+        },
+        {
+          "tableId": 5700,
+          "reason": {
+            "en": "Stockkeeping units: {count}",
+            "is": "Birgðahaldseiningar: {count}"
+          },
+          "minCount": 1
+        },
+        {
+          "tableId": 6505,
+          "reason": {
+            "en": "Lot number records: {count}",
+            "is": "Færslur lotunúmera: {count}"
+          },
+          "minCount": 1
+        }
+      ]
     },
     {
       "appId": "dd7b8bd8-f93e-4ac4-a251-1a132a14ef3d",
@@ -115,7 +197,27 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/subscription-billing.png"
-      }
+      },
+      "signals": [
+        {
+          "tableId": 8052,
+          "reason": {
+            "en": "Subscription contracts with customers: {count}",
+            "is": "Áskriftarsamningar við viðskiptavini: {count}"
+          },
+          "requiresApp": "3099ffc7-4cf7-4df6-9b96-7e4bc2bb587c",
+          "minCount": 1
+        },
+        {
+          "tableId": 8057,
+          "reason": {
+            "en": "Subscriptions: {count}",
+            "is": "Áskriftir: {count}"
+          },
+          "requiresApp": "3099ffc7-4cf7-4df6-9b96-7e4bc2bb587c",
+          "minCount": 1
+        }
+      ]
     },
     {
       "appId": "47acac54-3873-496f-9e88-157f36413e89",
@@ -134,7 +236,67 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/warehouse.png"
-      }
+      },
+      "signals": [
+        {
+          "tableId": 14,
+          "filters": [
+            {
+              "fieldNo": 5730,
+              "value": true
+            }
+          ],
+          "reason": {
+            "en": "Locations that require warehouse receipts: {count}",
+            "is": "Staðsetningar sem krefjast vöruhúsamóttöku: {count}"
+          },
+          "minCount": 1
+        },
+        {
+          "tableId": 14,
+          "filters": [
+            {
+              "fieldNo": 5731,
+              "value": true
+            }
+          ],
+          "reason": {
+            "en": "Locations that require warehouse shipments: {count}",
+            "is": "Staðsetningar sem krefjast vöruhúsaafhendingar: {count}"
+          },
+          "minCount": 1
+        },
+        {
+          "tableId": 14,
+          "filters": [
+            {
+              "fieldNo": 5727,
+              "value": true
+            }
+          ],
+          "reason": {
+            "en": "Locations that require warehouse picks: {count}",
+            "is": "Staðsetningar sem krefjast vöruhúsatínslu: {count}"
+          },
+          "minCount": 1
+        },
+        {
+          "tableId": 7354,
+          "minCount": 5,
+          "reason": {
+            "en": "Bins set up: {count}",
+            "is": "Hólf sem hafa verið stofnuð: {count}"
+          }
+        },
+        {
+          "tableId": 7301,
+          "reason": {
+            "en": "Warehouse employees set up: {count}",
+            "is": "Vöruhúsastarfsmenn sem hafa verið stofnaðir: {count}"
+          },
+          "minCount": 1
+        }
+      ]
     },
     {
       "appId": "e1276ba8-3405-4589-ba68-51d725992ef6",
@@ -154,7 +316,37 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/iceland.png"
-      }
+      },
+      "signals": [
+        {
+          "tableId": 18,
+          "filters": [
+            {
+              "fieldNo": 35,
+              "value": "IS"
+            }
+          ],
+          "minCount": 5,
+          "reason": {
+            "en": "Customers in Iceland: {count}",
+            "is": "Viðskiptamenn á Íslandi: {count}"
+          }
+        },
+        {
+          "tableId": 23,
+          "filters": [
+            {
+              "fieldNo": 35,
+              "value": "IS"
+            }
+          ],
+          "minCount": 5,
+          "reason": {
+            "en": "Vendors in Iceland: {count}",
+            "is": "Lánardrottnar á Íslandi: {count}"
+          }
+        }
+      ]
     },
     {
       "appId": "54d53040-b92f-4745-8980-89573b6b0463",
@@ -174,7 +366,17 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/iceland-docex.png"
-      }
+      },
+      "signals": [
+        {
+          "tableId": 130,
+          "minCount": 5,
+          "reason": {
+            "en": "Incoming documents: {count}",
+            "is": "Móttekin skjöl: {count}"
+          }
+        }
+      ]
     },
     {
       "appId": "54f038b6-4e7a-4e7d-bd95-a70587f27dd2",
@@ -194,7 +396,39 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/iceland-treasury.png"
-      }
+      },
+      "signals": [
+        {
+          "tableId": 270,
+          "filters": [
+            {
+              "fieldNo": 35,
+              "value": "IS"
+            }
+          ],
+          "reason": {
+            "en": "Bank accounts in Iceland: {count}",
+            "is": "Bankareikningar á Íslandi: {count}"
+          },
+          "minCount": 1
+        },
+        {
+          "tableId": 1205,
+          "reason": {
+            "en": "Credit transfer registers: {count}",
+            "is": "Millifærsluskrár: {count}"
+          },
+          "minCount": 1
+        },
+        {
+          "tableId": 273,
+          "minCount": 3,
+          "reason": {
+            "en": "Bank reconciliations: {count}",
+            "is": "Bankaafstemmingar: {count}"
+          }
+        }
+      ]
     },
     {
       "appId": "c847bab7-2525-4ff5-93c4-15512b3be1e5",
@@ -213,7 +447,41 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/projects.png"
-      }
+      },
+      "signals": [
+        {
+          "tableId": 167,
+          "reason": {
+            "en": "Projects: {count}",
+            "is": "Verkefni: {count}"
+          },
+          "minCount": 1
+        },
+        {
+          "tableId": 1001,
+          "minCount": 5,
+          "reason": {
+            "en": "Project tasks: {count}",
+            "is": "Verkþættir: {count}"
+          }
+        },
+        {
+          "tableId": 1003,
+          "minCount": 10,
+          "reason": {
+            "en": "Project planning lines: {count}",
+            "is": "Verkáætlunarlínur: {count}"
+          }
+        },
+        {
+          "tableId": 169,
+          "minCount": 10,
+          "reason": {
+            "en": "Project ledger entries: {count}",
+            "is": "Verkfærslur: {count}"
+          }
+        }
+      ]
     },
     {
       "appId": "d3ca6790-e2c1-44c1-a026-fd75a3f5b52d",
@@ -233,7 +501,27 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/quality-management.png"
-      }
+      },
+      "signals": [
+        {
+          "tableId": 20405,
+          "minCount": 1,
+          "reason": {
+            "en": "Quality inspections: {count}",
+            "is": "Gæðaskoðanir: {count}"
+          },
+          "requiresApp": "bc7b3891-f61b-4883-bbb3-384cdef88bec"
+        },
+        {
+          "tableId": 20402,
+          "minCount": 1,
+          "reason": {
+            "en": "Quality inspection templates: {count}",
+            "is": "Sniðmát gæðaskoðana: {count}"
+          },
+          "requiresApp": "bc7b3891-f61b-4883-bbb3-384cdef88bec"
+        }
+      ]
     },
     {
       "appId": "61a67425-c1e2-45e1-85b5-9e01488f6c1d",
@@ -253,7 +541,33 @@
         "repository": null,
         "support": "https://www.origo.is/",
         "logo": "static/img/apps/shopify.png"
-      }
+      },
+      "signals": [
+        {
+          "tableId": 30102,
+          "filters": [
+            {
+              "fieldNo": 3,
+              "value": true
+            }
+          ],
+          "reason": {
+            "en": "Enabled Shopify shops: {count}",
+            "is": "Virkar Shopify-verslanir: {count}"
+          },
+          "requiresApp": "ec255f57-31d0-4ca2-b751-f2fa7c745abb",
+          "minCount": 1
+        },
+        {
+          "tableId": 30118,
+          "minCount": 5,
+          "reason": {
+            "en": "Shopify orders: {count}",
+            "is": "Shopify-pantanir: {count}"
+          },
+          "requiresApp": "ec255f57-31d0-4ca2-b751-f2fa7c745abb"
+        }
+      ]
     }
   ]
 }

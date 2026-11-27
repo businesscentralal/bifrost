@@ -4,6 +4,9 @@
  * referenced logo file exists on disk and is actually a 250x250 PNG, and that
  * every summary reads as prose rather than being empty/whitespace.
  *
+ * Also checks the optional per-app `signals` detection rules (caps, uniqueness, both
+ * languages; see tools/lib/signals.mjs).
+ *
  * Also checks data/versions.json: schemaVersion stays 1, and every released
  * entry has a non-empty brief and description (copied from that version's
  * app.json by tools/update-released-version.mjs).
@@ -21,6 +24,7 @@ import {spawnSync} from 'node:child_process';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import {releasedCopyErrors} from './lib/versions-file.mjs';
+import {signalErrors} from './lib/signals.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dataPath = path.join(root, 'data', 'apps.json');
@@ -131,6 +135,14 @@ for (const app of apps) {
       fail(`"${app.name}": links.${key} "${value}" is not a well-formed URL`);
     }
   }
+}
+
+// --- signals: per-app and total caps, uniqueness, both languages -----------------------
+for (const message of signalErrors(apps)) fail(message);
+
+const signalTests = spawnSync(process.execPath, ['--test', path.join(root, 'tools/signals.test.mjs')], {encoding: 'utf8'});
+if (signalTests.status !== 0) {
+  fail(`signals tests failed:\n${signalTests.stdout}${signalTests.stderr}`);
 }
 
 // --- versions.json: brief and description on every released entry ----------------------

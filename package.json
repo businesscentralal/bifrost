@@ -16,6 +16,7 @@
     "write-translations": "docusaurus write-translations --locale is-IS",
     "validate:apps": "node tools/validate-apps.mjs",
     "test:versions": "node --test tools/versions-file.test.mjs",
+    "test:signals": "node --test tools/signals.test.mjs",
     "typecheck": "tsc",
     "check:ip-boundary": "npm run test:ip-boundary && node tools/check-docs.mjs ipBoundary",
     "check:docs": "node tools/check-docs.mjs",
