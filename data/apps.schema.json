@@ -120,7 +120,7 @@
         "reason"
       ],
       "additionalProperties": false,
-      "description": "A detection rule: when the company's Business Central data contains at least minCount records in the table (matching the filters), Help.Setup.Get may suggest this app if it is not installed. Data only; read by Foundation.",
+      "description": "A detection rule: when the company's Business Central data contains at least minCount records in the table (matching the filters), Foundation's setup guidance may suggest this app if it is not installed. Data only; read by Foundation.",
       "properties": {
         "tableId": {
           "type": "integer",
@@ -203,7 +203,7 @@
           "items": {
             "$ref": "#/$defs/signal"
           },
-          "description": "Optional detection rules for Help.Setup.Get suggestions (max 5 per app, 60 in total)."
+          "description": "Optional detection rules for Foundation's setup guidance (max 5 per app, 60 in total)."
         }
       }
     }

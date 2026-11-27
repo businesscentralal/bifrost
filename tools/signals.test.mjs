@@ -54,10 +54,9 @@ test('cross-field rules', () => {
 
 const catalogue = JSON.parse(readFileSync(new URL('../data/apps.json', import.meta.url), 'utf8')).apps;
 
-test('catalogue covers every detection area with explicit thresholds and localized reasons', () => {
+test('catalogue covers public app detection areas with explicit thresholds and localized reasons', () => {
   for (const area of ['Warehouse', 'Inventory', 'Projects', 'Orchestrator', 'Attachments', 'Subscription Billing',
-    'Iceland', 'Iceland DocEx', 'Iceland Treasury', 'Manufacturing', 'Shopify', 'Quality Management',
-    'Service Management', 'Subcontracting', 'Sustainability']) {
+    'Iceland', 'Iceland DocEx', 'Iceland Treasury', 'Shopify', 'Quality Management']) {
     const entry = catalogue.find((item) => item.name === `Bifrost ${area}`);
     assert.ok(entry, `Missing catalogue app: ${area}`);
     assert.ok(entry.signals?.length >= 1 && entry.signals.length <= 5, `Missing detection rules: ${area}`);
@@ -69,22 +68,13 @@ test('catalogue covers every detection area with explicit thresholds and localiz
   assert.deepEqual(signalErrors(catalogue), []);
 });
 
-test('quality recommendations require quality activity and optional app tables are gated', () => {
+test('quality recommendations require quality activity and the optional app gate', () => {
   const quality = catalogue.find((item) => item.name === 'Bifrost Quality Management');
   const inventory = catalogue.find((item) => item.name === 'Bifrost Inventory');
-  const manufacturing = catalogue.find((item) => item.name === 'Bifrost Manufacturing');
-  const broadTables = new Set([...inventory.signals, ...manufacturing.signals].map((signal) => signal.tableId));
+  const broadTables = new Set([...inventory.signals.map((signal) => signal.tableId), 99000771, 99000763, 5405]);
   broadTables.add(6502); // Ordinary item tracking is not evidence of quality inspections.
   for (const signal of quality.signals) {
     assert.equal(broadTables.has(signal.tableId), false);
     assert.equal(signal.requiresApp, 'bc7b3891-f61b-4883-bbb3-384cdef88bec');
-  }
-  for (const [area, appId] of [
-    ['Subcontracting', '1f32a50d-0057-4b95-b5df-cc04d7e89470'],
-    ['Sustainability', 'b3780cd9-f8f8-4a83-a4d5-0c2ad87b28af'],
-  ]) {
-    for (const signal of catalogue.find((item) => item.name === `Bifrost ${area}`).signals) {
-      assert.equal(signal.requiresApp, appId, `${area}: optional Microsoft app must be installed`);
-    }
   }
 });
