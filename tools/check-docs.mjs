@@ -48,7 +48,6 @@ const ALLOWED_TYPE_NAMES = new Set(['Help.MessageTypes.Get', 'Help.Implementatio
 // Attachments has explicit permission to be documented before publication; its hashes remain below.
 const UNPUBLISHED_NAME_HASHES = new Set([
   'a046c4f0a310ac2f', '17214a07d5b7578b',
-  '63874763be005259',
   '2756636f5ac88609', '90a45c6dcbb66d38',
   '9a91356d3b648e62',
 ]);
