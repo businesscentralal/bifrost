@@ -10,7 +10,7 @@ description: "What changed in each version of Bifröst Projects published on Mic
 
 This page is for the people who decide on the app and run it. It lists the versions of Bifröst Projects published on Microsoft AppSource, newest first. To see the version installed in your company, open **Extension Management** in Business Central.
 
-## 28.1.1 — TBD
+## 28.1.1 — 27 November 2026
 
 ### First version on Microsoft AppSource
 
